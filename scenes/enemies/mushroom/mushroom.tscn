@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c3qbbcbh5p8l2"]
+
+[ext_resource type="PackedScene" path="res://scenes/base_character.tscn" id="1_2wybx"]
+[ext_resource type="Script" uid="uid://nnoduucdy0h" path="res://scenes/enemies/mushroom/mushroom.gd" id="2_1calh"]
+[ext_resource type="Texture2D" uid="uid://d1bmdoh4let33" path="res://assets/monsters/mushroom/mushroom_sprite_sheet.png" id="2_uk2no"]
+[ext_resource type="AnimationLibrary" uid="uid://drq8hd8rctl6x" path="res://run.res" id="4_14jr1"]
+[ext_resource type="Script" uid="uid://ca3tneh6ecokj" path="res://scenes/enemies/states/run.gd" id="4_ubc2v"]
+[ext_resource type="Script" uid="uid://bg2hvpeien1lo" path="res://scenes/enemies/mushroom/carried.gd" id="6_70lkm"]
+[ext_resource type="Script" uid="uid://ebvh6eusc3do" path="res://scenes/enemies/mushroom/thrown.gd" id="7_v0rkr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cpvyx"]
+radius = 0.6
+
+[node name="Mushroom" unique_id=1717933272 groups=["grabbable"] instance=ExtResource("1_2wybx")]
+collision_layer = 65
+script = ExtResource("2_1calh")
+
+[node name="Sprite3D" parent="." index="0"]
+offset = Vector2(0, 14)
+flip_h = true
+texture = ExtResource("2_uk2no")
+hframes = 3
+vframes = 6
+frame = 2
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries/run = ExtResource("4_14jr1")
+autoplay = &"run/_up"
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" index="0" unique_id=832577961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" index="1" unique_id=1749954778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58210087, 0)
+shape = SubResource("CapsuleShape3D_cpvyx")
+
+[node name="Run" type="Node3D" parent="States" index="0" unique_id=44052888]
+script = ExtResource("4_ubc2v")
+
+[node name="Carried" type="Node3D" parent="States" index="1" unique_id=1128401872]
+script = ExtResource("6_70lkm")
+
+[node name="Thrown" type="Node3D" parent="States" index="2" unique_id=1159923406]
+script = ExtResource("7_v0rkr")
