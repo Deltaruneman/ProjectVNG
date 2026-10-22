@@ -17,3 +17,4 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 	if is_invulnerable:
 		return
 	fsm.current_state.take_damage(int(damage))
+##test
