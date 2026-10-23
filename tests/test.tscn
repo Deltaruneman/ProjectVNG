@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/bush.tscn" id="2_dsb46"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="3_uofsi"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="4_jenrn"]
+[ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="5_5fw7c"]
 [ext_resource type="PackedScene" uid="uid://c3qbbcbh5p8l2" path="res://scenes/enemies/mushroom/mushroom.tscn" id="5_dsb46"]
 [ext_resource type="PackedScene" uid="uid://ga40ddn1k7d1" path="res://scenes/enemies/trap/trap.tscn" id="6_uofsi"]
 [ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="7_jenrn"]
@@ -87,6 +88,17 @@ shadow_enabled = true
 environment = SubResource("Environment_rj716")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=480643604]
+
+[node name="Pelican" parent="." unique_id=1747438675 instance=ExtResource("5_5fw7c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0696263, 7.385661, 0)
+patrol_height = 5.0
+patrol_speed = 1.5
+patrol_width = 4.0
+dive_speed = 9.0
+sight_height = 8.0
+sight_width = 10.0
+bullet_drop_interval = 3.0
+attack_cooldown = 1.5
 
 [node name="Mushroom" parent="." unique_id=1717933272 instance=ExtResource("5_dsb46")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8834696, 3.3750005, -9.218615)

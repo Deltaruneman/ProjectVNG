@@ -67,22 +67,22 @@ Vòng lặp `move` khép kín (`04` → `01` liền mạch), **không cần ping
   "facing":    "right",                 // lat ngang de bay/ban sang trai
 
   "animations": {
-    "move": {
-      "frames": ["pelican_01", "pelican_02", "pelican_03", "pelican_04"],
-      "ms": 100, "loop": true
-    },
-    "atk": {
-      "frames": ["pelican_atk_01", "pelican_atk_02", "pelican_atk_03"],
-      "ms": 200, "loop": false,
-      "events": [
-        { "onFrame": "pelican_atk_03", "spawn": "bullet" }   // can xac nhan
-      ]
-    },
-    "bullet": {
-      "frames": ["pelican_bullet"],
-      "static": true,
-      "size": 24, "pivot": { "x": 12, "y": 12 }
-    }
+	"move": {
+	  "frames": ["pelican_01", "pelican_02", "pelican_03", "pelican_04"],
+	  "ms": 100, "loop": true
+	},
+	"atk": {
+	  "frames": ["pelican_atk_01", "pelican_atk_02", "pelican_atk_03"],
+	  "ms": 200, "loop": false,
+	  "events": [
+		{ "onFrame": "pelican_atk_03", "spawn": "bullet" }   // can xac nhan
+	  ]
+	},
+	"bullet": {
+	  "frames": ["pelican_bullet"],
+	  "static": true,
+	  "size": 24, "pivot": { "x": 12, "y": 12 }
+	}
   }
 }
 ```
