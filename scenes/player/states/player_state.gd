@@ -33,10 +33,13 @@ func control_moving() -> bool:
 #Control jumping
 #Return true if jumping
 func control_jump() -> bool:
+	#If jump is pressed change to jump state and return true
 	if Input.is_action_just_pressed("jump"):
-		obj.jump()
-		change_state(fsm.states.jump)
-		return true
+		print(obj.curjump)
+		if obj.curjump <obj.maxjump:
+			obj.jump()
+			change_state(fsm.states.jump)
+			return true
 	return false
 
 #Control attack

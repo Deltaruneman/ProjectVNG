@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dta71g715vcmo" path="res://scenes/player/states/throw.gd" id="15_throw"]
 [ext_resource type="Script" uid="uid://db5g52ymtofcn" path="res://scenes/player/states/skillstate.gd" id="16_myrg7"]
 [ext_resource type="PackedScene" uid="uid://bt0ugv6i2masa" path="res://scenes/objects/phidao.tscn" id="17_kvlxm"]
+[ext_resource type="Script" uid="uid://btfduaibqr301" path="res://scenes/player/states/wall_slide.gd" id="18_uf5tr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnqru"]
 radius = 0.6
@@ -113,6 +114,9 @@ script = ExtResource("15_throw")
 [node name="Skill" type="Node" parent="States" index="9" unique_id=162121136]
 script = ExtResource("16_myrg7")
 skill_scene = ExtResource("17_kvlxm")
+
+[node name="Wall_slide" type="Node" parent="States" index="10" unique_id=2133922911]
+script = ExtResource("18_uf5tr")
 
 [node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=583087062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
