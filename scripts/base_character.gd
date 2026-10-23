@@ -32,6 +32,15 @@ var health: int = max_health
 var movement_enabled: bool = true
 
 var jump_speed: float = 12.0
+
+## Dash: quãng đường lướt ~ dash_speed * dash_duration (mặc định 18 * 0.15 = 2.7 đơn vị)
+@export var dash_speed: float = 30.0
+@export var dash_duration: float = 0.2
+@export var dash_cooldown: float = 0.75
+var dash_cooldown_timer: float = 0.0
+
+## Khi true, nhân vật không nhận sát thương (dùng cho dash)
+var invincible: bool = false
 var maxjump: int = 2 
 var curjump: int = 0 
 
@@ -56,6 +65,9 @@ func _physics_process(delta: float) -> void:
 	if input_lock_timer > 0:
 		input_lock_timer -= delta
 		
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= delta
+
 	if fsm != null:
 		fsm._update(delta)
 	_update_movement(delta)
@@ -141,7 +153,7 @@ func _check_changed_direction() -> void:
 	if _next_direction != direction:
 		direction = _next_direction
 		_on_changed_direction()
-		_apply_direction() # Khôi phục hàm này vì Source 1 đã gọi thiếu
+		_apply_direction() 
 
 # Rotate the Direction node to the facing direction.
 func _apply_direction() -> void:
@@ -151,6 +163,8 @@ func _on_changed_direction() -> void:
 	pass
 
 func take_damage(damage: int) -> void:
+	if invincible:
+		return
 	health -= damage
 
 ## The facing vector, in the XZ plane.

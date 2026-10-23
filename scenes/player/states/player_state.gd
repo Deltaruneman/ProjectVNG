@@ -50,7 +50,17 @@ func control_attack() -> bool:
 		return true
 	return false
 
+#Control dash (Shift)
+#Return true if dashing
+func control_dash() -> bool:
+	if Input.is_action_just_pressed("dash") and obj.dash_cooldown_timer <= 0.0:
+		change_state(fsm.states.dash)
+		return true
+	return false
+
 func take_damage(damage: int = 1) -> void:
+	if obj.invincible:
+		return 
 	obj.take_damage(damage)
 	if obj.health <= 0 :
 		change_state(fsm.states.dead)

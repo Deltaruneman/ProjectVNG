@@ -24,7 +24,7 @@ func control_jump() -> bool:
 		obj.velocity.x = wall_normal.x * push_force
 		obj.velocity.z = wall_normal.z * push_force
 		obj.input_lock_timer = 0.3
-		obj.curjump = 1 
+		obj.curjump = 0 
 		change_state(fsm.states.jump)
 		return true
 	return false
