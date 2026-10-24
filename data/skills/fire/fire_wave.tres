@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bt03sf2utocyg"]
+
+[ext_resource type="Script" uid="uid://u8x0l2fam4k8" path="res://scripts/skill_data.gd" id="1_typ5w"]
+
+[resource]
+script = ExtResource("1_typ5w")
+id = &"fire_wave"
+display_name = "Fire Wave"
+metadata/_custom_type_script = "uid://u8x0l2fam4k8"

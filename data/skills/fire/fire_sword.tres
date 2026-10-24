@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cwrq5awrp6d60"]
+
+[ext_resource type="Script" uid="uid://u8x0l2fam4k8" path="res://scripts/skill_data.gd" id="1_m71pw"]
+
+[resource]
+script = ExtResource("1_m71pw")
+id = &"fire_sword"
+display_name = "Fire Sword"
+grants = Array[StringName]([&"element_fire"])
+metadata/_custom_type_script = "uid://u8x0l2fam4k8"
