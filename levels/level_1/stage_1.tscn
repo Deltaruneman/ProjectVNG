@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="10_y6x6r"]
 [ext_resource type="PackedScene" uid="uid://bj43nujpi8cbr" path="res://scenes/enemies/crab/barrel.tscn" id="11_wrqy7"]
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="12_e0w38"]
+[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="13_66bjg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y6x6r"]
 sky_horizon_color = Color(0.72, 0.85, 0.93, 1)
@@ -103,3 +104,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.609896, 2.03125, 5.356745)
 
 [node name="Starfish" parent="." unique_id=445343183 instance=ExtResource("12_e0w38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.292124, 0.99677753, 20.235403)
+
+[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("13_66bjg")]
+scale = Vector2(1.5, 1)
+transform = Transform2D(1.5, 0, 0, 1, 0, 0)
+texture_over = null
+pixel_scale = 0.3
+show_label = true
+bar_size = Vector2(180, 20)

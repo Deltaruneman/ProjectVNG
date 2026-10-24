@@ -11,6 +11,9 @@ const DIRECTION_YAW: Dictionary = {
 	"right": PI / 2,
 }
 
+## Những animation chỉ có 1 bản duy nhất, KHÔNG ghép hậu tố hướng (ví dụ "parry" thay vì "parry_down").
+const NON_DIRECTIONAL_ANIMATIONS: Array[String] = []
+
 ## The opposite direction, used by turn_around().
 const OPPOSITE_DIRECTION: Dictionary = {
 	"up": "down",
@@ -26,7 +29,14 @@ const OPPOSITE_DIRECTION: Dictionary = {
 
 @export var attack_damage: int = 1
 @export var max_health: int = 3
-var health: int = max_health
+
+## Phát ra mỗi khi máu thay đổi (HUD lắng nghe tín hiệu này).
+signal health_changed(current: int, maximum: int)
+
+var health: int = max_health:
+	set(value):
+		health = clampi(value, 0, max_health)
+		health_changed.emit(health, max_health)
 
 ## Turn off to make the character stand absolutely still: no gravity, no move_and_slide().
 var movement_enabled: bool = true
@@ -38,6 +48,13 @@ var jump_speed: float = 12.0
 @export var dash_duration: float = 0.2
 @export var dash_cooldown: float = 0.75
 var dash_cooldown_timer: float = 0.0
+
+## Parry: trong `parry_window` giây đầu của state Parry, đòn đánh từ phía trước sẽ bị gạt đi.
+@export var parry_window: float = 0.25
+@export var parry_cooldown: float = 0.0
+var parry_cooldown_timer: float = 0.0
+## Khi true, nhân vật đang trong khung thời gian parry (xem PlayerState.take_damage)
+var parrying: bool = false
 
 ## Khi true, nhân vật không nhận sát thương (dùng cho dash)
 var invincible: bool = false
@@ -55,6 +72,8 @@ var _next_direction: String = "down"
 var _played_direction: String = ""
 
 func _ready() -> void:
+	# max_health là @export nên có thể đã được đổi trong Inspector -> đồng bộ lại máu ban đầu
+	health = max_health
 	_next_direction = direction
 	_apply_direction()
 
@@ -68,6 +87,9 @@ func _physics_process(delta: float) -> void:
 	if dash_cooldown_timer > 0.0:
 		dash_cooldown_timer -= delta
 
+	if parry_cooldown_timer > 0.0:
+		parry_cooldown_timer -= delta
+
 	if fsm != null:
 		fsm._update(delta)
 	_update_movement(delta)
@@ -75,6 +97,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	if not is_inside_tree():
+		return
+
 	if not movement_enabled:
 		return
 	
@@ -135,6 +160,8 @@ func change_direction(new_direction: String) -> void:
 func get_animation_name() -> String:
 	if current_animation == null:
 		return ""
+	if current_animation in NON_DIRECTIONAL_ANIMATIONS:
+		return current_animation
 	return "%s_%s" % [current_animation, direction]
 
 func _check_changed_animation() -> void:
@@ -142,10 +169,11 @@ func _check_changed_animation() -> void:
 	if _next_animation != current_animation:
 		current_animation = _next_animation
 		need_play = true
-	# Changing direction must also replay the animation
+	# Changing direction must also replay the animation (trừ animation không theo hướng)
 	if direction != _played_direction:
 		_played_direction = direction
-		need_play = true
+		if not (current_animation in NON_DIRECTIONAL_ANIMATIONS):
+			need_play = true
 	if need_play and anim_player != null and current_animation != null:
 		anim_player.play(get_animation_name())
 

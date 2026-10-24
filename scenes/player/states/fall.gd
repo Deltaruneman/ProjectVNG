@@ -10,6 +10,8 @@ func _update(delta: float) -> void:
 	if coyote_timer > 0.0:
 		coyote_timer -= delta
 	var is_moving: bool = control_moving()
+	if control_dash():
+		return
 	if obj.is_on_floor():
 		obj.curjump = 0 
 		if not is_moving:
