@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="3_uofsi"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="4_jenrn"]
 [ext_resource type="PackedScene" uid="uid://c3qbbcbh5p8l2" path="res://scenes/enemies/mushroom/mushroom.tscn" id="5_dsb46"]
+[ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="5_uofsi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mm0ke"]
 size = Vector3(24, 1, 24)
@@ -82,3 +83,6 @@ environment = SubResource("Environment_rj716")
 
 [node name="Mushroom" parent="." unique_id=1717933272 instance=ExtResource("5_dsb46")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8834696, 3.3750005, -9.218615)
+
+[node name="Crab" parent="." unique_id=1467655788 instance=ExtResource("5_uofsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5148647, 0)

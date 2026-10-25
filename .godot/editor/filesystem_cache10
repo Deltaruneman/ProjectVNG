@@ -1138,11 +1138,7 @@ slide_horizontal_color.png::CompressedTexture2D::1147321954054969583::1718138094
 slide_horizontal_color_section.png::CompressedTexture2D::1969496912824451355::1718138094::1792826290::1::::<><><>0<>0<>acdbc8235a9d9e8bcbf246fa46795f60<>res://.godot/imported/slide_horizontal_color_section.png-7e511239d38f2a991d3a4297e538cd86.ctex::
 slide_horizontal_color_section_wide.png::CompressedTexture2D::6968325983359799680::1718138094::1792826290::1::::<><><>0<>0<>122411097d1b97a8136064720ddbd055<>res://.godot/imported/slide_horizontal_color_section_wide.png-fe4aa04f390a624404123f4163873cb3.ctex::
 slide_horizontal_grey.png::CompressedTexture2D::3096222399007265869::1718138094::1792826290::1::::<><><>0<>0<>aea379a83edb51d4d230d3960755b32f<>res://.godot/imported/slide_horizontal_grey.png-4b498c11db63bcaeb9660ee7f28a808e.ctex::
-slide_horizontal_grey_section.png::CompressedTexture2D::1066645109854683497::1718138094::1792826290::1::::<><><>0<>0<>795fded2cb7e2249c7af59bbea3f3b1f<>res://.godot/imported/slide_horizontal_grey_section.png-87b985a35046846fd3c7e5515f4adb4b.ctex::
-slide_horizontal_grey_section_wide.png::CompressedTexture2D::9074128620911161965::1718138094::1792826290::1::::<><><>0<>0<>c3edb02da5f4ecdd5870aa8e81fa61dd<>res://.godot/imported/slide_horizontal_grey_section_wide.png-2eeb2128683702b81d9bfb154dcd1919.ctex::
-slide_vertical_color.png::CompressedTexture2D::3575366666913890938::1718138094::1792826290::1::::<><><>0<>0<>660393fe5bfb32864dc0525d831ae853<>res://.godot/imported/slide_vertical_color.png-5e2857b4e2a95d0d7858030c5fea1520.ctex::
-slide_vertical_color_section.png::CompressedTexture2D::5613198973692974769::1718138094::1792826290::1::::<><><>0<>0<>961e442f4fa02f34252d0cef57e8c9d7<>res://.godot/imported/slide_vertical_color_section.png-a980a46eaac56ccb2b25c036fba9e1db.ctex::
-slide_vertical_color_section_wide.png::CompressedTexture2D::2143241241081834322::1718138094::1792826290::1::::<><><>0<>0<>8ed9bcdf47f6456d541518a4395228f9<>res://.godot/imported/slide_vertical_color_section_wide.png-5d08d99b059c6aa8a7e5771639288112.ctex::
+slide_horizontal_grey_section.png::CompressedTexture2D::10666::1::::<><><>0<>0<>8ed9bcdf47f6456d541518a4395228f9<>res://.godot/imported/slide_vertical_color_section_wide.png-5d08d99b059c6aa8a7e5771639288112.ctex::
 slide_vertical_grey.png::CompressedTexture2D::7429433455290085637::1718138094::1792826290::1::::<><><>0<>0<>5e368392a03163fbc9b15ed21594588c<>res://.godot/imported/slide_vertical_grey.png-750264d04b076ec762d1b891f9c57e9a.ctex::
 slide_vertical_grey_section.png::CompressedTexture2D::3423826076304724838::1718138094::1792826290::1::::<><><>0<>0<>928c565835a7ece572fb990a9b3dc80e<>res://.godot/imported/slide_vertical_grey_section.png-beca76cac5724b8bfe490264d7a4508d.ctex::
 slide_vertical_grey_section_wide.png::CompressedTexture2D::3510587050298665462::1718138094::1792826290::1::::<><><>0<>0<>1cd0cbb55363f3db78fb1074582f3c45<>res://.godot/imported/slide_vertical_grey_section_wide.png-294a1c5f82a797a79cf6acc85c31e6b7.ctex::
@@ -1158,6 +1154,10 @@ arrow_basic_n_small.png::CompressedTexture2D::3338084664467947110::1718138094::1
 arrow_basic_s.png::CompressedTexture2D::7448923503355883474::1718138094::1792826290::1::::<><><>0<>0<>49ba94f4e55e234afb199eced7874071<>res://.godot/imported/arrow_basic_s.png-443c793f72c46aa95a215279c81e8bdc.ctex::
 arrow_basic_s_small.png::CompressedTexture2D::3297076277277452331::1718138094::1792826290::1::::<><><>0<>0<>e2aec53194b03afc152e63c5610be060<>res://.godot/imported/arrow_basic_s_small.png-59f6c55557d5d0c8e94a254be25ee1d1.ctex::
 arrow_basic_w.png::CompressedTexture2D::416432200471088553::1718138094::1792826290::1::::<><><>0<>0<>5fecd1d72cbd6cfae472c0f6c1473fde<>res://.godot/imported/arrow_basic_w.png-7bf42aebe57cd52c2744462e8dd19c4b.ctex::
+arrow_basic_w_small.png::CompressedTexture2D::4922821238031282298::1718138096::1792826290::1::::<><><>0<>0<>de5edfe616751af9deaf9e8196ce30a4<>res://.godot/imported/arrow_basic_w_small.png-95b6deb18ef3efb96704cfc0a7f6ba56.ctex::
+arrow_decorative_e.png::CompressedTexture2D::5533103108616382479::1718138096::1792826290::1::::<><><>0<>0<>903cdc633c2880db0ee5b3dc0f2f44a5<>res://.godot/imported/arrow_decorative_e.png-80cc11bbfeb4de2974bc6b3b5ce740e8.ctex::
+arrow_decorative_e_small.png::CompressedTexture2D::5695640649001096361::1718138096::1792826290::1::::<><><>0<>0<>9f87c2e69a57162c5aafe5b503ddd4c9<>res://.godot/imported/arrow_decorative_e_small.png-68ba15739b2a71cc0f1c44f8599e1d4b.ctex::
+arrow_decorative_n.png::CompressedTexture2D::4340487268080882230::1718138096::1792826290::1::::<><><>0<>0<>e781eff57fdc63bce6db6c5084d4736d<>res://.godot/imported/arrow_decorative_n.png-0caea22f33e2ce713de26caf9e99f8da.cecd1d72cbd6cfae472c0f6c1473fde<>res://.godot/imported/arrow_basic_w.png-7bf42aebe57cd52c2744462e8dd19c4b.ctex::
 arrow_basic_w_small.png::CompressedTexture2D::4922821238031282298::1718138096::1792826290::1::::<><><>0<>0<>de5edfe616751af9deaf9e8196ce30a4<>res://.godot/imported/arrow_basic_w_small.png-95b6deb18ef3efb96704cfc0a7f6ba56.ctex::
 arrow_decorative_e.png::CompressedTexture2D::5533103108616382479::1718138096::1792826290::1::::<><><>0<>0<>903cdc633c2880db0ee5b3dc0f2f44a5<>res://.godot/imported/arrow_decorative_e.png-80cc11bbfeb4de2974bc6b3b5ce740e8.ctex::
 arrow_decorative_e_small.png::CompressedTexture2D::5695640649001096361::1718138096::1792826290::1::::<><><>0<>0<>9f87c2e69a57162c5aafe5b503ddd4c9<>res://.godot/imported/arrow_decorative_e_small.png-68ba15739b2a71cc0f1c44f8599e1d4b.ctex::
@@ -1769,7 +1769,7 @@ slash.gd::GDScript::3586948398484037350::1792771174::0::1::::<>Node3D<><>0<>0<><
 slash.tscn::PackedScene::5161856000476584169::1792771294::0::1::::<><><>0<>0<><>::uid://brdsrstl8obfy::::res://effects/slash.gd<>uid://udjo3gmvrwh1::::res://assets/effects/Spritesheets/slash_fire-Sheet.png<>uid://chwbatmu7p5cq::::res://assets/effects/Spritesheets/slash_ice-Sheet.png
 ::res://levels/::1790048434
 ::res://levels/level_1/::1792048372
-stage_1.tscn::PackedScene::4147308627564203732::1792825886::0::1::::<><><>0<>0<><>::uid://ohm3771jyopt::::res://assets/meshes/forest_library.meshlib<>uid://c5r3h833h76js::::res://assets/meshes/block_library.meshlib<>uid://cqdu8ans36vgx::::res://assets/meshes/object_library.meshlib<>uid://cmmjhllqibaoc::::res://scenes/objects/palm_tree.tscn<>uid://dp10o3xl1y7fw::::res://scenes/player/player.tscn<>res://scenes/camera/camera_rig.tscn<>uid://65gpamtlsq5j::::res://scenes/objects/sea_water.tscn<>uid://c3qbbcbh5p8l2::::res://scenes/enemies/mushroom/mushroom.tscn<>uid://ga40ddn1k7d1::::res://scenes/enemies/trap/trap.tscn<>uid://c517favw8aibn::::res://scenes/enemies/crab/crab.tscn<>uid://bj43nujpi8cbr::::res://scenes/enemies/crab/barrel.tscn<>uid://codd5u20c1oql::::res://scenes/enemies/starfish/starfish.tscn<>uid://b1lscpg7tjenr::::res://ui/hud.tscn
+stage_1.tscn::PackedScene::4147308627564203732::1792828904::0::1::::<><><>0<>0<><>::uid://ohm3771jyopt::::res://assets/meshes/forest_library.meshlib<>uid://c5r3h833h76js::::res://assets/meshes/block_library.meshlib<>uid://cqdu8ans36vgx::::res://assets/meshes/object_library.meshlib<>uid://cmmjhllqibaoc::::res://scenes/objects/palm_tree.tscn<>uid://dp10o3xl1y7fw::::res://scenes/player/player.tscn<>res://scenes/camera/camera_rig.tscn<>uid://65gpamtlsq5j::::res://scenes/objects/sea_water.tscn<>uid://c3qbbcbh5p8l2::::res://scenes/enemies/mushroom/mushroom.tscn<>uid://ga40ddn1k7d1::::res://scenes/enemies/trap/trap.tscn<>uid://c517favw8aibn::::res://scenes/enemies/crab/crab.tscn<>uid://bj43nujpi8cbr::::res://scenes/enemies/crab/barrel.tscn<>uid://codd5u20c1oql::::res://scenes/enemies/starfish/starfish.tscn<>uid://b1lscpg7tjenr::::res://ui/hud.tscn
 stage_2.tscn::PackedScene::5968176085445123229::1790048434::0::1::::<><><>0<>0<><>::uid://ohm3771jyopt::::res://assets/meshes/forest_library.meshlib<>uid://cqdu8ans36vgx::::res://assets/meshes/object_library.meshlib<>uid://c5r3h833h76js::::res://assets/meshes/block_library.meshlib<>uid://cmmjhllqibaoc::::res://scenes/objects/palm_tree.tscn<>uid://cbn82rxn3jltf::::res://scenes/player/player.tscn<>res://scenes/camera/camera_rig.tscn
 ::res://scenes/::1790131450
 base_character.tscn::PackedScene::-1::1790131450::0::1::::<><><>0<>0<><>::res://scripts/base_character.gd
@@ -1814,10 +1814,10 @@ phidao.tscn::PackedScene::3772844362565296052::1792237514::0::1::::<><><>0<>0<><
 sea_water.tscn::PackedScene::2238176593682322149::1790048436::0::1::::<><><>0<>0<><>::uid://nmlv3r55v778::::res://assets/shaders/sea_water.gdshader
 skill.gd::GDScript::4603735130902629970::1792235830::0::1::::Skill<>Node3D<><>0<>0<><>::
 ::res://scenes/player/::1792056466
-dead.gd::GDScript::1983287073732813120::1792819288::0::1::::<>PlayerState<><>0<>0<><>::
+dead.gd::GDScript::1983287073732813120::1792827904::0::1::::<>PlayerState<><>0<>0<><>::
 hurt.gd::GDScript::899828984642149723::1792052014::0::1::::<>PlayerState<><>0<>0<><>::
 parry.gd::GDScript::6982167697407310134::1792819064::0::1::::<>PlayerState<><>0<>0<><>::
-player.gd::GDScript::1904606668968978951::1792825886::0::1::::Player<>BaseCharacter<><>0<>0<><>::
+player.gd::GDScript::1904606668968978951::1792826870::0::1::::Player<>BaseCharacter<><>0<>0<><>::
 player.tscn::PackedScene::8267312959908993728::1792821542::0::1::::<><><>0<>0<><>::res://scenes/base_character.tscn<>uid://2euugfy3lnlf::::res://scenes/player/player.gd<>uid://dsuk1m8k46ji7::::res://assets/foxy/fox_hat/foxy_hat_full_sheet.png<>uid://blgio7o0e5eqa::::res://scenes/player/player_anims.tres<>uid://bytwgpxy1wbb3::::res://scenes/player/states/idle.gd<>uid://coy8holsj103m::::res://scripts/hurt_area_3d.gd<>uid://bvv36o7f0oebf::::res://scripts/hit_area_3d.gd<>uid://kx1fr4p8vy0f::::res://scenes/player/states/run.gd<>uid://dpcr7kcoh7xdh::::res://scenes/player/states/jump.gd<>uid://cqn00yvsknulb::::res://scenes/player/states/fall.gd<>uid://e18al3cgjb1u::::res://scenes/player/states/attack.gd<>uid://m25b1ajy4mbb::::res://scenes/player/hurt.gd<>uid://3iypijwid1uy::::res://scenes/player/dead.gd<>uid://to03pbynjbtu::::res://scenes/player/states/carry.gd<>uid://dta71g715vcmo::::res://scenes/player/states/throw.gd<>uid://db5g52ymtofcn::::res://scenes/player/states/skillstate.gd<>uid://bt0ugv6i2masa::::res://scenes/objects/phidao.tscn<>uid://btfduaibqr301::::res://scenes/player/states/wall_slide.gd<>uid://chqhxa1ysnfuq::::res://scenes/player/states/dash.gd<>uid://c6qhjt3tp4dso::::res://scenes/player/parry.gd
 player_anims.tres::AnimationLibrary::3171396670809497856::1792822536::0::1::::<><><>0<>0<><>::
 ::res://scenes/player/states/::1792056170
@@ -1835,7 +1835,7 @@ skillstate.gd::GDScript::7291801558889805957::1792236746::0::1::::PlayerSkillSta
 throw.gd::GDScript::8494839820408054006::1792247042::0::1::::PlayerThrowState<>PlayerState<><>0<>0<><>::
 wall_slide.gd::GDScript::3730548480868366084::1792753978::0::1::::<>PlayerState<><>0<>0<><>::
 ::res://scripts/::1791175216
-base_character.gd::GDScript::5591902887441487730::1792825876::0::1::::BaseCharacter<>CharacterBody3D<><>0<>0<><>::
+base_character.gd::GDScript::5591902887441487730::1792828284::0::1::::BaseCharacter<>CharacterBody3D<><>0<>0<><>::
 enemy.gd::GDScript::2577337559309172069::1790422578::0::1::::EnemyCharacter<>BaseCharacter<><>0<>0<><>::
 hit_area_3d.gd::GDScript::3905494553357332951::1790827696::0::1::::HitArea3D<>Area3D<><>0<>0<><>::
 hit_area_3d.tscn::PackedScene::-1::1790048522::0::1::::<><><>0<>0<><>::res://scripts/hit_area_3d.gd
@@ -1846,9 +1846,9 @@ node3d_factory.gd::GDScript::2673185197553319364::1790423074::0::1::::Node3DFact
 fsm.gd::GDScript::7560603415913483001::1792071602::0::1::::FSM<>Node<><>0<>0<><>::
 state.gd::GDScript::8266435828293839702::1792071506::0::1::::FSMState<>Node<><>0<>0<><>::
 ::res://tests/::1792058034
-test.tscn::PackedScene::1629415900700058538::1792818024::0::1::::<><><>0<>0<><>::uid://cmmjhllqibaoc::::res://scenes/objects/palm_tree.tscn<>uid://dp10o3xl1y7fw::::res://scenes/player/player.tscn<>res://scenes/camera/camera_rig.tscn<>uid://c3qbbcbh5p8l2::::res://scenes/enemies/mushroom/mushroom.tscn
+test.tscn::PackedScene::1629415900700058538::1792827256::0::1::::<><><>0<>0<><>::uid://cmmjhllqibaoc::::res://scenes/objects/palm_tree.tscn<>uid://dp10o3xl1y7fw::::res://scenes/player/player.tscn<>res://scenes/camera/camera_rig.tscn<>uid://c3qbbcbh5p8l2::::res://scenes/enemies/mushroom/mushroom.tscn
 ::res://tools/::1791364564
 build_forest_library.gd::GDScript::4547639079937245466::1791364610::0::1::::<>EditorScript<><>0<>1<><>::
 ::res://ui/::1792820890
-health_bar.gd::GDScript::5736724364634365009::1792821784::0::1::::<>Sprite2D<><>0<>0<><>::
-hud.tscn::PackedScene::4235136049632968147::1792825830::0::1::::<><><>0<>0<><>::uid://dpt2oet6woqlo::::res://assets/ui/UI BARS/health_bar.png<>uid://cny6aobeujp3v::::res://ui/health_bar.gd
+health_bar.gd::GDScript::5736724364634365009::1792828818::0::1::::HealthHUD<>CanvasLayer<><>0<>0<><>::
+hud.tscn::PackedScene::4235136049632968147::1792828628::0::1::::<><><>0<>0<><>::uid://b1p1fbmcbnusv::::res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_border.png<>uid://cny6aobeujp3v::::res://ui/health_bar.gd<>uid://bsm81a2xlvfj::::res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png<>uid://b1gnpyo2q5bj0::::res://assets/ui/kenney_ui-pack/PNG/Red/Default/star.png

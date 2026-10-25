@@ -50,8 +50,8 @@ var jump_speed: float = 12.0
 var dash_cooldown_timer: float = 0.0
 
 ## Parry: trong `parry_window` giây đầu của state Parry, đòn đánh từ phía trước sẽ bị gạt đi.
-@export var parry_window: float = 0.25
-@export var parry_cooldown: float = 0.0
+@export var parry_window: float = 0.167
+@export var parry_cooldown: float = 0.5
 var parry_cooldown_timer: float = 0.0
 ## Khi true, nhân vật đang trong khung thời gian parry (xem PlayerState.take_damage)
 var parrying: bool = false

@@ -97,7 +97,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.143368, 1.2422285, 13.8952
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.122524, 1.0693753, 15.049147)
 
 [node name="Crab" parent="." unique_id=1467655788 instance=ExtResource("10_y6x6r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.968996, 1.1899991, 11.237908)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.808826, 1.1899991, 11.237908)
 
 [node name="Barrel" parent="." unique_id=628865863 instance=ExtResource("11_wrqy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.609896, 2.03125, 5.356745)
