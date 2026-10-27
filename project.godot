@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="ZPS Practice 3 - 3D"
-run/main_scene="res://levels/level_1/stage_1.tscn"
+config/name="Tower of Arcana"
+run/main_scene="uid://c5u8krikivq0f"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [global_group]
 

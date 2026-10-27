@@ -2,16 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ha0gcoqxxww1"
-path="res://.godot/imported/arrow_basic_n_small.png-8d477ab90f52e58fe6487ff6a0c195da.ctex"
+uid="uid://bganidrg8u8cf"
+path="res://.godot/imported/stair_small_left_stair_small_left_stair_small_left.png-fb442bf1740130609443dae41d8b9f38.ctex"
 metadata={
 "vram_texture": false
+}
+generator_parameters={
+"md5": "77a8a109ab31b9002dc90429b1f4639c"
 }
 
 [deps]
 
-source_file="res://assets/ui/kenney_ui-pack/PNG/Green/Double/arrow_basic_n_small.png"
-dest_files=["res://.godot/imported/arrow_basic_n_small.png-8d477ab90f52e58fe6487ff6a0c195da.ctex"]
+source_file="res://assets/grid_map/basement/stair_small_left_stair_small_left_stair_small_left.png"
+dest_files=["res://.godot/imported/stair_small_left_stair_small_left_stair_small_left.png-fb442bf1740130609443dae41d8b9f38.ctex"]
 
 [params]
 

@@ -72,7 +72,11 @@ var _next_direction: String = "down"
 var _played_direction: String = ""
 
 func _ready() -> void:
-	# max_health là @export nên có thể đã được đổi trong Inspector -> đồng bộ lại máu ban đầu
+	floor_max_angle = deg_to_rad(60.0)
+	floor_snap_length = 0.5
+	floor_constant_speed = true
+	floor_stop_on_slope = true
+
 	health = max_health
 	_next_direction = direction
 	_apply_direction()
