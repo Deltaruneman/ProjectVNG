@@ -50,7 +50,7 @@ fog_depth_end = 130.0
 [node name="World" type="Node3D" parent="." unique_id=1727953214]
 
 [node name="Ground" type="MeshInstance3D" parent="World" unique_id=1974067446]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060962677, 0.5, -0.005173683)
 mesh = SubResource("BoxMesh_mm0ke")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="World/Ground" unique_id=1162307072]
@@ -91,14 +91,6 @@ environment = SubResource("Environment_rj716")
 
 [node name="Pelican" parent="." unique_id=1747438675 instance=ExtResource("5_5fw7c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0696263, 7.385661, 0)
-patrol_height = 5.0
-patrol_speed = 1.5
-patrol_width = 4.0
-dive_speed = 9.0
-sight_height = 8.0
-sight_width = 10.0
-bullet_drop_interval = 3.0
-attack_cooldown = 1.5
 
 [node name="Mushroom" parent="." unique_id=1717933272 instance=ExtResource("5_dsb46")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8834696, 3.3750005, -9.218615)

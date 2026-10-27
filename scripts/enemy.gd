@@ -1,6 +1,8 @@
 class_name EnemyCharacter
 extends BaseCharacter
 
+const HEALTH_BAR_SCENE := preload("res://scenes/ui/enemy_health_bar.tscn")
+
 ## Common framework for every enemy. Every child node below is OPTIONAL — attach whichever an
 ## enemy needs: a stationary barrel doesn't need a RayCast, a crab doesn't need a detection area.
 ##
@@ -27,6 +29,8 @@ func _ready() -> void:
 	_init_detect_player_area()
 	_init_hurt_area()
 	super._ready()
+	health = max_health
+	add_child(HEALTH_BAR_SCENE.instantiate())
 
 
 func _init_ray_cast() -> void:
