@@ -61,11 +61,27 @@ var invincible: bool = false
 var maxjump: int = 2 
 var curjump: int = 0 
 
+## --- Weapon / Blade ---
+## Có weapon hay không. Tick trong Inspector để test, hoặc gán từ code khi nhặt đồ.
+## Blade (node Direction/Blade trong scene) sẽ tự hiện/ẩn theo giá trị này.
+@export var has_weapon: bool = false:
+	set(value):
+		has_weapon = value
+		_refresh_blade()
+
+## Chỉ bật cho Player khi test: bấm phím B để bật/tắt has_weapon lúc đang chạy game.
+@export var debug_weapon_key: bool = false
+
+## Số "lý do" đang ẩn blade (attack, ném skill...). Blade chỉ hiện lại khi về 0.
+var _blade_suppress_count: int = 0
+
 var fsm: FSM = null
 var current_animation = null
 
 @onready var sprite: Sprite3D = $Sprite3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+## Nhân vật nào không có node Direction/Blade (ví dụ enemy) thì blade = null, không báo lỗi.
+@onready var blade: Node3D = get_node_or_null("Direction/Blade")
 
 var _next_animation = null
 var _next_direction: String = "down"
@@ -80,6 +96,14 @@ func _ready() -> void:
 	health = max_health
 	_next_direction = direction
 	_apply_direction()
+	_refresh_blade()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not debug_weapon_key:
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_B:
+		has_weapon = not has_weapon
+		print("has_weapon = ", has_weapon)
 
 func _physics_process(delta: float) -> void:
 	_check_changed_animation()
@@ -215,3 +239,15 @@ func can_be_carried() -> bool:
 	if fsm == null or not fsm.states.has("carried") or not fsm.states.has("thrown"):
 		return false
 	return fsm.current_state != fsm.states.carried and fsm.current_state != fsm.states.thrown
+
+## --- Blade ---
+## Ẩn/hiện tạm blade (attack, ném skill...) mà không làm mất trạng thái has_weapon.
+## Gọi suppress_blade(true) khi bắt đầu và suppress_blade(false) khi kết thúc (phải đi theo cặp).
+func suppress_blade(value: bool) -> void:
+	_blade_suppress_count = maxi(_blade_suppress_count + (1 if value else -1), 0)
+	_refresh_blade()
+
+func _refresh_blade() -> void:
+	if not is_node_ready() or blade == null:
+		return
+	blade.visible = has_weapon and _blade_suppress_count == 0

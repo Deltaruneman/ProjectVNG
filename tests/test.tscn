@@ -67,6 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
 
 [node name="Player" parent="." unique_id=1418481694 instance=ExtResource("3_uofsi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.53119564)
+has_weapon = true
 
 [node name="CameraRig" parent="." unique_id=1345940072 node_paths=PackedStringArray("target") instance=ExtResource("4_jenrn")]
 target = NodePath("../Player")

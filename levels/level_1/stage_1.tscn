@@ -78,7 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.2, 27)
 target = NodePath("../Player")
 
 [node name="Sea" parent="." unique_id=312231971 instance=ExtResource("7_66bjg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -3, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.840725, -2.3841133, 15.5274315)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1506553417]
 transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
@@ -108,7 +108,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.292124, 0.99677753, 20.2354
 [node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("13_66bjg")]
 scale = Vector2(1.5, 1)
 transform = Transform2D(1.5, 0, 0, 1, 0, 0)
-texture_over = null
 pixel_scale = 0.3
 show_label = true
 bar_size = Vector2(180, 20)
