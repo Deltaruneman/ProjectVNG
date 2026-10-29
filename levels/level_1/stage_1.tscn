@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="10_y6x6r"]
 [ext_resource type="PackedScene" uid="uid://bj43nujpi8cbr" path="res://scenes/enemies/crab/barrel.tscn" id="11_wrqy7"]
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="12_e0w38"]
+[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="13_66bjg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y6x6r"]
 sky_horizon_color = Color(0.72, 0.85, 0.93, 1)
@@ -77,7 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.2, 27)
 target = NodePath("../Player")
 
 [node name="Sea" parent="." unique_id=312231971 instance=ExtResource("7_66bjg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -3, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.840725, -2.3841133, 15.5274315)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1506553417]
 transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
@@ -96,10 +97,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.143368, 1.2422285, 13.8952
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.122524, 1.0693753, 15.049147)
 
 [node name="Crab" parent="." unique_id=1467655788 instance=ExtResource("10_y6x6r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.968996, 1.1899991, 11.237908)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.808826, 1.1899991, 11.237908)
 
 [node name="Barrel" parent="." unique_id=628865863 instance=ExtResource("11_wrqy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.609896, 2.03125, 5.356745)
 
 [node name="Starfish" parent="." unique_id=445343183 instance=ExtResource("12_e0w38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.292124, 0.99677753, 20.235403)
+
+[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("13_66bjg")]
+scale = Vector2(1.5, 1)
+transform = Transform2D(1.5, 0, 0, 1, 0, 0)
+pixel_scale = 0.3
+show_label = true
+bar_size = Vector2(180, 20)

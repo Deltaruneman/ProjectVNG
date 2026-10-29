@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://xhkihsv74mso"]
 
 [ext_resource type="PackedScene" uid="uid://cmmjhllqibaoc" path="res://scenes/objects/palm_tree.tscn" id="1_ry45r"]
-[ext_resource type="PackedScene" path="res://scenes/objects/bush.tscn" id="2_dsb46"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="3_uofsi"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="4_jenrn"]
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="5_5fw7c"]
@@ -12,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="9_ymr3d"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="11_vxaqg"]
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="12_x2dcf"]
+[ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="5_uofsi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mm0ke"]
 size = Vector3(24, 1, 24)
@@ -61,7 +61,7 @@ mesh = SubResource("BoxMesh_mm0ke")
 shape = SubResource("BoxShape3D_ymr3d")
 
 [node name="Platform" type="MeshInstance3D" parent="World" unique_id=1532110675]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -2)
+transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 1, 6, 2, -2)
 mesh = SubResource("BoxMesh_5fw7c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="World/Platform" unique_id=1254920639]
@@ -72,11 +72,9 @@ shape = SubResource("BoxShape3D_7y2ik")
 [node name="PalmTree" parent="World" unique_id=1774627914 instance=ExtResource("1_ry45r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
 
-[node name="Bush" parent="World" unique_id=1453830553 instance=ExtResource("2_dsb46")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 4)
-
 [node name="Player" parent="." unique_id=1418481694 instance=ExtResource("3_uofsi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.53119564)
+has_weapon = true
 
 [node name="CameraRig" parent="." unique_id=1345940072 node_paths=PackedStringArray("target") instance=ExtResource("4_jenrn")]
 target = NodePath("../Player")

@@ -12,6 +12,10 @@ func _update(delta: float):
 		return
 	if control_jump():
 		return
+	if control_dash():
+		return
+	if control_parry():
+		return
 	if not control_moving():
 		change_state(fsm.states.idle)
 	if not obj.is_on_floor():

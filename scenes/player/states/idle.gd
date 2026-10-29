@@ -12,6 +12,10 @@ func _update(_delta: float) -> void:
 		return
 	if control_skill():
 		return
+	if control_dash():
+		return
+	if control_parry():
+		return
 	#Control moving
 	control_moving()
 	#If not on floor change to fall

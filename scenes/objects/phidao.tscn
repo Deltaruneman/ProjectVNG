@@ -8,6 +8,7 @@
 size = Vector3(1.2589111, 1, 1)
 
 [node name="Phidao" type="Node3D" unique_id=961171335]
+transform = Transform3D(1, 0, 0, 0, 0.6797714, -0.733424, 0, 0.733424, 0.6797714, 0, 0, 0)
 script = ExtResource("1_dniy0")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=336140674]
