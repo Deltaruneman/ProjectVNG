@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_lxmcf"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="11_h1rxi"]
 [ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_p4o1w"]
+[ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="12_3qp11"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="12_p5tfg"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_bullet.tscn" id="13_dfai0"]
 [ext_resource type="PackedScene" uid="uid://65gpamtlsq5j" path="res://scenes/objects/sea_water.tscn" id="13_nm8l7"]
+[ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="14_dfai0"]
 
 [sub_resource type="Environment" id="Environment_1fr5c"]
 ambient_light_source = 3
@@ -99,3 +102,12 @@ environment = SubResource("Environment_1fr5c")
 [node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_p4o1w")]
 pixel_scale = 0.3
 show_label = true
+
+[node name="SkeletonMage" parent="." unique_id=205586767 instance=ExtResource("12_3qp11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.021893, 3.75, 8.021198)
+
+[node name="SkeletonMageBullet" parent="." unique_id=774251687 instance=ExtResource("13_dfai0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8860521, 2, 20.894257)
+
+[node name="Pelican" parent="." unique_id=1747438675 instance=ExtResource("14_dfai0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.346106, 9.623643, 27.046562)
