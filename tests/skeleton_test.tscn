@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="4"]
+
+[sub_resource type="BoxMesh" id="floor_mesh"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="floor_shape"]
+size = Vector3(30, 1, 30)
+
+[node name="SkeletonTest" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("floor_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("floor_shape")
+
+[node name="Player" parent="." instance=ExtResource("3")]
+position = Vector3(0, 0.1, 4)
+
+[node name="CameraRig" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4")]
+target = NodePath("../Player")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-60, -25, 0)
+
+[node name="SkeletonWarrior" parent="." instance=ExtResource("1")]
+position = Vector3(-4, 0.1, 0)
+
+[node name="SkeletonMage" parent="." instance=ExtResource("2")]
+position = Vector3(4, 0.1, -2)

@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemies/skeleton/skeleton.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Warrior.png" id="2"]
+[ext_resource type="AnimationLibrary" path="res://scenes/enemies/skeleton/skeleton_warrior_anims.tres" id="3"]
+[ext_resource type="Script" path="res://scripts/hurt_area_3d.gd" id="4"]
+
+[sub_resource type="CapsuleShape3D" id="body"]
+radius = 0.35
+height = 1.2
+
+[sub_resource type="SphereShape3D" id="sight"]
+radius = 9.0
+
+[node name="SkeletonWarrior" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1")
+movement_speed = 2.5
+max_health = 5
+ranged = false
+attack_range = 1.5
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+position = Vector3(0, 0.75, 0)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2")
+hframes = 13
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = ExtResource("3")
+autoplay = "idle"
+
+[node name="Direction" type="Node3D" parent="."]
+
+[node name="HurtArea3D" type="Area3D" parent="Direction"]
+position = Vector3(0, 0.6, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D"]
+shape = SubResource("body")
+
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction"]
+position = Vector3(0, 0.6, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D"]
+shape = SubResource("sight")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.6, 0)
+shape = SubResource("body")

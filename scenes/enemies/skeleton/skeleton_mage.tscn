@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cuj64tj6us5wl"]
+
+[ext_resource type="Script" uid="uid://c1gqnesasqdfx" path="res://scenes/enemies/skeleton/skeleton.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b57eqxl6sxsfr" path="res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Mage.png" id="2"]
+[ext_resource type="AnimationLibrary" uid="uid://cpvioqspt2xil" path="res://scenes/enemies/skeleton/skeleton_mage_anims.tres" id="3"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="4"]
+
+[sub_resource type="CapsuleShape3D" id="body"]
+radius = 0.35
+height = 1.2
+
+[sub_resource type="SphereShape3D" id="sight"]
+radius = 9.0
+
+[node name="SkeletonMage" type="CharacterBody3D" unique_id=205586767]
+collision_layer = 8
+script = ExtResource("1")
+ranged = true
+attack_range = 9.0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=97537727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2")
+hframes = 21
+vframes = 5
+frame = 39
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=596282314]
+libraries/ = ExtResource("3")
+autoplay = &"idle"
+
+[node name="Direction" type="Node3D" parent="." unique_id=510091749]
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=100186985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=1497304779]
+shape = SubResource("body")
+
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction" unique_id=260815702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D" unique_id=464416713]
+shape = SubResource("sight")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2058216346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("body")

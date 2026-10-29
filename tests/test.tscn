@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="7_jenrn"]
 [ext_resource type="PackedScene" uid="uid://bj43nujpi8cbr" path="res://scenes/enemies/crab/barrel.tscn" id="8_mm0ke"]
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="9_ymr3d"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="11_vxaqg"]
+[ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="12_x2dcf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mm0ke"]
 size = Vector3(24, 1, 24)
@@ -99,10 +101,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8834696, 3.3750005, -9.2186
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9329615, 1.0693753, 4.9678755)
 
 [node name="Crab" parent="." unique_id=1467655788 instance=ExtResource("7_jenrn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0867996, 1.1899991, 3.2435265)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0867996, 1.0383034, 3.2435265)
 
 [node name="Barrel" parent="." unique_id=628865863 instance=ExtResource("8_mm0ke")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.609896, 2.03125, 5.356745)
 
 [node name="Starfish" parent="." unique_id=445343183 instance=ExtResource("9_ymr3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0482183, 0.99677753, 9.838251)
+
+[node name="SkeletonWarrior" parent="." unique_id=125118788 instance=ExtResource("11_vxaqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.618771, 2.1511183, 6.480137)
+
+[node name="SkeletonMage" parent="." unique_id=236347676 instance=ExtResource("12_x2dcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.226803, 2.721737, 3.572238)
