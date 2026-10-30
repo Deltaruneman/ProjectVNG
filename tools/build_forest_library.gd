@@ -1,19 +1,17 @@
 @tool
 extends EditorScript
 
-## Builds assets/meshes/forest_library.tscn from the 32 .glb files in assets/grid_map/forest.
-## This is the scripted version of dragging each model into a scene and running
-## Mesh | Create Collision Shape on it.
+## Dựng assets/meshes/forest_library.tscn từ 32 file .glb trong assets/grid_map/forest.
+## Đây là bản script của việc kéo từng model vào scene rồi Mesh | Create Collision Shape.
 ##
-## To run: open this file in the Script Editor and press **File | Run** (Ctrl + Shift + X).
-## Output goes to the **Output** panel below.
+## Cách chạy: mở file này trong Script Editor rồi bấm **File | Run** (Ctrl + Shift + X).
+## Kết quả in ra bảng **Output** ở dưới.
 
 const SOURCE_DIR := "res://assets/grid_map/forest"
 const OUTPUT := "res://assets/meshes/forest_library.tscn"
 
-## The models are laid out in rows just so they are readable in the editor. These positions
-## are NOT baked into the library (export with Apply MeshInstance Transforms off), so the
-## layout can be anything.
+## Các model xếp thành hàng cho dễ nhìn trong editor. Vị trí này KHÔNG được bake vào thư viện
+## (xuất với Apply MeshInstance Transforms tắt), nên xếp đâu cũng được.
 const SHELF_SPACING := 3.0
 const SHELF_COLUMNS := 8
 
@@ -21,7 +19,7 @@ const SHELF_COLUMNS := 8
 func _run() -> void:
 	var dir := DirAccess.open(SOURCE_DIR)
 	if dir == null:
-		push_error("Could not open %s" % SOURCE_DIR)
+		push_error("Không mở được %s" % SOURCE_DIR)
 		return
 	var files := dir.get_files()
 	files.sort()
@@ -35,7 +33,7 @@ func _run() -> void:
 		var item_name := file.get_basename()
 		var mesh := _load_mesh(SOURCE_DIR + "/" + file)
 		if mesh == null:
-			push_warning("%s: no MeshInstance3D found" % file)
+			push_warning("%s: không tìm thấy MeshInstance3D" % file)
 			continue
 
 		var instance := MeshInstance3D.new()
@@ -67,26 +65,20 @@ func _run() -> void:
 	if error == OK:
 		error = ResourceSaver.save(packed, OUTPUT)
 	if error != OK:
-		push_error("Failed to save %s: %d" % [OUTPUT, error])
+		push_error("Lưu %s thất bại: %d" % [OUTPUT, error])
 		return
-	print("Built %s with %d items" % [OUTPUT, index])
+	print("Đã dựng %s với %d item" % [OUTPUT, index])
 	root.free()
-	# Force a FileSystem rescan so the file just written shows up in the dock right away.
+	# Bắt FileSystem quét lại để file vừa ghi hiện ra ngay trong dock, khỏi phải mở lại project.
 	EditorInterface.get_resource_filesystem().scan()
 
 
-## Returns [shape, transform, label to print] for one item.
+## Trả về [shape, transform, tên để in ra] cho một item.
 ##
-## Right now every model uses a trimesh, exactly like the Mesh | Create Collision Shape |
-## Trimesh you clicked by hand. Run the game, then come back here: one kind of model cannot
-## use a trimesh. See the "Chạy thử: Cáo kẹt ở chân thang" section of the guide.
+## Hiện tại mọi model đều dùng trimesh — đúng như Mesh | Create Collision Shape | Trimesh
+## mà bạn bấm bằng tay. Chạy thử rồi quay lại đây: có một loại model không dùng trimesh được.
+## Xem mục "Chạy thử: Cáo kẹt ở chân thang" trong tài liệu.
 func _shape_for(item_name: String, mesh: Mesh) -> Array:
-	if item_name.begins_with("stair_") and not item_name.begins_with("stair_beside"):
-		var box := BoxShape3D.new()
-		box.size = Vector3(2.0, 2.0, 2.0 * sqrt(2.0))
-		var tf := Transform3D(Basis(Vector3.RIGHT, deg_to_rad(45.0)),
-			Vector3(0.0, -sqrt(2.0) / 2.0, -sqrt(2.0) / 2.0))
-		return [box, tf, "45° wedge (rotated box)"]
 	return [mesh.create_trimesh_shape(), Transform3D.IDENTITY, "trimesh"]
 
 

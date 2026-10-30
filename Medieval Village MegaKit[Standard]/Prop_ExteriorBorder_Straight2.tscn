@@ -1,0 +1,35 @@
+[gd_scene format=4 uid="uid://cgrf0vkegk5r5"]
+
+[ext_resource type="Texture2D" uid="uid://2vof5srq0bx5" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_BaseColor.png" id="1_cnioa"]
+[ext_resource type="Texture2D" uid="uid://d20b46jdaec68" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_ORM.png" id="2_1fl0g"]
+[ext_resource type="Texture2D" uid="uid://dcuswfx6tiujo" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_Normal.png" id="3_0i8dv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_squ5u"]
+resource_name = "MI_RockTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_cnioa")
+metallic = 1.0
+metallic_texture = ExtResource("2_1fl0g")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_1fl0g")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_0i8dv")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_drijq"]
+_surfaces = [{
+"aabb": AABB(-1.0000001, 2.7015695e-08, 0, 2.0000002, 0.13401799, 0.7),
+"attribute_data": PackedByteArray("xQOBPz02rD5cDAI/hYwBP1wMAj89Nqw+xQOBP4WMAT9cDAI/ctQCP8UDgT9y1AI/XrcBP+SVAT+0U4E/NugVP163AT826BU/tFOBP+SVAT/yVC4/EeoUP0KDgT9YGQU/QoOBPxHqFD/yVC4/dK8DPxTJgD90rwM/XrcBP+SVAT+0U4E/2n6sPrRTgT/klQE/XrcBP9p+rD7yVC4/EeoUP0KDgT90rwM/QoOBPxHqFD/yVC4/WBkFP0fHLz90rwM/xQOBP7W7FT9cDAI/ctQCP8UDgT9y1AI/XAwCP7W7FT8="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAwAEAAEAAwAFAAQABgAHAAgABgAJAAcACgALAAwACwAKAA0ACwANAA4ADwAQABEADwASABAAEwAUABUAFAATABYAFAAWABcAGAAZABoAGAAbABkA"),
+"material": SubResource("StandardMaterial3D_squ5u"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("AQCAPwU8CT4AAAAAAQCAvwU8CT4VFC4/AQCAvwU8CT4AAAAAAQCAPwU8CT4VFC4/AQCAv+L59D0zMzM/AQCAP+L59D0zMzM/AQCAvyQQ6DIAAAAAAQCAPwU8CT4AAAAAAQCAvwU8CT4AAAAAAQCAPyQQ6DIAAAAAAQCAvyQQ6DIAAAAAAQCAv+L59D0zMzM/AQCAvyQQ6DIzMzM/AQCAvwU8CT4AAAAAAQCAvwU8CT4VFC4/AQCAvyQQ6DIAAAAAAQCAPyQQ6DIzMzM/AQCAPyQQ6DIAAAAAAQCAvyQQ6DIzMzM/AQCAPyQQ6DIzMzM/AQCAPwU8CT4AAAAAAQCAPyQQ6DIAAAAAAQCAP+L59D0zMzM/AQCAPwU8CT4VFC4/AQCAPyQQ6DIzMzM/AQCAv+L59D0zMzM/AQCAP+L59D0zMzM/AQCAvyQQ6DIzMzM//3/9//7//7//f8Xg/v//v/9//f/+//+//3/F4P7//7//f2nK/v//v/9/acr+//+/AAAAAP///r8AAAAA///+vwAAAAD///6/AAAAAP///r8AAP9/AIC3vwEA/n8AgPi/AQD/fwCA/78BAP5/AICwvwAA/38AgP6/AIABAP7//78AgAEA/v//vwCAAQD+//+/AIABAP7//7/8/wGAZf/+//z/AYDr//7//f8AgP7//v/7/wKAgP/+//3/AID+//7//X//f/3//7/9f/9//f//v/1//3/9//+//X//f/3//78=")
+}]
+
+[node name="Prop_ExteriorBorder_Straight2" type="MeshInstance3D" unique_id=473817063]
+mesh = SubResource("ArrayMesh_drijq")

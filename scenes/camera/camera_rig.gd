@@ -38,7 +38,7 @@ func _ready() -> void:
 	# look_at computes the pitch automatically, so we don't have to hand-type Rotation to match the
 	# offset
 	camera.look_at(global_position + focus_offset)
-	_snap_to_target()
+	snap_to_target()
 
 
 ## Follow the camera every RENDER frame, not every physics frame: the camera is a visual concern,
@@ -47,19 +47,20 @@ func _process(delta: float) -> void:
 	_follow(delta)
 
 
-## Snap the rig straight onto the character. Call this at start so the camera doesn't fly in from
-## the origin to the spawn point.
-func _snap_to_target() -> void:
+## Snap the rig straight onto the character. Call this at start, and after teleporting the
+## character (a door, a respawn), so the camera doesn't fly in from the old position.
+func snap_to_target() -> void:
 	if target == null or not is_instance_valid(target):
 		return
 	global_position = target.global_position
 	_is_initialized = true
 
+
 func _follow(delta: float) -> void:
 	if target == null or not is_instance_valid(target):
 		return
 	if not _is_initialized:
-		_snap_to_target()
+		snap_to_target()
 		return
 
 	var target_position := target.global_position

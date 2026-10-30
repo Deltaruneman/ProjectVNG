@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://cm2sliwu3eyxn"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_slyd6"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_5r3xv"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_vsmvv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hotpx"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_slyd6")
+metallic_texture = ExtResource("2_5r3xv")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_5r3xv")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_vsmvv")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_t0egg"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.10508604, -1.11982, 1, 0.2101737, 0.23964006),
+"attribute_data": PackedByteArray("hQr7Ppt3ST8BPao+gV0gPwE9qj6bd0k/hQr7PoFdID/S/38/apIHPrtt7rprQng+0v9/P2tCeD67be66apIHPrtt7rpqkgc+0v9/P2tCeD67be66a0J4PtL/fz9qkgc+BDuAP656eTsEO4C3UhvwPQQ7gD9SG/A9BDuAt656eTsEO4A/rnp5OwQ7gLdSG/A9BDuAP1Ib8D0EO4C3rnp5Ow=="),
+"format": 34359742487,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEA"),
+"material": SubResource("StandardMaterial3D_hotpx"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("AAAAv1o3171DVo+/AAAAv4Q21z15U2G/AAAAv1o31715U2G/AAAAvzI41z1DVo+/AAAAvzI41z1DVo+/AAAAP4Q21z22U2G/AAAAv4Q21z15U2G/AP7/PjI41z1DVo+/AAAAP1o3171DVo+/AAAAv1o31715U2G/AAAAP1o31722U2G/AAAAv1o3171DVo+/AAAAP1o31722U2G/AAAAv4Q21z15U2G/AAAAP4Q21z22U2G/AAAAv1o31715U2G/AP7/PjI41z1DVo+/AAAAv1o3171DVo+/AAAAP1o3171DVo+/AAAAvzI41z1DVo+/AAD6f/7/AQAAAPp//v8BAAAA+n/+/wEAAAD6f/7/AQD+f/7/AAAAQP5//v8AAABA/n/+/wAAAED+f/7/AAAAQPp/AQABAADA+n8BAAEAAMD6fwEAAQAAwPp/AQABAADA+n//f/r//z/6f/9/+v//P/p//3/6//8/+n//f/r//z///wAA/f8AQP//AAD9/wBAAAAAAP//AED//wAA/f8AQA==")
+}]
+
+[node name="HoleCover_StraightHalf" type="MeshInstance3D" unique_id=1951672829]
+mesh = SubResource("ArrayMesh_t0egg")
