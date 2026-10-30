@@ -8,6 +8,7 @@ func _exit() -> void:
 
 func _update(_delta: float):
 	control_moving()
+	control_dash()
 	# In 3D the Y axis points up, so falling means velocity.y is negative
 	if obj.velocity.y < 0:
 		change_state(fsm.states.fall)

@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://b0v1m18n8mqk1"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_lrnhy"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_uig5m"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_oi37g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pepeu"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_lrnhy")
+metallic_texture = ExtResource("2_uig5m")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_uig5m")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_oi37g")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6uxo7"]
+_surfaces = [{
+"aabb": AABB(-1.0123961, -0.02825252, -0.05517866, 2.045045, 0.8381091, 0.11035727),
+"attribute_data": PackedByteArray("kz2qPpJ3ST+PC/s+sl0gP5I9qj6xXSA/kgv7PpJ3ST+SC/s+m3dJP5M9qj68XSA/kgv7PrxdID+TPao+m3dJPyDsCT+wJ/A9AAAAAAAKezsg7Ak/AA17OwAAAACoJ/A9AACAP3CVBz7CJ+w+OEV4PsAn7D5wlQc+AACAPzhFeD7CJ+w+cJUHPgAAgD84RXg+AACAP3CVBz7AJ+w+OEV4PiDsCT+wJ/A9AAAAAAAKezsf7Ak/AA17OwAAAACoJ/A9AAAAPwxWnT4AAMA/SDGCPgAAwD8MVp0+AAAAP0gxgj4AAAA/DFadPgAAwD9IMYI+AAAAP0gxgj4AAMA/DFadPgAAAAAwMoQ+AACAP5DhnD4AAAAAkOGcPgAAgD8wMoQ+AACAPwxWnT4AAIA/SDGCPgAAgD8MVp0+AACAP0gxgj4AAIA/kOGcPgAAAAAwMoQ+AACAPzAyhD4AAAAAkOGcPgAAAD8MVp0+AADAP0gxgj4AAMA/DFadPgAAAD9IMYI+AAAAPwxWnT4AAMA/SDGCPgAAAD9IMYI+AADAPwxWnT4AAAAASDGCPgAAAAAMVp0+AAAAAEgxgj4AAAAADFadPgAAAAAwMoQ+AACAP5DhnD4AAAAAkOGcPgAAgD8wMoQ+AACAP5DhnD4AAAAAMDKEPgAAgD8wMoQ+AAAAAJDhnD4="),
+"format": 34359742487,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0AMAAxADIAMAAzADEANAA1ADYANAA3ADUAOAA5ADoAOAA7ADkAPAA9AD4APAA/AD0A"),
+"material": SubResource("StandardMaterial3D_pepeu"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("1y2EP5NfTj9Q7mE9q7FpP8JSTz/WaUy91y2EP1qMTj97fky9q7FpP/olTz/2AmI9endkP9Rx57x+fkw9vpCBP9Rx57wFA2K9endkP9Rx57xe7mG9v5CBP9Rx57zYaUw9q7FpP/olTz/2AmI9endkP9Rx57xe7mG9q7FpP8JSTz/WaUy9endkP9Rx57x+fkw9endkP9Rx57xe7mG91y2EP1qMTj97fky9q7FpP8JSTz/WaUy9vpCBP9Rx57wFA2K9q7FpP/olTz/2AmI9v5CBP9Rx57zYaUw9endkP9Rx57x+fkw91y2EP5NfTj9Q7mE91y2EP1qMTj97fky9v5CBP9Rx57zYaUw91y2EP5NfTj9Q7mE9vpCBP9Rx57wFA2K9WDx+v+byOT+Dib27WDx+P7PeEz8wYmO8Vzx+P+fyOT+9gb27WDx+v7LeEz8UZmO8WDx+vx5MOT8d2Cc9WDx+P+s3Ez/CsAY9WDx+v+o3Ez/IrwY9Vzx+Px9MOT8W2Sc9WDx+v+byOT+Dib27Vzx+Px9MOT8W2Sc9WDx+vx5MOT8d2Cc9Vzx+P+fyOT+9gb27Vzx+P+fyOT+9gb27WDx+P+s3Ez/CsAY9Vzx+Px9MOT8W2Sc9WDx+P7PeEz8wYmO8WDx+P7PeEz8wYmO8WDx+v+o3Ez/IrwY9WDx+P+s3Ez/CsAY9WDx+v7LeEz8UZmO8RK16Pxu+tT6R5zC8YpSBv8ykpT7lfDm8brV/v5yhMz7cSi678Dl3Pw3JAD/eaJ+8o6l6P9Ujtz55RBM9MpaBv4YKpz4kHxE9UDZ3P+p7AT/fk988Drl/vw5tNj6wmTQ98Dl3Pw3JAD/eaJ+8o6l6P9Ujtz55RBM9UDZ3P+p7AT/fk988RK16Pxu+tT6R5zC8RK16Pxu+tT6R5zC8Drl/vw5tNj6wmTQ9o6l6P9Ujtz55RBM9brV/v5yhMz7cSi67YpSBv8ykpT7lfDm8UDZ3P+p7AT/fk988MpaBv4YKpz4kHxE98Dl3Pw3JAD/eaJ+8I4MM/C0Daj4jgwz8LQNqPiODDPwtA2o+I4MM/C0Daj4AgAAABAD/vwCAAAAEAP+/AIAAAAQA/78AgAAABAD/vw4DDIMHgxf+DgMMgweDF/4OAwyDB4MX/g4DDIMHgxf+zQD7/y58hIHNAPv/MHyCgc0A+/8wfIKBzQD7/yx8hIECgDJ/LXx5fgKAMn8vfHp+AoAyfy98en4CgDJ/LXx5fu/87HwKgxX+7/zsfAqDFf7v/Ox8CoMV/u/87HwKgxX+ZPn//////79k+f//////v2T5//////+/ZPn//////7//f2V5////P/9/ZXn///8//39lef///z//f2V5////P/9/ZPn+//+//39k+f7//7//f2T5/v//v/9/ZPn+//+///8AgP///7///wCA////v///AID///+///8AgP///7+ZhgAA/v//v5mGAAD+//+/mYYAAP7//7+ZhgAA/v//v/H4JAAXC7C68fgkABcLsLrx+CQAFwuwuvH4JAAXC7C62n8NhxYLTkXafw2HFgtORdp/DYcWC05F2n8NhxYLTkVi9ReL////v2L1F4v///+/YvUXi////79i9ReL////vyKKoxAXC7C6IoqjEBcLsLoiiqMQFwuwuiKKoxAXC7C6Wm/c9RcLsLpab9z1Fwuwulpv3PUXC7C6Wm/c9RcLsLo=")
+}]
+
+[node name="Prop_WoodenFence_Extension1" type="MeshInstance3D" unique_id=1281996765]
+mesh = SubResource("ArrayMesh_6uxo7")

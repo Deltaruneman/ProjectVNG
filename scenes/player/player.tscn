@@ -17,6 +17,10 @@
 [ext_resource type="Script" uid="uid://dta71g715vcmo" path="res://scenes/player/states/throw.gd" id="15_throw"]
 [ext_resource type="Script" uid="uid://db5g52ymtofcn" path="res://scenes/player/states/skillstate.gd" id="16_myrg7"]
 [ext_resource type="PackedScene" uid="uid://bt0ugv6i2masa" path="res://scenes/objects/phidao.tscn" id="17_kvlxm"]
+[ext_resource type="Script" uid="uid://btfduaibqr301" path="res://scenes/player/states/wall_slide.gd" id="18_uf5tr"]
+[ext_resource type="Script" uid="uid://chqhxa1ysnfuq" path="res://scenes/player/states/dash.gd" id="19_lgqa7"]
+[ext_resource type="Script" uid="uid://c6qhjt3tp4dso" path="res://scenes/player/parry.gd" id="20_8ydkj"]
+[ext_resource type="PackedScene" uid="uid://cjv0myegiav6k" path="res://scenes/player/weapon/blade.tscn" id="21_3j4b4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnqru"]
 radius = 0.6
@@ -35,10 +39,11 @@ height = 1.6977539
 [node name="Player" unique_id=765146418 instance=ExtResource("1_base")]
 collision_layer = 2
 collision_mask = 9
+floor_max_angle = 0.87266463
 script = ExtResource("2_player")
-movement_speed = 5.0
 
 [node name="Sprite3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056610703, -0.0026197433, 0.003525138)
 offset = Vector2(0, 21.5)
 texture = ExtResource("3_sheet")
 hframes = 4
@@ -79,6 +84,9 @@ collision_mask = 64
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0892181, 0.22729492, -0.09399414)
 shape = SubResource("BoxShape3D_oket5")
 
+[node name="Blade" parent="Direction" index="4" unique_id=1929356891 instance=ExtResource("21_3j4b4")]
+transform = Transform3D(-0.96139157, -0.4098161, -0.7731602, 0.59165287, -1.1507093, -0.1257578, -0.644727, -0.44488075, 1.0375009, -0.1050099, 1.6510817, -1.1588768)
+
 [node name="CollisionShape3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84887695, 0)
 shape = SubResource("CapsuleShape3D_body")
@@ -113,6 +121,15 @@ script = ExtResource("15_throw")
 [node name="Skill" type="Node" parent="States" index="9" unique_id=162121136]
 script = ExtResource("16_myrg7")
 skill_scene = ExtResource("17_kvlxm")
+
+[node name="Wall_slide" type="Node" parent="States" index="10" unique_id=2133922911]
+script = ExtResource("18_uf5tr")
+
+[node name="Dash" type="Node" parent="States" index="11" unique_id=1094720519]
+script = ExtResource("19_lgqa7")
+
+[node name="Parry" type="Node" parent="States" index="12" unique_id=1502910452]
+script = ExtResource("20_8ydkj")
 
 [node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=583087062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)

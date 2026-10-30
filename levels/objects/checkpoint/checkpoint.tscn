@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://crb65yxteq68h"]
+
+[ext_resource type="Script" uid="uid://dbgk2f0ceis2" path="res://levels/objects/checkpoint/checkpoint.gd" id="1_8vxoj"]
+[ext_resource type="Texture2D" uid="uid://d2e8jvgr5w8uu" path="res://assets/sprites/ship_helm/ship_helm_idle_01.png" id="2_6c7pr"]
+[ext_resource type="Texture2D" uid="uid://6ed4rfhn0w8l" path="res://assets/sprites/ship_helm/ship_helm_idle_02.png" id="3_gv3kp"]
+[ext_resource type="Texture2D" uid="uid://da5lelhieiv3x" path="res://assets/sprites/ship_helm/ship_helm_idle_03.png" id="4_asopd"]
+[ext_resource type="Texture2D" uid="uid://5k865mxi7lvr" path="res://assets/sprites/ship_helm/ship_helm_idle_04.png" id="5_4j5vx"]
+[ext_resource type="Texture2D" uid="uid://b30e02a50sdc2" path="res://assets/sprites/ship_helm/ship_helm_idle_05.png" id="6_rvv5d"]
+[ext_resource type="Texture2D" uid="uid://b53vhiofrbe7k" path="res://assets/sprites/ship_helm/ship_helm_idle_06.png" id="7_1k53v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0s4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6c7pr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gv3kp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_asopd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4j5vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rvv5d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1k53v")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6c7pr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gv3kp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_asopd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4j5vx")
+}],
+"loop": 1,
+"name": &"turn",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ql73s"]
+size = Vector3(1.8, 2, 1.8)
+
+[node name="Checkpoint" type="Area3D" unique_id=360418892]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_8vxoj")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=273705866]
+offset = Vector2(0, 16)
+pixel_size = 0.0625
+alpha_cut = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_v0s4m")
+animation = &"turn"
+frame = 2
+frame_progress = 0.81647784
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1852447225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ql73s")
+
+[node name="Spawn" type="Marker3D" parent="." unique_id=2092503658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 2)

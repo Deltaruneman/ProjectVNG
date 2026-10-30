@@ -5,6 +5,7 @@ func _enter() -> void:
 	obj.change_animation("dead")
 	obj.stop_move()
 	timer = 2.0
+	obj.died.emit()
 func _update(delta: float) -> void:
 	if update_timer(delta):
 		obj.get_tree().reload_current_scene()

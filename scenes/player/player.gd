@@ -4,6 +4,11 @@ extends BaseCharacter
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
 
+signal died
+func _enter_tree() -> void:
+	# Để HUD tìm được player (group được thêm trước khi bất kỳ node nào chạy _ready)
+	add_to_group("player")
+
 
 func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Idle, true)

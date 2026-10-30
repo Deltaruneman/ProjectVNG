@@ -1,7 +1,7 @@
 class_name PlayerSkillState
 extends PlayerState
 @export var skill_scene: PackedScene  
-@export var cast_time := 0.25           
+@export var cast_time := 0.3           
 @export var spawn_height := 0.8
 @export var spawn_forward := 0.5
 
@@ -30,9 +30,15 @@ func _enter() -> void:
 	obj.get_parent().add_child(active)
 	active.global_position = obj.global_position + Vector3.UP * spawn_height + dir * spawn_forward
 	active.setup(obj, dir)
+	obj.suppress_blade(true) 
 
 
 func _update(delta: float) -> void:
 	_time += delta
 	if _time >= cast_time or active == null:
 		change_state(fsm.states.idle)
+		obj.suppress_blade(false)
+func _finish() -> void:
+	if is_instance_valid(obj) and obj.has_method("suppress_blade"):
+		obj.suppress_blade(false)
+	queue_free()
