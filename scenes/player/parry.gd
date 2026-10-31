@@ -46,4 +46,9 @@ func try_parry() -> bool:
 	obj.invincible = true
 	_set_invincible = true
 	timer = SUCCESS_TIME
+	var attacker: Node3D = obj.get_node("Direction/HurtArea3D").attacker
+	if is_instance_valid(attacker) and attacker is EnemyCharacter:
+		var hit_direction: Vector3 = attacker.global_position - obj.global_position
+		hit_direction.y = 0.0
+		attacker.on_parried(hit_direction.normalized())
 	return true

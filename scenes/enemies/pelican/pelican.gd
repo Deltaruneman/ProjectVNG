@@ -125,6 +125,7 @@ func _find_airborne_player() -> Node3D:
 
 func _drop_bullet() -> void:
 	var bullet := BULLET_SCENE.instantiate()
+	register_projectile(bullet)
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = global_position + Vector3(0.0, -0.5, 0.0)
 

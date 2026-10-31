@@ -7,5 +7,10 @@ class_name HurtArea3D
 
 signal hurt(direction: Vector3, damage: float)
 
-func take_damage(direction: Vector3, damage: float) -> void:
+var attacker: Node3D = null
+
+func take_damage(direction: Vector3, damage: float, source: Node3D = null) -> void:
+	var previous_attacker := attacker
+	attacker = source
 	hurt.emit(direction, damage)
+	attacker = previous_attacker

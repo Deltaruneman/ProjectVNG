@@ -60,13 +60,14 @@ func attack() -> void:
 		bullet.global_position = global_position + Vector3.UP * 0.7
 		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0
 		bullet.get_node("HitArea3D").damage = attack_damage
+		register_projectile(bullet)
 	elif is_instance_valid(found_player):
 		var offset := found_player.global_position - global_position
 		if Vector2(offset.x, offset.z).length() <= attack_range and absf(offset.y) < 1.5:
 			var hurt_area := found_player.get_node_or_null("Direction/HurtArea3D")
 			if hurt_area != null:
 				offset.y = 0.0
-				hurt_area.take_damage(offset.normalized(), attack_damage)
+				hurt_area.take_damage(offset.normalized(), attack_damage, self)
 
 
 func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
@@ -83,6 +84,12 @@ func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
 		velocity.x = hit_direction.x * 2.0
 		velocity.z = hit_direction.z * 2.0
 		_play(&"hurt")
+
+
+func _enter_parry_hurt(hit_direction: Vector3) -> void:
+	velocity.x = hit_direction.x * 2.0
+	velocity.z = hit_direction.z * 2.0
+	_play(&"hurt")
 
 
 func _on_animation_finished(animation: StringName) -> void:

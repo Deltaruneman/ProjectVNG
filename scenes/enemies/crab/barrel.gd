@@ -9,4 +9,5 @@ func _ready() -> void:
 
 func fire() -> void:
 	var bullet := bullet_factory.create() as RigidBody3D
+	register_projectile(bullet)
 	bullet.apply_impulse(forward() * bullet_speed)

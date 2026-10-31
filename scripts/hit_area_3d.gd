@@ -8,6 +8,8 @@ class_name HitArea3D
 ## Damage dealt per hit.
 @export var damage: int = 1
 
+var attacker: Node3D = null
+
 ## Emitted AFTER damage has been dealt, so outside code can do more with it (a bullet uses it
 ## to destroy itself).
 signal hitted(area: Area3D)
@@ -31,7 +33,15 @@ func hit(hurt_area: Node) -> void:
 	if hit_dir.length_squared() < 0.0001:
 		hit_dir = global_transform.basis.z
 		hit_dir.y = 0.0
-	hurt_area.take_damage(hit_dir.normalized(), damage)
+	var source := attacker
+	if not is_instance_valid(source):
+		var ancestor := get_parent()
+		while ancestor != null:
+			if ancestor is BaseCharacter:
+				source = ancestor
+				break
+			ancestor = ancestor.get_parent()
+	hurt_area.take_damage(hit_dir.normalized(), damage, source)
 
 func _on_area_entered(area: Area3D) -> void:
 	hit(area)

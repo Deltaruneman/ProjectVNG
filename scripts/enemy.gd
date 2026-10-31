@@ -86,6 +86,30 @@ func _on_hurt_area_3d_hurt(direction: Vector3, damage: float) -> void:
 	fsm.current_state.take_damage(direction, damage)
 
 
+## Interrupt an existing hurt state without applying damage.
+func on_parried(direction: Vector3) -> void:
+	if health <= 0:
+		return
+	if fsm != null:
+		if not fsm.states.has("hurt"):
+			return
+		velocity.x = direction.x * EnemyState.KNOCKBACK_SPEED
+		velocity.z = direction.z * EnemyState.KNOCKBACK_SPEED
+		fsm.change_state(fsm.states.hurt)
+	else:
+		_enter_parry_hurt(direction)
+
+
+## Only enemies with an existing hurt state override this.
+func _enter_parry_hurt(_direction: Vector3) -> void:
+	pass
+
+
+func register_projectile(projectile: Node) -> void:
+	for area in projectile.find_children("*", "HitArea3D", true, false):
+		area.attacker = self
+
+
 ## Called when the fox comes into range. Override this in whichever enemy needs it.
 func _on_player_in_sight(_player_pos: Vector3) -> void:
 	pass
