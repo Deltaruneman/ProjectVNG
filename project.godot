@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tower of Arcana"
-run/main_scene="uid://mjb8sv4t2f20"
+run/main_scene="uid://ut8i8xxf74gj"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
