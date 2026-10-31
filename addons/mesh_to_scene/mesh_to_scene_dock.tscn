@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/mesh_to_scene/mesh_to_scene_dock.gd" id="1_dock"]
+
+[node name="Mesh to Scene" type="VBoxContainer"]
+script = ExtResource("1_dock")
