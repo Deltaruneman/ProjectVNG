@@ -52,7 +52,10 @@ levels/level_1/stage_1.tscn
 | Nhảy | `Space` |
 | Tấn công | `C` hoặc `J` |
 | Nhặt / giữ đối tượng | `X` hoặc `K` |
-| Sử dụng kỹ năng | `U` |
+| Chọn ô kỹ năng thường | `1` `2` `3` |
+| Thi triển kỹ năng thường | `Q` |
+| Thi triển tuyệt kỹ đã chọn khi Nộ đầy | `E` |
+| Mở cây kỹ năng | `T` |
 
 ## Cấu trúc thư mục
 

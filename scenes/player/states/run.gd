@@ -8,8 +8,6 @@ func _update(delta: float):
 		return
 	if control_carry():
 		return
-	if control_skill():
-		return
 	if control_jump():
 		return
 	if control_dash():

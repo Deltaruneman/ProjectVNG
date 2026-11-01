@@ -122,7 +122,9 @@ func _is_stair(cell: Vector3i) -> bool:
 
 func _item_name(cell: Vector3i) -> String:
 	var item := floor_map.get_cell_item(cell)
-	if item == GridMap.INVALID_CELL_ITEM:
+	if item == GridMap.INVALID_CELL_ITEM or floor_map.mesh_library == null:
+		return ""
+	if not floor_map.mesh_library.get_item_list().has(item):
 		return ""
 	return floor_map.mesh_library.get_item_name(item)
 

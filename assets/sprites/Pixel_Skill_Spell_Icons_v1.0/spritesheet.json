@@ -1,0 +1,396 @@
+{
+ "meta": {
+  "name": "Pixel Skill & Spell Icons",
+  "tile_size": 32,
+  "columns": 8,
+  "rows": 6,
+  "image": "spritesheet.png",
+  "count": 48
+ },
+ "frames": {
+  "fire_orb": {
+   "x": 0,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 0
+  },
+  "fire_shard": {
+   "x": 32,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 1
+  },
+  "fire_nova": {
+   "x": 64,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 2
+  },
+  "fire_ward": {
+   "x": 96,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 3
+  },
+  "fire_strike": {
+   "x": 128,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 4
+  },
+  "fire_star": {
+   "x": 160,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "fire",
+   "index": 5
+  },
+  "ice_orb": {
+   "x": 192,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 6
+  },
+  "ice_shard": {
+   "x": 224,
+   "y": 0,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 7
+  },
+  "ice_nova": {
+   "x": 0,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 8
+  },
+  "ice_ward": {
+   "x": 32,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 9
+  },
+  "ice_strike": {
+   "x": 64,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 10
+  },
+  "ice_star": {
+   "x": 96,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "ice",
+   "index": 11
+  },
+  "lightning_orb": {
+   "x": 128,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 12
+  },
+  "lightning_shard": {
+   "x": 160,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 13
+  },
+  "lightning_nova": {
+   "x": 192,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 14
+  },
+  "lightning_ward": {
+   "x": 224,
+   "y": 32,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 15
+  },
+  "lightning_strike": {
+   "x": 0,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 16
+  },
+  "lightning_star": {
+   "x": 32,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "lightning",
+   "index": 17
+  },
+  "earth_orb": {
+   "x": 64,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 18
+  },
+  "earth_shard": {
+   "x": 96,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 19
+  },
+  "earth_nova": {
+   "x": 128,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 20
+  },
+  "earth_ward": {
+   "x": 160,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 21
+  },
+  "earth_strike": {
+   "x": 192,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 22
+  },
+  "earth_star": {
+   "x": 224,
+   "y": 64,
+   "w": 32,
+   "h": 32,
+   "category": "earth",
+   "index": 23
+  },
+  "wind_orb": {
+   "x": 0,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 24
+  },
+  "wind_shard": {
+   "x": 32,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 25
+  },
+  "wind_nova": {
+   "x": 64,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 26
+  },
+  "wind_ward": {
+   "x": 96,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 27
+  },
+  "wind_strike": {
+   "x": 128,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 28
+  },
+  "wind_star": {
+   "x": 160,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "wind",
+   "index": 29
+  },
+  "holy_orb": {
+   "x": 192,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 30
+  },
+  "holy_shard": {
+   "x": 224,
+   "y": 96,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 31
+  },
+  "holy_nova": {
+   "x": 0,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 32
+  },
+  "holy_ward": {
+   "x": 32,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 33
+  },
+  "holy_strike": {
+   "x": 64,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 34
+  },
+  "holy_star": {
+   "x": 96,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "holy",
+   "index": 35
+  },
+  "dark_orb": {
+   "x": 128,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 36
+  },
+  "dark_shard": {
+   "x": 160,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 37
+  },
+  "dark_nova": {
+   "x": 192,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 38
+  },
+  "dark_ward": {
+   "x": 224,
+   "y": 128,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 39
+  },
+  "dark_strike": {
+   "x": 0,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 40
+  },
+  "dark_star": {
+   "x": 32,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "dark",
+   "index": 41
+  },
+  "poison_orb": {
+   "x": 64,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 42
+  },
+  "poison_shard": {
+   "x": 96,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 43
+  },
+  "poison_nova": {
+   "x": 128,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 44
+  },
+  "poison_ward": {
+   "x": 160,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 45
+  },
+  "poison_strike": {
+   "x": 192,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 46
+  },
+  "poison_star": {
+   "x": 224,
+   "y": 160,
+   "w": 32,
+   "h": 32,
+   "category": "poison",
+   "index": 47
+  }
+ }
+}

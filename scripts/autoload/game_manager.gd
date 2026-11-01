@@ -25,6 +25,15 @@ var checkpoint_id := ""
 var flags: Dictionary = {}
 ## The fox's health carried through a door; -1 = start with full health.
 var player_health := -1
+## Skill points live in one pool. Allocations are stored by node id so a free reset can return
+## every spent point without changing the number earned from the world.
+signal skill_progress_changed
+var skill_points := 0
+var skill_allocations: Dictionary = {}
+var weapon_form := ""
+var unlocked_skills: Array[String] = []
+var collected_skill_points: Array[String] = []
+var selected_ultimate_skill := ""
 
 var _changing := false
 var _booted := false
@@ -137,7 +146,82 @@ func is_door_unlocked(flag: String) -> bool:
 
 
 func save_game() -> void:
-	SaveSystem.save_data({"stage": checkpoint_stage, "checkpoint": checkpoint_id, "flags": flags})
+	SaveSystem.save_data({"stage": checkpoint_stage, "checkpoint": checkpoint_id, "flags": flags,
+		"skill_points": skill_points, "skill_allocations": skill_allocations,
+		"weapon_form": weapon_form, "unlocked_skills": unlocked_skills,
+		"collected_skill_points": collected_skill_points,
+		"selected_ultimate_skill": selected_ultimate_skill})
+
+
+func award_skill_point(source_id: String = "") -> bool:
+	if source_id != "" and collected_skill_points.has(source_id):
+		return false
+	if source_id != "":
+		collected_skill_points.append(source_id)
+	skill_points += 1
+	skill_progress_changed.emit()
+	save_game()
+	return true
+
+
+func reward_mini_boss(boss_id: String) -> bool:
+	return award_skill_point("mini_boss:%s" % boss_id)
+
+
+func reward_floor_clear(stage_id: String) -> bool:
+	return award_skill_point("floor_clear:%s" % stage_id)
+
+
+func reward_hidden_chest(chest_id: String) -> bool:
+	return award_skill_point("hidden_chest:%s" % chest_id)
+
+
+func spend_skill_point(node_id: String, form: String = "") -> bool:
+	if skill_points <= 0:
+		return false
+	if form != "":
+		if weapon_form != "" and weapon_form != form:
+			return false
+		weapon_form = form
+	skill_points -= 1
+	skill_allocations[node_id] = int(skill_allocations.get(node_id, 0)) + 1
+	if node_id.begins_with("active_") or node_id.begins_with("ultimate_"):
+		if not unlocked_skills.has(node_id):
+			unlocked_skills.append(node_id)
+	skill_progress_changed.emit()
+	save_game()
+	return true
+
+
+func select_ultimate_skill(skill_id: String) -> bool:
+	if not skill_id.begins_with("ultimate_") or not unlocked_skills.has(skill_id):
+		return false
+	selected_ultimate_skill = skill_id
+	skill_progress_changed.emit()
+	save_game()
+	return true
+
+
+func reset_skill_tree() -> void:
+	for rank: Variant in skill_allocations.values():
+		skill_points += int(rank)
+	skill_allocations.clear()
+	weapon_form = ""
+	unlocked_skills.clear()
+	selected_ultimate_skill = ""
+	skill_progress_changed.emit()
+	save_game()
+
+
+func allocated_skill_points() -> int:
+	var total := 0
+	for rank: Variant in skill_allocations.values():
+		total += int(rank)
+	return total
+
+
+func total_skill_points() -> int:
+	return skill_points + allocated_skill_points()
 
 
 ## Reads the save file into memory. Doesn't move the fox — register_stage() does that for the
@@ -149,6 +233,23 @@ func load_game() -> void:
 	checkpoint_id = str(data.get("checkpoint", ""))
 	var saved_flags: Variant = data.get("flags", {})
 	flags = saved_flags if saved_flags is Dictionary else {}
+	skill_points = maxi(0, int(data.get("skill_points", 0)))
+	var saved_allocations: Variant = data.get("skill_allocations", {})
+	skill_allocations = saved_allocations if saved_allocations is Dictionary else {}
+	weapon_form = str(data.get("weapon_form", ""))
+	var saved_skills: Variant = data.get("unlocked_skills", [])
+	unlocked_skills.clear()
+	if saved_skills is Array:
+		for skill: Variant in saved_skills:
+			unlocked_skills.append(str(skill))
+	selected_ultimate_skill = str(data.get("selected_ultimate_skill", ""))
+	if not unlocked_skills.has(selected_ultimate_skill):
+		selected_ultimate_skill = ""
+	var saved_collectibles: Variant = data.get("collected_skill_points", [])
+	collected_skill_points.clear()
+	if saved_collectibles is Array:
+		for collectible: Variant in saved_collectibles:
+			collected_skill_points.append(str(collectible))
 	if checkpoint_stage == "" or checkpoint_id == "" or not ResourceLoader.exists(checkpoint_stage):
 		checkpoint_stage = ""
 		checkpoint_id = ""
@@ -169,6 +270,12 @@ func reset() -> void:
 	checkpoint_stage = ""
 	checkpoint_id = ""
 	flags = {}
+	skill_points = 0
+	skill_allocations = {}
+	weapon_form = ""
+	unlocked_skills.clear()
+	selected_ultimate_skill = ""
+	collected_skill_points.clear()
 	player_health = -1
 	_changing = false
 	_booted = false

@@ -5,19 +5,17 @@
 [ext_resource type="MeshLibrary" uid="uid://c5r3h833h76js" path="res://assets/meshes/block_library.meshlib" id="3_d7x21"]
 [ext_resource type="MeshLibrary" uid="uid://cqdu8ans36vgx" path="res://assets/meshes/object_library.meshlib" id="4_h51gi"]
 [ext_resource type="PackedScene" uid="uid://cmmjhllqibaoc" path="res://scenes/objects/palm_tree.tscn" id="5_h642v"]
-[ext_resource type="PackedScene" uid="uid://3i2cauq76cic" path="res://scenes/enemies/mushroom/mushroom.tscn" id="6_aq4x6"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/crab/crab.tscn" id="7_jrwcf"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/starfish/starfish.tscn" id="8_lxmcf"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/barrel/barrel.tscn" id="9_5ubvi"]
-[ext_resource type="PackedScene" path="res://scenes/objects/trap.tscn" id="10_rpm3b"]
-[ext_resource type="PackedScene" uid="uid://clxulon4q7jr" path="res://scenes/player/player.tscn" id="11_h1rxi"]
+[ext_resource type="PackedScene" uid="uid://c3qbbcbh5p8l2" path="res://scenes/enemies/mushroom/mushroom.tscn" id="6_aq4x6"]
+[ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="7_jrwcf"]
+[ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_lxmcf"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="11_h1rxi"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="12_p5tfg"]
 [ext_resource type="PackedScene" uid="uid://65gpamtlsq5j" path="res://scenes/objects/sea_water.tscn" id="13_nm8l7"]
 [ext_resource type="PackedScene" path="res://levels/objects/kill_zone/kill_zone.tscn" id="14_et5yk"]
-[ext_resource type="PackedScene" path="res://scenes/npcs/mushroom_npc.tscn" id="15_d5wif"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="16_lcwqb"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="17_md6n3"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="18_d7x21"]
+[ext_resource type="PackedScene" path="res://levels/objects/skill_point/skill_point.tscn" id="19_skill_point"]
 
 [sub_resource type="Environment" id="Environment_1fr5c"]
 ambient_light_source = 3
@@ -82,21 +80,14 @@ direction = "right"
 [node name="Starfish" parent="Enemies" unique_id=493714172 instance=ExtResource("8_lxmcf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.2, 13)
 
-[node name="Barrel" parent="Enemies" unique_id=689167803 instance=ExtResource("9_5ubvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 1.2, 21)
-bullet_speed = 12.0
-direction = "left"
-
 [node name="Bullets" type="Node3D" parent="." unique_id=1964395655]
-
-[node name="Trap" parent="." unique_id=510308311 instance=ExtResource("10_rpm3b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 21)
-
-[node name="@Node3D@7" parent="." unique_id=1393334944 instance=ExtResource("10_rpm3b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 25)
 
 [node name="Player" parent="." unique_id=1010956037 instance=ExtResource("11_h1rxi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.2, 27)
+
+[node name="SkillPoint" parent="." unique_id=122737221 instance=ExtResource("19_skill_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1.2, 27)
+pickup_id = "stage_1_intro"
 
 [node name="CameraRig" parent="." unique_id=5520751 node_paths=PackedStringArray("target") instance=ExtResource("12_p5tfg")]
 target = NodePath("../Player")
@@ -115,12 +106,6 @@ environment = SubResource("Environment_1fr5c")
 [node name="KillZone" parent="." unique_id=799221312 instance=ExtResource("14_et5yk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -5, 16)
 
-[node name="MushroomNpc" parent="." unique_id=1463722735 instance=ExtResource("15_d5wif")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.25, 1.2, 29.5)
-home_radius = 3.0
-rest_time = Vector2(1, 3)
-walk_timeout = 10.0
-
 [node name="Pathfinder" type="Node" parent="." unique_id=1956346384 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
 script = ExtResource("16_lcwqb")
 floor_map = NodePath("../World")
@@ -137,3 +122,15 @@ unlock_flag = "gate"
 [node name="Checkpoint" parent="." unique_id=360418892 instance=ExtResource("18_d7x21")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, 27)
 id = "village"
+
+[node name="SkillPoint2" parent="." unique_id=1283228231 instance=ExtResource("19_skill_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.174316, 1, 20.244322)
+
+[node name="SkillPoint3" parent="." unique_id=1617762698 instance=ExtResource("19_skill_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.174316, 1, 27.30526)
+
+[node name="SkillPoint4" parent="." unique_id=1889259186 instance=ExtResource("19_skill_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 27.30526)
+
+[node name="SkillPoint5" parent="." unique_id=1128670338 instance=ExtResource("19_skill_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 11.1929455)

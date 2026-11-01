@@ -10,8 +10,6 @@ func _update(_delta: float) -> void:
 	control_jump()
 	if control_carry():
 		return
-	if control_skill():
-		return
 	if control_dash():
 		return
 	if control_parry():

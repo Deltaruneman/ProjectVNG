@@ -22,15 +22,93 @@ var down_ray_cast: RayCast3D
 # Area that detects the fox
 var detect_player_area: Area3D
 var found_player: Node3D = null
+var _skill_slow_base_speed := -1.0
+var _skill_slow_factor := 1.0
+var _skill_slow_until_msec := 0
+var _skill_freeze_until_msec := 0
+var _skill_freeze_running := false
+var _skill_burn_until_msec := 0
+var _skill_burn_damage := 0
+var _skill_burn_source: Node3D = null
+var _skill_burn_running := false
 
 
 func _ready() -> void:
+	add_to_group("enemies")
 	_init_ray_cast()
 	_init_detect_player_area()
 	_init_hurt_area()
 	super._ready()
 	health = max_health
 	add_child(HEALTH_BAR_SCENE.instantiate())
+
+
+func apply_skill_freeze(duration: float) -> void:
+	if duration <= 0.0 or health <= 0:
+		return
+	movement_enabled = false
+	_skill_freeze_until_msec = maxi(_skill_freeze_until_msec, Time.get_ticks_msec() + int(duration * 1000.0))
+	if not _skill_freeze_running:
+		_skill_freeze_running = true
+		_finish_skill_freeze.call_deferred()
+
+
+func _finish_skill_freeze() -> void:
+	while is_inside_tree() and health > 0 and Time.get_ticks_msec() < _skill_freeze_until_msec:
+		var remaining := maxf(0.01, float(_skill_freeze_until_msec - Time.get_ticks_msec()) / 1000.0)
+		await get_tree().create_timer(remaining).timeout
+	if is_inside_tree() and health > 0:
+		movement_enabled = true
+	_skill_freeze_running = false
+
+
+func is_skill_frozen() -> bool:
+	return Time.get_ticks_msec() < _skill_freeze_until_msec
+
+
+func is_skill_slowed() -> bool:
+	return _skill_slow_base_speed >= 0.0 and Time.get_ticks_msec() < _skill_slow_until_msec
+
+
+func apply_skill_slow(duration: float, speed_factor: float = 0.5) -> void:
+	if duration <= 0.0 or health <= 0:
+		return
+	if _skill_slow_base_speed < 0.0:
+		_skill_slow_base_speed = movement_speed
+	_skill_slow_factor = minf(_skill_slow_factor, clampf(speed_factor, 0.1, 1.0))
+	movement_speed = _skill_slow_base_speed * _skill_slow_factor
+	_skill_slow_until_msec = maxi(_skill_slow_until_msec, Time.get_ticks_msec() + int(duration * 1000.0))
+	var wait_time := maxf(0.0, float(_skill_slow_until_msec - Time.get_ticks_msec()) / 1000.0)
+	await get_tree().create_timer(wait_time).timeout
+	if is_inside_tree() and Time.get_ticks_msec() >= _skill_slow_until_msec:
+		movement_speed = _skill_slow_base_speed
+		_skill_slow_base_speed = -1.0
+		_skill_slow_factor = 1.0
+
+
+func apply_skill_burn(source: Node3D, damage_per_tick: int = 1, duration: float = 3.0, tick_interval: float = 1.0) -> void:
+	if duration <= 0.0 or tick_interval <= 0.0 or health <= 0:
+		return
+	_skill_burn_damage = maxi(_skill_burn_damage, damage_per_tick)
+	_skill_burn_source = source
+	_skill_burn_until_msec = maxi(_skill_burn_until_msec, Time.get_ticks_msec() + int(duration * 1000.0))
+	if not _skill_burn_running:
+		_skill_burn_running = true
+		_run_skill_burn.call_deferred(tick_interval)
+
+
+func _run_skill_burn(tick_interval: float) -> void:
+	while is_inside_tree() and health > 0 and Time.get_ticks_msec() < _skill_burn_until_msec:
+		await get_tree().create_timer(tick_interval).timeout
+		if not is_inside_tree() or health <= 0 or Time.get_ticks_msec() > _skill_burn_until_msec:
+			break
+		var hurt_area := get_node_or_null("Direction/HurtArea3D") as HurtArea3D
+		if hurt_area != null:
+			var source: Node3D = _skill_burn_source if is_instance_valid(_skill_burn_source) else null
+			hurt_area.take_damage(Vector3.ZERO, _skill_burn_damage, source)
+	_skill_burn_running = false
+	_skill_burn_damage = 0
+	_skill_burn_source = null
 
 
 func _init_ray_cast() -> void:

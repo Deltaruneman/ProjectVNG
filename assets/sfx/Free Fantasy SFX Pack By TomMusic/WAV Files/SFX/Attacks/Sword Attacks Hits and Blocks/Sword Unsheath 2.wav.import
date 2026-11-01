@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://drqsv8l8s7arw"
+path="res://.godot/imported/Sword Unsheath 2.wav-0d851933d3760af84c21ed13d00eb4f6.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Free Fantasy SFX Pack By TomMusic/WAV Files/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Unsheath 2.wav"
+dest_files=["res://.godot/imported/Sword Unsheath 2.wav-0d851933d3760af84c21ed13d00eb4f6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

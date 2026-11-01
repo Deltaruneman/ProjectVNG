@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ddch7dq5x4cgl"
+path="res://.godot/imported/Bow Take Out 1.wav-36d2fc582adddde0cb8a9adb712a92f4.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Free Fantasy SFX Pack By TomMusic/WAV Files/SFX/Attacks/Bow Attacks Hits and Blocks/Bow Take Out 1.wav"
+dest_files=["res://.godot/imported/Bow Take Out 1.wav-36d2fc582adddde0cb8a9adb712a92f4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

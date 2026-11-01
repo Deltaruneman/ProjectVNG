@@ -3,10 +3,66 @@
 [ext_resource type="Texture2D" uid="uid://b1p1fbmcbnusv" path="res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_border.png" id="2_7ihmi"]
 [ext_resource type="Script" uid="uid://cny6aobeujp3v" path="res://ui/health_bar.gd" id="2_546lt"]
 [ext_resource type="Texture2D" uid="uid://bsm81a2xlvfj" path="res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png" id="3_en2x2"]
+[ext_resource type="Script" uid="uid://vjbmo2l40p81" path="res://ui/skill_tree.gd" id="4_skill_tree"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_RageBackground"]
+bg_color = Color(0.035, 0.045, 0.075, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.62, 0.76, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_RageFill"]
+bg_color = Color(0.65, 0.42, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="Hud" type="CanvasLayer" unique_id=1949566559]
+scale = Vector2(1.5, 1)
+transform = Transform2D(1.5, 0, 0, 1, 0, 0)
 script = ExtResource("2_546lt")
-margin = Vector2(12, 6)
+margin = Vector2(10, 0)
 texture_under = ExtResource("2_7ihmi")
 texture_progress = ExtResource("3_en2x2")
-pixel_scale = 0.063
+pixel_scale = 0.3
+show_label = true
+
+[node name="SkillTree" type="Control" parent="." unique_id=615963416]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4_skill_tree")
+
+[node name="RageMeter" type="Control" parent="." unique_id=355647237]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 7.3333335
+offset_top = 17.0
+offset_right = 247.33333
+offset_bottom = 49.0
+mouse_filter = 2
+
+[node name="RageLabel" type="Label" parent="RageMeter" unique_id=1299688196]
+visible = false
+layout_mode = 0
+offset_right = 58.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0.82, 0.78, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "NỘ KHÍ · 0%"
+
+[node name="RageBar" type="ProgressBar" parent="RageMeter" unique_id=1921876319]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 55.333336
+offset_bottom = 14.0
+theme_override_styles/background = SubResource("StyleBox_RageBackground")
+theme_override_styles/fill = SubResource("StyleBox_RageFill")
+show_percentage = false

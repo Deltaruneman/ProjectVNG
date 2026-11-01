@@ -82,9 +82,3 @@ func control_carry() -> bool:
 		change_state(fsm.states.carry)
 		return true
 	return false
-func control_skill() -> bool:
-	if Input.is_action_just_pressed("skill"):
-		if fsm.states.skill.can_throw():
-			change_state(fsm.states.skill)
-			return true
-	return false

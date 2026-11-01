@@ -388,10 +388,6 @@ target = NodePath("../Player")
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
 
 [node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_lpgvr")]
-scale = Vector2(6, 4)
-transform = Transform2D(6, 0, 0, 4, 0, 0)
-margin = Vector2(3, 2)
-show_label = true
 
 [editable path="B1/Torches/Torch1"]
 [editable path="B1/Torches/Torch"]

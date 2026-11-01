@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://levels/objects/skill_point/skill_point.gd" id="1_script"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pickup"]
+radius = 0.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_pickup"]
+radius = 0.28
+height = 0.56
+
+[sub_resource type="StandardMaterial3D" id="Material_skill_point"]
+albedo_color = Color(0.25, 0.9, 1, 1)
+emission_enabled = true
+emission = Color(0.2, 0.8, 1, 1)
+
+[node name="SkillPoint" type="Area3D" groups=["skill_point_pickups"]]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_pickup")
+
+[node name="Orb" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.7, 0)
+mesh = SubResource("SphereMesh_pickup")
+material_override = SubResource("Material_skill_point")

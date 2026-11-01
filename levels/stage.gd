@@ -10,6 +10,8 @@ extends Node3D
 
 
 func _ready() -> void:
+	if get_node_or_null("Hud") == null:
+		add_child(preload("res://ui/hud.tscn").instantiate())
 	GameManager.register_stage(self)
 
 

@@ -1,43 +1,82 @@
 class_name PlayerSkillState
 extends PlayerState
-@export var skill_scene: PackedScene  
-@export var cast_time := 0.3           
+const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+@export var skill_scene: PackedScene
+@export var cast_time := 0.3
 @export var spawn_height := 0.8
 @export var spawn_forward := 0.5
 
-var active: Node3D = null  
+var active: Node3D = null
 var _time := 0.0
+var _active_cast := false
+var _cast_duration := 0.0
 
 
 func can_throw() -> bool:
 	return skill_scene != null and not is_instance_valid(active)
 
 
+func _play_one_shot(animation: String) -> void:
+	obj.change_animation(animation)
+	var animation_name := "%s_%s" % [animation, obj.direction]
+	if obj.anim_player.has_animation(animation_name):
+		_cast_duration = maxf(cast_time, obj.anim_player.get_animation(animation_name).length)
+	else:
+		_cast_duration = cast_time
+
+
 func _enter() -> void:
 	_time = 0.0
+	_active_cast = false
+	_cast_duration = cast_time
 	obj.stop_horizontal()
+	var selected_skill_id: String = obj.get_selected_active_skill_id()
+	if obj.get_active_skill_cooldown_for_id(selected_skill_id) > 0.0:
+		change_state(fsm.states.idle)
+		return
+	if obj.cast_active_skill(selected_skill_id):
+		_active_cast = true
+		obj.start_active_skill_cooldown(selected_skill_id)
+		BattleFX.play_skill_sound(obj, selected_skill_id)
+		if selected_skill_id in ["active_wind_3", "active_ice_2"]:
+			var aim: Vector3 = obj.forward()
+			BattleFX.emberline_slash(obj, obj.skill_effect_position(aim, 1.2, 0.6), GameManager.weapon_form, aim, 1.0)
+		_play_one_shot("attack")
+		return
 	if not can_throw():
-		return  
+		return
 
-	var input: Vector2 = Input.get_vector("left", "right", "up", "down")
-	var dir := Vector3(input.x, 0.0, input.y)
-	if dir.length() <= 0.1:
-		dir = obj.get_node("Direction").global_transform.basis.z   # +Z là hướng trước (MODEL_FRONT)
-		dir.y = 0.0
-	dir = dir.normalized()
+	obj.start_active_skill_cooldown(selected_skill_id)
+	var dir: Vector3 = obj.get_skill_aim_direction()
+	_play_one_shot("throw")
+	var elemental_form: String = GameManager.weapon_form if obj.selected_active_slot == 1 else ""
+	BattleFX.play_skill_sound(obj, selected_skill_id if selected_skill_id != "" else "dagger")
+	if elemental_form != "":
+		BattleFX.slash(obj, obj.global_position + Vector3.UP * 0.65 + dir * 0.55, elemental_form, dir, 0.34)
+		BattleFX.emberline_slash(obj, obj.global_position + Vector3.UP * 0.65 + dir * 0.55, elemental_form, dir, 0.7)
 
 	active = skill_scene.instantiate()
+	if elemental_form == "wind" and int(GameManager.skill_allocations.get("evo_wind_return", 0)) > 0:
+		active.set("max_distance", float(active.get("max_distance")) * 1.25)
+		active.set("return_speed", float(active.get("return_speed")) * 1.2)
 	obj.get_parent().add_child(active)
+	var hit_area := active.get_node_or_null("HitArea3D") as HitArea3D
+	if hit_area != null:
+		hit_area.damage = obj.attack_damage + int(GameManager.skill_allocations.get("char_element", 0)) + int(GameManager.skill_allocations.get("char_crit", 0))
+		hit_area.hitted.connect(obj._on_skill_hit.bind(elemental_form))
 	active.global_position = obj.global_position + Vector3.UP * spawn_height + dir * spawn_forward
 	active.setup(obj, dir)
-	obj.suppress_blade(true) 
+	obj.suppress_blade(true)
 
 
 func _update(delta: float) -> void:
 	_time += delta
-	if _time >= cast_time or active == null:
+	if _time >= _cast_duration:
 		change_state(fsm.states.idle)
-		obj.suppress_blade(false)
+		if not _active_cast:
+			obj.suppress_blade(false)
+
+
 func _finish() -> void:
 	if is_instance_valid(obj) and obj.has_method("suppress_blade"):
 		obj.suppress_blade(false)
