@@ -1,7 +1,18 @@
 # Hướng dẫn đọc Animation của nhân vật
 
-Tài liệu này giải thích cách đọc / cắt / phát animation cho **mọi asset trong thư mục `sprites/`**.
+Tài liệu này giải thích cách đọc / cắt / phát animation cho **nhân vật và asset sprite trong thư mục `sprites/`**.
 Đọc hết mục 1 → 4 là đủ để tự làm; mục 5 là bảng tra cứu, mục 6 là các bẫy hay gặp.
+
+## Hiệu ứng trong game
+
+Với hiệu ứng pixel ngoài slash và khiên băng, dùng skill [pixelfx](../../.agents/skills/pixelfx/SKILL.md) và thư viện tại
+`assets/effects/pixelfx-main/pixelfx-main/`. Tìm hiệu ứng có sẵn trong catalog trước; nếu cần asset chạy trong
+Godot, xuất sprite sheet từ thư viện rồi nhập sheet vào project. Không dùng hướng dẫn cắt animation nhân vật bên
+dưới để thay thế quy trình VFX này.
+
+**Slash và khiên băng là ngoại lệ:** giữ cách triển khai hiện tại trong `effects/slash.tscn`, `effects/slash.gd`
+và hiệu ứng khiên băng trong `scenes/player/battle_vfx.gd`, cùng các sheet slash hiện có trong
+`assets/effects/Spritesheets/`.
 
 > Một số nhân vật đóng gói khác hẳn (mỗi frame là 1 file PNG riêng, không có JSON) nên có tài liệu riêng:
 > * Boss King Crab → [`boss/kingcrab/ANIMATION.md`](boss/kingcrab/ANIMATION.md)

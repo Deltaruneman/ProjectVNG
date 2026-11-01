@@ -14,6 +14,7 @@ func _enter() -> void:
 		"wind": _spawn_fx(SlashFX.Type.WIND)
 		"fire": _spawn_fx(SlashFX.Type.FIRE)
 		"ice": _spawn_fx(SlashFX.Type.ICE)
+		"lightning": _spawn_fx(SlashFX.Type.WIND)
 
 func _exit() -> void:
 	_hit_shape().disabled = true

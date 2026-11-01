@@ -8,39 +8,51 @@ const FORMS := [
 	{"id": "wind", "name": "Kiếm Lốc · Wind", "short": "Wind Form", "color": Color("6acfff")},
 	{"id": "fire", "name": "Kiếm Lửa · Fire", "short": "Fire Form", "color": Color("ff8155")},
 	{"id": "ice", "name": "Kiếm Băng · Ice", "short": "Ice Form", "color": Color("a4efff")},
+	{"id": "lightning", "name": "Kiếm Sấm Sét · Lightning", "short": "Lightning", "color": Color("ffe16b")},
 ]
 const ACTIVE_SKILLS := {
-	"wind": ["Phi Dao Gió", "Phong Bộc", "Quét Kiếm Phi Gió"],
-	"fire": ["Phi Dao Hỏa", "Ma Hỏa", "Hỏa Nộ"],
-	"ice": ["Phi Dao Băng", "Hầm Mộ Băng Giá", "Khiên Băng"],
+	"wind": ["Phi Dao Gió", "Phong Bộc", "Quét Kiếm Phi Gió", "Lốc Xoáy"],
+	"fire": ["Phi Dao Hỏa", "Ma Hỏa", "Hỏa Nộ", "Mưa Thiên Thạch"],
+	"ice": ["Phi Dao Băng", "Hầm Mộ Băng Giá", "Khiên Băng", "Bão Băng"],
+	"lightning": ["Phi Dao Lôi", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
 }
 const ACTIVE_SHORT_NAMES := {
-	"wind": ["Phi Dao", "Phong Bộc", "Quét Kiếm"],
-	"fire": ["Phi Dao", "Ma Hỏa", "Hỏa Nộ"],
-	"ice": ["Phi Dao", "Hầm Băng", "Khiên Băng"],
+	"wind": ["Phi Dao", "Phong Bộc", "Quét Kiếm", "Lốc Xoáy"],
+	"fire": ["Phi Dao", "Ma Hỏa", "Hỏa Nộ", "Thiên Thạch"],
+	"ice": ["Phi Dao", "Hầm Băng", "Khiên Băng", "Bão Băng"],
+	"lightning": ["Phi Dao", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
 }
 const ULTIMATE_SKILLS := {
 	"wind": ["Cái Chết Tựa Cơn Gió", "Phong Linh"],
 	"fire": ["Hỏa Kiếm", "Hỏa Thần Giáng Lâm"],
 	"ice": ["Chân Băng", "Kỷ Băng Hà"],
+	"lightning": ["Tâm Bão", "Thiên Lôi"],
 }
 const ULTIMATE_SHORT_NAMES := {
 	"wind": ["Tử Phong", "Phong Linh"],
 	"fire": ["Hỏa Kiếm", "Hỏa Thần"],
 	"ice": ["Chân Băng", "Kỷ Băng Hà"],
+	"lightning": ["Tâm Bão", "Thiên Lôi"],
 }
 const WEAPON_EVOLUTIONS := {
 	"wind": [
 		{"id": "evo_wind_return", "name": "Hồi Phong", "short": "Hồi Phong", "icon": "↩", "icon_asset": "wind_shard", "desc": "Phi dao bay xa hơn 25% và quay về nhanh hơn 20%.", "req": 3, "requires": "active_wind_1"},
 		{"id": "evo_wind_gale", "name": "Tàn Ảnh", "short": "Tàn Ảnh", "icon": "➤", "icon_asset": "wind_strike", "desc": "Quét Kiếm lướt xa hơn 0.5m và gây thêm 50% sát thương.", "req": 7, "requires": "active_wind_3"},
+		{"id": "evo_wind_tornado", "name": "Cuồng Phong", "short": "Cuồng Phong", "icon": "✧", "icon_asset": "wind_nova", "desc": "Lốc Xoáy lớn hơn và làm chậm lâu hơn.", "req": 10, "requires": "active_wind_4"},
 	],
 	"fire": [
 		{"id": "evo_fire_ember", "name": "Tàn Hỏa", "short": "Tàn Hỏa", "icon": "✦", "icon_asset": "fire_star", "desc": "Phi dao gây thêm 1 sát thương thiêu đốt mỗi giây trong 1 giây.", "req": 3, "requires": "active_fire_1"},
 		{"id": "evo_fire_inferno", "name": "Bùng Nổ", "short": "Bùng Nổ", "icon": "✹", "icon_asset": "fire_nova", "desc": "Ma Hỏa, Hỏa Nộ và Hỏa Thần có bán kính nổ tăng 1m.", "req": 7, "requires": "active_fire_2"},
+		{"id": "evo_fire_meteor", "name": "Mưa Lửa", "short": "Mưa Lửa", "icon": "☄", "icon_asset": "fire_nova", "desc": "Mưa Thiên Thạch gây thêm sát thương và thiêu đốt.", "req": 10, "requires": "active_fire_4"},
 	],
 	"ice": [
 		{"id": "evo_ice_frostbite", "name": "Hàn Khí", "short": "Hàn Khí", "icon": "❄", "icon_asset": "ice_star", "desc": "Phi dao làm chậm thêm 1 giây; Hầm Băng đóng băng thêm 0.5 giây.", "req": 3, "requires": "active_ice_1"},
 		{"id": "evo_ice_shatter", "name": "Vỡ Băng", "short": "Vỡ Băng", "icon": "✧", "icon_asset": "ice_nova", "desc": "Hầm Băng gây thêm 50% sát thương lên kẻ địch đang đóng băng.", "req": 6, "requires": "active_ice_2"},
+		{"id": "evo_ice_storm", "name": "Băng Tâm", "short": "Băng Tâm", "icon": "❄", "icon_asset": "ice_nova", "desc": "Bão Băng đóng băng lâu hơn và tăng bán kính.", "req": 10, "requires": "active_ice_4"},
+	],
+	"lightning": [
+		{"id": "evo_lightning_chain", "name": "Dẫn Điện", "short": "Dẫn Điện", "icon": "⚡", "icon_asset": "lightning_strike", "desc": "Xích Lôi đánh xa hơn và làm choáng lâu hơn.", "req": 4, "requires": "active_lightning_2"},
+		{"id": "evo_lightning_storm", "name": "Tụ Lôi", "short": "Tụ Lôi", "icon": "✦", "icon_asset": "lightning_nova", "desc": "Sét Đánh và Lôi Bạo gây thêm sát thương.", "req": 8, "requires": "active_lightning_3"},
 	],
 }
 const SKILL_DESCRIPTIONS := {
@@ -53,12 +65,21 @@ const SKILL_DESCRIPTIONS := {
 	"Phi Dao Băng": "Phóng dao gây sát thương và làm chậm mục tiêu trong 2 giây.",
 	"Hầm Mộ Băng Giá": "Đóng băng kẻ địch trong vùng hình nón phía trước.",
 	"Khiên Băng": "Tạo khiên hấp thụ sát thương bằng 25% máu tối đa.",
+	"Lốc Xoáy": "Triệu hồi lốc xoáy quanh bạn, gây sát thương và làm chậm địch.",
+	"Mưa Thiên Thạch": "Gọi thiên thạch xuống vùng phía trước và thiêu đốt mục tiêu.",
+	"Bão Băng": "Tạo bão băng quanh bạn, gây sát thương và đóng băng kẻ địch.",
+	"Phi Dao Lôi": "Phóng phi đao mang điện, làm choáng mục tiêu trong thoáng chốc.",
+	"Xích Lôi": "Phóng chuỗi sét vào nhóm kẻ địch phía trước.",
+	"Sét Đánh": "Gọi sét đánh xuống vị trí phía trước.",
+	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",
 	"Phong Linh": "Tuyệt kỹ gió diện rộng kéo dài và tăng sức mạnh.",
 	"Hỏa Kiếm": "Tuyệt kỹ lửa gây sát thương diện rộng.",
 	"Hỏa Thần Giáng Lâm": "Hy sinh 50% máu hiện tại để bùng nổ diện rộng.",
 	"Chân Băng": "Đóng băng và gây sát thương kẻ địch quanh bạn.",
 	"Kỷ Băng Hà": "Đóng băng kẻ địch toàn khu vực và gây sát thương băng.",
+	"Tâm Bão": "Gây bão điện diện rộng quanh người.",
+	"Thiên Lôi": "Sét đánh toàn bộ kẻ địch trong khu vực.",
 }
 const CHARACTER_NODES := [
 	{"id": "char_attack", "name": "Tấn Công", "short": "Tấn Công", "icon": "ATK", "desc": "+1 sát thương đòn đánh thường", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 0},
@@ -82,6 +103,8 @@ var _tab := "weapon"
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_match_parent_canvas_scale()
+	z_index = 100
+	z_as_relative = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	_build()
@@ -111,6 +134,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func set_open(open: bool) -> void:
 	visible = open
+	var hud := get_parent()
+	if hud != null and hud.has_method("set_skill_tree_open"):
+		hud.call("set_skill_tree_open", open)
 	get_tree().paused = open
 	if open:
 		var player := get_tree().get_first_node_in_group("player") as Player
@@ -186,7 +212,7 @@ func _build() -> void:
 	footer.custom_minimum_size.y = 24.0
 	layout.add_child(footer)
 	var hint := Label.new()
-	hint.text = "1–3 chọn skill  ·  U dùng  ·  I tuyệt kỹ  ·  T / Esc"
+	hint.text = "1–4 chọn skill  ·  U dùng  ·  I tuyệt kỹ  ·  T / Esc"
 	hint.add_theme_font_size_override("font_size", 8)
 	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	footer.add_child(hint)
@@ -235,10 +261,10 @@ func _build_weapon_tree() -> void:
 	var current_form: String = GameManager.weapon_form
 	_content.add_child(_section("DAO GĂM BASIC  →  CHỌN MỘT DẠNG VŨ KHÍ"))
 	if current_form != "":
-		_content.add_child(_section("KỸ NĂNG · MỐC 1 / 4 / 6 SP     —     TIẾN HÓA · MỐC 3 / 6 / 7 SP     —     TUYỆT KỸ · MỐC 5 / 8 SP"))
+		_content.add_child(_section("KỸ NĂNG · MỐC 1 / 4 / 6 / 9 SP     —     TIẾN HÓA · MỐC 3–10 SP     —     TUYỆT KỸ · MỐC 5 / 8 SP"))
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	graph.custom_minimum_size.y = 184.0 if current_form == "" else 480.0
+	graph.custom_minimum_size.y = 290.0 if current_form == "" else 660.0
 	_content.add_child(graph)
 	var root_color := Color("e5d08d")
 	var root_position := Vector2(0.5, 0.22 if current_form == "" else 0.08)
@@ -246,15 +272,15 @@ func _build_weapon_tree() -> void:
 	if current_form == "":
 		for index in FORMS.size():
 			var form_data: Dictionary = FORMS[index]
-			var x: float = [0.19, 0.5, 0.81][index]
-			var form_id: String = form_data.id
+			var position: Vector2 = [Vector2(0.27, 0.52), Vector2(0.73, 0.52), Vector2(0.27, 0.84), Vector2(0.73, 0.84)][index]
+			var form_id: String = str(form_data["id"])
+			var form_color: Color = form_data["color"]
 			var already_chosen := int(GameManager.skill_allocations.get("form_" + form_id, 0)) > 0
 			var can_choose := GameManager.skill_points > 0 and not already_chosen
-			var position := Vector2(x, 0.75)
-			graph.add_link(Vector2(0.5, 0.22), position, form_data.color.darkened(0.15))
+			graph.add_link(Vector2(0.5, 0.22), position, form_color.darkened(0.15))
 			var form_callback := func() -> void:
 				GameManager.spend_skill_point("form_" + form_id, form_id)
-			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data.short), "0/1", form_data.color, can_choose, already_chosen, false, str(form_data.name), form_callback, _skill_icon_path(form_id + "_orb"))
+			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data["short"]), "0/1", form_color, can_choose, already_chosen, false, str(form_data["name"]), form_callback, _skill_icon_path(form_id + "_orb"))
 		_content.add_child(_section("Dùng 1 SP để chọn một nhánh nguyên tố. Cây vũ khí sẽ phát triển theo nhánh đã chọn."))
 		return
 
@@ -265,10 +291,10 @@ func _build_weapon_tree() -> void:
 	_make_node(graph, form_position, current_form.substr(0, 1).to_upper(), str(selected_form.short), "ĐÃ CHỌN", form_color, false, true, true, str(selected_form.name), Callable(), _skill_icon_path(current_form + "_orb"))
 	var active_names: Array = ACTIVE_SKILLS[current_form]
 	var short_names: Array = ACTIVE_SHORT_NAMES[current_form]
-	var active_positions := [Vector2(0.18, 0.42), Vector2(0.5, 0.42), Vector2(0.82, 0.42)]
+	var active_positions: Array[Vector2] = [Vector2(0.25, 0.37), Vector2(0.75, 0.37), Vector2(0.25, 0.51), Vector2(0.75, 0.51)]
 	for index in active_names.size():
 		var skill_id := "active_%s_%d" % [current_form, index + 1]
-		var required: int = [1, 4, 6][index]
+		var required: int = [1, 4, 6, 9][index]
 		var position: Vector2 = active_positions[index]
 		graph.add_link(form_position, position, form_color.darkened(0.3))
 		_add_skill_node(graph, position, skill_id, str(active_names[index]), str(short_names[index]), str(index + 1), required, str(SKILL_DESCRIPTIONS.get(active_names[index], "Kỹ năng vũ khí.")), false, form_color)
@@ -276,20 +302,23 @@ func _build_weapon_tree() -> void:
 	var ultimate_names: Array = ULTIMATE_SKILLS[current_form]
 	var ultimate_short: Array = ULTIMATE_SHORT_NAMES[current_form]
 	var evolution_data: Array = WEAPON_EVOLUTIONS[current_form]
-	var evolution_positions := [Vector2(0.35, 0.64), Vector2(0.65, 0.64)]
-	graph.add_link(active_positions[0], evolution_positions[0], form_color.darkened(0.4))
-	graph.add_link(active_positions[1], evolution_positions[0], form_color.darkened(0.4))
-	graph.add_link(active_positions[1], evolution_positions[1], form_color.darkened(0.4))
-	graph.add_link(active_positions[2], evolution_positions[1], form_color.darkened(0.4))
+	var evolution_positions: Array[Vector2] = []
+	if evolution_data.size() == 3:
+		evolution_positions = [Vector2(0.2, 0.68), Vector2(0.5, 0.68), Vector2(0.8, 0.68)]
+	else:
+		evolution_positions = [Vector2(0.35, 0.68), Vector2(0.65, 0.68)]
 	for index in evolution_data.size():
+		var required_skill: String = str(evolution_data[index]["requires"])
+		var required_slot := clampi(int(required_skill.get_slice("_", 2)) - 1, 0, active_positions.size() - 1)
+		graph.add_link(active_positions[required_slot], evolution_positions[index], form_color.darkened(0.4))
 		_add_evolution_node(graph, evolution_positions[index], evolution_data[index], form_color)
 	var ultimate_positions := [Vector2(0.37, 0.86), Vector2(0.63, 0.86)]
-	graph.add_link(evolution_positions[0], ultimate_positions[0], form_color.darkened(0.45))
-	graph.add_link(evolution_positions[1], ultimate_positions[1], form_color.darkened(0.45))
+	for index in evolution_positions.size():
+		graph.add_link(evolution_positions[index], ultimate_positions[mini(index, 1)], form_color.darkened(0.45))
 	graph.add_link(active_positions[0], ultimate_positions[0], form_color.darkened(0.45))
 	graph.add_link(active_positions[1], ultimate_positions[0], form_color.darkened(0.45))
-	graph.add_link(active_positions[1], ultimate_positions[1], form_color.darkened(0.45))
 	graph.add_link(active_positions[2], ultimate_positions[1], form_color.darkened(0.45))
+	graph.add_link(active_positions[3], ultimate_positions[1], form_color.darkened(0.45))
 	for index in ultimate_names.size():
 		var skill_id := "ultimate_%s_%d" % [current_form, index + 1]
 		var required: int = [5, 8][index]
@@ -343,7 +372,7 @@ func _build_character_tree() -> void:
 
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	graph.custom_minimum_size.y = 226.0
+	graph.custom_minimum_size.y = 252.0
 	_content.add_child(graph)
 	var branches := ["Tấn công", "Phòng thủ", "Cơ động"]
 	var columns := [0.17, 0.5, 0.83]
@@ -395,7 +424,7 @@ func _icon_kind_for_skill(skill_id: String) -> String:
 	var element: String = parts[1]
 	var index := int(parts[2]) - 1
 	if parts[0] == "active":
-		var active_icons: Array[String] = ["shard", "orb", "strike"]
+		var active_icons: Array[String] = ["shard", "orb", "strike", "nova"]
 		return element + "_" + active_icons[clampi(index, 0, active_icons.size() - 1)]
 	if parts[0] == "ultimate":
 		var ultimate_icons: Array[String] = ["nova", "star"]

@@ -13,8 +13,8 @@ var purchased := false
 var selected := false
 var _hovered := false
 
-const NODE_SIZE := Vector2(100.0, 74.0)
-const HEX_RADIUS := 22.0
+const NODE_SIZE := Vector2(128.0, 96.0)
+const HEX_RADIUS := 28.0
 
 
 func _ready() -> void:
@@ -53,7 +53,7 @@ func _on_mouse_exited() -> void:
 
 
 func _draw() -> void:
-	var center := Vector2(size.x * 0.5, 25.0)
+	var center := Vector2(size.x * 0.5, 30.0)
 	var radius := HEX_RADIUS + (2.0 if _hovered and available else 0.0)
 	var points := PackedVector2Array([
 		center + Vector2(-radius * 0.5, -radius * 0.866),
@@ -82,8 +82,8 @@ func _draw() -> void:
 	draw_polyline(outline, border, 2.0 if available or selected else 1.0, true)
 	var font: Font = ThemeDB.fallback_font
 	if icon_texture != null:
-		draw_texture_rect(icon_texture, Rect2(Vector2(center.x - 12.0, center.y - 12.0), Vector2(24.0, 24.0)), false)
+		draw_texture_rect(icon_texture, Rect2(Vector2(center.x - 15.0, center.y - 15.0), Vector2(30.0, 30.0)), false)
 	else:
-		draw_string(font, Vector2(0.0, center.y + 5.0), icon_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 15, Color("f3f7fc"))
-	draw_string(font, Vector2(0.0, 48.0), rank_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 8, Color("f8edc4") if purchased or selected else Color("bdc8d1"))
-	draw_string(font, Vector2(0.0, 70.0), title_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 8, Color("f2f4f6") if available or purchased else Color("9ba7b3"))
+		draw_string(font, Vector2(0.0, center.y + 6.0), icon_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 18, Color("f3f7fc"))
+	draw_string(font, Vector2(0.0, 66.0), rank_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 10, Color("f8edc4") if purchased or selected else Color("bdc8d1"))
+	draw_string(font, Vector2(0.0, 91.0), title_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 10, Color("f2f4f6") if available or purchased else Color("9ba7b3"))

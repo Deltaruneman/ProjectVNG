@@ -13,14 +13,16 @@ const MAX_RAGE := 100.0
 var selected_active_slot := 1
 const ACTIVE_SKILL_COOLDOWNS := {
 	"basic_dagger": 1.2,
-	"active_wind_1": 1.6, "active_wind_2": 8.0, "active_wind_3": 6.0,
-	"active_fire_1": 1.6, "active_fire_2": 10.0, "active_fire_3": 8.0,
-	"active_ice_1": 1.8, "active_ice_2": 8.0, "active_ice_3": 12.0,
+	"active_wind_1": 1.6, "active_wind_2": 8.0, "active_wind_3": 6.0, "active_wind_4": 12.0,
+	"active_fire_1": 1.6, "active_fire_2": 10.0, "active_fire_3": 8.0, "active_fire_4": 13.0,
+	"active_ice_1": 1.8, "active_ice_2": 8.0, "active_ice_3": 12.0, "active_ice_4": 14.0,
+	"active_lightning_1": 1.5, "active_lightning_2": 7.0, "active_lightning_3": 9.0, "active_lightning_4": 13.0,
 }
 const ULTIMATE_SKILL_COOLDOWNS := {
 	"ultimate_wind_1": 20.0, "ultimate_wind_2": 18.0,
 	"ultimate_fire_1": 18.0, "ultimate_fire_2": 25.0,
 	"ultimate_ice_1": 22.0, "ultimate_ice_2": 25.0,
+	"ultimate_lightning_1": 20.0, "ultimate_lightning_2": 25.0,
 }
 var _active_skill_cooldowns: Dictionary = {}
 var _ultimate_cooldown_remaining := 0.0
@@ -74,7 +76,7 @@ func die() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	for slot in 3:
+	for slot in 4:
 		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
 			selected_active_slot = slot + 1
 			active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
@@ -105,7 +107,7 @@ func get_selected_active_skill_id() -> String:
 
 
 func get_active_skill_id_for_slot(slot: int) -> String:
-	if GameManager.weapon_form == "" or slot < 1 or slot > 3:
+	if GameManager.weapon_form == "" or slot < 1 or slot > 4:
 		return ""
 	var skill_id := "active_%s_%d" % [GameManager.weapon_form, slot]
 	return skill_id if GameManager.unlocked_skills.has(skill_id) else ""
@@ -176,6 +178,8 @@ func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
 		elif elemental_form == "ice":
 			var frostbite_rank := int(GameManager.skill_allocations.get("evo_ice_frostbite", 0))
 			enemy.apply_skill_slow(2.0 + float(frostbite_rank), 0.5)
+		elif elemental_form == "lightning":
+			enemy.apply_skill_freeze(0.35)
 	var stage := get_tree().current_scene as Node3D
 	if stage != null and elemental_form != "":
 		var impact_direction := area.global_position - global_position
@@ -183,7 +187,6 @@ func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
 		if impact_direction.length_squared() < 0.001:
 			impact_direction = get_skill_aim_direction()
 		BattleFX.impact(stage, area.global_position + Vector3.UP * 0.5, elemental_form, impact_direction.normalized())
-		BattleFX.emberline_impact(self, area.global_position + Vector3.UP * 0.5, elemental_form, impact_direction, 0.42)
 
 
 func _get_enemy_from_hurt_area(area: Area3D) -> EnemyCharacter:
@@ -218,7 +221,7 @@ func _apply_skill_bonuses() -> void:
 
 
 func cast_active_skill(active_id: String) -> bool:
-	if active_id in ["", "active_wind_1", "active_fire_1", "active_ice_1"]:
+	if active_id in ["", "active_wind_1", "active_fire_1", "active_ice_1", "active_lightning_1"]:
 		return false
 	var aim := get_skill_aim_direction()
 	var damage := attack_damage + int(GameManager.skill_allocations.get("char_element", 0))
@@ -235,6 +238,11 @@ func cast_active_skill(active_id: String) -> bool:
 			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.5), "wind", aim, 0.8 + 0.16 * float(gale_rank))
 			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, roundi(float(damage * 2) * (1.0 + 0.5 * float(gale_rank))))
 			global_position += aim * (1.5 + 0.5 * float(gale_rank))
+		"active_wind_4":
+			var tornado_rank := int(GameManager.skill_allocations.get("evo_wind_tornado", 0))
+			var tornado_radius := 4.0 + 0.5 * float(tornado_rank)
+			BattleFX.tornado(self, global_position + Vector3.UP * 0.65, tornado_radius, 2.0)
+			_damage_enemies_in_shape(global_position, aim, "circle", tornado_radius, 0.0, 360.0, damage, 0.0, 2.0 + float(tornado_rank))
 		"active_fire_2":
 			BattleFX.charge(self, global_position + Vector3.UP * 0.65, "fire", 0.65)
 			var inferno_rank := int(GameManager.skill_allocations.get("evo_fire_inferno", 0))
@@ -244,12 +252,16 @@ func cast_active_skill(active_id: String) -> bool:
 				if is_inside_tree():
 					var blast_center := global_position
 					BattleFX.circle_burst(self, blast_center + Vector3.UP * 0.65, "fire", blast_radius)
-					BattleFX.emberline_ring(self, blast_center, "fire", aim, blast_radius)
 					BattleFX.play_skill_sound(self, "fire_impact")
 					_damage_enemies_in_shape(blast_center, aim, "circle", blast_radius, 0.0, 360.0, damage * 2))
 		"active_fire_3":
 			health = maxi(1, health - int(ceil(health * 0.25)))
 			_fire_rage_sequence.call_deferred(damage, aim)
+		"active_fire_4":
+			var meteor_rank := int(GameManager.skill_allocations.get("evo_fire_meteor", 0))
+			var meteor_center := global_position + aim * 4.5
+			BattleFX.meteor(self, meteor_center + Vector3.UP * 0.5, aim, 3.5)
+			_damage_enemies_in_shape(meteor_center, aim, "circle", 3.5, 0.0, 360.0, damage * (2 + meteor_rank), 0.0, 0.0, 0.0, 2.0, maxi(1, damage / 2))
 		"active_ice_2":
 			var frostbite_rank := int(GameManager.skill_allocations.get("evo_ice_frostbite", 0))
 			var shatter_rank := int(GameManager.skill_allocations.get("evo_ice_shatter", 0))
@@ -263,6 +275,24 @@ func cast_active_skill(active_id: String) -> bool:
 			BattleFX.shield(self, global_position, "ice", 8.0, 0.25)
 			BattleFX.emberline_ring(self, global_position, "ice", aim, 1.25)
 			get_tree().create_timer(8.0).timeout.connect(func() -> void: ice_shield = 0)
+		"active_ice_4":
+			var storm_rank := int(GameManager.skill_allocations.get("evo_ice_storm", 0))
+			var storm_radius := 4.0 + 0.5 * float(storm_rank)
+			BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "ice", storm_radius)
+			_damage_enemies_in_shape(global_position, aim, "circle", storm_radius, 0.0, 360.0, damage * 2, 1.5 + 0.5 * float(storm_rank))
+		"active_lightning_2":
+			var chain_rank := int(GameManager.skill_allocations.get("evo_lightning_chain", 0))
+			BattleFX.lightning_strike(self, skill_effect_position(aim, 2.5, 0.55), 2.0)
+			_damage_enemies_in_shape(global_position, aim, "cone", 7.0 + float(chain_rank), 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank))
+		"active_lightning_3":
+			var lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
+			var strike_center := global_position + aim * 4.0
+			BattleFX.lightning_strike(self, strike_center + Vector3.UP * 0.5, 2.4)
+			_damage_enemies_in_shape(strike_center, aim, "circle", 3.0, 0.0, 360.0, damage * (3 + lightning_rank), 0.6)
+		"active_lightning_4":
+			var storm_lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
+			BattleFX.circle_burst(self, global_position + Vector3.UP * 0.6, "lightning", 5.0)
+			_damage_enemies_in_shape(global_position, aim, "circle", 5.0, 0.0, 360.0, damage * (2 + storm_lightning_rank), 0.8)
 	return true
 
 
@@ -270,7 +300,6 @@ func _fire_rage_sequence(damage: int, aim: Vector3) -> void:
 	var radius := 3.5 + float(GameManager.skill_allocations.get("evo_fire_inferno", 0))
 	for tick in 3:
 		BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "fire", radius)
-		BattleFX.emberline_burst(self, global_position, "fire", aim, radius)
 		_damage_enemies_in_shape(global_position, aim, "circle", radius, 0.0, 360.0, damage)
 		if tick < 2:
 			await get_tree().create_timer(1.0).timeout
@@ -287,7 +316,7 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: float = 0.0) -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: float = 0.0, burn_duration: float = 0.0, burn_damage: int = 0) -> int:
 	var aim_2d := Vector2(aim.x, aim.z).normalized()
 	if aim_2d.length_squared() < 0.001:
 		aim_2d = Vector2(forward().x, forward().z).normalized()
@@ -329,12 +358,13 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			var stage := get_tree().current_scene as Node3D
 			if stage != null:
 				BattleFX.impact(stage, enemy.global_position + Vector3.UP * 0.55, GameManager.weapon_form, impact_direction)
-			BattleFX.emberline_impact(self, enemy.global_position + Vector3.UP * 0.55, GameManager.weapon_form, impact_direction, 0.42)
 			hit_count += 1
 		if freeze_duration > 0.0:
 			enemy.apply_skill_freeze(freeze_duration)
 		if slow_duration > 0.0:
 			enemy.apply_skill_slow(slow_duration, 0.5)
+		if burn_duration > 0.0:
+			enemy.apply_skill_burn(self, burn_damage, burn_duration, 1.0)
 	return hit_count
 
 
@@ -344,7 +374,7 @@ func cast_ultimate() -> bool:
 	var skill_id: String = GameManager.selected_ultimate_skill
 	var aim := get_skill_aim_direction()
 	BattleFX.play_skill_sound(self, skill_id)
-	var radius := 18.0 if skill_id == "ultimate_ice_2" else 7.0
+	var radius := 18.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else 7.0
 	if skill_id == "ultimate_fire_2":
 		radius += float(GameManager.skill_allocations.get("evo_fire_inferno", 0))
 	var damage := attack_damage * (4 if radius < 10.0 else 2)
@@ -367,6 +397,12 @@ func cast_ultimate() -> bool:
 		BattleFX.circle_burst(self, vfx_position, "fire", 7.0)
 	elif skill_id == "ultimate_ice_1":
 		BattleFX.shield(self, global_position, "ice", 2.0, 1.0)
+	elif skill_id == "ultimate_lightning_1":
+		BattleFX.circle_burst(self, vfx_position, "lightning", 8.0)
+	elif skill_id == "ultimate_lightning_2":
+		for enemy_node: Node in get_tree().get_nodes_in_group("enemies"):
+			if enemy_node is EnemyCharacter:
+				BattleFX.lightning_strike(self, (enemy_node as EnemyCharacter).global_position + Vector3.UP * 0.5, 1.8)
 	else:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
 		BattleFX.slash(self, vfx_position, "ice", aim, 1.1)
@@ -380,12 +416,9 @@ func cast_ultimate() -> bool:
 	if skill_id == "ultimate_ice_1":
 		_ice_pillar_pulses.call_deferred(damage)
 	else:
-		var ultimate_shape := "global" if skill_id == "ultimate_ice_2" else "circle"
-		if skill_id in ["ultimate_fire_2", "ultimate_ice_2"]:
-			BattleFX.emberline_burst(self, global_position, GameManager.weapon_form, aim, radius)
-		elif skill_id == "ultimate_wind_1":
-			BattleFX.emberline_ring(self, global_position, "wind", aim, radius)
-		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, 1.0 if skill_id == "ultimate_ice_2" else 0.0)
+		var ultimate_shape := "global" if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else "circle"
+		var ultimate_freeze := 1.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else (0.8 if skill_id == "ultimate_lightning_1" else 0.0)
+		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze)
 	rage = 0.0
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)

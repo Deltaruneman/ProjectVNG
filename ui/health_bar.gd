@@ -10,7 +10,7 @@ const SLOT_H := 36.0
 const SLOT_GAP := 4
 const BAR_PAD := 4
 const BAR_BOTTOM := 6.0
-const SLOT_COUNT := 4
+const SLOT_COUNT := 5
 
 ## Health bar ở góc trên-trái màn hình. Gắn script này vào một node CanvasLayer.
 ## - Nếu gán texture_progress (ảnh thanh máu đầy) trong Inspector -> dùng TextureProgressBar với ảnh của bạn.
@@ -101,6 +101,12 @@ func set_skill_bar_visible(value: bool) -> void:
 		bar.visible = value
 
 
+func set_skill_tree_open(open: bool) -> void:
+	for child in get_children():
+		if child.name != "SkillTree":
+			child.visible = not open
+
+
 func _process(_delta: float) -> void:
 	_refresh_skill_bar()
 
@@ -119,12 +125,12 @@ func _build_skill_bar() -> void:
 	var bar_h := SLOT_H + BAR_PAD * 2.0
 	var frame := PanelContainer.new()
 	frame.name = "SkillBar"
-	frame.anchor_left = 0.5
-	frame.anchor_right = 0.5
+	frame.anchor_left = 0.3
+	frame.anchor_right = 0.3
 	frame.anchor_top = 1.0
 	frame.anchor_bottom = 1.0
-	frame.offset_left = -bar_w * 0.5
-	frame.offset_right = bar_w * 0.5
+	frame.offset_left = -bar_w * 0.8
+	frame.offset_right = bar_w * 0.8
 	frame.offset_top = -(bar_h + BAR_BOTTOM)
 	frame.offset_bottom = -BAR_BOTTOM
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -206,7 +212,7 @@ func _build_skill_bar() -> void:
 		key_label.size = Vector2(12.0, 12.0)
 		key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		key_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		key_label.text = "I" if index == 3 else str(index + 1)
+		key_label.text = "I" if index == SLOT_COUNT - 1 else str(index + 1)
 		key_label.add_theme_font_size_override("font_size", 7)
 		key_label.add_theme_color_override("font_color", Color("fff2cf"))
 		key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -215,9 +221,9 @@ func _build_skill_bar() -> void:
 
 func _refresh_skill_bar() -> void:
 	var player := _player as Player
-	if player == null or _skill_slot_panels.size() != 4:
+	if player == null or _skill_slot_panels.size() != SLOT_COUNT:
 		return
-	for index in 3:
+	for index in 4:
 		var slot_number := index + 1
 		var skill_id := player.get_active_skill_id_for_slot(slot_number)
 		var icon_name := _skill_icon_name(skill_id)
@@ -238,18 +244,19 @@ func _refresh_skill_bar() -> void:
 	var ultimate_id := GameManager.selected_ultimate_skill
 	var ultimate_icon := _skill_icon_name(ultimate_id)
 	var ultimate_texture: Texture2D = _load_skill_icon(ultimate_icon)
-	_skill_slot_icons[3].texture = ultimate_texture
-	_skill_slot_icons[3].modulate = Color.WHITE if ultimate_id != "" else Color("65717b")
-	_skill_slot_placeholders[3].visible = ultimate_texture == null
-	_skill_slot_placeholders[3].text = "I" if ultimate_id == "" else "?"
+	var ultimate_slot := SLOT_COUNT - 1
+	_skill_slot_icons[ultimate_slot].texture = ultimate_texture
+	_skill_slot_icons[ultimate_slot].modulate = Color.WHITE if ultimate_id != "" else Color("65717b")
+	_skill_slot_placeholders[ultimate_slot].visible = ultimate_texture == null
+	_skill_slot_placeholders[ultimate_slot].text = "I" if ultimate_id == "" else "?"
 	var ultimate_remaining := player.get_ultimate_cooldown_remaining()
-	_skill_slot_cooldown_overlays[3].visible = ultimate_remaining > 0.0
-	_skill_slot_cooldown_labels[3].visible = ultimate_remaining > 0.0
-	_skill_slot_cooldown_labels[3].text = str(ceili(ultimate_remaining)) if ultimate_remaining > 0.0 else ""
+	_skill_slot_cooldown_overlays[ultimate_slot].visible = ultimate_remaining > 0.0
+	_skill_slot_cooldown_labels[ultimate_slot].visible = ultimate_remaining > 0.0
+	_skill_slot_cooldown_labels[ultimate_slot].text = str(ceili(ultimate_remaining)) if ultimate_remaining > 0.0 else ""
 	var ultimate_ready := ultimate_id != "" and player.rage >= Player.MAX_RAGE and ultimate_remaining <= 0.0
-	_skill_slot_styles[3].border_color = Color("f3d36a") if ultimate_ready else Color("ad7be8")
-	_skill_slot_styles[3].set_border_width_all(2 if ultimate_ready else 1)
-	_skill_slot_panels[3].tooltip_text = "I · %s · Nộ khí %d%%" % [_skill_display_name(ultimate_id), int(player.rage)]
+	_skill_slot_styles[ultimate_slot].border_color = Color("f3d36a") if ultimate_ready else Color("ad7be8")
+	_skill_slot_styles[ultimate_slot].set_border_width_all(2 if ultimate_ready else 1)
+	_skill_slot_panels[ultimate_slot].tooltip_text = "I · %s · Nộ khí %d%%" % [_skill_display_name(ultimate_id), int(player.rage)]
 
 
 func _skill_display_name(skill_id: String) -> String:
@@ -258,9 +265,12 @@ func _skill_display_name(skill_id: String) -> String:
 		"active_wind_1": "Giải Phóng Kiếm Khí", "active_wind_2": "Phong Bộc", "active_wind_3": "Quét Kiếm Phi Gió",
 		"active_fire_1": "Hỏa Ảnh Trảm", "active_fire_2": "Ma Hỏa", "active_fire_3": "Hỏa Nộ",
 		"active_ice_1": "Cấp Đông Tức Thì", "active_ice_2": "Hầm Mộ Băng Giá", "active_ice_3": "Khiên Băng",
+		"active_wind_4": "Lốc Xoáy", "active_fire_4": "Mưa Thiên Thạch", "active_ice_4": "Bão Băng",
+		"active_lightning_1": "Phi Dao Lôi", "active_lightning_2": "Xích Lôi", "active_lightning_3": "Sét Đánh", "active_lightning_4": "Lôi Bạo",
 		"ultimate_wind_1": "Cái Chết Tựa Cơn Gió", "ultimate_wind_2": "Phong Linh",
 		"ultimate_fire_1": "Hỏa Kiếm", "ultimate_fire_2": "Hỏa Thần Giáng Lâm",
 		"ultimate_ice_1": "Chân Băng", "ultimate_ice_2": "Kỷ Băng Hà",
+		"ultimate_lightning_1": "Tâm Bão", "ultimate_lightning_2": "Thiên Lôi",
 	}
 	return str(names.get(skill_id, skill_id.replace("_", " ")))
 
@@ -272,10 +282,10 @@ func _skill_icon_name(skill_id: String) -> String:
 	if parts.size() < 3:
 		return ""
 	var element: String = parts[1]
-	var index := clampi(int(parts[2]) - 1, 0, 2)
+	var index := int(parts[2]) - 1
 	if parts[0] == "active":
-		var active_icons: Array[String] = ["shard", "orb", "strike"]
-		return element + "_" + active_icons[index]
+		var active_icons: Array[String] = ["shard", "orb", "strike", "nova"]
+		return element + "_" + active_icons[clampi(index, 0, active_icons.size() - 1)]
 	if parts[0] == "ultimate":
 		var ultimate_icons: Array[String] = ["nova", "star"]
 		return element + "_" + ultimate_icons[mini(index, 1)]
