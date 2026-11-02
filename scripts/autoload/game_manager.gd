@@ -12,7 +12,7 @@ signal stage_changed(stage: Stage)
 
 ## The game's main scene. A new game starts here, and so does a fox that dies before touching any
 ## checkpoint.
-const FIRST_STAGE := "res://levels/level_1/stage_1.tscn"
+const FIRST_STAGE := "res://levels/level_1/basement_b1.tscn"
 
 var current_stage: Stage = null
 ## Where the next stage puts the fox: a door id or a checkpoint id. "" = the stage's default spot

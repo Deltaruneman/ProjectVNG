@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://ut8i8xxf74gj"]
+
+[ext_resource type="Script" uid="uid://dp1xhrsvl81mt" path="res://levels/level_1/basement_floor_visibility.gd" id="1_i11w6"]
+[ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
+[ext_resource type="MeshLibrary" uid="uid://6qsq1khaqva3" path="res://assets/meshes/KKD_library.tres" id="2_mohxj"]
+[ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
+[ext_resource type="MeshLibrary" uid="uid://uavljtls5sk3" path="res://assets/meshes/MVP_library.tres" id="3_mohxj"]
+[ext_resource type="PackedScene" path="res://levels/objects/enemy_zone/enemy_zone.tscn" id="4_mohxj"]
+[ext_resource type="PackedScene" uid="uid://icalni7ywn0a" path="res://scenes/map/torches/torch.tscn" id="5_0i3fv"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
+[ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
+[ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="7_kohv5"]
+[ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
+[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_lpgvr"]
+[ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
+[ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
+
+[sub_resource type="Environment" id="Environment_1ccrl"]
+background_mode = 1
+background_color = Color(0.015, 0.012, 0.02, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.47, 0.62, 1)
+ambient_light_energy = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w875x"]
+albedo_color = Color(1, 0.55, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_kohv5"]
+material = SubResource("StandardMaterial3D_w875x")
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8shw5"]
+albedo_color = Color(1, 0.55, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_jnqiw"]
+material = SubResource("StandardMaterial3D_8shw5")
+size = Vector3(0.25, 0.5, 0.25)
+
+[node name="Stage" type="Node3D" unique_id=1650261821]
+script = ExtResource("1_i11w6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1873455484]
+environment = SubResource("Environment_1ccrl")
+
+[node name="B1" type="Node3D" parent="." unique_id=1699481231]
+metadata/floor_level = 0
+
+[node name="HiddenGate_B1_5" type="Node3D" parent="B1" unique_id=105738262]
+metadata/note = "Lối vào B1.5 (x = 18, z 6–7). Mở: queue_free() node này. Ẩn (visible) KHÔNG tắt va chạm."
+
+[node name="B1_5Side" type="GridMap" parent="B1/HiddenGate_B1_5" unique_id=1417552252]
+mesh_library = ExtResource("2_mohxj")
+data = {
+"cells": PackedInt32Array(19, 5, 1048612, 19, 7, 1048612, 19, 4, 1442215, 19, 6, 1442215, 19, 8, 1442215)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="World" type="GridMap" parent="B1" unique_id=1307685429]
+mesh_library = ExtResource("2_0i3fv")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(-65536, 21, 131106, -65536, 20, 131106, -65536, 19, 131106)
+}
+metadata/_editor_floor_ = Vector3(-3, 0, 15)
+
+[node name="Floor" type="GridMap" parent="B1/World" unique_id=1493435132]
+mesh_library = ExtResource("3_mohxj")
+data = {
+"cells": PackedInt32Array(65534, 9, 524314, 65534, 10, 524314, 65534, 11, 524314, 65534, 12, 524314, 65534, 13, 524314, 65534, 14, 524314, 65534, 15, 524314, 65535, 15, 524314, 65535, 14, 524314, 65535, 9, 524314, 65535, 10, 524314, 65535, 11, 524314, 65535, 12, 524314, 65535, 13, 524314, 0, 13, 524314, 0, 14, 524314, 0, 15, 524314, 1, 15, 524314, 1, 14, 524314, 1, 13, 524314, 1, 12, 524314, 2, 12, 524314, 2, 11, 524314, 2, 10, 524314, 1, 10, 524314, 1, 9, 655386, 0, 9, 524314, 0, 10, 524314, 0, 11, 524314, 0, 12, 524314, 1, 11, 524314, 2, 9, 655386, 2, 13, 655386, 2, 14, 655386, 2, 15, 655386, 65533, 9, 655386, 65533, 10, 655386, 65532, 10, 655386, 65531, 10, 655386, 65530, 10, 655386, 65530, 9, 655386, 65530, 5, 655386, 65530, 6, 655386, 65530, 7, 655386, 65530, 8, 655386, 65530, 4, 655386, 65531, 4, 655386, 65532, 4, 655386, 65533, 4, 655386, 65534, 4, 655386, 65534, 5, 655386, 65534, 6, 655386, 65535, 6, 655386, 65535, 7, 655386, 65535, 8, 655386, 65534, 8, 655386, 65534, 7, 655386, 65533, 7, 655386, 65533, 8, 655386, 65532, 9, 655386, 65531, 9, 655386, 65531, 8, 655386, 65532, 8, 655386, 65532, 7, 655386, 65532, 6, 655386, 65531, 6, 655386, 65533, 6, 655386, 65533, 5, 655386, 65532, 5, 655386, 65531, 5, 655386, 65531, 7, 655386, 0, 8, 655386, 1, 8, 655386, 2, 8, 655386, 2, 7, 655386, 1, 7, 655386, 0, 7, 655386, 0, 6, 655386, 1, 6, 655386, 2, 6, 655386, 2, 5, 655386, 1, 5, 655386, 0, 5, 655386, 65535, 5, 655386, 65535, 4, 655386, 0, 4, 655386, 1, 4, 655386, 2, 4, 655386, 2, 3, 655386, 1, 3, 655386, 1, 2, 655386, 0, 2, 655386, 65535, 2, 655386, 65534, 2, 655386, 65534, 3, 655386, 65535, 3, 655386, 0, 3, 655386, 2, 2, 655386, 2, 1, 655386, 2, 0, 655386, 2, 65535, 655386, 2, 65534, 655386, 1, 65534, 655386, 0, 65534, 655386, 65535, 65534, 655386, 65534, 65534, 655386, 65534, 65535, 655386, 65534, 0, 655386, 65534, 1, 655386, 65535, 1, 655386, 0, 1, 655386, 1, 1, 655386, 1, 0, 655386, 1, 65535, 655386, 65535, 65535, 655386, 65535, 0, 655386, 0, 0, 655386, 0, 65535, 655386, 8, 65534, 655386, 7, 65534, 655386, 6, 65534, 655386, 5, 65534, 655386, 4, 65534, 655386, 3, 65534, 655386, 16, 65534, 655386, 15, 65534, 655386, 14, 65534, 655386, 13, 65534, 655386, 12, 65534, 655386, 11, 65534, 655386, 10, 65534, 655386, 9, 65534, 655386, 17, 65535, 655386, 16, 65535, 655386, 15, 65535, 655386, 14, 65535, 655386, 13, 65535, 655386, 12, 65535, 655386, 11, 65535, 655386, 10, 65535, 655386, 9, 65535, 655386, 4, 65535, 655386, 5, 65535, 655386, 6, 65535, 655386, 7, 65535, 655386, 8, 65535, 655386, 3, 65535, 655386, 3, 0, 655386, 3, 1, 655386, 3, 2, 655386, 4, 2, 655386, 5, 2, 655386, 4, 1, 655386, 4, 0, 655386, 5, 0, 655386, 6, 0, 655386, 7, 0, 655386, 8, 0, 655386, 9, 0, 655386, 10, 0, 655386, 11, 0, 655386, 12, 0, 655386, 13, 0, 655386, 14, 0, 655386, 15, 0, 655386, 16, 0, 655386, 17, 0, 655386, 17, 1, 655386, 18, 1, 655386, 16, 1, 655386, 15, 1, 655386, 14, 1, 655386, 13, 1, 655386, 12, 1, 655386, 11, 1, 655386, 10, 1, 655386, 9, 1, 655386, 8, 1, 655386, 7, 1, 655386, 6, 1, 655386, 5, 1, 655386, 6, 2, 655386, 7, 2, 655386, 8, 2, 655386, 9, 2, 655386, 10, 2, 655386, 11, 3, 655386, 12, 3, 655386, 13, 3, 655386, 14, 3, 655386, 15, 3, 655386, 16, 3, 655386, 17, 3, 655386, 17, 2, 655386, 18, 2, 655386, 16, 2, 655386, 15, 2, 655386, 14, 2, 655386, 13, 2, 655386, 12, 2, 655386, 11, 2, 655386, 10, 3, 655386, 9, 3, 655386, 8, 3, 655386, 7, 3, 655386, 6, 3, 655386, 5, 3, 655386, 4, 3, 655386, 3, 3, 655386, 17, 65534, 655386, 18, 65534, 655386, 19, 65534, 655386, 19, 65535, 655386, 19, 0, 655386, 19, 1, 655386, 18, 0, 655386, 18, 65535, 655386, 18, 3, 655386, 18, 4, 655386, 18, 5, 655386, 18, 6, 655386, 18, 7, 655386, 18, 8, 655386, 18, 9, 655386, 18, 10, 655386, 18, 11, 655386, 18, 12, 655386, 18, 13, 655386, 19, 13, 655386, 19, 12, 655386, 19, 11, 655386, 19, 10, 655386, 19, 9, 655386, 19, 8, 655386, 19, 7, 655386, 19, 6, 655386, 19, 5, 655386, 19, 4, 655386, 17, 4, 655386, 16, 4, 655386, 15, 4, 655386, 14, 4, 655386, 13, 4, 655386, 12, 4, 655386, 11, 4, 655386, 10, 4, 655386, 9, 4, 655386, 8, 4, 655386, 8, 5, 655386, 7, 5, 655386, 7, 4, 655386, 6, 5, 655386, 6, 4, 655386, 5, 4, 655386, 4, 4, 655386, 3, 4, 655386, 3, 5, 655386, 4, 5, 655386, 5, 5, 655386, 9, 5, 655386, 10, 5, 655386, 11, 5, 655386, 12, 5, 655386, 13, 5, 655386, 14, 5, 655386, 15, 5, 655386, 16, 5, 655386, 17, 5, 655386, 17, 6, 655386, 16, 6, 655386, 15, 6, 655386, 14, 6, 655386, 13, 6, 655386, 12, 6, 655386, 11, 6, 655386, 10, 6, 655386, 9, 6, 655386, 8, 6, 655386, 7, 6, 655386, 6, 7, 655386, 5, 7, 655386, 4, 7, 655386, 3, 7, 655386, 3, 6, 655386, 4, 6, 655386, 5, 6, 655386, 6, 6, 655386, 12, 7, 655386, 13, 7, 655386, 14, 7, 655386, 15, 7, 655386, 16, 7, 655386, 17, 7, 655386, 17, 8, 655386, 16, 8, 655386, 15, 8, 655386, 14, 8, 655386, 13, 8, 655386, 12, 8, 655386, 11, 8, 655386, 10, 8, 655386, 10, 7, 655386, 9, 7, 655386, 8, 7, 655386, 7, 7, 655386, 9, 8, 655386, 8, 8, 655386, 7, 8, 655386, 11, 7, 655386, 6, 8, 655386, 5, 8, 655386, 4, 8, 655386, 3, 8, 655386, 3, 9, 655386, 4, 9, 655386, 5, 9, 655386, 6, 9, 655386, 7, 9, 655386, 8, 9, 655386, 9, 9, 655386, 10, 9, 655386, 11, 9, 655386, 12, 9, 655386, 13, 9, 655386, 14, 9, 655386, 15, 9, 655386, 16, 9, 655386, 17, 9, 655386, 17, 13, 655386, 17, 12, 655386, 17, 11, 655386, 17, 10, 655386, 16, 10, 655386, 15, 10, 655386, 14, 10, 655386, 13, 10, 655386, 12, 10, 655386, 12, 11, 655386, 11, 11, 655386, 10, 11, 655386, 9, 11, 655386, 8, 11, 655386, 7, 11, 655386, 7, 10, 655386, 8, 10, 655386, 9, 10, 655386, 10, 10, 655386, 11, 10, 655386, 13, 11, 655386, 14, 11, 655386, 15, 11, 655386, 16, 11, 655386, 17, 14, 655386, 18, 14, 655386, 18, 15, 655386, 19, 15, 655386, 19, 14, 655386, 17, 15, 655386, 16, 15, 655386, 15, 15, 655386, 14, 15, 655386, 13, 15, 655386, 12, 15, 655386, 11, 15, 655386, 10, 15, 655386, 9, 15, 655386, 8, 15, 655386, 6, 15, 655386, 5, 15, 655386, 5, 14, 655386, 6, 14, 655386, 6, 13, 655386, 7, 12, 655386, 7, 13, 655386, 5, 13, 655386, 4, 13, 655386, 5, 12, 655386, 6, 12, 655386, 7, 14, 655386, 7, 15, 655386, 8, 14, 655386, 8, 13, 655386, 8, 12, 655386, 9, 12, 655386, 10, 12, 655386, 11, 12, 655386, 12, 12, 655386, 13, 12, 655386, 16, 12, 655386, 15, 12, 655386, 14, 12, 655386, 15, 13, 655386, 16, 13, 655386, 16, 14, 655386, 15, 14, 655386, 14, 14, 655386, 13, 14, 655386, 12, 14, 655386, 9, 14, 655386, 10, 14, 655386, 11, 14, 655386, 12, 13, 655386, 13, 13, 655386, 11, 13, 655386, 10, 13, 655386, 9, 13, 655386, 14, 13, 655386, 6, 10, 655386, 6, 11, 655386, 4, 12, 655386, 3, 12, 655386, 3, 11, 655386, 3, 10, 655386, 4, 10, 655386, 5, 10, 655386, 5, 11, 655386, 4, 11, 655386, 3, 13, 655386, 3, 14, 655386, 3, 15, 655386, 4, 15, 655386, 4, 14, 655386, 19, 3, 655386, 19, 2, 655386)
+}
+metadata/_editor_floor_ = Vector3(-2, 0, 0)
+
+[node name="Wall" type="GridMap" parent="B1/World" unique_id=731399226]
+mesh_library = ExtResource("2_mohxj")
+data = {
+"cells": PackedInt32Array(65530, 10, 1048758, 65530, 8, 1048758, 65530, 6, 1048758, 65530, 4, 1048758, 65531, 10, 182, 65533, 10, 182, 65534, 10, 1441974, 65534, 12, 1441974, 65534, 14, 1441974, 65534, 15, 655542, 0, 15, 655542, 2, 15, 655542, 4, 15, 655542, 6, 15, 655542, 8, 15, 655542, 10, 15, 655542, 12, 15, 655542, 14, 15, 655542, 16, 15, 655542, 18, 15, 655542, 19, 15, 1048758, 19, 13, 1048758, 19, 11, 1048758, 19, 9, 1048758, 19, 2, 1048758, 19, 0, 1048758, 19, 65534, 1441974, 18, 65534, 655542, 16, 65534, 655542, 14, 65534, 655542, 12, 65534, 655542, 10, 65534, 655542, 8, 65534, 655542, 6, 65534, 655542, 4, 65534, 655542, 2, 65534, 655542, 0, 65534, 655542, 65534, 65534, 655542, 65534, 65535, 1048758, 65534, 1, 1048758, 65534, 3, 1048758, 65534, 4, 182, 65532, 4, 182, 65531, 4, 182)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Pathfinder" type="Node" parent="B1" unique_id=845893694 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
+script = ExtResource("3_0ceix")
+floor_map = NodePath("../World")
+obstacle_maps = [NodePath("../HiddenGate_B1_5/B1_5Side")]
+
+[node name="EnemyZones" type="Node3D" parent="B1" unique_id=1630822430]
+
+[node name="EnemyZone_A" parent="B1/EnemyZones" unique_id=1373516594 instance=ExtResource("4_mohxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 6)
+enemy_scene = ExtResource("7_kohv5")
+
+[node name="EnemyZone_B" parent="B1/EnemyZones" unique_id=782010491 instance=ExtResource("4_mohxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 22)
+enemy_scene = ExtResource("8_w875x")
+
+[node name="EnemyZone_C" parent="B1/EnemyZones" unique_id=1386295952 instance=ExtResource("4_mohxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 22)
+enemy_scene = ExtResource("9_8shw5")
+
+[node name="ElevatorSlot" type="Marker3D" parent="B1" unique_id=1455509192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1, 2)
+
+[node name="LadderSpot_B1_B2" type="Marker3D" parent="B1" unique_id=2048281936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 1)
+
+[node name="Torches" type="Node3D" parent="B1" unique_id=693443714]
+
+[node name="Torch-mid" parent="B1/Torches" unique_id=1466570129 instance=ExtResource("5_0i3fv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.396384, 3.4, 15.09)
+
+[node name="Torch1" parent="B1/Torches" unique_id=1396609942 instance=ExtResource("5_0i3fv")]
+transform = Transform3D(0.42261824, -0.38302228, -0.82139385, 0, 0.9063078, -0.42261833, 0.9063078, 0.17860621, 0.38302222, 29, 3.6, -2.224533)
+
+[node name="Torch" parent="B1/Torches" unique_id=1498798753 instance=ExtResource("5_0i3fv")]
+transform = Transform3D(0.42261824, -0.38302225, -0.8213938, 0, 0.90630776, -0.42261827, 0.9063078, 0.17860618, 0.3830222, 15, 3.6, -2.225)
+
+[node name="Flame" parent="B1/Torches/Torch" index="0" unique_id=549225515]
+transform = Transform3D(0.94942546, 0.31399244, 0, -0.31399244, 0.94942546, 0, 0, 0, 1, -0.21729004, -0.55211496, -0.07757187)
+
+[node name="Torch2" parent="B1/Torches" unique_id=2026836483 instance=ExtResource("5_0i3fv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32334626, 3.6, 23)
+
+[node name="Flame" parent="B1/Torches/Torch2" index="0" unique_id=549225515]
+transform = Transform3D(0.9492835, 0.3144215, 0, -0.3144215, 0.9492835, 0, 0, 0, 1, -2.2842388, -0.55211496, -0.07757187)
+
+[node name="Torch3" type="OmniLight3D" parent="B1/Torches" unique_id=561764617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.6, 3.6, 7)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Torches/Torch3" unique_id=1926066184]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_kohv5")
+
+[node name="Torch4" type="OmniLight3D" parent="B1/Torches" unique_id=1177881656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.6, 3.6, 23)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Torches/Torch4" unique_id=439371965]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_kohv5")
+
+[node name="Door_b1_up" parent="B1" unique_id=666618217 instance=ExtResource("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 1)
+id = "b1_up"
+target_stage = "uid://b7bnu12tjc0e8"
+target_door = "b2_down"
+metadata/note = "Thang lên B2"
+
+[node name="Checkpoint_b1" parent="B1" unique_id=529563751 instance=ExtResource("checkpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 14)
+id = "b1_start"
+
+[node name="B1_5" type="Node3D" parent="." unique_id=1324108918]
+metadata/floor_level = 0
+metadata/secret = true
+
+[node name="World" type="GridMap" parent="B1_5" unique_id=1639091333]
+mesh_library = ExtResource("2_0i3fv")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(19, 2, 2, 19, 3, 2, 19, 9, 2, 19, 10, 1, 19, 11, 1, 20, 2, 1, 20, 3, 1, 20, 4, 0, 20, 5, 0, 20, 6, 0, 20, 7, 0, 20, 8, 2, 20, 9, 1, 20, 10, 1, 20, 11, 3, 21, 2, 3, 21, 3, 0, 21, 4, 0, 21, 5, 1, 21, 6, 2, 21, 7, 3, 21, 8, 0, 21, 9, 1, 21, 10, 2, 21, 11, 1, 22, 2, 3, 22, 3, 1, 22, 4, 3, 22, 5, 1, 22, 6, 1, 22, 7, 1, 22, 8, 3, 22, 9, 2, 22, 10, 3, 22, 11, 0, 23, 2, 0, 23, 3, 0, 23, 4, 2, 23, 5, 0, 23, 6, 3, 23, 7, 3, 23, 8, 1, 23, 9, 3, 23, 10, 3, 23, 11, 0, 24, 2, 1, 24, 3, 3, 24, 4, 0, 24, 5, 3, 24, 6, 3, 24, 7, 0, 24, 8, 3, 24, 9, 2, 24, 10, 3, 24, 11, 0, 25, 2, 1, 25, 3, 2, 25, 4, 3, 25, 5, 3, 25, 6, 0, 25, 7, 3, 25, 8, 3, 25, 9, 3, 25, 10, 2, 25, 11, 0, 26, 2, 2, 26, 3, 3, 26, 4, 2, 26, 5, 2, 26, 6, 3, 26, 7, 1, 26, 8, 2, 26, 9, 1, 26, 10, 2, 26, 11, 2, 27, 2, 1, 27, 3, 2, 27, 4, 0, 27, 5, 2, 27, 6, 1, 27, 7, 3, 27, 8, 0, 27, 9, 2, 27, 10, 1, 27, 11, 2, 28, 2, 3, 28, 3, 2, 28, 4, 0, 28, 5, 1, 28, 6, 3, 28, 7, 3, 28, 8, 0, 28, 9, 2, 28, 10, 2, 28, 11, 0, 65564, 3, 1441812, 131100, 3, 1441821, 65564, 4, 1441812, 131100, 4, 1441821, 65564, 5, 1441812, 131100, 5, 1441821, 65564, 6, 1441812, 131100, 6, 1441821, 65564, 7, 1441812, 131100, 7, 1441821, 65564, 8, 1441812, 131100, 8, 1441821, 65564, 9, 1441812, 131100, 9, 1441821, 65564, 10, 1441812, 131100, 10, 1441821, 65556, 2, 20, 131092, 2, 29, 65556, 11, 655386, 65557, 2, 20, 131093, 2, 29, 65557, 11, 655386, 65558, 2, 20, 131094, 2, 29, 65558, 11, 655386, 65559, 2, 20, 131095, 2, 29, 65559, 11, 655386, 65560, 2, 20, 131096, 2, 29, 65560, 11, 655386, 65561, 2, 20, 131097, 2, 29, 65561, 11, 655386, 65562, 2, 20, 131098, 2, 29, 65562, 11, 655386, 65563, 2, 20, 131099, 2, 29, 65563, 11, 655386, 65564, 2, 1441814, 131100, 2, 1441823, 65564, 11, 655388)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Pathfinder" type="Node" parent="B1_5" unique_id=773590052 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
+script = ExtResource("3_0ceix")
+floor_map = NodePath("../World")
+obstacle_maps = [NodePath("../../B1/HiddenGate_B1_5/B1_5Side")]
+
+[node name="Torches" type="Node3D" parent="B1_5" unique_id=1435247681]
+
+[node name="Torch0" type="OmniLight3D" parent="B1_5/Torches" unique_id=1209234884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 3.6, 5.4)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch0" unique_id=567274946]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_jnqiw")
+
+[node name="Torch1" type="OmniLight3D" parent="B1_5/Torches" unique_id=1761168824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 3.6, 17)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch1" unique_id=1247298142]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_jnqiw")
+
+[node name="Spawn" type="Marker3D" parent="." unique_id=254418968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 14)
+
+[node name="Player" parent="." unique_id=1010956037 instance=ExtResource("5_7roa1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8334184, 1, 15.460796)
+
+[node name="CameraRig" parent="." unique_id=626657845 node_paths=PackedStringArray("target") instance=ExtResource("6_lpgvr")]
+target = NodePath("../Player")
+
+[node name="Bullets" type="Node3D" parent="." unique_id=967244177]
+
+[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_lpgvr")]
+scale = Vector2(6, 4)
+transform = Transform2D(6, 0, 0, 4, 0, 0)
+margin = Vector2(3, 2)
+show_label = true
+
+[editable path="B1/Torches/Torch1"]
+[editable path="B1/Torches/Torch"]
+[editable path="B1/Torches/Torch2"]
