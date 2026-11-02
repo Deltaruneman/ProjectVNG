@@ -6,6 +6,7 @@ var _ratios: Array[Vector2] = []
 var _link_starts: Array[Vector2] = []
 var _link_ends: Array[Vector2] = []
 var _link_colors: Array[Color] = []
+var _link_unlocked: Array[bool] = []
 
 
 func _ready() -> void:
@@ -19,10 +20,11 @@ func add_tree_node(node: Control, center_ratio: Vector2) -> void:
 	_layout_nodes()
 
 
-func add_link(from_ratio: Vector2, to_ratio: Vector2, color: Color) -> void:
+func add_link(from_ratio: Vector2, to_ratio: Vector2, color: Color, unlocked: bool = false) -> void:
 	_link_starts.append(from_ratio)
 	_link_ends.append(to_ratio)
 	_link_colors.append(color)
+	_link_unlocked.append(unlocked)
 	queue_redraw()
 
 
@@ -35,11 +37,19 @@ func _notification(what: int) -> void:
 func _layout_nodes() -> void:
 	for index in _nodes.size():
 		var node: Control = _nodes[index]
-		node.position = Vector2(size.x * _ratios[index].x - node.size.x * 0.5, size.y * _ratios[index].y - node.size.y * 0.5)
+		node.scale = Vector2.ONE
+		node.position = size * _ratios[index] - node.size * 0.5
+	queue_redraw()
 
 
 func _draw() -> void:
 	for index in _link_starts.size():
-		var start := Vector2(size.x * _link_starts[index].x, size.y * _link_starts[index].y)
-		var finish := Vector2(size.x * _link_ends[index].x, size.y * _link_ends[index].y)
-		draw_line(start, finish, _link_colors[index], 2.0, true)
+		var start := size * _link_starts[index]
+		var finish := size * _link_ends[index]
+		var color := _link_colors[index]
+		var glow := color
+		glow.a *= 0.22
+		draw_line(start, finish, glow, 5.0, true)
+		draw_line(start, finish, color.darkened(0.55), 2.0, true)
+		if _link_unlocked[index]:
+			draw_line(start, finish, color.lightened(0.12), 2.5, true)

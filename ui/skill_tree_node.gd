@@ -13,8 +13,8 @@ var purchased := false
 var selected := false
 var _hovered := false
 
-const NODE_SIZE := Vector2(128.0, 96.0)
-const HEX_RADIUS := 28.0
+const NODE_SIZE := Vector2(118.0, 78.0)
+const NODE_RADIUS := 22.0
 
 
 func _ready() -> void:
@@ -53,16 +53,8 @@ func _on_mouse_exited() -> void:
 
 
 func _draw() -> void:
-	var center := Vector2(size.x * 0.5, 30.0)
-	var radius := HEX_RADIUS + (2.0 if _hovered and available else 0.0)
-	var points := PackedVector2Array([
-		center + Vector2(-radius * 0.5, -radius * 0.866),
-		center + Vector2(radius * 0.5, -radius * 0.866),
-		center + Vector2(radius, 0.0),
-		center + Vector2(radius * 0.5, radius * 0.866),
-		center + Vector2(-radius * 0.5, radius * 0.866),
-		center + Vector2(-radius, 0.0),
-	])
+	var center := Vector2(size.x * 0.5, 23.0)
+	var radius := NODE_RADIUS + (2.0 if _hovered and available else 0.0)
 	var fill := Color("131e2b")
 	var border := Color("526170")
 	if available:
@@ -76,14 +68,15 @@ func _draw() -> void:
 		border = Color("fff0aa")
 	if _hovered and available:
 		fill = fill.lightened(0.16)
-	var outline := points.duplicate()
-	outline.append(points[0])
-	draw_colored_polygon(points, fill)
-	draw_polyline(outline, border, 2.0 if available or selected else 1.0, true)
+	var glow := accent_color
+	glow.a = 0.10
+	draw_circle(center, radius + 4.0, glow if available or purchased or selected else Color.TRANSPARENT)
+	draw_circle(center, radius, fill)
+	draw_arc(center, radius, 0.0, TAU, 48, border, 2.0 if available or selected else 1.0, true)
 	var font: Font = ThemeDB.fallback_font
 	if icon_texture != null:
-		draw_texture_rect(icon_texture, Rect2(Vector2(center.x - 15.0, center.y - 15.0), Vector2(30.0, 30.0)), false)
+		draw_texture_rect(icon_texture, Rect2(Vector2(center.x - 13.0, center.y - 13.0), Vector2(26.0, 26.0)), false)
 	else:
-		draw_string(font, Vector2(0.0, center.y + 6.0), icon_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 18, Color("f3f7fc"))
-	draw_string(font, Vector2(0.0, 66.0), rank_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 10, Color("f8edc4") if purchased or selected else Color("bdc8d1"))
-	draw_string(font, Vector2(0.0, 91.0), title_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 10, Color("f2f4f6") if available or purchased else Color("9ba7b3"))
+		draw_string(font, Vector2(0.0, center.y + 6.0), icon_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 17, Color("f3f7fc"))
+	draw_string(font, Vector2(0.0, 53.0), rank_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 9, Color("f8edc4") if purchased or selected else Color("bdc8d1"))
+	draw_string(font, Vector2(0.0, 74.0), title_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 10, Color("f2f4f6") if available or purchased else Color("9ba7b3"))

@@ -212,7 +212,7 @@ func _build() -> void:
 	footer.custom_minimum_size.y = 24.0
 	layout.add_child(footer)
 	var hint := Label.new()
-	hint.text = "1–4 chọn skill  ·  U dùng  ·  I tuyệt kỹ  ·  T / Esc"
+	hint.text = "Cuộn chuột để xem cây  ·  1–4 chọn skill  ·  U dùng  ·  I tuyệt kỹ  ·  T / Esc đóng"
 	hint.add_theme_font_size_override("font_size", 8)
 	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	footer.add_child(hint)
@@ -264,20 +264,21 @@ func _build_weapon_tree() -> void:
 		_content.add_child(_section("KỸ NĂNG · MỐC 1 / 4 / 6 / 9 SP     —     TIẾN HÓA · MỐC 3–10 SP     —     TUYỆT KỸ · MỐC 5 / 8 SP"))
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	graph.custom_minimum_size.y = 290.0 if current_form == "" else 660.0
+	graph.custom_minimum_size.y = 380.0 if current_form == "" else 560.0
 	_content.add_child(graph)
 	var root_color := Color("e5d08d")
-	var root_position := Vector2(0.5, 0.22 if current_form == "" else 0.08)
+	var root_position := Vector2(0.5, 0.90 if current_form == "" else 0.93)
 	_make_node(graph, root_position, "D", "Dao Găm", "BASIC", root_color, false, false, false, "Dao Găm Basic")
 	if current_form == "":
+		var form_positions: Array[Vector2] = [Vector2(0.27, 0.57), Vector2(0.73, 0.57), Vector2(0.27, 0.31), Vector2(0.73, 0.31)]
 		for index in FORMS.size():
 			var form_data: Dictionary = FORMS[index]
-			var position: Vector2 = [Vector2(0.27, 0.52), Vector2(0.73, 0.52), Vector2(0.27, 0.84), Vector2(0.73, 0.84)][index]
+			var position: Vector2 = form_positions[index]
 			var form_id: String = str(form_data["id"])
 			var form_color: Color = form_data["color"]
 			var already_chosen := int(GameManager.skill_allocations.get("form_" + form_id, 0)) > 0
 			var can_choose := GameManager.skill_points > 0 and not already_chosen
-			graph.add_link(Vector2(0.5, 0.22), position, form_color.darkened(0.15))
+			graph.add_link(root_position, position, form_color.darkened(0.15), already_chosen)
 			var form_callback := func() -> void:
 				GameManager.spend_skill_point("form_" + form_id, form_id)
 			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data["short"]), "0/1", form_color, can_choose, already_chosen, false, str(form_data["name"]), form_callback, _skill_icon_path(form_id + "_orb"))
@@ -286,17 +287,17 @@ func _build_weapon_tree() -> void:
 
 	var selected_form: Dictionary = _form_data(current_form)
 	var form_color: Color = selected_form.color
-	var form_position := Vector2(0.5, 0.23)
-	graph.add_link(root_position, form_position, form_color)
+	var form_position := Vector2(0.5, 0.75)
+	graph.add_link(root_position, form_position, form_color, true)
 	_make_node(graph, form_position, current_form.substr(0, 1).to_upper(), str(selected_form.short), "ĐÃ CHỌN", form_color, false, true, true, str(selected_form.name), Callable(), _skill_icon_path(current_form + "_orb"))
 	var active_names: Array = ACTIVE_SKILLS[current_form]
 	var short_names: Array = ACTIVE_SHORT_NAMES[current_form]
-	var active_positions: Array[Vector2] = [Vector2(0.25, 0.37), Vector2(0.75, 0.37), Vector2(0.25, 0.51), Vector2(0.75, 0.51)]
+	var active_positions: Array[Vector2] = [Vector2(0.12, 0.52), Vector2(0.37, 0.52), Vector2(0.63, 0.52), Vector2(0.88, 0.52)]
 	for index in active_names.size():
 		var skill_id := "active_%s_%d" % [current_form, index + 1]
 		var required: int = [1, 4, 6, 9][index]
 		var position: Vector2 = active_positions[index]
-		graph.add_link(form_position, position, form_color.darkened(0.3))
+		graph.add_link(form_position, position, form_color.darkened(0.3), GameManager.unlocked_skills.has(skill_id))
 		_add_skill_node(graph, position, skill_id, str(active_names[index]), str(short_names[index]), str(index + 1), required, str(SKILL_DESCRIPTIONS.get(active_names[index], "Kỹ năng vũ khí.")), false, form_color)
 
 	var ultimate_names: Array = ULTIMATE_SKILLS[current_form]
@@ -304,21 +305,21 @@ func _build_weapon_tree() -> void:
 	var evolution_data: Array = WEAPON_EVOLUTIONS[current_form]
 	var evolution_positions: Array[Vector2] = []
 	if evolution_data.size() == 3:
-		evolution_positions = [Vector2(0.2, 0.68), Vector2(0.5, 0.68), Vector2(0.8, 0.68)]
+		evolution_positions = [Vector2(0.2, 0.30), Vector2(0.5, 0.30), Vector2(0.8, 0.30)]
 	else:
-		evolution_positions = [Vector2(0.35, 0.68), Vector2(0.65, 0.68)]
+		evolution_positions = [Vector2(0.35, 0.30), Vector2(0.65, 0.30)]
 	for index in evolution_data.size():
 		var required_skill: String = str(evolution_data[index]["requires"])
 		var required_slot := clampi(int(required_skill.get_slice("_", 2)) - 1, 0, active_positions.size() - 1)
-		graph.add_link(active_positions[required_slot], evolution_positions[index], form_color.darkened(0.4))
+		graph.add_link(active_positions[required_slot], evolution_positions[index], form_color.darkened(0.4), GameManager.skill_allocations.has(evolution_data[index]["id"]))
 		_add_evolution_node(graph, evolution_positions[index], evolution_data[index], form_color)
-	var ultimate_positions := [Vector2(0.37, 0.86), Vector2(0.63, 0.86)]
+	var ultimate_positions: Array[Vector2] = [Vector2(0.37, 0.10), Vector2(0.63, 0.10)]
 	for index in evolution_positions.size():
-		graph.add_link(evolution_positions[index], ultimate_positions[mini(index, 1)], form_color.darkened(0.45))
-	graph.add_link(active_positions[0], ultimate_positions[0], form_color.darkened(0.45))
-	graph.add_link(active_positions[1], ultimate_positions[0], form_color.darkened(0.45))
-	graph.add_link(active_positions[2], ultimate_positions[1], form_color.darkened(0.45))
-	graph.add_link(active_positions[3], ultimate_positions[1], form_color.darkened(0.45))
+		graph.add_link(evolution_positions[index], ultimate_positions[mini(index, 1)], form_color.darkened(0.45), GameManager.skill_allocations.has(evolution_data[index]["id"]))
+	graph.add_link(active_positions[0], ultimate_positions[0], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_1" % current_form))
+	graph.add_link(active_positions[1], ultimate_positions[0], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_2" % current_form))
+	graph.add_link(active_positions[2], ultimate_positions[1], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_3" % current_form))
+	graph.add_link(active_positions[3], ultimate_positions[1], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_4" % current_form))
 	for index in ultimate_names.size():
 		var skill_id := "ultimate_%s_%d" % [current_form, index + 1]
 		var required: int = [5, 8][index]
@@ -372,7 +373,7 @@ func _build_character_tree() -> void:
 
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	graph.custom_minimum_size.y = 252.0
+	graph.custom_minimum_size.y = 380.0
 	_content.add_child(graph)
 	var branches := ["Tấn công", "Phòng thủ", "Cơ động"]
 	var columns := [0.17, 0.5, 0.83]
