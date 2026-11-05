@@ -194,6 +194,19 @@ It does not switch the production startup scene or constitute full feature accep
 
 ## Complexity Tracking
 
+### Current third-implementation replan — planning only, 2026-11-05
+
+The ceiling/parkour sequencing in Phase C is refined by
+[third-implementation-plan.md](third-implementation-plan.md), based on actual
+[clearance/softlock measurements](clearance-measurements.md) and the
+[candidate opening map](clearance-candidates.svg). Pass 1 is scene-local ceilings,
+solid underside and containment with ceiling-contact/fall/landing/movement recovery;
+pass 2 is a separate deliberate opening/parkour/landing/retry route chosen by Lam
+and Quan before construction. Keep floor spacing/checkpoints for the smallest fix.
+No scene/script edits or route choice are authorized by this planning record.
+T038 no longer depends on route construction T036; T036 instead waits for pass-1
+acceptance and a recorded route decision. No whole-plan regeneration or fixed claim.
+
 No governance exception requested. Local variants/bridge/gates bound impact. No global event
 bus, second loader, new save framework, player controller, wave manager, or asset pipeline.
 Old B3 recovery is a blocker, not a complexity waiver.

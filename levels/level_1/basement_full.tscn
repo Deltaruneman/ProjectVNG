@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
 [ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_lpgvr"]
+[ext_resource type="PackedScene" path="res://levels/objects/checkpoint/basement_checkpoint.tscn" id="12_checkpoint"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -167,6 +168,12 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("BoxMesh_kohv5")
 
+[node name="Checkpoint_b1" parent="B1" unique_id=129885796 instance=ExtResource("12_checkpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 12)
+id = "b1_start"
+interact_input_action = "interact"
+prompt_height = 2.2
+
 [node name="B1_5" type="Node3D" parent="." unique_id=1324108918]
 metadata/floor_level = 0
 metadata/secret = true
@@ -286,11 +293,17 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("BoxMesh_pwane")
 
+[node name="Checkpoint_b2" parent="B2" unique_id=609146146 instance=ExtResource("12_checkpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 7, 3)
+id = "b2_start"
+interact_input_action = "interact"
+prompt_height = 2.2
+
 [node name="Spawn" type="Marker3D" parent="." unique_id=254418968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.2, 14)
 
 [node name="Player" parent="." unique_id=1010956037 instance=ExtResource("5_7roa1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8334184, 1, 15.460796)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.2, 14)
 
 [node name="CameraRig" parent="." unique_id=626657845 node_paths=PackedStringArray("target") instance=ExtResource("6_lpgvr")]
 target = NodePath("../Player")

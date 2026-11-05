@@ -10,8 +10,12 @@ contracts/stage-progress.md, quickstart.md, and constitution v1.0.0.
 **Status**: T001-T009 complete; T010 partial (prior headless checks passed; Lam reports
 testing basement_b1, basement_b2 and basement_full with no major issues observed;
 detailed acceptance checks remain unverified). T011 partial, Quan sign-off pending.
-T012 attempted/BLOCKED: shared reviewer agreement missing. Authorized T013-T017/T025
-are BLOCKED by T012 and remain unimplemented; later task groups NOT RUN. See validation.md.
+T012 complete under Lam's explicit slice authorization/review decision; no Quan/Bao agreement
+claimed. T014-T021 implemented and independently checked; T013 partial (current-slice suites
+pass, later wave coverage pending). T025/T026 partial: isolated runtime checks pass but
+visual/HUD issue BUG-003 and manual checks remain; Lam reports successful manual activation.
+T034 baseline measurements partial; BUG-004 reproduced/open. Later ceiling/parkour
+construction and wave groups NOT RUN. See validation.md.
 **Sprint**: Nov 4-7 map scope; final build deadline 2026-12-15.
 
 ## Format: `[ID] [P?] [Story] Description`
@@ -128,57 +132,72 @@ actual rounds require coordinated interfaces. This phase is outside the first gr
 
 ### Shared review and focused test preparation
 
-- [ ] T012 [US2] Identify shared manager/input/save reviewer and boundaries in `specs/001-integrate-basement-stage/validation.md` for `project.godot` and `scripts/autoload/game_manager.gd`.
+Current slice review decision supersedes older missing-reviewer/task-specific gates:
+Lam explicitly authorizes and will review T012-T021 shared-file changes. No Quan/Bao
+agreement or completed teammate code review is implied. Constitution I still protects
+their owned systems, which are unchanged. See current authorization/evidence in validation.md.
+
+- [X] T012 [US2] Identify shared manager/input/save reviewer and boundaries in `specs/001-integrate-basement-stage/validation.md` for `project.godot` and `scripts/autoload/game_manager.gd`.
+  - Current evidence: Lam is named reviewer and explicitly authorizes this bounded phase; earlier BLOCKED disposition below is historical. No protected owner-system edits required.
   - Resume disposition (2026-11-05): attempted/BLOCKED. No named shared maintainer or actual shared-reviewer/Quan/Bao agreement recorded. Exact proposed boundary and outstanding decision recorded in validation.md; no dependent edits begun.
   - Owner/reviewer: Lam coordinates / Quan and named shared maintainer; Bao input-impact review. Dependencies: T011 handoff.
   - AC: actual reviewer agreement before shared edits; no inferred ownership or authorization to modify protected systems. Old-B3 policy not needed for independent review.
   - V: documented file-impact review; shared edits BLOCKED until reviewer identified.
 
 - [ ] T013 [P] [US2] Prepare independent suites in proposed `tests/basement_checkpoint_check.gd` from `data-model.md` and `contracts/stage-progress.md`.
+  - Current evidence: partial; fixture/interaction/recovery suites implemented and executed in disposable copy. 55 fixture checks, 24 headless interaction checks (26 with captures), 55 damage/dead-state recovery checks pass. Old-B3 recovery remains separately BLOCKED; real-wave coverage waits for T022-T024 and was not implemented.
   - Owner/reviewer: Lam / Quan/shared reviewer. Dependencies: T012; T003 before runtime.
   - AC: separate interaction/rank, supported recovery, legacy B1/B2, old-B3 refusal/recovery and real-wave results; sentinel unrelated fields. Verify "b1_start -> b1/1, b2_start -> b2/2; not trusted from arbitrary saved rank" and "B2 -> B1 is rejected without saving or success feedback."
   - V: review before implementation; no real-save writes or invented fallback; blocked old-B3 recovery cannot fail independent suites.
 
-- [ ] T014 [P] [US2] Add narrow basement checkpoint acceptance/rank boundary in `scripts/autoload/game_manager.gd`.
+- [X] T014 [P] [US2] Add narrow basement checkpoint acceptance/rank boundary in `scripts/autoload/game_manager.gd`.
+  - Current evidence: identity/rank, UID idempotence, lower/foreign/duplicate/wrong-owner rejection, no-save rejection and stock-setter bypass/unrelated-stage fixtures pass.
   - Owner/reviewer: Lam within agreed boundary / shared reviewer/Quan. Dependencies: T012.
   - AC: canonical stage/declared IDs; "b1_start -> b1/1, b2_start -> b2/2; not trusted from arbitrary saved rank"; "B2 -> B1 is rejected without saving or success feedback." Foreign requests rejected, same-current idempotent; unrelated stages unchanged.
   - V: T013 identity/rank fixtures. Proposed request API is not existing until implemented/verified; no player/enemy changes.
 
 ### Local checkpoint placement and interaction
 
-- [ ] T015 [US2] Create proposed `levels/objects/checkpoint/basement_checkpoint.tscn` and `levels/objects/checkpoint/basement_checkpoint.gd` using existing visuals and InteractiveArea3D.
+- [X] T015 [US2] Create proposed `levels/objects/checkpoint/basement_checkpoint.tscn` and `levels/objects/checkpoint/basement_checkpoint.gd` using existing visuals and InteractiveArea3D.
+  - Current evidence: local variant implemented; real input dispatch/physics overlap, acceptance-only exact feedback/tint and no-arrival behavior pass; rendered captures inspected. T025 whole visual/HUD acceptance remains partial.
   - Owner/reviewer: Lam / Quan; Bao input consultation. Dependencies: T014.
   - AC: local variant replaces stock auto-contact behavior; reuses helm/detector/Spawn. Nearby F prompt, eligible request, then local tint and exact "Checkpoint activated." Label3D only after acceptance. Guard dead/dialogue eligibility locally; no Player API/second HUD/final art.
   - V: structural no-auto-activation connection review, T013 fixtures, T025 playtests. Do not trust helper's absent can_interact assumption.
 
-- [ ] T016 [US2] Establish B1 default placement and B1/B2 checkpoint instances in `levels/level_1/basement_full.tscn`.
+- [X] T016 [US2] Establish B1 default placement and B1/B2 checkpoint instances in `levels/level_1/basement_full.tscn`.
+  - Current evidence: Stage ownership/group/unique IDs verified; B1 default/B1 Spawn (-3,1.2,14), B2 Spawn (49,7.2,5). Downward physics rays, capsule settling, startup/death placement and camera snap pass in copied scene.
   - Owner/reviewer: Lam / Quan. Dependencies: T015, T011.
   - AC: reconcile root Player/Spawn on supported B1 surface; b1_start/b2_start "unique in active Stage"; owner "Active Stage, not an inherited visual's foreign floor root." Supported child Spawn/group; validate transforms instead of blindly copying split coordinates. No B3 checkpoint.
   - V: structural ownership/IDs/transforms; Godot support/camera T025-T026. Player scripts/colliders unchanged.
 
-- [ ] T017 [US2] Add only missing interact-to-physical-F binding in `project.godot`.
+- [X] T017 [US2] Add only missing interact-to-physical-F binding in `project.godot`.
+  - Current evidence: one physical-F mapping added; existing plugin/input edits retained. Real F dispatch, echo/repeated F, synthetic dialogue/dead and overlapping-checkpoint cases pass; other live dialogue/interactable cases remain manual T025 checks.
   - Owner/reviewer: Lam within approved shared scope / shared reviewer/Bao input review. Dependencies: T012, T015.
   - AC: one interact/F mapping; preserve other input/plugin edits; main-scene change only in T021. No remapping of approved F or other player actions.
   - V: input-map diff and T025 repeated-F/dialogue/overlap playtests; static no-direct-conflict finding is not runtime proof.
 
 ### Save and recovery integration — separate result lanes
 
-- [ ] T018 [US2] Preserve unrelated loaded payload at `scripts/autoload/game_manager.gd` save boundary, reusing `scripts/autoload/save_system.gd` unchanged.
+- [X] T018 [US2] Preserve unrelated loaded payload at `scripts/autoload/game_manager.gd` save boundary, reusing `scripts/autoload/save_system.gd` unchanged.
+  - Current evidence: nested sentinel, unknown fields and unrelated/earned flags survive synthetic activation and compatibility round trips; serializer/version unchanged. BUG-001 recorded as fixed in scope.
   - Owner/reviewer: Lam within approved scope / shared reviewer/Quan. Dependencies: T014, T013.
   - AC: merge owned fields/flags, retain unknown top-level values/unrelated flags; keep version 1/serializer. "Do not serialize enemy health, partial-wave indices/counts, or individual enemies."
   - V: sentinel-field round-trip fixtures/diff; no save rewrite, version bump, deletion or blanket reset.
 
-- [ ] T019 [US2] Add explicit narrow legacy B1/B2 checkpoint reset in `scripts/autoload/game_manager.gd`.
+- [X] T019 [US2] Add explicit narrow legacy B1/B2 checkpoint reset in `scripts/autoload/game_manager.gd`.
+  - Current evidence: four exact path/UID plus known-ID pairs reset only the checkpoint pair; valid continuous IDs retained, wrong-ID/lookalike/missing/B3 negatives not reset. Synthetic main-scene launches restore legacy B1/B2 at B1 default.
   - Owner/reviewer: Lam within approved scope / shared reviewer/Quan. Dependencies: T018.
   - AC: exact research R4 standalone paths/UIDs; only old test checkpoint pair -> continuous B1/default empty ID. "Do not apply substring/basename matching or reset valid continuous-stage B1/B2 IDs." Preserve unrelated data/clears/unlocks. B3/unknown references excluded.
   - V: path/UID positives and valid-new/sentinel negatives in T013. Old-B3 recovery policy is not a dependency for this classifier.
 
-- [ ] T020 [US2] Add B3 load refusal at existing boundary in `scripts/autoload/game_manager.gd`.
+- [X] T020 [US2] Add B3 load refusal at existing boundary in `scripts/autoload/game_manager.gd`.
+  - Current evidence: direct path/UID, startup and respawn callers refuse with zero B3 loads and preserved state/file; no success/fallback continuation registration. BUG-002 refusal fixed; T027 recovery policy remains BLOCKED, not a pass.
   - Owner/reviewer: Lam within approved scope / shared reviewer/Quan. Dependencies: T012, T013.
   - AC: reject known B3 path/UID before load-state mutation; cover startup/death/interaction callers. Preserve save/data; no fallback, remap, deletion or new user policy; unrelated supported flows intact.
   - V: refusal/unchanged-data fixtures independent of recovery; zero-load check PASSED/FAILED, recovery outcome separately BLOCKED in T027.
 
-- [ ] T021 [US2] Align supported startup/recovery in `project.godot` and `scripts/autoload/game_manager.gd` to continuous stage.
+- [X] T021 [US2] Align supported startup/recovery in `project.godot` and `scripts/autoload/game_manager.gd` to continuous stage.
+  - Current evidence: main scene/FIRST_STAGE agree; actual main-scene launches with synthetic no-save/B1/B2/legacy fixtures and six independent damage/dead-state recovery cases pass placement/camera/health checks. T026 visual/manual acceptance remains partial (BUG-003); no actual-wave reset claim.
   - Owner/reviewer: Lam within approved scope / shared reviewer/Quan. Dependencies: T016-T020; serialize shared edits.
   - AC: main scene/FIRST_STAGE agree; no-save/B1/B2/approved legacy restore correct spawn, preserve deferred loading/health/camera behavior. No implicit old-B3-to-default redirect.
   - V: structural path/UID and supported F5/respawn checks T026. B3-specific recovery remains T027; its blocked fixture does not invalidate supported results.
@@ -201,11 +220,14 @@ actual rounds require coordinated interfaces. This phase is outside the first gr
   - V: fixture PASSED/FAILED separate from provider-dependent BLOCKED checks; no enemy/wave logic in adapter tests.
 
 - [ ] T025 [US2] Playtest nearby-F interaction in `levels/level_1/basement_full.tscn`, recording `specs/001-integrate-basement-stage/validation.md`.
+  - Commit handoff observation: Lam reports successful manual checkpoint activation. Floor-specific steps/build/isolation details were not supplied; this does not establish recovery/HUD acceptance or close BUG-003. Task remains partial/unchecked.
+  - Current evidence: partial; automated isolated headless and rendered input/physics playtests pass, captures inspected. BUG-003 flags missing rendered B2 health bar; human-controlled approach/camera/real dialogue/other-interactable overlap checks remain unverified.
   - Owner/reviewer: Lam / Quan; Bao consulted for input/player issues. Dependencies: T003, T014-T017 and applicable structural checks.
   - AC: supported ownership/spawn, prompt/F/tint/exact message; no arrival activation; B1 cannot replace B2. Repeated F/overlap/dialogue/dead cases cause no unintended action; one HUD.
   - V: isolated Godot interaction/camera evidence. No real-wave provider or B3 policy prerequisite for this lane; report limitations independently.
 
 - [ ] T026 [US2] Validate supported no-save/B1/B2/legacy continuation/recovery using `tests/basement_checkpoint_check.gd` and Godot, recording `specs/001-integrate-basement-stage/validation.md`.
+  - Current evidence: partial; supported fixtures, actual main-scene process launches and damage/dead-state reloads pass. Rendered B2 player/marker/support captured but health bar absent (BUG-003); manual visual recovery checks remain pending. Separate T027/T028 are not passed.
   - Owner/reviewer: Lam / Quan/shared reviewer. Dependencies: T003, T016-T021.
   - AC: F5/death/restart use correct continuous-stage location; valid checkpoints/unrelated data preserved; legacy reset narrow. Stage/location success does not claim wave resets or old-B3 recovery.
   - V: isolated supported fixture suites and Godot respawn/camera; separate PASSED/FAILED/BLOCKED results from T027/T028.
@@ -253,23 +275,30 @@ checkpoint/round-trip acceptance. This phase is outside the first group.
 
 ## Phase 6: US4 — Subsequent Ceiling and Safe Parkour (P1)
 
+**Current planning-only replan (2026-11-05):** see `third-implementation-plan.md`,
+`clearance-measurements.md` and `clearance-candidates.svg`. Two passes: first safe
+ceilings/containment and ceiling-contact recovery; then a separately chosen parkour
+opening/route/landing/retry. Lam/Quan must choose the route before construction.
+No scene/script edits authorized by this replan; no geometry task marked complete.
+
 **Goal/independent test**: measured clearance, completed safe route and misses/retries can be
 validated separately; genuine clear/death/restart gates need Duy interfaces. Geometry tasks
 do not assign Bao or Duy implementation. This phase is outside the first group.
 
 - [ ] T034 [P] [US4] Measure route clearance in `levels/level_1/basement_full.tscn`, recording `specs/001-integrate-basement-stage/clearance-measurements.md`; inspect `scenes/player/player.tscn` and jump/fall states read-only.
+  - Replan evidence: partial; four under-B2 softlocks reproduced plus B1/B2 controls and rendered repeat; floor/backface/collider bounds, headroom and candidate references measured. Full ceiling/route sweep and Lam/Quan review remain pending.
   - Owner/reviewer: Lam / Quan; Bao state interpretation consultation. Dependencies: T011; T003 for runtime measurements.
   - AC: obstruction node/cell/item/transform, underside, takeoff/landing/body sweep/screenshots. Body ~1.698/.800, jump12/gravity24/ideal rise3 are static/inference, not wall multiplier or verified target. Measure actual second-jump timing.
   - V: distinguish dimensions/inference from Godot observations. Missing engine blocks runtime measurements only; no B3 policy dependency.
 
-- [ ] T035 [US4] Repair only measured ceiling/clearance cells in `levels/level_1/basement_full.tscn` B1/World/Floor, Wall, B2-Parkour and B2/World.
+- [ ] T035 [US4] After review, implement pass-1 measured local B1/B2 ceiling/underside and perimeter containment in `levels/level_1/basement_full.tscn`, following `third-implementation-plan.md`.
   - Owner/reviewer: Lam / Quan. Dependencies: T034 measured evidence/review.
-  - AC: smallest per-cell existing-asset changes; preserve Hidden/dependencies; no shared library edits, height multiplier, player collider/gravity/jump changes. Player-rooted blocker requires Bao coordination, not Lam edits.
+  - AC: smallest scene-local solid underside/roof/boundary volumes over verified walking footprints; no floor-spacing change, opening or route selection. Avoid insufficient headroom over upper prototype crate; any temporary guard needs explicit reviewed footprint. Preserve Hidden/dependencies/libraries/checkpoints; no height multiplier or player edits. Player-rooted blocker requires Bao coordination, not Lam edits.
   - V: before/after geometry/resource/navigation review; actual clearance T038 before any fixed claim.
 
 - [ ] T036 [US4] Complete route and safe missed-jump landing/retry surfaces in `levels/level_1/basement_full.tscn` B1/World/B2-Parkour and necessary B1/B2 route cells.
-  - Owner/reviewer: Lam / Quan. Dependencies: T034-T035; serialize scene writes with T031-T032/T037.
-  - AC: current abilities suffice; misses introduce no fall damage/lethal falls/new hazards. No assumed teleport, Hidden entrance/final art/player edits.
+  - Owner/reviewer: Lam / Quan. Dependencies: recorded Lam/Quan opening/route decision, focused T034 route measurements and T038 pass-1 recovery acceptance; serialize scene writes with T031-T032/T037.
+  - AC: separate approach through chosen deliberate opening, full supported B2 landing outside rim, intact B1 catch floor and walkable safe retry. Current abilities suffice; misses introduce no fall damage/lethal falls/new hazards. No assumed teleport, Hidden entrance/final art/player edits. Candidates A/B are proposals, not approved construction.
   - V: structural route/collider diff and T039 Godot miss/retry evidence; player/timing changes need Bao approval outside these tasks.
 
 - [ ] T037 [US4] Add B1 parkour-access gate in `levels/level_1/basement_full.tscn`, reusing `levels/level_1/basement_progress_gate.gd` and `basement_progress_bridge.gd`.
@@ -278,8 +307,8 @@ do not assign Bao or Duy implementation. This phase is outside the first group.
   - V: synthetic consumer fixtures separate from production completion/persistence in T040; BLOCKED if provider missing.
 
 - [ ] T038 [US4] Playtest ceiling/clearance in `levels/level_1/basement_full.tscn`, recording `specs/001-integrate-basement-stage/clearance-measurements.md` and `validation.md`.
-  - Owner/reviewer: Lam / Quan; Bao player-behavior consultation. Dependencies: T003, T035-T036.
-  - AC: current ordinary/second-jump timing, head contact, transitions, camera/navigation show sufficient clearance with unchanged player; distinguish pre-existing issues from regressions.
+  - Owner/reviewer: Lam / Quan; Bao player-behavior consultation. Dependencies: T003, T035 reviewed pass-1 changes; no dependency on T036 route construction.
+  - AC: ordinary/eligible second-jump and genuine ceiling contact -> fall away -> supported landing -> normal walk/jump again without teleport/death/reload/FSM reset. Check seams/high ground, all movement directions, repeated jumps and perimeter containment with unchanged player; record health/camera/navigation/spawn results and distinguish baseline issues. No fixed claim until this passes.
   - V: actual Godot measurements/steps. Blocking player bugs are reported, not changed without Bao approval.
 
 - [ ] T039 [US4] Validate intentional misses and safe retries in `levels/level_1/basement_full.tscn`, recording `specs/001-integrate-basement-stage/validation.md`.
@@ -316,7 +345,8 @@ T011 -> T012 -> T013/T014 -> T015-T017 local checkpoints/spawns/input
 T022 agreement + provider -> T023 consumer -> T024 fixtures / T028 actual rounds
 explicit old-B3 policy -> T027 ONLY; no edge to independent structural/valid/geometry lanes
 T011 + T022 -> T029/T030 -> T031 -> T032(provider) -> T033 actual gate checks
-T011 -> T034 -> T035 -> T036 -> T038/T039
+T011 -> T034 -> review -> T035 -> T038 (pass 1, independent of route choice)
+T038 + recorded Lam/Quan route/opening decision -> T036 -> T039 (pass 2)
 T030 + T036 + T023 provider -> T037 -> T040(actual lifecycle T028)
 available evidence -> T041 -> T042; required blocked tasks remain open
 ```

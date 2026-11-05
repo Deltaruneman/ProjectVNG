@@ -2,10 +2,13 @@
 
 **Date**: 2026-11-05 | **Branch**: `basement-split-floors`
 **Initial HEAD**: `0c01c67b3fa087fa898a8d5f4e7d8afbe170cd3f`
-**Authorized scope**: Latest user instruction authorizes T012-T017, only slice-required
-T013 tests, and applicable T025 interaction checks, then stop. Historical scope below is retained.
-**Latest verification**: See the resume section at the end: T003/T009 complete;
-T010/T011 partial; Lam's observations recorded; T012 agreement missing blocks dependent work.
+**Current activity**: authorized commit/push packaging of Implementation 2 and the
+Implementation 3 replan; no ceiling/parkour construction or route selection.
+Earlier no-commit handoffs below are historical; current packaging scope is recorded at the end.
+**Latest verification**: See current checkpoint-phase authorization/results at the end:
+T012 and T014-T021 complete; T013/T025/T026 partial; BUG-003 visual/HUD blocker open.
+T010/T011 remain partial; Lam's observations recorded without teammate sign-off.
+Current ceiling planning evidence reproduces HIGH BUG-004; see the final planning section.
 Earlier isolation-blocked results are retained as history.
 **Review**: User explicitly authorized this bounded work. Assistant scope/diff review only;
 Quan has not reviewed or signed off. No approval from Quan is implied.
@@ -579,3 +582,264 @@ which differs from the initial-session cache hash above. Its current modificatio
 was already present at resume entry; no engine was launched and no cache edit,
 cleanup or restoration was performed. The reason for the between-session cache
 change is unverified and remains for review.
+
+## Checkpoint phase authorization — 2026-11-05 (current)
+
+Lam explicitly authorizes and will review the narrow shared-file edits for T012-T021
+and applicable T025-T026 checks. This supersedes the prior missing-reviewer hold
+for this slice, including older task-specific reviewer gates; it is not Quan or
+Bao agreement. Lam is the named shared-file reviewer for this slice. Constitution I
+requires: "Before changing another owner's systems, contributors MUST coordinate with
+and obtain approval from the affected owner." Player movement/combat/skills and enemy
+systems remain untouched, so that clause does not block the authorized local
+checkpoint and manager/settings work. Any need to edit those systems still requires
+the affected owner's approval. Quan/Bao review remains unsupplied, not fabricated.
+
+Boundary: GameManager checkpoint identity/rank/request, payload retention, exact legacy
+B1/B2 classification, pre-mutation B3 refusal and combined-stage startup/recovery;
+project main scene/missing interact-F binding; local checkpoint visual/interaction
+variant and supported B1/B2 placement; independent synthetic tests and isolated runs.
+SaveSystem serializer, Stage, shared InteractiveArea3D, Player, enemies, wave interfaces,
+geometry/parkour/gates and old-B3 recovery policy remain outside changes. No real saves.
+T012 authorization recorded; implementation/results follow below. No commit or push.
+
+## Checkpoint phase results — 2026-11-05 (current)
+
+**Base:** pushed foundation `7c392eb213ecc6ef63db9ed844eecd54ae24be73`;
+branch unchanged. T012 Lam authorization above replaces the earlier missing-reviewer
+hold for this slice. It does not supply Quan/Bao agreement or completed teammate
+code review. No stage/player/enemy/serializer ownership changes were needed.
+
+### Implementation and scope
+
+- T014: trusted b1_start -> b1/1, b2_start -> b2/2 table; canonical continuous path/UID;
+  active Stage/declaration/owner/unique-ID checks; accepted/unchanged/rejected outcomes.
+  Lower/foreign/undeclared/duplicate/wrong-owner requests do not save. Same-current
+  is idempotent. Stock setter routes continuous-stage requests through that boundary,
+  while supported unrelated-stage stock behavior remains.
+- T015: inherited visual-only basement variant replaces the stock contact script.
+  InteractiveArea3D still supplies the F prompt/input dispatch. Local checks require
+  the active Stage's living Player, actual physics overlap, no active dialogue or
+  load; key echo ignored. Arrival does not activate. Accepted requests alone display
+  local tint and exact "Checkpoint activated." for two seconds; current tint restores
+  from identity. No Player/helper/HUD changes or second HUD.
+- T016: active Stage owns B1/Checkpoint_b1 and B2/Checkpoint_b2, each in spawn_points,
+  each with inherited Spawn child. Default Player/Spawn and B1 checkpoint endpoint:
+  (-3,1.2,14). B2 endpoint: (49,7.2,5). Positions are verified against actual combined
+  scene support rays and body settling, not merely copied from split scenes.
+- T017/T021: project main path and FIRST_STAGE both continuous; one interact physical-F
+  binding added. Existing plugin removal and all other inputs preserved.
+- T018: retain deep-copied loaded envelope and merge only manager fields/flags.
+  Serializer/version unchanged; nested sentinels/unrelated fields/flags survive.
+- T019: exact four research R4 standalone path/UID + corresponding known-ID pairs
+  reset only checkpoint pair to continuous default; this is persisted through the
+  retained payload. Valid new path/UID B1/B2 IDs remain valid. Wrong-ID/lookalike/
+  missing/unknown/B3 references are not classified as eligible legacy data.
+- T020: known B3 path/UID refused at change_stage before loading/dialogue/health/pending
+  mutation. Unsupported saved references remain intact; saves/respawns are held for
+  case review rather than blanket reset or default fallback. A B3 startup conflict
+  can still instantiate the configured main scene, but is not registered as successful
+  continuation and does not place/reset/overwrite the saved checkpoint. That is not
+  an approved recovery result or chosen user-facing policy.
+- No wave interface, producer, clear/unlock behavior, later map task, generator,
+  branch/staging/commit/push or real-save access. Existing flag values used by
+  fixtures are synthetic preservation sentinels, not implemented wave APIs.
+
+### Isolated environment and commands
+
+- Engine rechecked: `4.7.2.stable.official.ed1daf0bf`.
+- Disposable root: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339`.
+- Copied project: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339/project`.
+- Probe: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339/isolation-probe` (no autoloads).
+- Child-process APPDATA: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339/userdata-base`.
+- Verified user://: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339/userdata-base/ArcanaCheckpoint-da11bc20c86749c9a4c091c4df511339`.
+- Copy excluded .git, included existing imports/uncommitted work; only copied
+  project.godot has the unique ArcanaCheckpoint custom-user-dir keys. No caches
+  copied back. The probe initially lacked config/name and resolved to an isolated
+  unnamed-project subdirectory; launch was stopped before game autoloads. Adding
+  the same config/name as the real copied project corrected the probe. Verified
+  expected path and save_exists=false before the first copied-game launch.
+- Harness startup guard checks exact ARCANA_EXPECTED_USERDATA, custom directory
+  prefix and --isolated-copy; fixture writes go to unique user://fixtures files.
+  Synthetic save.json files for actual main-scene startup were written only under
+  the already verified disposable directory. Later probe save_exists=true refers
+  to these synthetic files, never production progress.
+- All runs use process-local environment overrides, hidden child windows, separate
+  stdout/stderr/log files. Main-scene diagnostics use a copied-project-only observer
+  autoload in tests/main_scene_probe.gd; it is not a production change.
+- Example test arguments in that verified environment:
+
+```powershell
+& 'C:/Users/Chung Kiết Lâm/Desktop/Godot_v4.7.2.exe' --headless --path $copy --script res://tests/basement_checkpoint_check.gd --fixed-fps 60 --log-file $log -- --isolated-copy --lane=fixtures
+```
+
+Use --lane=interaction or --lane=recovery separately. For rendered captures omit
+--headless and append --capture. Do not use these commands against the original
+project. Production startup checks used --path $copy --fixed-fps 60 --quit-after 8
+without --script, exercising the actual configured main scene and pre-autoload
+synthetic fixture load. This is the F5-equivalent startup path, not an editor-key test.
+
+### Verification ledger
+
+| Lane/check | Status | Actual evidence |
+| --- | --- | --- |
+| T013 pre-implementation red | PASSED as expected red | Once harness compilation was corrected, missing request API gave 0 passes/1 failure, exit 1; red.log |
+| Final manager/rank/payload/legacy/refusal fixtures | PASSED | 55 passed/0 failed, exit 0; fixtures-final.stdout/stderr.txt and .log |
+| Headless interaction/physics/input | PASSED | 24 passed/0 failed, exit 0; interaction.stdout/stderr.txt and .log |
+| Rendered interaction + captures | PASSED for exercised checkpoint behavior | 26 passed/0 failed, exit 0; rendered-interaction.stdout/stderr.txt and .log |
+| Final supported recovery | PASSED for exercised physics/location/death behavior | 55 passed/0 failed, exit 0; recovery-final.stdout/stderr.txt and .log; six no-checkpoint/B1/B2/UID/legacy cases |
+| Rendered recovery capture | PASSED for location/capture; HUD issue below | 56 passed/0 failed with screenshot assertion; rendered-recovery.stdout/stderr.txt and .log; this earlier diagnostic used direct death-signal emission, superseded for death behavior by recovery-final |
+| Normal main-scene process startup | PASSED, limited observation | Five independent no-save/B1/B2/legacy-B1/legacy-B2 launches: exit 0, expected Stage/ID/player/camera and one Hud; main-*.stdout/stderr.txt and .log |
+| Known B3 path/UID direct/startup/death refusal | PASSED | Zero B3 loads; pending/health/file/pair preserved; no successful continuation event for B3 fixture |
+| Old-B3 recovery | BLOCKED | No policy selected; no recovery acceptance, redirect, migration or reset |
+| Real waves/round reset/clear/unlock | NOT RUN | Outside authorized slice; no Duy interface/provider implementation |
+| Pushed foundation preservation | PASSED, static | Reversing only checkpoint ext-resource/instances and Player/Spawn transforms reproduces HEAD scene; all other retained content/Hidden unchanged |
+| Protected systems | PASSED, static | Stage, SaveSystem, InteractiveArea3D, Player, stock checkpoint, enemy zone and separate B3 match HEAD |
+| Working-tree whitespace / branch / index | PASSED | git diff --check clean; branch/HEAD unchanged; nothing staged |
+| T025/T026 whole visual/manual acceptance | PARTIAL | BUG-003 and remaining manual checks below; fixture passes do not hide this issue |
+
+Screenshots inspected by the assistant:
+`user://fixtures/b1-accepted.png`, `b2-accepted.png`, `b2-recovery.png`.
+B1/B2 exact feedback and tinted helm render. B2 restored player/helm/support render.
+B1 health bar renders; B2 health bar is absent despite one visible Hud node.
+This is an image observation with unproven cause, not Quan/Lam manual acceptance.
+BUG-003 is flagged HIGH in docs/implementation-bugs.md and blocks full visual/HUD
+acceptance; no speculative shared HUD/renderer fix was made.
+
+Harness corrections before final passes: SceneTree --script must resolve autoload
+nodes after startup rather than compile Stage/autoload types prematurely; explicit
+Dictionary typing for dynamic ray result; JSON numeric sentinel comparison uses
+serializer round-trip types; capture placement at registration before gravity;
+wait through node processing before prompt assertions. These initial harness
+errors/failures were not declared gameplay fixes. No application failure is hidden.
+
+### Diagnostics and remaining checks
+
+- Headless certificate-store error reproduced in no-autoload probe; environmental
+  diagnostic, not a new gameplay attribution. Rendered runs did not emit it.
+- Shutdown leaks/resources remain (3 ObjectDB instances/1 resource in interaction,
+  4/1 in fixtures, 14/1 after repeated recovery scenes). Earlier fsm.gd lifetime
+  hypothesis remains unproven; no Player/FSM changes.
+- One rendered recovery run reports GLES3 shader initialization `err != OK` at
+  shader_gles3.cpp:802 while producing the screenshot and passing assertions.
+  Cause/relationship to BUG-003 is unproven. Exit 0 is not an error-free run.
+- Human-controlled approach/leave, real active dialogue, overlap with other actual
+  interactables, repeated-F play, B1/B2 camera framing/visibility, and HUD at normal
+  B2 startup/death/restart still need manual verification. Fixture teleports and
+  synthetic dialogue-state assignment are not physical traversal or complete
+  dialogue acceptance. Normal combat-driven enemy damage is not proven by injected
+  damage through the real Player/FSM path.
+- T010/T011 remain partial. T012 complete as authorization/boundary record.
+  T014-T021 implementation complete with the above independent evidence.
+  T013 partial for full planned coverage (real-wave tests deferred).
+  T025/T026 remain unchecked/partial. T022-T024/T027+ not implemented; old-B3
+  recovery and actual waves retain separate dispositions.
+- New script UIDs were generated by ResourceUID.create_id in the isolated no-autoload
+  probe and written only as the two new .gd.uid metadata files. No original cache edit.
+- Existing cache/library/concept/progress files remain untouched. project.godot
+  retains the pre-existing plugin edit plus only this phase's declared changes.
+  No files deleted, no planning documents regenerated, no commit/push.
+
+## Third implementation replanning — 2026-11-05 (current activity)
+
+User requests planning only: reproduce vertical double-jump softlock inside B1,
+inspect underside/headroom/collision, propose two passes and candidate openings;
+stop for review before scene or script edits. No new gameplay implementation
+authorized. Existing checkpoint-phase results/statuses remain historical and valid
+within their exercised scope, not ceiling/route acceptance.
+
+- Read AGENTS, current task/validation/changelog, relevant plan/research/constitution
+  and Player/controller/collision sources. Fresh branch/HEAD remains
+  basement-split-floors / 7c392eb213ecc6ef63db9ed844eecd54ae24be73.
+- New pre-existing change at entry: basement_b1.tscn reorders door/checkpoint
+  ext-resource declarations only. Preserve it along with all prior checkpoint
+  work, mesh/cache/plugin and concept/progress files.
+- Fresh isolated copy/probe: `C:/Users/CHUNGK~1/AppData/Local/Temp/ArcanaClearance-b288225c951141beb50e576774962fbd`;
+  custom user-data identity ArcanaClearance-b288225c951141beb50e576774962fbd,
+  process-local APPDATA override, exact-path/no-autoload/save_exists=false probe
+  before copied-game startup. No real saves, generators or original engine launch.
+- Temporary diagnostic scripts exist only inside the disposable copy/probe.
+  They inspect collision and inject physical jump/movement input into the existing
+  Player. Enemy timers are stopped only in the diagnostic instance to isolate combat.
+  No geometry, Player/enemy controller or checkpoint behavior is changed even there.
+- **Reproduced:** four B1-under-B2 starts trap at root Y≈6.144 after vertical double
+  jump, no ground contact, downward velocity≈-62 and failed movement recovery.
+  An independent rendered repeat at (25,1.2,5) confirms the trap and screenshots.
+  B1 uncovered and B2 controls fall/land/move normally.
+- **Measured:** B1 floor Y=1.01; B2 surface Y=7, thin concave front-face floor,
+  backface_collision=false; upward rays have no underside hit. B1 wall top5,
+  B2 wall top11, sampled B2 has no roof up to27.1. Upper prototype crate top5.5418
+  makes a blind underside6.8 cap unsafe for the 1.6978-high body.
+- **Proposal only:** scene-local solid underside/roofs/perimeter, explicit local
+  prototype quarantine/hold before route; no spacing change. Pass 1 must demonstrate
+  real ceiling contact -> fall -> supported landing -> normal walk/jump, without
+  forced unsticking. Pass 2 waits for Lam/Quan route/opening decision and pass-1
+  recovery acceptance. Candidate A X16..20/Z0..4 near old stack; B X24..28/Z12..16
+  separate central opening. Neither selected or cut.
+- **Bao dependency:** existing Fall/Wall_slide response/jump resets require owner
+  consultation if correctly oriented solid ceiling still cannot recover; no
+  controller edits. B3/waves/Hidden entrance remain outside this plan.
+- T034 is partial measurement/reproduction, unchecked; T035-T040 unbuilt/unrun.
+  BUG-004 HIGH is recorded open, not fixed. BUG-003 remains separate.
+- Detailed data/steps/limitations: clearance-measurements.md; reviewed proposal
+  awaiting approval: third-implementation-plan.md; native SVG candidate map:
+  clearance-candidates.svg. SVG XML parses; geometry preview rendered in isolated
+  probe (Godot SVG rasterizer omits SVG text; native SVG retains text for viewers).
+- Existing headless certificate error and 3 ObjectDB/1 resource shutdown leak remain
+  diagnostics. Early helper drafts corrected a missing-item null and wrong helper
+  method, not production code. Missing B1/World mesh item34 is separately recorded.
+  No candidate fix or post-fix acceptance run was performed.
+
+Only planning/evidence documents and candidate SVG changed in this activity.
+No deliberate original scene/script/game-resource/settings/cache edit; no file deletion,
+staging/commit/push, branch change or invented Lam/Quan route approval.
+
+### Final preservation / generated-metadata observation
+
+207 original scene/script/test/mesh files match the fresh entry copy byte-for-byte,
+including current checkpoint files and the pre-existing basement_b1 resource-order
+edit. Removing only the copied custom-user-dir keys reproduces original settings.
+Branch/HEAD/index unchanged; whitespace check clean; isolated save.json still absent.
+
+Unexpected generated metadata is retained for review, not cleaned or staged:
+`clearance-candidates.svg.import` appeared in the original feature directory with
+Godot texture-import metadata for the new planning SVG. The original tracked
+uid_cache.bin currently hashes to
+`37903A7E867DAE2B4F9AEA642693570FFFD4A35BAB4783B498A90F7A9C33061F`,
+different from the prior checkpoint-session hash and final disposable cache.
+A Godot process remains present; attribution/timing of the original cache change
+is unproven, and an active importer is a hypothesis. The assistant launched engines
+only against verified disposable paths and did not explicitly write/restore/clean
+the original cache or launch/stop an original editor. Do not claim cache hash equality
+or silently discard this sidecar/cache work. They are not authored gameplay changes.
+
+## Commit handoff — checkpoint implementation and ceiling replan
+
+Lam now reports successful manual checkpoint activation. This is user-reported
+manual observation; no specific floor/steps/build/isolation or recovery/HUD results
+were supplied. It does not close T025/T026, BUG-003 or other untested checks, and
+does not establish Quan/Bao sign-off. BUG-004 stays reproduced/open; ceiling and
+parkour work remain proposals only, awaiting separate instruction and route review.
+
+User authorizes one commit/push from foundation 7c392eb213ecc6ef63db9ed844eecd54ae24be73
+with message "Implement basement checkpoints and document ceiling replan" to the
+existing origin/basement-split-floors branch. Local HEAD/remote matched at preflight;
+no force/amend/rebase/merge/branch change. This supersedes earlier no-commit handoffs
+only for packaging the completed work and planning documents.
+
+Exact 16-file manifest and exclusions: docs/implementation-changelog.md, final
+commit-handoff section. Index uses only startup/F-binding project.godot hunks,
+excluding its pre-existing plugin edit. A newly observed unrelated scene hunk moves
+B2-Parkour from B1/World to B1/Pathfinder; that reparent/reordering hunk is excluded,
+leaving the committed prototype path as in foundation/planning evidence. Checkpoint
+node IDs/default-property serialization are retained as current editor-save form.
+No original working file is reverted for partial staging. Asset/cache/basement_b1,
+SVG sidecar and earlier concept/progress documents stay local. No new gameplay work.
+
+Exact staged packaging verification passed 294 focused static assertions: 16-path
+manifest, retained foundation node blocks, resource/NodePath declarations, supported
+checkpoint/default transforms, one F binding and aligned startup, unchanged staged
+plugin section and prototype path, UID metadata, obvious-secret patterns, and honest
+open T025/T026/T035/T036/BUG-003/BUG-004 state. SVG XML parses; staged whitespace
+check returns exit 0. No Godot launch, real-save access or gameplay rerun in packaging.
+Prior runtime results remain historical; Lam's manual activation does not expand them.
