@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://butu423yt6ifr"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_rit8u"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_kwjdm"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_6vgkm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ku2j"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_rit8u")
+metallic_texture = ExtResource("2_kwjdm")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_kwjdm")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_6vgkm")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fcews"]
+_surfaces = [{
+"aabb": AABB(-1, -0.010000384, -1, 2, 0.020000376, 2),
+"attribute_data": PackedByteArray("PAIAPwdEAT7Y/r8/g3x8Ptj+vz8HRAE+PAIAP4N8fD53+P8+IOVNO3T+/77bE/49dP7/viDlTTt3+P8+2xP+PXT+/74HRAE+d/j/PoN8fD53+P8+B0QBPnT+/76DfHw+9Px/PyDlTTvY/r832xP+Pdj+vzcg5U079Px/P9sT/j13+P8+fH58PnT+/74HRAE+dP7/voN8fD53+P8+B0QBPtj+vzcg5U079Px/P9sT/j30/H8/IOVNO9j+vzfbE/49d/j/PiDlTTt0/v++2xP+PXT+/74g5U07d/j/PtsT/j13+P8+fH58PnT+/74HRAE+dP7/voN8fD53+P8+B0QBPjwCAD8HRAE+2P6/P4N8fD7Y/r8/B0QBPjwCAD+DfHw+d/j/PiDlTTt0/v++2xP+PXT+/74g5U07d/j/PtsT/j10/v++B0QBPnf4/z6DfHw+d/j/PgdEAT50/v++g3x8PvT8fz8g5U072P6/N9sT/j3Y/r83IOVNO/T8fz/bE/49d/j/Pnx+fD50/v++B0QBPnT+/76DfHw+d/j/PgdEAT7Y/r83IOVNO/T8fz/bE/499Px/PyDlTTvY/r832xP+PXf4/z4g5U07dP7/vtsT/j10/v++IOVNO3f4/z7bE/49d/j/Pnx+fD50/v++B0QBPnT+/76DfHw+d/j/PgdEAT4="),
+"format": 34359742487,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0AMAAxADIAMAAzADEANAA1ADYANAA3ADUAOAA5ADoAOAA7ADkAPAA9AD4APAA/AD0A"),
+"material": SubResource("StandardMaterial3D_0ku2j"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("AACAvwHXIzzAAUC/AACAPwHXIzwAAIC/AACAPwHXIzzAAUC/AACAvwHXIzwAAIC/AACAvwHXIzwAAIA/AACAPwHXIzzA/z8/AACAPwHXIzwAAIA/AACAvwHXIzzA/z8/AACAvwHXIzzA/z8/AACAPwHXIzwA//8+AACAPwHXIzzA/z8/AACAvwHXIzwA//8+AACAvwHXIzwA//8+AACAPwHXIzwA/X8+AACAPwHXIzwA//8+AACAvwHXIzwA/X8+AACAvwHXIzwA/X8+AACAPwHXIzwAAIC3AACAPwHXIzwA/X8+AACAvwHXIzwAAIC3AACAvwHXIzwAAIC3AACAPwHXIzyAAoC+AACAPwHXIzwAAIC3AACAvwHXIzyAAoC+AACAvwHXIzyAAoC+AACAPwHXIzyAAQC/AACAPwHXIzyAAoC+AACAvwHXIzyAAQC/AACAvwHXIzyAAQC/AACAPwHXIzzAAUC/AACAPwHXIzyAAQC/AACAvwHXIzzAAUC/AACAPxjWI7zAAUC/AACAv6fYI7wAAIC/AACAv6fYI7zAAUC/AACAPxjWI7wAAIC/AACAPxjWI7wAAIA/AACAv6fYI7zA/z8/AACAv6fYI7wAAIA/AACAPxjWI7zA/z8/AACAPxjWI7zA/z8/AACAv6fYI7wA//8+AACAv6fYI7zA/z8/AACAPxjWI7wA//8+AACAPxjWI7wA//8+AACAv6fYI7wA/X8+AACAv6fYI7wA//8+AACAPxjWI7wA/X8+AACAPxjWI7wA/X8+AACAv6fYI7wAAIC3AACAv6fYI7wA/X8+AACAPxjWI7wAAIC3AACAPxjWI7wAAIC3AACAv6fYI7yAAoC+AACAv6fYI7wAAIC3AACAPxjWI7yAAoC+AACAPxjWI7yAAoC+AACAv6fYI7yAAQC/AACAv6fYI7yAAoC+AACAPxjWI7yAAQC/AACAPxjWI7yAAQC/AACAv6fYI7zAAUC/AACAv6fYI7yAAQC/AACAPxjWI7zAAUC//H/+//7//z/8f/7//v//P/x//v/+//8//H/+//7//z/+f/7/AAD+v/5//v8AAP6//n/+/wAA/r/+f/7/AAD+v/x//v/+//8//H/+//7//z/8f/7//v//P/x//v/+//8//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6//n/+/wAA/r/+f/7/AAAAQP5//v8AAABA/n/+/wAAAED+f/7/AAAAQPx//v/+//8//H/+//7//z/8f/7//v//P/x//v/+//8//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6//n/+/wAA/r/+f/7/AAAAQP5//v8AAABA/n/+/wAAAED+f/7/AAAAQPp/AQABAP4/+n8BAAEA/j/6fwEAAQD+P/p/AQABAP4/AIABAP7//78AgAEA/v//vwCAAQD+//+/AIABAP7//7/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j/6fwEAAQD+PwCAAQD+//+/AIABAP7//78AgAEA/v//vwCAAQD+//+/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AoAAAP7//z/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j/6fwEAAQD+PwCAAQD+//+/AIABAP7//78AgAEA/v//vwCAAQD+//+/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AoAAAP7//z8=")
+}]
+
+[node name="Floor_WoodLight" type="MeshInstance3D" unique_id=1955006420]
+mesh = SubResource("ArrayMesh_fcews")

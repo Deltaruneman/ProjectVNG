@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://c517favw8aibn"]
+
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="1_7gdf0"]
+[ext_resource type="Texture2D" uid="uid://dsn80h3kc0ccy" path="res://assets/monsters/crab/crab_sprite_sheet.png" id="1_gguul"]
+[ext_resource type="Script" uid="uid://cuymeopaaq36s" path="res://scenes/enemies/crab/crab.gd" id="1_pe71k"]
+[ext_resource type="AnimationLibrary" uid="uid://dml40swgv3gyb" path="res://scenes/enemies/crab/crab_anims.tres" id="2_givv5"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="5_u0osc"]
+[ext_resource type="Script" uid="uid://ca3tneh6ecokj" path="res://scenes/enemies/states/run.gd" id="5_v3jfl"]
+[ext_resource type="Script" uid="uid://c58f02xc3rxrs" path="res://scenes/enemies/crab/hurt.gd" id="7_stbuj"]
+[ext_resource type="Script" uid="uid://c5giky86l0dps" path="res://scenes/enemies/crab/dead.gd" id="8_stbuj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v3jfl"]
+radius = 0.55
+height = 1.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2p33d"]
+size = Vector3(1.4, 1, 1.4)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnqru"]
+height = 1.0
+
+[node name="Crab" type="CharacterBody3D" unique_id=1467655788]
+script = ExtResource("1_pe71k")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=202274110]
+offset = Vector2(0, 13)
+pixel_size = 0.0625
+texture = ExtResource("1_gguul")
+hframes = 3
+vframes = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=110162720]
+shape = SubResource("CapsuleShape3D_v3jfl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1527725135]
+libraries/ = ExtResource("2_givv5")
+
+[node name="Direction" type="Node3D" parent="." unique_id=2099645339]
+
+[node name="FrontRayCast3D2" type="RayCast3D" parent="Direction" unique_id=572596690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" unique_id=1431250186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="HitArea3D" type="Area3D" parent="Direction" unique_id=566484394]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_7gdf0")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" unique_id=969228397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_2p33d")
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=829014071]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("5_u0osc")
+metadata/_custom_type_script = "uid://coy8holsj103m"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=2141926410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_xnqru")
+
+[node name="States" type="Node3D" parent="." unique_id=45740116]
+
+[node name="Run" type="Node3D" parent="States" unique_id=1833527366]
+script = ExtResource("5_v3jfl")
+
+[node name="Hurt" type="Node3D" parent="States" unique_id=602589048]
+script = ExtResource("7_stbuj")
+
+[node name="Dead" type="Node3D" parent="States" unique_id=483206046]
+script = ExtResource("8_stbuj")

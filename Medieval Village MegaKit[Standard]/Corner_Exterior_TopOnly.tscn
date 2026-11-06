@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://dq3ecmrad65bg"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_g3fgv"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_coll5"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_kx0os"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7huj"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_g3fgv")
+metallic_texture = ExtResource("2_coll5")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_coll5")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_kx0os")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_o44q4"]
+_surfaces = [{
+"aabb": AABB(-0.09224499, 2.8832355, -0.00053764577, 0.092782706, 0.23352718, 0.09278304),
+"attribute_data": PackedByteArray("kAAQOYEKgT7qIOo8kLSPPpAAEDmdZJ0+wABAOIH+gD7AAEA4nWidPulg6TyQuo8+vFA8PfsAezsAAAAA8CDwPQAAAAD7AHs7vFA8PfAg8D0AAAAA+wB7OwAAAADwIPA9wABAOIH+gD7pYOk8kLqPPsAAQDidaJ0+kAAQOYEKgT6QABA5nWSdPuog6jyQtI8+"),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgABgAJAAcACgAJAAYACgALAAkADAANAA4ADwAQABEA"),
+"material": SubResource("StandardMaterial3D_w7huj"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("gPUMOu6GOEDM8Ay61Os8ve6GOECZ6jw9AACUtO6GOEAn67w9gPUMOu6GOEDM8Ay68eq8ve6GOEAACo+11Os8ve6GOECZ6jw91Os8vQp5R0CZ6jw98eq8ve6GOEAACo+18eq8vQp5R0AACo+11Os8ve6GOECZ6jw9AACUtAp5R0Bp6rw9AACUtO6GOEAn67w9gPUMOgp5R0DM8Ay61Os8vQp5R0CZ6jw98eq8vQp5R0AACo+1gPUMOgp5R0DM8Ay6AACUtAp5R0Bp6rw91Os8vQp5R0CZ6jw9BIAAAAAAN74EgAAAAAA3vgSAAAAAADe+A4ACAOaDAEADgAIA5oMAQAOAAgDmgwBA/z/+fwAA/x8AQP9//7//vwBA/3//v/+//z/+fwAA/x//P/5/AAD/H/8//n8AAP8f/3/6/+OD/b//f/r/44P9v/9/+v/jg/2/AID8/wEAOj4AgPz/AQA6PgCA/P8BADo+")
+}]
+
+[node name="Corner_Exterior_TopOnly" type="MeshInstance3D" unique_id=1317741184]
+mesh = SubResource("ArrayMesh_o44q4")

@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://cxds28m3ti028"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_7uimn"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_etnn5"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_dihd5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kfsnc"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_7uimn")
+metallic_texture = ExtResource("2_etnn5")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_etnn5")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_dihd5")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4k0t6"]
+_surfaces = [{
+"aabb": AABB(-1.0000001, -0.116764545, -0.31403536, 2, 0.23752505, 0.43160543),
+"attribute_data": PackedByteArray("AACAP/Ag8D0AAAAA+wB7OwAAgD/7AHs7AAAAAPAg8D0AAIA/gQiBPgAAAACdYJ0+AAAAAIEIgT4AAIA/nWCdPgAAAACBCIE+AACAP51gnT4AAIA/gQiBPgAAAACdYJ0+AACAP/Ag8D0AAAAA+wB7OwAAgD/7AHs7AAAAAPAg8D0AAAAA+wB7O84HTj/48Hc9yNxHPvjwdz2HbAc++PB3PY7wjT348Hc9AAAAAPjwdz0AAIA/+wB7O94jXj/48Hc97kBuP/jwdz0AAIA/+PB3Pe5Abj+BCIE+AACAP51gnT4AAIA/gQiBPt4jXj+BCIE+zgdOP4EIgT4AAAAAnWCdPsjcRz6BCIE+h2wHPoEIgT6O8I09gQiBPgAAAACBCIE+yNxHPvsAezvOB04/+wB7O4dsBz77AHs73iNeP/sAezuO8I09+wB7O+5Abj/7AHs77kBuP51gnT7eI14/nWCdPs4HTj+dYJ0+yNxHPp1gnT6HbAc+nWCdPo7wjT2dYJ0+"),
+"format": 34359742487,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AJAARABIAJAAlABEAJgAkABIAFwARACUAJgASABMAFwAlACcAKAAmABMAGAAXACcAKAATABQAFAAQACgAFAAVABAAGAAnACkAGQAYACkAGQApABYAGgAbABwAGgAqABsAGgArACoAGgAdACsAHQAsACsAHQAeACwAHgAtACwAHgAgAC0ALgAtACAALgAgACEALwAuACEALwAhACIAIwAvACIAIwAfAC8A"),
+"material": SubResource("StandardMaterial3D_kfsnc"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("/v9/P1Qh7z0AjLS6AQCAv0Ai770Ar7O6/v9/P0Ai770AjLS6AQCAv24f7z0Ar7O6AQCAv0Ai770Ar7O6/v9/P0Ai770gxfA9/v9/P0Ai770AjLS6AQCAv0Ai770gxfA9/v9/P1Qh7z0AjLS6AQCAv24f7z2UyPA9AQCAv24f7z0Ar7O6/v9/P1Qh7z0gxfA9/v9/P0Ai770gxfA9AQCAv24f7z2UyPA9/v9/P1Qh7z0gxfA9AQCAv0Ai770gxfA9/v9/P24f7z0+yaC+nhEcvwAAbLU+yaC+mg8cPwAAbLU+yaC+ukc8PwAAbLU+yaC+2oFcPwAAbLU+yaC+/v9/PwAAl7Y+yaC+AQCAv1Qh7z0+yaC+vkk8vwAAbLU+yaC+3oNcvwAAbLU+yaC+AQCAvwAAbLU+yaC+2oFcP24f7z2PyEe+/v9/P24f7z0+yaC+/v9/P24f7z2PyEe+ukc8P0hR9z2PyEe+mg8cP1Qh7z2PyEe+AQCAv1Qh7z0+yaC+nhEcv1Qh7z3Vxke+vkk8v9A62z3Vxke+3oNcv1Qh7z3Vxke+AQCAv1Qh7z3Vxke+mg8cP1Qh7z0+yaC+nhEcv1Qh7z0+yaC+ukc8P2JP9z0+yaC+vkk8v9A62z0+yaC+2oFcP24f7z0+yaC+3oNcv1Qh7z0+yaC+2oFcP24f7z0+yaC+ukc8P2JP9z0+yaC+mg8cP1Qh7z0+yaC+nhEcv1Qh7z0+yaC+vkk8v9A62z0+yaC+3oNcv1Qh7z0+yaC+//8AAP3//r///wAA/f/+v///AAD9//6///8AAP3//r/6fwEAAQAAwPp/AQABAADA+n8BAAEAAMD6fwEAAQAAwP5//v8AAABA/n/+/wAAAED+f/7/AAAAQP5//v8AAABA/X//f/3//7/9f/9//f//v/1//3/9//+//X//f/3//7/+////AAD+v/7///8AAP6//v8AAAgBer/9//7/DQGGwP7///8AAP6//v///wAA/r/+////AAD+vwEA/v+IArq++//+/6cCU8H+////AAD+vwCC/f39/QBBAoD+//7/AEACgP7//v8AQAKA/v/+/wBA/n3+/fz9/z4CgP7//v8AQD17QPs++6A9AoD+//7/AEDChD77PvtgQgKA/v/+/wBA/f8AAAUC/L79/wAAHwLvvv3//v8NAYbA/f8AAIsCub77//7//AB9wPv//v+hBFDCAIL9/f39AEECgP7//v8AQP59/v38/f8+PXtA+z77oD0CgP7//v8AQMKEPvs++2BC")
+}]
+
+[node name="Wall_BottomCover" type="MeshInstance3D" unique_id=1762648742]
+mesh = SubResource("ArrayMesh_4k0t6")

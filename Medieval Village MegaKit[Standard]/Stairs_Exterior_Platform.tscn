@@ -1,0 +1,61 @@
+[gd_scene format=4 uid="uid://bijystlnmj864"]
+
+[ext_resource type="Texture2D" uid="uid://2vof5srq0bx5" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_BaseColor.png" id="1_m8240"]
+[ext_resource type="Texture2D" uid="uid://d20b46jdaec68" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_ORM.png" id="2_xrnd6"]
+[ext_resource type="Texture2D" uid="uid://dcuswfx6tiujo" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_Normal.png" id="3_7amwv"]
+[ext_resource type="Texture2D" uid="uid://c10vsy5novdbt" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png" id="4_4l7wh"]
+[ext_resource type="Texture2D" uid="uid://d22hknmc48b75" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png" id="5_2d5lp"]
+[ext_resource type="Texture2D" uid="uid://tsht43l0a4e0" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png" id="6_prgdf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_km0dj"]
+resource_name = "MI_RockTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_m8240")
+metallic = 1.0
+metallic_texture = ExtResource("2_xrnd6")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_xrnd6")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_7amwv")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shm1u"]
+resource_name = "MI_Brick"
+cull_mode = 2
+albedo_texture = ExtResource("4_4l7wh")
+metallic_texture = ExtResource("5_2d5lp")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("5_2d5lp")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("6_prgdf")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vedjd"]
+_surfaces = [{
+"aabb": AABB(-0.81261307, 0.7817402, -1.0006714, 1.6252263, 0.20691198, 2.0013428),
+"attribute_data": PackedByteArray("L5f4vgSQAT9zstU++XUUPy+X+L4idxQ/c7LVPgSQAT9qj/i+KWWsPq6q1T4RtrI+ao/4vhG2sj6uqtU+KWWsPgOd+L44f7E+fSrVPtxxAT8Dnfi+3HEBP30q1T44f7E+ao/4vhG2sj6uqtU+KD//PmqP+L4oP/8+rqrVPhG2sj6uqtU+KD//Pq6q1T4RtrI+ao/4vhG2sj4vl/i+IncUP3Oy1T4EkAE/L5f4vgSQAT9zstU++XUUP2qP+L4RtrI+rqrVPillrD5qj/i+KWWsPq6q1T4RtrI+A534vtxxAT99KtU+OH+xPgOd+L44f7E+fSrVPtxxAT8="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0ADgAQABEADgARABIAEwAUABUAEwAWABQAFwAYABkAFwAaABgAGwAcAB0AGwAeABwA"),
+"material": SubResource("StandardMaterial3D_km0dj"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 31,
+"vertex_data": PackedByteArray("aQdQvyAgSD8AFoC/awdQPzzEeT8AFoC/aQdQvzzEeT8AFoC/awdQPyAgSD8AFoC/aQdQvzzEeT8AFoC/awdQP08YfT8Iq3q/aQdQv08YfT8Iq3q/awdQPzzEeT8AFoC/awdQPyAgSD8AFoC/aQdQvyAgSD8AAIC3awdQPyAgSD8AAIC3aQdQvyAgSD8AFoC/aQdQv08YfT8Iq3q/awdQP08YfT8AAIC3aQdQv08YfT8AAIC3awdQP08YfT8Iq3q/awdQP08YfT8AAIC3awdQP08YfT8IqXo/aQdQv08YfT8IqXo/aQdQvzzEeT8AFoA/awdQPyAgSD8AFoA/aQdQvyAgSD8AFoA/awdQPzzEeT8AFoA/aQdQv08YfT8IqXo/awdQPzzEeT8AFoA/aQdQvzzEeT8AFoA/awdQP08YfT8IqXo/awdQPyAgSD8AAIC3aQdQvyAgSD8AFoA/awdQPyAgSD8AFoA/aQdQvyAgSD8AAIC3//8AAP3//r///wAA/f/+v///AAD9//6///8AAP3//r/JT/7//v//vxlk/v/+//+/GWT+//7//7/JT/7//v//v/p/AQABAADA+n8BAAEAAMD6fwEAAQAAwPp/AQABAADA5Zv+//3//r8AgP3//v/+vwKA/v/+/wBAGWT+//7//78CgP7//v8AQACAGuT+/wBAAIAa5P7/AED6f/9/+v//P/p//3/6//8/+n//f/r//z/6f/9/+v//P/9/GuT+//8//3/Iz/7//z//f8jP/v//P/9/GuT+//8/+n8BAAEA/j/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j8=")
+}, {
+"aabb": AABB(-1.0000002, -3.8206755e-16, -1, 2.0000005, 1, 2),
+"attribute_data": PackedByteArray("AAAAAAD/fz8AAIA/mP8XPwAAgD8AAIA/AAAAAJj/Fz/bpVo/mgiaPbuouj3ZStk+u6i6PZoImj3bpVo/2UrZPtulWj/9znw/u6i6PeBgYD/bpVo/4GBgP7uouj39znw/AAAAAMvrSj8AAIA/5s9lPwAAAADmz2U/AACAP8vrSj8AAAAAAP9/PwAAgD+Y/xc/AAAAAJj/Fz8AAIA/AACAP9ulWj+aCJo9u6i6PdlK2T7bpVo/2UrZPruouj2aCJo926VaP/3OfD+7qLo94GBgP7uouj39znw/26VaP+BgYD8AAAAA5s9lPwAAgD/L60o/AACAP+bPZT8AAAAAy+tKPw=="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0A"),
+"material": SubResource("StandardMaterial3D_shm1u"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("AgCAPzg/3KUAAIA/BP5/PwAAgD8AAIC/BP5/Pzg/3KUAAIC/AgCAPwAAgD8AAIA/0MtMPzg/3KUAAIC/0MtMPwAAgD8AAIA/0MtMPzg/3KUAAIA/0MtMPwAAgD8AAIC/0MtMPzg/3KUAAIC/AgCAPzg/3KUAAIA/BP5/Pzg/3KUAAIC/0MtMPzg/3KUAAIA/BP5/PwAAgD8AAIC/0MtMPwAAgD8AAIA/0MtMPwAAgD8AAIC/AgCAPwAAgD8AAIA/AgCAvzg/3KUAAIA/AgCAvwAAgD8AAIC/AgCAvwAAgD8AAIA/AgCAvzg/3KUAAIC/0M1Mvzg/3KUAAIC/0M1MvwAAgD8AAIA/0M1MvwAAgD8AAIC/0M1Mvzg/3KUAAIA/0M1Mvzg/3KUAAIC/AgCAvzg/3KUAAIA/0M1Mvzg/3KUAAIA/AgCAvzg/3KUAAIC/AgCAvwAAgD8AAIC/0M1MvwAAgD8AAIA/AgCAvwAAgD8AAIA/0M1MvwAAgD8AAIC//f8AgP7//v/9/wCA/v/+//3/AID+//7//f8AgP7//v8AAPp//v/9/wAA+n/+//3/AAD6f/7//f8AAPp//v/9/wWAAwD8//7/BYADAPz//v8FgAMA/P/+/wWAAwD8//7/AYD5/wCA/b8BgPn/AID9vwGA+f8AgP2/AYD5/wCA/b8AAPp//v8BAAAA+n/+/wEAAAD6f/7/AQAAAPp//v8BAP7/AoAAAAEA/v8CgAAAAQD+/wKAAAABAP7/AoAAAAEA+n8AAPv/AQD6fwAA+/8BAPp/AAD7/wEA+n8AAPv/AQD+f/3/AID+v/5/+v/9f/2//n/6//1//b/+f/3/AID+vw==")
+}]
+
+[node name="Stairs_Exterior_Platform" type="MeshInstance3D" unique_id=2101853044]
+mesh = SubResource("ArrayMesh_vedjd")

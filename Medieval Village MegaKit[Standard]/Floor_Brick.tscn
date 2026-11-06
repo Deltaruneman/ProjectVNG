@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://d28qx5unipsa3"]
+
+[ext_resource type="Texture2D" uid="uid://c10vsy5novdbt" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png" id="1_22urt"]
+[ext_resource type="Texture2D" uid="uid://d22hknmc48b75" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png" id="2_d88wm"]
+[ext_resource type="Texture2D" uid="uid://tsht43l0a4e0" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png" id="3_ay4x4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0u2p5"]
+resource_name = "MI_Brick"
+cull_mode = 2
+albedo_texture = ExtResource("1_22urt")
+metallic_texture = ExtResource("2_d88wm")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_d88wm")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_ay4x4")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dj88d"]
+_surfaces = [{
+"aabb": AABB(-1, -0.010000384, -1, 2, 0.020000376, 2),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPw=="),
+"format": 34359742487,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUA"),
+"material": SubResource("StandardMaterial3D_0u2p5"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwHXIzwAAIA/AACAvwHXIzwAAIC/AACAPwHXIzwAAIC/AACAvwHXIzwAAIA/AACAv6fYI7wAAIA/AACAPxjWI7wAAIC/AACAv6fYI7wAAIC/AACAPxjWI7wAAIA//3/9//7//7//f/3//v//v/9//f/+//+//3/9//7//78CgAAA/v//PwKAAAD+//8/AoAAAP7//z8CgAAA/v//Pw==")
+}]
+
+[node name="Floor_Brick" type="MeshInstance3D" unique_id=1448055877]
+mesh = SubResource("ArrayMesh_dj88d")
