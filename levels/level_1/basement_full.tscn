@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
 [ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_lpgvr"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="12_boss"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -313,6 +314,8 @@ floor_map = NodePath("../World")
 
 [node name="MiniBossSpot_B3" type="Marker3D" parent="B3" unique_id=578778800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 13, 14)
+
+[node name="DarkFairy" parent="B3/MiniBossSpot_B3" instance=ExtResource("12_boss")]
 
 [node name="ElevatorSlot" type="Marker3D" parent="B3" unique_id=1522927679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 13, 2)

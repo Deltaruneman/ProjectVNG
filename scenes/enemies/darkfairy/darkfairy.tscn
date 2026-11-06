@@ -1,0 +1,105 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemies/darkfairy/darkfairy.gd" id="1"]
+[ext_resource type="AnimationLibrary" path="res://scenes/enemies/darkfairy/darkfairy_anims.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/hurt_area_3d.gd" id="3"]
+[ext_resource type="Texture2D" path="res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png" id="4"]
+
+[sub_resource type="CapsuleShape3D" id="body"]
+radius = 0.5
+height = 1.8
+
+[sub_resource type="SphereShape3D" id="melee"]
+radius = 1.9
+
+[sub_resource type="StandardMaterial3D" id="shield_material"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.65, 0.2, 0.85, 0.18)
+
+[sub_resource type="SphereMesh" id="shield"]
+material = SubResource("shield_material")
+radius = 1.25
+height = 3.1
+
+[node name="DarkFairy" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1")
+max_health = 40
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+position = Vector3(0, 1.65, 0)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("4")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = ExtResource("2")
+
+[node name="Direction" type="Node3D" parent="."]
+
+[node name="HurtArea3D" type="Area3D" parent="Direction"]
+position = Vector3(0, 0.95, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D"]
+shape = SubResource("body")
+
+[node name="HitArea3D" type="Area3D" parent="Direction"]
+position = Vector3(0, 0.8, 1.2)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D"]
+shape = SubResource("melee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.95, 0)
+shape = SubResource("body")
+
+[node name="Shield" type="MeshInstance3D" parent="."]
+visible = false
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("shield")
+
+[node name="BossHUD" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Bar" type="ProgressBar" parent="BossHUD"]
+visible = false
+anchors_preset = 12
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -22.0
+offset_right = 140.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+show_percentage = false
+
+[node name="Name" type="Label" parent="BossHUD"]
+visible = false
+anchors_preset = 12
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -42.0
+offset_right = 140.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+text = "DARK FAIRY / PHASE 1"
+horizontal_alignment = 1
