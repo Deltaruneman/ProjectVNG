@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="1_p5sae"]
 [ext_resource type="MeshLibrary" uid="uid://ohm3771jyopt" path="res://assets/meshes/forest_library.meshlib" id="2_mg8ag"]
 [ext_resource type="PackedScene" uid="uid://cmmjhllqibaoc" path="res://scenes/objects/palm_tree.tscn" id="3_w0g6r"]
-[ext_resource type="PackedScene" uid="uid://clxulon4q7jr" path="res://scenes/player/player.tscn" id="4_h8r88"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="4_h8r88"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="5_s2c0g"]
 [ext_resource type="PackedScene" uid="uid://65gpamtlsq5j" path="res://scenes/objects/sea_water.tscn" id="6_ul400"]
 [ext_resource type="PackedScene" path="res://levels/objects/kill_zone/kill_zone.tscn" id="7_fc8l5"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c081l7n0nbsu6" path="res://levels/objects/platforms/path_platform.tscn" id="11_w0g6r"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="12_h8r88"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="13_s2c0g"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="14_ul400"]
 
 [sub_resource type="Environment" id="Environment_wnaro"]
 ambient_light_source = 3
@@ -88,3 +89,6 @@ target_door = "to_stage_2"
 [node name="Checkpoint" parent="." unique_id=360418892 instance=ExtResource("13_s2c0g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 15)
 id = "dock"
+
+[node name="DarkFairy" parent="." unique_id=1097705581 instance=ExtResource("14_ul400")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.500357, 1.6189753, 16.143517)

@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://levels/level_1/basement_full.tscn" id="1"]
+[ext_resource type="Script" path="res://tests/darkfairy_arena.gd" id="2"]
+
+[node name="Basement" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="Player" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 13.1, 19)
+has_weapon = true
