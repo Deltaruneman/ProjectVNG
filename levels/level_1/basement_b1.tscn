@@ -218,6 +218,7 @@ target = NodePath("../Player")
 scale = Vector2(6, 4)
 transform = Transform2D(6, 0, 0, 4, 0, 0)
 margin = Vector2(3, 2)
+show_label = true
 
 [editable path="B1/Torches/Torch1"]
 [editable path="B1/Torches/Torch"]

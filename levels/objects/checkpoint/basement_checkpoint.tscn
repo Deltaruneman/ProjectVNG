@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://m71d8f517f26"]
+
+[ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://dx21ra4ispgvh" path="res://levels/objects/checkpoint/basement_checkpoint.gd" id="2_behavior"]
+
+[node name="BasementCheckpoint" unique_id=1781406059 instance=ExtResource("1_base")]
+script = ExtResource("2_behavior")
+interact_input_action = "interact"
+prompt_height = 2.2
+
+[node name="AnimatedSprite3D" parent="." index="0" unique_id=273705866]
+frame = 0
+frame_progress = 0.0
+
+[node name="ActivationFeedback" type="Label3D" parent="." index="3" unique_id=848110475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+visible = false
+pixel_size = 0.01
+billboard = 1
+text = "Checkpoint activated."
+font_size = 40
