@@ -419,3 +419,366 @@ No Godot launch or real-save access is needed for packaging. Current editor save
 are reconciled statically with tested checkpoint behavior; unrelated prototype
 reparenting is omitted rather than attributed to this work. No broad audit,
 implementation, scene repair or test rewrite is part of this commit/push.
+## 2026-11-07 — T043 F6 scene startup follow-up
+
+**Status:** Implementation is present; runtime behavior is not verified. T043 remains
+open until the isolated F6/F5 acceptance checks are performed. No reviewer agreement is
+claimed for this follow-up.
+
+**Cause:** The configured main scene and `GameManager.FIRST_STAGE` are both
+`levels/level_1/basement_full.tscn`. The local save had a valid `stage_1.tscn` checkpoint
+(`village`). `register_stage()` previously used only scene path equality, so an explicit
+F6 run of `basement_full.tscn` was treated as ordinary main-scene startup and redirected
+to that saved checkpoint.
+
+**Included files and purpose:**
+
+| File | Purpose / effect |
+| --- | --- |
+| `scripts/autoload/game_manager.gd` | In `register_stage()`, detect Godot's explicit `--scene` launch argument and skip saved-checkpoint conflict/continuation and checkpoint spawn restoration for that isolated scene run. F5, which has no explicit scene argument, retains the existing continue-from-save flow. Does not clear or rewrite the save. This is a shared startup/recovery system change within the existing GameManager boundary. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T043 scope, ownership/review boundary, observable acceptance criteria, and pending runtime checks; update task totals/current state. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the observed configuration/save cause, implementation, and the distinction between static review and unrun runtime acceptance. |
+
+**Shared-system/integration effects:** Only GameManager startup routing changes. Stage,
+SaveSystem serializer, player, checkpoint scenes, scene resources and project settings are
+untouched by this group. Prior local changes in other files were preserved.
+
+**Verification:** Read-only inspection confirmed the saved checkpoint target and the
+existing registration branch. Static review confirms the `--scene` bypass encloses both
+the conflict fallback and checkpoint stage/spawn restoration. No tests or Godot runs were
+performed. Required isolated F6 and F5 runs with a synthetic `stage_1.tscn`/`village` save
+remain unfinished; runtime behavior must not be reported as verified.
+
+**Known limitations / unfinished work:** T043 remains open pending F6 scene identity,
+default spawn, unchanged save, and F5 continuation checks. Existing T025/T026 partial
+status, BUG-003, other open feature tasks, and prior review boundaries remain unchanged.
+
+## 2026-11-07 — T044 active-floor camera visibility
+
+**Status:** The render-visibility change is implemented. Runtime camera, floor-transition,
+collision and navigation behavior is unverified; T044 remains open. Quan review/sign-off is
+not recorded.
+
+**Included files and purpose:**
+
+| File | Purpose / effect |
+| --- | --- |
+| `levels/level_1/basement_floor_visibility.gd` | Render only the active `floor_level`; retain B1_5's existing secret-area condition; hide the B1 room ceiling GridMap visually so it does not block the camera. No collision/navigation/movement data is edited. |
+| `specs/001-integrate-basement-stage/tasks.md` | Define T044 scope, owner/review boundary, acceptance criteria, and required camera/floor/collision checks; update totals. |
+| `specs/001-integrate-basement-stage/validation.md` | Record static baseline findings, implementation and outstanding runtime checks without claiming a fix. |
+| `docs/implementation-changelog.md` | Preserve this cumulative implementation and verification record. |
+
+**Shared-system/integration effects:** Changes are limited to the basement Stage's render
+visibility script. The script still processes hidden floors and their collision/navigation
+nodes remain in the scene. Scene geometry, shared mesh libraries, player/camera systems,
+checkpoints, saves, and the open T034-T038 ceiling/route work are unchanged.
+
+**Verification:** Static source inspection only; no Godot run or test was performed. Required
+playtest: switch among B1, B1_5, B2, B3 and GroundExit, inspect camera sightlines and confirm
+collision/navigation behavior remains intact. No known new runtime errors are established.
+
+**Limitations / unfinished work:** T044 remains open pending the playtest. T034-T038 remain
+open; this render-only change does not constitute measured ceiling/route construction or
+acceptance. No reviewer agreement is claimed.
+
+### T044 correction — keep the selected floor during jumps
+
+**Cause:** T034's recorded B2 jump reaches root Y≈12.9342 from Y≈7.0006. The visibility
+formula's B3 threshold is Y=11.5, so a jump could select B3 before landing on B2. The
+measurements are prior runtime evidence; no new playtest was run for this correction.
+
+**Included file and purpose:** `levels/level_1/basement_floor_visibility.gd` now retains the
+selected floor while the player is airborne and recalculates after landing. This prevents
+jump height alone from switching rendered floors. Collision, floor geometry, camera system,
+and navigation remain unchanged.
+
+**Verification and limitations:** Static source review only. Runtime B2 jump/landing and
+floor-transition checks are pending under T044. Do not claim the floor-3-at-B2-jump issue
+is runtime-verified as fixed until that playtest is recorded. No reviewer agreement is
+claimed.
+
+#### User-reported B2 ladder case and selector revision
+
+The user supplied a screenshot showing the B2 ladder area with B2 hidden and B3 rendered.
+This shows that retaining the prior floor only while airborne was insufficient: the player
+can stand on elevated B2 stairs above the height threshold. The selector now identifies the
+floor from a short downward physics ray against the grounded player's supporting collider,
+and retains the prior selection while airborne. Height is only a startup fallback before a
+supporting floor is found. No Godot playtest was run; collider mapping and camera behavior
+remain unverified under T044.
+
+#### Final T044 selection rule — midpoint during ascent
+
+The user clarified that the upper floor should become visible while climbing, near halfway
+between floors, before landing. This supersedes the support-collider/airborne-retention
+approach described above. The script now uses the player height continuously with
+`switch_margin=3.0`, selecting the upper floor at the midpoint: Y=4, 10, and 16 for the
+current B1/B2/B3/GroundExit spacing. B1_5's secret-area filter remains in effect. Static
+source review and `git diff --check` were performed; no Godot playtest was run. Stair ascent
+and possible transition flicker remain unverified under T044.
+
+#### Superseding T044 implementation — connector-local thresholds
+
+The user approved a connector-specific solution because global height thresholds also
+changed floors during ordinary jumps. `levels/level_1/basement_floor_visibility.gd` now
+uses the existing B1↔B2, B2↔B3, and B3↔Ground ladder markers as horizontal transition zones
+(3.5 m radius). Within each zone, crossing the pair's vertical midpoint while grounded or
+touching a wall selects the destination floor; crossing back down selects the source floor,
+with 0.25 m hysteresis. Outside connectors, a short downward physics ray identifies the
+grounded support floor, and the selection stays fixed while airborne. Scene geometry,
+player movement, and collision configuration are not edited.
+
+Static review and `git diff --check` only; no Godot playtest was run. Marker alignment,
+connector radius, transitions at the pictured stair, reverse descent, and ordinary jumps
+outside connectors remain unverified. T044 remains open and no reviewer agreement is claimed.
+
+## 2026-11-07 — T045 HUD and Skill Tree spellbook presentation
+
+**Task status:** T045 implemented; runtime interaction and visual verification remain
+unrun, so the task stays open. BUG-003 remains open and is not attributed to or claimed
+fixed by this UI work.
+
+### Included files and purpose
+
+| File | Purpose and effect |
+| --- | --- |
+| `ui/health_bar.gd` | Replace the persistent `T: Cây kỹ năng` prose with the existing SP count; append a clickable spellbook icon in a sixth toolbar slot marked T. Preserve the four active-skill slots and ultimate slot positions and their existing behavior. |
+| `ui/skill_tree_layout.gd` | Remove the menu shortcut footer; give the menu a dark two-page/spine book presentation and horizontal open/close tween. Opening pauses immediately; closing resumes after the animation. Existing T, Escape, close button, and allocation UI remain connected. |
+| `assets/ui/skill_tree_book.svg` | Add a small project-authored vector book icon with a magical star and page lines. No existing spellbook image asset was found; existing pixel spell/skill icons remain available. |
+| `specs/001-integrate-basement-stage/tasks.md` | Add T045 owner, scope, acceptance criteria and verification boundary; update task count. |
+| `specs/001-integrate-basement-stage/validation.md` | Record pre-implementation acceptance, implementation status, asset search result, verification limits and open BUG-003 status. |
+| `docs/implementation-changelog.md` | Add this cumulative implementation-group record. |
+
+### Integration effects, verification and limitations
+
+- Shared-system effects: HUD presentation/Skill Tree only. No input mapping, combat,
+  skill progression, health/rage logic, basement scene, or BUG-003 diagnosis changed.
+- **PASSED:** focused source/diff review confirmed the five skill slots retain their prior
+  indexes and the new book/T slot is appended; the existing `skill_tree` action is retained.
+  `git diff --check` is clean. The new SVG path matches its script reference.
+- **NOT RUN:** no Godot parse, runtime, input, mouse-click, animation, or rendered-layout
+  check was performed. Those behaviors and the sixth-slot fit need visual playtesting;
+  the created icon is custom vector artwork rather than an existing project book asset.
+- Known errors: none observed in static review. Unfinished: record T045 runtime results and
+  any needed layout correction; BUG-003 B2 health-bar symptom and T025/T026 acceptance remain
+  independent and open. No reviewer sign-off is claimed.
+
+#### T045 correction — consume book-slot click through the viewport
+
+The user reported a Godot error at `ui/health_bar.gd` because `_on_skill_tree_slot_input()`
+called `accept_event()` on `HealthHUD`, a `CanvasLayer`. Replaced it with
+`get_viewport().set_input_as_handled()` after opening the Skill Tree. This keeps the click
+from propagating while using the viewport input API. Static review and `git diff --check`
+only; no Godot rerun was performed, so T045 runtime verification remains open.
+
+#### T045 update — integrate user-added CrystalWitch UI atlas
+
+The user added Elysian's free UI bundle under `assets/ui/User Interface Packs - Free/`.
+The free bundle includes the CrystalWitch theme atlas but not the full-version book menu
+layout. `ui/skill_tree_layout.gd` now uses an atlas crop for the crystal orb beside the
+Skill Tree title and applies the pack's purple/lavender palette to the open-book pages and
+frame. Keep the user-added PNG/import files intact; the existing custom book glyph remains
+the toolbar icon. The bundled READ ME allows free/commercial project use and asks for the
+creator to be mentioned in commercial releases; record Elysian Game Studio in game credits
+if commercially distributed. Static path/source review and `git diff --check` only; Godot
+visual/runtime verification remains open under T045.
+
+#### T045 visual revision — use CrystalWitch frames on both pages
+
+After the user reported the first integration was not visually recognizable, the menu
+pages were changed from plain colored panels to paired nine-patch frames sampled from
+the CrystalWitch atlas. The frame regions (25,18,47,79) and (84,17,57,80) are within the
+351×304 source image. Purple page fills and matching normal/hover/pressed button styles
+make the pack's theme more visible while preserving the existing skill graph and book
+animation. The free pack still does not include the full book-menu layout. Static review
+and `git diff --check` only; no Godot rendering check was run, so appearance and crop
+quality remain unverified under T045.
+
+#### T045 correction — unsupported NinePatchRect flip
+
+The user reported that assigning `flip_h` to a `NinePatchRect` fails because that property
+is unsupported on this control. Removed the assignment and renamed the helper argument to
+describe left-page placement. Each page still uses its own CrystalWitch atlas region.
+Static source review and `git diff --check` only; no Godot rerun, so T045 remains open for
+runtime verification.
+
+#### T045 visual replacement — CraftPix animated book and single-spread layout
+
+The user reported that the previous UI was visually poor, replaced the asset at the existing UI location, and asked for all content on one visible spread with a page flip when switching Weapon/Character. The new user-added CraftPix pack is now used directly.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/health_bar.gd` | Replace the T-slot's former custom SVG texture with an atlas crop from the CraftPix open-book sheet. |
+| `ui/skill_tree_layout.gd` | Display the open-book crop as the resting spread, remove scrolling, use open/close sheets for book transitions, and use directional page-turn sheets when changing tabs. |
+| `ui/skill_tree_graph.gd` | Scale skill nodes to fit the graph's actual available width and height while keeping their layout ratios and links. |
+| `specs/001-integrate-basement-stage/tasks.md` | Update T045 requirements for the replacement pack, one-spread fit, and Weapon/Character page-turn animation. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the replacement asset, one-spread implementation, static observations, and outstanding runtime checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation-group record. |
+
+**Referenced user-added assets:** `PNG/Open_book.png` supplies the resting spread, opening frames, and toolbar book icon; `PNG/Close_book.png` supplies closing frames; `PNG/Turning_pages_left.png` and `PNG/Turning_pages_right.png` supply tab-change flips. These asset files and import metadata were not edited. The previously added `assets/ui/skill_tree_book.svg` remains in the workspace but is no longer referenced by the toolbar.
+
+**Integration effects:** Skill Tree/HUD presentation only. Node positions, purchases, progression rules, health/rage, input bindings, and basement/map systems were not changed.
+
+**Static review:** the builder has no `ScrollContainer`; weapon and character graphs use available space rather than oversized fixed heights; node scale is bounded by the graph's width/height and the smallest horizontal/vertical gap or edge margin. Asset paths match the replacement folder. `git diff --check` passes. **Not run:** Godot parse/runtime, rendered layout at supported resolutions, T/click input, page flips, or pause/resume. T045 remains open pending those observations. BUG-003 remains open; no teammate/reviewer sign-off is claimed.
+
+#### T045 correction — single-page face, icon size, and flip direction
+
+The user reported that menu text crossed the book seam, the toolbar book appeared smaller than skill icons, and tab flips moved in the wrong direction. All layout text and tree content now occupy only the right-hand page safe area. The weapon tree was re-spaced into two columns for that narrower page, and the graph's node scaling checks pairwise two-dimensional spacing and page-edge clearance. The toolbar atlas now crops tightly around the open-book frame and slightly enlarges its icon control. Weapon-to-Character uses the left-turn sheet and Character-to-Weapon uses the right-turn sheet, reversing the previous mapping.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Restrict content to the right page, reflow the weapon graph, and reverse page-turn sheet selection. |
+| `ui/skill_tree_graph.gd` | Scale nodes against pairwise horizontal/vertical separation and graph-edge clearance. |
+| `ui/health_bar.gd` | Crop the open-book icon to its non-transparent bounds and render it at the skill-slot scale. |
+| `specs/001-integrate-basement-stage/tasks.md` | Refine T045 acceptance for single-page-face content, comparable icon size, and correct turn direction. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the correction and remaining runtime visual checks. |
+| `docs/implementation-changelog.md` | Preserve this cumulative change and its evidence boundary. |
+
+**Integration effects:** HUD and Skill Tree presentation only. No skill/progression logic or input mapping changed. `git diff --check` passes. No Godot runtime, visual or input checks were performed; one-face fit, icon size, and flip direction remain unverified in-game. T045 remains open, BUG-003 remains independent, and no reviewer sign-off is claimed.
+
+#### T045 correction — move the single-page content to the left leaf
+
+The user reported that the content was misaligned and had been pushed onto the wrong page. `ui/skill_tree_layout.gd` now places the same single-page content area on the left leaf's mirrored safe region (7%-47% of the book artwork width), leaving clearance at the center seam. No tree, progression, icon, animation, or input behavior was changed in this correction. Static source inspection and `git diff --check` only; no Godot visual check was run. The placement is not yet runtime-verified, T045 remains open, and no review sign-off is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Move the page content container from the right leaf to the corresponding left leaf safe area. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the correction and note that visual alignment remains unverified. |
+| `docs/implementation-changelog.md` | Preserve this cumulative update. |
+
+#### T045 correction — center both tab layouts across the open-book spread
+
+The user shared screenshots of the Weapon and Character tabs and reported that both appeared shifted. Re-centered the content box within the full open-book artwork with equal side margins, restored the weapon tree's wider node distribution across the spread, right-aligned the skill-point summary, and centered the footer buttons. Long section labels now wrap within the book content width. This supersedes the immediately prior left-leaf-only adjustment because the screenshots clarified that both tabs should balance across the spread.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Center the content area on the full book, distribute the weapon tree across the spread, align header/footer controls, and wrap long labels. |
+| `specs/001-integrate-basement-stage/tasks.md` | Update T045 acceptance from single-leaf placement to a balanced, overflow-free two-page spread. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the screenshot-driven correction and runtime-verification limit. |
+| `docs/implementation-changelog.md` | Preserve this cumulative correction. |
+
+**Integration effects:** Skill Tree presentation only; progression, tree allocation and input mapping are unchanged. `git diff --check` passes. No Godot rendering was run; both-tab alignment, wrap behavior and no-overflow acceptance remain unverified, so T045 stays open. No reviewer sign-off is claimed.
+
+#### T045 refinement — prominent element choices and left-side hover descriptions
+
+The user reported that skill nodes were too small to read and supplied a sketch for larger elemental choices, a tree shown after element selection, and a skill-description panel on the left while hovering. The existing GameManager form-purchase/selection path is retained; this change only updates the presentation and hover detail. Existing element-orb and spell-icon textures are used, so no additional asset download is needed.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Add the left detail panel; send the graph description into it on hover; retain the existing element-choice callback that spends the current point and reveals the selected branch tree. |
+| `ui/skill_tree_node.gd` | Enlarge node circles and icons; add a prominent display variant for element-choice nodes; emit hover detail signals. |
+| `ui/skill_tree_graph.gd` | Fit normal and large node dimensions using per-node sizes and pairwise spacing. |
+| `specs/001-integrate-basement-stage/tasks.md` | Add prominent element choices and left-side hover descriptions to T045 acceptance. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the UI change, reused assets, and unrun runtime checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** Skill Tree presentation/input feedback only. The existing one-point element selection and skill/progression rules are not changed. **Static review:** existing `32x32` elemental orbs and spell icons are referenced; no external UI pack or download is needed. `git diff --check` passes. **Not run:** Godot parse/render, hover, element selection, or visual readability checks. T045 remains open; BUG-003 and other reviewer boundaries are unchanged.
+
+#### T045 refinement — fixed boxes, less prose, larger nodes, and graph zoom
+
+The user reported that long description text overflowed its box and that tree nodes remained hard to read. The details card now has a fixed 176 px width with anchored inner layout, smaller wrapped text, and clipping within the box; box dimensions do not depend on the displayed description. Redundant instructional/threshold headings were removed from the tree area, with only concise point and unlock guidance retained in the left card. Node icons/circles are larger, especially the four element choices. Added fixed-size zoom out/in/percentage/reset controls, wheel zoom (65%-200%), and middle-button panning inside the clipped graph view. Text drawn inside a node does not determine the node's layout size.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Fix the detail-card geometry, reduce description font, remove redundant graph-area text, retain concise guidance at left, and add fixed-size zoom controls. |
+| `ui/skill_tree_graph.gd` | Add bounded zoom, wheel input, middle-button panning, and clipping while keeping graph bounds fixed. |
+| `ui/skill_tree_node.gd` | Enlarge normal and element icons and keep node box dimensions independent of label text. |
+| `specs/001-integrate-basement-stage/tasks.md` | Update T045 scope and acceptance for fixed box geometry and zoom. |
+| `specs/001-integrate-basement-stage/validation.md` | Record implementation boundaries and unrun visual/runtime checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative group record. |
+
+**Shared-system effects:** Skill Tree presentation and navigation only; skill spending, unlock thresholds, character statistics, HUD behavior, and GameManager rules remain unchanged. Reuses the existing element-orb and skill-icon PNGs; no new external asset is required. `git diff --check` passes. Godot parse/render, wheel/middle input, text overflow, and supported-resolution layout checks were not run. T045 remains open, with no reviewer sign-off claimed.
+
+#### T045 screenshot correction — keep zoom controls and skill bar within bounds
+
+The user supplied a Skill Tree screenshot showing the top-right zoom controls outside the book art and the details card crossing the center seam, plus a HUD screenshot showing the skill bar shifted left and too large. `ui/skill_tree_layout.gd` now uses symmetric 8% book margins with clipping, relocates zoom controls into a right-aligned row above the graph, and narrows the fixed details card to 144 px so it stays on the left leaf. `ui/health_bar.gd` reduces slot size from 38×36 to 35×33 px, reduces gaps/padding, and centers the bar at the viewport midpoint.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Bound menu content to a symmetric safe area, move zoom controls out of the crowded main header, and keep the detail card within the left page. |
+| `ui/health_bar.gd` | Reduce skill-bar footprint and center it horizontally. |
+| `specs/001-integrate-basement-stage/validation.md` | Record screenshot findings, implementation, and unrun runtime checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative record. |
+
+**Integration effects:** HUD presentation and Skill Tree layout only. Skill input/selection, cooldowns, progression and health behavior are unchanged. `git diff --check` passes. Godot screenshot/render verification was not run; final visual alignment and size remain unverified, and T045 remains open without reviewer sign-off.
+
+#### T045 follow-up — confine details to left book leaf
+
+The supplied screenshot still showed the fixed detail card crossing the book seam after the earlier width reduction. Narrowed the card from 144 px to 120 px, leaving the graph area on the right leaf.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Keep the fixed detail panel inside the left book page. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the screenshot finding, source change, and remaining visual verification. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** Skill Tree layout only; skill unlocks, points, graph behavior, and the already reduced/centered skill bar are unchanged. `git diff --check` passes. Godot rendering was not run, so final alignment remains unverified and T045 remains open without reviewer sign-off.
+
+#### T045 screenshot correction — compensate for HUD CanvasLayer scale
+
+The latest HUD screenshot showed the skill bar positioned substantially right of center. Source inspection found `ui/hud.tscn` applies an X scale of 1.5 to the root `CanvasLayer`, so centering the bar at a local 0.5 anchor rendered it at 0.75 of the viewport width. The bar now maps the viewport center through the inverse canvas transform and uses exact half-width offsets. The bar remains at 35×33 px slots with tightened gaps and padding.
+
+Renamed the expanded controller from `health_bar.gd` to `player_hud.gd`, updated its global class name and the scene resource path, and moved the UID sidecar without changing its UID.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/health_bar.gd` → `ui/player_hud.gd` | Rename the combined player HUD controller and compensate for the CanvasLayer transform when centering the skill bar. |
+| `ui/health_bar.gd.uid` → `ui/player_hud.gd.uid` | Preserve the Godot script UID under the new filename. |
+| `ui/hud.tscn` | Point the HUD scene at the renamed script while keeping its UID. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record the centered-bar criterion and controller name in T045 scope. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the screenshot diagnosis, static evidence, and remaining runtime check. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** HUD presentation and script resource naming only. Health/rage logic, skill selection, cooldowns, input mappings, and progression are unchanged. `git diff --check` passes. Godot rendering/input behavior was not run; centering is supported by static transform math but remains runtime-unverified. T045 remains open with no reviewer sign-off claimed.
+
+#### T045 parser correction — use the CanvasLayer viewport API
+
+The user reported a parser error because `get_viewport_rect()` is unavailable on the `CanvasLayer` script base. `ui/player_hud.gd` now obtains the visible viewport width through `get_viewport().get_visible_rect().size.x` and uses that width for the center-anchor calculation.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/player_hud.gd` | Replace the unsupported viewport call in the skill-bar centering code. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the parser report, correction, and unrun Godot check. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** HUD layout only; health/rage behavior and skill controls are unchanged. `git diff --check` passes. Godot parsing and rendering were not run, so the parser correction and visual placement remain unverified. T045 remains open without reviewer sign-off.
+
+#### T045 screenshot refinement — nudge selected weapon tree right
+
+The latest book-page screenshot showed the selected weapon tree sitting slightly left in its page. Added a 4% graph-width display offset for the selected weapon tree. Nodes and links share the offset; the element-selection graph and Character tree remain unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_graph.gd` | Apply a normalized presentation offset to graph nodes and connecting lines. |
+| `ui/skill_tree_layout.gd` | Nudge only the selected weapon tree 4% to the right. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record the selected-tree alignment requirement and the pending Dark Fairy task. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the screenshot adjustment and boss-HUD ownership boundary. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** Skill Tree presentation only. Unlocks, node positions relative to each other, selection, points, zoom, and player HUD health/rage behavior are unchanged. `git diff --check` passes. Godot visual/zoom verification was not run; T045 remains open without reviewer sign-off.
+
+#### T046 request — Dark Fairy boss HUD top-center
+
+Static inspection found the Dark Fairy health bar and phase label already centered horizontally but anchored to the bottom of the viewport. The latest user-provided screenshot shows the phase label over the lower skill bar, consistent with the bottom anchors; the boss progress bar is obscured by that lower HUD area in the crop. The requested vertical reposition belongs to `scenes/enemies/darkfairy/darkfairy.tscn`, a Duy-owned boss scene. Per `.specify/memory/constitution.md` ownership boundary, no edit was made pending Duy approval. T046 records the narrow scene-only scope and acceptance criteria; the screenshot is user-provided runtime evidence, not a local playtest, and no implementation or reviewer agreement is claimed.
+
+#### T047 implementation — player-only bounded stair step-up
+
+The user reported that the player still gets stuck on the B1/B2 stair connector. Added a bounded
+step attempt in the player movement override: only when grounded horizontal movement is blocked,
+the code checks vertical clearance, the raised horizontal path, and a walkable landing within
+0.75 world units. No map or shared character collision logic was changed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.gd` | Add the bounded player-only step-up and landing checks. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T047 scope and keep it open until required runtime checks are complete. |
+| `specs/001-integrate-basement-stage/validation.md` | Record Godot startup evidence and the unverified traversal/regression checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** Player horizontal traversal only. `BaseCharacter`, enemy movement, basement
+map/GridMap colliders, stair meshes, navigation, and T044 floor visibility are unchanged. Godot
+4.7.2 F6 launched `basement_full.tscn` with the player and HUD visible, confirming script parse and
+scene startup. The interactive traversal attempt was stopped by physical Escape before stair
+ascent/descent and regression checks could be observed; no functional pass or reviewer agreement
+is claimed. `git diff --check` passes with documentation line-ending warnings. T047 remains open
+pending the B1/B2 traversal, wall/gap, normal movement, and jump/landing runtime checks.

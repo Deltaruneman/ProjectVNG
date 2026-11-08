@@ -384,7 +384,50 @@ review. Never have simultaneous writers to basement_full.tscn.
 4. Genuine wave/reset/persistence/gate acceptance waits for coordinated provider availability;
    no synthetic callback closes those tasks. Report incomplete sprint work honestly.
 
-**Totals**: 42 tasks: setup/foundational 3; US1 8; US2 17; US3 5; US4 7; final review 2.
+**Totals**: 47 tasks: setup/foundational 3; US1 8; US2 17; US3 5; US4 7; final review 2; F6 startup follow-up 1; camera visibility follow-up 1; Skill Tree HUD follow-up 1; Dark Fairy HUD follow-up 1; player stair traversal follow-up 1.
 **First group**: T004-T011, 8 scene-foundation/check tasks only.
-**Current state**: isolated structural and headless scene verification recorded; manual playtests
-and Quan review remain pending. T012-T042 stay unchecked and unexecuted; stop before T012.
+**Current state**: T012 and T014-T021 are implemented; T013/T025/T026 remain partial and
+T022-T042 remain open as recorded above. T043 is the focused F6 startup follow-up below;
+T044 is a focused basement camera visibility follow-up. T045 is implemented with runtime visual/input verification pending. T047 has a player-only step-up implementation; required stair and movement regression checks remain unverified, so T047 stays open.
+
+## Focused startup follow-up
+
+- [ ] T043 Restore standalone F6 behavior for `levels/level_1/basement_full.tscn` when it is also `FIRST_STAGE`.
+  - Current evidence: startup branch now checks for Godot's explicit `--scene` launch argument before attempting saved checkpoint continuation or checkpoint spawn placement. Runtime acceptance has not been verified.
+  - Owner/reviewer: GameManager shared boundary / Lam, under the recorded T012-T021 startup/recovery review scope. Preserve distinction between implemented behavior, runtime verification, and reviewer agreement.
+  - Scope: `scripts/autoload/game_manager.gd` and this task's validation/changelog record only. A Godot editor launch with an explicit `--scene` must skip saved-checkpoint continuation and saved spawn placement for that run; normal F5 startup must continue to restore the saved checkpoint. Do not clear, rewrite, or otherwise mutate the save during F6.
+  - Acceptance: F6 on `basement_full.tscn` stays in that scene at its default spawn even when `save.json` points to `stage_1.tscn`/`village`; F5 still continues at the saved stage/checkpoint; legacy basement compatibility and unrelated saved progress remain unchanged.
+  - Validation: isolated Godot F6 and F5 runs with a synthetic save and exact scene identity assertions, plus static review that no save mutation occurs in the F6 bypass. These checks are pending unless explicitly recorded in `validation.md`.
+
+## Focused basement camera visibility follow-up
+
+- [ ] T044 Show only the active basement floor and make its room ceiling see-through in `levels/level_1/basement_floor_visibility.gd`.
+  - Owner/reviewer: Lam map scope / Quan review, preserving existing scene ownership and the open measured geometry work in T034-T038.
+  - Scope: scene-local render visibility only. Keep floor heights, collision, navigation, movement, spawns, checkpoint/save flow, and the existing T034-T038 construction tasks unchanged. B1_5 retains its current secret-area rule.
+  - Acceptance: outside stair connectors, jumping cannot change the active floor; inside a configured connector, ascending past its midpoint changes to the destination floor and descending back past it restores the source floor. B1_5 remains conditional on its secret area; the room ceiling no longer blocks the camera. Hiding render geometry must not change collision or navigation.
+  - Validation: static review of connector marker/radius configuration, midpoint transitions, floor-level comparisons, and the B1 ceiling node, then Godot playtest of jumps outside connectors and ascent/descent through B1/B2 and B2/B3 connector midpoints; check camera sightlines and unchanged collision/navigation. Runtime checks remain pending unless recorded in `validation.md`.
+
+## Focused HUD and Skill Tree presentation follow-up
+
+- [ ] T045 Remove HUD and menu shortcut prose and present the complete Skill Tree inside one responsive open spellbook spread, using the user-added CraftPix magic-book art and page-turn animations.
+  - Owner: Bao / Bao (user-requested Skill Tree and HUD presentation slice).
+    - Scope: remove the `T: Cây kỹ năng` HUD prose and menu shortcut footer while retaining the skill-point count; add a clickable book icon in the existing skill toolbar with T key indication; keep the existing `skill_tree` input action; use the new CraftPix book art, open/close sheets, and left/right turning-pages sheets. Balance the Skill Tree across the open spread; enlarge element choices and skill nodes; add graph zoom controls; keep the left description box's geometry fixed while text wraps at a smaller size; remove redundant instructions from the tree area and retain only concise guidance on the left. Slightly shift the selected weapon tree right to balance it in the page. Keep the skill toolbar centered despite the HUD CanvasLayer transform, and name its expanded controller `player_hud.gd`. Do not change combat, progression, skills, input mappings, HUD health/rage behavior, or BUG-003 diagnosis.
+    - Acceptance: skill-point count remains visible without shortcut instructions; the toolbar book icon is comparable in size to skill icons; the skill bar remains centered and slightly reduced at the configured HUD CanvasLayer scale; opening/closing and tab switches animate in the correct direction; both tabs remain centered without overflow; the selected weapon tree sits slightly right of its prior position without clipping; element choices are prominent and choosing one opens its existing tree; node hover updates the left description panel without changing its box geometry; zoom-in, zoom-out and reset work, with wheel zoom and middle-button pan; skill allocation behavior remains usable.
+  - Validation: inspect changed source, referenced asset paths/regions, and diff whitespace. Godot visual/input playtest is NOT RUN unless separately requested. BUG-003 remains open unless independently reproduced/fixed with evidence.
+
+## Focused Dark Fairy boss HUD presentation follow-up
+
+- [ ] T046 Place the Dark Fairy boss health bar and phase label at the top center of the screen.
+  - Owner/reviewer: Duy (Dark Fairy boss scene); approval is pending before changing the boss-owned scene.
+  - Static finding: `scenes/enemies/darkfairy/darkfairy.tscn` already anchors `Bar` and `Name` horizontally at 0.5, but anchors both vertically at 1.0 (the bottom edge).
+  - Scope: presentation-only anchor/offset changes to the `BossHUD/Bar` and `BossHUD/Name` nodes in `scenes/enemies/darkfairy/darkfairy.tscn`; do not change Dark Fairy logic, phases, health, attacks, or shared enemy health-bar behavior.
+  - Acceptance: while engaged, both bar and phase label remain horizontally centered at the top with a visible margin at the configured viewport size; boss health tracking and phase text remain unchanged.
+  - Validation: static scene/source review, diff whitespace check, and (after owner approval) a Godot visual check while the Dark Fairy HUD is visible.
+
+## Focused player stair traversal follow-up
+
+- [ ] T047 Allow the player to step over low stair risers without changing map colliders.
+  - Owner/reviewer: Bao (player movement; user explicitly requested the fix).
+  - Scope: player-only movement override in `scenes/player/player.gd`. Try a bounded step-up only when grounded horizontal movement is blocked, the raised path is clear, and a walkable landing surface exists within 0.75 world units. Do not edit shared `BaseCharacter`, enemy movement, GridMap data, stair mesh resources, navigation, or T044 render-visibility behavior.
+  - Acceptance: the player can walk both up and down the pictured B1/B2 stairs without sticking on their risers; cannot step through walls, ceilings, or unsupported gaps; ordinary flat movement, jumping, landing, and enemies remain unchanged.
+  - Validation: Godot playtest on the actual B1/B2 staircase in both directions, collision-debug review of the stair contact, and regression checks for flat movement, a wall, an unsupported edge, and jumping/landing. Record actual results; do not claim acceptance without the runtime pass.

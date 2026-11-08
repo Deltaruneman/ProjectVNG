@@ -119,17 +119,19 @@ func register_stage(stage: Stage) -> void:
 	stage.player.died.connect(respawn)
 	if not _booted:
 		_booted = true
-		if stage.scene_file_path == FIRST_STAGE and has_checkpoint_conflict():
-			push_warning("Checkpoint continuation blocked; unsupported progress preserved without fallback.")
-			return
-		# The game has just started from its main scene: continue the saved game at its
-		# checkpoint. A stage opened on its own (F6 in the editor) is left alone, so it can be
-		# tested without deleting the save file first.
-		if checkpoint_id != "" and stage.scene_file_path == FIRST_STAGE:
-			if not is_basement_reference(checkpoint_stage):
-				change_stage(checkpoint_stage, checkpoint_id, false)
+		# F6 supplies --scene even when the selected scene is also the configured main scene.
+		# Treat that explicit scene launch as an isolated test: don't restore a saved stage or
+		# checkpoint spawn. F5 omits --scene and keeps the normal continue-from-save behavior.
+		var is_running_explicit_scene := OS.get_cmdline_args().has("--scene")
+		if not is_running_explicit_scene:
+			if stage.scene_file_path == FIRST_STAGE and has_checkpoint_conflict():
+				push_warning("Checkpoint continuation blocked; unsupported progress preserved without fallback.")
 				return
-			pending_spawn = checkpoint_id
+			if checkpoint_id != "" and stage.scene_file_path == FIRST_STAGE:
+				if not is_basement_reference(checkpoint_stage):
+					change_stage(checkpoint_stage, checkpoint_id, false)
+					return
+				pending_spawn = checkpoint_id
 	if player_health > 0:
 		stage.player.health = player_health
 	if pending_spawn != "":
@@ -227,12 +229,28 @@ func is_door_unlocked(flag: String) -> bool:
 	return flags.get(flag, false)
 
 
+## Writes everything to disk. Starts from _loaded_payload so unknown fields in the save file are
+## kept, then overwrites the fields this script owns.
 func save_game() -> void:
-	SaveSystem.save_data({"stage": checkpoint_stage, "checkpoint": checkpoint_id, "flags": flags,
-		"skill_points": skill_points, "skill_allocations": skill_allocations,
-		"weapon_form": weapon_form, "unlocked_skills": unlocked_skills,
-		"collected_skill_points": collected_skill_points,
-		"selected_ultimate_skill": selected_ultimate_skill})
+	if has_checkpoint_conflict():
+		push_warning("Save held: unresolved checkpoint reference; existing file preserved.")
+		return
+	var payload := _loaded_payload.duplicate(true)
+	payload["stage"] = checkpoint_stage
+	payload["checkpoint"] = checkpoint_id
+	var merged_flags: Dictionary = {}
+	if payload.get("flags") is Dictionary:
+		merged_flags = payload["flags"].duplicate(true)
+	merged_flags.merge(flags, true)
+	payload["flags"] = merged_flags
+	payload["skill_points"] = skill_points
+	payload["skill_allocations"] = skill_allocations
+	payload["weapon_form"] = weapon_form
+	payload["unlocked_skills"] = unlocked_skills
+	payload["collected_skill_points"] = collected_skill_points
+	payload["selected_ultimate_skill"] = selected_ultimate_skill
+	SaveSystem.save_data(payload)
+	_loaded_payload = payload
 
 
 func award_skill_point(source_id: String = "") -> bool:
@@ -304,19 +322,6 @@ func allocated_skill_points() -> int:
 
 func total_skill_points() -> int:
 	return skill_points + allocated_skill_points()
-	if has_checkpoint_conflict():
-		push_warning("Save held: unresolved checkpoint reference; existing file preserved.")
-		return
-	var payload := _loaded_payload.duplicate(true)
-	payload["stage"] = checkpoint_stage
-	payload["checkpoint"] = checkpoint_id
-	var merged_flags: Dictionary = {}
-	if payload.get("flags") is Dictionary:
-		merged_flags = payload["flags"].duplicate(true)
-	merged_flags.merge(flags, true)
-	payload["flags"] = merged_flags
-	SaveSystem.save_data(payload)
-	_loaded_payload = payload
 
 
 ## Reads the save file into memory. Doesn't move the fox — register_stage() does that for the
@@ -328,7 +333,6 @@ func load_game() -> void:
 	checkpoint_stage = str(data.get("stage", ""))
 	checkpoint_id = str(data.get("checkpoint", ""))
 	var saved_flags: Variant = data.get("flags", {})
-	flags = saved_flags if saved_flags is Dictionary else {}
 	skill_points = maxi(0, int(data.get("skill_points", 0)))
 	var saved_allocations: Variant = data.get("skill_allocations", {})
 	skill_allocations = saved_allocations if saved_allocations is Dictionary else {}

@@ -1,16 +1,20 @@
-class_name HealthHUD
+class_name PlayerHUD
 extends CanvasLayer
 
 const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/"
 const BASIC_DAGGER_ICON := "res://assets/sprites/object/blade/blade_throw_1.png"
+const SKILL_TREE_BOOK_ICON_SHEET := "res://assets/ui/craftpix-net-809047-free-animated-magic-book-pixel-art-asset-pack/PNG/Open_book.png"
+const SKILL_TREE_BOOK_ICON_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
 
 # Kích thước skill bar (chỉnh ở đây)
-const SLOT_W := 38.0
-const SLOT_H := 36.0
-const SLOT_GAP := 4
-const BAR_PAD := 4
+const SLOT_W := 35.0
+const SLOT_H := 33.0
+const SLOT_GAP := 3
+const BAR_PAD := 3
 const BAR_BOTTOM := 6.0
-const SLOT_COUNT := 5
+const ULTIMATE_SLOT := 4
+const SKILL_TREE_SLOT := 5
+const SLOT_COUNT := 6
 
 ## Health bar ở góc trên-trái màn hình. Gắn script này vào một node CanvasLayer.
 ## - Nếu gán texture_progress (ảnh thanh máu đầy) trong Inspector -> dùng TextureProgressBar với ảnh của bạn.
@@ -69,7 +73,7 @@ func _ready() -> void:
 
 	_player = get_tree().get_first_node_in_group("player") as BaseCharacter
 	if _player == null:
-		push_warning("HealthHUD: không tìm thấy node nào thuộc group 'player'")
+		push_warning("PlayerHUD: không tìm thấy node nào thuộc group 'player'")
 		return
 	_player.health_changed.connect(_on_health_changed)
 	_refresh(_player.health, _player.max_health, false)
@@ -113,7 +117,7 @@ func _process(_delta: float) -> void:
 
 func _refresh_skill_points() -> void:
 	if _skill_points_label != null:
-		_skill_points_label.text = "✦ %d SP  ·  T: Cây kỹ năng" % GameManager.skill_points
+		_skill_points_label.text = "✦ %d SP" % GameManager.skill_points
 
 
 func _on_active_skill_slot_changed(slot: int, skill_id: String) -> void:
@@ -125,12 +129,16 @@ func _build_skill_bar() -> void:
 	var bar_h := SLOT_H + BAR_PAD * 2.0
 	var frame := PanelContainer.new()
 	frame.name = "SkillBar"
-	frame.anchor_left = 0.3
-	frame.anchor_right = 0.3
+	var viewport_width := get_viewport().get_visible_rect().size.x
+	var viewport_center_x := viewport_width * 0.5
+	var local_center_x := transform.affine_inverse() * Vector2(viewport_center_x, 0.0)
+	var center_anchor_x := local_center_x.x / viewport_width
+	frame.anchor_left = center_anchor_x
+	frame.anchor_right = center_anchor_x
 	frame.anchor_top = 1.0
 	frame.anchor_bottom = 1.0
-	frame.offset_left = -bar_w * 0.8
-	frame.offset_right = bar_w * 0.8
+	frame.offset_left = -bar_w * 0.5
+	frame.offset_right = bar_w * 0.5
 	frame.offset_top = -(bar_h + BAR_BOTTOM)
 	frame.offset_bottom = -BAR_BOTTOM
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -212,11 +220,26 @@ func _build_skill_bar() -> void:
 		key_label.size = Vector2(12.0, 12.0)
 		key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		key_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		key_label.text = "I" if index == SLOT_COUNT - 1 else str(index + 1)
+		key_label.text = "T" if index == SKILL_TREE_SLOT else "I" if index == ULTIMATE_SLOT else str(index + 1)
 		key_label.add_theme_font_size_override("font_size", 7)
 		key_label.add_theme_color_override("font_color", Color("fff2cf"))
 		key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(key_label)
+		if index == SKILL_TREE_SLOT:
+			icon.offset_left = -1.0
+			icon.offset_top = -2.0
+			icon.offset_right = 1.0
+			icon.offset_bottom = 2.0
+			var book_icon := AtlasTexture.new()
+			book_icon.atlas = load(SKILL_TREE_BOOK_ICON_SHEET) as Texture2D
+			book_icon.region = SKILL_TREE_BOOK_ICON_REGION
+			book_icon.filter_clip = true
+			icon.texture = book_icon
+			placeholder.visible = false
+			key_label.add_theme_color_override("font_color", Color("ffe19a"))
+			slot.mouse_filter = Control.MOUSE_FILTER_STOP
+			slot.tooltip_text = "T · Cây kỹ năng"
+			slot.gui_input.connect(_on_skill_tree_slot_input)
 
 
 func _refresh_skill_bar() -> void:
@@ -244,7 +267,7 @@ func _refresh_skill_bar() -> void:
 	var ultimate_id := GameManager.selected_ultimate_skill
 	var ultimate_icon := _skill_icon_name(ultimate_id)
 	var ultimate_texture: Texture2D = _load_skill_icon(ultimate_icon)
-	var ultimate_slot := SLOT_COUNT - 1
+	var ultimate_slot := ULTIMATE_SLOT
 	_skill_slot_icons[ultimate_slot].texture = ultimate_texture
 	_skill_slot_icons[ultimate_slot].modulate = Color.WHITE if ultimate_id != "" else Color("65717b")
 	_skill_slot_placeholders[ultimate_slot].visible = ultimate_texture == null
@@ -257,6 +280,15 @@ func _refresh_skill_bar() -> void:
 	_skill_slot_styles[ultimate_slot].border_color = Color("f3d36a") if ultimate_ready else Color("ad7be8")
 	_skill_slot_styles[ultimate_slot].set_border_width_all(2 if ultimate_ready else 1)
 	_skill_slot_panels[ultimate_slot].tooltip_text = "I · %s · Nộ khí %d%%" % [_skill_display_name(ultimate_id), int(player.rage)]
+	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = "T · Cây kỹ năng"
+
+
+func _on_skill_tree_slot_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var skill_tree := get_node_or_null("SkillTree")
+		if skill_tree != null and skill_tree.has_method("set_open"):
+			skill_tree.call("set_open", true)
+			get_viewport().set_input_as_handled()
 
 
 func _skill_display_name(skill_id: String) -> String:

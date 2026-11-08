@@ -2,6 +2,12 @@ class_name Player
 extends BaseCharacter
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 
+const MAX_STAIR_STEP_HEIGHT := 0.75
+const STEP_LIFT_INCREMENT := 0.1
+const STEP_LIFT_TRIALS := 8
+const MIN_STAIR_STEP_HEIGHT := 0.05
+const STEP_SUPPORT_MARGIN := 0.05
+
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
 
@@ -53,6 +59,61 @@ func _ready() -> void:
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
+
+
+func _update_movement(delta: float) -> void:
+	if not is_inside_tree() or not movement_enabled:
+		return
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		curjump = 0
+
+	var was_grounded := is_on_floor()
+	var horizontal_motion := Vector3(velocity.x, 0.0, velocity.z) * delta
+	if was_grounded and velocity.y <= 0.0 and horizontal_motion.length_squared() > 0.000001:
+		if test_move(global_transform, horizontal_motion) and _try_step_up(horizontal_motion):
+			var saved_velocity := velocity
+			velocity = Vector3.ZERO
+			move_and_slide()
+			velocity = saved_velocity
+			return
+	move_and_slide()
+
+
+func _try_step_up(horizontal_motion: Vector3) -> bool:
+	var start_transform := global_transform
+	for step_index in range(1, STEP_LIFT_TRIALS + 1):
+		var lift_height := float(step_index) * STEP_LIFT_INCREMENT
+		var lift_motion := Vector3.UP * lift_height
+		if test_move(start_transform, lift_motion):
+			continue
+
+		var raised_transform := start_transform
+		raised_transform.origin += lift_motion
+		if test_move(raised_transform, horizontal_motion):
+			continue
+
+		var destination_transform := raised_transform
+		destination_transform.origin += horizontal_motion
+		var landing_collision := KinematicCollision3D.new()
+		var down_motion := Vector3.DOWN * (lift_height + floor_snap_length + STEP_SUPPORT_MARGIN)
+		if not test_move(destination_transform, down_motion, landing_collision):
+			continue
+		if landing_collision.get_normal().dot(Vector3.UP) < cos(floor_max_angle):
+			continue
+
+		var drop_distance := -landing_collision.get_travel().y
+		var actual_step_height := lift_height - drop_distance
+		if actual_step_height < MIN_STAIR_STEP_HEIGHT or actual_step_height > MAX_STAIR_STEP_HEIGHT:
+			continue
+
+		global_transform = destination_transform
+		global_position += landing_collision.get_travel()
+		if velocity.y < 0.0:
+			velocity.y = 0.0
+		return true
+	return false
 
 
 func _process(delta: float) -> void:

@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://chqhxa1ysnfuq" path="res://scenes/player/states/dash.gd" id="19_lgqa7"]
 [ext_resource type="Script" uid="uid://c6qhjt3tp4dso" path="res://scenes/player/parry.gd" id="20_8ydkj"]
 [ext_resource type="PackedScene" uid="uid://cjv0myegiav6k" path="res://scenes/player/weapon/blade.tscn" id="21_3j4b4"]
+[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="22_yj68g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnqru"]
 radius = 0.6
@@ -133,5 +134,7 @@ script = ExtResource("20_8ydkj")
 
 [node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=583087062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+
+[node name="Hud" parent="." index="6" unique_id=1949566559 instance=ExtResource("22_yj68g")]
 
 [connection signal="hurt" from="Direction/HurtArea3D" to="." method="_on_hurt_area_3d_hurt"]
