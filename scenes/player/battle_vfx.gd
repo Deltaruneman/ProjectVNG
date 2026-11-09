@@ -6,9 +6,11 @@ const SHIELD: PackedScene = preload("res://assets/effects/BattleFXFree/BattleFXF
 const EMBER_SLASH: PackedScene = preload("res://emberline/effects/slash_arc.tscn")
 const EMBER_RING: PackedScene = preload("res://emberline/effects/impact_ring.tscn")
 const PIXELFX_ROOT := "res://assets/effects/pixelfx/"
+const PVFX_ROOT := "res://assets/effects/pvfx-foundry-thirteen-spritesheets/effects/"
 const ATTACK_FX_AXIS_OFFSET := -PI / 2.0
 const SOUND_ROOT := "res://assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/"
 static var _pixel_frames_cache: Dictionary = {}
+static var _pvfx_frames_cache: Dictionary = {}
 
 
 static func slash(parent: Node3D, position: Vector3, form: String, direction: Vector3, scale: float = 0.42) -> Node3D:
@@ -24,8 +26,12 @@ static func claw(parent: Node3D, position: Vector3, form: String, direction: Vec
 	return _spawn_pixelfx(parent, effect_id, position, form, direction, scale)
 
 
-static func impact(parent: Node3D, position: Vector3, form: String, direction: Vector3, scale: float = 0.28) -> Node2D:
-	return _spawn_pixelfx(parent, "impacts/hit-spark", position, form, direction, scale)
+static func impact(parent: Node3D, position: Vector3, form: String, direction: Vector3, scale: float = 0.28, process_while_paused: bool = false) -> Node2D:
+	return _spawn_pixelfx(parent, "impacts/hit-spark", position, form, direction, scale, 0.0, process_while_paused)
+
+
+static func ultimate_impact_frame(parent: Node3D, position: Vector3, form: String) -> Node2D:
+	return _spawn_pixelfx(parent, "impacts/impact-frame", position, form, Vector3.ZERO, 10.5, 0.0, true)
 
 
 static func charge(parent: Node3D, position: Vector3, form: String, scale: float = 0.9) -> Node2D:
@@ -54,6 +60,73 @@ static func meteor(parent: Node3D, position: Vector3, direction: Vector3, radius
 
 static func lightning_strike(parent: Node3D, position: Vector3, scale: float = 2.0) -> Node2D:
 	return _spawn_pixelfx(parent, "lightning/thunderclap", position, "lightning", Vector3.ZERO, scale, 0.9)
+
+
+static func enemy_status(target: Node3D, status_id: String, duration: float) -> void:
+	if not is_instance_valid(target):
+		return
+	match status_id:
+		"burning":
+			_attach_status_fx(target, "BattleStatusBurning", "pvfx", "status/burning-aura", duration, 0.48, 0.76, Vector3.UP * 0.9)
+		"slowed":
+			_attach_status_fx(target, "BattleStatusIceSlow", "pvfx", "status/frozen-chill", duration, 0.52, 0.76, Vector3.UP * 0.9)
+			_attach_status_fx(target, "BattleStatusSlowClock", "pixelfx", "status/slowed", duration, 0.2, 0.96, Vector3.UP * 1.7)
+		"frozen":
+			_attach_status_one_shot(target, "BattleStatusFreezeHit", "ice/freeze-encase", 0.48, Vector3.UP * 0.9)
+		"electrified":
+			# The Pixelfx character pivot is near its feet; lift its centered frame to align that pivot with the enemy origin.
+			_attach_status_fx(target, "BattleStatusElectrified", "pixelfx", "lightning/electrified", duration, 0.4, 0.92, Vector3.UP * 0.75)
+
+
+static func dash_trail_start(player: Node3D, direction: Vector3) -> void:
+	if not is_instance_valid(player):
+		return
+	dash_trail_afterimage(player, direction)
+	_spawn_dash_dust(player, direction)
+
+
+static func dash_trail_afterimage(player: Node3D, direction: Vector3) -> void:
+	if not is_instance_valid(player):
+		return
+	var source := player.get_node_or_null("Sprite3D") as Sprite3D
+	var stage := player.get_tree().current_scene as Node3D
+	if source == null or stage == null:
+		return
+	var afterimage := source.duplicate() as Sprite3D
+	if afterimage == null:
+		return
+	afterimage.name = "DashAfterimage"
+	afterimage.top_level = true
+	afterimage.alpha_cut = SpriteBase3D.ALPHA_CUT_DISABLED
+	afterimage.modulate = Color(0.55, 0.84, 1.0, 0.62)
+	stage.add_child(afterimage)
+	afterimage.global_transform = source.global_transform
+	if direction.length_squared() > 0.001:
+		afterimage.global_position -= direction.normalized() * 0.06
+	var fade := afterimage.create_tween()
+	fade.tween_property(afterimage, "modulate", Color(0.55, 0.84, 1.0, 0.0), 0.28).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	fade.tween_callback(afterimage.queue_free)
+
+
+static func _spawn_dash_dust(player: Node3D, direction: Vector3) -> void:
+	var stage := player.get_tree().current_scene as Node3D
+	if stage == null:
+		return
+	var frames := _load_pvfx_frames("smoke/dash-dust")
+	if frames == null:
+		return
+	var dust := _make_status_sprite("DashDust", frames, 0.3, 0.9, Vector3.ZERO)
+	dust.top_level = true
+	stage.add_child(dust)
+	dust.global_position = player.global_position + Vector3.UP * 0.08
+	var camera := player.get_viewport().get_camera_3d()
+	if camera != null and direction.length_squared() > 0.001:
+		var screen_start := camera.unproject_position(dust.global_position)
+		var screen_direction := camera.unproject_position(dust.global_position + direction.normalized()) - screen_start
+		if screen_direction.length_squared() > 0.001:
+			dust.rotation.z = screen_direction.angle()
+	dust.animation_finished.connect(dust.queue_free, CONNECT_ONE_SHOT)
+	dust.play("default")
 
 
 static func emberline_slash(parent: Node3D, position: Vector3, form: String, direction: Vector3, half_extent: float = 1.15) -> Node2D:
@@ -101,7 +174,7 @@ static func shield(parent: Node3D, position: Vector3, form: String, duration: fl
 	return _spawn(SHIELD, parent, position, form, Vector3.FORWARD, scale, true, duration, 0.0)
 
 
-static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3, form: String, direction: Vector3, world_half_extent: float, loop_duration: float = 0.0) -> Node2D:
+static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3, form: String, direction: Vector3, world_half_extent: float, loop_duration: float = 0.0, process_while_paused: bool = false) -> Node2D:
 	if not is_instance_valid(parent):
 		return null
 	var camera := parent.get_viewport().get_camera_3d()
@@ -117,21 +190,33 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 	var frame_size: Array = metadata.get("frameSize", [128, 128])
 	var frame_width := maxf(float(frame_size[0]), 1.0)
 	var pivot: Array = metadata.get("pivot", [frame_width * 0.5, float(frame_size[1]) * 0.5])
-	var overlay := stage.get_node_or_null("PixelFXOverlay") as CanvasLayer
-	if overlay == null:
+	var overlay: CanvasLayer
+	if process_while_paused:
 		overlay = CanvasLayer.new()
-		overlay.name = "PixelFXOverlay"
-		overlay.layer = 0
+		overlay.name = "PausedPixelFXOverlay"
+		overlay.layer = 21
+		overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 		stage.add_child(overlay)
+	else:
+		overlay = stage.get_node_or_null("PixelFXOverlay") as CanvasLayer
+		if overlay == null:
+			overlay = CanvasLayer.new()
+			overlay.name = "PixelFXOverlay"
+			overlay.layer = 0
+			stage.add_child(overlay)
 	var screen_position: Vector2 = camera.unproject_position(position)
 	var projected_half_width := (camera.unproject_position(position + camera.global_transform.basis.x * world_half_extent) - screen_position).length()
 	var effect := Node2D.new()
 	effect.name = effect_id.replace("/", "_")
+	if process_while_paused:
+		effect.process_mode = Node.PROCESS_MODE_ALWAYS
 	effect.position = screen_position
 	effect.scale = Vector2.ONE * maxf(projected_half_width / (frame_width * 0.5), 0.01)
 	effect.z_index = 10
 	overlay.add_child(effect)
 	var sprite := AnimatedSprite2D.new()
+	if process_while_paused:
+		sprite.process_mode = Node.PROCESS_MODE_ALWAYS
 	sprite.sprite_frames = frames
 	sprite.centered = false
 	sprite.offset = -Vector2(float(pivot[0]), float(pivot[1]))
@@ -143,6 +228,8 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 		if screen_direction.length_squared() > 0.001:
 			sprite.rotation = screen_direction.angle()
 	effect.add_child(sprite)
+	if process_while_paused:
+		effect.tree_exited.connect(overlay.queue_free, CONNECT_ONE_SHOT)
 	if frames.get_animation_loop("default"):
 		var lifetime := loop_duration if loop_duration > 0.0 else 2.4
 		var timer := Timer.new()
@@ -193,6 +280,106 @@ static func _load_pixelfx_frames(effect_id: String) -> SpriteFrames:
 		sprite_frames.add_frame("default", atlas, frame_duration / (1000.0 / fps))
 	_pixel_frames_cache[effect_id] = sprite_frames
 	_pixel_frames_cache[effect_id + ":metadata"] = meta
+	return sprite_frames
+
+
+static func _attach_status_fx(target: Node3D, node_name: String, source: String, effect_id: String, duration: float, effect_scale: float, alpha: float, local_position: Vector3) -> AnimatedSprite3D:
+	if duration <= 0.0:
+		return null
+	var existing := target.get_node_or_null(node_name) as AnimatedSprite3D
+	if existing != null:
+		var existing_timer := existing.get_node_or_null("Duration") as Timer
+		if existing_timer != null:
+			existing_timer.start(duration)
+		return existing
+	var frames := _load_status_frames(source, effect_id)
+	if frames == null:
+		return null
+	var sprite := _make_status_sprite(node_name, frames, effect_scale, alpha, local_position)
+	target.add_child(sprite)
+	sprite.play("default")
+	var timer := Timer.new()
+	timer.name = "Duration"
+	timer.one_shot = true
+	timer.wait_time = duration
+	timer.timeout.connect(sprite.queue_free, CONNECT_ONE_SHOT)
+	sprite.add_child(timer)
+	timer.start()
+	return sprite
+
+
+static func _attach_status_one_shot(target: Node3D, node_name: String, effect_id: String, effect_scale: float, local_position: Vector3) -> AnimatedSprite3D:
+	var existing := target.get_node_or_null(node_name) as AnimatedSprite3D
+	if existing != null:
+		existing.stop()
+		existing.frame = 0
+		existing.play("default")
+		return existing
+	var frames := _load_pvfx_frames(effect_id)
+	if frames == null:
+		return null
+	var sprite := _make_status_sprite(node_name, frames, effect_scale, 0.9, local_position)
+	target.add_child(sprite)
+	sprite.animation_finished.connect(sprite.queue_free, CONNECT_ONE_SHOT)
+	sprite.play("default")
+	return sprite
+
+
+static func _make_status_sprite(node_name: String, frames: SpriteFrames, effect_scale: float, alpha: float, local_position: Vector3) -> AnimatedSprite3D:
+	var sprite := AnimatedSprite3D.new()
+	sprite.name = node_name
+	sprite.sprite_frames = frames
+	sprite.animation = "default"
+	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	sprite.shaded = false
+	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	sprite.pixel_size = 0.0625
+	sprite.scale = Vector3.ONE * effect_scale
+	sprite.position = local_position + Vector3(0.0, 0.0, 0.04)
+	sprite.modulate = Color(1.0, 1.0, 1.0, alpha)
+	sprite.centered = true
+	sprite.render_priority = 1
+	return sprite
+
+
+static func _load_status_frames(source: String, effect_id: String) -> SpriteFrames:
+	if source == "pixelfx":
+		return _load_pixelfx_frames(effect_id)
+	return _load_pvfx_frames(effect_id)
+
+
+static func _load_pvfx_frames(effect_id: String) -> SpriteFrames:
+	var cache_key := "pvfx:" + effect_id
+	if _pvfx_frames_cache.has(cache_key):
+		return _pvfx_frames_cache[cache_key] as SpriteFrames
+	var root := PVFX_ROOT + effect_id + "/lit/grid/"
+	var sheet := load(root + "sprite-sheet.png") as Texture2D
+	var manifest_file := FileAccess.open(root + "manifest.json", FileAccess.READ)
+	if sheet == null or manifest_file == null:
+		push_warning("PVFX: missing sheet or manifest for %s" % effect_id)
+		return null
+	var document: Variant = JSON.parse_string(manifest_file.get_as_text())
+	if not document is Dictionary or not document.has("frames"):
+		push_warning("PVFX: invalid manifest for %s" % effect_id)
+		return null
+	var sprite_frames := SpriteFrames.new()
+	if sprite_frames.has_animation("default"):
+		sprite_frames.clear("default")
+	else:
+		sprite_frames.add_animation("default")
+	var fps := 30.0
+	sprite_frames.set_animation_speed("default", fps)
+	sprite_frames.set_animation_loop("default", str(document.get("loop_mode", "none")) == "loop")
+	for frame_data: Dictionary in document.frames:
+		var rect: Dictionary = frame_data.get("sheet", {})
+		var atlas := AtlasTexture.new()
+		atlas.atlas = sheet
+		atlas.region = Rect2(float(rect.get("x", 0)), float(rect.get("y", 0)), float(rect.get("width", 1)), float(rect.get("height", 1)))
+		var timing: Dictionary = frame_data.get("duration", {})
+		var denominator := maxf(float(timing.get("denominator", 1.0)), 0.001)
+		var duration_seconds := maxf(float(timing.get("numerator_ms", 100.0)) / denominator / 1000.0, 0.001)
+		sprite_frames.add_frame("default", atlas, duration_seconds * fps)
+	_pvfx_frames_cache[cache_key] = sprite_frames
 	return sprite_frames
 
 

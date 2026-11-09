@@ -8,8 +8,8 @@ const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 
 var active: Node3D = null
 var _time := 0.0
-var _active_cast := false
 var _cast_duration := 0.0
+var _cast_blade_suppressed := false
 
 
 func can_throw() -> bool:
@@ -27,7 +27,7 @@ func _play_one_shot(animation: String) -> void:
 
 func _enter() -> void:
 	_time = 0.0
-	_active_cast = false
+	_cast_blade_suppressed = false
 	_cast_duration = cast_time
 	obj.stop_horizontal()
 	var selected_skill_id: String = obj.get_selected_active_skill_id()
@@ -35,7 +35,8 @@ func _enter() -> void:
 		change_state(fsm.states.idle)
 		return
 	if obj.cast_active_skill(selected_skill_id):
-		_active_cast = true
+		obj.suppress_blade(true)
+		_cast_blade_suppressed = true
 		obj.start_active_skill_cooldown(selected_skill_id)
 		BattleFX.play_skill_sound(obj, selected_skill_id)
 		if selected_skill_id in ["active_wind_3", "active_ice_2"]:
@@ -66,18 +67,26 @@ func _enter() -> void:
 		hit_area.hitted.connect(obj._on_skill_hit.bind(elemental_form))
 	active.global_position = obj.global_position + Vector3.UP * spawn_height + dir * spawn_forward
 	active.setup(obj, dir)
-	obj.suppress_blade(true)
 
 
 func _update(delta: float) -> void:
 	_time += delta
 	if _time >= _cast_duration:
 		change_state(fsm.states.idle)
-		if not _active_cast:
-			obj.suppress_blade(false)
+
+
+func _exit() -> void:
+	_release_cast_blade()
 
 
 func _finish() -> void:
+	_release_cast_blade()
+	queue_free()
+
+
+func _release_cast_blade() -> void:
+	if not _cast_blade_suppressed:
+		return
 	if is_instance_valid(obj) and obj.has_method("suppress_blade"):
 		obj.suppress_blade(false)
-	queue_free()
+	_cast_blade_suppressed = false

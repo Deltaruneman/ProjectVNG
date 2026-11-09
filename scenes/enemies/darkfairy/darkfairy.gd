@@ -22,7 +22,7 @@ var attack_target: Vector3
 var effects: Array[Node3D] = []
 
 @onready var melee: Area3D = $Direction/HitArea3D
-@onready var boss_bar: ProgressBar = $BossHUD/Bar
+@onready var boss_bar: TextureProgressBar = $BossHUD/Bar
 @onready var boss_label: Label = $BossHUD/Name
 
 

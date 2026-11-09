@@ -49,13 +49,16 @@ offset_bottom = 49.0
 mouse_filter = 2
 
 [node name="RageLabel" type="Label" parent="RageMeter" unique_id=1299688196]
-visible = false
 layout_mode = 0
-offset_right = 58.0
-offset_bottom = 14.0
+offset_left = 60.0
+offset_top = 1.0
+offset_right = 237.0
+offset_bottom = 16.0
+vertical_alignment = 1
 theme_override_colors/font_color = Color(0.82, 0.78, 1, 1)
 theme_override_font_sizes/font_size = 10
-text = "NỘ KHÍ · 0%"
+text = "NỘ KHÍ"
+mouse_filter = 2
 
 [node name="RageBar" type="ProgressBar" parent="RageMeter" unique_id=1921876319]
 layout_mode = 0

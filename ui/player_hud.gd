@@ -7,14 +7,30 @@ const SKILL_TREE_BOOK_ICON_SHEET := "res://assets/ui/craftpix-net-809047-free-an
 const SKILL_TREE_BOOK_ICON_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
 
 # Kích thước skill bar (chỉnh ở đây)
-const SLOT_W := 35.0
-const SLOT_H := 33.0
-const SLOT_GAP := 3
-const BAR_PAD := 3
-const BAR_BOTTOM := 6.0
-const ULTIMATE_SLOT := 4
-const SKILL_TREE_SLOT := 5
-const SLOT_COUNT := 6
+const SLOT_W := 29.0
+const SLOT_H := 29.0
+const SLOT_GAP := 2
+const BAR_PAD := 2
+const BAR_BOTTOM := 5.0
+const DASH_SLOT := 4
+const PARRY_SLOT := 5
+const ULTIMATE_SLOT := 6
+const SKILL_TREE_SLOT := 7
+const SLOT_COUNT := 8
+const DEFENSE_SLOT_W := 28.0
+const DEFENSE_GROUP_GAP := 6.0
+const LOW_HEALTH_VIGNETTE_SHADER := """
+shader_type canvas_item;
+uniform vec4 vignette_tint : source_color = vec4(0.92, 0.08, 0.12, 1.0);
+uniform float pulse_alpha = 0.0;
+uniform float edge_width = 0.12;
+
+void fragment() {
+	float edge_distance = min(min(UV.x, 1.0 - UV.x), min(UV.y, 1.0 - UV.y));
+	float edge_mask = 1.0 - smoothstep(0.0, edge_width, edge_distance);
+	COLOR = vec4(vignette_tint.rgb, vignette_tint.a * pulse_alpha * edge_mask);
+}
+"""
 
 ## Health bar ở góc trên-trái màn hình. Gắn script này vào một node CanvasLayer.
 ## - Nếu gán texture_progress (ảnh thanh máu đầy) trong Inspector -> dùng TextureProgressBar với ảnh của bạn.
@@ -53,13 +69,22 @@ var _rage_label: Label
 var _skill_points_label: Label
 var _skill_controls_label: Label
 var _ultimate_skill_label: Label
+var _low_health_warning: Label
+var _low_health_vignette_layer: CanvasLayer
+var _vignette_material: ShaderMaterial
+var _status_strip: HBoxContainer
 var _skill_slot_panels: Array[PanelContainer] = []
 var _skill_slot_styles: Array[StyleBoxFlat] = []
 var _skill_slot_icons: Array[TextureRect] = []
 var _skill_slot_placeholders: Array[Label] = []
 var _skill_slot_cooldown_overlays: Array[ColorRect] = []
 var _skill_slot_cooldown_labels: Array[Label] = []
+var _status_chips: Array[PanelContainer] = []
+var _status_chip_labels: Array[Label] = []
 var _skill_icon_cache: Dictionary = {}
+var _action_icon_cache: Dictionary = {}
+var _critical_health_active := false
+var _skill_tree_is_open := false
 
 
 func _ready() -> void:
@@ -70,6 +95,8 @@ func _ready() -> void:
 	else:
 		_build_flat_bar()
 	_build_label()
+	_build_low_health_warning()
+	_build_status_strip()
 
 	_player = get_tree().get_first_node_in_group("player") as BaseCharacter
 	if _player == null:
@@ -106,13 +133,26 @@ func set_skill_bar_visible(value: bool) -> void:
 
 
 func set_skill_tree_open(open: bool) -> void:
+	_skill_tree_is_open = open
 	for child in get_children():
-		if child.name != "SkillTree":
-			child.visible = not open
+		if child.name == "SkillTree":
+			continue
+		var show_child := not open
+		if child == _low_health_warning or child == _low_health_vignette_layer:
+			show_child = show_child and _critical_health_active
+		child.visible = show_child
 
 
 func _process(_delta: float) -> void:
 	_refresh_skill_bar()
+	_refresh_rage_label()
+	_refresh_status_strip()
+	if _critical_health_active:
+		var pulse := 0.5 + 0.5 * sin(float(Time.get_ticks_msec()) * 0.007)
+		if _low_health_warning != null:
+			_low_health_warning.modulate.a = 0.65 + 0.35 * pulse
+		if _vignette_material != null:
+			_vignette_material.set_shader_parameter("pulse_alpha", 0.05 + 0.13 * pulse)
 
 
 func _refresh_skill_points() -> void:
@@ -125,14 +165,19 @@ func _on_active_skill_slot_changed(slot: int, skill_id: String) -> void:
 
 
 func _build_skill_bar() -> void:
-	var bar_w := SLOT_COUNT * SLOT_W + (SLOT_COUNT - 1) * SLOT_GAP + BAR_PAD * 2.0
-	var bar_h := SLOT_H + BAR_PAD * 2.0
-	var frame := PanelContainer.new()
+	var main_slot_count := SLOT_COUNT - 2
+	var main_group_width := main_slot_count * SLOT_W + (main_slot_count - 1) * SLOT_GAP + 2.0 * (BAR_PAD + 1.0)
+	var defense_group_width := 2.0 * DEFENSE_SLOT_W + SLOT_GAP + 2.0 * (BAR_PAD + 1.0)
+	var bar_w := main_group_width + defense_group_width + DEFENSE_GROUP_GAP
+	var bar_h := SLOT_H + 2.0 * (BAR_PAD + 1.0)
+	var frame := HBoxContainer.new()
 	frame.name = "SkillBar"
 	var viewport_width := get_viewport().get_visible_rect().size.x
 	var viewport_center_x := viewport_width * 0.5
 	var local_center_x := transform.affine_inverse() * Vector2(viewport_center_x, 0.0)
 	var center_anchor_x := local_center_x.x / viewport_width
+	frame.alignment = BoxContainer.ALIGNMENT_CENTER
+	frame.add_theme_constant_override("separation", int(DEFENSE_GROUP_GAP))
 	frame.anchor_left = center_anchor_x
 	frame.anchor_right = center_anchor_x
 	frame.anchor_top = 1.0
@@ -142,104 +187,137 @@ func _build_skill_bar() -> void:
 	frame.offset_top = -(bar_h + BAR_BOTTOM)
 	frame.offset_bottom = -BAR_BOTTOM
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var frame_style := StyleBoxFlat.new()
-	frame_style.bg_color = Color(0.015, 0.025, 0.035, 0.55)
-	frame_style.border_color = Color(0.19, 0.25, 0.28, 0.6)
-	frame_style.set_border_width_all(1)
-	frame_style.set_corner_radius_all(4)
-	frame_style.set_content_margin_all(BAR_PAD)
-	frame.add_theme_stylebox_override("panel", frame_style)
 	add_child(frame)
 
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", SLOT_GAP)
-	frame.add_child(row)
+	var main_row := _create_skill_group(frame, "PrimarySkills", Color(0.015, 0.025, 0.035, 0.55), Color(0.19, 0.25, 0.28, 0.6))
+	var defense_row := _create_skill_group(frame, "DefenseSkills", Color(0.018, 0.045, 0.055, 0.72), Color("4a929a"))
 	for index in SLOT_COUNT:
-		var slot := PanelContainer.new()
-		slot.custom_minimum_size = Vector2(SLOT_W, SLOT_H)
-		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var slot_style := StyleBoxFlat.new()
-		slot_style.bg_color = Color("17232c")
-		slot_style.border_color = Color("68737a")
-		slot_style.set_border_width_all(1)
-		slot_style.set_corner_radius_all(3)
-		slot.add_theme_stylebox_override("panel", slot_style)
-		row.add_child(slot)
-		_skill_slot_panels.append(slot)
-		_skill_slot_styles.append(slot_style)
+		_create_skill_slot(index, defense_row if index == DASH_SLOT or index == PARRY_SLOT else main_row)
 
-		var content := Control.new()
-		content.custom_minimum_size = Vector2(SLOT_W - 4.0, SLOT_H - 4.0)
-		content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		slot.add_child(content)
-		var icon := TextureRect.new()
-		icon.set_anchors_preset(Control.PRESET_FULL_RECT)
-		icon.offset_left = 1.0
-		icon.offset_top = 0.0
-		icon.offset_right = -1.0
-		icon.offset_bottom = 0.0
-		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(icon)
-		_skill_slot_icons.append(icon)
 
-		var placeholder := Label.new()
-		placeholder.set_anchors_preset(Control.PRESET_FULL_RECT)
-		placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		placeholder.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		placeholder.add_theme_font_size_override("font_size", 13)
-		placeholder.add_theme_color_override("font_color", Color("ccd6dc"))
-		placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(placeholder)
-		_skill_slot_placeholders.append(placeholder)
+func _create_skill_group(parent: HBoxContainer, group_name: String, background: Color, border: Color) -> HBoxContainer:
+	var panel := PanelContainer.new()
+	panel.name = group_name
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var style := StyleBoxFlat.new()
+	style.bg_color = background
+	style.border_color = border
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(4)
+	style.set_content_margin_all(BAR_PAD)
+	panel.add_theme_stylebox_override("panel", style)
+	parent.add_child(panel)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", SLOT_GAP)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(row)
+	return row
 
-		var overlay := ColorRect.new()
-		overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
-		overlay.color = Color(0.01, 0.015, 0.02, 0.76)
-		overlay.visible = false
-		overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(overlay)
-		_skill_slot_cooldown_overlays.append(overlay)
 
-		var cooldown_label := Label.new()
-		cooldown_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-		cooldown_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		cooldown_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		cooldown_label.add_theme_font_size_override("font_size", 11)
-		cooldown_label.add_theme_color_override("font_color", Color("ffffff"))
-		cooldown_label.visible = false
-		cooldown_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(cooldown_label)
-		_skill_slot_cooldown_labels.append(cooldown_label)
+func _create_skill_slot(index: int, row: HBoxContainer) -> void:
+	var slot_width := _skill_slot_width(index)
+	var is_defense_slot := index == DASH_SLOT or index == PARRY_SLOT
+	var slot := PanelContainer.new()
+	slot.custom_minimum_size = Vector2(slot_width, SLOT_H)
+	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var slot_style := StyleBoxFlat.new()
+	slot_style.bg_color = Color("17232c")
+	slot_style.border_color = Color("68737a")
+	slot_style.set_border_width_all(1)
+	slot_style.set_corner_radius_all(3)
+	slot.add_theme_stylebox_override("panel", slot_style)
+	row.add_child(slot)
+	_skill_slot_panels.append(slot)
+	_skill_slot_styles.append(slot_style)
 
-		var key_label := Label.new()
-		key_label.position = Vector2(SLOT_W - 4.0 - 12.0, SLOT_H - 4.0 - 12.0)
-		key_label.size = Vector2(12.0, 12.0)
-		key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		key_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		key_label.text = "T" if index == SKILL_TREE_SLOT else "I" if index == ULTIMATE_SLOT else str(index + 1)
-		key_label.add_theme_font_size_override("font_size", 7)
-		key_label.add_theme_color_override("font_color", Color("fff2cf"))
-		key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(key_label)
-		if index == SKILL_TREE_SLOT:
-			icon.offset_left = -1.0
-			icon.offset_top = -2.0
-			icon.offset_right = 1.0
-			icon.offset_bottom = 2.0
-			var book_icon := AtlasTexture.new()
-			book_icon.atlas = load(SKILL_TREE_BOOK_ICON_SHEET) as Texture2D
-			book_icon.region = SKILL_TREE_BOOK_ICON_REGION
-			book_icon.filter_clip = true
-			icon.texture = book_icon
-			placeholder.visible = false
-			key_label.add_theme_color_override("font_color", Color("ffe19a"))
-			slot.mouse_filter = Control.MOUSE_FILTER_STOP
-			slot.tooltip_text = "T · Cây kỹ năng"
-			slot.gui_input.connect(_on_skill_tree_slot_input)
+	var content := Control.new()
+	content.custom_minimum_size = Vector2(slot_width - 4.0, SLOT_H - 4.0)
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot.add_child(content)
+	var icon := TextureRect.new()
+	icon.set_anchors_preset(Control.PRESET_FULL_RECT)
+	icon.offset_left = 1.0
+	icon.offset_top = 8.0 if is_defense_slot else 0.0
+	icon.offset_right = -1.0
+	icon.offset_bottom = -2.0 if is_defense_slot else 0.0
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(icon)
+	_skill_slot_icons.append(icon)
+
+	var placeholder := Label.new()
+	placeholder.set_anchors_preset(Control.PRESET_FULL_RECT)
+	placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	placeholder.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	placeholder.add_theme_font_size_override("font_size", 11 if SLOT_W < 32.0 else 13)
+	placeholder.add_theme_color_override("font_color", Color("ccd6dc"))
+	placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(placeholder)
+	_skill_slot_placeholders.append(placeholder)
+
+	var overlay := ColorRect.new()
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.color = Color(0.01, 0.015, 0.02, 0.76)
+	overlay.visible = false
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(overlay)
+	_skill_slot_cooldown_overlays.append(overlay)
+
+	var cooldown_label := Label.new()
+	cooldown_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	cooldown_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cooldown_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	cooldown_label.add_theme_font_size_override("font_size", 9 if SLOT_W < 32.0 else 11)
+	cooldown_label.add_theme_color_override("font_color", Color("ffffff"))
+	cooldown_label.visible = false
+	cooldown_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if is_defense_slot:
+		cooldown_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+		cooldown_label.position = Vector2(-12.0, 0.0)
+		cooldown_label.size = Vector2(12.0, 8.0)
+		cooldown_label.add_theme_font_size_override("font_size", 6)
+		cooldown_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	content.add_child(cooldown_label)
+	_skill_slot_cooldown_labels.append(cooldown_label)
+
+	var key_label := Label.new()
+	if is_defense_slot:
+		key_label.position = Vector2(0.0, 0.0)
+		key_label.size = Vector2(12.0, 8.0)
+		key_label.add_theme_font_size_override("font_size", 6)
+	else:
+		key_label.position = Vector2(slot_width - 4.0 - 14.0, SLOT_H - 4.0 - 11.0)
+		key_label.size = Vector2(14.0, 11.0)
+		key_label.add_theme_font_size_override("font_size", 6)
+	key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	key_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	key_label.text = "T" if index == SKILL_TREE_SLOT else "I" if index == ULTIMATE_SLOT else "L" if index == PARRY_SLOT else "SH" if index == DASH_SLOT else str(index + 1)
+	key_label.add_theme_color_override("font_color", Color("fff2cf"))
+	key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(key_label)
+	if index == SKILL_TREE_SLOT:
+		icon.offset_left = -1.0
+		icon.offset_top = -2.0
+		icon.offset_right = 1.0
+		icon.offset_bottom = 2.0
+		var book_icon := AtlasTexture.new()
+		book_icon.atlas = load(SKILL_TREE_BOOK_ICON_SHEET) as Texture2D
+		book_icon.region = SKILL_TREE_BOOK_ICON_REGION
+		book_icon.filter_clip = true
+		icon.texture = book_icon
+		placeholder.visible = false
+		key_label.add_theme_color_override("font_color", Color("ffe19a"))
+		slot.mouse_filter = Control.MOUSE_FILTER_STOP
+		slot.tooltip_text = "T · Cây kỹ năng"
+		slot.gui_input.connect(_on_skill_tree_slot_input)
+	elif is_defense_slot:
+		var action_id := "dash" if index == DASH_SLOT else "parry"
+		icon.texture = _load_action_icon(action_id)
+		icon.modulate = Color.WHITE
+		placeholder.visible = icon.texture == null
+		placeholder.text = "D" if index == DASH_SLOT else "P"
 
 
 func _refresh_skill_bar() -> void:
@@ -263,6 +341,8 @@ func _refresh_skill_bar() -> void:
 		_skill_slot_styles[index].set_border_width_all(2 if player.selected_active_slot == slot_number else 1)
 		var title := _skill_display_name(skill_id)
 		_skill_slot_panels[index].tooltip_text = "%d · %s · U thi triển" % [slot_number, title]
+	_refresh_action_slot(DASH_SLOT, "dash", "Shift · Dash", maxf(0.0, player.dash_cooldown_timer))
+	_refresh_action_slot(PARRY_SLOT, "parry", "L · Parry", maxf(0.0, player.parry_cooldown_timer))
 
 	var ultimate_id := GameManager.selected_ultimate_skill
 	var ultimate_icon := _skill_icon_name(ultimate_id)
@@ -279,8 +359,159 @@ func _refresh_skill_bar() -> void:
 	var ultimate_ready := ultimate_id != "" and player.rage >= Player.MAX_RAGE and ultimate_remaining <= 0.0
 	_skill_slot_styles[ultimate_slot].border_color = Color("f3d36a") if ultimate_ready else Color("ad7be8")
 	_skill_slot_styles[ultimate_slot].set_border_width_all(2 if ultimate_ready else 1)
-	_skill_slot_panels[ultimate_slot].tooltip_text = "I · %s · Nộ khí %d%%" % [_skill_display_name(ultimate_id), int(player.rage)]
+	var ultimate_status := "Chưa chọn tuyệt kỹ"
+	if ultimate_id != "":
+		if ultimate_ready:
+			ultimate_status = "Sẵn sàng"
+		elif ultimate_remaining > 0.0:
+			ultimate_status = "Đang hồi chiêu"
+		else:
+			ultimate_status = "Đang nạp nộ khí"
+	_skill_slot_panels[ultimate_slot].tooltip_text = "I · %s · %s" % [_skill_display_name(ultimate_id), ultimate_status]
 	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = "T · Cây kỹ năng"
+
+
+func _skill_slot_width(index: int) -> float:
+	return DEFENSE_SLOT_W if index == DASH_SLOT or index == PARRY_SLOT else SLOT_W
+
+
+func _refresh_action_slot(slot_index: int, action_id: String, action_name: String, remaining: float) -> void:
+	var icon_texture := _load_action_icon(action_id)
+	_skill_slot_icons[slot_index].texture = icon_texture
+	_skill_slot_icons[slot_index].modulate = Color.WHITE if remaining <= 0.0 else Color("8daeb1")
+	_skill_slot_placeholders[slot_index].visible = icon_texture == null
+	_skill_slot_placeholders[slot_index].text = "D" if slot_index == DASH_SLOT else "P"
+	_skill_slot_cooldown_overlays[slot_index].visible = false
+	_skill_slot_cooldown_labels[slot_index].visible = remaining > 0.0
+	_skill_slot_cooldown_labels[slot_index].text = "%.1f" % remaining if remaining > 0.0 else ""
+	_skill_slot_styles[slot_index].border_color = Color("76e3d2") if remaining <= 0.0 else Color("53747c")
+	_skill_slot_styles[slot_index].set_border_width_all(2 if remaining <= 0.0 else 1)
+	_skill_slot_panels[slot_index].tooltip_text = "%s · %s" % [action_name, "Sẵn sàng" if remaining <= 0.0 else "%.1fs" % remaining]
+
+
+func _load_action_icon(action_id: String) -> Texture2D:
+	if not _action_icon_cache.has(action_id):
+		var image := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+		image.fill(Color(0.0, 0.0, 0.0, 0.0))
+		if action_id == "dash":
+			var trail := Color("56aeb7")
+			var accent := Color("a6fff0")
+			_fill_icon_rect(image, 1, 5, 6, 1, trail)
+			_fill_icon_rect(image, 0, 7, 8, 1, trail)
+			_fill_icon_rect(image, 1, 9, 6, 1, trail)
+			_fill_icon_rect(image, 7, 4, 2, 1, accent)
+			_fill_icon_rect(image, 8, 5, 2, 1, accent)
+			_fill_icon_rect(image, 9, 6, 2, 1, accent)
+			_fill_icon_rect(image, 10, 7, 5, 2, accent)
+			_fill_icon_rect(image, 9, 9, 2, 1, accent)
+			_fill_icon_rect(image, 8, 10, 2, 1, accent)
+			_fill_icon_rect(image, 7, 11, 2, 1, accent)
+		else:
+			var outline := Color("a6fff0")
+			var fill := Color("34717a")
+			_fill_icon_rect(image, 6, 1, 4, 1, outline)
+			_fill_icon_rect(image, 4, 2, 8, 1, outline)
+			_fill_icon_rect(image, 3, 3, 10, 1, outline)
+			_fill_icon_rect(image, 3, 4, 10, 1, outline)
+			_fill_icon_rect(image, 4, 5, 8, 1, outline)
+			_fill_icon_rect(image, 5, 6, 6, 1, outline)
+			_fill_icon_rect(image, 6, 7, 4, 1, outline)
+			_fill_icon_rect(image, 7, 8, 2, 1, outline)
+			_fill_icon_rect(image, 5, 3, 6, 1, fill)
+			_fill_icon_rect(image, 4, 4, 8, 1, fill)
+			_fill_icon_rect(image, 5, 5, 6, 1, fill)
+			_fill_icon_rect(image, 6, 6, 4, 1, fill)
+			_fill_icon_rect(image, 7, 7, 2, 1, fill)
+			for step in 6:
+				_fill_icon_rect(image, 5 + step, 8 - step, 2, 1, Color("fff2cf"))
+		_action_icon_cache[action_id] = ImageTexture.create_from_image(image)
+	return _action_icon_cache[action_id] as Texture2D
+
+
+func _fill_icon_rect(image: Image, x: int, y: int, width: int, height: int, color: Color) -> void:
+	for py in range(y, y + height):
+		for px in range(x, x + width):
+			image.set_pixel(px, py, color)
+
+
+func _build_low_health_warning() -> void:
+	_low_health_vignette_layer = CanvasLayer.new()
+	_low_health_vignette_layer.name = "LowHealthVignetteLayer"
+	_low_health_vignette_layer.layer = layer + 1
+	_low_health_vignette_layer.transform = Transform2D.IDENTITY
+	_low_health_vignette_layer.visible = false
+	add_child(_low_health_vignette_layer)
+	var vignette := ColorRect.new()
+	vignette.name = "LowHealthVignette"
+	vignette.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var vignette_shader := Shader.new()
+	vignette_shader.code = LOW_HEALTH_VIGNETTE_SHADER
+	_vignette_material = ShaderMaterial.new()
+	_vignette_material.shader = vignette_shader
+	_vignette_material.set_shader_parameter("pulse_alpha", 0.0)
+	vignette.material = _vignette_material
+	_low_health_vignette_layer.add_child(vignette)
+
+	_low_health_warning = Label.new()
+	_low_health_warning.name = "LowHealthWarning"
+	_low_health_warning.text = "MÁU THẤP"
+	_low_health_warning.position = Vector2(margin.x, margin.y + 51.0)
+	_low_health_warning.size = Vector2(100.0, 15.0)
+	_low_health_warning.visible = false
+	_low_health_warning.add_theme_font_size_override("font_size", 9)
+	_low_health_warning.add_theme_color_override("font_color", Color("ff625a"))
+	_low_health_warning.add_theme_color_override("font_outline_color", Color("180d12"))
+	_low_health_warning.add_theme_constant_override("outline_size", 2)
+	_low_health_warning.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_low_health_warning)
+
+
+func _build_status_strip() -> void:
+	_status_strip = HBoxContainer.new()
+	_status_strip.name = "ActiveStatusStrip"
+	_status_strip.position = Vector2(margin.x, margin.y + 70.0)
+	_status_strip.add_theme_constant_override("separation", 4)
+	_status_strip.visible = false
+	_status_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_status_strip)
+	var border_colors := [Color("ffad66"), Color("8de7c1"), Color("89d9ff")]
+	for index in 3:
+		var chip := PanelContainer.new()
+		chip.visible = false
+		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color(0.025, 0.035, 0.05, 0.86)
+		style.border_color = border_colors[index]
+		style.set_border_width_all(1)
+		style.set_corner_radius_all(3)
+		style.set_content_margin_all(3.0)
+		chip.add_theme_stylebox_override("panel", style)
+		_status_strip.add_child(chip)
+		_status_chips.append(chip)
+		var label := Label.new()
+		label.add_theme_font_size_override("font_size", 8)
+		label.add_theme_color_override("font_color", border_colors[index])
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		chip.add_child(label)
+		_status_chip_labels.append(label)
+
+
+func _refresh_status_strip() -> void:
+	var player := _player as Player
+	if player == null or _status_strip == null:
+		return
+	var statuses := player.get_hud_statuses()
+	var visible_count := mini(statuses.size(), _status_chips.size())
+	for index in _status_chips.size():
+		var has_status := index < visible_count
+		_status_chips[index].visible = has_status
+		if not has_status:
+			continue
+		var status: Dictionary = statuses[index]
+		var remaining := maxi(1, ceili(float(status.get("remaining", 0.0))))
+		_status_chip_labels[index].text = "%s · %ds" % [str(status.get("label", "")), remaining]
+	_status_strip.visible = visible_count > 0
 
 
 func _on_skill_tree_slot_input(event: InputEvent) -> void:
@@ -344,7 +575,16 @@ func _on_rage_changed(current: float, maximum: float) -> void:
 		return
 	_rage_bar.max_value = maximum
 	_rage_bar.value = current
-	_rage_label.text = "NỘ KHÍ · TUYỆT KỸ SẴN SÀNG" if current >= maximum else "NỘ KHÍ · %d%%" % int(current)
+	_refresh_rage_label()
+
+
+func _refresh_rage_label() -> void:
+	var player := _player as Player
+	if _rage_label == null or player == null:
+		return
+	var ready := GameManager.selected_ultimate_skill != "" and player.rage >= Player.MAX_RAGE and player.get_ultimate_cooldown_remaining() <= 0.0
+	_rage_label.text = "TUYỆT KỸ SẴN SÀNG" if ready else "NỘ KHÍ"
+	_rage_label.add_theme_color_override("font_color", Color("ffe173") if ready else Color("d1c7ff"))
 
 
 func _build_texture_bar() -> void:
@@ -404,6 +644,11 @@ func _refresh(current: int, maximum: int, animate: bool) -> void:
 	_bar.max_value = maximum
 	if _label != null:
 		_label.text = "%d / %d" % [current, maximum] + "HP"
+	_critical_health_active = maximum > 0 and current > 0 and current * 3 <= maximum
+	if _low_health_warning != null:
+		_low_health_warning.visible = _critical_health_active and not _skill_tree_is_open
+	if _low_health_vignette_layer != null:
+		_low_health_vignette_layer.visible = _critical_health_active and not _skill_tree_is_open
 	if _fill != null:
 		_fill.bg_color = low_color if current * 3 <= maximum else fill_color
 	if _tween != null:

@@ -384,11 +384,11 @@ review. Never have simultaneous writers to basement_full.tscn.
 4. Genuine wave/reset/persistence/gate acceptance waits for coordinated provider availability;
    no synthetic callback closes those tasks. Report incomplete sprint work honestly.
 
-**Totals**: 47 tasks: setup/foundational 3; US1 8; US2 17; US3 5; US4 7; final review 2; F6 startup follow-up 1; camera visibility follow-up 1; Skill Tree HUD follow-up 1; Dark Fairy HUD follow-up 1; player stair traversal follow-up 1.
+**Totals**: 60 tasks: setup/foundational 3; US1 8; US2 17; US3 5; final review 2; F6 startup follow-up 1; camera visibility follow-up 1; Skill Tree HUD follow-up 1; Dark Fairy HUD follow-up 1; player stair traversal follow-up 1; player sword/status FX follow-up 1; floating player sword follow-up 1; player dash trail follow-up 1; dash trail visibility tuning 1; dash afterimage alpha blending fix 1; Dark Fairy health-bar style follow-up 1; player ultimate cinematic follow-up 1; front-facing ultimate cut-in pose follow-up 1; ultimate camera zoom-only follow-up 1; Skill Tree size follow-up 1; lightning enemy status VFX follow-up 1; player HUD feedback follow-up 1; player HUD presentation polish follow-up 1.
 **First group**: T004-T011, 8 scene-foundation/check tasks only.
 **Current state**: T012 and T014-T021 are implemented; T013/T025/T026 remain partial and
 T022-T042 remain open as recorded above. T043 is the focused F6 startup follow-up below;
-T044 is a focused basement camera visibility follow-up. T045 is implemented with runtime visual/input verification pending. T047 has a player-only step-up implementation; required stair and movement regression checks remain unverified, so T047 stays open.
+T044 is a focused basement camera visibility follow-up. T045 is implemented with runtime visual/input verification pending. T047 has a player-only step-up implementation; required stair and movement regression checks remain unverified, so T047 stays open. T048 is implemented; Godot visual/skill checks remain NOT RUN, so T048 stays open. T049 is implemented; the floating sword animation remains visually unverified in Godot, so T049 stays open. T050 is implemented; the dash trail remains visually and directionally unverified in Godot, so T050 stays open. T051 increases trail opacity/density; visual tuning remains unverified in Godot, so T051 stays open. T052 corrects afterimage alpha blending; runtime visibility remains unverified, so T052 stays open. T053 applies the regular enemy health-bar styling to the Dark Fairy; runtime visual verification remains open. T054 is implemented with static review complete; camera/title/cast behavior remains unverified in Godot, so T054 stays open. T055 adds a front-facing idle pose during the ultimate cut-in; animation framing and restoration remain unverified in Godot, so T055 stays open. T056 removes camera orbit/translation; zoom framing and camera stability remain unverified in Godot, so T056 stays open. T057 expands the Skill Tree, and T058 changes lightning control effects to electricity; static implementation is recorded below, but Godot visual/input/status checks remain NOT RUN. T059 adds combat readiness/status feedback to the Player HUD; Godot visual and input checks remain NOT RUN.
 
 ## Focused startup follow-up
 
@@ -431,3 +431,109 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Scope: player-only movement override in `scenes/player/player.gd`. Try a bounded step-up only when grounded horizontal movement is blocked, the raised path is clear, and a walkable landing surface exists within 0.75 world units. Do not edit shared `BaseCharacter`, enemy movement, GridMap data, stair mesh resources, navigation, or T044 render-visibility behavior.
   - Acceptance: the player can walk both up and down the pictured B1/B2 stairs without sticking on their risers; cannot step through walls, ceilings, or unsupported gaps; ordinary flat movement, jumping, landing, and enemies remain unchanged.
   - Validation: Godot playtest on the actual B1/B2 staircase in both directions, collision-debug review of the stair contact, and regression checks for flat movement, a wall, an unsupported edge, and jumping/landing. Record actual results; do not claim acceptance without the runtime pass.
+
+## Focused player sword and status FX follow-up
+
+- [ ] T048 Show the existing sword behind the player, hide it during attacks/skills, and add PVFX status visuals for burn, ice slow, and freeze.
+  - Owner/reviewer: Bao (player combat and skill visuals; user-requested slice).
+  - Scope: `scenes/player/player.tscn`, `scenes/player/states/skillstate.gd`, `scenes/player/player.gd`, and `scenes/player/battle_vfx.gd`; use the user-added PVFX spritesheets under `assets/effects/pvfx-foundry-thirteen-spritesheets/` and project-local Pixelfx exports under `assets/effects/pixelfx/`. Keep the existing sword node/texture and back transform. Do not modify enemy status/damage/movement logic, shared `BaseCharacter` behavior, slash scenes/sheets, `BattleVFX.shield`, or `BattleVFX.emberline_ring`.
+  - Acceptance: the player sword is visible by default at its existing back mount; it stays hidden for player attacks and active/thrown skills, then returns when the corresponding action completes; burn and ice slow attach looping status visuals to the affected enemy for the existing status duration, freeze shows its hit effect, and refreshes do not create duplicate loops; damage, timing and movement rules remain unchanged.
+  - Validation: inspect source paths, PVFX manifests/frame timing, sword mount, and status call sites; `git diff --check`. Godot runtime visual/skill checks are not run unless separately requested, so visual fit and hide/restore behavior remain unverified until a playtest.
+
+## Focused floating player sword follow-up
+
+- [ ] T049 Add a gentle idle hover and sway to the player's existing back-mounted sword so it reads as floating.
+  - Owner/reviewer: Bao (player presentation; user clarification).
+  - Scope: the existing player-only `scenes/player/weapon/blade.tscn` and a small attached animation script. Preserve the current back mount, sword asset, facing behavior, visibility suppression, attack/skill handling, and unrelated character animation.
+  - Acceptance: while visible, the sword gently rises/falls and rocks around its existing resting transform; motion remains subtle, smooth, and continuous, and hiding it during attacks/skills continues to work.
+  - Validation: inspect the base-transform-relative animation and `git diff --check`. Godot runtime visual tuning is NOT RUN unless separately requested; the final amplitude and placement remain subject to in-game review.
+
+## Focused player dash trail follow-up
+
+- [ ] T050 Leave a short afterimage trail behind the player during dash and use the existing dash-dust effect.
+  - Owner/reviewer: Bao (player movement presentation; user-requested slice).
+  - Scope: `scenes/player/states/dash.gd` and the player-owned helper in `scenes/player/battle_vfx.gd`; reuse the player's current animated `Sprite3D` for fading snapshots and the user-added PVFX `smoke/dash-dust` sheet. Do not change dash movement, duration, cooldown, invincibility, collision, or shared character behavior.
+  - Acceptance: during a dash, a few short-lived tinted copies of the player's actual pose remain along the recent path, with a small dust trail; trail ends cleanly after the dash and follows the chosen dash direction. Regular movement and other combat effects remain unchanged.
+  - Validation: inspect sprite-frame copying, dash state lifecycle, PVFX manifest frames/durations, and `git diff --check`. Godot visual/direction/lifecycle checks remain NOT RUN unless separately requested.
+
+## Focused dash trail visibility tuning
+
+- [ ] T051 Make the dash afterimages and dust more visible based on user feedback.
+  - Owner/reviewer: Bao (player movement presentation; user-requested adjustment).
+  - Scope: tune the existing T050 afterimage opacity/fade, emission spacing, and dash-dust scale/opacity in `scenes/player/states/dash.gd` and `scenes/player/battle_vfx.gd`. Preserve trail placement, dash movement and other gameplay values.
+  - Acceptance: the trail reads clearly during a dash and fades shortly after, without obscuring the player or lingering as a persistent effect.
+  - Validation: inspect tuned constants and `git diff --check`. Godot visual tuning is NOT RUN unless requested, so final strength/occlusion remains unverified.
+
+## Focused dash afterimage alpha blending fix
+
+- [ ] T052 Allow the tinted dash afterimages to use partial transparency.
+  - Owner/reviewer: Bao (player dash presentation; user-reported missing afterimages).
+  - Static finding: the player's source `Sprite3D` uses alpha-cut discard; the duplicated afterimages inherit that mode while also receiving partial alpha.
+  - Scope: set standard alpha blending only on the temporary afterimage copies in `scenes/player/battle_vfx.gd`. Preserve the original player sprite's pixel-edge rendering and all dash gameplay values.
+  - Acceptance: trail copies render with their configured tint/opacity and fade, while the base player sprite remains unchanged.
+  - Validation: inspect copied sprite alpha mode and `git diff --check`. Godot visual confirmation remains NOT RUN unless requested.
+
+## Dark Fairy health-bar style follow-up
+
+- [ ] T053 Match the Dark Fairy's health-bar artwork and frame styling to regular enemies.
+  - Owner/reviewer: Duy; user reports Duy approved this style change on 2026-11-09 (not directly confirmed by Duy).
+  - Scope: change `BossHUD/Bar` to `TextureProgressBar` in `scenes/enemies/darkfairy/darkfairy.tscn`, reuse the texture/tint/nine-patch settings from `scenes/ui/enemy_health_bar.tscn`, and update the `boss_bar` type annotation in `scenes/enemies/darkfairy/darkfairy.gd`. Preserve the boss-specific bar size and current placement, phase label, and all other existing scene edits.
+  - Acceptance: boss health fill uses the same red texture, dark backing, and nine-patch frame as regular enemy bars while still tracking boss health and phase behavior.
+  - Validation: static compare of style properties, resource path, script node type, and `git diff --check`. Godot visual check is NOT RUN unless requested; final appearance remains unverified.
+
+## Focused player ultimate cinematic follow-up
+
+- [ ] T054 Add a shared ultimate cut-in that pauses gameplay, zooms the camera toward the player, shows a high-contrast elemental impact frame with the selected ultimate's name, restores the camera, then casts the ultimate.
+  - Owner/reviewer: Bao (player combat and skill presentation; user-requested slice).
+  - Scope: `scenes/player/player.gd`, `scenes/player/battle_vfx.gd`, a new player-owned `scenes/player/ultimate_cinematic.gd`, and the exported Pixelfx `impacts/impact-frame` sheet/metadata for the paused impact beat. Temporarily animate and exactly restore the active `Camera3D` transform/FOV. Do not edit `CameraRig`, ultimate damage/timing/effects, input maps, enemy behavior, or slash/ice-shield implementations.
+  - Acceptance: a ready ultimate starts once; the game pauses while a short camera zoom and a black/white impact frame with its elemental accent and existing Vietnamese ultimate name play; camera transform/FOV are restored; the tree unpauses; then the captured ultimate casts once and applies its existing behavior. If no active camera is available, cast immediately without leaving the game paused. Cleanup must also unpause and restore the camera if the cinematic exits early.
+  - Validation: static review of the gating/captured skill ID, process mode, pause/restore/early-exit paths, impact art and name/element mapping, then `git diff --check`. Godot playtest of all eight titles/elements, camera framing, cast-once behavior and interruption cleanup is required for runtime acceptance but is NOT RUN unless requested; report runtime behavior as unverified until performed.
+
+## Focused front-facing ultimate cut-in pose
+
+- [ ] T055 Show the player's front-facing idle animation while the ultimate cut-in runs, then restore the interrupted pose and direction.
+  - Owner/reviewer: Bao (player presentation; user-requested follow-up to T054).
+  - Static finding: scripts/base_character.gd maps "down" to the front (+Z, toward the camera); scenes/player/player_anims.tres defines idle_down as the front-facing idle animation. The player is paused during the cut-in, so its state machine will not process a deferred change_animation() call.
+  - Scope: scenes/player/player.gd and scenes/player/ultimate_cinematic.gd only. Capture/restore the player's current and pending facing direction, animation name/position/play state, and sprite frame/flip; temporarily play idle_down and face down toward the camera. Do not modify animation assets, normal movement/combat state behavior, or cut-in timing/camera motion.
+  - Acceptance: front-facing idle is visible from the start of the cut-in through the impact/title beat; after successful completion or abort, prior direction and animation state are restored before unpausing, and normal facing resumes without a state-machine mismatch.
+  - Validation: inspect idle_down resource key/frame mapping and capture/restore logic, then git diff --check. A Godot playtest must verify front visibility through the zoom/impact and restoration from varied prior directions/animations; runtime checks are NOT RUN in this task, so T055 remains open pending visual verification.
+
+## Focused ultimate camera zoom-only follow-up
+
+- [ ] T056 Remove camera orbit and position movement from the ultimate cut-in; keep a steady FOV zoom in and out.
+  - Owner/reviewer: Bao (player cinematic presentation; user-requested refinement of T054).
+  - Scope: scenes/player/ultimate_cinematic.gd and this task's validation/changelog records only. Keep the camera at its original position and orientation throughout the cut-in; animate only FOV toward a tighter view and back. Preserve pause, front-facing pose, impact/title display, cast timing, and final camera restoration.
+  - Acceptance: the camera does not circle, translate, or shake; the player remains framed from the existing camera angle while FOV zooms in for the cut-in and returns to its exact starting value before casting.
+  - Validation: inspect the zoom methods to confirm only FOV changes and the full saved camera transform is restored, then git diff --check. Godot playtest of framing, steadiness, and before/after FOV remains NOT RUN, so runtime visual acceptance stays open.
+
+## Focused Skill Tree size follow-up
+
+- [ ] T057 Make the Skill Tree spread visibly larger and wider while keeping controls and nodes usable.
+  - Owner/reviewer: Bao (Skill Tree presentation; user-requested follow-up to T045).
+  - Scope: `ui/skill_tree_layout.gd`, `ui/skill_tree_graph.gd`, and/or `ui/skill_tree_node.gd` as needed. Expand the open-book content and tree graph footprint and make nodes easier to see. Preserve both tabs, descriptions, zoom/pan, node allocation, graph links, and all progression/gameplay behavior.
+  - Acceptance: the weapon and character trees occupy substantially more width and area than the current screenshot; nodes/icons are easier to read without clipping or covering the description and book controls at supported resolutions.
+  - Validation: review responsive book/page sizing, graph/node layout and unchanged allocation actions, then `git diff --check`. Godot visual/input checks at small and large resolutions remain NOT RUN; T057 stays open pending runtime review.
+
+## Focused lightning enemy status VFX follow-up
+
+- [ ] T058 Show electric status art on enemies hit by lightning skills instead of the ice freeze visual.
+  - Owner/reviewer: Bao (player combat/skill presentation; user-requested follow-up).
+  - Scope: `scenes/player/player.gd`, `scenes/player/battle_vfx.gd`, and the local Pixelfx `lightning/electrified` export plus metadata as needed. Route lightning elemental hits, active lightning freeze/stun effects, and lightning ultimates to an electric status visual; retain existing crowd-control durations and mechanics. Ice skill visuals and shared slash/ice-shield implementations stay unchanged.
+  - Acceptance: all lightning skill paths that currently display `frozen` show the electric status animation; lightning still applies the same `apply_skill_freeze` duration, ice still uses its freeze art, and repeated hits refresh rather than stack duplicate status sprites.
+  - Validation: inspect every lightning status call site, status refresh/lifetime handling and asset path, then `git diff --check`. Godot import/playtest and in-game visual/lifecycle confirmation remain NOT RUN; T058 stays open pending runtime review.
+
+## Focused Player HUD combat feedback follow-up
+
+- [ ] T059 Add compact readiness, active-effect, and critical-health feedback to the Player HUD.
+  - Owner/reviewer: Bao (player combat/HUD presentation; user-requested follow-up).
+  - Scope: `ui/player_hud.gd`, `ui/hud.tscn`, and `scenes/player/player.gd`. Show actual ultimate readiness in the rage label; add compact dash/parry cooldown indicators with current keys; show durations for the existing attack/speed buffs and ice shield; pulse a low-health warning at critical HP. Preserve all input bindings, gameplay values, skill-tree behavior, and health/cooldown/buff mechanics.
+  - Acceptance: HUD labels agree with actual readiness/cooldown values; existing temporary buffs and shield expose their remaining time and disappear at expiry/consumption; low-health warning appears only for living players at or below one-third HP; the new slots and status strip fit without covering gameplay at supported resolutions.
+  - Validation: inspect the tracked timer/status data and existing HUD slot logic, then `git diff --check`. Godot parse/import and visual/input checks remain NOT RUN; T059 stays open pending runtime review.
+
+## Focused Player HUD presentation polish
+
+- [ ] T060 Remove rage percentages, compact and separate defensive actions from elemental skills, add action icons, and show a pulsing red edge filter at low health.
+  - Owner/reviewer: Bao (Player HUD and combat presentation; user-requested follow-up).
+  - Scope: `ui/player_hud.gd` and `ui/hud.tscn`. Keep the rage progress bar but remove numeric percentage from rage labels/tooltips; reduce the skill bar footprint and place Dash/Parry in a visibly separate defense group with distinct icons; add a soft red screen-edge vignette that pulses at the existing low-health threshold. Preserve input bindings, cooldowns, skill selection, health rules and Skill Tree behavior.
+  - Acceptance: no rage percentage is shown in HUD text/tooltips; elemental skills plus the ultimate/tree remain in the main group while Dash/Parry occupy a separate adjacent panel; action icons remain visible under cooldown feedback; vignette pulses only for a living player at or below one-third health, fades when health recovers or the player dies, and stays limited to the screen edge.
+  - Validation: inspect HUD grouping/icon/cooldown wiring, rage text, vignette shader bounds and low-health visibility, then `git diff --check`. Godot parse/import and visual checks at supported viewport sizes remain NOT RUN; T060 stays open pending runtime review.

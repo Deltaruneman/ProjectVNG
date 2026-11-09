@@ -1,6 +1,7 @@
 class_name Player
 extends BaseCharacter
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+const ULTIMATE_CINEMATIC_SCRIPT := preload("res://scenes/player/ultimate_cinematic.gd")
 
 const MAX_STAIR_STEP_HEIGHT := 0.75
 const STEP_LIFT_INCREMENT := 0.1
@@ -32,6 +33,8 @@ const ULTIMATE_SKILL_COOLDOWNS := {
 }
 var _active_skill_cooldowns: Dictionary = {}
 var _ultimate_cooldown_remaining := 0.0
+var _ultimate_cinematic_running := false
+var _hud_status_time_remaining: Dictionary = {}
 var _base_attack_damage := 1
 var _base_max_health := 3
 var _base_movement_speed := 6.0
@@ -125,6 +128,12 @@ func _process(delta: float) -> void:
 		else:
 			_active_skill_cooldowns[skill_id] = remaining
 	_ultimate_cooldown_remaining = maxf(0.0, _ultimate_cooldown_remaining - delta)
+	for status_id: Variant in _hud_status_time_remaining.keys():
+		var status_remaining := maxf(0.0, float(_hud_status_time_remaining[status_id]) - delta)
+		if status_remaining <= 0.0:
+			_hud_status_time_remaining.erase(status_id)
+		else:
+			_hud_status_time_remaining[status_id] = status_remaining
 
 
 func die() -> void:
@@ -150,8 +159,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("ultimate"):
-		if _can_use_skills():
-			cast_ultimate()
+		if _can_use_skills() and not _ultimate_cinematic_running:
+			var skill_id: String = GameManager.selected_ultimate_skill
+			if _is_ultimate_ready(skill_id) and not _start_ultimate_cinematic(skill_id):
+				cast_ultimate(skill_id)
 		get_viewport().set_input_as_handled()
 		return
 	super._unhandled_input(event)
@@ -210,6 +221,27 @@ func get_ultimate_cooldown_duration(skill_id: String) -> float:
 	return float(ULTIMATE_SKILL_COOLDOWNS.get(skill_id, 20.0))
 
 
+func get_hud_statuses() -> Array[Dictionary]:
+	var statuses: Array[Dictionary] = []
+	var attack_time := float(_hud_status_time_remaining.get("attack", 0.0))
+	if attack_time > 0.0 and _temp_attack_bonus > 0:
+		statuses.append({"label": "ATK +%d" % _temp_attack_bonus, "remaining": attack_time, "kind": "attack"})
+	var speed_time := float(_hud_status_time_remaining.get("speed", 0.0))
+	if speed_time > 0.0:
+		statuses.append({"label": "TỐC ĐỘ", "remaining": speed_time, "kind": "speed"})
+	var shield_time := float(_hud_status_time_remaining.get("shield", 0.0))
+	if shield_time > 0.0 and ice_shield > 0:
+		statuses.append({"label": "KHIÊN ×%d" % ice_shield, "remaining": shield_time, "kind": "shield"})
+	return statuses
+
+
+func _track_hud_status(status_id: String, duration: float, refresh: bool = false) -> void:
+	if duration <= 0.0:
+		return
+	var existing := float(_hud_status_time_remaining.get(status_id, 0.0))
+	_hud_status_time_remaining[status_id] = duration if refresh else maxf(existing, duration)
+
+
 func get_skill_aim_direction() -> Vector3:
 	var input := Input.get_vector("left", "right", "up", "down")
 	if input.length() > 0.15:
@@ -235,12 +267,17 @@ func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
 	if enemy != null:
 		if elemental_form == "fire":
 			var ember_rank := int(GameManager.skill_allocations.get("evo_fire_ember", 0))
-			enemy.apply_skill_burn(self, maxi(1, int(attack_damage / 2)) + ember_rank, 3.0 + float(ember_rank), 1.0)
+			var burn_duration := 3.0 + float(ember_rank)
+			enemy.apply_skill_burn(self, maxi(1, int(attack_damage / 2)) + ember_rank, burn_duration, 1.0)
+			BattleFX.enemy_status(enemy, "burning", burn_duration)
 		elif elemental_form == "ice":
 			var frostbite_rank := int(GameManager.skill_allocations.get("evo_ice_frostbite", 0))
-			enemy.apply_skill_slow(2.0 + float(frostbite_rank), 0.5)
+			var slow_duration := 2.0 + float(frostbite_rank)
+			enemy.apply_skill_slow(slow_duration, 0.5)
+			BattleFX.enemy_status(enemy, "slowed", slow_duration)
 		elif elemental_form == "lightning":
 			enemy.apply_skill_freeze(0.35)
+			BattleFX.enemy_status(enemy, "electrified", 0.35)
 	var stage := get_tree().current_scene as Node3D
 	if stage != null and elemental_form != "":
 		var impact_direction := area.global_position - global_position
@@ -333,9 +370,12 @@ func cast_active_skill(active_id: String) -> bool:
 			_damage_enemies_in_shape(global_position, aim, "cone", cone_reach, 0.0, cone_half_angle, damage * 2, 2.0 + 0.5 * float(frostbite_rank), 0.0, 0.5 * float(shatter_rank))
 		"active_ice_3":
 			ice_shield = int(ceil(max_health * 0.25))
+			_track_hud_status("shield", 8.0, true)
 			BattleFX.shield(self, global_position, "ice", 8.0, 0.25)
 			BattleFX.emberline_ring(self, global_position, "ice", aim, 1.25)
-			get_tree().create_timer(8.0).timeout.connect(func() -> void: ice_shield = 0)
+			get_tree().create_timer(8.0).timeout.connect(func() -> void:
+				ice_shield = 0
+				_hud_status_time_remaining.erase("shield"))
 		"active_ice_4":
 			var storm_rank := int(GameManager.skill_allocations.get("evo_ice_storm", 0))
 			var storm_radius := 4.0 + 0.5 * float(storm_rank)
@@ -344,16 +384,16 @@ func cast_active_skill(active_id: String) -> bool:
 		"active_lightning_2":
 			var chain_rank := int(GameManager.skill_allocations.get("evo_lightning_chain", 0))
 			BattleFX.lightning_strike(self, skill_effect_position(aim, 2.5, 0.55), 2.0)
-			_damage_enemies_in_shape(global_position, aim, "cone", 7.0 + float(chain_rank), 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank))
+			_damage_enemies_in_shape(global_position, aim, "cone", 7.0 + float(chain_rank), 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank), 0.0, 0.0, 0.0, 0, "electrified")
 		"active_lightning_3":
 			var lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
 			var strike_center := global_position + aim * 4.0
 			BattleFX.lightning_strike(self, strike_center + Vector3.UP * 0.5, 2.4)
-			_damage_enemies_in_shape(strike_center, aim, "circle", 3.0, 0.0, 360.0, damage * (3 + lightning_rank), 0.6)
+			_damage_enemies_in_shape(strike_center, aim, "circle", 3.0, 0.0, 360.0, damage * (3 + lightning_rank), 0.6, 0.0, 0.0, 0.0, 0, "electrified")
 		"active_lightning_4":
 			var storm_lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
 			BattleFX.circle_burst(self, global_position + Vector3.UP * 0.6, "lightning", 5.0)
-			_damage_enemies_in_shape(global_position, aim, "circle", 5.0, 0.0, 360.0, damage * (2 + storm_lightning_rank), 0.8)
+			_damage_enemies_in_shape(global_position, aim, "circle", 5.0, 0.0, 360.0, damage * (2 + storm_lightning_rank), 0.8, 0.0, 0.0, 0.0, 0, "electrified")
 	return true
 
 
@@ -369,6 +409,10 @@ func _fire_rage_sequence(damage: int, aim: Vector3) -> void:
 func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -> void:
 	_temp_attack_bonus += attack_bonus
 	_temp_speed_bonus += speed_bonus
+	if attack_bonus > 0:
+		_track_hud_status("attack", duration)
+	if speed_bonus > 0.0:
+		_track_hud_status("speed", duration)
 	_apply_skill_bonuses()
 	get_tree().create_timer(duration).timeout.connect(func() -> void:
 		if is_inside_tree():
@@ -377,7 +421,7 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: float = 0.0, burn_duration: float = 0.0, burn_damage: int = 0) -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: float = 0.0, burn_duration: float = 0.0, burn_damage: int = 0, freeze_status_id: String = "frozen") -> int:
 	var aim_2d := Vector2(aim.x, aim.z).normalized()
 	if aim_2d.length_squared() < 0.001:
 		aim_2d = Vector2(forward().x, forward().z).normalized()
@@ -422,17 +466,92 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			hit_count += 1
 		if freeze_duration > 0.0:
 			enemy.apply_skill_freeze(freeze_duration)
+			BattleFX.enemy_status(enemy, freeze_status_id, freeze_duration)
 		if slow_duration > 0.0:
 			enemy.apply_skill_slow(slow_duration, 0.5)
+			BattleFX.enemy_status(enemy, "slowed", slow_duration)
 		if burn_duration > 0.0:
 			enemy.apply_skill_burn(self, burn_damage, burn_duration, 1.0)
+			BattleFX.enemy_status(enemy, "burning", burn_duration)
 	return hit_count
 
 
-func cast_ultimate() -> bool:
-	if rage < MAX_RAGE or _ultimate_cooldown_remaining > 0.0 or not GameManager.unlocked_skills.has(GameManager.selected_ultimate_skill):
+func _is_ultimate_ready(skill_id: String) -> bool:
+	return rage >= MAX_RAGE and _ultimate_cooldown_remaining <= 0.0 and GameManager.unlocked_skills.has(skill_id)
+
+
+func _start_ultimate_cinematic(skill_id: String) -> bool:
+	if _ultimate_cinematic_running or get_tree().paused:
 		return false
-	var skill_id: String = GameManager.selected_ultimate_skill
+	var camera := get_viewport().get_camera_3d()
+	var scene := get_tree().current_scene
+	if camera == null or scene == null:
+		return false
+	var cinematic = ULTIMATE_CINEMATIC_SCRIPT.new()
+	cinematic.process_mode = Node.PROCESS_MODE_ALWAYS
+	_ultimate_cinematic_running = true
+	cinematic.connect("finished", _on_ultimate_cinematic_finished, CONNECT_ONE_SHOT)
+	cinematic.connect("aborted", _on_ultimate_cinematic_aborted, CONNECT_ONE_SHOT)
+	scene.add_child(cinematic)
+	cinematic.call("begin", self, skill_id, camera)
+	return true
+
+
+func _on_ultimate_cinematic_finished(skill_id: String) -> void:
+	_ultimate_cinematic_running = false
+	if is_inside_tree():
+		cast_ultimate(skill_id)
+
+
+func _on_ultimate_cinematic_aborted() -> void:
+	_ultimate_cinematic_running = false
+
+
+func begin_ultimate_cinematic_pose() -> Dictionary:
+	var saved_pose := {
+		"direction": direction,
+		"next_direction": _next_direction,
+		"animation": anim_player.current_animation,
+		"animation_position": anim_player.current_animation_position,
+		"animation_active": anim_player.is_animation_active(),
+		"animation_playing": anim_player.is_playing(),
+		"sprite_frame": sprite.frame,
+		"sprite_flip_h": sprite.flip_h,
+	}
+	direction = "down"
+	_next_direction = "down"
+	_apply_direction()
+	if anim_player.has_animation("idle_down"):
+		anim_player.play("idle_down")
+		anim_player.seek(0.0, true)
+	return saved_pose
+
+
+func restore_ultimate_cinematic_pose(saved_pose: Dictionary) -> void:
+	if saved_pose.is_empty():
+		return
+	direction = str(saved_pose.get("direction", "down"))
+	_next_direction = str(saved_pose.get("next_direction", direction))
+	_apply_direction()
+	var saved_animation := StringName(saved_pose.get("animation", ""))
+	var was_active := bool(saved_pose.get("animation_active", false))
+	var was_playing := bool(saved_pose.get("animation_playing", false))
+	if was_active and saved_animation != &"" and anim_player.has_animation(saved_animation):
+		anim_player.play(saved_animation)
+		anim_player.seek(float(saved_pose.get("animation_position", 0.0)), true)
+		if not was_playing:
+			anim_player.pause()
+	else:
+		if anim_player.is_animation_active():
+			anim_player.stop()
+		sprite.frame = int(saved_pose.get("sprite_frame", sprite.frame))
+		sprite.flip_h = bool(saved_pose.get("sprite_flip_h", sprite.flip_h))
+
+
+func cast_ultimate(skill_id_override: String = "") -> bool:
+	var skill_id: String = skill_id_override if skill_id_override != "" else GameManager.selected_ultimate_skill
+	if not _is_ultimate_ready(skill_id):
+		return false
 	var aim := get_skill_aim_direction()
 	BattleFX.play_skill_sound(self, skill_id)
 	var radius := 18.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else 7.0
@@ -471,6 +590,7 @@ func cast_ultimate() -> bool:
 		health = maxi(1, health - int(ceil(health * 0.5)))
 	if skill_id.begins_with("ultimate_wind"):
 		movement_speed *= 1.5
+		_track_hud_status("speed", 4.0)
 		get_tree().create_timer(4.0).timeout.connect(func() -> void:
 			if is_inside_tree():
 				_apply_skill_bonuses())
@@ -479,7 +599,8 @@ func cast_ultimate() -> bool:
 	else:
 		var ultimate_shape := "global" if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else "circle"
 		var ultimate_freeze := 1.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else (0.8 if skill_id == "ultimate_lightning_1" else 0.0)
-		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze)
+		var ultimate_freeze_status := "electrified" if skill_id.begins_with("ultimate_lightning") else "frozen"
+		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze, 0.0, 0.0, 0.0, 0, ultimate_freeze_status)
 	rage = 0.0
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)
@@ -505,6 +626,8 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 	if ice_shield > 0:
 		var absorbed := mini(ice_shield, int(damage))
 		ice_shield -= absorbed
+		if ice_shield <= 0:
+			_hud_status_time_remaining.erase("shield")
 		damage -= absorbed
 		if damage <= 0.0:
 			return

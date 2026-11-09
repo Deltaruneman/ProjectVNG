@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_7roa1"]
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="12_boss"]
+[ext_resource type="PackedScene" uid="uid://dse428mal7ix5" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="12_boss"]
 [ext_resource type="PackedScene" uid="uid://m71d8f517f26" path="res://levels/objects/checkpoint/basement_checkpoint.tscn" id="12_checkpoint"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]

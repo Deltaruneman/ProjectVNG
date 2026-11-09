@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://65gpamtlsq5j" path="res://scenes/objects/sea_water.tscn" id="13_nm8l7"]
 [ext_resource type="PackedScene" path="res://levels/objects/kill_zone/kill_zone.tscn" id="14_et5yk"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="16_lcwqb"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="17_d7x21"]
+[ext_resource type="PackedScene" uid="uid://dse428mal7ix5" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="17_d7x21"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="17_md6n3"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="18_d7x21"]
 [ext_resource type="PackedScene" path="res://levels/objects/skill_point/skill_point.tscn" id="19_skill_point"]
@@ -25,7 +25,6 @@ ambient_light_sky_contribution = 0.8
 ambient_light_energy = 0.56
 
 [node name="Stage" type="Node3D" unique_id=2116500908]
-visible = false
 script = ExtResource("1_e0w38")
 
 [node name="World" type="GridMap" parent="." unique_id=910418008]

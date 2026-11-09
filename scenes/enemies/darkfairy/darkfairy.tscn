@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dse428mal7ix5"]
 
-[ext_resource type="Script" path="res://scenes/enemies/darkfairy/darkfairy.gd" id="1"]
-[ext_resource type="AnimationLibrary" path="res://scenes/enemies/darkfairy/darkfairy_anims.tres" id="2"]
-[ext_resource type="Script" path="res://scripts/hurt_area_3d.gd" id="3"]
-[ext_resource type="Texture2D" path="res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png" id="4"]
+[ext_resource type="Script" uid="uid://dmggm47uajldg" path="res://scenes/enemies/darkfairy/darkfairy.gd" id="1"]
+[ext_resource type="AnimationLibrary" uid="uid://b78f0ln27s6qu" path="res://scenes/enemies/darkfairy/darkfairy_anims.tres" id="2"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bv5ai3somg4x5" path="res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://btciy41vld8a4" path="res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png" id="5_progress"]
 
 [sub_resource type="CapsuleShape3D" id="body"]
-radius = 0.5
 height = 1.8
 
 [sub_resource type="SphereShape3D" id="melee"]
@@ -22,84 +22,85 @@ material = SubResource("shield_material")
 radius = 1.25
 height = 3.1
 
-[node name="DarkFairy" type="CharacterBody3D"]
+[node name="DarkFairy" type="CharacterBody3D" unique_id=1309309822]
 collision_layer = 8
-collision_mask = 1
 script = ExtResource("1")
 max_health = 40
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-position = Vector3(0, 1.65, 0)
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=806006293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 pixel_size = 0.0625
 billboard = 1
 texture_filter = 0
 texture = ExtResource("4")
 hframes = 8
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1149869959]
 libraries/ = ExtResource("2")
 
-[node name="Direction" type="Node3D" parent="."]
+[node name="Direction" type="Node3D" parent="." unique_id=1705552063]
 
-[node name="HurtArea3D" type="Area3D" parent="Direction"]
-position = Vector3(0, 0.95, 0)
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=551905462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=1554070294]
 shape = SubResource("body")
 
-[node name="HitArea3D" type="Area3D" parent="Direction"]
-position = Vector3(0, 0.8, 1.2)
+[node name="HitArea3D" type="Area3D" parent="Direction" unique_id=129522566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 1.2)
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" unique_id=1214679406]
 shape = SubResource("melee")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-position = Vector3(0, 0.95, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=383420709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
 shape = SubResource("body")
 
-[node name="Shield" type="MeshInstance3D" parent="."]
+[node name="Shield" type="MeshInstance3D" parent="." unique_id=389657703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 visible = false
-position = Vector3(0, 1.4, 0)
 mesh = SubResource("shield")
 
-[node name="BossHUD" type="CanvasLayer" parent="."]
+[node name="BossHUD" type="CanvasLayer" parent="." unique_id=1205372093]
 layer = 3
 
-[node name="Bar" type="ProgressBar" parent="BossHUD"]
+[node name="Bar" type="TextureProgressBar" parent="BossHUD" unique_id=713425556]
 visible = false
-anchors_preset = 12
+z_index = 10
+texture_filter = 1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -140.0
-offset_top = -22.0
 offset_right = 140.0
-offset_bottom = -10.0
+offset_bottom = 12.0
 grow_horizontal = 2
-grow_vertical = 0
 mouse_filter = 2
-show_percentage = false
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("5_progress")
+texture_progress = ExtResource("5_progress")
+tint_under = Color(0.3, 0.3, 0.3, 1)
 
-[node name="Name" type="Label" parent="BossHUD"]
+[node name="Name" type="Label" parent="BossHUD" unique_id=106804999]
 visible = false
-anchors_preset = 12
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.05
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = -42.0
-offset_right = 140.0
-offset_bottom = -23.0
+anchor_bottom = 0.1
+offset_left = -63.5
+offset_right = 63.5
+offset_bottom = 100.0
 grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
 theme_override_font_sizes/font_size = 12
 text = "DARK FAIRY / PHASE 1"
 horizontal_alignment = 1

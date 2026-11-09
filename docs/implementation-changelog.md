@@ -782,3 +782,208 @@ scene startup. The interactive traversal attempt was stopped by physical Escape 
 ascent/descent and regression checks could be observed; no functional pass or reviewer agreement
 is claimed. `git diff --check` passes with documentation line-ending warnings. T047 remains open
 pending the B1/B2 traversal, wall/gap, normal movement, and jump/landing runtime checks.
+
+#### T048 implementation — player back sword and elemental status VFX
+
+Enabled the existing sword at its current back mount and connected the user-added PVFX sheets to the existing player-owned burn, ice-slow, and freeze application points. Active casts now suppress the blade until their state exits. Thrown skills rely on projectile-owned suppression; removed the skill state's duplicate suppress call so the blade returns when the projectile returns. Burn and frozen-chill loops are attached to the affected enemy for the existing status duration; slow adds the Pixelfx clock marker; freeze plays a PVFX encase one-shot. Reapplying a loop refreshes its timer instead of adding another loop.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.tscn` | Enable the pre-existing `Direction/Blade` at the existing back transform. |
+| `scenes/player/states/skillstate.gd` | Hide the blade during active casts, restore it on state exit, and preserve projectile-owned hiding during thrown skills. |
+| `scenes/player/player.gd` | Trigger the visual helper at current burn, slow, and freeze status applications without changing their gameplay rules. |
+| `scenes/player/battle_vfx.gd` | Load PVFX sheets from their manifests, play attached 3D status animations, refresh loop durations, and play the freeze one-shot. |
+| `assets/effects/pixelfx/status/slowed/slowed.png` | Project-local Pixelfx sprite sheet for the slow clock marker. |
+| `assets/effects/pixelfx/status/slowed/slowed.json` | Pixelfx frame rectangles, timing, loop, and pivot metadata for the slow marker. |
+| `specs/001-integrate-basement-stage/tasks.md` | Define T048 ownership, scope, acceptance, and update its implementation state. |
+| `specs/001-integrate-basement-stage/validation.md` | Record T048 boundaries, static evidence, and unrun runtime checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Referenced user-added inputs (already untracked at the start of this slice; not modified):** `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/status/burning-aura/lit/grid/{sprite-sheet.png,manifest.json}`, `.../status/frozen-chill/lit/grid/{sprite-sheet.png,manifest.json}`, and `.../ice/freeze-encase/lit/grid/{sprite-sheet.png,manifest.json}`.
+
+**Integration effects:** Player scene and player skill presentation only. Existing enemy status methods, durations, damage ticks and movement remain unchanged; no `scripts/enemy.gd` or Duy-owned boss file changed. Existing slash files/sheets, `BattleVFX.shield`, and `BattleVFX.emberline_ring` are unchanged. The user's PVFX directory remains untouched.
+
+**Static review:** referenced sheets and manifests exist and provide fixed-grid frame coordinates and durations accepted by the loader. The Pixelfx slow sheet and metadata were exported and inspected. `git diff --check` passes, with only Git's CRLF/LF normalization warning for validation docs. **Not run:** tests, Godot import/parse, runtime visual, combat, status expiry/refresh, or sword hide/restore checks. T048 is implemented but remains open until those in-game checks are observed; no reviewer agreement is claimed.
+
+#### T049 implementation — floating sword idle motion
+
+Added a gentle hover and sway to the existing player sword so it reads as suspended instead of rigid. The animation records the sword's current instance transform as its resting pose and applies small vertical and angular offsets around that pose. The existing sword asset, mount, facing and visibility suppression remain intact.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/weapon/floating_blade.gd` | Animate subtle hover and sway relative to the sword instance's captured rest transform. |
+| `scenes/player/weapon/blade.tscn` | Attach the floating animation to the existing sword root. |
+| `.godot/uid_cache.bin` | Existing tracked Godot UID cache changed during this workspace update and was retained without manual edits. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T049 ownership, scope, acceptance and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the review boundary, implementation evidence and unrun visual checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** player sword presentation only; the blade scene is only instanced by the player. No shared character, enemy, combat, skill, sword asset, or mount transform changes. Existing attack/skill suppression remains responsible for hiding the animated node.
+
+**Static review:** implementation offsets are relative to the instance transform captured on `_ready()`. `.godot/uid_cache.bin` grew from 429,747 to 490,208 bytes during the workspace update; no Godot process was running during final inspection, so its writer/source is unknown. The tracked cache was preserved without manual edits. `git diff --check` is the whitespace validation. **Not run:** Godot import/parse or in-game visual/attack/skill checks, so the motion amplitude and final appearance remain unverified and may need visual tuning. T049 stays open pending that runtime review; no reviewer agreement is claimed.
+
+#### T050 implementation — player dash afterimage trail
+
+Added a short trail during the existing dash. Each echo duplicates the player's currently animated `Sprite3D`, fixes it at the sampled world pose, tints it cool blue, and fades it quickly. The existing PVFX dash-dust sheet plays once at the dash origin and aligns to the projected travel direction when the camera is available. Dash speed, duration, cooldown, invincibility and collision are unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/states/dash.gd` | Start the trail, emit afterimages through the dash, and finish with a last pose. |
+| `scenes/player/battle_vfx.gd` | Create/fade world-fixed snapshots of the player's actual sprite and play the existing PVFX dash-dust animation. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T050 scope, acceptance and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the asset review, integration evidence and remaining checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Referenced user-added inputs (not modified):** `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/smoke/dash-dust/lit/grid/{sprite-sheet.png,manifest.json}`. Static manifest check found 13 non-looping frames on a 68×32 canvas with 780 ms total duration. Pixelfx `status/haste` was inspected but not selected because its generic humanoid afterimages do not match the Foxy player; the trail reuses Foxy's live sprite instead.
+
+**Integration effects:** player dash presentation only. No gameplay movement, enemy, shared character, slash, or skill code changed. **Static review:** PVFX asset paths/manifest and dash-state call sites inspected; `git diff --check` is the whitespace validation. **Not run:** Godot parse/import, in-game direction, scale, visual quality, fade cleanup, or dash regression checks. The dust rotation also depends on a camera being available; otherwise it retains its default horizontal orientation. T050 remains open pending visual/runtime review; no reviewer agreement is claimed.
+
+#### T051 implementation — stronger dash trail visibility
+
+Retuned the T050 trail after user feedback that it was too faint. Afterimages now emit every 32 ms instead of 45 ms, start at 0.62 alpha instead of 0.34, and fade over 0.28 s instead of 0.22 s. The existing PVFX dash dust is scaled from 0.22 to 0.30 and opacity from 0.70 to 0.90. Dash gameplay values remain unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/states/dash.gd` | Emit the existing afterimage snapshots more densely during dash. |
+| `scenes/player/battle_vfx.gd` | Increase afterimage visibility/fade duration and dash-dust size/opacity. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T051 scope, acceptance and open visual status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record before/after tuning values and unrun visual check. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** player dash presentation only; no change to movement, cooldown, invincibility, collision or other VFX. **Static review:** tuned values inspected and `git diff --check` is the whitespace check. **Not run:** Godot playtest or visual overlap/strength review, so the final prominence remains unverified. T051 stays open pending a Godot view; no reviewer agreement is claimed.
+
+#### T052 implementation — dash afterimage alpha blending
+
+Fixed the likely reason the afterimages were invisible: the source player sprite uses alpha-cut discard and each duplicate was assigned partial opacity. Temporary copies now use standard alpha blending before the tint/fade is applied; the source Foxy sprite retains its original pixel-edge mode.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/battle_vfx.gd` | Disable alpha-cut only on duplicated dash afterimages so partial opacity can blend. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T052 scope, acceptance and runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the likely cause, alpha mode evidence and unrun runtime check. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** temporary dash copies only; the base sprite's alpha-cut, dash mechanics and other VFX are unchanged. **Static review:** copied node now sets `SpriteBase3D.ALPHA_CUT_DISABLED` before setting partial `modulate.a`; Godot's [SpriteBase3D docs](https://docs.godotengine.org/en/stable/classes/class_spritebase3d.html#enum-spritebase3d-alphacutmode) define mode 0 as blending and mode 1 as discard. **Not run:** Godot parse or visual confirmation, so visibility/fade is not runtime-verified. T052 remains open until seen in game; no reviewer agreement is claimed.
+
+#### T053 implementation — Dark Fairy health-bar style synchronization
+
+Changed the Dark Fairy boss health bar from Godot's plain `ProgressBar` to the same textured presentation used by regular enemies. It reuses the Kenney red flat button texture for the progress and under layers, the dark under tint, texture filter, z-index and four-pixel nine-patch frame. Boss-specific size/placement and health update behavior remain unchanged; the script's bar type annotation now matches the new node type.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/enemies/darkfairy/darkfairy.tscn` | Apply the regular enemy texture/tint/nine-patch health-bar style to the existing boss bar. |
+| `scenes/enemies/darkfairy/darkfairy.gd` | Keep the boss bar's typed node reference compatible with `TextureProgressBar`. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T053 scope, relayed owner approval and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the style comparison, review boundary and unrun checks. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects:** Dark Fairy HUD presentation and its static bar node type only. `scenes/ui/enemy_health_bar.tscn`, regular enemy behavior, boss health/phase logic, boss label and the user's existing Dark Fairy scene edits are preserved. The user reports Duy approval for the style change; no direct reviewer agreement is claimed. **Static review:** boss texture/style properties match the regular enemy bar source. `git diff --check` is the whitespace validation. **Not run:** Godot import/parse or in-game visual comparison, so T053 remains open until runtime review.
+
+#### T054 implementation — player ultimate cut-in
+
+Added a player-owned cinematic before the existing ultimate execution. A ready ultimate now captures its selected ID, pauses gameplay, circles and zooms the active camera toward the player, then displays the rendered Pixelfx black/white impact-frame with an elemental accent and that ultimate's Vietnamese name. The camera's original transform/FOV and previous pause state are restored before the captured ultimate casts. A missing camera/current scene keeps the old immediate-cast path. Early exit also restores camera/pause state.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.gd` | Gate the cut-in on ultimate readiness, capture the selected skill, prevent duplicate starts, and cast after cinematic completion. |
+| `scenes/player/ultimate_cinematic.gd` | Pause-aware camera orbit/zoom, impact frame/title, and camera/pause cleanup. |
+| `scenes/player/ultimate_cinematic.gd.uid` | Preserve the Godot resource UID sidecar for the new cut-in script. |
+| `scenes/player/battle_vfx.gd` | Add an opt-in always-processing Pixelfx impact-frame overlay for the paused impact beat; normal impact calls retain their existing path. |
+| `assets/effects/pixelfx/impacts/impact-frame/impact-frame.png` | Add the 10-frame transparent Pixelfx anime impact-frame sheet rendered for this cut-in. |
+| `assets/effects/pixelfx/impacts/impact-frame/impact-frame.json` | Preserve frame timing, atlas layout, and Pixelfx pivot metadata for the impact-frame sheet. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T054 scope, acceptance, total task count, and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the review boundary, implementation evidence, static check, and unrun runtime checks. |
+| `docs/implementation-changelog.md` | Maintain the cumulative implementation record. |
+
+**Integration effects:** player ultimate presentation and temporary use of the active shared `Camera3D`; no camera-rig, damage, cooldown, enemy, slash, or ice-shield changes. Existing sword/dash/status and boss/map working-tree changes were preserved. The existing Pixelfx source license and notice remain in the local library checkout. **Static review:** the local Pixelfx catalog and rendered 10-frame sheet (0.3 s, 320×180) were inspected alongside all eight ultimate names, four element colors, readiness/capture flow, pause-mode overrides, camera/FOV restoration, early-exit cleanup, and asset path. `git diff --check` found no whitespace errors; Git emitted line-ending normalization warnings for already modified Markdown records. **Not run:** Godot parse/import or in-game visual/camera/cast/cleanup checks. Orbit duration, framing, impact readability and timing remain subject to runtime review; T054 stays open and no reviewer agreement is claimed.
+
+
+#### T055 implementation — front-facing ultimate cut-in pose
+
+Updated the cut-in to show Foxy's front-facing idle while the camera zooms and the impact/title card appears. Before pausing, the player stores current and pending direction, animation name/playback position/active state, and sprite frame/flip, then sets direction to down and starts idle_down at its first front-facing frame. The existing cinematic cleanup restores the player's directions and animation state before restoring the camera/pause state. The cut-in can now be interrupted without leaving the player facing or animating in the temporary pose.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/player.gd | Capture, apply and restore the temporary front-facing player pose and prior animation state. |
+| scenes/player/ultimate_cinematic.gd | Apply the pose at cut-in start and restore it on completion/abort before unpausing. |
+| specs/001-integrate-basement-stage/tasks.md | Record T055 ownership, scope, acceptance, task count and open runtime status. |
+| specs/001-integrate-basement-stage/validation.md | Record static animation mapping/state evidence and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain the cumulative implementation record. |
+
+Integration effects: player-only presentation during the existing ultimate cut-in. Normal animation assets, state-machine behavior, gameplay and camera/cut-in timings are unchanged. Static review confirmed down is the camera-facing orientation and idle_down exists with front frames 16/20; git diff --check passes. Godot parse/playtest and animation restoration from varied starting poses remain NOT RUN, so the face-forward visual and exact in-game restore are unverified; T055 remains open and no reviewer agreement is claimed.
+
+
+#### T056 implementation — zoom-only ultimate camera
+
+Removed the cut-in camera orbit and its positional movement. The camera now remains at its saved position and orientation while its FOV eases to 68% of the starting value during zoom-in, then returns during zoom-out. The exact original camera transform/FOV is restored before the game resumes and casts the selected ultimate. This supersedes the T054 orbit behavior; impact frame, front-facing player pose, pause duration, and skill effects are otherwise unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/ultimate_cinematic.gd | Replace orbit/translation with FOV-only zoom-in and zoom-out. |
+| specs/001-integrate-basement-stage/tasks.md | Update the current cut-in acceptance, task total, and record T056 scope/status. |
+| specs/001-integrate-basement-stage/validation.md | Record the review boundary, source evidence, and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain the cumulative implementation record. |
+
+Integration effects: active Camera3D FOV only; position/orientation remain fixed by the cut-in methods. Player pose, pause, impact/title, skill cast, camera rig, and gameplay values are unchanged. Static review confirmed zoom update methods only write FOV; git diff --check passes. Godot parse/playtest and actual visual stability/framing remain NOT RUN, so T056 stays open and no reviewer agreement is claimed.
+
+
+#### T057 implementation — expand Skill Tree spread and graph
+
+Expanded the book spread horizontally, used more of the spread for page content, made the description panel responsive to viewport width, reduced spacing between the description and graph, and set the initial graph zoom to 110%. The existing tabs, graph coordinates, node purchase callbacks, pan/zoom behavior, and progression rules remain as before.
+
+| Included file | Purpose |
+| --- | --- |
+| ui/skill_tree_layout.gd | Increase the open-book/page footprint and give the graph a wider responsive area with a modestly larger default view. |
+| specs/001-integrate-basement-stage/tasks.md | Record T057 scope, owner, acceptance, updated task total and open runtime state. |
+| specs/001-integrate-basement-stage/validation.md | Record the pre-implementation boundary, implementation details and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: Skill Tree presentation only. Weapon/character tab content, selection/allocation, tooltips, pan/zoom controls and gameplay progression callbacks are preserved. Static review confirms responsive size formulas and unchanged graph/node construction; `git diff --check` is the whitespace check. Godot parse/import, responsive visual/layout checks and input/allocation interaction are NOT RUN. T057 remains open until runtime visual/input verification; no reviewer agreement is claimed.
+
+
+#### T058 implementation — lightning enemy status visual
+
+Added the local Pixelfx `lightning/electrified` loop as the enemy status visual for lightning attacks that already apply the short freeze/stun mechanic. This includes elemental weapon hits, the active chain/strike/storm skills and both lightning ultimates. The current `apply_skill_freeze` logic and durations remain unchanged, while ice skills continue to use the existing frozen presentation.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/player.gd | Route every lightning freeze/status call site to an explicit electric status visual without changing gameplay duration. |
+| scenes/player/battle_vfx.gd | Attach the electrified loop to the enemy and use the existing duration timer so repeated hits refresh one sprite. |
+| assets/effects/pixelfx/lightning/electrified/electrified.png | Add the rendered 60-frame electrified sprite sheet. |
+| assets/effects/pixelfx/lightning/electrified/electrified.json | Preserve frame rectangles, timing, loop, pivot and Pixelfx metadata. |
+| specs/001-integrate-basement-stage/tasks.md | Record T058 scope, owner, acceptance, updated task total and open runtime state. |
+| specs/001-integrate-basement-stage/validation.md | Record the pre-implementation boundary, asset/source inspection and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: shared enemy status presentation and player lightning-skill call sites only. Fire, ice and wind visuals, enemy freeze mechanics/durations, slash, and ice-shield systems are unchanged. The local Pixelfx catalog candidate and contact sheet were inspected before export; the source library and its license/notice remain unchanged. Static review covered all lightning call sites and status refresh logic. Godot import/parse, in-game scale/contrast and effect expiry/refresh are NOT RUN. T058 remains open pending runtime visual/lifecycle verification; no reviewer agreement is claimed.
+
+
+#### T059 implementation — Player HUD combat feedback
+
+Added compact in-combat state feedback to the Player HUD. The rage label is visible beside its bar and reports readiness only when the selected ultimate has full rage and no remaining cooldown. Two narrow defense slots show Shift/Dash and L/Parry readiness/cooldown. A status strip displays remaining seconds for current attack/speed buffs and the ice shield. A pulsing low-health label appears for a living player at one-third HP or less.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/player.gd | Expose current timed attack/speed/shield status to the HUD without changing their values, rules, or durations. |
+| ui/player_hud.gd | Add defense cooldown slots, status chips, low-health pulse, and truthful ultimate-ready text. |
+| ui/hud.tscn | Reveal and position the rage label alongside the existing rage bar. |
+| specs/001-integrate-basement-stage/tasks.md | Record T059 scope, owner, acceptance, task total and pending runtime status. |
+| specs/001-integrate-basement-stage/validation.md | Record the review boundary, implementation evidence and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: Player HUD presentation plus display-only timer tracking in the player. Existing input mappings (1-4 slot select, U skill, Shift dash, L parry, I ultimate), cooldowns, buff/shield mechanics, health and Skill Tree behavior are unchanged. Static review matched the displayed keys to `project.godot`, checked one-third HP logic, readiness requirements, status expiry/consumption and bar sizing; `git diff --check` is the whitespace validation. Godot parse/import, viewport fit, key behavior and visual status/cooldown timing are NOT RUN. T059 remains open until runtime visual/input verification; no reviewer agreement is claimed.
+
+
+#### T060 implementation — Player HUD presentation polish
+
+Removed numeric rage from the visible label and ultimate tooltip while keeping the progress bar and ready state. Reduced skill slots from 35×33 to 29×29 logical pixels, kept the elemental skills/ultimate/tree together, and moved Dash/Parry into a distinct adjacent panel with compact generated pixel icons, key badges and readable cooldown text. Added a soft red screen-edge vignette that pulses only while the player is alive at or below one-third health; it uses a dedicated identity-transform CanvasLayer so the HUD's horizontal scaling does not stretch the effect. The vignette and warning hide while the Skill Tree is open.
+
+| Included file | Purpose |
+| --- | --- |
+| ui/player_hud.gd | Compact and regroup skill slots, generate Dash/Parry icons, remove rage percentages, and add the low-health edge vignette. |
+| ui/hud.tscn | Remove the initial percentage text from the rage label. |
+| specs/001-integrate-basement-stage/tasks.md | Record T060 owner, scope, acceptance, task total and pending runtime status. |
+| specs/001-integrate-basement-stage/validation.md | Record the review boundary, static implementation evidence and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: Player HUD presentation only. Input mappings, cooldown sources, health rules, Skill Tree behavior and combat logic are unchanged; the icon textures are generated in memory and add no imported assets. Static review checked zero percentage rage strings, slot-to-array indices, icon cache IDs, health gating and shader edge falloff. `git diff --check` reports no whitespace errors; Git emits Markdown CRLF normalization warnings for the already modified changelog and validation record. NOT RUN: Godot parse/import and in-game layout, icon, cooldown, vignette and pulse checks. T060 remains open pending runtime review; no reviewer agreement is claimed.

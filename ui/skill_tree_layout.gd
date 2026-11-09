@@ -9,6 +9,7 @@ const BOOK_TURN_LEFT_SHEET := MAGIC_BOOK_ROOT + "Turning_pages_left.png"
 const BOOK_TURN_RIGHT_SHEET := MAGIC_BOOK_ROOT + "Turning_pages_right.png"
 const BOOK_OPEN_ART_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
 const BOOK_FRAME_SIZE := 272.0
+const BOOK_SPREAD_RATIO := 1.58
 const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/"
 
 const FORMS := [
@@ -108,7 +109,7 @@ var _description_title: Label
 var _description_body: Label
 var _zoom_percent: Label
 var _active_graph: SkillTreeGraph
-var _graph_zoom := 1.0
+var _graph_zoom := 1.1
 var _tab := "weapon"
 var _is_open := false
 var _book_animation: Tween
@@ -306,7 +307,7 @@ func _build() -> void:
 	var content_row := HBoxContainer.new()
 	content_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	content_row.add_theme_constant_override("separation", 10)
+	content_row.add_theme_constant_override("separation", 6)
 	layout.add_child(content_row)
 
 	_description_panel = PanelContainer.new()
@@ -400,16 +401,19 @@ func _layout_book() -> void:
 	if not is_instance_valid(_book_art) or not is_instance_valid(_page_content) or not is_instance_valid(_book_body):
 		return
 	var viewport_size := get_viewport_rect().size
-	var cell_size := minf(viewport_size.x * 0.94 / (246.0 / BOOK_FRAME_SIZE), viewport_size.y * 0.94 / (183.0 / BOOK_FRAME_SIZE))
-	var book_size := Vector2(cell_size * 246.0 / BOOK_FRAME_SIZE, cell_size * 183.0 / BOOK_FRAME_SIZE)
+	var book_height := minf(viewport_size.y * 0.96, viewport_size.x * 0.96 / BOOK_SPREAD_RATIO)
+	var book_size := Vector2(book_height * BOOK_SPREAD_RATIO, book_height)
 	_book_art.size = book_size
 	_book_art.position = (viewport_size - book_size) * 0.5
-	_page_content.position = _book_art.position + Vector2(book_size.x * 0.08, book_size.y * 0.10)
-	_page_content.size = Vector2(book_size.x * 0.84, book_size.y * 0.80)
+	_page_content.position = _book_art.position + Vector2(book_size.x * 0.05, book_size.y * 0.08)
+	_page_content.size = Vector2(book_size.x * 0.90, book_size.y * 0.84)
 	_page_content.clip_contents = true
+	var cell_size := minf(viewport_size.x * 0.94 / (246.0 / BOOK_FRAME_SIZE), viewport_size.y * 0.94 / (183.0 / BOOK_FRAME_SIZE))
 	var transition_size := Vector2.ONE * cell_size
 	_transition.size = transition_size
 	_transition.position = Vector2(viewport_size.x * 0.5 - cell_size * 0.5, viewport_size.y * 0.5 - cell_size * (175.5 / BOOK_FRAME_SIZE))
+	if is_instance_valid(_description_panel):
+		_description_panel.custom_minimum_size.x = clampf(viewport_size.x * 0.22, 96.0, 180.0)
 
 
 func _refresh() -> void:
