@@ -9,7 +9,6 @@ path="res://.godot/imported/wall_window_open.obj-a5b503c31ddcda804e531c44d6f6b67
 [deps]
 
 files=["res://.godot/imported/wall_window_open.obj-a5b503c31ddcda804e531c44d6f6b675.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/wall_window_open.obj"
 dest_files=["res://.godot/imported/wall_window_open.obj-a5b503c31ddcda804e531c44d6f6b675.mesh", "res://.godot/imported/wall_window_open.obj-a5b503c31ddcda804e531c44d6f6b675.mesh"]
 

@@ -87,12 +87,12 @@ Character Active Skills are unlocked at specific Skill Point (SP) thresholds and
 * **Hầm Mộ Băng Giá:** Freezes enemies in a cone area; basic attacks against frozen targets deal massive bonus damage.
 * **Khiên Băng:** Generates an ice shield that absorbs incoming damage up to 25% of the player's Max HP.
 
-### Ultimate Skills (SP Milestones: 5 - 8)
+### Ultimate Skills (SP Milestones: 5 - 8; Wind's Trăng Tối: 10)
 *Requires full Rage Meter built up through combat actions.*
 
 #### 1. Wind Form (Trảm Phong)
 * **Cái Chết Tựa Cơn Gió:** Unleashes a multi-hit slash combo, leaving behind a wind vortex that grants a movement speed buff.
-* **Phong Linh:** Summons a wind spirit that buffs movement speed and attack damage while pulling surrounding enemies toward the player.
+* **Trăng Tối:** For 3.6 seconds, repeatedly dashes around the nearest enemy (or around the cast point if none is nearby), dealing damage and slowing enemies along the path. The player is immune to damage while dashing; when it ends, unlocked Wind active skills are ready again.
 
 #### 2. Fire Form (Hỏa Bộc)
 * **Hỏa Kiếm:** Empowers basic attacks to shoot fire sword waves forward with every slash.

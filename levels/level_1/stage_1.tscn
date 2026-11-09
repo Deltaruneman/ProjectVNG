@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dse428mal7ix5" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="17_d7x21"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="17_md6n3"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="18_d7x21"]
-[ext_resource type="PackedScene" path="res://levels/objects/skill_point/skill_point.tscn" id="19_skill_point"]
+[ext_resource type="PackedScene" uid="uid://ctycafrbacr3c" path="res://levels/objects/skill_point/skill_point.tscn" id="19_skill_point"]
 
 [sub_resource type="Environment" id="Environment_1fr5c"]
 ambient_light_source = 3

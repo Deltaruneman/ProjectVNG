@@ -34,7 +34,11 @@ texture_progress = ExtResource("3_en2x2")
 pixel_scale = 0.3
 show_label = true
 
-[node name="SkillTree" type="Control" parent="." unique_id=615963416]
+[node name="SkillTreeLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="SkillTree" type="Control" parent="SkillTreeLayer" unique_id=615963416]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("4_skill_tree")
@@ -56,7 +60,7 @@ offset_right = 237.0
 offset_bottom = 16.0
 vertical_alignment = 1
 theme_override_colors/font_color = Color(0.82, 0.78, 1, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "NỘ KHÍ"
 mouse_filter = 2
 

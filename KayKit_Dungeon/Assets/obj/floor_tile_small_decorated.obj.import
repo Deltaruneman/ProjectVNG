@@ -9,7 +9,6 @@ path="res://.godot/imported/floor_tile_small_decorated.obj-8874ddef9acaadab1dea0
 [deps]
 
 files=["res://.godot/imported/floor_tile_small_decorated.obj-8874ddef9acaadab1dea00b38e408097.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/floor_tile_small_decorated.obj"
 dest_files=["res://.godot/imported/floor_tile_small_decorated.obj-8874ddef9acaadab1dea00b38e408097.mesh", "res://.godot/imported/floor_tile_small_decorated.obj-8874ddef9acaadab1dea00b38e408097.mesh"]
 

@@ -1327,3 +1327,50 @@ Prior runtime results remain historical; Lam's manual activation does not expand
 - A full-viewport shader vignette uses a soft 12% edge falloff and low-alpha pulse. Its CanvasLayer uses identity transform so the HUD's horizontal scale does not stretch the screen filter. Both the warning and vignette follow the existing living-player one-third-HP threshold and hide while Skill Tree is open.
 - Static review confirmed all rage text/tooltips are percentage-free, slot arrays retain index mapping, defense icon IDs match their calls, and the vignette visibility is gated by health and Skill Tree state. `git diff --check` reports no whitespace errors; Git emits only existing Markdown line-ending normalization warnings.
 - NOT RUN: Godot parse/import and in-game viewport, icon, cooldown, edge-filter and pulse verification. T060 remains open pending runtime review; no reviewer agreement is claimed.
+
+## Player HUD readability and menu ordering (T061)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Player HUD and Skill Tree presentation.
+- Scope: reduce the active-status chip font/padding and rage-label font; move the existing Skill Tree into a dedicated menu CanvasLayer that ranks above HUD, boss HUD, low-health vignette and cinematic/VFX layers. Define one shared layer value for gameplay menus so later menu scenes can use the same topmost ordering.
+- Acceptance: buff/rage text is smaller but readable and uncut; the Skill Tree menu renders above all current gameplay HUD/effect layers, opening hides the gameplay HUD and closing restores it; no Duy-owned boss layer or gameplay behavior is edited.
+- Checks: inspect font/padding overrides, the parent CanvasLayer assignment, `set_skill_tree_open` visibility flow, all in-project gameplay CanvasLayer values and `git diff --check`.
+- NOT RUN before implementation: Godot parse/import and runtime visual stacking checks. The repository currently contains the Skill Tree as the only player-facing gameplay menu scene; no reviewer agreement is implied.
+
+### Implementation and static review (2026-11-09)
+
+- `ui/player_hud.gd` reduces active-status labels to 7 px with 2 px chip margins and 3 px spacing. The HUD exports `MENU_CANVAS_LAYER = 100` as the shared ordering value and toggles the dedicated menu layer while hiding/restoring gameplay HUD children.
+- `ui/hud.tscn` moves `SkillTree` beneath a hidden `SkillTreeLayer` CanvasLayer at layer 100 and reduces the RageLabel font from 10 to 8.
+- `ui/skill_tree_layout.gd` assigns its parent menu CanvasLayer to the shared layer value and now walks ancestors to find the HUD visibility callback after reparenting. The existing menu is above HUD 1, vignette 2, Dark Fairy BossHUD 3, Pixelfx 21 and ultimate cinematic layers 20/22. No Duy-owned layer was edited.
+- Static source search found Skill Tree is the only player-facing gameplay menu scene; all menu references use the new parent path or ancestor callback. `git diff --check` reports no whitespace errors, with a CRLF normalization warning for this validation file.
+- NOT RUN: Godot parse/import or runtime menu/HUD stacking and font readability at supported viewport sizes. T061 remains open pending visual review; no reviewer agreement is claimed.
+
+## Wind ultimate redesign (T062)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Player combat, skills and Skill Tree.
+- Scope: preserve the `ultimate_wind_2` ID and replace only its Wind-form behavior, presentation name and SP threshold. Add a dedicated PlayerState for collision-aware movement, reuse current Wind dash/VFX and enemy slow/damage systems, and clear only unlocked Wind active-skill cooldowns on completion. Other forms and `ultimate_wind_1` remain outside the change.
+- Acceptance: the 10-SP “Trăng Tối” ultimate circles the nearest living enemy (or its cast point when none is nearby) for 3.6 seconds, repeatedly damages and slows enemies along its path, blocks both Player hurt-area and state damage routes while active, returns to normal movement, and resets unlocked Wind active-skill cooldowns without resetting the ultimate cooldown.
+- Checks: inspect threshold and ID preservation, state registration/entry/exit, normal collision-aware movement, repeat pulse coverage, immunity cleanup, cooldown reset and title/HUD mappings; run `git diff --check`.
+- NOT RUN before implementation: Godot parse/import or runtime unlock, movement/collision, immunity, damage/slow and cooldown tests. T062 must remain open until the Godot playtest; no reviewer agreement is implied.
+
+### Implementation and static review (2026-11-09)
+
+- `ultimate_wind_2` keeps its existing ID and 18-second ultimate cooldown. Its Skill Tree threshold is now 10 SP; other forms and Wind ultimate 1 retain their previous thresholds and behavior. Skill Tree, Player HUD, cinematic title and concept record use “Trăng Tối”.
+- The dedicated `WindUltimateState` uses Player's existing collision-aware `_update_movement()` path for a 3.6-second, 2.5-rotation dash around the nearest living enemy within 8m, tracking that target while alive; without one, the cast position is the orbit center. Existing afterimage/trail, slash and Wind burst effects are reused.
+- Pulses run every 0.32 seconds, hit enemies within 3.2m for current attack damage, and apply the existing 50% slow for 0.55 seconds. Repeated ultimate pulses do not refill the Rage meter they just spent. `is_invulnerable` and `invincible` are set before entering the state and both are cleared on exit; the blade suppression is also paired on entry/exit.
+- On completion, only cooldown entries for unlocked `active_wind_1` through `active_wind_4` are cleared. The 18-second ultimate cooldown remains active. The existing FSM idle state restores normal input/movement.
+- Static inspection confirmed the registered state name matches the lookup, movement velocities flow through Player's stair-aware collision method, `ultimate_wind_2` references retain the ID, and the title/SP mappings are consistent. `git diff --check` reports no whitespace errors; Git emits Markdown CRLF-to-LF normalization warnings for the implementation changelog and this validation file.
+- NOT RUN: Godot parse/import or in-game unlock, trajectory/collision, pulse damage/slow, immunity, cleanup, cooldown and Rage checks. T062 remains open pending the required playtest; no reviewer agreement is claimed.
+
+## Skill Tree alignment and ultimate presentation (T063)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Skill Tree and Player combat presentation.
+- Scope: adjust the existing graph viewport/layout and status-chip presentation; add a temporary element-colored full-screen glow and Player neon shimmer that begin after an ultimate cinematic and end with the corresponding ultimate effect. Preserve ultimate gameplay rules and restore the exact prior Player sprite material. Keep slash and ice-shield VFX untouched; no cross-owner system is in scope.
+- Acceptance: the visible Skill Tree nodes/links are centered without clipping across supported aspect ratios; buff chips are compact but legible; each ultimate starts with its matching colored screen/player treatment only after its cut-in, then removes it at the effect end and restores all prior sprite state, including Wind 2 cleanup and scene/player exit.
+- Checks: inspect graph transform/viewport bounds, chip font/padding, element palette mapping, presentation duration and cleanup paths for every ultimate; run `git diff --check`.
+- NOT RUN before implementation: Godot parse/import, Skill Tree visual review at supported aspect ratios, and in-game ultimate timing/color/material restoration. T063 must remain open pending runtime visual review; no reviewer agreement is implied.

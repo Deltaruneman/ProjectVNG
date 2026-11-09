@@ -9,7 +9,6 @@ path="res://.godot/imported/Floor_Brick.obj-fadf44c468097f4ecccfa5661c13c013.mes
 [deps]
 
 files=["res://.godot/imported/Floor_Brick.obj-fadf44c468097f4ecccfa5661c13c013.mesh"]
-
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Floor_Brick.obj"
 dest_files=["res://.godot/imported/Floor_Brick.obj-fadf44c468097f4ecccfa5661c13c013.mesh", "res://.godot/imported/Floor_Brick.obj-fadf44c468097f4ecccfa5661c13c013.mesh"]
 

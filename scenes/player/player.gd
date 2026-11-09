@@ -8,6 +8,13 @@ const STEP_LIFT_INCREMENT := 0.1
 const STEP_LIFT_TRIALS := 8
 const MIN_STAIR_STEP_HEIGHT := 0.05
 const STEP_SUPPORT_MARGIN := 0.05
+const WIND_ULTIMATE_DURATION := 3.6
+const WIND_ULTIMATE_PULSE_INTERVAL := 0.32
+const WIND_ULTIMATE_TRAIL_INTERVAL := 0.085
+const WIND_ULTIMATE_ROTATIONS := 2.5
+const WIND_ULTIMATE_DASH_SPEED := 14.0
+const WIND_ULTIMATE_DAMAGE_RADIUS := 3.2
+const WIND_ULTIMATE_SLOW_DURATION := 0.55
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
@@ -44,6 +51,17 @@ var _base_maxjump := 2
 var _temp_attack_bonus := 0
 var _temp_speed_bonus := 0.0
 var ice_shield := 0
+var _wind_ultimate_active := false
+var _wind_ultimate_elapsed := 0.0
+var _wind_ultimate_pulse_timer := 0.0
+var _wind_ultimate_trail_timer := 0.0
+var _wind_ultimate_center := Vector3.ZERO
+var _wind_ultimate_start_angle := 0.0
+var _wind_ultimate_radius := 2.2
+var _wind_ultimate_target: EnemyCharacter = null
+var _wind_ultimate_blade_suppressed := false
+
+
 func _enter_tree() -> void:
 	# Để HUD tìm được player (group được thêm trước khi bất kỳ node nào chạy _ready)
 	add_to_group("player")
@@ -171,7 +189,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _can_use_skills() -> bool:
 	if fsm == null or fsm.current_state == null:
 		return false
-	return not ["dead", "hurt", "carry", "throw", "skill"].has(fsm.current_state.name.to_lower())
+	return not _wind_ultimate_active and not ["dead", "hurt", "carry", "throw", "skill"].has(fsm.current_state.name.to_lower())
 
 
 func get_selected_active_skill_id() -> String:
@@ -459,7 +477,8 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			if bonus_vs_frozen > 0.0 and enemy.is_skill_frozen():
 				final_damage += roundi(float(damage) * bonus_vs_frozen)
 			hurt_area.take_damage(impact_direction, final_damage, self)
-			_gain_rage(12.5)
+			if not _wind_ultimate_active:
+				_gain_rage(12.5)
 			var stage := get_tree().current_scene as Node3D
 			if stage != null:
 				BattleFX.impact(stage, enemy.global_position + Vector3.UP * 0.55, GameManager.weapon_form, impact_direction)
@@ -552,6 +571,15 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	var skill_id: String = skill_id_override if skill_id_override != "" else GameManager.selected_ultimate_skill
 	if not _is_ultimate_ready(skill_id):
 		return false
+	if skill_id == "ultimate_wind_2":
+		if _wind_ultimate_active or fsm == null or not fsm.states.has("windultimate"):
+			return false
+		BattleFX.play_skill_sound(self, skill_id)
+		rage = 0.0
+		_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
+		rage_changed.emit(rage, MAX_RAGE)
+		_start_wind_ultimate()
+		return true
 	var aim := get_skill_aim_direction()
 	BattleFX.play_skill_sound(self, skill_id)
 	var radius := 18.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else 7.0
@@ -565,9 +593,6 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 			var angle := TAU * float(angle_index) / 8.0
 			var radial := Vector3(cos(angle), 0.0, sin(angle))
 			BattleFX.slash(self, global_position + Vector3.UP * 0.55 + radial * 3.5, "wind", radial, 1.1)
-	elif skill_id == "ultimate_wind_2":
-		BattleFX.circle_burst(self, vfx_position, "wind", 7.0)
-		BattleFX.claw(self, skill_effect_position(aim, 0.8, 0.55), "wind", aim, 1.5)
 	elif skill_id == "ultimate_fire_1":
 		_apply_timed_buff(2, 0.0, 5.0)
 		BattleFX.circle_burst(self, vfx_position, "fire", 7.0)
@@ -588,7 +613,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		BattleFX.slash(self, vfx_position, "ice", aim, 1.1)
 	if skill_id == "ultimate_fire_2":
 		health = maxi(1, health - int(ceil(health * 0.5)))
-	if skill_id.begins_with("ultimate_wind"):
+	if skill_id == "ultimate_wind_1":
 		movement_speed *= 1.5
 		_track_hud_status("speed", 4.0)
 		get_tree().create_timer(4.0).timeout.connect(func() -> void:
@@ -605,6 +630,131 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)
 	return true
+
+
+func _start_wind_ultimate() -> void:
+	_wind_ultimate_active = true
+	_wind_ultimate_elapsed = 0.0
+	_wind_ultimate_pulse_timer = 0.0
+	_wind_ultimate_trail_timer = 0.0
+	_wind_ultimate_target = _find_nearest_wind_ultimate_target()
+	_wind_ultimate_center = global_position
+	if _wind_ultimate_target != null:
+		_wind_ultimate_center.x = _wind_ultimate_target.global_position.x
+		_wind_ultimate_center.z = _wind_ultimate_target.global_position.z
+	var radial := global_position - _wind_ultimate_center
+	radial.y = 0.0
+	if _wind_ultimate_target != null:
+		_wind_ultimate_radius = clampf(radial.length(), 1.7, 2.6)
+	else:
+		_wind_ultimate_radius = 2.2
+	if radial.length_squared() < 0.001:
+		radial = forward()
+	_wind_ultimate_start_angle = atan2(radial.z, radial.x)
+	is_invulnerable = true
+	invincible = true
+	if blade != null:
+		suppress_blade(true)
+		_wind_ultimate_blade_suppressed = true
+	fsm.change_state(fsm.states.get("windultimate") as FSMState)
+
+
+func _find_nearest_wind_ultimate_target() -> EnemyCharacter:
+	var nearest: EnemyCharacter = null
+	var nearest_distance_squared := 64.0
+	for candidate: Node in get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(candidate) or not (candidate is EnemyCharacter):
+			continue
+		var enemy := candidate as EnemyCharacter
+		if enemy.health <= 0:
+			continue
+		var offset := enemy.global_position - global_position
+		offset.y = 0.0
+		var distance_squared := offset.length_squared()
+		if distance_squared < nearest_distance_squared:
+			nearest = enemy
+			nearest_distance_squared = distance_squared
+	return nearest
+
+
+func _enter_wind_ultimate_state() -> void:
+	if not _wind_ultimate_active:
+		return
+	var tangent := _wind_ultimate_tangent(_wind_ultimate_start_angle)
+	BattleFX.circle_burst(self, _wind_ultimate_center + Vector3.UP * 0.55, "wind", _wind_ultimate_radius + 0.6)
+	BattleFX.dash_trail_start(self, tangent)
+	_apply_wind_ultimate_pulse(tangent)
+
+
+func _update_wind_ultimate(delta: float) -> void:
+	if not _wind_ultimate_active:
+		return
+	_wind_ultimate_elapsed += delta
+	if is_instance_valid(_wind_ultimate_target) and _wind_ultimate_target.health > 0:
+		_wind_ultimate_center.x = _wind_ultimate_target.global_position.x
+		_wind_ultimate_center.z = _wind_ultimate_target.global_position.z
+	else:
+		_wind_ultimate_target = null
+	var progress := clampf(_wind_ultimate_elapsed / WIND_ULTIMATE_DURATION, 0.0, 1.0)
+	var angle := _wind_ultimate_start_angle + TAU * WIND_ULTIMATE_ROTATIONS * progress
+	var target_position := _wind_ultimate_center + Vector3(cos(angle), 0.0, sin(angle)) * _wind_ultimate_radius
+	var dash_vector := target_position - global_position
+	dash_vector.y = 0.0
+	var dash_velocity := dash_vector / maxf(delta, 0.0001)
+	if dash_velocity.length() > WIND_ULTIMATE_DASH_SPEED:
+		dash_velocity = dash_velocity.normalized() * WIND_ULTIMATE_DASH_SPEED
+	velocity.x = dash_velocity.x
+	velocity.z = dash_velocity.z
+	velocity.y = 0.0
+	var tangent := _wind_ultimate_tangent(angle)
+	if tangent.length_squared() > 0.001:
+		change_direction(BaseCharacter.direction_from_input(Vector2(tangent.x, tangent.z)))
+	if anim_player.has_animation("dash_%s" % direction):
+		change_animation("dash")
+	else:
+		change_animation("run")
+	_wind_ultimate_pulse_timer -= delta
+	if _wind_ultimate_pulse_timer <= 0.0:
+		_wind_ultimate_pulse_timer = WIND_ULTIMATE_PULSE_INTERVAL
+		_apply_wind_ultimate_pulse(tangent)
+	_wind_ultimate_trail_timer += delta
+	if _wind_ultimate_trail_timer >= WIND_ULTIMATE_TRAIL_INTERVAL:
+		_wind_ultimate_trail_timer = 0.0
+		BattleFX.dash_trail_afterimage(self, tangent)
+	if _wind_ultimate_elapsed >= WIND_ULTIMATE_DURATION:
+		fsm.change_state(fsm.states.idle)
+
+
+func _wind_ultimate_tangent(angle: float) -> Vector3:
+	return Vector3(-sin(angle), 0.0, cos(angle))
+
+
+func _apply_wind_ultimate_pulse(tangent: Vector3) -> void:
+	var damage := maxi(1, attack_damage)
+	BattleFX.slash(self, global_position + Vector3.UP * 0.62, "wind", tangent, 0.95)
+	_damage_enemies_in_shape(global_position, tangent, "circle", WIND_ULTIMATE_DAMAGE_RADIUS, 0.0, 360.0, damage, 0.0, WIND_ULTIMATE_SLOW_DURATION)
+
+
+func _finish_wind_ultimate() -> void:
+	if not _wind_ultimate_active:
+		return
+	_wind_ultimate_active = false
+	is_invulnerable = false
+	invincible = false
+	stop_horizontal()
+	if _wind_ultimate_blade_suppressed:
+		suppress_blade(false)
+		_wind_ultimate_blade_suppressed = false
+	BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "wind", 3.6)
+	var cooldowns_cleared := false
+	for slot in range(1, 5):
+		var skill_id := "active_wind_%d" % slot
+		if not GameManager.unlocked_skills.has(skill_id):
+			continue
+		_active_skill_cooldowns.erase(skill_id)
+		cooldowns_cleared = true
+	if cooldowns_cleared:
+		active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 
 
 func _ice_pillar_pulses(damage: int) -> void:

@@ -9,7 +9,6 @@ path="res://.godot/imported/stairs_modular_right.obj-bd4b2a342bede0b2b31495421ba
 [deps]
 
 files=["res://.godot/imported/stairs_modular_right.obj-bd4b2a342bede0b2b31495421baf4d52.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/stairs_modular_right.obj"
 dest_files=["res://.godot/imported/stairs_modular_right.obj-bd4b2a342bede0b2b31495421baf4d52.mesh", "res://.godot/imported/stairs_modular_right.obj-bd4b2a342bede0b2b31495421baf4d52.mesh"]
 

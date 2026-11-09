@@ -9,7 +9,6 @@ path="res://.godot/imported/Floor_UnevenBrick.obj-dd9ab09e73bb12d5e8bda1eb5670c2
 [deps]
 
 files=["res://.godot/imported/Floor_UnevenBrick.obj-dd9ab09e73bb12d5e8bda1eb5670c2d0.mesh"]
-
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Floor_UnevenBrick.obj"
 dest_files=["res://.godot/imported/Floor_UnevenBrick.obj-dd9ab09e73bb12d5e8bda1eb5670c2d0.mesh", "res://.godot/imported/Floor_UnevenBrick.obj-dd9ab09e73bb12d5e8bda1eb5670c2d0.mesh"]
 

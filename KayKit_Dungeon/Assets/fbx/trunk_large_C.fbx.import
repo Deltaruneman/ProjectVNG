@@ -15,7 +15,6 @@ dest_files=["res://.godot/imported/trunk_large_C.fbx-233b0f62d16e6e38d88921253b9
 
 nodes/root_type=""
 nodes/root_name=""
-nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

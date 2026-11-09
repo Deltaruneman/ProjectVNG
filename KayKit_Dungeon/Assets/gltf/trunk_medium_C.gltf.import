@@ -15,7 +15,6 @@ dest_files=["res://.godot/imported/trunk_medium_C.gltf-61bf34c7ebd0a4420d79b2cf6
 
 nodes/root_type=""
 nodes/root_name=""
-nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

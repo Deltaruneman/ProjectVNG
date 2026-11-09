@@ -9,7 +9,6 @@ path="res://.godot/imported/candle_thin.obj-20d63bd39651d76177b57d3ff99a0e2a.mes
 [deps]
 
 files=["res://.godot/imported/candle_thin.obj-20d63bd39651d76177b57d3ff99a0e2a.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/candle_thin.obj"
 dest_files=["res://.godot/imported/candle_thin.obj-20d63bd39651d76177b57d3ff99a0e2a.mesh", "res://.godot/imported/candle_thin.obj-20d63bd39651d76177b57d3ff99a0e2a.mesh"]
 

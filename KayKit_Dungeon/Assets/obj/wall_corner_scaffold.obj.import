@@ -9,7 +9,6 @@ path="res://.godot/imported/wall_corner_scaffold.obj-4a44d53642e6ba7d6f2710e9163
 [deps]
 
 files=["res://.godot/imported/wall_corner_scaffold.obj-4a44d53642e6ba7d6f2710e916317d1b.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/wall_corner_scaffold.obj"
 dest_files=["res://.godot/imported/wall_corner_scaffold.obj-4a44d53642e6ba7d6f2710e916317d1b.mesh", "res://.godot/imported/wall_corner_scaffold.obj-4a44d53642e6ba7d6f2710e916317d1b.mesh"]
 

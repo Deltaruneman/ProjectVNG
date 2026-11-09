@@ -987,3 +987,39 @@ Removed numeric rage from the visible label and ultimate tooltip while keeping t
 | docs/implementation-changelog.md | Maintain this cumulative implementation record. |
 
 Integration effects: Player HUD presentation only. Input mappings, cooldown sources, health rules, Skill Tree behavior and combat logic are unchanged; the icon textures are generated in memory and add no imported assets. Static review checked zero percentage rage strings, slot-to-array indices, icon cache IDs, health gating and shader edge falloff. `git diff --check` reports no whitespace errors; Git emits Markdown CRLF normalization warnings for the already modified changelog and validation record. NOT RUN: Godot parse/import and in-game layout, icon, cooldown, vignette and pulse checks. T060 remains open pending runtime review; no reviewer agreement is claimed.
+
+
+#### T061 implementation — smaller status text and topmost menu layer
+
+Reduced the active-status chip typography from 8 px to 7 px, chip padding from 3 px to 2 px, and inter-chip spacing from 4 px to 3 px. Reduced the rage label font from 10 px to 8 px. Moved the Skill Tree under a dedicated CanvasLayer at layer 100, above the HUD, low-health vignette, BossHUD, Pixelfx and ultimate-cinematic layers; added `PlayerHUD.MENU_CANVAS_LAYER` for future gameplay menus. Opening the Skill Tree hides the normal HUD and closing it restores the HUD. The menu callback now resolves the HUD through its new CanvasLayer parent.
+
+| Included file | Purpose |
+| --- | --- |
+| ui/player_hud.gd | Define the shared topmost menu layer and toggle the nested menu layer with HUD visibility. Reduce buff chip spacing/padding. |
+| ui/hud.tscn | Place SkillTree under its own layer-100 CanvasLayer and reduce the RageLabel font. |
+| ui/skill_tree_layout.gd | Assign the shared menu layer and find the PlayerHUD ancestor after reparenting. |
+| specs/001-integrate-basement-stage/tasks.md | Record T061 scope, owner, acceptance, task total and pending runtime status. |
+| specs/001-integrate-basement-stage/validation.md | Record layer evidence, implementation details and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: UI ordering and typography only. HUD stays at layer 1, vignette at 2, existing Dark Fairy BossHUD at 3, Pixelfx at 21 and ultimate cinematic at 20/22; only the Bao-owned Skill Tree menu moves to layer 100. No boss scene, input, gameplay or health/cooldown behavior changed. Static review verified menu ancestor lookup, visible-state flow and layer ordering. `git diff --check` reports no whitespace errors; Git emits CRLF normalization warnings for modified Markdown records. NOT RUN: Godot parse/import or runtime menu stacking and text readability checks at supported viewport sizes. T061 remains open pending visual review; no reviewer agreement is claimed.
+
+
+#### T062 implementation — Wind ultimate “Trăng Tối”
+
+Replaced the second Wind ultimate's one-shot burst with a 3.6-second, 2.5-rotation collision-aware dash around the nearest living enemy within 8m, falling back to the cast position when no target is near. Existing afterimages, dash trail, slash and Wind burst VFX are reused. Pulses every 0.32 seconds damage nearby enemies and apply the current Wind slow; damage pulses do not regenerate the Rage spent to cast. Both Player invulnerability flags are active for the full FSM state, and the hidden blade is restored on exit. The 10-SP Skill Tree requirement, HUD name, cinematic title and concept notes now say “Trăng Tối”; `ultimate_wind_2` and its cooldown remain intact. On completion, cooldowns are cleared only for unlocked Wind active skills.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/player.gd | Route `ultimate_wind_2` into the new timed state; add orbit movement setup/update/cleanup, immunity, pulse damage/slow and unlocked Wind cooldown reset. Preserve the ultimate ID/cooldown and avoid regenerating Rage from its repeated hits. |
+| scenes/player/player.tscn | Register the dedicated WindUltimate FSM node. |
+| scenes/player/states/wind_ultimate.gd | Drive the ultimate lifecycle through the existing PlayerState/FSM interface. |
+| ui/skill_tree_layout.gd | Rename the Wind ultimate, describe its behavior and set only its second threshold to 10 SP. |
+| ui/player_hud.gd | Display “Trăng Tối” for the existing ultimate ID. |
+| scenes/player/ultimate_cinematic.gd | Display “Trăng Tối” in the ultimate cut-in. |
+| docs/godotgameteam7_full_concept.md | Replace the stale Wind ultimate design and record its 10-SP threshold. |
+| specs/001-integrate-basement-stage/tasks.md | Record T062 scope/acceptance and leave it open pending runtime verification. |
+| specs/001-integrate-basement-stage/validation.md | Record review boundary, implementation details, static checks and unrun playtest. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: Player combat/FSM movement uses the existing collision-aware step-up and slide path. Enemy damage and slow continue through existing Player helpers; no enemy AI, shared VFX code, other ultimate, or other form is modified. The ultimate alone suppresses Rage gain from its repeated pulses to preserve the meter-spend behavior. Static review checked state lookup/registration, target fallback, immunity flag pairing, threshold/ID/title mappings and cooldown keys. `git diff --check` reports no whitespace errors; Git emits Markdown CRLF-to-LF normalization warnings for the implementation changelog and validation file. NOT RUN: Godot parse/import or in-game unlock, movement/collision, damage/slow, immunity, cleanup, cooldown and Rage checks. T062 remains open pending playtest; no reviewer agreement is claimed.

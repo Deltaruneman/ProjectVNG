@@ -9,7 +9,6 @@ path="res://.godot/imported/Floor_WoodLight.obj-f80d129f1188b844ef9996d5b63e3e85
 [deps]
 
 files=["res://.godot/imported/Floor_WoodLight.obj-f80d129f1188b844ef9996d5b63e3e85.mesh"]
-
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Floor_WoodLight.obj"
 dest_files=["res://.godot/imported/Floor_WoodLight.obj-f80d129f1188b844ef9996d5b63e3e85.mesh", "res://.godot/imported/Floor_WoodLight.obj-f80d129f1188b844ef9996d5b63e3e85.mesh"]
 

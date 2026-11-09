@@ -9,7 +9,6 @@ path="res://.godot/imported/Roof_RoundTiles_6x6.obj-ba25486d4fcd98bb1e6c327cc1cb
 [deps]
 
 files=["res://.godot/imported/Roof_RoundTiles_6x6.obj-ba25486d4fcd98bb1e6c327cc1cb3a26.mesh"]
-
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Roof_RoundTiles_6x6.obj"
 dest_files=["res://.godot/imported/Roof_RoundTiles_6x6.obj-ba25486d4fcd98bb1e6c327cc1cb3a26.mesh", "res://.godot/imported/Roof_RoundTiles_6x6.obj-ba25486d4fcd98bb1e6c327cc1cb3a26.mesh"]
 

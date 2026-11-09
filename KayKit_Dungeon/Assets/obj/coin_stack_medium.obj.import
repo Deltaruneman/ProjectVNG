@@ -9,7 +9,6 @@ path="res://.godot/imported/coin_stack_medium.obj-fe77f5f7fcd44edaca02a78ca678a2
 [deps]
 
 files=["res://.godot/imported/coin_stack_medium.obj-fe77f5f7fcd44edaca02a78ca678a251.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/coin_stack_medium.obj"
 dest_files=["res://.godot/imported/coin_stack_medium.obj-fe77f5f7fcd44edaca02a78ca678a251.mesh", "res://.godot/imported/coin_stack_medium.obj-fe77f5f7fcd44edaca02a78ca678a251.mesh"]
 

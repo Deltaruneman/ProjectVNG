@@ -9,7 +9,6 @@ path="res://.godot/imported/wall_half.obj-4766f80663822e1b325433c50e678d78.mesh"
 [deps]
 
 files=["res://.godot/imported/wall_half.obj-4766f80663822e1b325433c50e678d78.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/wall_half.obj"
 dest_files=["res://.godot/imported/wall_half.obj-4766f80663822e1b325433c50e678d78.mesh", "res://.godot/imported/wall_half.obj-4766f80663822e1b325433c50e678d78.mesh"]
 

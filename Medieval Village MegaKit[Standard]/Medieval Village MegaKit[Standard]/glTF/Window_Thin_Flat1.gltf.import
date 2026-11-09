@@ -15,7 +15,6 @@ dest_files=["res://.godot/imported/Window_Thin_Flat1.gltf-41b5b5efc8f6ad25c71601
 
 nodes/root_type=""
 nodes/root_name=""
-nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

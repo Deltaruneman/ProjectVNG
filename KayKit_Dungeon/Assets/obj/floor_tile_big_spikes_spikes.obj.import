@@ -9,7 +9,6 @@ path="res://.godot/imported/floor_tile_big_spikes_spikes.obj-18c73f5dbe5214e0a5c
 [deps]
 
 files=["res://.godot/imported/floor_tile_big_spikes_spikes.obj-18c73f5dbe5214e0a5ca93f90127c490.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/floor_tile_big_spikes_spikes.obj"
 dest_files=["res://.godot/imported/floor_tile_big_spikes_spikes.obj-18c73f5dbe5214e0a5ca93f90127c490.mesh", "res://.godot/imported/floor_tile_big_spikes_spikes.obj-18c73f5dbe5214e0a5ca93f90127c490.mesh"]
 

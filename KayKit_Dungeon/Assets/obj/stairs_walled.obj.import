@@ -9,7 +9,6 @@ path="res://.godot/imported/stairs_walled.obj-70a8430de4d4b8bd8005cddaaa5bf557.m
 [deps]
 
 files=["res://.godot/imported/stairs_walled.obj-70a8430de4d4b8bd8005cddaaa5bf557.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/stairs_walled.obj"
 dest_files=["res://.godot/imported/stairs_walled.obj-70a8430de4d4b8bd8005cddaaa5bf557.mesh", "res://.godot/imported/stairs_walled.obj-70a8430de4d4b8bd8005cddaaa5bf557.mesh"]
 

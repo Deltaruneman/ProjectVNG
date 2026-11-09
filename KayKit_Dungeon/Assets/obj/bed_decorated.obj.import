@@ -9,7 +9,6 @@ path="res://.godot/imported/bed_decorated.obj-bfd47416ade95e5fbb724751996447fb.m
 [deps]
 
 files=["res://.godot/imported/bed_decorated.obj-bfd47416ade95e5fbb724751996447fb.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/bed_decorated.obj"
 dest_files=["res://.godot/imported/bed_decorated.obj-bfd47416ade95e5fbb724751996447fb.mesh", "res://.godot/imported/bed_decorated.obj-bfd47416ade95e5fbb724751996447fb.mesh"]
 

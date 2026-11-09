@@ -15,7 +15,6 @@ dest_files=["res://.godot/imported/bed_frame.fbx-293485ea2aaf1c6462d824b714701f5
 
 nodes/root_type=""
 nodes/root_name=""
-nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

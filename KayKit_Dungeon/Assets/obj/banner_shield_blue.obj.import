@@ -9,7 +9,6 @@ path="res://.godot/imported/banner_shield_blue.obj-1d6df0a1e02d2b518879c4ed3a6a7
 [deps]
 
 files=["res://.godot/imported/banner_shield_blue.obj-1d6df0a1e02d2b518879c4ed3a6a79af.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/banner_shield_blue.obj"
 dest_files=["res://.godot/imported/banner_shield_blue.obj-1d6df0a1e02d2b518879c4ed3a6a79af.mesh", "res://.godot/imported/banner_shield_blue.obj-1d6df0a1e02d2b518879c4ed3a6a79af.mesh"]
 

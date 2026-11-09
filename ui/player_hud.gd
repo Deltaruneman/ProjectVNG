@@ -5,6 +5,7 @@ const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/
 const BASIC_DAGGER_ICON := "res://assets/sprites/object/blade/blade_throw_1.png"
 const SKILL_TREE_BOOK_ICON_SHEET := "res://assets/ui/craftpix-net-809047-free-animated-magic-book-pixel-art-asset-pack/PNG/Open_book.png"
 const SKILL_TREE_BOOK_ICON_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
+const MENU_CANVAS_LAYER := 100
 
 # Kích thước skill bar (chỉnh ở đây)
 const SLOT_W := 29.0
@@ -71,6 +72,7 @@ var _skill_controls_label: Label
 var _ultimate_skill_label: Label
 var _low_health_warning: Label
 var _low_health_vignette_layer: CanvasLayer
+var _skill_tree_layer: CanvasLayer
 var _vignette_material: ShaderMaterial
 var _status_strip: HBoxContainer
 var _skill_slot_panels: Array[PanelContainer] = []
@@ -88,7 +90,7 @@ var _skill_tree_is_open := false
 
 
 func _ready() -> void:
-	layer = 1 # HUD nằm dưới menu; skill tree menu nên đặt layer cao hơn (vd 10)
+	layer = 1 # HUD gameplay; menu dùng PlayerHUD.MENU_CANVAS_LAYER
 	add_to_group("hud")
 	if texture_progress != null:
 		_build_texture_bar()
@@ -97,6 +99,7 @@ func _ready() -> void:
 	_build_label()
 	_build_low_health_warning()
 	_build_status_strip()
+	_skill_tree_layer = get_node_or_null("SkillTreeLayer") as CanvasLayer
 
 	_player = get_tree().get_first_node_in_group("player") as BaseCharacter
 	if _player == null:
@@ -135,7 +138,8 @@ func set_skill_bar_visible(value: bool) -> void:
 func set_skill_tree_open(open: bool) -> void:
 	_skill_tree_is_open = open
 	for child in get_children():
-		if child.name == "SkillTree":
+		if child == _skill_tree_layer:
+			child.visible = open
 			continue
 		var show_child := not open
 		if child == _low_health_warning or child == _low_health_vignette_layer:
@@ -471,7 +475,7 @@ func _build_status_strip() -> void:
 	_status_strip = HBoxContainer.new()
 	_status_strip.name = "ActiveStatusStrip"
 	_status_strip.position = Vector2(margin.x, margin.y + 70.0)
-	_status_strip.add_theme_constant_override("separation", 4)
+	_status_strip.add_theme_constant_override("separation", 3)
 	_status_strip.visible = false
 	_status_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_status_strip)
@@ -485,12 +489,12 @@ func _build_status_strip() -> void:
 		style.border_color = border_colors[index]
 		style.set_border_width_all(1)
 		style.set_corner_radius_all(3)
-		style.set_content_margin_all(3.0)
+		style.set_content_margin_all(2.0)
 		chip.add_theme_stylebox_override("panel", style)
 		_status_strip.add_child(chip)
 		_status_chips.append(chip)
 		var label := Label.new()
-		label.add_theme_font_size_override("font_size", 8)
+		label.add_theme_font_size_override("font_size", 7)
 		label.add_theme_color_override("font_color", border_colors[index])
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		chip.add_child(label)
@@ -516,7 +520,7 @@ func _refresh_status_strip() -> void:
 
 func _on_skill_tree_slot_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var skill_tree := get_node_or_null("SkillTree")
+		var skill_tree := get_node_or_null("SkillTreeLayer/SkillTree")
 		if skill_tree != null and skill_tree.has_method("set_open"):
 			skill_tree.call("set_open", true)
 			get_viewport().set_input_as_handled()
@@ -530,7 +534,7 @@ func _skill_display_name(skill_id: String) -> String:
 		"active_ice_1": "Cấp Đông Tức Thì", "active_ice_2": "Hầm Mộ Băng Giá", "active_ice_3": "Khiên Băng",
 		"active_wind_4": "Lốc Xoáy", "active_fire_4": "Mưa Thiên Thạch", "active_ice_4": "Bão Băng",
 		"active_lightning_1": "Phi Dao Lôi", "active_lightning_2": "Xích Lôi", "active_lightning_3": "Sét Đánh", "active_lightning_4": "Lôi Bạo",
-		"ultimate_wind_1": "Cái Chết Tựa Cơn Gió", "ultimate_wind_2": "Phong Linh",
+		"ultimate_wind_1": "Cái Chết Tựa Cơn Gió", "ultimate_wind_2": "Trăng Tối",
 		"ultimate_fire_1": "Hỏa Kiếm", "ultimate_fire_2": "Hỏa Thần Giáng Lâm",
 		"ultimate_ice_1": "Chân Băng", "ultimate_ice_2": "Kỷ Băng Hà",
 		"ultimate_lightning_1": "Tâm Bão", "ultimate_lightning_2": "Thiên Lôi",

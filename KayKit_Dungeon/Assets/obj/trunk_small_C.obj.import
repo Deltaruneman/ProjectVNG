@@ -9,7 +9,6 @@ path="res://.godot/imported/trunk_small_C.obj-b91c290a22a4f92c14655e31c26f6461.m
 [deps]
 
 files=["res://.godot/imported/trunk_small_C.obj-b91c290a22a4f92c14655e31c26f6461.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/trunk_small_C.obj"
 dest_files=["res://.godot/imported/trunk_small_C.obj-b91c290a22a4f92c14655e31c26f6461.mesh", "res://.godot/imported/trunk_small_C.obj-b91c290a22a4f92c14655e31c26f6461.mesh"]
 

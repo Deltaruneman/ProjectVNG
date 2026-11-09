@@ -15,7 +15,6 @@ dest_files=["res://.godot/imported/barrier_colum_half.gltf-02edbcd0900fd2d565db3
 
 nodes/root_type=""
 nodes/root_name=""
-nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

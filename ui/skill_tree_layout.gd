@@ -31,13 +31,13 @@ const ACTIVE_SHORT_NAMES := {
 	"lightning": ["Phi Dao", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
 }
 const ULTIMATE_SKILLS := {
-	"wind": ["Cái Chết Tựa Cơn Gió", "Phong Linh"],
+	"wind": ["Cái Chết Tựa Cơn Gió", "Trăng Tối"],
 	"fire": ["Hỏa Kiếm", "Hỏa Thần Giáng Lâm"],
 	"ice": ["Chân Băng", "Kỷ Băng Hà"],
 	"lightning": ["Tâm Bão", "Thiên Lôi"],
 }
 const ULTIMATE_SHORT_NAMES := {
-	"wind": ["Tử Phong", "Phong Linh"],
+	"wind": ["Tử Phong", "Trăng Tối"],
 	"fire": ["Hỏa Kiếm", "Hỏa Thần"],
 	"ice": ["Chân Băng", "Kỷ Băng Hà"],
 	"lightning": ["Tâm Bão", "Thiên Lôi"],
@@ -81,7 +81,7 @@ const SKILL_DESCRIPTIONS := {
 	"Sét Đánh": "Gọi sét đánh xuống vị trí phía trước.",
 	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",
-	"Phong Linh": "Tuyệt kỹ gió diện rộng kéo dài và tăng sức mạnh.",
+	"Trăng Tối": "Trong 3,6 giây, lướt vòng quanh địch gần nhất, gây sát thương và làm chậm kẻ địch trên đường đi. Miễn sát thương khi thi triển; kết thúc sẽ hồi kỹ năng Wind đã mở khóa.",
 	"Hỏa Kiếm": "Tuyệt kỹ lửa gây sát thương diện rộng.",
 	"Hỏa Thần Giáng Lâm": "Hy sinh 50% máu hiện tại để bùng nổ diện rộng.",
 	"Chân Băng": "Đóng băng và gây sát thương kẻ địch quanh bạn.",
@@ -123,6 +123,9 @@ var _page_turning := false
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var menu_canvas := get_parent() as CanvasLayer
+	if menu_canvas != null:
+		menu_canvas.layer = PlayerHUD.MENU_CANVAS_LAYER
 	_match_parent_canvas_scale()
 	z_index = 100
 	z_as_relative = false
@@ -164,8 +167,10 @@ func set_open(open: bool) -> void:
 		return
 	_is_open = open
 	_page_turning = false
-	var hud := get_parent()
-	if hud != null and hud.has_method("set_skill_tree_open"):
+	var hud: Node = get_parent()
+	while hud != null and not hud.has_method("set_skill_tree_open"):
+		hud = hud.get_parent()
+	if hud != null:
 		hud.call("set_skill_tree_open", open)
 	if _book_animation != null and _book_animation.is_running():
 		_book_animation.kill()
@@ -439,7 +444,10 @@ func _build_weapon_tree() -> void:
 		_description_body.text = "Chọn một biểu tượng lớn để mở cây. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP.\nTiến hóa và tuyệt kỹ cần mở kỹ năng trước.\n\nCuộn để zoom; chuột giữa để kéo."
+		var ultimate_milestones := "5 / 8 SP"
+		if current_form == "wind":
+			ultimate_milestones = "5 / 10 SP"
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s.\nTiến hóa và tuyệt kỹ cần mở kỹ năng trước.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
 	if current_form != "":
@@ -501,6 +509,8 @@ func _build_weapon_tree() -> void:
 	for index in ultimate_names.size():
 		var skill_id := "ultimate_%s_%d" % [current_form, index + 1]
 		var required: int = [5, 8][index]
+		if current_form == "wind" and index == 1:
+			required = 10
 		_add_skill_node(graph, ultimate_positions[index], skill_id, str(ultimate_names[index]), str(ultimate_short[index]), "I", required, str(SKILL_DESCRIPTIONS.get(ultimate_names[index], "Tuyệt kỹ.")), true, form_color)
 
 

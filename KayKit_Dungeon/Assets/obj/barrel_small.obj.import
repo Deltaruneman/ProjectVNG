@@ -9,7 +9,6 @@ path="res://.godot/imported/barrel_small.obj-e341de5d8c3c4616b546d73619c6e8cf.me
 [deps]
 
 files=["res://.godot/imported/barrel_small.obj-e341de5d8c3c4616b546d73619c6e8cf.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/barrel_small.obj"
 dest_files=["res://.godot/imported/barrel_small.obj-e341de5d8c3c4616b546d73619c6e8cf.mesh", "res://.godot/imported/barrel_small.obj-e341de5d8c3c4616b546d73619c6e8cf.mesh"]
 

@@ -215,7 +215,7 @@ func _element_title(element: String) -> String:
 func _ultimate_title(skill_id: String) -> String:
 	var names := {
 		"ultimate_wind_1": "Cái Chết Tựa Cơn Gió",
-		"ultimate_wind_2": "Phong Linh",
+		"ultimate_wind_2": "Trăng Tối",
 		"ultimate_fire_1": "Hỏa Kiếm",
 		"ultimate_fire_2": "Hỏa Thần Giáng Lâm",
 		"ultimate_ice_1": "Chân Băng",

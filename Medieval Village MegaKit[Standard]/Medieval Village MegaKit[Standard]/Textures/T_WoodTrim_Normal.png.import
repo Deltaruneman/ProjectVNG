@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pnrvq2mswuai"
+uid="uid://dgsyeonli3vpr"
 path="res://.godot/imported/T_WoodTrim_Normal.png-4ed27139b20aa1a8df074ceb5bed137c.ctex"
 metadata={
 "vram_texture": false
@@ -21,12 +21,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/textures/T_WoodTrim_Normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

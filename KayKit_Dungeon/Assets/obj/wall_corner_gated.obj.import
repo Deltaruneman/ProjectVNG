@@ -9,7 +9,6 @@ path="res://.godot/imported/wall_corner_gated.obj-2d0b3bb455ce4509caa4e9436d8dbf
 [deps]
 
 files=["res://.godot/imported/wall_corner_gated.obj-2d0b3bb455ce4509caa4e9436d8dbf3d.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/wall_corner_gated.obj"
 dest_files=["res://.godot/imported/wall_corner_gated.obj-2d0b3bb455ce4509caa4e9436d8dbf3d.mesh", "res://.godot/imported/wall_corner_gated.obj-2d0b3bb455ce4509caa4e9436d8dbf3d.mesh"]
 

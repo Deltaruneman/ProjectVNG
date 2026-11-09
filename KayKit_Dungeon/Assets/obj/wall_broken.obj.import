@@ -9,7 +9,6 @@ path="res://.godot/imported/wall_broken.obj-e2939c7d1d06a50b2e7ea3cc43e1c735.mes
 [deps]
 
 files=["res://.godot/imported/wall_broken.obj-e2939c7d1d06a50b2e7ea3cc43e1c735.mesh"]
-
 source_file="res://KayKit_Dungeon/Assets/obj/wall_broken.obj"
 dest_files=["res://.godot/imported/wall_broken.obj-e2939c7d1d06a50b2e7ea3cc43e1c735.mesh", "res://.godot/imported/wall_broken.obj-e2939c7d1d06a50b2e7ea3cc43e1c735.mesh"]
 
