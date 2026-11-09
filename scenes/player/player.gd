@@ -2,6 +2,8 @@ class_name Player
 extends BaseCharacter
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 const ULTIMATE_CINEMATIC_SCRIPT := preload("res://scenes/player/ultimate_cinematic.gd")
+const ULTIMATE_SCREEN_GLOW_SHADER := preload("res://scenes/player/ultimate_screen_glow.gdshader")
+const ULTIMATE_NEON_SHADER := preload("res://scenes/player/ultimate_neon.gdshader")
 
 const MAX_STAIR_STEP_HEIGHT := 0.75
 const STEP_LIFT_INCREMENT := 0.1
@@ -41,6 +43,12 @@ const ULTIMATE_SKILL_COOLDOWNS := {
 var _active_skill_cooldowns: Dictionary = {}
 var _ultimate_cooldown_remaining := 0.0
 var _ultimate_cinematic_running := false
+var _ultimate_visual_layer: CanvasLayer
+var _ultimate_screen_material: ShaderMaterial
+var _ultimate_neon_material: ShaderMaterial
+var _ultimate_previous_material_overlay: Material
+var _ultimate_visual_elapsed := 0.0
+var _ultimate_visual_remaining := 0.0
 var _hud_status_time_remaining: Dictionary = {}
 var _base_attack_damage := 1
 var _base_max_health := 3
@@ -71,6 +79,7 @@ func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Idle, true)
 	super._ready()
 	$Direction/HitArea3D.hitted.connect(_on_attack_hit)
+	died.connect(_finish_ultimate_presentation)
 	_base_attack_damage = attack_damage
 	_base_max_health = max_health
 	_base_movement_speed = movement_speed
@@ -138,6 +147,19 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	if _ultimate_visual_remaining > 0.0:
+		_ultimate_visual_elapsed += delta
+		_ultimate_visual_remaining = maxf(0.0, _ultimate_visual_remaining - delta)
+		var fade_in := clampf(_ultimate_visual_elapsed / 0.12, 0.0, 1.0)
+		var fade_out := clampf(_ultimate_visual_remaining / 0.24, 0.0, 1.0)
+		var intensity := fade_in * fade_out
+		if _ultimate_screen_material != null:
+			_ultimate_screen_material.set_shader_parameter("strength", intensity * 0.62)
+		if _ultimate_neon_material != null:
+			_ultimate_neon_material.set_shader_parameter("intensity", intensity)
+			_update_ultimate_neon_frame_region()
+		if _ultimate_visual_remaining <= 0.0:
+			_finish_ultimate_presentation()
 	for key: Variant in _active_skill_cooldowns.keys():
 		var skill_id: String = str(key)
 		var remaining: float = maxf(0.0, float(_active_skill_cooldowns[skill_id]) - delta)
@@ -159,8 +181,13 @@ func die() -> void:
 		return
 	if fsm.current_state == fsm.states.dead:
 		return
+	_finish_ultimate_presentation()
 	health = 0
 	fsm.change_state(fsm.states.dead)
+
+
+func _exit_tree() -> void:
+	_finish_ultimate_presentation()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -575,6 +602,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		if _wind_ultimate_active or fsm == null or not fsm.states.has("windultimate"):
 			return false
 		BattleFX.play_skill_sound(self, skill_id)
+		_start_ultimate_presentation(skill_id, WIND_ULTIMATE_DURATION)
 		rage = 0.0
 		_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 		rage_changed.emit(rage, MAX_RAGE)
@@ -582,32 +610,60 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		return true
 	var aim := get_skill_aim_direction()
 	BattleFX.play_skill_sound(self, skill_id)
+	_start_ultimate_presentation(skill_id, _ultimate_presentation_duration(skill_id))
 	var radius := 18.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else 7.0
 	if skill_id == "ultimate_fire_2":
 		radius += float(GameManager.skill_allocations.get("evo_fire_inferno", 0))
 	var damage := attack_damage * (4 if radius < 10.0 else 2)
 	var vfx_position := global_position + Vector3.UP * 0.6
 	if skill_id == "ultimate_wind_1":
-		BattleFX.circle_burst(self, vfx_position, "wind", 7.0)
+		BattleFX.ultimate_impact(self, "wind/wind-gust", vfx_position, 5.8, Color("d2fff9"), aim)
+		BattleFX.ultimate_impact(self, "impacts/shockwave-ring", vfx_position, 7.0, Color("c0fff5"))
 		for angle_index in 8:
 			var angle := TAU * float(angle_index) / 8.0
 			var radial := Vector3(cos(angle), 0.0, sin(angle))
 			BattleFX.slash(self, global_position + Vector3.UP * 0.55 + radial * 3.5, "wind", radial, 1.1)
 	elif skill_id == "ultimate_fire_1":
 		_apply_timed_buff(2, 0.0, 5.0)
-		BattleFX.circle_burst(self, vfx_position, "fire", 7.0)
+		BattleFX.ultimate_impact(self, "fire/fire-pillar", global_position + Vector3.UP * 0.45, 3.8, Color("fff5e4"))
+		BattleFX.ultimate_impact(self, "explosions/fire-nova", vfx_position, 5.8, Color("fff3df"))
 		BattleFX.slash(self, skill_effect_position(aim, 0.65, 0.6), "fire", aim, 0.8)
 	elif skill_id == "ultimate_fire_2":
 		BattleFX.charge(self, global_position + Vector3.UP * 3.5, "fire", 2.2)
-		BattleFX.circle_burst(self, vfx_position, "fire", 7.0)
+		BattleFX.ultimate_impact(self, "fire/meteor-strike", global_position + Vector3.UP * 0.2, 7.2, Color("fff4e4"), aim)
+		BattleFX.ultimate_impact(self, "explosions/big-explosion", vfx_position, 6.4, Color("fff2e0"))
 	elif skill_id == "ultimate_ice_1":
 		BattleFX.shield(self, global_position, "ice", 2.0, 1.0)
 	elif skill_id == "ultimate_lightning_1":
-		BattleFX.circle_burst(self, vfx_position, "lightning", 8.0)
+		BattleFX.ultimate_impact(self, "lightning/static-burst", vfx_position, 5.2, Color("effdff"))
+		for lightning_enemy_near: Node in get_tree().get_nodes_in_group("enemies"):
+			if not (lightning_enemy_near is EnemyCharacter):
+				continue
+			var lightning_target_near := lightning_enemy_near as EnemyCharacter
+			var offset_near := lightning_target_near.global_position - global_position
+			var offset_near_2d := Vector2(offset_near.x, offset_near.z)
+			if lightning_target_near.health <= 0 or absf(offset_near.y) > 2.5 or offset_near_2d.length() > radius:
+				continue
+			var chain_vector_near := offset_near
+			var chain_direction_near := Vector3(chain_vector_near.x, 0.0, chain_vector_near.z)
+			var chain_length_near := chain_direction_near.length()
+			BattleFX.ultimate_impact(self, "lightning/chain-lightning", global_position + Vector3.UP * 1.35, maxf(chain_length_near * 0.55, 1.2), Color("e5fbff"), chain_direction_near)
+			BattleFX.ultimate_impact(self, "lightning/lightning-strike", lightning_target_near.global_position + Vector3.UP * 0.35, 3.0, Color("f4fdff"))
 	elif skill_id == "ultimate_lightning_2":
-		for enemy_node: Node in get_tree().get_nodes_in_group("enemies"):
-			if enemy_node is EnemyCharacter:
-				BattleFX.lightning_strike(self, (enemy_node as EnemyCharacter).global_position + Vector3.UP * 0.5, 1.8)
+		BattleFX.ultimate_impact(self, "lightning/static-burst", vfx_position, 5.6, Color("effdff"))
+		for lightning_enemy_global: Node in get_tree().get_nodes_in_group("enemies"):
+			if not (lightning_enemy_global is EnemyCharacter):
+				continue
+			var lightning_target_global := lightning_enemy_global as EnemyCharacter
+			if lightning_target_global.health <= 0:
+				continue
+			var chain_vector_global := lightning_target_global.global_position - global_position
+			if absf(chain_vector_global.y) > 2.5:
+				continue
+			var chain_direction_global := Vector3(chain_vector_global.x, 0.0, chain_vector_global.z)
+			var chain_length_global := chain_direction_global.length()
+			BattleFX.ultimate_impact(self, "lightning/chain-lightning", global_position + Vector3.UP * 1.35, maxf(chain_length_global * 0.55, 1.6), Color("e5fbff"), chain_direction_global)
+			BattleFX.ultimate_impact(self, "lightning/lightning-strike", lightning_target_global.global_position + Vector3.UP * 0.35, 3.5, Color("f4fdff"))
 	else:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
 		BattleFX.slash(self, vfx_position, "ice", aim, 1.1)
@@ -630,6 +686,85 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)
 	return true
+
+
+func _ultimate_presentation_duration(skill_id: String) -> float:
+	match skill_id:
+		"ultimate_wind_1": return 1.4
+		"ultimate_fire_1", "ultimate_fire_2", "ultimate_ice_2": return 2.4
+		"ultimate_ice_1": return 2.0
+		"ultimate_lightning_1": return 1.9
+		"ultimate_lightning_2": return 0.9
+	return 1.2
+
+
+func _start_ultimate_presentation(skill_id: String, duration: float) -> void:
+	_finish_ultimate_presentation()
+	_ultimate_visual_remaining = maxf(duration, 0.1)
+	_ultimate_visual_elapsed = 0.0
+	var element_color := _ultimate_element_color(skill_id)
+	var scene := get_tree().current_scene
+	if scene != null:
+		_ultimate_visual_layer = CanvasLayer.new()
+		_ultimate_visual_layer.name = "UltimateElementGlow"
+		_ultimate_visual_layer.layer = 23
+		scene.add_child(_ultimate_visual_layer)
+		var screen_rect := ColorRect.new()
+		screen_rect.name = "ScreenGlow"
+		screen_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		screen_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_ultimate_screen_material = ShaderMaterial.new()
+		_ultimate_screen_material.shader = ULTIMATE_SCREEN_GLOW_SHADER
+		_ultimate_screen_material.set_shader_parameter("element_color", element_color)
+		_ultimate_screen_material.set_shader_parameter("strength", 0.0)
+		screen_rect.material = _ultimate_screen_material
+		_ultimate_visual_layer.add_child(screen_rect)
+	if is_instance_valid(sprite):
+		_ultimate_previous_material_overlay = sprite.material_overlay
+		_ultimate_neon_material = ShaderMaterial.new()
+		_ultimate_neon_material.shader = ULTIMATE_NEON_SHADER
+		_ultimate_neon_material.set_shader_parameter("sprite_texture", sprite.texture)
+		_ultimate_neon_material.set_shader_parameter("element_color", element_color)
+		_ultimate_neon_material.set_shader_parameter("intensity", 0.0)
+		sprite.material_overlay = _ultimate_neon_material
+		_update_ultimate_neon_frame_region()
+
+
+func _update_ultimate_neon_frame_region() -> void:
+	if not is_instance_valid(sprite) or _ultimate_neon_material == null:
+		return
+	var columns := maxi(sprite.hframes, 1)
+	var rows := maxi(sprite.vframes, 1)
+	var frame_index := clampi(sprite.frame, 0, columns * rows - 1)
+	var frame_width := 1.0 / float(columns)
+	var frame_height := 1.0 / float(rows)
+	var frame_column := frame_index % columns
+	var frame_row := floori(float(frame_index) / float(columns))
+	var frame_rect := Vector4(float(frame_column) * frame_width, float(frame_row) * frame_height, frame_width, frame_height)
+	_ultimate_neon_material.set_shader_parameter("frame_uv_rect", frame_rect)
+
+
+func _finish_ultimate_presentation() -> void:
+	_ultimate_visual_elapsed = 0.0
+	_ultimate_visual_remaining = 0.0
+	if _ultimate_neon_material != null:
+		_ultimate_neon_material.set_shader_parameter("intensity", 0.0)
+	if is_instance_valid(sprite) and sprite.material_overlay == _ultimate_neon_material:
+		sprite.material_overlay = _ultimate_previous_material_overlay
+	_ultimate_previous_material_overlay = null
+	_ultimate_neon_material = null
+	_ultimate_screen_material = null
+	if is_instance_valid(_ultimate_visual_layer):
+		_ultimate_visual_layer.queue_free()
+	_ultimate_visual_layer = null
+
+
+func _ultimate_element_color(skill_id: String) -> Color:
+	match skill_id.get_slice("_", 1):
+		"fire": return Color("ff6549")
+		"ice": return Color("64dfff")
+		"lightning": return Color("fff068")
+		_: return Color("67ffe5")
 
 
 func _start_wind_ultimate() -> void:
@@ -681,7 +816,7 @@ func _enter_wind_ultimate_state() -> void:
 	if not _wind_ultimate_active:
 		return
 	var tangent := _wind_ultimate_tangent(_wind_ultimate_start_angle)
-	BattleFX.circle_burst(self, _wind_ultimate_center + Vector3.UP * 0.55, "wind", _wind_ultimate_radius + 0.6)
+	BattleFX.ultimate_impact(self, "wind/wind-gust", _wind_ultimate_center + Vector3.UP * 0.55, 5.4, Color("d3fff7"), tangent)
 	BattleFX.dash_trail_start(self, tangent)
 	_apply_wind_ultimate_pulse(tangent)
 
@@ -731,6 +866,7 @@ func _wind_ultimate_tangent(angle: float) -> Vector3:
 
 func _apply_wind_ultimate_pulse(tangent: Vector3) -> void:
 	var damage := maxi(1, attack_damage)
+	BattleFX.ultimate_impact(self, "wind/wind-blade", global_position + Vector3.UP * 0.62, 2.8, Color("c6fff5"), tangent)
 	BattleFX.slash(self, global_position + Vector3.UP * 0.62, "wind", tangent, 0.95)
 	_damage_enemies_in_shape(global_position, tangent, "circle", WIND_ULTIMATE_DAMAGE_RADIUS, 0.0, 360.0, damage, 0.0, WIND_ULTIMATE_SLOW_DURATION)
 
@@ -739,13 +875,15 @@ func _finish_wind_ultimate() -> void:
 	if not _wind_ultimate_active:
 		return
 	_wind_ultimate_active = false
+	_finish_ultimate_presentation()
 	is_invulnerable = false
 	invincible = false
 	stop_horizontal()
 	if _wind_ultimate_blade_suppressed:
 		suppress_blade(false)
 		_wind_ultimate_blade_suppressed = false
-	BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "wind", 3.6)
+	BattleFX.ultimate_impact(self, "shadow/void-implosion", global_position + Vector3.UP * 0.55, 5.2, Color.WHITE)
+	BattleFX.ultimate_impact(self, "impacts/shockwave-ring", global_position + Vector3.UP * 0.55, 6.0, Color("c0fff5"))
 	var cooldowns_cleared := false
 	for slot in range(1, 5):
 		var skill_id := "active_wind_%d" % slot

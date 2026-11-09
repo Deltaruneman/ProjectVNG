@@ -34,6 +34,10 @@ static func ultimate_impact_frame(parent: Node3D, position: Vector3, form: Strin
 	return _spawn_pixelfx(parent, "impacts/impact-frame", position, form, Vector3.ZERO, 10.5, 0.0, true)
 
 
+static func ultimate_impact(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color = Color.WHITE, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
+	return _spawn_pvfx(parent, effect_id, position, world_half_extent, tint, direction, loop_duration)
+
+
 static func charge(parent: Node3D, position: Vector3, form: String, scale: float = 0.9) -> Node2D:
 	return _spawn_pixelfx(parent, "arcane/spell-charge", position, form, Vector3.FORWARD, scale, 1.6)
 
@@ -248,6 +252,67 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 	return effect
 
 
+static func _spawn_pvfx(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
+	if not is_instance_valid(parent):
+		return null
+	var camera := parent.get_viewport().get_camera_3d()
+	if camera == null or camera.is_position_behind(position):
+		return null
+	var stage := parent.get_tree().current_scene
+	if stage == null:
+		return null
+	var frames := _load_pvfx_frames(effect_id)
+	if frames == null:
+		return null
+	var cache_key := "pvfx:" + effect_id
+	var metadata: Dictionary = _pvfx_frames_cache.get(cache_key + ":metadata", {})
+	var frame_size: Array = metadata.get("source_size", [96, 96])
+	var frame_width := maxf(float(frame_size[0]), 1.0)
+	var pivot: Array = metadata.get("pivot", [frame_width * 0.5, float(frame_size[1]) * 0.5])
+	var overlay := stage.get_node_or_null("PixelFXOverlay") as CanvasLayer
+	if overlay == null:
+		overlay = CanvasLayer.new()
+		overlay.name = "PixelFXOverlay"
+		overlay.layer = 0
+		stage.add_child(overlay)
+	var screen_position: Vector2 = camera.unproject_position(position)
+	var projected_half_width := (camera.unproject_position(position + camera.global_transform.basis.x * world_half_extent) - screen_position).length()
+	var effect := Node2D.new()
+	effect.name = effect_id.replace("/", "_")
+	effect.position = screen_position
+	effect.scale = Vector2.ONE * maxf(projected_half_width / (frame_width * 0.5), 0.01)
+	effect.z_index = 12
+	overlay.add_child(effect)
+	var sprite := AnimatedSprite2D.new()
+	sprite.sprite_frames = frames
+	sprite.centered = false
+	sprite.offset = -Vector2(float(pivot[0]), float(pivot[1]))
+	sprite.animation = "default"
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sprite.modulate = tint
+	if direction.length_squared() > 0.001:
+		var screen_direction := camera.unproject_position(position + direction.normalized()) - screen_position
+		if screen_direction.length_squared() > 0.001:
+			sprite.rotation = screen_direction.angle()
+	effect.add_child(sprite)
+	if frames.get_animation_loop("default"):
+		var lifetime := loop_duration if loop_duration > 0.0 else 2.4
+		var timer := Timer.new()
+		timer.one_shot = true
+		timer.wait_time = lifetime
+		effect.add_child(timer)
+		timer.timeout.connect(func() -> void:
+			if is_instance_valid(effect):
+				var fade := effect.create_tween()
+				fade.tween_property(effect, "modulate:a", 0.0, 0.15)
+				fade.tween_callback(effect.queue_free))
+		timer.start()
+	else:
+		sprite.animation_finished.connect(effect.queue_free, CONNECT_ONE_SHOT)
+	sprite.play()
+	return effect
+
+
 static func _load_pixelfx_frames(effect_id: String) -> SpriteFrames:
 	if _pixel_frames_cache.has(effect_id):
 		return _pixel_frames_cache[effect_id] as SpriteFrames
@@ -380,6 +445,7 @@ static func _load_pvfx_frames(effect_id: String) -> SpriteFrames:
 		var duration_seconds := maxf(float(timing.get("numerator_ms", 100.0)) / denominator / 1000.0, 0.001)
 		sprite_frames.add_frame("default", atlas, duration_seconds * fps)
 	_pvfx_frames_cache[cache_key] = sprite_frames
+	_pvfx_frames_cache[cache_key + ":metadata"] = document
 	return sprite_frames
 
 

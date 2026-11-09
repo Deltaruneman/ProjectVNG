@@ -1023,3 +1023,54 @@ Replaced the second Wind ultimate's one-shot burst with a 3.6-second, 2.5-rotati
 | docs/implementation-changelog.md | Maintain this cumulative implementation record. |
 
 Integration effects: Player combat/FSM movement uses the existing collision-aware step-up and slide path. Enemy damage and slow continue through existing Player helpers; no enemy AI, shared VFX code, other ultimate, or other form is modified. The ultimate alone suppresses Rage gain from its repeated pulses to preserve the meter-spend behavior. Static review checked state lookup/registration, target fallback, immunity flag pairing, threshold/ID/title mappings and cooldown keys. `git diff --check` reports no whitespace errors; Git emits Markdown CRLF-to-LF normalization warnings for the implementation changelog and validation file. NOT RUN: Godot parse/import or in-game unlock, movement/collision, damage/slow, immunity, cleanup, cooldown and Rage checks. T062 remains open pending playtest; no reviewer agreement is claimed.
+
+
+#### T063 implementation — centered Skill Tree, compact buffs and ultimate glow
+
+Moved the Skill Tree graph to the right within the open page and allowed its nodes to render beyond the graph control while the page retains its outer clip. Reduced active buff chips from 7 px to 6 px, with tighter padding and spacing. Added a temporary fullscreen elemental glow and a pulsing neon treatment on the Player sprite after the cinematic ends; each ultimate has a duration aligned to its active effect, with Wind 2 tied to its 3.6-second state. The original sprite material overlay is restored and the CanvasLayer is removed on expiry, death signal, Wind-state completion or Player tree exit.
+
+| Included file | Purpose |
+| --- | --- |
+| ui/skill_tree_layout.gd | Apply the rightward responsive graph offset across Skill Tree tabs. |
+| ui/skill_tree_graph.gd | Allow graph nodes to extend beyond the graph viewport; the book page remains the outer visual clip. |
+| ui/player_hud.gd | Reduce buff-chip font size, margins and separation. |
+| scenes/player/player.gd | Start after-cinematic presentation for all ultimate IDs; map element colors/durations, animate intensity, restore the prior sprite overlay and clean up on interruption/exit. |
+| scenes/player/ultimate_screen_glow.gdshader | Add pulsing elemental light over the screen image. |
+| scenes/player/ultimate_neon.gdshader | Tint and shimmer the Player sprite in the matching elemental neon color. |
+| specs/001-integrate-basement-stage/tasks.md | Record T063 scope/acceptance, task total and open runtime status. |
+| specs/001-integrate-basement-stage/validation.md | Record the review boundary, implementation, Pixelfx candidate inspection and unrun runtime checks. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Integration effects: the screen glow uses CanvasLayer 23, above the HUD, BossHUD, Pixelfx and cinematic layers but below the existing topmost menu at layer 100. The sprite shader replaces only `Sprite3D.material_overlay` during presentation and restores its saved value if still owned by this effect. Pixelfx `holy/blessing` was rendered/inspected but not used because its gold spotlight is fixed to its projected screen position and does not track the moving player; no Pixelfx export was added. Existing slash and ice-shield effects are unchanged. Static review checked all ultimate IDs/duration routes, color mapping, prior-material restoration and layer order; `git diff --check` reports no whitespace errors, with Markdown CRLF-to-LF normalization warnings for the changelog and validation record. NOT RUN: Godot parse/import, graph input/visual review at supported aspect ratios, and ultimate color/intensity/timing/restoration playtests. T063 remains open pending runtime visual review; no reviewer agreement is claimed.
+
+
+#### T063 user refinement — outline-only Player neon
+
+The user clarified that the Player effect should be a neon contour around the sprite, not a tinted duplicate of its full body. Reworked the sprite shader to sample neighboring alpha values and emit only in the transparent pixels directly outside the current sprite silhouette. The source sprite fill and animation colors remain visible underneath unchanged. The shader's frame rectangle now follows the Player's active sprite-sheet frame during the ultimate; the existing screen glow, duration and cleanup remain unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/ultimate_neon.gdshader | Draw a pulsing elemental outline from the current sprite-frame alpha edge; discard interior pixels. |
+| scenes/player/player.gd | Update shader frame bounds with the active animation frame and preserve existing overlay restoration/cleanup. |
+| specs/001-integrate-basement-stage/tasks.md | Clarify T063 acceptance to require a contour-only effect and unchanged sprite fill. |
+| specs/001-integrate-basement-stage/validation.md | Record the user clarification, static review and unrun shader/visual checks. |
+| docs/implementation-changelog.md | Maintain the cumulative T063 refinement record. |
+
+Integration effects: only the temporary `Sprite3D.material_overlay` shader changes; the source sprite material, base animation and fullscreen elemental glow are unchanged. Static source review confirms the shader subtracts current-pixel alpha from neighboring alpha, bounds sampling to `frame_uv_rect`, and discards zero-edge pixels. `git diff --check` remains the whitespace check. NOT RUN: Godot shader import/compile or visual confirmation of outline width, sheet-frame edges and shimmer during animation. T063 remains open pending runtime review; no reviewer agreement is claimed.
+
+
+#### T064 user clarification and implementation — stronger ultimate cast/impact VFX
+
+The user clarified that the ultimate cinematic is already satisfactory and asked for more powerful effects when the actual skills are cast. Reused the PVFX Foundry sprites already present in the project: Wind now adds a directional gust and shockwave, with individual blade impacts and a void implosion finish for Trăng Tối; Fire layers a fire pillar/nova or a meteor strike/large explosion; Lightning creates a strong static burst and connects valid enemies with animated lightning chains and vertical strikes. Ice ultimate effects are unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/battle_vfx.gd | Add `ultimate_impact()` and a projected PVFX one-shot/loop spawner that uses the existing sprite-frame cache and manifest source size/pivot metadata. |
+| scenes/player/player.gd | Add stronger elemental PVFX at the existing Wind, Fire and Lightning cast/pulse/end moments; keep Lightning target effects aligned with the existing horizontal/range and vertical-level damage filters. |
+| specs/001-integrate-basement-stage/tasks.md | Record T064 scope, acceptance criteria, task total and pending runtime review. |
+| specs/001-integrate-basement-stage/validation.md | Record the clarified scope, PVFX candidate previews, selected assets, static checks, limitation and unrun runtime review. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Referenced, pre-existing assets (not changed in this slice): `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/{wind/wind-gust,wind/wind-blade,impacts/shockwave-ring,shadow/void-implosion,fire/fire-pillar,explosions/fire-nova,fire/meteor-strike,explosions/big-explosion,lightning/static-burst,lightning/chain-lightning,lightning/lightning-strike}/lit/grid/{sprite-sheet.png,manifest.json}`. The included local license grants CC0 1.0 for effect sheets and manifests.
+
+Integration effects: VFX only. Existing skill IDs, damage, enemy hit filters/statuses, duration, hit timing, cooldown, T063 glow/outline, cinematic/camera, and slash/ice-shield implementations are unchanged. Lightning 1 uses the existing horizontal radius and 2.5-unit height gate; Lightning 2 uses the existing global target's 2.5-unit height gate. `wind/whirlwind` was previewed but not selected because its looping projected sprite would remain at a fixed screen coordinate while the target/camera moves. Static manifest/path review confirmed the selected sheets, pivots and one-shot durations; `git diff --check` passed with Git's Markdown CRLF normalization warnings for changelog/validation. NOT RUN: Godot parse/import or in-game effect scale, occlusion, target alignment, timing and camera-motion review. Since projected one-shot effects stay at their spawn screen coordinate, movement during an animation may cause some drift. T064 remains open pending runtime visual review; no reviewer agreement is claimed.

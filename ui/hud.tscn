@@ -34,7 +34,7 @@ texture_progress = ExtResource("3_en2x2")
 pixel_scale = 0.3
 show_label = true
 
-[node name="SkillTreeLayer" type="CanvasLayer" parent="."]
+[node name="SkillTreeLayer" type="CanvasLayer" parent="." unique_id=1865109197]
 layer = 100
 visible = false
 
@@ -58,11 +58,10 @@ offset_left = 60.0
 offset_top = 1.0
 offset_right = 237.0
 offset_bottom = 16.0
-vertical_alignment = 1
 theme_override_colors/font_color = Color(0.82, 0.78, 1, 1)
 theme_override_font_sizes/font_size = 8
 text = "NỘ KHÍ"
-mouse_filter = 2
+vertical_alignment = 1
 
 [node name="RageBar" type="ProgressBar" parent="RageMeter" unique_id=1921876319]
 layout_mode = 0

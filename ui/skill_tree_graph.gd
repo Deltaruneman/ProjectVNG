@@ -18,7 +18,7 @@ var zoom_level := 1.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	clip_contents = true
+	clip_contents = false
 
 
 func _gui_input(event: InputEvent) -> void:

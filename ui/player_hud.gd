@@ -475,7 +475,7 @@ func _build_status_strip() -> void:
 	_status_strip = HBoxContainer.new()
 	_status_strip.name = "ActiveStatusStrip"
 	_status_strip.position = Vector2(margin.x, margin.y + 70.0)
-	_status_strip.add_theme_constant_override("separation", 3)
+	_status_strip.add_theme_constant_override("separation", 2)
 	_status_strip.visible = false
 	_status_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_status_strip)
@@ -489,12 +489,12 @@ func _build_status_strip() -> void:
 		style.border_color = border_colors[index]
 		style.set_border_width_all(1)
 		style.set_corner_radius_all(3)
-		style.set_content_margin_all(2.0)
+		style.set_content_margin_all(1.0)
 		chip.add_theme_stylebox_override("panel", style)
 		_status_strip.add_child(chip)
 		_status_chips.append(chip)
 		var label := Label.new()
-		label.add_theme_font_size_override("font_size", 7)
+		label.add_theme_font_size_override("font_size", 6)
 		label.add_theme_color_override("font_color", border_colors[index])
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		chip.add_child(label)

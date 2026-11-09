@@ -10,6 +10,7 @@ const BOOK_TURN_RIGHT_SHEET := MAGIC_BOOK_ROOT + "Turning_pages_right.png"
 const BOOK_OPEN_ART_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
 const BOOK_FRAME_SIZE := 272.0
 const BOOK_SPREAD_RATIO := 1.58
+const PAGE_GRAPH_OFFSET_RATIO := Vector2(0.19, 0.0)
 const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/"
 
 const FORMS := [
@@ -109,7 +110,7 @@ var _description_title: Label
 var _description_body: Label
 var _zoom_percent: Label
 var _active_graph: SkillTreeGraph
-var _graph_zoom := 1.1
+var _graph_zoom := 0.95
 var _tab := "weapon"
 var _is_open := false
 var _book_animation: Tween
@@ -450,8 +451,6 @@ func _build_weapon_tree() -> void:
 		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s.\nTiến hóa và tuyệt kỹ cần mở kỹ năng trước.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
-	if current_form != "":
-		graph.layout_offset_ratio = Vector2(0.04, 0.0)
 	var root_color := Color("e5d08d")
 	var root_position := Vector2(0.5, 0.86)
 	_make_node(graph, root_position, "D", "Dao Găm", "BASIC", root_color, false, false, false, "Dao Găm Basic")
@@ -608,7 +607,8 @@ func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: S
 func _prepare_graph(graph: SkillTreeGraph) -> void:
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	graph.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	graph.clip_contents = true
+	graph.layout_offset_ratio = PAGE_GRAPH_OFFSET_RATIO
+	graph.clip_contents = false
 	graph.zoom_changed.connect(_on_graph_zoom_changed)
 	_content.add_child(_make_zoom_controls())
 	_content.add_child(graph)
