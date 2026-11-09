@@ -384,7 +384,7 @@ review. Never have simultaneous writers to basement_full.tscn.
 4. Genuine wave/reset/persistence/gate acceptance waits for coordinated provider availability;
    no synthetic callback closes those tasks. Report incomplete sprint work honestly.
 
-**Totals**: 64 tasks: setup/foundational 3; US1 8; US2 17; US3 5; final review 2; F6 startup follow-up 1; camera visibility follow-up 1; Skill Tree HUD follow-up 1; Dark Fairy HUD follow-up 1; player stair traversal follow-up 1; player sword/status FX follow-up 1; floating player sword follow-up 1; player dash trail follow-up 1; dash trail visibility tuning 1; dash afterimage alpha blending fix 1; Dark Fairy health-bar style follow-up 1; player ultimate cinematic follow-up 1; front-facing ultimate cut-in pose follow-up 1; ultimate camera zoom-only follow-up 1; Skill Tree size follow-up 1; lightning enemy status VFX follow-up 1; player HUD feedback follow-up 1; player HUD presentation polish follow-up 1; HUD readability/menu layer follow-up 1; Wind ultimate redesign follow-up 1; Skill Tree alignment/status chip/ultimate glow follow-up 1; ultimate cast impact VFX follow-up 1.
+**Totals**: 66 tasks: setup/foundational 3; US1 8; US2 17; US3 5; final review 2; F6 startup follow-up 1; camera visibility follow-up 1; Skill Tree HUD follow-up 1; Dark Fairy HUD follow-up 1; player stair traversal follow-up 1; player sword/status FX follow-up 1; floating player sword follow-up 1; player dash trail follow-up 1; dash trail visibility tuning 1; dash afterimage alpha blending fix 1; Dark Fairy health-bar style follow-up 1; player ultimate cinematic follow-up 1; front-facing ultimate cut-in pose follow-up 1; ultimate camera zoom-only follow-up 1; Skill Tree size follow-up 1; lightning enemy status VFX follow-up 1; player HUD feedback follow-up 1; player HUD presentation polish follow-up 1; HUD readability/menu layer follow-up 1; Wind ultimate redesign follow-up 1; Skill Tree alignment/status chip/ultimate glow follow-up 1; ultimate cast impact VFX follow-up 1; ice skill PVFX trial 1; Wind/Fire/Lightning active skill PVFX trial 1.
 **First group**: T004-T011, 8 scene-foundation/check tasks only.
 **Current state**: T012 and T014-T021 are implemented; T013/T025/T026 remain partial and
 T022-T042 remain open as recorded above. T043 is the focused F6 startup follow-up below;
@@ -394,6 +394,8 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
 **Wind ultimate follow-up**: T062 implements `ultimate_wind_2` as the 10-SP “Trăng Tối”; Godot runtime verification remains NOT RUN, so acceptance is still open.
 **Presentation follow-up**: T063 implements the Skill Tree graph offset, compact buff chips and temporary element-colored screen/player glow after ultimate cut-ins; runtime visual verification remains NOT RUN, so acceptance stays open.
 **Ultimate impact follow-up**: T064 adds stronger cast/impact effects to Wind, Fire and Lightning ultimates using the existing PVFX sheets; cinematic and gameplay values remain unchanged. Godot runtime visual review remains NOT RUN, so acceptance stays open.
+**Ice PVFX trial**: T065 replaces only the active Ice cone and storm visuals with the local PVFX frost breath and ice spikes. Preserve Ice shield and Ice ultimate FX; visual compatibility remains to be checked in game.
+**Other-element PVFX trial**: T066 replaces selected active Wind, Fire and Lightning cast effects with element-specific PVFX; combat behavior remains unchanged. Visual fit remains to be checked in game.
 
 ## Focused startup follow-up
 
@@ -574,3 +576,19 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Scope: add a project-local PVFX spawn helper in `scenes/player/battle_vfx.gd` and use existing PVFX Foundry sheets at the non-ice ultimate cast/hit points in `scenes/player/player.gd`. Add a stronger impact accent to the repeated Trăng Tối hits/end beat as appropriate. Do not change the ultimate cinematic, camera, shake, damage, hit timing, duration, cooldown, enemy status/control, screen glow/neon, slash implementation or ice ultimates/ice shield. Reuse the checked-in `assets/effects/pvfx-foundry-thirteen-spritesheets/` assets; do not add another library or modify the upstream pack.
   - Acceptance: all six Wind, Fire and Lightning ultimate IDs have clearly stronger, readable, element-appropriate VFX at their actual cast/impact moments, with no unintended FX on unaffected enemies; existing cinematic behavior and all gameplay values remain unchanged. Ice ultimate visuals remain untouched.
   - Validation: inspect selected PVFX sheet/manifest frame count, size, pivot and duration; inspect each ultimate's hit point and target filtering; verify the helper frees one-shots and handles missing camera/resources; then run `git diff --check`. Godot import/playback and in-game visual/readability checks remain NOT RUN; T064 stays open pending runtime review.
+
+## Focused active Ice skill PVFX trial
+
+- [ ] T065 Try more expressive PVFX on two older active Ice skills and assess fit.
+  - Owner/reviewer: Bao (Player skill presentation; user-requested trial).
+  - Scope: replace only the visual call for `active_ice_2`'s cone attack with the directional PVFX `ice/frost-breath`, and only the visual call for `active_ice_4`'s area attack with PVFX `ice/ice-spike`, through the generic `BattleVFX.play_pvfx()` helper. Do not change skill damage, aim, range, freeze duration, cooldown, hit timing, ice attack slash sheets, ice shield/ring, ice status effects, either Ice ultimate, or any other skill.
+  - Acceptance: the frost-breath direction/length reads as the existing forward cone, and the ice-spike burst reads as the existing area storm; both use checked-in PVFX manifests/pivots, auto-clean their animations, and leave all gameplay unchanged. The two trial effects can be judged visually for fit before more Ice skills are converted.
+  - Validation: inspect candidate sheet previews and manifests, verify the exact two skill call sites and unchanged gameplay parameters, and run `git diff --check`. Godot in-game visual scale/aim/occlusion review is requested as part of this trial if the runtime is available; otherwise report it NOT RUN and keep T065 open.
+
+## Focused Wind, Fire and Lightning active-skill PVFX trial
+
+- [ ] T066 Try element-specific PVFX replacements on selected Wind, Fire and Lightning active skills.
+  - Owner/reviewer: Bao (Player skill presentation; user-requested follow-up).
+  - Scope: update only the visuals for active Wind 3/4, Fire 2/3/4, and Lightning 2/3/4 using the existing `BattleVFX.play_pvfx()` loader and checked-in PVFX Foundry sheets. Keep required charge beats and existing sword slash sheets where relevant. Preserve all skill logic, damage, targets, aim, range, delayed cast timing, cooldowns, status effects, and all Ice skills/ultimates.
+  - Acceptance: the Wind dash reads as a wind blade and its area skill as a whirlwind; Fire delayed/rage/meteor attacks read as a nova, erupting burst and meteor; Lightning cone/strike/storm effects use directed arcs and visible impacts on only targets the existing damage paths can hit. Animations clean up; all gameplay behavior stays unchanged.
+  - Validation: inspect chosen sheets/manifests and loop duration, verify each visual target/position against its damage call site, and run `git diff --check`. The user will review the appearance in game; do not claim visual acceptance until they report it.

@@ -34,8 +34,12 @@ static func ultimate_impact_frame(parent: Node3D, position: Vector3, form: Strin
 	return _spawn_pixelfx(parent, "impacts/impact-frame", position, form, Vector3.ZERO, 10.5, 0.0, true)
 
 
-static func ultimate_impact(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color = Color.WHITE, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
+static func play_pvfx(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color = Color.WHITE, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
 	return _spawn_pvfx(parent, effect_id, position, world_half_extent, tint, direction, loop_duration)
+
+
+static func ultimate_impact(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color = Color.WHITE, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
+	return play_pvfx(parent, effect_id, position, world_half_extent, tint, direction, loop_duration)
 
 
 static func charge(parent: Node3D, position: Vector3, form: String, scale: float = 0.9) -> Node2D:
@@ -59,7 +63,7 @@ static func tornado(parent: Node3D, position: Vector3, radius: float, duration: 
 
 static func meteor(parent: Node3D, position: Vector3, direction: Vector3, radius: float) -> Node2D:
 	charge(parent, position + Vector3.UP * 1.5, "fire", 1.4)
-	return _spawn_pixelfx(parent, "fire/fire-ring", position, "fire", direction, radius, 1.0)
+	return play_pvfx(parent, "fire/meteor-strike", position, radius, Color("fff4e4"), direction)
 
 
 static func lightning_strike(parent: Node3D, position: Vector3, scale: float = 2.0) -> Node2D:

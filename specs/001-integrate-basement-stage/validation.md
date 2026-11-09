@@ -1409,3 +1409,40 @@ Prior runtime results remain historical; Lam's manual activation does not expand
 - Both Ice ultimate branches and the cinematic/camera, T063 screen glow/outline, damage, statuses, hit timing, cooldowns and slash implementation remain unchanged. No external asset was downloaded or modified; the referenced PVFX exports were already in the project and the pack's local license says their sheets/manifests are CC0 1.0.
 - Static checks confirmed all selected sheets and manifests exist and match expected dimensions, pivots, loop flags and durations (one-shot effects range from 780–1,680 ms); target filters match the existing lightning damage constraints; `git diff --check` passed. Git reports existing Markdown CRLF-to-LF normalization warnings for the changelog and validation file.
 - NOT RUN: Godot parse/import or in-game scale, occlusion, timing, target alignment and player/camera movement review. The projected sprite effects keep their screen position for the life of each one-shot, so movement during a long animation may produce some drift. T064 stays open pending visual review; no reviewer agreement is claimed.
+
+## Active Ice skill PVFX trial (T065)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Player skill presentation.
+- The user asked to try PVFX replacements on a few existing Ice skills and judge whether they fit. Existing sheet previews were inspected: `ice/frost-breath` is a directional horizontal frost stream, and `ice/ice-spike` grows from a compact flash into a broad spike burst. Their local grid manifests declare 14 frames/910 ms/loop for frost-breath and 26 frames/1,820 ms/one-shot for ice-spike, with authored pivots suitable for projecting from the Player.
+- Scope: change only the VFX call for active Ice 2's forward cone and active Ice 4's circular storm, using the existing PVFX loader. Preserve damage, aim/range, freeze, cooldown/hit timing, shield/ring, slash sheets, status visuals, both Ice ultimates, and all non-Ice skills.
+- Acceptance: `ice/frost-breath` visually follows the cast aim across the existing cone, while `ice/ice-spike` fills the existing storm footprint; one-shot/loop FX end cleanly and no gameplay behavior changes.
+- Checks: inspect sheet manifests/pivots, helper scale/direction/lifetime handling, exact call sites and unchanged damage/status arguments; run `git diff --check`. The user asks for a trial assessment; in-game visual review should be run if a Godot runtime is available. If unavailable, report it NOT RUN and leave T065 open for hands-on visual review.
+
+### Implementation and static review (2026-11-09)
+
+- `BattleVFX.play_pvfx()` exposes the existing PVFX sheet renderer for ordinary active skills; the existing `ultimate_impact()` now delegates to it, so prior T064 call sites retain the same behavior.
+- `active_ice_2` replaces only the old `ice/ice-shatter` claw effect with directional `ice/frost-breath`, anchored at the Player and sized to half the unchanged 5-unit cone reach. Its authored loop is capped at 0.72 seconds. The cone damage and freeze arguments are unchanged.
+- `active_ice_4` replaces only the old Pixelfx `ice/frost-nova` with the one-shot PVFX `ice/ice-spike`, using the existing evolution-scaled storm radius. Its damage, radius and freeze arguments are unchanged.
+- `active_ice_3` shield/ring, Ice attacks/slash sheets, status effects, both Ice ultimate branches and all non-Ice skills are unchanged.
+- Static review confirmed both sheets and manifests exist; `frost-breath` is a 14-frame/910 ms loop with pivot `[4,21]`, and `ice-spike` is a 26-frame/1,820 ms one-shot with pivot `[46,68]`. `git diff --check` is the code/record check.
+- NOT RUN: Godot parse/import or in-game effect scale, facing, occlusion and overall style fit. The Godot desktop window could not be accessed by Computer Use (the tool reported that access to the Godot app was not approved); the user will inspect the trial in game. T065 remains open pending that visual feedback; no reviewer agreement is claimed.
+
+## Other-element active skill PVFX trial (T066)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Player skill presentation.
+- The user asked about the other elements after the Ice trial. Existing PVFX Foundry sheet previews/manifests were inspected for Wind (`wind-blade`, `whirlwind`), Fire (`fire-nova`, `lava-burst`, `meteor-strike`) and Lightning (`chain-lightning`, `lightning-strike`, `static-burst`).
+- Scope: update only active skill effect call sites for Wind 3/4, Fire 2/3/4, and Lightning 2/3/4. Preserve damage, range, aim, cast/timer/sequence timing, target filters, status effects, slash implementation, all Ice skills and both Ice ultimates.
+- Acceptance: the new visuals match each skill's shape/element, use the checked-in PVFX sheet timing/pivot, and do not show target-specific Lightning hits on enemies excluded by the corresponding damage path. No gameplay behavior changes.
+- Checks: inspect manifests, helper call arguments and effect cleanup; compare Lightning visual filters to the hit helper; run `git diff --check`. The user will review the actual appearance in game. Runtime visual acceptance remains open until they report back.
+
+### Implementation and static review (2026-11-09)
+
+- Wind 3 now uses the PVFX wind blade beside the unchanged sword slash. Wind 4 uses a PVFX whirlwind loop for the existing two-second tornado period and keeps its existing radius/slow call.
+- Fire 2 keeps its five-second delay and charge, then plays `explosions/fire-nova` at the existing blast center. Each Fire 3 rage pulse now uses `fire/lava-burst` at the existing circle. The `BattleVFX.meteor()` helper now keeps its charge and plays the PVFX `fire/meteor-strike`; repository search confirmed its only call is active Fire 4.
+- Lightning 2 draws chain arcs and strikes only living enemies inside the existing 38-degree cone, reach and 2.5-unit height tolerance. Lightning 3 layers a vertical bolt/static burst at the existing strike center. Lightning 4 adds a static burst at the Player and vertical strikes only on living enemies with a hurt area inside the existing 5-unit circle and 2.5-unit height tolerance.
+- Static review confirmed all eight PVFX sheets and manifests exist; their authored durations range from 780 to 1,610 ms, with only the whirlwind looping. Existing charge, sword slash, damage, range, cooldown, delayed timing, status application, Ice trial and ultimate calls are unchanged. `git diff --check` passed; Git emits Markdown CRLF-to-LF warnings for the changelog and validation record.
+- NOT RUN: Godot parse/import or in-game scale, occlusion, facing and full visual-fit review. The 2-second whirlwind is projected to the screen at cast time and may drift if the Player/camera moves during the loop. The user will inspect the visual trial; T066 remains open until they report fit/adjustments. No reviewer agreement is claimed.

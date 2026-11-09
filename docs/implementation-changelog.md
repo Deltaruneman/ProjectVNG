@@ -1074,3 +1074,33 @@ The user clarified that the ultimate cinematic is already satisfactory and asked
 Referenced, pre-existing assets (not changed in this slice): `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/{wind/wind-gust,wind/wind-blade,impacts/shockwave-ring,shadow/void-implosion,fire/fire-pillar,explosions/fire-nova,fire/meteor-strike,explosions/big-explosion,lightning/static-burst,lightning/chain-lightning,lightning/lightning-strike}/lit/grid/{sprite-sheet.png,manifest.json}`. The included local license grants CC0 1.0 for effect sheets and manifests.
 
 Integration effects: VFX only. Existing skill IDs, damage, enemy hit filters/statuses, duration, hit timing, cooldown, T063 glow/outline, cinematic/camera, and slash/ice-shield implementations are unchanged. Lightning 1 uses the existing horizontal radius and 2.5-unit height gate; Lightning 2 uses the existing global target's 2.5-unit height gate. `wind/whirlwind` was previewed but not selected because its looping projected sprite would remain at a fixed screen coordinate while the target/camera moves. Static manifest/path review confirmed the selected sheets, pivots and one-shot durations; `git diff --check` passed with Git's Markdown CRLF normalization warnings for changelog/validation. NOT RUN: Godot parse/import or in-game effect scale, occlusion, target alignment, timing and camera-motion review. Since projected one-shot effects stay at their spawn screen coordinate, movement during an animation may cause some drift. T064 remains open pending runtime visual review; no reviewer agreement is claimed.
+
+
+#### T065 user-requested trial — PVFX on active Ice cone and storm
+
+Replaced two older active Ice skill visuals with the PVFX Foundry `ice/frost-breath` and `ice/ice-spike` sheets to test their style against the game. Ice 2's cone now uses a short directional frost stream sized to its existing reach. Ice 4's storm now uses a one-shot ring of rising ice spikes sized from its existing evolution-scaled radius. The PVFX frame loader uses each sheet's existing timing and pivot metadata.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/battle_vfx.gd | Expose the shared PVFX sheet renderer as `play_pvfx()`; preserve `ultimate_impact()` as a wrapper so the previous T064 effects are unchanged. |
+| scenes/player/player.gd | Swap only the `active_ice_2` and `active_ice_4` effect calls; preserve their damage, range, aim and freeze parameters. |
+| specs/001-integrate-basement-stage/tasks.md | Record T065 scope, acceptance criteria, task total and pending user visual review. |
+| specs/001-integrate-basement-stage/validation.md | Record candidate preview/manifests, implementation, static checks and unrun runtime review. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Referenced pre-existing PVFX sheets (not modified): `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/ice/{frost-breath,ice-spike}/lit/grid/{sprite-sheet.png,manifest.json}`. Integration effects: only two active Ice skill visuals change. Active Ice 3's shield and cast ring, both Ice ultimates, slash sheets, Ice status logic and all gameplay behavior remain unchanged. `git diff --check` is the static whitespace check. NOT RUN: Godot parse/import or in-game fit, aim, scale, depth/occlusion and camera-motion review; the user said they can inspect these effects in-game. `frost-breath` is screen-projected at cast position for up to 0.72 seconds, so movement during the animation may cause some drift. T065 remains open pending user visual feedback; no reviewer agreement is claimed.
+
+
+#### T066 user-requested trial — active Wind, Fire and Lightning PVFX
+
+Following the Ice PVFX trial, replaced selected active-skill visuals for the other three elements. Wind 3 now adds a PVFX wind blade while retaining its sword slash, and Wind 4 uses a timed PVFX whirlwind. Fire 2's delayed detonation now uses a fire nova; Fire 3 uses lava bursts for each existing rage pulse; Fire 4's meteor helper now uses the meteor-strike sheet while retaining its charge. Lightning 2 now chains and strikes only enemies in its current cone; Lightning 3 uses a bolt/static burst at its existing strike center; Lightning 4 adds per-enemy bolts only for living enemies inside its current damage area.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/player/player.gd | Swap active Wind 3/4, Fire 2/3 and Lightning 2/3/4 visual calls; mirror existing Lightning shape/range/height filters for target strikes. |
+| scenes/player/battle_vfx.gd | Route the existing `meteor()` helper to the checked-in PVFX meteor-strike, retaining its charge effect; existing generic PVFX renderer is reused. |
+| specs/001-integrate-basement-stage/tasks.md | Record T066 scope, acceptance criteria, task total and pending user visual review. |
+| specs/001-integrate-basement-stage/validation.md | Record reviewed candidates/manifests, implementation, target-filter review, limitation and unrun runtime check. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation record. |
+
+Referenced pre-existing sheets (not modified): `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/{wind/wind-blade,wind/whirlwind,explosions/fire-nova,fire/lava-burst,fire/meteor-strike,lightning/chain-lightning,lightning/lightning-strike,lightning/static-burst}/lit/grid/{sprite-sheet.png,manifest.json}`. Integration effects: only the listed active-skill VFX change. Skill behavior, charge and delayed timing, damage/ranges/statuses/cooldowns, Ice skills, ultimates and slash sheets remain unchanged. `BattleVFX.meteor()` has no other project call site beyond active Fire 4. `git diff --check` passed with Markdown CRLF normalization warnings for changelog/validation. NOT RUN: Godot parse/import or in-game scale, facing, overlap and overall fit. The projected two-second Wind whirlwind may drift if Player/camera moves. T066 stays open for user visual feedback; no reviewer agreement is claimed.

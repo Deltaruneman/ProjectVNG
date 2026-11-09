@@ -377,14 +377,14 @@ func cast_active_skill(active_id: String) -> bool:
 			var dash_origin := global_position
 			var gale_rank := int(GameManager.skill_allocations.get("evo_wind_gale", 0))
 			var dash_reach := 2.5 + 0.5 * float(gale_rank)
-			BattleFX.claw(self, skill_effect_position(aim, 1.25, 0.55), "wind", aim, 0.9 + 0.18 * float(gale_rank))
+			BattleFX.play_pvfx(self, "wind/wind-blade", skill_effect_position(aim, 1.25, 0.55), 1.6 + 0.18 * float(gale_rank), Color("d2fff9"), aim)
 			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.5), "wind", aim, 0.8 + 0.16 * float(gale_rank))
 			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, roundi(float(damage * 2) * (1.0 + 0.5 * float(gale_rank))))
 			global_position += aim * (1.5 + 0.5 * float(gale_rank))
 		"active_wind_4":
 			var tornado_rank := int(GameManager.skill_allocations.get("evo_wind_tornado", 0))
 			var tornado_radius := 4.0 + 0.5 * float(tornado_rank)
-			BattleFX.tornado(self, global_position + Vector3.UP * 0.65, tornado_radius, 2.0)
+			BattleFX.play_pvfx(self, "wind/whirlwind", global_position + Vector3.UP * 0.65, tornado_radius * 0.85, Color("e9fff9"), Vector3.ZERO, 2.0)
 			_damage_enemies_in_shape(global_position, aim, "circle", tornado_radius, 0.0, 360.0, damage, 0.0, 2.0 + float(tornado_rank))
 		"active_fire_2":
 			BattleFX.charge(self, global_position + Vector3.UP * 0.65, "fire", 0.65)
@@ -394,7 +394,7 @@ func cast_active_skill(active_id: String) -> bool:
 			timer.timeout.connect(func() -> void:
 				if is_inside_tree():
 					var blast_center := global_position
-					BattleFX.circle_burst(self, blast_center + Vector3.UP * 0.65, "fire", blast_radius)
+					BattleFX.play_pvfx(self, "explosions/fire-nova", blast_center + Vector3.UP * 0.65, blast_radius, Color("fff2e0"))
 					BattleFX.play_skill_sound(self, "fire_impact")
 					_damage_enemies_in_shape(blast_center, aim, "circle", blast_radius, 0.0, 360.0, damage * 2))
 		"active_fire_3":
@@ -410,8 +410,7 @@ func cast_active_skill(active_id: String) -> bool:
 			var shatter_rank := int(GameManager.skill_allocations.get("evo_ice_shatter", 0))
 			var cone_reach := 5.0
 			var cone_half_angle := 32.0
-			var cone_width := 2.0 * cone_reach * sin(deg_to_rad(cone_half_angle))
-			BattleFX.claw(self, skill_effect_position(aim, cone_reach * 0.5, 0.55), "ice", aim, cone_width / 3.0)
+			BattleFX.play_pvfx(self, "ice/frost-breath", global_position + Vector3.UP * 0.55, cone_reach * 0.5, Color.WHITE, aim, 0.72)
 			_damage_enemies_in_shape(global_position, aim, "cone", cone_reach, 0.0, cone_half_angle, damage * 2, 2.0 + 0.5 * float(frostbite_rank), 0.0, 0.5 * float(shatter_rank))
 		"active_ice_3":
 			ice_shield = int(ceil(max_health * 0.25))
@@ -424,20 +423,47 @@ func cast_active_skill(active_id: String) -> bool:
 		"active_ice_4":
 			var storm_rank := int(GameManager.skill_allocations.get("evo_ice_storm", 0))
 			var storm_radius := 4.0 + 0.5 * float(storm_rank)
-			BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "ice", storm_radius)
+			BattleFX.play_pvfx(self, "ice/ice-spike", global_position + Vector3.UP * 0.55, storm_radius, Color("f0fbff"))
 			_damage_enemies_in_shape(global_position, aim, "circle", storm_radius, 0.0, 360.0, damage * 2, 1.5 + 0.5 * float(storm_rank))
 		"active_lightning_2":
 			var chain_rank := int(GameManager.skill_allocations.get("evo_lightning_chain", 0))
-			BattleFX.lightning_strike(self, skill_effect_position(aim, 2.5, 0.55), 2.0)
-			_damage_enemies_in_shape(global_position, aim, "cone", 7.0 + float(chain_rank), 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank), 0.0, 0.0, 0.0, 0, "electrified")
+			var chain_reach := 7.0 + float(chain_rank)
+			var lightning_direction_2d := Vector2(aim.x, aim.z).normalized()
+			if lightning_direction_2d.length_squared() < 0.001:
+				lightning_direction_2d = Vector2(forward().x, forward().z).normalized()
+			for lightning_enemy_cone: Node in get_tree().get_nodes_in_group("enemies"):
+				if not (lightning_enemy_cone is EnemyCharacter):
+					continue
+				var lightning_target_cone := lightning_enemy_cone as EnemyCharacter
+				var lightning_offset_cone := lightning_target_cone.global_position - global_position
+				var lightning_offset_cone_2d := Vector2(lightning_offset_cone.x, lightning_offset_cone.z)
+				if lightning_target_cone.health <= 0 or absf(lightning_offset_cone.y) > 2.5 or lightning_offset_cone_2d.length() > chain_reach:
+					continue
+				if lightning_offset_cone_2d.length() > 0.001 and lightning_offset_cone_2d.normalized().dot(lightning_direction_2d) < cos(deg_to_rad(38.0)):
+					continue
+				BattleFX.play_pvfx(self, "lightning/chain-lightning", global_position + Vector3.UP * 1.35, maxf(lightning_offset_cone_2d.length() * 0.55, 1.2), Color("e5fbff"), Vector3(lightning_offset_cone.x, 0.0, lightning_offset_cone.z))
+				BattleFX.play_pvfx(self, "lightning/lightning-strike", lightning_target_cone.global_position + Vector3.UP * 0.35, 2.4, Color("f4fdff"))
+			_damage_enemies_in_shape(global_position, aim, "cone", chain_reach, 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank), 0.0, 0.0, 0.0, 0, "electrified")
 		"active_lightning_3":
 			var lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
 			var strike_center := global_position + aim * 4.0
-			BattleFX.lightning_strike(self, strike_center + Vector3.UP * 0.5, 2.4)
+			BattleFX.play_pvfx(self, "lightning/lightning-strike", strike_center + Vector3.UP * 0.5, 3.0, Color("f4fdff"))
+			BattleFX.play_pvfx(self, "lightning/static-burst", strike_center + Vector3.UP * 0.35, 2.2, Color("e5fbff"))
 			_damage_enemies_in_shape(strike_center, aim, "circle", 3.0, 0.0, 360.0, damage * (3 + lightning_rank), 0.6, 0.0, 0.0, 0.0, 0, "electrified")
 		"active_lightning_4":
 			var storm_lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
-			BattleFX.circle_burst(self, global_position + Vector3.UP * 0.6, "lightning", 5.0)
+			var storm_center := global_position
+			BattleFX.play_pvfx(self, "lightning/static-burst", storm_center + Vector3.UP * 0.6, 4.8, Color("effdff"))
+			for lightning_enemy_area: Node in get_tree().get_nodes_in_group("enemies"):
+				if not (lightning_enemy_area is EnemyCharacter):
+					continue
+				var lightning_target_area := lightning_enemy_area as EnemyCharacter
+				var lightning_offset_area := lightning_target_area.global_position - storm_center
+				if lightning_target_area.health <= 0 or absf(lightning_offset_area.y) > 2.5 or Vector2(lightning_offset_area.x, lightning_offset_area.z).length() > 5.0:
+					continue
+				if lightning_target_area.get_node_or_null("Direction/HurtArea3D") == null:
+					continue
+				BattleFX.play_pvfx(self, "lightning/lightning-strike", lightning_target_area.global_position + Vector3.UP * 0.35, 2.7, Color("f4fdff"))
 			_damage_enemies_in_shape(global_position, aim, "circle", 5.0, 0.0, 360.0, damage * (2 + storm_lightning_rank), 0.8, 0.0, 0.0, 0.0, 0, "electrified")
 	return true
 
@@ -445,7 +471,7 @@ func cast_active_skill(active_id: String) -> bool:
 func _fire_rage_sequence(damage: int, aim: Vector3) -> void:
 	var radius := 3.5 + float(GameManager.skill_allocations.get("evo_fire_inferno", 0))
 	for tick in 3:
-		BattleFX.circle_burst(self, global_position + Vector3.UP * 0.55, "fire", radius)
+		BattleFX.play_pvfx(self, "fire/lava-burst", global_position + Vector3.UP * 0.55, radius, Color("fff3df"))
 		_damage_enemies_in_shape(global_position, aim, "circle", radius, 0.0, 360.0, damage)
 		if tick < 2:
 			await get_tree().create_timer(1.0).timeout
