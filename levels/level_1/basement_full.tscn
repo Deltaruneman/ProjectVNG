@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_7roa1"]
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
-[ext_resource type="PackedScene" uid="uid://dse428mal7ix5" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="12_boss"]
 [ext_resource type="PackedScene" uid="uid://m71d8f517f26" path="res://levels/objects/checkpoint/basement_checkpoint.tscn" id="12_checkpoint"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
@@ -51,16 +50,6 @@ emission_energy_multiplier = 3.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_pwane"]
 material = SubResource("StandardMaterial3D_dbw46")
-size = Vector3(0.25, 0.5, 0.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6pd3"]
-albedo_color = Color(1, 0.55, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.5, 0.15, 1)
-emission_energy_multiplier = 3.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_y6pd3"]
-material = SubResource("StandardMaterial3D_y6pd3")
 size = Vector3(0.25, 0.5, 0.25)
 
 [node name="Stage" type="Node3D" unique_id=1684922925]
@@ -336,7 +325,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 7, 3)
 id = "b2_start"
 
 [node name="B3" type="Node3D" parent="." unique_id=171564207]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6486797, 0)
 metadata/floor_level = 3
 
 [node name="World" type="GridMap" parent="B3" unique_id=1839607552]
