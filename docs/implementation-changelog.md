@@ -1104,3 +1104,55 @@ Following the Ice PVFX trial, replaced selected active-skill visuals for the oth
 | docs/implementation-changelog.md | Maintain this cumulative implementation record. |
 
 Referenced pre-existing sheets (not modified): `assets/effects/pvfx-foundry-thirteen-spritesheets/effects/{wind/wind-blade,wind/whirlwind,explosions/fire-nova,fire/lava-burst,fire/meteor-strike,lightning/chain-lightning,lightning/lightning-strike,lightning/static-burst}/lit/grid/{sprite-sheet.png,manifest.json}`. Integration effects: only the listed active-skill VFX change. Skill behavior, charge and delayed timing, damage/ranges/statuses/cooldowns, Ice skills, ultimates and slash sheets remain unchanged. `BattleVFX.meteor()` has no other project call site beyond active Fire 4. `git diff --check` passed with Markdown CRLF normalization warnings for changelog/validation. NOT RUN: Godot parse/import or in-game scale, facing, overlap and overall fit. The projected two-second Wind whirlwind may drift if Player/camera moves. T066 stays open for user visual feedback; no reviewer agreement is claimed.
+
+#### T067 request — Dark Fairy intro and defeat cut-ins
+
+Static source review found that Dark Fairy engagement currently drives BossHUD visibility and that the existing phase-2 death animation emits defeated before freeing the boss. The user requested a one-time first-encounter introduction and a black-screen, single-slash split finisher. Recorded the Duy-owned review boundary and acceptance criteria in the active task/validation files.
+
+| Included file | Purpose |
+| --- | --- |
+| specs/001-integrate-basement-stage/tasks.md | Add T067 scope, Duy ownership gate, acceptance, and validation checks. |
+| specs/001-integrate-basement-stage/validation.md | Record static findings, proposed design, review boundary, and unverified checks. |
+| docs/implementation-changelog.md | Record the initial request and ownership boundary before implementation. |
+
+**Integration effects:** The planning entry itself changed no game source or shared system; implementation is recorded below. The user reports Duy approved the exact T067 scope on 2026-11-10; this is relayed approval, not direct reviewer sign-off. The earlier approval applied only to T053 bar styling. **Verification:** static source/task inspection; git diff --check passed with Git CRLF-normalization warnings for the Markdown records. **Limitations:** no runtime acceptance or direct reviewer sign-off is claimed.
+
+#### T067 implementation — Dark Fairy intro and split finisher
+
+Added a once-per-spawn introduction when the player first enters the Dark Fairy's detection range. The intro pauses gameplay, zooms only camera FOV, uses the existing Pixelfx impact-frame helper, shows the boss name, then reveals the existing BossHUD. On phase-2 defeat, gameplay pauses, the screen fades to black, one high-contrast diagonal slash appears, and two screen-space AtlasTexture halves are cut from the boss's current Sprite3D frame and move apart before the existing defeated cleanup runs. Both cut-ins restore the saved camera transform/FOV and prior pause state. Missing camera or an unusable split frame skips the cut-in and preserves the existing death-animation path.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/enemies/darkfairy/darkfairy.gd | Gate first engagement, start/finish/abort boss presentations, and preserve exactly-once defeated cleanup. |
+| scenes/enemies/darkfairy/darkfairy_cinematic.gd | Add paused intro/death presentation, FOV zoom, HUD reveal, Pixelfx impact frame, black screen, slash and split sprite halves. |
+| specs/001-integrate-basement-stage/tasks.md | Record T067 ownership, user-relayed approval, scope, acceptance and checks. |
+| specs/001-integrate-basement-stage/validation.md | Record implementation, static review, unrun runtime checks and limitations. |
+| docs/implementation-changelog.md | Maintain this cumulative implementation and review record. |
+
+**Integration effects:** No stage scenes, Player/skill code, boss attacks, AI choices, health/damage, phase thresholds, shared enemy systems or BossHUD style/layout changed. Boss action selection remains gated by the existing idle state. **Static verification:** source review and git diff --check passed; Git reports Markdown CRLF-normalization warnings. **NOT RUN:** Godot parse/import or runtime visuals, so framing, split alignment and fallback behavior are not verified. T067 remains open pending the user's visual check; Duy approval is user-reported, not direct reviewer sign-off.
+
+#### T068–T070 request and review boundary — full-screen boss impact, camera framing, Lightning SFX
+
+Recorded the user's request to make both Dark Fairy cut-ins affect the full screen, zoom/frame the boss as the subject, and give Lightning skills distinct SFX. The user reports Duy approved the boss-presentation scope extension (full-screen effects and temporary camera centering) on 2026-11-10. T068 and T070 remain Duy-owned; this is relayed approval, not direct reviewer sign-off. T069 is Bao-owned. The active tasks and validation files contain the per-task scope, acceptance criteria, checks and pending runtime limitations before implementation.
+
+| Included file | Purpose |
+| --- | --- |
+| specs/001-integrate-basement-stage/tasks.md | Add T068 full-screen boss impact, T069 Lightning SFX differentiation and T070 camera focus task records and update task total. |
+| specs/001-integrate-basement-stage/validation.md | Record approval provenance, ownership boundary, planned checks and unrun runtime/audio review. |
+| docs/implementation-changelog.md | Keep the cumulative implementation/review record current. |
+
+**Integration effects:** Planning only; no game source/assets changed in this entry. The subsequent implementation group and its verification are recorded below. **Verification:** checked existing T067 implementation, Audio routing and local clip names. **Limitations:** no direct reviewer sign-off; runtime camera/visual/audio checks are pending.
+
+#### T068–T070 implementation — full-screen boss impacts, boss focus, distinct Lightning SFX
+
+Expanded both Dark Fairy cut-ins with a viewport-wide tinted flash and matching dark/accent impact bands. The defeat slash now spans beyond the viewport diagonal. During each cut-in the active camera translates temporarily along its view-plane right/up axes to center the boss sprite while preserving its basis; intro zoom/reveal and defeat blackout/fade animate that position, then existing cleanup restores the exact saved global transform, FOV and pause state. Each Lightning skill and the Lightning hit reaction now selects a specific local impact sample and pitch/volume profile.
+
+| Included file | Purpose |
+| --- | --- |
+| scenes/enemies/darkfairy/darkfairy_cinematic.gd | Add fullscreen impact flash/bands, viewport-spanning finisher slash, and temporary boss-centered camera translation with restoration. |
+| scenes/player/battle_vfx.gd | Route every Lightning skill/hit to its own sound profile while leaving other elements unchanged. |
+| specs/001-integrate-basement-stage/tasks.md | Record T068-T070 scope, ownership, reported approval, acceptance and task status. |
+| specs/001-integrate-basement-stage/validation.md | Record implementation, static checks, camera ownership, pending camera/audio runtime review and limitations. |
+| docs/implementation-changelog.md | Maintain the cumulative implementation/review record. |
+
+Referenced, pre-existing audio (not modified): `assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/Spells/Spell Impact 1.ogg`, `Spell Impact 2.ogg` and `Spell Impact 3.ogg`. Asset search found no dedicated thunder/lightning/electric/spark/zap/shock/bolt audio filenames; generic impact variants are differentiated with pitch and level. **Integration effects:** only Dark Fairy cut-in presentation/camera and Player skill sound routing changed. CameraRig, stage scene, Player camera behavior, gameplay, boss AI/health/damage, BossHUD, non-Lightning audio, other VFX and existing slash/ice-shield implementations are unchanged. Pre-existing edits in `levels/level_1/stage_1.tscn` and `.godot/uid_cache.bin` were preserved. **Static verification:** reviewed all Lightning IDs and local path existence, pause/camera cleanup, screen anchors/layers and slash bounds; `git diff --check` passes with Markdown CRLF-normalization warnings. **NOT RUN:** Godot parse/import, required camera playtest, fullscreen visual review and in-game SFX listening. T068-T070 remain open pending user/runtime review; Duy approval is reported by the user, not direct reviewer sign-off.

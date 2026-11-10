@@ -319,7 +319,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 7, 3)
 id = "b2_start"
 
 [node name="B3" type="Node3D" parent="." unique_id=171564207]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.953184, 0)
 metadata/floor_level = 2
 
 [node name="World" type="GridMap" parent="B3" unique_id=1839607552]

@@ -5,6 +5,7 @@ signal phase_changed(phase: int)
 
 const SPELL := preload("res://scenes/enemies/darkfairy/darkfairy_spell.tscn")
 const SPIRIT := preload("res://scenes/enemies/darkfairy/darkfairy_spirit.tscn")
+const BOSS_CINEMATIC := preload("res://scenes/enemies/darkfairy/darkfairy_cinematic.gd")
 
 @export var detection_range := 11.0
 @export var attack_cooldown := 1.3
@@ -20,6 +21,8 @@ var action_index := 0
 var spawn_position: Vector3
 var attack_target: Vector3
 var effects: Array[Node3D] = []
+var intro_seen := false
+var defeat_finished := false
 
 @onready var melee: Area3D = $Direction/HitArea3D
 @onready var boss_bar: TextureProgressBar = $BossHUD/Bar
@@ -40,22 +43,77 @@ func _physics_process(delta: float) -> void:
 	if shield_timer == 0.0:
 		shield_hits = 0
 	$Shield.visible = shield_hits > 0
+	if state == &"death":
+		_update_boss_hud()
+		return
+	found_player = get_tree().get_first_node_in_group("player") as Node3D
+	if not _target_in_range():
+		engaged = false
+		_update_boss_hud()
+		return
+	engaged = true
+	if not intro_seen:
+		intro_seen = true
+		_update_boss_hud()
+		state = &"boss_intro"
+		if _start_boss_cinematic(&"intro"):
+			return
+		state = &"idle"
+	_update_boss_hud()
+	if state == &"idle":
+		sprite.flip_h = found_player.global_position.x < global_position.x
+		if cooldown <= 0.0:
+			_choose_attack()
+
+
+func _update_boss_hud() -> void:
 	boss_bar.visible = engaged and health > 0
 	boss_label.visible = boss_bar.visible
 	boss_bar.max_value = max_health
 	boss_bar.value = health
 	boss_label.text = "DARK FAIRY  /  PHASE %d%s" % [phase, "  /  SHIELD" if shield_hits > 0 else ""]
-	if state == &"death":
+
+
+func _start_boss_cinematic(kind: StringName) -> bool:
+	if get_tree().paused:
+		return false
+	var camera := get_viewport().get_camera_3d()
+	var scene := get_tree().current_scene
+	if camera == null or scene == null:
+		return false
+	var cinematic = BOSS_CINEMATIC.new()
+	cinematic.process_mode = Node.PROCESS_MODE_ALWAYS
+	cinematic.connect("finished", Callable(self, "_on_boss_cinematic_finished"), CONNECT_ONE_SHOT)
+	cinematic.connect("aborted", Callable(self, "_on_boss_cinematic_aborted"), CONNECT_ONE_SHOT)
+	scene.add_child(cinematic)
+	var started: bool = cinematic.call("begin", self, found_player, camera, kind)
+	if not started:
+		cinematic.queue_free()
+	return started
+
+
+func _on_boss_cinematic_finished(kind: StringName) -> void:
+	if kind == &"intro":
+		if state == &"boss_intro":
+			state = &"idle"
+	elif kind == &"defeat":
+		_finish_defeat()
+
+
+func _on_boss_cinematic_aborted(kind: StringName) -> void:
+	if kind == &"intro":
+		if state == &"boss_intro":
+			state = &"idle"
+	elif kind == &"defeat" and is_inside_tree() and state == &"death":
+		_play(&"death")
+
+
+func _finish_defeat() -> void:
+	if defeat_finished:
 		return
-	found_player = get_tree().get_first_node_in_group("player") as Node3D
-	if not _target_in_range():
-		engaged = false
-		return
-	engaged = true
-	if state == &"idle":
-		sprite.flip_h = found_player.global_position.x < global_position.x
-		if cooldown <= 0.0:
-			_choose_attack()
+	defeat_finished = true
+	defeated.emit()
+	queue_free()
 
 
 func _target_in_range() -> bool:
@@ -196,7 +254,13 @@ func _on_hurt_area_3d_hurt(_hit_direction: Vector3, damage: float) -> void:
 		_clear_effects()
 		$Direction/HurtArea3D.set_deferred("collision_layer", 0)
 		$CollisionShape3D.set_deferred("disabled", true)
-		_play(&"death")
+		invincible = true
+		state = &"death"
+		$Shield.visible = false
+		$BossHUD.visible = false
+		anim_player.stop()
+		if not _start_boss_cinematic(&"defeat"):
+			_play(&"death")
 	elif phase == 1 and health <= max_health / 2:
 		shield_hits = 0
 		_clear_effects()
@@ -217,8 +281,7 @@ func _enter_parry_hurt(_hit_direction: Vector3) -> void:
 
 func _on_animation_finished(animation: StringName) -> void:
 	if animation == &"phase2_death":
-		defeated.emit()
-		queue_free()
+		_finish_defeat()
 		return
 	if animation == &"transformation":
 		phase = 2

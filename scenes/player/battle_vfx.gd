@@ -147,6 +147,8 @@ static func emberline_ring(parent: Node3D, position: Vector3, form: String, dire
 
 static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 	var relative_path := ""
+	var pitch_scale := 1.0
+	var volume_db := -5.0
 	match skill_id:
 		"", "dagger", "active_wind_1": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
 		"active_wind_2": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 2.ogg"
@@ -159,8 +161,34 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 		"active_ice_2", "ultimate_ice_2": relative_path = "Spells/Ice Freeze 1.ogg"
 		"active_ice_3", "ultimate_ice_1": relative_path = "Spells/Ice Wall 1.ogg"
 		"ice_hit": relative_path = "Spells/Spell Impact 2.ogg"
-		"active_lightning_1", "active_lightning_2", "active_lightning_3", "active_lightning_4", "ultimate_lightning_1", "ultimate_lightning_2": relative_path = "Spells/Spell Impact 3.ogg"
-		"lightning_hit": relative_path = "Spells/Spell Impact 3.ogg"
+		"active_lightning_1":
+			relative_path = "Spells/Spell Impact 3.ogg"
+			pitch_scale = 1.32
+			volume_db = -4.0
+		"active_lightning_2":
+			relative_path = "Spells/Spell Impact 2.ogg"
+			pitch_scale = 0.92
+			volume_db = -4.5
+		"active_lightning_3":
+			relative_path = "Spells/Spell Impact 1.ogg"
+			pitch_scale = 1.16
+			volume_db = -3.5
+		"active_lightning_4":
+			relative_path = "Spells/Spell Impact 3.ogg"
+			pitch_scale = 0.72
+			volume_db = -3.0
+		"ultimate_lightning_1":
+			relative_path = "Spells/Spell Impact 2.ogg"
+			pitch_scale = 0.68
+			volume_db = -1.5
+		"ultimate_lightning_2":
+			relative_path = "Spells/Spell Impact 1.ogg"
+			pitch_scale = 0.78
+			volume_db = -0.5
+		"lightning_hit":
+			relative_path = "Spells/Spell Impact 3.ogg"
+			pitch_scale = 1.55
+			volume_db = -8.0
 		"wind_hit": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 1.ogg"
 		_: return
 	var sound_path := SOUND_ROOT + relative_path
@@ -171,7 +199,8 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 		return
 	var audio := AudioStreamPlayer.new()
 	audio.stream = stream
-	audio.volume_db = -5.0
+	audio.volume_db = volume_db
+	audio.pitch_scale = pitch_scale
 	audio.bus = "Master"
 	parent.add_child(audio)
 	audio.finished.connect(audio.queue_free, CONNECT_ONE_SHOT)

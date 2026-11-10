@@ -1446,3 +1446,53 @@ Prior runtime results remain historical; Lam's manual activation does not expand
 - Lightning 2 draws chain arcs and strikes only living enemies inside the existing 38-degree cone, reach and 2.5-unit height tolerance. Lightning 3 layers a vertical bolt/static burst at the existing strike center. Lightning 4 adds a static burst at the Player and vertical strikes only on living enemies with a hurt area inside the existing 5-unit circle and 2.5-unit height tolerance.
 - Static review confirmed all eight PVFX sheets and manifests exist; their authored durations range from 780 to 1,610 ms, with only the whirlwind looping. Existing charge, sword slash, damage, range, cooldown, delayed timing, status application, Ice trial and ultimate calls are unchanged. `git diff --check` passed; Git emits Markdown CRLF-to-LF warnings for the changelog and validation record.
 - NOT RUN: Godot parse/import or in-game scale, occlusion, facing and full visual-fit review. The 2-second whirlwind is projected to the screen at cast time and may drift if the Player/camera moves during the loop. The user will inspect the visual trial; T066 remains open until they report fit/adjustments. No reviewer agreement is claimed.
+
+## Dark Fairy intro and defeat cut-ins (T067)
+
+### Scope and review boundary recorded before implementation (2026-11-10)
+
+- Static inspection: darkfairy.gd sets engaged on detection-range entry and exposes the existing BossHUD/Bar and BossHUD/Name; health UI visibility currently follows engaged. Phase-2 death currently plays the 2.1-second phase2_death animation, then emits defeated and frees the boss. ultimate_cinematic.gd already provides the project’s pause, FOV-only zoom, black/white impact-frame and title pattern.
+- Owner/reviewer: Duy, for Dark Fairy boss behavior and scene integration. The user reports Duy approved this exact T067 scope on 2026-11-10; this is relayed approval, not direct reviewer sign-off. The earlier T053 approval covered only boss-bar texture/style.
+- Proposed intro: once per spawned boss instance, pause gameplay on first detection-range entry, zoom only camera FOV (no shake, orbit, or translation), show the Dark Fairy title, reveal the existing BossHUD, then restore and resume.
+- Proposed defeat: on the existing phase-2 lethal hit, use a short black-screen beat and one slash, show the Dark Fairy sprite separated into two halves, then emit defeated and free the boss through its existing completion path. Preserve combat and health/phase rules. Skip the cut-in and use the existing death path if the active camera is unavailable.
+- Out of scope: level scenes, Player/skill scripts, enemy base/shared systems, boss AI/attacks/damage values, phase transitions, BossHUD styling/layout, and all unrelated working-tree changes.
+- Acceptance: intro triggers once on first engagement and does not replay on range re-entry; existing boss name/health UI is visible after the intro; camera and pause state restore exactly. Defeat displays one slash and two clearly separated boss halves before cleanup, and cannot emit/free twice.
+- Pre-implementation checks: source review of detection/attack gating, lethal-hit and animation-finished flow, HUD state, frame atlas layout, process-while-paused and restoration paths. After implementation, run git diff --check and a Godot visual check for first approach/re-entry, phase-2 defeat, split readability and missing-camera fallback.
+
+### Implementation and static review (2026-11-10)
+
+- The user reports Duy approved the exact T067 scope; this is relayed approval, not direct reviewer sign-off.
+- darkfairy.gd now gates the intro once per spawned Dark Fairy, holds boss actions in a presentation state, updates the existing HUD, and starts the boss-local cinematic. A missing camera skips the intro; a defeated boss with no camera or an unusable sprite frame falls back to the existing phase2_death animation.
+- darkfairy_cinematic.gd runs while the tree is paused. The intro uses the existing Pixelfx impact-frame helper, a boss-name title, a temporary FOV-only zoom and the existing BossHUD; the death cut-in darkens the screen, overlays one diagonal slash, draws two screen-space AtlasTexture halves from the current Sprite3D frame, separates them, then hands off to the existing defeated signal and cleanup.
+- Static review confirmed the intro flag is set before starting the cut-in, only the idle state can choose an attack, both cut-ins restore the saved camera transform/FOV and previous pause state on completion/abort, and the defeat callback is guarded against duplicate emission. git diff --check passes; Git reports CRLF-normalization warnings for the Markdown files.
+- NOT RUN: Godot parse/import and runtime visuals. Boss framing, Sprite3D-to-screen-half alignment, slash readability, pause restoration and fallback behavior remain unverified in game. T067 stays open until the user checks the cut-ins; no direct reviewer sign-off or runtime acceptance is claimed.
+
+## Dark Fairy full-screen cut-in and camera focus (T068, T070)
+
+### Scope and review boundary recorded before implementation (2026-11-10)
+
+- The user reports Duy approved expanding the existing T067 boss-local presentation on 2026-11-10. This is relayed owner approval, not direct reviewer sign-off.
+- T068 scope: only `scenes/enemies/darkfairy/darkfairy_cinematic.gd`; add full-viewport hit accents and extend the defeat slash across the viewport. Keep title, split halves, pause/cleanup, BossHUD styling/layout, gameplay and shared/player VFX unchanged.
+- T070 scope: only `scenes/enemies/darkfairy/darkfairy_cinematic.gd`; compute a temporary translation in the camera view plane to center the boss, interpolate during existing cut-in beats, retain orientation and restore the exact saved camera global transform and prior pause state on all paths. Do not edit `camera_rig.gd`, stage scenes, Player camera behavior, shake/orbit or gameplay.
+- Acceptance: both cut-ins center on the boss and show full-screen impact treatment; the defeat uses one full-viewport slash; overlays cleanly fade; camera orientation and exact transform/pause state restore after completion/abort.
+- Static checks: inspect Camera3D projection/depth guards, focus interpolation, layer ordering/anchors/opacity, slash viewport bounds, paused processing and restoration paths; run `git diff --check`.
+- NOT RUN before implementation: Godot camera playtests, fullscreen visual review or overlay/input review. Because the constitution requires Godot playtests for camera changes, T070 remains open pending runtime verification; no visual acceptance or direct Duy sign-off is implied.
+
+## Lightning skill SFX differentiation (T069)
+
+### Acceptance and review boundary recorded before implementation (2026-11-10)
+
+- Owner: Bao, for Player skill/audio presentation.
+- Static asset inspection found three local generic `Spells/Spell Impact` variants and no local audio filenames labeled thunder, lightning, electric, spark, zap, shock or bolt.
+- Scope: only `scenes/player/battle_vfx.gd`; assign explicit different local spell/impact clips and varied pitch/volume profiles to every Lightning skill and hit ID. Preserve all other element routes, calls, and gameplay/VFX behavior. The absence of purpose-made Lightning sounds is a recorded content limitation.
+- Acceptance: `active_lightning_1..4`, `ultimate_lightning_1..2` and `lightning_hit` no longer share one identical sound path/profile; each path exists and playback nodes still self-clean after stream completion.
+- Checks: inspect all Lightning ID mappings, referenced file existence, sound helper cleanup, and unchanged non-Lightning mappings; run `git diff --check`.
+- NOT RUN before implementation: in-game listening. Sound identity, mix balance and contextual fit remain unverified until heard in game; no user acceptance is implied.
+
+### Implementation and static review (2026-11-10)
+
+- T068: `darkfairy_cinematic.gd` now adds a full-viewport tinted flash with matching top/bottom impact bands at the intro title and defeat slash beats. The defeat slash scales to more than the viewport diagonal so it travels across the entire frame. All added UI ignores mouse input; existing impact-frame, title and split halves remain in place.
+- T070: the cinematic calculates boss sprite position relative to the active camera's right/up axes and temporarily translates the camera in that view plane. Intro zoom/reveal and defeat blackout/fade interpolate camera position while preserving the saved basis/orientation; existing finish/abort cleanup restores the exact saved global transform, FOV and pause state. No `camera_rig.gd` or stage scene change was made.
+- T069: each of the six Lightning skills and `lightning_hit` now has an explicit sample, pitch and volume mapping. The helper still checks file/stream availability and frees audio nodes on stream completion. Non-Lightning routes are unchanged. Referenced `Spell Impact 1/2/3.ogg` files all exist; the project contains no dedicated electricity-labeled SFX.
+- Static review checked all Lightning IDs, camera focus/phase/restore paths, CanvasLayer ordering, full-rect anchors, viewport-scaled slash, and exact `git diff --check`; the whitespace check passes. Git emits only existing Markdown CRLF-to-LF normalization warnings for the records.
+- NOT RUN: Godot parse/import and visual/camera playtests. The constitution requires Godot playtesting for camera changes, so boss framing, zoom/reveal, abort restoration and full-screen visual composition remain unverified. In-game listening is also NOT RUN, so the sound profiles may need tuning. T068-T070 remain open pending runtime/user review; Duy approval is user-reported, not direct reviewer sign-off.

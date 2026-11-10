@@ -137,4 +137,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 27.30526)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 11.1929455)
 
 [node name="DarkFairy" parent="." unique_id=1833670814 instance=ExtResource("17_d7x21")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.098745, 1.3499999, 20.092749)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.098745, 4.1, 9.430681)
