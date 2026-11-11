@@ -23,6 +23,7 @@ const CONNECTOR_DEFINITIONS := [
 	{"path": NodePath("B2/LadderSpot_B2_B3"), "from": 1, "to": 2},
 	{"path": NodePath("B3/LadderSpot_B3_Ground"), "from": 2, "to": 3},
 ]
+const B1_CHEST := preload("res://levels/objects/skill_point/floor_clear_chest.tscn")
 
 var _floors: Array[Node3D] = []
 var _ceilings: Array[Node3D] = []
@@ -34,6 +35,9 @@ var _secret_areas: Dictionary[Node3D, Rect2] = {}
 
 func _ready() -> void:
 	super._ready()
+	if has_node("B1/ChestSpot"):
+		for zone: EnemyZone in $B1/EnemyZones.get_children():
+			zone.cleared.connect(_spawn_b1_chest)
 	for child: Node in get_children():
 		var node := child as Node3D
 		if node != null and node.has_meta("floor_level"):
@@ -51,6 +55,13 @@ func _ready() -> void:
 			_connectors.append(connector)
 	_active_level = _height_level(player.global_position.y)
 	_apply(true)
+
+
+func _spawn_b1_chest() -> void:
+	for zone: EnemyZone in $B1/EnemyZones.get_children():
+		if not zone.is_cleared():
+			return
+	$B1/ChestSpot.add_child(B1_CHEST.instantiate())
 
 
 func _physics_process(_delta: float) -> void:

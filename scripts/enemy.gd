@@ -2,6 +2,10 @@ class_name EnemyCharacter
 extends BaseCharacter
 
 const HEALTH_BAR_SCENE := preload("res://scenes/ui/enemy_health_bar.tscn")
+const SKILL_POINT_SCENE := preload("res://levels/objects/skill_point/skill_point.tscn")
+
+@export var skill_point_drop := 1
+var _skill_point_dropped := false
 
 ## Common framework for every enemy. Every child node below is OPTIONAL — attach whichever an
 ## enemy needs: a stationary barrel doesn't need a RayCast, a crab doesn't need a detection area.
@@ -41,6 +45,29 @@ func _ready() -> void:
 	super._ready()
 	health = max_health
 	add_child(HEALTH_BAR_SCENE.instantiate())
+	if skill_point_drop > 0:
+		health_changed.connect(_on_skill_point_health_changed)
+
+
+func _on_skill_point_health_changed(current: int, _maximum: int) -> void:
+	if current == 0:
+		_drop_skill_points_on_death.call_deferred()
+
+
+func _drop_skill_points_on_death() -> void:
+	if health == 0:
+		_drop_skill_points(skill_point_drop)
+
+
+func _drop_skill_points(points: int, pickup_id: String = "") -> void:
+	if _skill_point_dropped or not is_inside_tree():
+		return
+	_skill_point_dropped = true
+	var pickup := SKILL_POINT_SCENE.instantiate() as SkillPointPickup
+	pickup.points = points
+	pickup.pickup_id = pickup_id
+	get_parent().add_child(pickup)
+	pickup.global_position = global_position
 
 
 func apply_skill_freeze(duration: float) -> void:

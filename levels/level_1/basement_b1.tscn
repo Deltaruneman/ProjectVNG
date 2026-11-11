@@ -94,14 +94,20 @@ obstacle_maps = [NodePath("../HiddenGate_B1_5/B1_5Side")]
 [node name="EnemyZone_A" parent="B1/EnemyZones" unique_id=1373516594 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 6)
 enemy_scene = ExtResource("7_kohv5")
+clear_kills = 3
 
 [node name="EnemyZone_B" parent="B1/EnemyZones" unique_id=782010491 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 22)
 enemy_scene = ExtResource("8_w875x")
+clear_kills = 3
 
 [node name="EnemyZone_C" parent="B1/EnemyZones" unique_id=1386295952 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 22)
 enemy_scene = ExtResource("9_8shw5")
+clear_kills = 3
+
+[node name="ChestSpot" type="Marker3D" parent="B1"]
+position = Vector3(18, 1, 14)
 
 [node name="ElevatorSlot" type="Marker3D" parent="B1" unique_id=1455509192]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1, 2)

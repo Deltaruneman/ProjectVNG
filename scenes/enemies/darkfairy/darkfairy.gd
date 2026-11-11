@@ -112,6 +112,7 @@ func _finish_defeat() -> void:
 	if defeat_finished:
 		return
 	defeat_finished = true
+	_drop_skill_points(5, "mini_boss:dark_fairy")
 	defeated.emit()
 	queue_free()
 

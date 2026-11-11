@@ -1,6 +1,8 @@
 class_name EnemyZone
 extends Area3D
 
+signal cleared
+
 ## A box of the stage that keeps itself stocked with enemies. Every spawn_interval seconds, if
 ## fewer than max_enemies of its enemies are alive, it drops one more on a random walkable spot
 ## inside the box. An enemy that dies (or falls into the sea) leaves the tree, the zone counts it
@@ -13,6 +15,8 @@ extends Area3D
 ## What the zone spawns. Whatever has a `zone` property gets this zone written into it.
 @export var enemy_scene: PackedScene
 @export var max_enemies := 3
+## Limit the total number of enemies that must be defeated. Zero keeps respawning indefinitely.
+@export var clear_kills := 0
 ## Seconds between two spawns.
 @export var spawn_interval := 4.0
 ## How far (flat, in meters) from the zone's center its enemies may chase the fox before giving up
@@ -21,6 +25,7 @@ extends Area3D
 @export var leash_radius := 7.0
 
 var _alive := 0
+var _defeated := 0
 
 @onready var _box: CollisionShape3D = $CollisionShape3D
 @onready var _timer: Timer = $Timer
@@ -35,6 +40,10 @@ func _ready() -> void:
 ## How many of this zone's enemies are in the tree right now (a dying one counts until it's gone).
 func alive_count() -> int:
 	return _alive
+
+
+func is_cleared() -> bool:
+	return clear_kills > 0 and _defeated >= clear_kills
 
 
 ## A random point of the box, pulled to the center of the nearest walkable cell. Vector3.INF when
@@ -55,7 +64,10 @@ func distance_from_center(point: Vector3) -> float:
 
 
 func _on_timer_timeout() -> void:
-	if _alive >= max_enemies or enemy_scene == null:
+	var spawn_limit := max_enemies
+	if clear_kills > 0:
+		spawn_limit = mini(spawn_limit, clear_kills - _defeated)
+	if _alive >= spawn_limit or enemy_scene == null:
 		return
 	var point := random_point()
 	if point == Vector3.INF:
@@ -64,8 +76,9 @@ func _on_timer_timeout() -> void:
 	if "zone" in enemy:
 		enemy.zone = self
 	# A sibling of the zone, not a child: rotating or scaling the zone mustn't drag its enemies.
-	get_parent().add_child(enemy)
-	enemy.global_position = point
+	var container := get_parent() as Node3D
+	enemy.position = container.to_local(point)
+	container.add_child(enemy)
 	_alive += 1
 	enemy.tree_exited.connect(_on_enemy_tree_exited.bind(enemy))
 
@@ -76,3 +89,8 @@ func _on_timer_timeout() -> void:
 func _on_enemy_tree_exited(enemy: Node) -> void:
 	if enemy.is_queued_for_deletion():
 		_alive -= 1
+		if clear_kills > 0 and enemy is EnemyCharacter and enemy.health <= 0:
+			_defeated += 1
+			if is_cleared():
+				_timer.stop()
+				cleared.emit()

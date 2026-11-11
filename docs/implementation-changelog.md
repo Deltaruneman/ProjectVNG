@@ -1156,3 +1156,19 @@ Expanded both Dark Fairy cut-ins with a viewport-wide tinted flash and matching 
 | docs/implementation-changelog.md | Maintain the cumulative implementation/review record. |
 
 Referenced, pre-existing audio (not modified): `assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/Spells/Spell Impact 1.ogg`, `Spell Impact 2.ogg` and `Spell Impact 3.ogg`. Asset search found no dedicated thunder/lightning/electric/spark/zap/shock/bolt audio filenames; generic impact variants are differentiated with pitch and level. **Integration effects:** only Dark Fairy cut-in presentation/camera and Player skill sound routing changed. CameraRig, stage scene, Player camera behavior, gameplay, boss AI/health/damage, BossHUD, non-Lightning audio, other VFX and existing slash/ice-shield implementations are unchanged. Pre-existing edits in `levels/level_1/stage_1.tscn` and `.godot/uid_cache.bin` were preserved. **Static verification:** reviewed all Lightning IDs and local path existence, pause/camera cleanup, screen anchors/layers and slash bounds; `git diff --check` passes with Markdown CRLF-normalization warnings. **NOT RUN:** Godot parse/import, required camera playtest, fullscreen visual review and in-game SFX listening. T068-T070 remain open pending user/runtime review; Duy approval is reported by the user, not direct reviewer sign-off.
+#### 2026-11-11 — Enemy Skill Point drops and B1 clear chest
+
+Normal enemies drop a 1 SP pickup on defeat. Dark Fairy drops a 5 SP pickup after the final defeat sequence. B1 has three zones with three required defeats per zone. The chest spawns after all nine enemies are defeated. Pressing F within range awards 1 SP once per save through the existing floor-clear reward. Pickups and the chest use the existing saved balance and HUD signal.
+
+| Included file | Purpose |
+| --- | --- |
+| `scripts/enemy.gd` | Spawn one collectible per defeated enemy. |
+| `scenes/enemies/darkfairy/darkfairy.gd`, `darkfairy.tscn` | Award the boss pickup from the final defeat sequence and disable the regular drop for the boss. |
+| `levels/objects/skill_point/skill_point.gd` | Match the saved pickup ID format and require a living player to collect. |
+| `levels/objects/enemy_zone/enemy_zone.gd` | Support a finite clear condition and set enemy spawn positions before initialization. |
+| `levels/level_1/basement_full.tscn`, `basement_b1.tscn`, `basement_floor_visibility.gd` | Configure the B1 encounters, place the chest marker, and spawn the chest on clear. |
+| `levels/objects/skill_point/floor_clear_chest.gd`, `floor_clear_chest.tscn` | Present the chest and collect the saved floor-clear reward using the existing F interaction. |
+| `levels/objects/skill_point/floor_clear_chest.gd.uid` | Track the chest script's Godot resource ID. |
+| `docs/implementation-changelog.md` | Record the change and validation status. |
+
+**Validation.** Static checks confirmed the three configured zones, the floor cell under the chest in both B1 scenes, the chest resource paths and the existing HUD and save hooks. An initial .NET headless launch reached the basement and reported missing imported UI textures. The full kill, pickup, chest interaction, and save/reload playtest remains pending. Godot was not run again at the user's request. Dark Fairy can be checked in `stage_1.tscn` or `stage_2.tscn`. The integrated basement scene has only a B3 boss marker on this branch.
