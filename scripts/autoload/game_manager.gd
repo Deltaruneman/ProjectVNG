@@ -69,8 +69,8 @@ func _unhandled_input(event: InputEvent) -> void:
 ## health.
 func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool = true) -> void:
 	# Refuse before dialogue/health/loading state changes. No recovery fallback is chosen.
-	if stage_path in B3_REFERENCES:
-		push_warning("B3 load refused; saved progress preserved. Recovery policy is unresolved.")
+	if stage_path in B3_REFERENCES and not is_door_unlocked("b2_cleared"):
+		push_warning("B3 load refused until the B2 enemy zones are cleared; saved progress preserved.")
 		return
 	if is_basement_reference(stage_path):
 		if spawn_name != "" and not BASEMENT_CHECKPOINTS.has(spawn_name):
@@ -166,6 +166,15 @@ func set_checkpoint(stage_path: String, id: String) -> void:
 		activate_basement_checkpoint(stage_path, id)
 		return
 	if stage_path in B3_REFERENCES or has_checkpoint_conflict():
+		return
+	if LEGACY_BASEMENT_CHECKPOINTS.has(stage_path):
+		var canonical_id := str(LEGACY_BASEMENT_CHECKPOINTS[stage_path])
+		if id != canonical_id:
+			push_warning("Standalone basement checkpoint '%s' refused for mismatched id '%s'." % [stage_path, id])
+			return
+		checkpoint_stage = FIRST_STAGE
+		checkpoint_id = canonical_id
+		save_game()
 		return
 	checkpoint_stage = stage_path
 	checkpoint_id = id

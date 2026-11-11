@@ -1,6 +1,7 @@
 class_name PlayerSkillState
 extends PlayerState
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+const SKILL_ANIMATION_SPEED_SCALE := 1.2
 @export var skill_scene: PackedScene
 @export var cast_time := 0.3
 @export var spawn_height := 0.8
@@ -10,6 +11,8 @@ var active: Node3D = null
 var _time := 0.0
 var _cast_duration := 0.0
 var _cast_blade_suppressed := false
+var _previous_animation_speed_scale := 1.0
+var _animation_speed_overridden := false
 
 
 func can_throw() -> bool:
@@ -18,9 +21,15 @@ func can_throw() -> bool:
 
 func _play_one_shot(animation: String) -> void:
 	obj.change_animation(animation)
+	var animation_speed_scale := SKILL_ANIMATION_SPEED_SCALE
+	if obj.anim_player != null:
+		_previous_animation_speed_scale = obj.anim_player.speed_scale
+		animation_speed_scale *= _previous_animation_speed_scale
+		obj.anim_player.speed_scale = animation_speed_scale
+		_animation_speed_overridden = true
 	var animation_name := "%s_%s" % [animation, obj.direction]
 	if obj.anim_player.has_animation(animation_name):
-		_cast_duration = maxf(cast_time, obj.anim_player.get_animation(animation_name).length)
+		_cast_duration = maxf(cast_time, obj.anim_player.get_animation(animation_name).length / maxf(animation_speed_scale, 0.01))
 	else:
 		_cast_duration = cast_time
 
@@ -76,12 +85,22 @@ func _update(delta: float) -> void:
 
 
 func _exit() -> void:
+	_restore_animation_speed()
 	_release_cast_blade()
 
 
 func _finish() -> void:
+	_restore_animation_speed()
 	_release_cast_blade()
 	queue_free()
+
+
+func _restore_animation_speed() -> void:
+	if not _animation_speed_overridden:
+		return
+	if is_instance_valid(obj) and is_instance_valid(obj.anim_player):
+		obj.anim_player.speed_scale = _previous_animation_speed_scale
+	_animation_speed_overridden = false
 
 
 func _release_cast_blade() -> void:

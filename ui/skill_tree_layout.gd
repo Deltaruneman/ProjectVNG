@@ -108,9 +108,12 @@ var _content: VBoxContainer
 var _description_panel: PanelContainer
 var _description_title: Label
 var _description_body: Label
+var _confirm_button: Button
+var _selected_node: SkillTreeNode
+var _hovered_node: SkillTreeNode
 var _zoom_percent: Label
 var _active_graph: SkillTreeGraph
-var _graph_zoom := 0.95
+var _graph_zoom := 1.1
 var _tab := "weapon"
 var _is_open := false
 var _book_animation: Tween
@@ -355,6 +358,15 @@ func _build() -> void:
 	_description_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_description_body.clip_text = true
 	description_layout.add_child(_description_body)
+	_confirm_button = Button.new()
+	_confirm_button.text = "HỌC KỸ NĂNG"
+	_confirm_button.custom_minimum_size = Vector2(84.0, 26.0)
+	_confirm_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_confirm_button.add_theme_font_size_override("font_size", 8)
+	_confirm_button.visible = false
+	_style_book_button(_confirm_button)
+	_confirm_button.pressed.connect(_confirm_selected_node_action)
+	description_layout.add_child(_confirm_button)
 
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -425,6 +437,14 @@ func _layout_book() -> void:
 func _refresh() -> void:
 	if not is_instance_valid(_content):
 		return
+	if is_instance_valid(_selected_node):
+		_selected_node.focused = false
+		_selected_node.queue_redraw()
+	_selected_node = null
+	_hovered_node = null
+	if is_instance_valid(_confirm_button):
+		_confirm_button.release_focus()
+		_confirm_button.visible = false
 	var total_points: int = GameManager.total_skill_points()
 	var spent_points: int = GameManager.allocated_skill_points()
 	_balance_label.text = "✦ %d SP   ·   %d / %d" % [GameManager.skill_points, spent_points, total_points]
@@ -442,20 +462,20 @@ func _build_weapon_tree() -> void:
 	var current_form: String = GameManager.weapon_form
 	if current_form == "":
 		_description_title.text = "CHỌN NGUYÊN TỐ"
-		_description_body.text = "Chọn một biểu tượng lớn để mở cây. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
 		var ultimate_milestones := "5 / 8 SP"
 		if current_form == "wind":
 			ultimate_milestones = "5 / 10 SP"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s.\nTiến hóa và tuyệt kỹ cần mở kỹ năng trước.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
 	var root_color := Color("e5d08d")
-	var root_position := Vector2(0.5, 0.86)
+	var root_position := Vector2(0.5, 0.87)
 	_make_node(graph, root_position, "D", "Dao Găm", "BASIC", root_color, false, false, false, "Dao Găm Basic")
 	if current_form == "":
-		var form_positions: Array[Vector2] = [Vector2(0.27, 0.60), Vector2(0.73, 0.60), Vector2(0.27, 0.34), Vector2(0.73, 0.34)]
+		var form_positions: Array[Vector2] = [Vector2(0.27, 0.65), Vector2(0.73, 0.65), Vector2(0.27, 0.35), Vector2(0.73, 0.35)]
 		for index in FORMS.size():
 			var form_data: Dictionary = FORMS[index]
 			var position: Vector2 = form_positions[index]
@@ -467,7 +487,7 @@ func _build_weapon_tree() -> void:
 			var form_callback := func() -> void:
 				GameManager.spend_skill_point("form_" + form_id, form_id)
 			var form_tooltip := "%s\nChọn nguyên tố này để mở cây kỹ năng tương ứng." % str(form_data["name"])
-			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data["short"]), "0/1", form_color, can_choose, already_chosen, false, form_tooltip, form_callback, _skill_icon_path(form_id + "_orb"), true)
+			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data["short"]), "0/1", form_color, can_choose, already_chosen, false, form_tooltip, form_callback, _skill_icon_path(form_id + "_orb"), true, "CHỌN NGUYÊN TỐ")
 		return
 
 	var selected_form: Dictionary = _form_data(current_form)
@@ -477,7 +497,7 @@ func _build_weapon_tree() -> void:
 	_make_node(graph, form_position, current_form.substr(0, 1).to_upper(), str(selected_form.short), "ĐÃ CHỌN", form_color, false, true, true, str(selected_form.name), Callable(), _skill_icon_path(current_form + "_orb"))
 	var active_names: Array = ACTIVE_SKILLS[current_form]
 	var short_names: Array = ACTIVE_SHORT_NAMES[current_form]
-	var active_positions: Array[Vector2] = [Vector2(0.12, 0.50), Vector2(0.37, 0.50), Vector2(0.63, 0.50), Vector2(0.88, 0.50)]
+	var active_positions: Array[Vector2] = [Vector2(0.12, 0.49), Vector2(0.37, 0.49), Vector2(0.63, 0.49), Vector2(0.88, 0.49)]
 	for index in active_names.size():
 		var skill_id := "active_%s_%d" % [current_form, index + 1]
 		var required: int = [1, 4, 6, 9][index]
@@ -490,15 +510,15 @@ func _build_weapon_tree() -> void:
 	var evolution_data: Array = WEAPON_EVOLUTIONS[current_form]
 	var evolution_positions: Array[Vector2] = []
 	if evolution_data.size() == 3:
-		evolution_positions = [Vector2(0.2, 0.32), Vector2(0.5, 0.32), Vector2(0.8, 0.32)]
+		evolution_positions = [Vector2(0.2, 0.30), Vector2(0.5, 0.30), Vector2(0.8, 0.30)]
 	else:
-		evolution_positions = [Vector2(0.35, 0.32), Vector2(0.65, 0.32)]
+		evolution_positions = [Vector2(0.35, 0.30), Vector2(0.65, 0.30)]
 	for index in evolution_data.size():
 		var required_skill: String = str(evolution_data[index]["requires"])
 		var required_slot := clampi(int(required_skill.get_slice("_", 2)) - 1, 0, active_positions.size() - 1)
 		graph.add_link(active_positions[required_slot], evolution_positions[index], form_color.darkened(0.4), GameManager.skill_allocations.has(evolution_data[index]["id"]))
 		_add_evolution_node(graph, evolution_positions[index], evolution_data[index], form_color)
-	var ultimate_positions: Array[Vector2] = [Vector2(0.37, 0.14), Vector2(0.63, 0.14)]
+	var ultimate_positions: Array[Vector2] = [Vector2(0.37, 0.13), Vector2(0.63, 0.13)]
 	for index in evolution_positions.size():
 		graph.add_link(evolution_positions[index], ultimate_positions[mini(index, 1)], form_color.darkened(0.45), GameManager.skill_allocations.has(evolution_data[index]["id"]))
 	graph.add_link(active_positions[0], ultimate_positions[0], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_1" % current_form))
@@ -522,7 +542,7 @@ func _add_evolution_node(graph: SkillTreeGraph, position: Vector2, data: Diction
 		tooltip = "%s\n%s\nĐã tiến hóa" % [data.name, data.desc]
 	var purchase_callback := func() -> void:
 		GameManager.spend_skill_point(str(data.id))
-	_make_node(graph, position, str(data.icon), str(data.short), "1/1" if rank > 0 else "%d SP" % int(data.req), color.lightened(0.12), can_buy, rank > 0, false, tooltip, purchase_callback, _skill_icon_path(str(data.icon_asset)))
+	_make_node(graph, position, str(data.icon), str(data.short), "1/1" if rank > 0 else "%d SP" % int(data.req), color.lightened(0.12), can_buy, rank > 0, false, tooltip, purchase_callback, _skill_icon_path(str(data.icon_asset)), false, "TIẾN HÓA")
 
 
 func _add_skill_node(graph: SkillTreeGraph, position: Vector2, skill_id: String, skill_name: String, short_name: String, icon: String, requirement: int, description: String, ultimate: bool, color: Color) -> void:
@@ -538,12 +558,15 @@ func _add_skill_node(graph: SkillTreeGraph, position: Vector2, skill_id: String,
 			GameManager.select_ultimate_skill(skill_id)
 		elif GameManager.spend_skill_point(skill_id) and ultimate:
 			GameManager.select_ultimate_skill(skill_id)
-	_make_node(graph, position, icon, short_name, rank_text, color, can_buy, unlocked, is_selected, tooltip, skill_callback, _skill_icon_path(_icon_kind_for_skill(skill_id)))
+	var action_label := "HỌC TUYỆT KỸ" if ultimate else "HỌC CHIÊU"
+	if unlocked and ultimate:
+		action_label = "CHỌN TUYỆT KỸ"
+	_make_node(graph, position, icon, short_name, rank_text, color, can_buy, unlocked, is_selected, tooltip, skill_callback, _skill_icon_path(_icon_kind_for_skill(skill_id)), false, action_label)
 
 
 func _build_character_tree() -> void:
 	_description_title.text = "CÂY NHÂN VẬT"
-	_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột lên kỹ năng để xem chi tiết."
+	_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn node rồi xác nhận bên trái."
 	var branch_header := HBoxContainer.new()
 	for data in [
 		{"name": "TẤN CÔNG", "color": Color("ff9c73")},
@@ -570,18 +593,19 @@ func _build_character_tree() -> void:
 				branch_nodes.append(node_data)
 		for row in branch_nodes.size():
 			var node_data: Dictionary = branch_nodes[row]
-			var position := Vector2(columns[column], [0.19, 0.5, 0.81][row])
+			var position := Vector2(columns[column], [0.16, 0.5, 0.84][row])
 			if row > 0:
-				graph.add_link(Vector2(columns[column], [0.19, 0.5, 0.81][row - 1]), position, node_data.color.darkened(0.3))
+				graph.add_link(Vector2(columns[column], [0.16, 0.5, 0.84][row - 1]), position, node_data.color.darkened(0.3))
 			var rank := int(GameManager.skill_allocations.get(node_data.id, 0))
 			var required := int(node_data.req)
 			var can_buy := GameManager.skill_points > 0 and GameManager.total_skill_points() >= required and rank < int(node_data.max)
 			var tooltip := "%s\n%s\nNhánh %s · Mốc %d điểm" % [node_data.name, node_data.desc, node_data.branch, required]
-			_make_node(graph, position, str(node_data.icon), str(node_data.short), "%d/%d" % [rank, node_data.max], node_data.color, can_buy, rank > 0, false, tooltip, func() -> void:
-				GameManager.spend_skill_point(str(node_data.id)))
+			var upgrade_callback := func() -> void:
+				GameManager.spend_skill_point(str(node_data.id))
+			_make_node(graph, position, str(node_data.icon), str(node_data.short), "%d/%d" % [rank, node_data.max], node_data.color, can_buy, rank > 0, false, tooltip, upgrade_callback, "", false, "NÂNG CẤP")
 
 
-func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: String, rank: String, accent: Color, available: bool, purchased: bool, selected: bool, tooltip: String, callback: Callable = Callable(), icon_path: String = "", prominent_icon: bool = false) -> SkillTreeNode:
+func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: String, rank: String, accent: Color, available: bool, purchased: bool, selected: bool, tooltip: String, callback: Callable = Callable(), icon_path: String = "", prominent_icon: bool = false, action_label: String = "HỌC KỸ NĂNG") -> SkillTreeNode:
 	var node: SkillTreeNode = TREE_NODE.new()
 	node.prominent_icon = prominent_icon
 	node.layout_size = SkillTreeNode.LARGE_NODE_SIZE if prominent_icon else SkillTreeNode.NODE_SIZE
@@ -592,14 +616,17 @@ func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: S
 	node.rank_text = rank
 	node.accent_color = accent
 	var tooltip_lines := tooltip.split("\n", false)
-	node.description_text = tooltip_lines[1] if tooltip_lines.size() > 1 else tooltip
+	node.detail_title = tooltip_lines[0] if not tooltip_lines.is_empty() else title
+	node.description_text = "\n".join(tooltip_lines.slice(1)) if tooltip_lines.size() > 1 else tooltip
+	node.action_label = action_label
+	node.action_callback = callback
 	node.available = available
+	node.action_available = available
 	node.purchased = purchased
 	node.selected = selected
 	node.tooltip_text = ""
 	node.hover_changed.connect(_show_skill_description)
-	if callback.is_valid():
-		node.activated.connect(callback)
+	node.activated.connect(_on_skill_node_activated.bind(node))
 	graph.add_tree_node(node, position)
 	return node
 
@@ -675,27 +702,82 @@ func _update_zoom_label() -> void:
 func _reset_skill_description() -> void:
 	if not is_instance_valid(_description_title) or not is_instance_valid(_description_body):
 		return
+	if is_instance_valid(_confirm_button):
+		_confirm_button.visible = false
 	_description_title.add_theme_color_override("font_color", Color("35415a"))
 	if _tab == "character":
 		_description_title.text = "CÂY NHÂN VẬT"
-		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
 	elif GameManager.weapon_form == "":
 		_description_title.text = "CHỌN NGUYÊN TỐ"
-		_description_body.text = "Chọn biểu tượng nguyên tố để mở cây. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở kỹ năng trước.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
 
 
-func _show_skill_description(title: String, description: String, color: Color) -> void:
+func _show_skill_description(source: Control, title: String, description: String, color: Color) -> void:
 	if not is_instance_valid(_description_title) or not is_instance_valid(_description_body):
 		return
 	if title.is_empty():
-		_reset_skill_description()
+		if source == _hovered_node:
+			_hovered_node = null
+		if is_instance_valid(_hovered_node):
+			return
+		if is_instance_valid(_selected_node):
+			_show_selected_node()
+		else:
+			_reset_skill_description()
 		return
+	_hovered_node = source as SkillTreeNode
 	_description_title.text = title
 	_description_body.text = description
 	_description_title.add_theme_color_override("font_color", color.darkened(0.35))
+	if is_instance_valid(_confirm_button):
+		var show_action := is_instance_valid(_selected_node) and source == _selected_node \
+			and _selected_node.action_callback.is_valid()
+		if not show_action:
+			_confirm_button.release_focus()
+		_confirm_button.visible = show_action
+
+
+func _on_skill_node_activated(node: SkillTreeNode) -> void:
+	if is_instance_valid(_selected_node):
+		_selected_node.focused = false
+		_selected_node.queue_redraw()
+	_selected_node = node
+	_selected_node.focused = true
+	_selected_node.queue_redraw()
+	_show_selected_node()
+
+
+func _show_selected_node() -> void:
+	if not is_instance_valid(_selected_node):
+		return
+	_description_title.text = _selected_node.detail_title
+	_description_body.text = _selected_node.description_text
+	_description_title.add_theme_color_override("font_color", _selected_node.accent_color.darkened(0.35))
+	if not is_instance_valid(_confirm_button) or not _selected_node.action_callback.is_valid():
+		if is_instance_valid(_confirm_button):
+			_confirm_button.release_focus()
+			_confirm_button.visible = false
+		return
+	_confirm_button.visible = true
+	_confirm_button.disabled = not _selected_node.action_available
+	if _selected_node.selected:
+		_confirm_button.text = "ĐANG DÙNG"
+		_confirm_button.disabled = true
+	elif _selected_node.purchased and not _selected_node.action_available:
+		_confirm_button.text = "ĐÃ HỌC"
+	else:
+		_confirm_button.text = _selected_node.action_label if _selected_node.action_available else "CHƯA ĐỦ ĐIỀU KIỆN"
+
+
+func _confirm_selected_node_action() -> void:
+	if not is_instance_valid(_selected_node) or not _selected_node.action_available \
+			or not _selected_node.action_callback.is_valid():
+		return
+	_selected_node.action_callback.call()
 
 
 func _skill_icon_path(icon_name: String) -> String:

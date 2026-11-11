@@ -1172,3 +1172,121 @@ Normal enemies drop a 1 SP pickup on defeat. Dark Fairy drops a 5 SP pickup afte
 | `docs/implementation-changelog.md` | Record the change and validation status. |
 
 **Validation.** Static checks confirmed the three configured zones, the floor cell under the chest in both B1 scenes, the chest resource paths and the existing HUD and save hooks. An initial .NET headless launch reached the basement and reported missing imported UI textures. The full kill, pickup, chest interaction, and save/reload playtest remains pending. Godot was not run again at the user's request. Dark Fairy can be checked in `stage_1.tscn` or `stage_2.tscn`. The integrated basement scene has only a B3 boss marker on this branch.
+#### T071 request and review boundary — B2 respawn and clear-gated B3 access
+
+The user reported that the standalone B2 scene does not respawn reliably, its enemies replenish indefinitely, and B2→B3 cannot be entered. The user clarified that clearing the B2 enemies is the agreed condition for opening B3. T071 records the cross-boundary owners (Lam/Quan map and checkpoint routing; Duy EnemyZone clear interface), uses the existing clear API, and keeps the previous B3-save recovery refusal. The reported agreement is not represented as direct reviewer sign-off. No source has changed in this planning entry; implementation and verification evidence follow below.
+
+#### T071 implementation — B2 respawn and clear-gated B3 access
+
+T071 source implementation is present. The task remains open while its runtime behavior awaits Godot playtesting.
+
+| Included file | Purpose |
+| --- | --- |
+| `scripts/autoload/game_manager.gd` | Canonicalize new standalone B2 checkpoint touches and gate B3 stage loads on the persisted clear flag, while retaining old-B3 conflict refusal. |
+| `levels/objects/checkpoint/checkpoint.gd` | Show the matching canonical integrated B2 checkpoint as current in standalone B2. |
+| `levels/level_1/basement_b2.tscn` | Set the active wave to three defeats, attach B2 progress tracking, and gate the B2→B3 door. |
+| `levels/level_1/basement_full.tscn` | Apply the same finite wave and clear-gated B2→B3 door in the integrated scene. |
+| `levels/level_1/basement_b2_progress.gd` | Aggregate existing EnemyZone clear signals, persist `b2_cleared`, and stop B2 timers on later entry. |
+| `levels/level_1/basement_b2_progress.gd.uid` | Preserve the Godot resource UID sidecar for the new bridge script. |
+| `specs/001-integrate-basement-stage/tasks.md` | Track T071 implementation with runtime acceptance still open. |
+| `specs/001-integrate-basement-stage/validation.md` | Record scope, ownership boundary, static review, and pending runtime checks. |
+| `docs/implementation-changelog.md` | Preserve the cumulative implementation record. |
+
+**Integration effects.** `GameManager` uses the existing saved flags for B2 clear state and B3 route gating. The current active B2 zone has a three-defeat limit matching its three-enemy capacity; the second zone has no enemy scene and is excluded. Checkpoint save serialization, legacy-save normalization, EnemyZone production logic, the door implementation, and old B3 checkpoint recovery were not changed. The B3 route is available only after B2 is cleared.
+
+**Static verification.** Source review covered checkpoint canonicalization and respawn route, preservation of legacy-load behavior, both B2 scene door/zone definitions, finite kill threshold, empty-zone exclusion, all-configured-zone clear aggregation, and persistent flag handling. `git diff --check` passes; Git reports only CRLF-to-LF normalization warnings for Markdown records.
+
+**NOT RUN.** Godot parse/import and runtime playtests for checkpoint/death, three defeats, locked/open states, B3 arrival, integrated-scene behavior, and reload persistence. T071 stays open until these checks are performed. The user-reported clear-to-open agreement is not direct reviewer sign-off.
+
+#### T072 request and review boundary — Skill Tree scale and confirmation restoration
+
+The user reported that the previously enlarged Skill Tree and its learn confirmation button had disappeared and asked to restore them. T072 restores the existing T057 110% default graph view, extends vertical spacing between weapon-tree levels, and requires selecting a node before a separate left-panel action can run its existing callback. Owner is Bao; scope is limited to `ui/skill_tree_layout.gd` and `ui/skill_tree_node.gd`. No progression rule or shared system change is authorized or planned. Acceptance and checks are recorded in `specs/001-integrate-basement-stage/tasks.md` and `validation.md` before implementation.
+
+#### T073 request and review boundary — Player skill speed and gravity
+
+The user asked for skill animations to be faster and gravity to increase slightly. T073 records a modest 1.2x playback factor for Player skill attack/throw clips and BattleVFX sprite animations, with the cast timer calculated from the accelerated clip and the prior AnimationPlayer speed restored afterward. Player's scene gravity will move from the inherited 24 to 26; shared BaseCharacter/enemy defaults and other movement values remain unchanged. Owner is Bao. Runtime movement verification is required and will remain pending unless requested.
+
+#### T073 implementation — Player skill speed and gravity
+
+Player skill attack/throw animations and BattleVFX sprite animations now run at 1.2x. The skill state duration follows the faster Player clip and restores the previous AnimationPlayer speed on exit/finish. Player gravity is 26, up from inherited 24.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/states/skillstate.gd` | Speed up skill attack/throw clips, match state duration, and restore the original AnimationPlayer speed. |
+| `scenes/player/battle_vfx.gd` | Speed up the PixelFX/PVFX sprite animations spawned for skill and battle effects. |
+| `scenes/player/player.tscn` | Set the Player-only gravity override to 26. |
+| `specs/001-integrate-basement-stage/tasks.md` | Track T073 implementation and pending movement/playback review. |
+| `specs/001-integrate-basement-stage/validation.md` | Record scope, static checks, and unrun Godot playtests. |
+| `docs/implementation-changelog.md` | Maintain the cumulative implementation record. |
+
+**Integration effects.** Player skill presentation and Player falling/jumping only. Skill point costs, cooldowns, damage, status timers, timer-based loop VFX lifetimes, enemy gravity and shared `BaseCharacter.gravity` are unchanged. The VFX multiplier applies to PixelFX/PVFX created by the BattleVFX spawn helpers, including loops; status overlays and dash dust use separate paths.
+
+**Static verification.** Reviewed the state-speed lifecycle and cast-duration formula, both BattleVFX spawn paths, and the Player scene override. `git diff --check` passes; only existing Markdown CRLF-to-LF normalization warnings were emitted.
+
+**NOT RUN.** Godot parse/import, skill animation playback, VFX timing, and jump/fall/stair/dash playtests. Since gravity affects movement, T073 remains open pending runtime verification; no reviewer sign-off is claimed.
+
+#### T072 implementation — restore Skill Tree scale and confirmation
+
+The tree now opens at the recorded 110% graph scale with more vertical spacing between levels. Selecting a node updates the description panel and reveals a labeled confirmation button; selecting alone never spends a point or changes the chosen form/ultimate. The existing node action runs only from the confirmation button.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Restore tree scale/spacing, add selected-node details and the left-side action confirmation, and route existing actions through it. |
+| `ui/skill_tree_node.gd` | Make node activation selection-only, retain hover details and draw the selected-node outline. |
+| `specs/001-integrate-basement-stage/tasks.md` | Track T072 implementation and pending runtime review. |
+| `specs/001-integrate-basement-stage/validation.md` | Record acceptance, static review and unrun visual/input checks. |
+| `docs/implementation-changelog.md` | Maintain the cumulative change record. |
+
+**Integration effects.** Skill Tree UI only. Form choice, learned skills, evolutions, character upgrades, ultimate selection, point costs and eligibility remain on their existing callbacks. The new button is the only caller of a selected node's callback. No game manager, combat, save or input mapping changes were made.
+
+**Static verification.** Reviewed node signal connections, confirm-only callback invocation, unavailable-action disabling, hover/selection handoff, graph level coordinates and initial zoom. `git diff --check` passes; Git reports only existing Markdown CRLF-to-LF normalization warnings.
+
+**NOT RUN.** Godot parse/import or visual/input playtests at supported resolutions. T072 remains open pending runtime layout and interaction review; no reviewer sign-off is claimed.
+
+#### T074 request and review boundary — locked-door dialogue crash
+
+The user reported a runtime error in `Conversation.play()` when a locked door starts `door_locked`: `Player` has no `is_talking` property, and the current Player/BaseCharacter scripts also do not implement the called talk methods. T074 is scoped to `scripts/conversation.gd` and `scenes/player/player.gd`, implementing the expected Player talk lifecycle and guarding optional partner calls. `InteractiveArea3D` already checks `Player.can_interact()` to let Dialogic input pass through, so T074 supplies that Player-facing contract without changing shared input or BaseCharacter. Runtime reproduction is pending; no reviewer sign-off is claimed.
+
+#### T074 implementation — locked-door dialogue crash
+
+The invalid `Player.is_talking`, `start_talk()`, and `finish_talk()` accesses are now backed by the Player's dialogue lifecycle. Active dialogue prevents duplicate starts, temporarily disables Player movement and action input, lets Dialogic receive the interact key, and restores the prior movement-enabled state when the timeline ends. Optional partner calls are guarded by `has_method()`.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.gd` | Implement the Player talk state, `can_interact()` contract, input/physics gating, and movement-state restoration. |
+| `scripts/conversation.gd` | Guard invalid/duplicate timeline starts and safely call optional partner talk methods. |
+| `specs/001-integrate-basement-stage/tasks.md` | Track T074 implementation with runtime acceptance still open. |
+| `specs/001-integrate-basement-stage/validation.md` | Record static review, diff check, and unrun Godot reproduction. |
+| `docs/implementation-changelog.md` | Maintain the cumulative implementation record. |
+
+**Integration effects.** Player and Conversation only. `InteractiveArea3D` consumes the existing `Player.can_interact()` contract, so its code and shared input handling were not changed. Door, Dialogic, BaseCharacter, and scene resources were not changed. The user-reported error has not been runtime-reproduced after the fix; T074 remains open pending Godot verification.
+
+**Static verification.** Reviewed current Conversation call sites, Player talk API, input pass-through, movement restoration, and optional partner guards. `git diff --check` passes; Git reports only Markdown line-ending normalization warnings.
+
+**NOT RUN.** Godot parse/import and the locked-door dialogue start/advance/restore playtest. No reviewer sign-off is claimed.
+
+#### T075 request and review boundary — integrated B2-to-B3 direct transition
+
+The user requested that the B2 door in `basement_full` transition directly to B3 without the locked-door dialogue. Existing T071 makes the door and B3 loads require `b2_cleared`. Proposed scope assumes bypassing that clear flag only for the integrated `basement_full` B2 door, while preserving the standalone `basement_b2` gate and other direct B3 refusals. The change affects `levels/level_1/basement_full.tscn` and shared `scripts/autoload/game_manager.gd` route logic, owned by Lam / Quan in the task record. Their approval is pending; no source change has been made. Acceptance and planned checks are recorded in `specs/001-integrate-basement-stage/tasks.md` and `validation.md`. No reviewer agreement or runtime result is claimed.
+
+#### T075 clarification and diagnosis — B2 clear gate remains required
+
+The user clarified that the clear-to-open rule remains in force; the desired behavior is for the B2 door to unlock after all enemies are defeated. The earlier direct-transition interpretation is superseded and no route bypass is planned. Static source inspection found that `levels/objects/enemy_zone/enemy_zone.tscn` assigns `zone_crab.tscn` by default. The unconfigured `EnemyZone_B` instances in both B2 scenes inherited that enemy scene despite having no explicit override. The progress bridge therefore treated the zone as configured, rejected its `clear_kills = 0`, cleared its tracked-zone list, and left the zone spawning indefinitely. T075 now corrects those two scene overrides while preserving T071's gate.
+
+#### T075 implementation — correct inherited B2 enemy zone
+
+Both B2 scenes now explicitly leave the unused `EnemyZone_B` without an enemy scene. The active zone still requires three defeats, and the existing `b2_cleared` door and GameManager gates remain unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `levels/level_1/basement_b2.tscn` | Clear the inherited crab scene from the unused B2 zone in the standalone scene. |
+| `levels/level_1/basement_full.tscn` | Clear the inherited crab scene from the unused B2 zone in the integrated scene. |
+| `specs/001-integrate-basement-stage/tasks.md` | Track T075 implementation with runtime acceptance still open. |
+| `specs/001-integrate-basement-stage/validation.md` | Record root-cause evidence, static review, and unrun gameplay checks. |
+| `docs/implementation-changelog.md` | Maintain the cumulative implementation record. |
+
+**Integration effects.** The shared EnemyZone packed scene still defaults to its crab scene for intentionally configured instances. Only `EnemyZone_B` in the two B2 scenes is disabled. The progress bridge now selects the active finite zone rather than aborting on the inherited zero-clear zone. The B2 clear requirement and every GameManager/Door route gate are preserved.
+
+**Static verification.** Reviewed `enemy_zone.tscn`'s default, both B2 overrides, the bridge's zone filter, and unchanged door/route conditions. `git diff --check` passes; Git reports only Markdown line-ending normalization warnings.
+
+**NOT RUN.** Godot parse/import and kill-to-clear, door unlock, and B3 arrival playtests. T075 remains open pending runtime verification; no reviewer sign-off is claimed.

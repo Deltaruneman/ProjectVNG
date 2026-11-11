@@ -22,5 +22,9 @@ func _on_body_entered(body: Node3D) -> void:
 
 ## `owner` is the root of the scene this checkpoint was saved in - the stage.
 func _is_current() -> bool:
-	return owner is Stage and GameManager.checkpoint_id == id \
-		and GameManager.checkpoint_stage == owner.scene_file_path
+	if not owner is Stage or GameManager.checkpoint_id != id:
+		return false
+	if GameManager.checkpoint_stage == owner.scene_file_path:
+		return true
+	return GameManager.is_basement_reference(GameManager.checkpoint_stage) \
+		and GameManager.LEGACY_BASEMENT_CHECKPOINTS.get(owner.scene_file_path, "") == id

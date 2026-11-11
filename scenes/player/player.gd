@@ -20,6 +20,8 @@ const WIND_ULTIMATE_SLOW_DURATION := 0.55
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
+var is_talking: bool = false
+var _movement_enabled_before_talk := true
 
 signal died
 signal rage_changed(current: float, maximum: float)
@@ -89,6 +91,13 @@ func _ready() -> void:
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
+
+
+func _physics_process(delta: float) -> void:
+	if is_talking:
+		_check_changed_animation()
+		return
+	super._physics_process(delta)
 
 
 func _update_movement(delta: float) -> void:
@@ -191,6 +200,8 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_talking:
+		return
 	for slot in 4:
 		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
 			selected_active_slot = slot + 1
@@ -211,6 +222,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	super._unhandled_input(event)
+
+
+func can_interact() -> bool:
+	return health > 0 and not is_talking
+
+
+func start_talk(_partner: BaseCharacter = null) -> void:
+	if is_talking:
+		return
+	is_talking = true
+	_movement_enabled_before_talk = movement_enabled
+	movement_enabled = false
+	stop_horizontal()
+	change_animation("idle")
+	_check_changed_animation()
+
+
+func finish_talk() -> void:
+	if not is_talking:
+		return
+	is_talking = false
+	movement_enabled = _movement_enabled_before_talk
 
 
 func _can_use_skills() -> bool:

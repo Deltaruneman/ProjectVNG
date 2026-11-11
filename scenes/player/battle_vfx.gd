@@ -8,6 +8,7 @@ const EMBER_RING: PackedScene = preload("res://emberline/effects/impact_ring.tsc
 const PIXELFX_ROOT := "res://assets/effects/pixelfx/"
 const PVFX_ROOT := "res://assets/effects/pvfx-foundry-thirteen-spritesheets/effects/"
 const ATTACK_FX_AXIS_OFFSET := -PI / 2.0
+const SKILL_VFX_SPEED_SCALE := 1.2
 const SOUND_ROOT := "res://assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/"
 static var _pixel_frames_cache: Dictionary = {}
 static var _pvfx_frames_cache: Dictionary = {}
@@ -255,6 +256,7 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 	if process_while_paused:
 		sprite.process_mode = Node.PROCESS_MODE_ALWAYS
 	sprite.sprite_frames = frames
+	sprite.speed_scale = SKILL_VFX_SPEED_SCALE
 	sprite.centered = false
 	sprite.offset = -Vector2(float(pivot[0]), float(pivot[1]))
 	sprite.animation = "default"
@@ -318,6 +320,7 @@ static func _spawn_pvfx(parent: Node3D, effect_id: String, position: Vector3, wo
 	overlay.add_child(effect)
 	var sprite := AnimatedSprite2D.new()
 	sprite.sprite_frames = frames
+	sprite.speed_scale = SKILL_VFX_SPEED_SCALE
 	sprite.centered = false
 	sprite.offset = -Vector2(float(pivot[0]), float(pivot[1]))
 	sprite.animation = "default"

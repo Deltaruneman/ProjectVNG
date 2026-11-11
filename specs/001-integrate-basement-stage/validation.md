@@ -1496,3 +1496,92 @@ Prior runtime results remain historical; Lam's manual activation does not expand
 - T069: each of the six Lightning skills and `lightning_hit` now has an explicit sample, pitch and volume mapping. The helper still checks file/stream availability and frees audio nodes on stream completion. Non-Lightning routes are unchanged. Referenced `Spell Impact 1/2/3.ogg` files all exist; the project contains no dedicated electricity-labeled SFX.
 - Static review checked all Lightning IDs, camera focus/phase/restore paths, CanvasLayer ordering, full-rect anchors, viewport-scaled slash, and exact `git diff --check`; the whitespace check passes. Git emits only existing Markdown CRLF-to-LF normalization warnings for the records.
 - NOT RUN: Godot parse/import and visual/camera playtests. The constitution requires Godot playtesting for camera changes, so boss framing, zoom/reveal, abort restoration and full-screen visual composition remain unverified. In-game listening is also NOT RUN, so the sound profiles may need tuning. T068-T070 remain open pending runtime/user review; Duy approval is user-reported, not direct reviewer sign-off.
+## B2 respawn and clear-gated B3 access (T071)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner boundary: Lam / Quan own basement map integration and shared checkpoint routing; Duy owns the EnemyZone producer/wave behavior. The user clarified on 2026-11-11 that B3 access follows clearing the B2 enemies and reports that rule is already agreed. This is user-relayed consensus; no direct reviewer sign-off is claimed.
+- In scope: `scripts/autoload/game_manager.gd`, `levels/objects/checkpoint/checkpoint.gd`, both `levels/level_1/basement_b2.tscn` and `basement_full.tscn`, a new B2-local clear bridge, and this task's records. Consume existing `EnemyZone.cleared` / `is_cleared()` without changing Duy's producer. Configure the one B2 zone with an enemy scene to clear after three defeats (its current `max_enemies` capacity); the adjacent zone has no enemy scene and is not part of the wave. Canonicalize new split-B2 checkpoint touches to `FIRST_STAGE` + `b2_start`, persist `b2_cleared` only after all configured B2 zones clear, and permit B3 path/UID transitions only with that flag.
+- Preserve legacy-save migration/refusal, unsupported saved B3 checkpoint refusal, the checkpoint serializer, enemy behavior and all unrelated stage routes. The new door rule supersedes the previous no-B3-access rule only for an explicit B2 clear; no fallback/recovery policy for old B3 saves is introduced.
+- Acceptance: standalone B2 checkpoint touch no longer creates a conflicting legacy pair; a death reloads the integrated stage at B2. The active B2 group is finite, all active-zone clear signals are required, and the saved flag keeps the B2 door open after reload. B3 loads are refused before clear and accepted after clear through the B2 door, with the player at `b3_down`. Existing old-B3 checkpoint conflicts still block respawn/startup.
+- Checks: static route review for `set_checkpoint`, legacy load normalization, `respawn`, B3 allowlist gate, zone clear aggregate and both B2 scene instances; `git diff --check`. Godot playtests for checkpoint/death, kill limit, both door states, destination placement and saved progression are required for runtime acceptance; do not claim them from static review.
+- NOT RUN before implementation: Godot parse/import or runtime checks. The task remains open until required behavior is playtested; no direct Duy/Lam/Quan sign-off is implied by the user's relayed agreement.
+
+## Skill Tree scale and learn-confirmation restoration (T072)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for the Skill Tree UI. This is confined to the existing UI scripts and has no shared progression-system change.
+- Existing record: T057's changelog says the tree opens at 110% graph zoom; the current source instead initializes `_graph_zoom` to 0.95. Current skill-node clicks invoke purchase callbacks directly.
+- Scope: restore the 110% starting view and stretch the weapon graph's level spacing along its vertical axis. Keep hover details. Change node click/Enter to selection only, and put the selected node's action button in the existing left description panel. Route existing callbacks exclusively through that button and leave their eligibility checks, point costs and progression calls unchanged.
+- Acceptance: larger/longer tree remains within its area; hover never changes progression; node activation only selects and reveals the appropriate action; the separate confirmation button performs the existing action once and is disabled when unavailable. Existing form choice, learned/evolution/character nodes, ultimate selection, reset, pan/zoom and tab navigation retain their behavior.
+- Checks: inspect geometry and responsive bounds, all callback wiring, node hover/selection/description state, and that only the confirmation handler calls purchase callbacks; run `git diff --check`. Godot parse/import and visual/input playtests are NOT RUN unless separately requested. Keep T072 open pending runtime review; no reviewer sign-off is claimed.
+
+### Implementation and static review (2026-11-11)
+
+- `ui/skill_tree_layout.gd` restores the documented 110% initial graph zoom and spreads the weapon tree's root, skill, evolution and ultimate levels further along the vertical axis. The element choice and character trees also use more of the graph height. The open book/page sizing and existing zoom/pan controls remain in place.
+- Clicking or pressing Enter on a node now selects it and updates the left details panel; node activation does not invoke purchase callbacks. A focused outline marks the selected node. The left panel's contextual button invokes its existing callback only when pressed, with labels for choosing an element, learning a skill/ultimate, evolving, upgrading, or selecting an unlocked ultimate. Existing `available` state disables actions that cannot currently be taken.
+- Hover still shows the full node description and requirement. Hovering another node temporarily hides the selected node's action button, and leaving the hover restores the selected node and its button. The existing point costs, thresholds, skill IDs, selection rules, reset, tab and graph controls are unchanged.
+- Static review checked all node activation wiring, callback call sites, button eligibility, hover/selection transitions, and graph positions/zoom. `git diff --check` passes; Markdown files emit only the existing CRLF-to-LF normalization warnings.
+- NOT RUN: Godot parse/import or visual/input playtests, including panel layout at supported viewport sizes, click-to-select/confirm behavior, and allocation interaction. T072 remains open pending runtime review; no reviewer sign-off is claimed.
+
+## Player skill speed and gravity tuning (T073)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for Player skill presentation and movement.
+- Scope: speed only the Player's skill attack/throw animations and skill battle VFX by 1.2x. Recompute skill-state end time from the accelerated animation and restore the previous AnimationPlayer speed on exit/finish. Override Player gravity from the inherited 24 to 26 in `player.tscn`; leave BaseCharacter defaults, enemies and all other movement values unchanged.
+- Acceptance: casts and spawned battle-effect animations play about 20% faster, skill-state timing follows the clip, timer-based loop VFX lifetimes and gameplay values remain unchanged, and only Player gravity increases by 2.
+- Checks: inspect skill-state speed lifecycle/duration math, both VFX spawn paths, Player-only gravity override and unchanged cooldown/damage/status timers; run `git diff --check`. Godot parse/playback and jump/fall/stair/dash verification are NOT RUN unless explicitly requested; because gravity affects movement, T073 remains open until runtime checked. No reviewer sign-off is implied.
+
+### Implementation and static review (2026-11-11)
+
+- `scenes/player/states/skillstate.gd` applies a 1.2x AnimationPlayer speed only while an active skill attack/throw animation is running. Cast-state duration uses the accelerated clip length, and both state exit and finish restore the previous speed scale.
+- `scenes/player/battle_vfx.gd` applies 1.2x playback to PixelFX and PVFX `AnimatedSprite2D` sprites created by its spawn helpers. Timer-based loop lifetimes, skill cooldowns, damage and status durations are unchanged.
+- `scenes/player/player.tscn` overrides only the Player instance gravity from inherited 24 to 26; `scripts/base_character.gd` and enemy scenes are unchanged.
+- Static review confirmed the temporary AnimationPlayer scale restoration, cast duration calculation, both intended sprite spawn paths, and Player-only gravity override. `git diff --check` passes; Git reports only the existing Markdown CRLF-to-LF normalization warnings.
+- NOT RUN: Godot parse/import or skill playback and jump/fall/stair/dash playtests. Gravity changes movement, so T073 remains open until runtime verification; no reviewer sign-off is claimed.
+
+## Locked-door dialogue crash (T074)
+
+### Acceptance and review boundary recorded before implementation
+
+- Owner: Bao, for the Player-facing dialogue integration. Scope is limited to `scripts/conversation.gd` and `scenes/player/player.gd`; no Door, Dialogic, BaseCharacter, or shared input implementation change.
+- Acceptance: the locked-door timeline starts without missing-property/method access; the Player is not movable/actionable or able to start another interaction while talking; F remains available for Dialogic advancement; movement-enabled state is restored when the timeline ends; optional partner methods are called only when present.
+- Checks: inspect all `Conversation.play` call sites, talk start/end and movement restoration, Player input pass-through, the `InteractiveArea3D` `can_interact()` contract, and optional partner guards; run `git diff --check`.
+- NOT RUN before implementation: Godot parse or runtime reproduction. Keep T074 open until the reported locked-door interaction is verified in game; no reviewer sign-off is implied.
+
+### Implementation and static review (2026-11-11)
+
+- `scenes/player/player.gd` now exposes `is_talking`, `start_talk()`, `finish_talk()`, and `can_interact()`. It saves/restores the prior `movement_enabled` value, stops horizontal movement while starting dialogue, blocks Player input and FSM physics updates during the timeline, and returns to the idle animation.
+- `scripts/conversation.gd` guards invalid Players and the globally active Dialogic timeline, then calls the Player talk lifecycle. Optional partner talk methods are invoked only when that BaseCharacter implements them.
+- Static review confirmed the only current `Conversation.play()` call is `door_locked`, the Player API now matches the call contract, and `InteractiveArea3D` will leave input unhandled while `can_interact()` is false so Dialogic can advance. `git diff --check` passes; Git reports only Markdown line-ending normalization warnings.
+- NOT RUN: Godot parse/import or reproduction of the locked-door interaction. T074 remains open until in-game dialogue start, advancement, and restoration are verified; no reviewer sign-off is claimed.
+
+## Integrated B2-to-B3 direct transition (T075)
+
+### Request and review boundary recorded before implementation
+
+- The user clarified that the clear-to-open rule still applies: after all B2 enemies are defeated, the door should stop showing the locked dialogue and transition to B3. The request to bypass clear gating is withdrawn.
+- Static finding: `enemy_zone.tscn` assigns `zone_crab.tscn` by default. The unused `EnemyZone_B` instances in both B2 scenes had no explicit `enemy_scene = null`, so they inherited the crab scene. `basement_b2_progress.gd` treated the inherited scene as configured, then rejected its `clear_kills = 0` and cleared all signal listeners. This also left the unused zone spawning indefinitely.
+- Owner/reviewer: Lam / Quan for the basement scene configuration; this is a correction to T071's existing clear-gated scope, not a route-rule change.
+- Planned change: set `enemy_scene = null` on the unused B2 zone in both `basement_b2.tscn` and `basement_full.tscn`, preserving the active zone and all `b2_cleared` checks.
+- Acceptance: only the configured finite B2 zone participates; defeating its three enemies sets `b2_cleared`, opens the door, and allows the B3 transition.
+- Checks: inspect the packed-scene default and both overrides, bridge's configured-zone selection, and unchanged door/route checks; run `git diff --check` after implementation.
+- NOT RUN before implementation: Godot parse or kill/door transition playtests. T075 remains open pending runtime verification; no reviewer agreement or runtime result is claimed.
+
+### Implementation and static review (2026-11-11)
+
+- Set `enemy_scene = null` explicitly on `EnemyZone_B` in both `basement_b2.tscn` and `basement_full.tscn`. The shared packed EnemyZone scene's default crab assignment remains unchanged for configured zones elsewhere.
+- Static review confirmed the progress bridge now excludes the empty second zone and retains the active zone with `clear_kills = 3`; the `b2_cleared` flag, door lock, and GameManager B3 guard are unchanged. `git diff --check` passes; Git reports Markdown line-ending normalization warnings only.
+- NOT RUN: Godot parse or runtime kill/clear/door/B3 transition checks. T075 remains open until the user-reported flow is verified in game; no reviewer sign-off is claimed.
+
+### Implementation and static review (2026-11-11)
+
+- `scripts/autoload/game_manager.gd` now canonicalizes a matching checkpoint touch in either standalone B2 scene to `FIRST_STAGE` + `b2_start`. It allows B3 scene path/UID transitions only after `b2_cleared`; the prior conflict handling for saved B3 and unsupported checkpoint references remains in place. Legacy-save migration was not changed.
+- `levels/objects/checkpoint/checkpoint.gd` recognizes the canonical integrated checkpoint as current while a standalone basement checkpoint scene is active.
+- `levels/level_1/basement_b2.tscn` and `basement_full.tscn` configure the active B2 EnemyZone to clear after three defeats, attach `basement_b2_progress.gd`, and provide a locked B2→B3 door with spawn id `b3_down`. The empty second zone is ignored because it has no enemy scene.
+- `levels/level_1/basement_b2_progress.gd` consumes the existing `EnemyZone.cleared` and `is_cleared()` API, validates all configured zones have a finite threshold before connecting, then saves `b2_cleared` after all clear. If already unlocked on entry, it stops active B2 zone timers so waves do not restart.
+- Integration effects: the existing `GameManager` save flag now gates the door and direct B3 load route. No EnemyZone producer, door implementation, checkpoint serializer, save migration, player/death logic, or old-B3 recovery policy was edited.
+- Static review checked checkpoint route ordering, exact standalone B2 ids, unchanged legacy normalization, both door instances and destination id, finite threshold, empty-zone handling, aggregate clear and persistent flag flow. `git diff --check` passes; Markdown files produce only the existing CRLF-to-LF normalization warnings.
+- NOT RUN: Godot parse/import or runtime playtests for standalone checkpoint/death, three defeats, locked/open door states, B3 arrival, integrated scene behavior, or reload persistence. T071 remains open pending those checks. The user-reported agreement to clear B2 before opening B3 is recorded as relayed consensus, not direct reviewer sign-off.
