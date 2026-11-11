@@ -6,10 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
 [ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_7roa1"]
-[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_lpgvr"]
-[ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
-[ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
+[ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
+[ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -141,9 +140,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 4.2)
 target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
-
-[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_lpgvr")]
-scale = Vector2(6, 4)
-transform = Transform2D(6, 0, 0, 4, 0, 0)
-margin = Vector2(3, 2)
-show_label = true
