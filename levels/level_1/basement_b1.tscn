@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="7_kohv5"]
 [ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
-[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="11_lpgvr"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
 
@@ -43,7 +42,7 @@ emission_energy_multiplier = 3.0
 material = SubResource("StandardMaterial3D_8shw5")
 size = Vector3(0.25, 0.5, 0.25)
 
-[node name="Stage" type="Node3D" unique_id=1650261821]
+[node name="Stage2" type="Node3D" unique_id=1650261821]
 script = ExtResource("1_i11w6")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1873455484]
@@ -94,20 +93,17 @@ obstacle_maps = [NodePath("../HiddenGate_B1_5/B1_5Side")]
 [node name="EnemyZone_A" parent="B1/EnemyZones" unique_id=1373516594 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 6)
 enemy_scene = ExtResource("7_kohv5")
-clear_kills = 3
 
 [node name="EnemyZone_B" parent="B1/EnemyZones" unique_id=782010491 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 22)
 enemy_scene = ExtResource("8_w875x")
-clear_kills = 3
 
 [node name="EnemyZone_C" parent="B1/EnemyZones" unique_id=1386295952 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 22)
 enemy_scene = ExtResource("9_8shw5")
-clear_kills = 3
 
-[node name="ChestSpot" type="Marker3D" parent="B1"]
-position = Vector3(18, 1, 14)
+[node name="ChestSpot" type="Marker3D" parent="B1" unique_id=866726834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, 14)
 
 [node name="ElevatorSlot" type="Marker3D" parent="B1" unique_id=1455509192]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1, 2)
@@ -219,11 +215,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8334184, 1, 15.460796)
 target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
-
-[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_lpgvr")]
-scale = Vector2(6, 4)
-transform = Transform2D(6, 0, 0, 4, 0, 0)
-margin = Vector2(3, 2)
 
 [editable path="B1/Torches/Torch1"]
 [editable path="B1/Torches/Torch"]
