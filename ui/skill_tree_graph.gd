@@ -18,7 +18,7 @@ var zoom_level := 1.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	clip_contents = false
+	clip_contents = true
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -73,11 +73,15 @@ func _notification(what: int) -> void:
 
 
 func _layout_nodes() -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		return
 	var node_scale := 1.0
 	for first_index in _ratios.size():
 		var first := _ratios[first_index]
 		var first_size := _node_sizes[first_index]
-		var edge_gap := Vector2(minf(first.x, 1.0 - first.x) * size.x, minf(first.y, 1.0 - first.y) * size.y) * 2.0
+		# Fit at the default 115%; manual zoom can still magnify beyond the page.
+		var fitted := Vector2(0.5, 0.5) + (first - Vector2(0.5, 0.5)) * 1.15
+		var edge_gap := Vector2(minf(fitted.x, 1.0 - fitted.x) * size.x, minf(fitted.y, 1.0 - fitted.y) * size.y) * 2.0 / 1.15
 		node_scale = minf(node_scale, (edge_gap.x - 8.0) / first_size.x)
 		node_scale = minf(node_scale, (edge_gap.y - 8.0) / first_size.y)
 		for second_index in range(first_index + 1, _ratios.size()):
@@ -105,10 +109,13 @@ func _draw() -> void:
 	for index in _link_starts.size():
 		var start := _transform_point(size * _link_starts[index])
 		var finish := _transform_point(size * _link_ends[index])
-		var color := _link_colors[index]
-		var glow := color
-		glow.a *= 0.22
-		draw_line(start, finish, glow, 5.0 * zoom_level, true)
-		draw_line(start, finish, color.darkened(0.55), 2.0 * zoom_level, true)
+		var color := Color("a58a5f")
 		if _link_unlocked[index]:
-			draw_line(start, finish, color.lightened(0.12), 2.5 * zoom_level, true)
+			color = Color("775331").lerp(_link_colors[index].darkened(0.5), 0.24)
+		else:
+			color.a = 0.55
+		var bend := (finish.y - start.y) * 0.48
+		var points := PackedVector2Array()
+		for step in 17:
+			points.append(start.bezier_interpolate(start + Vector2(0, bend), finish - Vector2(0, bend), finish, float(step) / 16.0))
+		draw_polyline(points, color, (1.8 if _link_unlocked[index] else 1.0) * zoom_level, true)

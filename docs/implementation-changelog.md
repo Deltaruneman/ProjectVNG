@@ -1290,3 +1290,74 @@ Both B2 scenes now explicitly leave the unused `EnemyZone_B` without an enemy sc
 **Static verification.** Reviewed `enemy_zone.tscn`'s default, both B2 overrides, the bridge's zone filter, and unchanged door/route conditions. `git diff --check` passes; Git reports only Markdown line-ending normalization warnings.
 
 **NOT RUN.** Godot parse/import and kill-to-clear, door unlock, and B3 arrival playtests. T075 remains open pending runtime verification; no reviewer sign-off is claimed.
+
+#### T076 request and review boundary — fullscreen ultimate impact and Skill Tree readability
+
+The user reported that Player ultimate cut-ins' impact frame did not cover the screen and that the Skill Tree remained too small. T076 is scoped to Bao-owned Player cinematic/UI presentation: use the existing PixelFX impact-frame atlas in viewport space, raise default graph zoom from 110% to 115%, and enlarge node circles/icons/labels. The shared `BattleVFX` helper, Duy's boss cinematic, progression callbacks and gameplay are outside scope. Runtime visual acceptance remains pending.
+
+#### T076 implementation — fullscreen ultimate impact and Skill Tree readability
+
+Player ultimate cinematics now play the existing 10-frame, 320×180 PixelFX impact animation in screen space. It scales uniformly to cover the viewport, updates on viewport resize, draws above the flash/bands while the title remains on its higher layer, and is removed when its animation or cinematic ends. The Skill Tree opens at 115% and draws larger node circles, icons and labels. Existing camera/cinematic timing, selection callbacks, progression and pan/zoom behavior are unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/ultimate_cinematic.gd` | Load existing PixelFX frame metadata, play a viewport-covering animation, handle resize, and clean up on finish/abort. |
+| `ui/skill_tree_layout.gd` | Set initial graph zoom to 115%. |
+| `ui/skill_tree_node.gd` | Enlarge node circles, icons and labels. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T076 scope, acceptance, validation and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record acceptance boundary, static review, diff check, and pending visual review. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects.** Player ultimate presentation and Skill Tree rendering only. The shared `BattleVFX` helper, boss presentation, camera behavior, combat values, skill purchase callbacks and progression rules are unchanged. Non-16:9 viewports are covered by cropping the excess edges to preserve the frame's aspect ratio.
+
+**Verification.** Static review confirmed the existing atlas/manifest's 320×180 frames, 10-frame count and 30 FPS timing; the viewport cover-scale, resize connection, layer ordering and cleanup paths; and the changed Skill Tree dimensions against existing controls and node layout sizes. `git diff --check` passes; Git emitted existing Markdown CRLF-to-LF warnings.
+
+**NOT RUN.** Godot parse/import or in-game visual review of all eight Player ultimate cut-ins and Skill Tree layout/readability at supported viewport sizes. Runtime presentation, aspect-ratio cropping, and node crowding remain unverified; T076 stays open, and no reviewer sign-off is claimed.
+
+#### T077 request and review boundary — Lightning 2 beam/teleport and Lightning 3 chasing clone
+
+The user proposed replacing Lightning 2 with a straight lightning shot that teleports behind a hit target, and Lightning 3 with a five-second lightning clone that attacks and explodes. The user selected the recorded baseline values and clarified that the clone chases the nearest enemy. T077 is scoped to Bao-owned Player skills and Skill Tree descriptions; it reuses existing Enemy freeze/hurt APIs and stage pathfinding without changing Duy-owned Enemy AI or shared navigation. Godot runtime validation remains pending.
+
+#### T077 implementation — Lightning beam and timed chasing clone
+
+Lightning 2 now strikes along a 1.6 m line, damages the first living target within its existing range/evolution values, and attempts a collision-safe landing behind that target. Lightning 3 spawns a tinted Player copy at the cast position, chases the nearest reachable enemy through the stage's existing path agent, attacks with current basic damage every 1.2 seconds for five seconds, and explodes once with the existing blast radius, damage scaling, and movement lock. Skill Tree descriptions now explain the new behavior. Existing IDs, cooldown table, unlock/cost/evolution data, other skills, and FX/SFX call sites remain unchanged.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.gd` | Replace Lightning 2's cone and Lightning 3's immediate strike with the beam/teleport and clone spawn; add line target selection and collision-safe teleport helpers. |
+| `scenes/player/lightning_clone.gd` | Add the local clone sprite, nearest reachable target selection, PathAgent movement, basic attacks, five-second detonation, and lifecycle cleanup. |
+| `ui/skill_tree_layout.gd` | Update the Lightning 2/3 descriptions while preserving skill IDs, tree data, and the existing T076 zoom change. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T077 scope, acceptance, and open runtime status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record the pre-implementation boundary, static review, diff check, and pending Godot verification. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Integration effects.** Player skill logic and its Skill Tree text only. The implementation calls the existing `EnemyCharacter.apply_skill_freeze()` and Player damage helper and reads the current stage `GridPathfinder`; it does not alter shared Enemy, pathfinding, stage, or progression code. Lightning 2's teleport is skipped if none of its candidate positions is collision-safe. The clone is removed when it detonates, the Player dies, or its owning scene is removed.
+
+**Static verification.** Reviewed Lightning 2 line projection/order and range/height/width filters, damage/rage/impact calls, and the overlap/floor checks for teleport. Reviewed Lightning 3 target reselection, existing path agent use, current Player attack damage, 1.2-second cadence, five-second lifetime, one-shot blast, and cleanup. Confirmed the two Skill Tree descriptions and unchanged cooldown/evolution/SFX call sites. `git diff --check` passes; Godot has not been run.
+
+**NOT RUN.** Godot parse/import or in-game checks of the beam, blocked and successful teleport, clone chase/attack cadence, final blast, Player death, and stage exit. T077 remains open pending runtime verification; no reviewer sign-off is claimed.
+
+#### T078 request and review boundary — antique spellbook Skill Tree
+
+User authorizes blending the T-menu Skill Tree into its book with coherent classic styling and opening/closing animation. Scope is Bao-owned UI: common sprite-frame geometry, two page layout, ink/bronze node and link styling, chapter state, transition input gating and pause/HUD restoration. Preserve T072 confirmation, T076 115% default zoom/enlarged icons, T077 Lightning descriptions and unrelated dirty files. Acceptance and focused verification are recorded before implementation in tasks.md and validation.md. No reviewer sign-off is claimed.
+
+#### T078 implementation — coherent antique spellbook UI
+
+The T-menu now presents the Skill Tree as ink and bronze seals on two parchment pages. The left page holds chapters, points, description and confirmation; the right page holds the graph. The resting book and all animations share the full sprite frame, pivot, tint and scale calculation. Ink fades with the leaves, all moving frames fit the tested viewport, and rapid close/open requests finish the current motion before reversing. HUD/pause restoration waits until the cover closes.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Common book rig, cached frame bounds, two-page layout, classic heading/buttons, chapter indicators, pinned selection/confirmation, responsive frame fitting, input shield, animation sequencing and prior pause/HUD restoration. Preserve existing callbacks, default 115% zoom and Lightning descriptions. |
+| `ui/skill_tree_graph.gd` | Clip zoom/pan inside the right page, fit default-zoom node bounds and draw subdued curved ink connections. |
+| `ui/skill_tree_node.gd` | Parchment/bronze seals, muted element inks, visible selection/focus, retained enlarged icons, larger readable labels and page-appropriate hitboxes. |
+| `ui/skill_tree_folio.gd` | Draw noninteractive engraved paper corners and folio rules in the same book coordinates. |
+| `ui/skill_tree_folio.gd.uid` | Stable Godot script resource identifier for the new folio decoration. |
+| `specs/001-integrate-basement-stage/tasks.md` | T078 scope, acceptance, implemented/fixture-verified status and pending main-game/reviewer acceptance. |
+| `specs/001-integrate-basement-stage/validation.md` | Baseline, integration boundary, rendered UI evidence, 103 assertion results, failed attempts and remaining limitations. |
+| `docs/implementation-changelog.md` | This cumulative implementation record. |
+
+**Integration effects.** Bao-owned Skill Tree UI only. Existing GameManager callbacks, point costs/eligibility, reset, heal-on-open and PlayerHUD visibility API are reused; their implementations and shared input mappings are unchanged. The menu now keeps the HUD hidden until the closing animation finishes and restores the pause state that existed before opening. Default zoom remains 115%; manual zoom clips to the paper. The previous 19% graph offset is superseded by the right-page coordinate system. Existing T072/T076/T077 work and unrelated dirty files/caches were preserved without cleanup.
+
+**Verified.** Godot 4.7.2 UI-only scene with separate user data and stub gameplay/HUD: 103 assertions passed, final log free of script/runtime errors. Covered element choice, all four weapon forms, character page, select-before-confirm, unavailable actions, real T/Escape/mouse events, interrupted transitions, prior pause/removal cleanup, graph bounds and all 56 sprite-frame bounds. Rendered 1280×720, 1024×768, 1920×1080 and 2560×1080; visually inspected both chapters, long selected description and page-turn output. `git diff --check` passes with line-ending notices only.
+
+**Known errors, limitations and unfinished work.** Initial folio type-inference errors and preview sizing/clipping issues were fixed and rechecked. Main-project direct `--script --check-only` could not resolve the GameManager singleton in that entry context; it is not recorded as a whole-project parse pass. Main-game scene/HUD/save integration and manual animation-feel acceptance remain NOT RUN; fixture callback assertions do not establish actual purchase persistence. System serif fonts use fallbacks and are not visually checked on other operating systems. T078 remains unchecked pending those reviews. No reviewer agreement, commit or push is claimed.

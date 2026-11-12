@@ -3,7 +3,8 @@ extends Node
 signal finished(skill_id: String)
 signal aborted
 
-const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+const IMPACT_FRAME_SHEET: Texture2D = preload("res://assets/effects/pixelfx/impacts/impact-frame/impact-frame.png")
+const IMPACT_FRAME_MANIFEST := "res://assets/effects/pixelfx/impacts/impact-frame/impact-frame.json"
 
 const ZOOM_IN_DURATION := 0.95
 const IMPACT_HOLD_DURATION := 0.58
@@ -33,6 +34,8 @@ var _flash: ColorRect
 var _black_band: Polygon2D
 var _white_band: Polygon2D
 var _accent_band: Polygon2D
+var _impact_frame_sprite: AnimatedSprite2D
+var _impact_frame_size := Vector2(320.0, 180.0)
 var _title: Label
 var _subtitle: Label
 
@@ -103,7 +106,74 @@ func _update_zoom_out(progress: float) -> void:
 func _play_impact() -> void:
 	_set_impact_frame(0.0)
 	_flash.color = Color(1.0, 1.0, 1.0, 0.55)
-	BattleFX.ultimate_impact_frame(_player, _player.global_position + Vector3.UP * 1.1, _element)
+	_play_fullscreen_impact_frame()
+
+
+func _play_fullscreen_impact_frame() -> void:
+	var sprite_frames := _load_impact_frame_animation()
+	if sprite_frames == null:
+		return
+	_impact_frame_sprite = AnimatedSprite2D.new()
+	_impact_frame_sprite.name = "UltimateFullscreenImpactFrame"
+	_impact_frame_sprite.sprite_frames = sprite_frames
+	_impact_frame_sprite.animation = "default"
+	_impact_frame_sprite.centered = true
+	_impact_frame_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_impact_frame_sprite.z_index = 1
+	_impact_frame_sprite.animation_finished.connect(_on_impact_frame_finished, CONNECT_ONE_SHOT)
+	_overlay.add_child(_impact_frame_sprite)
+	get_viewport().size_changed.connect(_fit_impact_frame_sprite)
+	_fit_impact_frame_sprite()
+	_impact_frame_sprite.play()
+
+
+func _load_impact_frame_animation() -> SpriteFrames:
+	var manifest_file := FileAccess.open(IMPACT_FRAME_MANIFEST, FileAccess.READ)
+	if manifest_file == null:
+		push_warning("Ultimate cinematic: missing PixelFX impact-frame manifest")
+		return null
+	var document: Variant = JSON.parse_string(manifest_file.get_as_text())
+	if not document is Dictionary or not document.has("frames") or not document.has("meta"):
+		push_warning("Ultimate cinematic: invalid PixelFX impact-frame manifest")
+		return null
+	var metadata: Dictionary = document.meta.get("pixelfx", {})
+	var frame_size: Array = metadata.get("frameSize", [320, 180])
+	if frame_size.size() < 2:
+		return null
+	_impact_frame_size = Vector2(float(frame_size[0]), float(frame_size[1]))
+	if _impact_frame_size.x <= 0.0 or _impact_frame_size.y <= 0.0:
+		return null
+	var fps := maxf(float(metadata.get("fps", 30.0)), 1.0)
+	var sprite_frames := SpriteFrames.new()
+	if not sprite_frames.has_animation("default"):
+		sprite_frames.add_animation("default")
+	sprite_frames.set_animation_speed("default", fps)
+	sprite_frames.set_animation_loop("default", false)
+	for frame_data: Dictionary in document.frames:
+		var rect: Dictionary = frame_data.get("frame", {})
+		var atlas := AtlasTexture.new()
+		atlas.atlas = IMPACT_FRAME_SHEET
+		atlas.region = Rect2(float(rect.get("x", 0)), float(rect.get("y", 0)), float(rect.get("w", 1)), float(rect.get("h", 1)))
+		var frame_duration := maxf(float(frame_data.get("duration", 1000.0 / fps)), 1.0)
+		sprite_frames.add_frame("default", atlas, frame_duration / (1000.0 / fps))
+	return sprite_frames
+
+
+func _fit_impact_frame_sprite() -> void:
+	if not is_instance_valid(_impact_frame_sprite):
+		return
+	var viewport_size := get_viewport().get_visible_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return
+	var cover_scale := maxf(viewport_size.x / _impact_frame_size.x, viewport_size.y / _impact_frame_size.y)
+	_impact_frame_sprite.position = viewport_size * 0.5
+	_impact_frame_sprite.scale = Vector2.ONE * cover_scale
+
+
+func _on_impact_frame_finished() -> void:
+	if is_instance_valid(_impact_frame_sprite):
+		_impact_frame_sprite.queue_free()
+	_impact_frame_sprite = null
 
 
 func _create_overlay() -> void:
@@ -249,6 +319,9 @@ func _abort() -> void:
 
 
 func _restore_game_state() -> void:
+	if is_instance_valid(_impact_frame_sprite):
+		_impact_frame_sprite.queue_free()
+	_impact_frame_sprite = null
 	if _overlay != null and is_instance_valid(_overlay):
 		_overlay.visible = false
 	if _title_layer != null and is_instance_valid(_title_layer):

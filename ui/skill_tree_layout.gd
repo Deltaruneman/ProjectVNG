@@ -7,17 +7,19 @@ const BOOK_OPEN_SHEET := MAGIC_BOOK_ROOT + "Open_book.png"
 const BOOK_CLOSE_SHEET := MAGIC_BOOK_ROOT + "Close_book.png"
 const BOOK_TURN_LEFT_SHEET := MAGIC_BOOK_ROOT + "Turning_pages_left.png"
 const BOOK_TURN_RIGHT_SHEET := MAGIC_BOOK_ROOT + "Turning_pages_right.png"
-const BOOK_OPEN_ART_REGION := Rect2(829.0, 628.0, 246.0, 183.0)
-const BOOK_FRAME_SIZE := 272.0
-const BOOK_SPREAD_RATIO := 1.58
-const PAGE_GRAPH_OFFSET_RATIO := Vector2(0.19, 0.0)
+const BOOK_OPEN_FRAME := Rect2(816.0, 544.0, 272.0, 272.0)
+const BOOK_DESIGN_SIZE := Vector2(1088.0, 1088.0)
+const BOOK_ART_SIZE := Vector2(984.0, 732.0)
+const BOOK_PIVOT := Vector2(544.0, 702.0)
+const INK := Color("513b2b")
+const FOLIO := preload("res://ui/skill_tree_folio.gd")
 const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/"
 
 const FORMS := [
-	{"id": "wind", "name": "Kiếm Lốc · Wind", "short": "Wind Form", "color": Color("6acfff")},
-	{"id": "fire", "name": "Kiếm Lửa · Fire", "short": "Fire Form", "color": Color("ff8155")},
-	{"id": "ice", "name": "Kiếm Băng · Ice", "short": "Ice Form", "color": Color("a4efff")},
-	{"id": "lightning", "name": "Kiếm Sấm Sét · Lightning", "short": "Lightning", "color": Color("ffe16b")},
+	{"id": "wind", "name": "Kiếm Lốc · Wind", "short": "Phong", "color": Color("6acfff")},
+	{"id": "fire", "name": "Kiếm Lửa · Fire", "short": "Hỏa", "color": Color("ff8155")},
+	{"id": "ice", "name": "Kiếm Băng · Ice", "short": "Băng", "color": Color("a4efff")},
+	{"id": "lightning", "name": "Kiếm Sấm Sét · Lightning", "short": "Lôi", "color": Color("ffe16b")},
 ]
 const ACTIVE_SKILLS := {
 	"wind": ["Phi Dao Gió", "Phong Bộc", "Quét Kiếm Phi Gió", "Lốc Xoáy"],
@@ -78,8 +80,8 @@ const SKILL_DESCRIPTIONS := {
 	"Mưa Thiên Thạch": "Gọi thiên thạch xuống vùng phía trước và thiêu đốt mục tiêu.",
 	"Bão Băng": "Tạo bão băng quanh bạn, gây sát thương và đóng băng kẻ địch.",
 	"Phi Dao Lôi": "Phóng phi đao mang điện, làm choáng mục tiêu trong thoáng chốc.",
-	"Xích Lôi": "Phóng chuỗi sét vào nhóm kẻ địch phía trước.",
-	"Sét Đánh": "Gọi sét đánh xuống vị trí phía trước.",
+	"Xích Lôi": "Phóng tia sét thẳng, gây sát thương và dịch chuyển ra sau lưng kẻ địch đầu tiên trúng phải.",
+	"Sét Đánh": "Triệu hồi phân thân sét đuổi theo kẻ địch, đánh thường trong 5 giây rồi phát nổ gây sát thương và choáng.",
 	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",
 	"Trăng Tối": "Trong 3,6 giây, lướt vòng quanh địch gần nhất, gây sát thương và làm chậm kẻ địch trên đường đi. Miễn sát thương khi thi triển; kết thúc sẽ hồi kỹ năng Wind đã mở khóa.",
@@ -105,7 +107,6 @@ const CHARACTER_NODES := [
 var _balance_label: Label
 var _progress: ProgressBar
 var _content: VBoxContainer
-var _description_panel: PanelContainer
 var _description_title: Label
 var _description_body: Label
 var _confirm_button: Button
@@ -113,7 +114,7 @@ var _selected_node: SkillTreeNode
 var _hovered_node: SkillTreeNode
 var _zoom_percent: Label
 var _active_graph: SkillTreeGraph
-var _graph_zoom := 1.1
+var _graph_zoom := 1.15
 var _tab := "weapon"
 var _is_open := false
 var _book_animation: Tween
@@ -122,7 +123,23 @@ var _book_art: TextureRect
 var _page_content: Control
 var _transition: TextureRect
 var _transition_atlas: AtlasTexture
+var _shade: ColorRect
+var _chapter_title: Label
+var _page_number: Label
+var _input_shield: Control
+var _tabs: Dictionary = {}
 var _page_turning := false
+var _transitioning := false:
+	set(value):
+		_transitioning = value
+		if is_instance_valid(_input_shield):
+			_input_shield.visible = value
+var _pause_before_open := false
+var _owns_pause := false
+var _presentation := 1.0
+var _frame_bounds := Rect2(Vector2(52.0, 336.0), BOOK_ART_SIZE)
+var _sheet_cache: Dictionary = {}
+var _sheet_bounds: Dictionary = {}
 
 
 func _ready() -> void:
@@ -151,287 +168,383 @@ func _match_parent_canvas_scale() -> void:
 	if parent_canvas == null:
 		return
 	var canvas_transform: Transform2D = parent_canvas.transform
-	var scale_x := Vector2(canvas_transform.x.x, canvas_transform.x.y).length()
-	var scale_y := Vector2(canvas_transform.y.x, canvas_transform.y.y).length()
+	var scale_x := canvas_transform.x.length()
+	var scale_y := canvas_transform.y.length()
 	if scale_x > 0.001 and scale_y > 0.001:
 		scale = Vector2(1.0 / scale_x, 1.0 / scale_y)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	if event.is_echo():
+		return
 	if event.is_action_pressed("skill_tree"):
 		set_open(not _is_open)
 		get_viewport().set_input_as_handled()
-	elif _is_open and event.is_action_pressed("ui_cancel"):
+	elif visible and event.is_action_pressed("ui_cancel"):
 		set_open(false)
 		get_viewport().set_input_as_handled()
+
+
+func _notify_hud(open: bool) -> void:
+	var hud: Node = get_parent()
+	while hud != null and not hud.has_method("set_skill_tree_open"):
+		hud = hud.get_parent()
+	if hud != null:
+		hud.call("set_skill_tree_open", open)
 
 
 func set_open(open: bool) -> void:
 	if open == _is_open:
 		return
 	_is_open = open
-	_page_turning = false
-	var hud: Node = get_parent()
-	while hud != null and not hud.has_method("set_skill_tree_open"):
-		hud = hud.get_parent()
-	if hud != null:
-		hud.call("set_skill_tree_open", open)
-	if _book_animation != null and _book_animation.is_running():
-		_book_animation.kill()
+	# Finish the current leaf before reversing. Rapid T/Escape changes only
+	# the final intent, without jumping to an unrelated sprite frame.
+	if _transitioning:
+		return
 	if open:
-		visible = true
-		get_tree().paused = true
-		_book_body.visible = false
-		_play_book_sheet(BOOK_OPEN_SHEET, 4, 3, func() -> void:
-			if _is_open:
-				_transition.visible = false
-				_book_body.visible = true)
-		var player := get_tree().get_first_node_in_group("player") as Player
-		if player != null:
-			player.health += int(GameManager.skill_allocations.get("char_heal", 0))
-		_refresh()
+		_begin_open()
 	else:
-		_book_body.visible = false
-		_play_book_sheet(BOOK_CLOSE_SHEET, 4, 3, func() -> void:
-			if not _is_open:
-				_transition.visible = false
-				visible = false
-				get_tree().paused = false)
+		_begin_close()
+
+
+func _begin_open() -> void:
+	_transitioning = true
+	if not _owns_pause:
+		_pause_before_open = get_tree().paused
+		_owns_pause = true
+	get_tree().paused = true
+	_notify_hud(true)
+	visible = true
+	_book_body.visible = true
+	_page_content.visible = false
+	_page_content.modulate.a = 0.0
+	_book_art.visible = false
+	_presentation = 0.78
+	_shade.modulate.a = 0.0
+	_layout_book()
+	_refresh()
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player != null:
+		player.health += int(GameManager.skill_allocations.get("char_heal", 0))
+	_new_sequence()
+	_book_animation.tween_property(_shade, "modulate:a", 1.0, 0.14)
+	_append_sheet(BOOK_OPEN_SHEET, 4, 3)
+	_book_animation.tween_callback(_show_open_frame)
+	_book_animation.tween_property(_page_content, "modulate:a", 1.0, 0.18)
+	_book_animation.tween_callback(_finish_open)
+
+
+func _begin_close() -> void:
+	_transitioning = true
+	_page_content.process_mode = Node.PROCESS_MODE_DISABLED
+	_new_sequence()
+	_book_animation.tween_property(_page_content, "modulate:a", 0.0, 0.12)
+	_book_animation.tween_callback(func() -> void:
+		_page_content.visible = false
+		_book_art.visible = false)
+	_append_sheet(BOOK_CLOSE_SHEET, 4, 3)
+	_book_animation.tween_property(_shade, "modulate:a", 0.0, 0.14)
+	_book_animation.tween_callback(_finish_close)
+
+
+func _new_sequence() -> void:
+	if _book_animation != null and _book_animation.is_valid():
+		_book_animation.kill()
+	_book_animation = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+
+
+func _append_sheet(path: String, columns: int, rows: int) -> void:
+	var sheet: Texture2D = _sheet_cache.get(path) as Texture2D
+	if sheet == null:
+		push_warning("SkillTree: missing book animation sheet: %s" % path)
+		return
+	var frame_size := Vector2(sheet.get_width() / columns, sheet.get_height() / rows)
+	var frame_count := columns * rows
+	for index in frame_count:
+		var region := Rect2(Vector2(index % columns, int(index / columns)) * frame_size, frame_size)
+		var progress := float(index) / float(frame_count - 1)
+		_book_animation.tween_callback(_set_transition_frame.bind(sheet, region, progress, path, _sheet_bounds[path][index]))
+		_book_animation.tween_interval(0.065 if index == 0 or index == frame_count - 1 else 0.045)
+
+
+func _set_transition_frame(sheet: Texture2D, region: Rect2, progress: float, path: String, bounds: Rect2) -> void:
+	_transition_atlas.atlas = sheet
+	_transition_atlas.region = region
+	_transition.visible = true
+	if path == BOOK_OPEN_SHEET:
+		_presentation = lerpf(0.78, 1.0, progress)
+	elif path == BOOK_CLOSE_SHEET:
+		_presentation = lerpf(1.0, 0.78, progress)
+	else:
+		_presentation = 1.0
+	_frame_bounds = bounds
+	_layout_book()
+
+
+func _show_open_frame() -> void:
+	_transition.visible = false
+	_book_art.visible = true
+	_page_content.visible = true
+	_page_content.process_mode = Node.PROCESS_MODE_DISABLED
+	_presentation = 1.0
+	_frame_bounds = Rect2(Vector2(52.0, 336.0), BOOK_ART_SIZE)
+	_layout_book()
+
+
+func _finish_open() -> void:
+	_transitioning = false
+	_page_turning = false
+	_page_content.process_mode = Node.PROCESS_MODE_INHERIT
+	if not _is_open:
+		_begin_close()
+
+
+func _finish_close() -> void:
+	_transition.visible = false
+	visible = false
+	_transitioning = false
+	if _is_open:
+		_begin_open()
+		return
+	_notify_hud(false)
+	_restore_pause()
+
+
+func _restore_pause() -> void:
+	if _owns_pause:
+		get_tree().paused = _pause_before_open
+		_owns_pause = false
+
+
+func _exit_tree() -> void:
+	if _book_animation != null and _book_animation.is_valid():
+		_book_animation.kill()
+	if _owns_pause:
+		_notify_hud(false)
+		_restore_pause()
 
 
 func is_open() -> bool:
-	return _is_open
-
-
-func _play_book_sheet(path: String, columns: int, rows: int, finished: Callable) -> void:
-	var sheet := load(path) as Texture2D
-	if sheet == null:
-		push_warning("SkillTree: missing book animation sheet: %s" % path)
-		finished.call()
-		return
-	if _book_animation != null and _book_animation.is_running():
-		_book_animation.kill()
-	var frame_size := Vector2(sheet.get_width() / columns, sheet.get_height() / rows)
-	_transition_atlas = AtlasTexture.new()
-	_transition_atlas.atlas = sheet
-	_transition_atlas.filter_clip = true
-	_transition.texture = _transition_atlas
-	_transition.visible = true
-	var frame_count := columns * rows
-	_set_transition_frame(_transition_atlas, Rect2(Vector2.ZERO, frame_size))
-	_book_animation = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	for frame_index in frame_count:
-		var frame_x := frame_index % columns
-		var frame_y := int(frame_index / columns)
-		var frame_region := Rect2(Vector2(frame_x, frame_y) * frame_size, frame_size)
-		_book_animation.tween_callback(_set_transition_frame.bind(_transition_atlas, frame_region)).set_delay(0.045)
-	_book_animation.tween_callback(finished)
-
-
-func _set_transition_frame(atlas: AtlasTexture, region: Rect2) -> void:
-	atlas.region = region
+	return visible
 
 
 func _turn_to_tab(tab_id: String) -> void:
-	if tab_id == _tab or _page_turning or not _is_open:
+	if tab_id == _tab or _transitioning or not _is_open:
 		return
 	_page_turning = true
-	var sheet_path := BOOK_TURN_LEFT_SHEET if tab_id == "character" else BOOK_TURN_RIGHT_SHEET
-	_play_book_sheet(sheet_path, 4, 4, func() -> void:
-		if _is_open:
-			_tab = tab_id
-			_refresh()
-		_transition.visible = false
-		_page_turning = false)
+	_transitioning = true
+	_page_content.process_mode = Node.PROCESS_MODE_DISABLED
+	_new_sequence()
+	_book_animation.tween_property(_page_content, "modulate:a", 0.0, 0.10)
+	_book_animation.tween_callback(func() -> void:
+		_page_content.visible = false
+		_book_art.visible = false)
+	_append_sheet(BOOK_TURN_LEFT_SHEET if tab_id == "character" else BOOK_TURN_RIGHT_SHEET, 4, 4)
+	_book_animation.tween_callback(func() -> void:
+		_tab = tab_id
+		_refresh()
+		_show_open_frame())
+	_book_animation.tween_property(_page_content, "modulate:a", 1.0, 0.16)
+	_book_animation.tween_callback(_finish_open)
 
 
 func _build() -> void:
-	var shade := ColorRect.new()
-	shade.color = Color(0.015, 0.025, 0.04, 0.88)
-	shade.mouse_filter = Control.MOUSE_FILTER_STOP
-	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(shade)
+	for path in [BOOK_OPEN_SHEET, BOOK_CLOSE_SHEET, BOOK_TURN_LEFT_SHEET, BOOK_TURN_RIGHT_SHEET]:
+		_sheet_cache[path] = load(path)
+		var sheet := _sheet_cache[path] as Texture2D
+		var bounds: Array[Rect2] = []
+		if sheet != null:
+			var source := sheet.get_image()
+			for index in (12 if path == BOOK_OPEN_SHEET or path == BOOK_CLOSE_SHEET else 16):
+				var cell := Rect2i(Vector2i(index % 4, int(index / 4)) * 272, Vector2i(272, 272))
+				var used := source.get_region(cell).get_used_rect()
+				bounds.append(Rect2(Vector2(used.position) * 4.0, Vector2(used.size) * 4.0))
+		_sheet_bounds[path] = bounds
+	_shade = ColorRect.new()
+	_shade.color = Color(0.055, 0.038, 0.028, 0.9)
+	_shade.mouse_filter = Control.MOUSE_FILTER_STOP
+	_shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(_shade)
 
 	_book_body = Control.new()
 	_book_body.name = "Spellbook"
-	_book_body.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_book_body.size = BOOK_DESIGN_SIZE
+	_book_body.pivot_offset = BOOK_PIVOT
 	_book_body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_book_body)
-
-	_book_art = TextureRect.new()
-	_book_art.name = "OpenBookArtwork"
-	_book_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_book_art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_book_art.stretch_mode = TextureRect.STRETCH_SCALE
+	_book_art = _make_book_texture("OpenBookArtwork")
 	var book_atlas := AtlasTexture.new()
-	book_atlas.atlas = load(BOOK_OPEN_SHEET) as Texture2D
-	book_atlas.region = BOOK_OPEN_ART_REGION
+	book_atlas.atlas = _sheet_cache[BOOK_OPEN_SHEET]
+	book_atlas.region = BOOK_OPEN_FRAME
 	book_atlas.filter_clip = true
 	_book_art.texture = book_atlas
 	_book_body.add_child(_book_art)
 
 	_page_content = Control.new()
 	_page_content.name = "BookPageContent"
+	_page_content.size = BOOK_DESIGN_SIZE
+	_page_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_book_body.add_child(_page_content)
+	var folio := FOLIO.new()
+	folio.size = BOOK_DESIGN_SIZE
+	_page_content.add_child(folio)
 
-	var layout := VBoxContainer.new()
-	layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	layout.add_theme_constant_override("separation", 4)
-	_page_content.add_child(layout)
-
-	var header := HBoxContainer.new()
-	header.custom_minimum_size.y = 23.0
-	layout.add_child(header)
-	var title := Label.new()
-	title.text = "CÂY KỸ NĂNG"
-	title.add_theme_font_size_override("font_size", 18)
-	title.add_theme_color_override("font_color", Color("263856"))
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	header.add_child(title)
-	_balance_label = Label.new()
-	_balance_label.add_theme_font_size_override("font_size", 10)
-	_balance_label.add_theme_color_override("font_color", Color("344565"))
-	_balance_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	header.add_child(_balance_label)
-
+	var left := VBoxContainer.new()
+	left.name = "LeftPage"
+	left.position = Vector2(104.0, 390.0)
+	left.size = Vector2(384.0, 580.0)
+	left.add_theme_constant_override("separation", 12)
+	_page_content.add_child(left)
+	var imprint := _label("T O W E R   O F   A R C A N A", 12, Color("8b6a40"))
+	imprint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	left.add_child(imprint)
+	var title := _label("Cổ thư kỹ năng", 34, INK)
+	var serif := SystemFont.new()
+	serif.font_names = PackedStringArray(["Georgia", "Noto Serif", "Times New Roman"])
+	title.add_theme_font_override("font", serif)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	left.add_child(title)
+	_balance_label = _label("", 16, INK)
+	_balance_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	left.add_child(_balance_label)
 	_progress = ProgressBar.new()
-	_progress.custom_minimum_size.y = 8.0
+	_progress.custom_minimum_size.y = 4.0
 	_progress.show_percentage = false
 	_progress.max_value = 100.0
-	_progress.add_theme_stylebox_override("background", _progress_style(Color("b8a486")))
-	_progress.add_theme_stylebox_override("fill", _progress_style(Color("5284b5")))
+	_progress.add_theme_stylebox_override("background", _progress_style(Color("c3a875")))
+	_progress.add_theme_stylebox_override("fill", _progress_style(Color("89602f")))
 	_progress.tooltip_text = "Tổng điểm đã phân bổ"
-	layout.add_child(_progress)
-
+	left.add_child(_progress)
 	var tabs := HBoxContainer.new()
-	tabs.custom_minimum_size.y = 22.0
-	layout.add_child(tabs)
-	_add_tab(tabs, "weapon", "VŨ KHÍ")
-	_add_tab(tabs, "character", "NHÂN VẬT")
-
-	var divider := HSeparator.new()
-	divider.add_theme_stylebox_override("separator", _progress_style(Color("496170")))
-	layout.add_child(divider)
-
-	var content_row := HBoxContainer.new()
-	content_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	content_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	content_row.add_theme_constant_override("separation", 6)
-	layout.add_child(content_row)
-
-	_description_panel = PanelContainer.new()
-	_description_panel.custom_minimum_size.x = 120.0
-	_description_panel.size_flags_horizontal = Control.SIZE_FILL
-	_description_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_description_panel.clip_contents = true
-	var description_style := StyleBoxFlat.new()
-	description_style.bg_color = Color("e8dcb9")
-	description_style.border_color = Color("9a825e")
-	description_style.set_border_width_all(2)
-	description_style.set_corner_radius_all(5)
-	description_style.set_content_margin_all(8.0)
-	_description_panel.add_theme_stylebox_override("panel", description_style)
-	content_row.add_child(_description_panel)
-
-	var description_content := Control.new()
-	description_content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_description_panel.add_child(description_content)
-	var description_layout := VBoxContainer.new()
-	description_layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	description_layout.add_theme_constant_override("separation", 8)
-	description_content.add_child(description_layout)
-	_description_title = Label.new()
-	_description_title.text = "THÔNG TIN"
-	_description_title.autowrap_mode = TextServer.AUTOWRAP_WORD
-	_description_title.add_theme_font_size_override("font_size", 10)
-	_description_title.add_theme_color_override("font_color", Color("35415a"))
-	description_layout.add_child(_description_title)
-	var detail_divider := HSeparator.new()
-	detail_divider.add_theme_stylebox_override("separator", _progress_style(Color("a48b62")))
-	description_layout.add_child(detail_divider)
-	_description_body = Label.new()
-	_description_body.text = "Chọn nguyên tố để mở cây. Mỗi node tốn 1 SP.\n\nRê chuột xem mô tả. Cuộn để zoom, giữ chuột giữa để kéo."
-	_description_body.autowrap_mode = TextServer.AUTOWRAP_WORD
-	_description_body.add_theme_font_size_override("font_size", 8)
-	_description_body.add_theme_color_override("font_color", Color("59637a"))
-	_description_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	tabs.add_theme_constant_override("separation", 10)
+	left.add_child(tabs)
+	_add_tab(tabs, "weapon", "I · VŨ KHÍ")
+	_add_tab(tabs, "character", "II · NHÂN VẬT")
+	_description_title = _label("", 22, INK)
+	_description_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	left.add_child(_description_title)
+	# Scroll long descriptions on the paper while keeping the action pinned.
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	left.add_child(scroll)
+	_description_body = _label("", 18, Color("655039"))
+	_description_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_description_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_description_body.clip_text = true
-	description_layout.add_child(_description_body)
+	scroll.add_child(_description_body)
 	_confirm_button = Button.new()
-	_confirm_button.text = "HỌC KỸ NĂNG"
-	_confirm_button.custom_minimum_size = Vector2(84.0, 26.0)
-	_confirm_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_confirm_button.add_theme_font_size_override("font_size", 8)
-	_confirm_button.visible = false
+	_confirm_button.custom_minimum_size.y = 40.0
+	_confirm_button.add_theme_font_size_override("font_size", 15)
 	_style_book_button(_confirm_button)
+	_confirm_button.visible = false
 	_confirm_button.pressed.connect(_confirm_selected_node_action)
-	description_layout.add_child(_confirm_button)
-
-	_content = VBoxContainer.new()
-	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_content.size_flags_stretch_ratio = 1.0
-	_content.add_theme_constant_override("separation", 5)
-	content_row.add_child(_content)
-
+	left.add_child(_confirm_button)
 	var footer := HBoxContainer.new()
-	footer.custom_minimum_size.y = 24.0
-	footer.alignment = BoxContainer.ALIGNMENT_CENTER
-	layout.add_child(footer)
+	footer.add_theme_constant_override("separation", 12)
+	left.add_child(footer)
 	var reset := Button.new()
-	reset.text = "Reset miễn phí"
-	reset.custom_minimum_size = Vector2(88.0, 22.0)
-	reset.add_theme_font_size_override("font_size", 9)
+	reset.text = "Hoàn điểm miễn phí"
+	reset.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	reset.add_theme_font_size_override("font_size", 14)
 	_style_book_button(reset)
-	reset.pressed.connect(func() -> void: GameManager.reset_skill_tree())
+	reset.pressed.connect(func() -> void:
+		if not _transitioning:
+			GameManager.reset_skill_tree())
 	footer.add_child(reset)
 	var close := Button.new()
-	close.text = "Đóng"
-	close.custom_minimum_size = Vector2(42.0, 22.0)
-	close.add_theme_font_size_override("font_size", 9)
+	close.text = "Khép sách · T"
+	close.add_theme_font_size_override("font_size", 14)
 	_style_book_button(close)
 	close.pressed.connect(func() -> void: set_open(false))
 	footer.add_child(close)
 
-	_transition = TextureRect.new()
-	_transition.name = "BookAnimation"
-	_transition.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_transition.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_transition.stretch_mode = TextureRect.STRETCH_SCALE
+	var right := VBoxContainer.new()
+	right.name = "RightPage"
+	right.position = Vector2(580.0, 390.0)
+	right.size = Vector2(404.0, 580.0)
+	right.add_theme_constant_override("separation", 8)
+	_page_content.add_child(right)
+	_chapter_title = _label("", 22, INK)
+	_chapter_title.add_theme_font_override("font", serif)
+	_chapter_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	right.add_child(_chapter_title)
+	_content = VBoxContainer.new()
+	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content.add_theme_constant_override("separation", 6)
+	right.add_child(_content)
+	var hint := _label("Cuộn: thu / phóng · Chuột giữa: kéo", 12, Color("806743"))
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	right.add_child(hint)
+	_page_number = _label("", 14, Color("806743"))
+	_page_number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	right.add_child(_page_number)
+	_transition = _make_book_texture("BookAnimation")
+	_transition_atlas = AtlasTexture.new()
+	_transition_atlas.filter_clip = true
+	_transition.texture = _transition_atlas
 	_transition.visible = false
-	add_child(_transition)
+	_book_body.add_child(_transition)
+	_input_shield = Control.new()
+	_input_shield.name = "MovingPageInputShield"
+	_input_shield.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_input_shield.mouse_filter = Control.MOUSE_FILTER_STOP
+	_input_shield.visible = false
+	add_child(_input_shield)
 	_layout_book()
+
+
+func _make_book_texture(node_name: String) -> TextureRect:
+	var art := TextureRect.new()
+	art.name = node_name
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_SCALE
+	art.size = BOOK_DESIGN_SIZE
+	art.modulate = Color(1.0, 0.94, 0.83)
+	return art
+
+
+func _label(value: String, font_size: int, color: Color) -> Label:
+	var label := Label.new()
+	label.text = value
+	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_color_override("font_color", color)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return label
 
 
 func _add_tab(parent: HBoxContainer, tab_id: String, label_text: String) -> void:
 	var button := Button.new()
 	button.text = label_text
+	button.toggle_mode = true
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	button.custom_minimum_size.y = 20.0
-	button.add_theme_font_size_override("font_size", 9)
+	button.custom_minimum_size.y = 36.0
+	button.add_theme_font_size_override("font_size", 15)
 	_style_book_button(button)
-	button.pressed.connect(func() -> void: _turn_to_tab(tab_id))
+	button.pressed.connect(func() -> void:
+		button.set_pressed_no_signal(tab_id == _tab)
+		_turn_to_tab(tab_id))
+	_tabs[tab_id] = button
 	parent.add_child(button)
 
 
 func _layout_book() -> void:
-	if not is_instance_valid(_book_art) or not is_instance_valid(_page_content) or not is_instance_valid(_book_body):
+	if not is_instance_valid(_book_body):
 		return
 	var viewport_size := get_viewport_rect().size
-	var book_height := minf(viewport_size.y * 0.96, viewport_size.x * 0.96 / BOOK_SPREAD_RATIO)
-	var book_size := Vector2(book_height * BOOK_SPREAD_RATIO, book_height)
-	_book_art.size = book_size
-	_book_art.position = (viewport_size - book_size) * 0.5
-	_page_content.position = _book_art.position + Vector2(book_size.x * 0.05, book_size.y * 0.08)
-	_page_content.size = Vector2(book_size.x * 0.90, book_size.y * 0.84)
-	_page_content.clip_contents = true
-	var cell_size := minf(viewport_size.x * 0.94 / (246.0 / BOOK_FRAME_SIZE), viewport_size.y * 0.94 / (183.0 / BOOK_FRAME_SIZE))
-	var transition_size := Vector2.ONE * cell_size
-	_transition.size = transition_size
-	_transition.position = Vector2(viewport_size.x * 0.5 - cell_size * 0.5, viewport_size.y * 0.5 - cell_size * (175.5 / BOOK_FRAME_SIZE))
-	if is_instance_valid(_description_panel):
-		_description_panel.custom_minimum_size.x = clampf(viewport_size.x * 0.22, 96.0, 180.0)
+	var fit := minf(viewport_size.x * 0.94 / BOOK_ART_SIZE.x, viewport_size.y * 0.92 / BOOK_ART_SIZE.y)
+	# Fit upright leaves too, without cropping the cover or changing frame geometry.
+	fit = minf(fit, viewport_size.y * 0.92 / maxf(_frame_bounds.size.y, 1.0))
+	fit = minf(fit, viewport_size.x * 0.94 / maxf(_frame_bounds.size.x, 1.0))
+	_book_body.scale = Vector2.ONE * fit * _presentation
+	var top := viewport_size.y * 0.5 + (_frame_bounds.position.y - BOOK_PIVOT.y) * _book_body.scale.y
+	var bottom := top + _frame_bounds.size.y * _book_body.scale.y
+	var shift := clampf(0.0, viewport_size.y * 0.04 - top, viewport_size.y * 0.96 - bottom)
+	var left := viewport_size.x * 0.5 + (_frame_bounds.position.x - BOOK_PIVOT.x) * _book_body.scale.x
+	var right := left + _frame_bounds.size.x * _book_body.scale.x
+	var shift_x := clampf(0.0, viewport_size.x * 0.03 - left, viewport_size.x * 0.97 - right)
+	_book_body.position = viewport_size * 0.5 - BOOK_PIVOT + Vector2(shift_x, shift)
 
 
 func _refresh() -> void:
@@ -442,21 +555,24 @@ func _refresh() -> void:
 		_selected_node.queue_redraw()
 	_selected_node = null
 	_hovered_node = null
-	if is_instance_valid(_confirm_button):
-		_confirm_button.release_focus()
-		_confirm_button.visible = false
+	_confirm_button.release_focus()
+	_confirm_button.visible = false
 	var total_points: int = GameManager.total_skill_points()
 	var spent_points: int = GameManager.allocated_skill_points()
-	_balance_label.text = "✦ %d SP   ·   %d / %d" % [GameManager.skill_points, spent_points, total_points]
+	_balance_label.text = "%d SP còn lại   ·   %d / %d đã ghi" % [GameManager.skill_points, spent_points, total_points]
 	_progress.value = 0.0 if total_points == 0 else 100.0 * float(spent_points) / float(total_points)
+	_chapter_title.text = "I. Binh khí & nguyên tố" if _tab == "weapon" else "II. Tu luyện bản thân"
+	_page_number.text = "—  2  —" if _tab == "weapon" else "—  4  —"
+	for tab_id: String in _tabs:
+		(_tabs[tab_id] as Button).set_pressed_no_signal(tab_id == _tab)
 	_reset_skill_description()
 	for child in _content.get_children():
+		_content.remove_child(child)
 		child.queue_free()
 	if _tab == "weapon":
 		_build_weapon_tree()
 	else:
 		_build_character_tree()
-
 
 func _build_weapon_tree() -> void:
 	var current_form: String = GameManager.weapon_form
@@ -468,12 +584,12 @@ func _build_weapon_tree() -> void:
 		var ultimate_milestones := "5 / 8 SP"
 		if current_form == "wind":
 			ultimate_milestones = "5 / 10 SP"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
 	var root_color := Color("e5d08d")
-	var root_position := Vector2(0.5, 0.87)
-	_make_node(graph, root_position, "D", "Dao Găm", "BASIC", root_color, false, false, false, "Dao Găm Basic")
+	var root_position := Vector2(0.5, 0.84)
+	_make_node(graph, root_position, "D", "Dao Găm", "CƠ BẢN", root_color, false, false, false, "Dao Găm Cơ Bản")
 	if current_form == "":
 		var form_positions: Array[Vector2] = [Vector2(0.27, 0.65), Vector2(0.73, 0.65), Vector2(0.27, 0.35), Vector2(0.73, 0.35)]
 		for index in FORMS.size():
@@ -492,12 +608,12 @@ func _build_weapon_tree() -> void:
 
 	var selected_form: Dictionary = _form_data(current_form)
 	var form_color: Color = selected_form.color
-	var form_position := Vector2(0.5, 0.68)
+	var form_position := Vector2(0.5, 0.67)
 	graph.add_link(root_position, form_position, form_color, true)
 	_make_node(graph, form_position, current_form.substr(0, 1).to_upper(), str(selected_form.short), "ĐÃ CHỌN", form_color, false, true, true, str(selected_form.name), Callable(), _skill_icon_path(current_form + "_orb"))
 	var active_names: Array = ACTIVE_SKILLS[current_form]
 	var short_names: Array = ACTIVE_SHORT_NAMES[current_form]
-	var active_positions: Array[Vector2] = [Vector2(0.12, 0.49), Vector2(0.37, 0.49), Vector2(0.63, 0.49), Vector2(0.88, 0.49)]
+	var active_positions: Array[Vector2] = [Vector2(0.18, 0.50), Vector2(0.39, 0.50), Vector2(0.61, 0.50), Vector2(0.82, 0.50)]
 	for index in active_names.size():
 		var skill_id := "active_%s_%d" % [current_form, index + 1]
 		var required: int = [1, 4, 6, 9][index]
@@ -510,15 +626,15 @@ func _build_weapon_tree() -> void:
 	var evolution_data: Array = WEAPON_EVOLUTIONS[current_form]
 	var evolution_positions: Array[Vector2] = []
 	if evolution_data.size() == 3:
-		evolution_positions = [Vector2(0.2, 0.30), Vector2(0.5, 0.30), Vector2(0.8, 0.30)]
+		evolution_positions = [Vector2(0.2, 0.33), Vector2(0.5, 0.33), Vector2(0.8, 0.33)]
 	else:
-		evolution_positions = [Vector2(0.35, 0.30), Vector2(0.65, 0.30)]
+		evolution_positions = [Vector2(0.35, 0.33), Vector2(0.65, 0.33)]
 	for index in evolution_data.size():
 		var required_skill: String = str(evolution_data[index]["requires"])
 		var required_slot := clampi(int(required_skill.get_slice("_", 2)) - 1, 0, active_positions.size() - 1)
 		graph.add_link(active_positions[required_slot], evolution_positions[index], form_color.darkened(0.4), GameManager.skill_allocations.has(evolution_data[index]["id"]))
 		_add_evolution_node(graph, evolution_positions[index], evolution_data[index], form_color)
-	var ultimate_positions: Array[Vector2] = [Vector2(0.37, 0.13), Vector2(0.63, 0.13)]
+	var ultimate_positions: Array[Vector2] = [Vector2(0.35, 0.16), Vector2(0.65, 0.16)]
 	for index in evolution_positions.size():
 		graph.add_link(evolution_positions[index], ultimate_positions[mini(index, 1)], form_color.darkened(0.45), GameManager.skill_allocations.has(evolution_data[index]["id"]))
 	graph.add_link(active_positions[0], ultimate_positions[0], form_color.darkened(0.45), GameManager.unlocked_skills.has("active_%s_1" % current_form))
@@ -566,7 +682,7 @@ func _add_skill_node(graph: SkillTreeGraph, position: Vector2, skill_id: String,
 
 func _build_character_tree() -> void:
 	_description_title.text = "CÂY NHÂN VẬT"
-	_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn node rồi xác nhận bên trái."
+	_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn kỹ năng rồi xác nhận bên trái."
 	var branch_header := HBoxContainer.new()
 	for data in [
 		{"name": "TẤN CÔNG", "color": Color("ff9c73")},
@@ -577,8 +693,8 @@ func _build_character_tree() -> void:
 		label.text = str(data.name)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		label.add_theme_font_size_override("font_size", 8)
-		label.add_theme_color_override("font_color", data.color)
+		label.add_theme_font_size_override("font_size", 12)
+		label.add_theme_color_override("font_color", Color("72523a"))
 		branch_header.add_child(label)
 	_content.add_child(branch_header)
 
@@ -634,8 +750,8 @@ func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: S
 func _prepare_graph(graph: SkillTreeGraph) -> void:
 	graph.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	graph.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	graph.layout_offset_ratio = PAGE_GRAPH_OFFSET_RATIO
-	graph.clip_contents = false
+	graph.layout_offset_ratio = Vector2.ZERO
+	graph.clip_contents = true
 	graph.zoom_changed.connect(_on_graph_zoom_changed)
 	_content.add_child(_make_zoom_controls())
 	_content.add_child(graph)
@@ -647,33 +763,33 @@ func _prepare_graph(graph: SkillTreeGraph) -> void:
 func _make_zoom_controls() -> HBoxContainer:
 	var controls := HBoxContainer.new()
 	controls.alignment = BoxContainer.ALIGNMENT_END
-	controls.custom_minimum_size.y = 22.0
+	controls.custom_minimum_size.y = 30.0
 	controls.add_theme_constant_override("separation", 2)
 	var zoom_out := Button.new()
 	zoom_out.text = "−"
-	zoom_out.custom_minimum_size = Vector2(24.0, 20.0)
+	zoom_out.custom_minimum_size = Vector2(32.0, 28.0)
 	zoom_out.add_theme_font_size_override("font_size", 12)
 	_style_book_button(zoom_out)
 	zoom_out.pressed.connect(func() -> void: _set_graph_zoom(_graph_zoom - 0.15))
 	controls.add_child(zoom_out)
 	_zoom_percent = Label.new()
 	_zoom_percent.text = "100%"
-	_zoom_percent.custom_minimum_size.x = 38.0
+	_zoom_percent.custom_minimum_size.x = 52.0
 	_zoom_percent.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_zoom_percent.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_zoom_percent.add_theme_font_size_override("font_size", 8)
-	_zoom_percent.add_theme_color_override("font_color", Color("344565"))
+	_zoom_percent.add_theme_font_size_override("font_size", 14)
+	_zoom_percent.add_theme_color_override("font_color", INK)
 	controls.add_child(_zoom_percent)
 	var zoom_in := Button.new()
 	zoom_in.text = "+"
-	zoom_in.custom_minimum_size = Vector2(24.0, 20.0)
+	zoom_in.custom_minimum_size = Vector2(32.0, 28.0)
 	zoom_in.add_theme_font_size_override("font_size", 12)
 	_style_book_button(zoom_in)
 	zoom_in.pressed.connect(func() -> void: _set_graph_zoom(_graph_zoom + 0.15))
 	controls.add_child(zoom_in)
 	var zoom_reset := Button.new()
 	zoom_reset.text = "↺"
-	zoom_reset.custom_minimum_size = Vector2(24.0, 20.0)
+	zoom_reset.custom_minimum_size = Vector2(32.0, 28.0)
 	zoom_reset.add_theme_font_size_override("font_size", 10)
 	zoom_reset.tooltip_text = "Đặt lại zoom"
 	_style_book_button(zoom_reset)
@@ -704,19 +820,21 @@ func _reset_skill_description() -> void:
 		return
 	if is_instance_valid(_confirm_button):
 		_confirm_button.visible = false
-	_description_title.add_theme_color_override("font_color", Color("35415a"))
+	_description_title.add_theme_color_override("font_color", INK)
 	if _tab == "character":
 		_description_title.text = "CÂY NHÂN VẬT"
-		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
 	elif GameManager.weapon_form == "":
 		_description_title.text = "CHỌN NGUYÊN TỐ"
 		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn node rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
 
 
 func _show_skill_description(source: Control, title: String, description: String, color: Color) -> void:
+	if _transitioning or is_instance_valid(_selected_node):
+		return
 	if not is_instance_valid(_description_title) or not is_instance_valid(_description_body):
 		return
 	if title.is_empty():
@@ -732,7 +850,7 @@ func _show_skill_description(source: Control, title: String, description: String
 	_hovered_node = source as SkillTreeNode
 	_description_title.text = title
 	_description_body.text = description
-	_description_title.add_theme_color_override("font_color", color.darkened(0.35))
+	_description_title.add_theme_color_override("font_color", Color("60472f").lerp(color.darkened(0.48), 0.25))
 	if is_instance_valid(_confirm_button):
 		var show_action := is_instance_valid(_selected_node) and source == _selected_node \
 			and _selected_node.action_callback.is_valid()
@@ -742,6 +860,8 @@ func _show_skill_description(source: Control, title: String, description: String
 
 
 func _on_skill_node_activated(node: SkillTreeNode) -> void:
+	if _transitioning or not _is_open:
+		return
 	if is_instance_valid(_selected_node):
 		_selected_node.focused = false
 		_selected_node.queue_redraw()
@@ -756,7 +876,7 @@ func _show_selected_node() -> void:
 		return
 	_description_title.text = _selected_node.detail_title
 	_description_body.text = _selected_node.description_text
-	_description_title.add_theme_color_override("font_color", _selected_node.accent_color.darkened(0.35))
+	_description_title.add_theme_color_override("font_color", Color("60472f").lerp(_selected_node.accent_color.darkened(0.48), 0.25))
 	if not is_instance_valid(_confirm_button) or not _selected_node.action_callback.is_valid():
 		if is_instance_valid(_confirm_button):
 			_confirm_button.release_focus()
@@ -774,6 +894,8 @@ func _show_selected_node() -> void:
 
 
 func _confirm_selected_node_action() -> void:
+	if _transitioning or not _is_open:
+		return
 	if not is_instance_valid(_selected_node) or not _selected_node.action_available \
 			or not _selected_node.action_callback.is_valid():
 		return
@@ -809,26 +931,42 @@ func _form_data(form_id: String) -> Dictionary:
 
 func _style_book_button(button: Button) -> void:
 	var normal := StyleBoxFlat.new()
-	normal.bg_color = Color("dfd0b1")
-	normal.border_color = Color("80674d")
-	normal.set_border_width_all(1)
-	normal.set_corner_radius_all(3)
-	normal.set_content_margin_all(3.0)
+	normal.bg_color = Color(0.54, 0.38, 0.19, 0.07)
+	normal.border_color = Color("a28453")
+	normal.border_width_bottom = 1
+	normal.set_corner_radius_all(2)
+	normal.content_margin_left = 9.0
+	normal.content_margin_right = 9.0
+	normal.content_margin_top = 6.0
+	normal.content_margin_bottom = 6.0
 	var hover := normal.duplicate() as StyleBoxFlat
-	hover.bg_color = Color("efe1c4")
-	hover.border_color = Color("4b6f95")
+	hover.bg_color = Color(0.54, 0.38, 0.19, 0.18)
+	hover.border_color = Color("765132")
 	var pressed := normal.duplicate() as StyleBoxFlat
-	pressed.bg_color = Color("cbb997")
-	pressed.border_color = Color("4b6f95")
+	pressed.bg_color = Color("775033")
+	pressed.border_color = Color("513323")
+	var disabled := normal.duplicate() as StyleBoxFlat
+	disabled.bg_color = Color(0.54, 0.38, 0.19, 0.04)
+	disabled.border_color = Color("bca77d")
+	var focus := StyleBoxFlat.new()
+	focus.bg_color = Color.TRANSPARENT
+	focus.border_color = Color("926537")
+	focus.set_border_width_all(1)
 	button.add_theme_stylebox_override("normal", normal)
 	button.add_theme_stylebox_override("hover", hover)
 	button.add_theme_stylebox_override("pressed", pressed)
-	button.add_theme_color_override("font_color", Color("35415a"))
-	button.add_theme_color_override("font_hover_color", Color("243652"))
+	button.add_theme_stylebox_override("hover_pressed", pressed)
+	button.add_theme_stylebox_override("disabled", disabled)
+	button.add_theme_stylebox_override("focus", focus)
+	button.add_theme_color_override("font_color", INK)
+	button.add_theme_color_override("font_hover_color", Color("392618"))
+	button.add_theme_color_override("font_pressed_color", Color("f5e4bc"))
+	button.add_theme_color_override("font_hover_pressed_color", Color("f5e4bc"))
+	button.add_theme_color_override("font_disabled_color", Color("97815e"))
 
 
 func _progress_style(color: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
-	style.set_corner_radius_all(4)
+	style.set_corner_radius_all(1)
 	return style

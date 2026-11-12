@@ -23,6 +23,6 @@ script = ExtResource("1_script")
 shape = SubResource("SphereShape3D_pickup")
 
 [node name="Orb" type="MeshInstance3D" parent="." unique_id=1037982344]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15940404, 0.78662676, 0.16552663)
 material_override = SubResource("Material_skill_point")
 mesh = SubResource("SphereMesh_pickup")

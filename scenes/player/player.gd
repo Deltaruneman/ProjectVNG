@@ -4,6 +4,7 @@ const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 const ULTIMATE_CINEMATIC_SCRIPT := preload("res://scenes/player/ultimate_cinematic.gd")
 const ULTIMATE_SCREEN_GLOW_SHADER := preload("res://scenes/player/ultimate_screen_glow.gdshader")
 const ULTIMATE_NEON_SHADER := preload("res://scenes/player/ultimate_neon.gdshader")
+const LIGHTNING_CLONE_SCRIPT := preload("res://scenes/player/lightning_clone.gd")
 
 const MAX_STAIR_STEP_HEIGHT := 0.75
 const STEP_LIFT_INCREMENT := 0.1
@@ -17,6 +18,7 @@ const WIND_ULTIMATE_ROTATIONS := 2.5
 const WIND_ULTIMATE_DASH_SPEED := 14.0
 const WIND_ULTIMATE_DAMAGE_RADIUS := 3.2
 const WIND_ULTIMATE_SLOW_DURATION := 0.55
+const LIGHTNING_BEAM_WIDTH := 1.6
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
@@ -461,28 +463,17 @@ func cast_active_skill(active_id: String) -> bool:
 		"active_lightning_2":
 			var chain_rank := int(GameManager.skill_allocations.get("evo_lightning_chain", 0))
 			var chain_reach := 7.0 + float(chain_rank)
-			var lightning_direction_2d := Vector2(aim.x, aim.z).normalized()
-			if lightning_direction_2d.length_squared() < 0.001:
-				lightning_direction_2d = Vector2(forward().x, forward().z).normalized()
-			for lightning_enemy_cone: Node in get_tree().get_nodes_in_group("enemies"):
-				if not (lightning_enemy_cone is EnemyCharacter):
-					continue
-				var lightning_target_cone := lightning_enemy_cone as EnemyCharacter
-				var lightning_offset_cone := lightning_target_cone.global_position - global_position
-				var lightning_offset_cone_2d := Vector2(lightning_offset_cone.x, lightning_offset_cone.z)
-				if lightning_target_cone.health <= 0 or absf(lightning_offset_cone.y) > 2.5 or lightning_offset_cone_2d.length() > chain_reach:
-					continue
-				if lightning_offset_cone_2d.length() > 0.001 and lightning_offset_cone_2d.normalized().dot(lightning_direction_2d) < cos(deg_to_rad(38.0)):
-					continue
-				BattleFX.play_pvfx(self, "lightning/chain-lightning", global_position + Vector3.UP * 1.35, maxf(lightning_offset_cone_2d.length() * 0.55, 1.2), Color("e5fbff"), Vector3(lightning_offset_cone.x, 0.0, lightning_offset_cone.z))
-				BattleFX.play_pvfx(self, "lightning/lightning-strike", lightning_target_cone.global_position + Vector3.UP * 0.35, 2.4, Color("f4fdff"))
-			_damage_enemies_in_shape(global_position, aim, "cone", chain_reach, 0.0, 38.0, damage * 2, 0.45 + 0.2 * float(chain_rank), 0.0, 0.0, 0.0, 0, "electrified")
+			_cast_lightning_beam(aim, damage, chain_reach, chain_rank)
 		"active_lightning_3":
 			var lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
-			var strike_center := global_position + aim * 4.0
-			BattleFX.play_pvfx(self, "lightning/lightning-strike", strike_center + Vector3.UP * 0.5, 3.0, Color("f4fdff"))
-			BattleFX.play_pvfx(self, "lightning/static-burst", strike_center + Vector3.UP * 0.35, 2.2, Color("e5fbff"))
-			_damage_enemies_in_shape(strike_center, aim, "circle", 3.0, 0.0, 360.0, damage * (3 + lightning_rank), 0.6, 0.0, 0.0, 0.0, 0, "electrified")
+			var stage := get_tree().current_scene
+			if stage == null:
+				return false
+			var clone := LIGHTNING_CLONE_SCRIPT.new() as Node3D
+			if clone == null:
+				return false
+			clone.call("configure", self, damage, lightning_rank, get_active_skill_cooldown_duration("basic_dagger"), movement_speed, sprite)
+			stage.add_child(clone)
 		"active_lightning_4":
 			var storm_lightning_rank := int(GameManager.skill_allocations.get("evo_lightning_storm", 0))
 			var storm_center := global_position
@@ -499,6 +490,93 @@ func cast_active_skill(active_id: String) -> bool:
 				BattleFX.play_pvfx(self, "lightning/lightning-strike", lightning_target_area.global_position + Vector3.UP * 0.35, 2.7, Color("f4fdff"))
 			_damage_enemies_in_shape(global_position, aim, "circle", 5.0, 0.0, 360.0, damage * (2 + storm_lightning_rank), 0.8, 0.0, 0.0, 0.0, 0, "electrified")
 	return true
+
+
+func _cast_lightning_beam(aim: Vector3, skill_damage: int, reach: float, chain_rank: int) -> void:
+	var beam_direction := Vector2(aim.x, aim.z).normalized()
+	if beam_direction.length_squared() < 0.001:
+		beam_direction = Vector2(forward().x, forward().z).normalized()
+	var target := _find_lightning_beam_target(beam_direction, reach)
+	var target_position := target.global_position if is_instance_valid(target) else global_position + Vector3(beam_direction.x, 0.0, beam_direction.y) * reach
+	var beam_offset := target_position - global_position
+	var beam_length := Vector2(beam_offset.x, beam_offset.z).length()
+	var beam_center := global_position + Vector3.UP * 1.35 + Vector3(beam_direction.x, 0.0, beam_direction.y) * (beam_length * 0.5)
+	BattleFX.play_pvfx(self, "lightning/chain-lightning", beam_center, maxf(beam_length * 0.55, 1.2), Color("e5fbff"), Vector3(beam_direction.x, 0.0, beam_direction.y))
+	if not is_instance_valid(target):
+		return
+	var hurt_area := target.get_node_or_null("Direction/HurtArea3D") as HurtArea3D
+	if hurt_area == null:
+		return
+	var impact_direction := target_position - global_position
+	impact_direction.y = 0.0
+	if impact_direction.length_squared() < 0.001:
+		impact_direction = Vector3(beam_direction.x, 0.0, beam_direction.y)
+	var hit_position := target_position
+	hurt_area.take_damage(impact_direction.normalized(), skill_damage * 2, self)
+	_gain_rage(12.5)
+	if is_instance_valid(target):
+		var freeze_duration := 0.45 + 0.2 * float(chain_rank)
+		target.apply_skill_freeze(freeze_duration)
+		BattleFX.enemy_status(target, "electrified", freeze_duration)
+	BattleFX.play_pvfx(self, "lightning/lightning-strike", hit_position + Vector3.UP * 0.35, 2.4, Color("f4fdff"))
+	BattleFX.impact(self, hit_position + Vector3.UP * 0.55, "lightning", impact_direction.normalized())
+	_teleport_behind_lightning_target(hit_position, beam_direction)
+
+
+func _find_lightning_beam_target(beam_direction: Vector2, reach: float) -> EnemyCharacter:
+	var closest_forward_distance := INF
+	var target: EnemyCharacter
+	var right_direction := Vector2(beam_direction.y, -beam_direction.x)
+	for candidate: Node in get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(candidate) or not (candidate is EnemyCharacter):
+			continue
+		var enemy := candidate as EnemyCharacter
+		if enemy.health <= 0 or enemy.get_node_or_null("Direction/HurtArea3D") == null:
+			continue
+		var offset_3d := enemy.global_position - global_position
+		if absf(offset_3d.y) > 2.5:
+			continue
+		var offset := Vector2(offset_3d.x, offset_3d.z)
+		var forward_distance := offset.dot(beam_direction)
+		var lateral_distance := absf(offset.dot(right_direction))
+		if forward_distance <= 0.0 or forward_distance > reach or lateral_distance > LIGHTNING_BEAM_WIDTH * 0.5:
+			continue
+		if forward_distance < closest_forward_distance:
+			closest_forward_distance = forward_distance
+			target = enemy
+	return target
+
+
+func _teleport_behind_lightning_target(target_position: Vector3, beam_direction: Vector2) -> bool:
+	var body_shape := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if body_shape == null or body_shape.shape == null or get_world_3d() == null:
+		return false
+	var flat_direction := Vector3(beam_direction.x, 0.0, beam_direction.y).normalized()
+	var space := get_world_3d().direct_space_state
+	for distance in [2.4, 2.0, 1.7, 1.4]:
+		var candidate_position := target_position + flat_direction * float(distance)
+		if not _is_lightning_teleport_position_safe(candidate_position, body_shape, space):
+			continue
+		global_position = candidate_position
+		velocity.x = 0.0
+		velocity.z = 0.0
+		change_direction(BaseCharacter.direction_from_input(Vector2(-flat_direction.x, -flat_direction.z)))
+		return true
+	return false
+
+
+func _is_lightning_teleport_position_safe(candidate_position: Vector3, body_shape: CollisionShape3D, space: PhysicsDirectSpaceState3D) -> bool:
+	var shape_query := PhysicsShapeQueryParameters3D.new()
+	shape_query.shape = body_shape.shape
+	shape_query.transform = Transform3D(global_transform.basis, candidate_position) * body_shape.transform
+	shape_query.collision_mask = collision_mask
+	shape_query.exclude = [get_rid()]
+	shape_query.margin = 0.05
+	if not space.intersect_shape(shape_query, 1).is_empty():
+		return false
+	var floor_query := PhysicsRayQueryParameters3D.create(candidate_position + Vector3.UP * 1.2, candidate_position - Vector3.UP * 0.3, collision_mask)
+	floor_query.exclude = [get_rid()]
+	return not space.intersect_ray(floor_query).is_empty()
 
 
 func _fire_rage_sequence(damage: int, aim: Vector3) -> void:
