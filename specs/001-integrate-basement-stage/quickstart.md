@@ -1,5 +1,18 @@
 # Quickstart: Planned Validation Guide
 
+## Audit supersession / safe execution — 2026-11-13
+
+This is a historical planning guide. Its no-executable/no-tests statements, pinned feature
+branch, unconditional B3 prohibition and original-scene hashes are superseded for current
+validation by [project audit validation](../../docs/project-audit-validation.md).
+Tests/APIs now exist; do not run old suites against current design without checking their
+assumptions. The old command example pointing at the production workspace is withdrawn:
+only the verified disposable project path may be launched. Set child-process APPDATA and
+custom user directory, then verify exact OS user-data path using a no-autoload probe
+**before** launching production autoloads. A harness guard after startup is insufficient.
+Never read/reset/delete real progress, run generators, or edit source to satisfy old tests.
+
+
 **Status**: Future validation instructions only. No Godot executable/tests, generators, gameplay
 changes, tasks command, or implementation ran during planning. A compatible installed Godot
 executable must be located; none was found by Get-Command godot* in this session.
@@ -49,7 +62,7 @@ additional dependencies. No B3 round-trip or Hidden entrance acceptance is inclu
 Planned runner invocation after the harness is implemented and isolated:
 
 ```powershell
-& $godotExe --headless --path 'E:/Test/ProjectVNG' --script res://tests/basement_integration_check.gd
+& $godotExe --headless --path $isolatedCopy --script res://tests/basement_integration_check.gd
 ```
 
 Expected: focused structural/fixture checks report zero new errors and a failing exit for

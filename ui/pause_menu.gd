@@ -173,6 +173,12 @@ func _clear(container: Node) -> void:
 		child.queue_free()
 
 func _input(event: InputEvent) -> void:
+	# Handle New Game before focused UI can consume F9; this autoload also runs while paused.
+	if event is InputEventKey and event.pressed and not event.echo \
+			and event.is_action_pressed("new_game") and _binding_action.is_empty():
+		get_viewport().set_input_as_handled()
+		GameManager.new_game()
+		return
 	if _closing:
 		get_viewport().set_input_as_handled()
 		return

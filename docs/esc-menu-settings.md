@@ -41,3 +41,14 @@ persistence, audio routing, camera settings, display rollback and menu layouts.
 Inspect screenshots. Preserve tracked caches and real user saves by testing in a
 disposable project copy with isolated user data. Record actual results and limits
 in active tasks/validation and the cumulative implementation changelog.
+
+
+## Audit verification — 2026-11-13
+
+At HEAD `42471e4c`, rendered isolated settings fixture passes 53/53; separate-process
+restart passes 2/2. Source/default InputMap and all five autoloads were copied from the
+current project; no production settings/save was accessed. See
+[full environment, commands, logs and limitations](project-audit-validation.md).
+Native feel, audible mixer behavior and reviewer acceptance remain NOT RUN. Duplicate
+Player/Stage HUD (BUG-008) remains open despite bounded menu tests passing. This is an
+audit status update, not new implementation or sign-off.

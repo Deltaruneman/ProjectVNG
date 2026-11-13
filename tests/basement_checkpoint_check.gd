@@ -128,11 +128,12 @@ func _fixtures() -> void:
 	await process_frame
 	manager.set_checkpoint("res://levels/level_1/stage_2.tscn", "dock")
 	_check(manager.checkpoint_id == "dock" and save_system.load_data().stage == "res://levels/level_1/stage_2.tscn", "unrelated supported stage stock setter preserved")
-	# Only exact standalone B1/B2 + their known ID pairs are eligible.
+	# T087: known standalone B1/B2 pairs retain their equivalent checkpoint, no disk reset.
 	for pair in [["res://levels/level_1/basement_b1.tscn", "b1_start"], ["uid://ut8i8xxf74gj", "b1_start"],
 			["res://levels/level_1/basement_b2.tscn", "b2_start"], ["uid://b7bnu12tjc0e8", "b2_start"]]:
 		_load_fixture(_fixture(pair[0], pair[1]))
-		_check(manager.checkpoint_stage == FULL and manager.checkpoint_id == "", "exact legacy reset " + pair[0])
+		_check(manager.checkpoint_stage == FULL and manager.checkpoint_id == pair[1], "exact legacy identity preserved " + pair[0])
+		_check(save_system.load_data().stage == pair[0] and save_system.load_data().checkpoint == pair[1], "legacy disk pair not rewritten " + pair[0])
 		_check(save_system.load_data().sentinel == JSON.parse_string(JSON.stringify(_fixture())).sentinel and save_system.load_data().flags == _fixture().flags, "legacy retains sentinel/flags " + pair[0])
 	for reference in [FULL, FULL_UID]:
 		for id in ["b1_start", "b2_start"]:
@@ -274,7 +275,7 @@ func _recovery() -> void:
 			var node_name := "B2/Checkpoint_b2" if manager.checkpoint_id == "b2_start" else "B1/Checkpoint_b1"
 			expected = stage.get_node(node_name + "/Spawn").global_position
 		_check(registered_position.is_equal_approx(expected), "startup placement at registration " + str(pair))
-		_check(stage.camera_rig.target == stage.player and registered_camera.is_equal_approx(expected), "startup camera snap " + str(pair))
+		_check(stage.camera_rig.target == stage.player and registered_camera.is_equal_approx(expected + stage.camera_rig.focus_offset), "startup orbit camera focus snap " + str(pair))
 		if pair[0] == FULL and pair[1] == "b2_start":
 			await _capture("b2-recovery")
 		# Actual floor ray and capsule settling in the copied scene, no wave acceptance.
@@ -286,6 +287,9 @@ func _recovery() -> void:
 		for frame in range(30):
 			await physics_frame
 		_check(stage.player.is_on_floor() and absf(stage.player.global_position.y - expected.y) < 0.4, "capsule settles on supported spawn " + str(pair))
+		var expected_level := 1 if manager.checkpoint_id == "b2_start" else 0
+		var floor_name := "B2" if expected_level == 1 else "B1"
+		_check(stage.current_level() == expected_level and stage.get_node(floor_name).visible, "supported spawn floor visible " + str(pair))
 		var before := registrations
 		stage.player.fsm.current_state.take_damage(stage.player.max_health)
 		await scene_changed
@@ -294,4 +298,5 @@ func _recovery() -> void:
 		_check(registrations == before + 1 and stage.scene_file_path == FULL, "damage/dead state reloads combined Stage once " + str(pair))
 		_check(stage.player.global_position.distance_to(expected) < 0.05, "death placement " + str(pair))
 		_check(stage.player.health == stage.player.max_health and stage.camera_rig.target == stage.player, "death heals and targets camera " + str(pair))
+		_check(stage.current_level() == expected_level and stage.get_node(floor_name).visible, "death recovery floor visible " + str(pair))
 		_check(save_system.load_data().sentinel == JSON.parse_string(JSON.stringify(_fixture())).sentinel, "recovery preserves unrelated data " + str(pair))

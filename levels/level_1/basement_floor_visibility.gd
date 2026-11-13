@@ -1,6 +1,6 @@
 extends Stage
 
-## Stage của basement_full.tscn. Các tầng B1/B2/B3/GroundExit chồng thật lên nhau, nên chỉ render
+## Stage của basement_full.tscn. Các nhánh tầng chồng thật lên nhau, nên chỉ render
 ## tầng player đang đứng để các tầng khác không che camera.
 ##
 ## Một tầng là con trực tiếp của Stage có metadata `floor_level` (0 = B1, 1 = B2, …). Tầng có
@@ -48,6 +48,9 @@ func _ready() -> void:
 			if node.get_meta("secret", false):
 				_secret_areas[node] = _floor_area(node)
 	for definition in CONNECTOR_DEFINITIONS:
+		# A door to a separate scene is not a connector to an integrated floor.
+		if not _has_level(int(definition["from"])) or not _has_level(int(definition["to"])):
+			continue
 		var marker := get_node_or_null(definition["path"]) as Marker3D
 		if marker != null:
 			var connector: Dictionary = definition.duplicate()
@@ -91,7 +94,22 @@ func current_level() -> int:
 
 
 func _height_level(y: float) -> int:
-	return floori((y - base_height + floor_height / 2.0) / floor_height)
+	var candidate := floori((y - base_height + floor_height / 2.0) / floor_height)
+	var nearest := -1
+	for node in _floors:
+		var level := int(node.get_meta("floor_level"))
+		if nearest == -1 or absi(level - candidate) < absi(nearest - candidate):
+			nearest = level
+	# Startup/respawn can precede the first grounded physics tick. Never hide every
+	# floor by guessing a level that is absent from the actual scene.
+	return nearest
+
+
+func _has_level(level: int) -> bool:
+	for node in _floors:
+		if int(node.get_meta("floor_level")) == level:
+			return true
+	return false
 
 
 func _connector_near_player() -> Dictionary:

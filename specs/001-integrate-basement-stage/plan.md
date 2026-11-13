@@ -1,5 +1,21 @@
 # Implementation Plan: Continuous B1/B2 Basement Stage Integration
 
+## Current applicability — audit 2026-11-13
+
+The plan above/below is the preserved Nov 4 sprint snapshot, not current implementation
+status. An installed Godot 4.7.2 build was found and executed; many formerly proposed
+APIs and tests now exist. T071/T075 record the later gated separate-B3 route. The current
+map uses nested Floor/Wall/Ceiling GridMaps and replacement asset libraries; the current
+Player has orbit/aim controls and shared settings. See [system map](../../docs/project-current-state.md)
+and [executed audit](../../docs/project-audit-validation.md) for exact baseline and results.
+
+No implementation plan is executed by this audit. Proposed first repair group is
+BUG-005/006 in `levels/level_1/basement_full.tscn` and
+`levels/level_1/basement_floor_visibility.gd`, with GridPathfinder contract review only
+if scene wiring/library naming cannot resolve zero navigation points. Lam/Quan and Duy
+integration reviews remain required; no authorization or teammate approval is inferred.
+
+
 **Branch**: `basement-split-floors` | **Date**: 2026-11-04 | **Spec**: [spec.md](spec.md)
 
 **Input**: Approved specification and constitution v1.0.0.
@@ -218,3 +234,13 @@ and user-facing handling decision. Preserve their file/data, forbid loading B3, 
 guess reset-to-B1 or any migration. Other unknown save exceptions need case decisions.
 Record shared reviewer and Duy interface agreement before edits. All runtime acceptance is
 unverified. No tasks/implement command, gameplay edit, or agent-guidance update occurred.
+
+
+## T087 applicability update — 2026-11-13
+
+Current user decision adds explicit B3 checkpoint/recovery, disabled targetless exit and
+return to the combined B2 door Spawn. See T087 in spec/data-model/contract/tasks/validation;
+this append does not regenerate the historical sprint plan. Old blanket B3 checkpoint
+ban and legacy-reset policy are superseded by discriminated new B3 support + preservation
+of exact legacy B1/B2 IDs. Old unmarked B3 remains held. T086, B2-clear gate and ownership
+boundaries remain; no layout/library generation or independent reviewer agreement.

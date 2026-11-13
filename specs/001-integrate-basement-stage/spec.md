@@ -1,5 +1,27 @@
 # Feature Specification: Continuous B1/B2 Basement Stage Integration
 
+> Current decision: T087 (2026-11-13) below supersedes the historical B3 checkpoint ban
+> and legacy-reset rules. T086 visibility repair remains. Original sprint text is retained
+> as history; apply the explicit supersession table rather than inferring design from code.
+
+## Applicability note — audit 2026-11-13
+
+This file retains approved sprint requirements and their history; source behavior is not
+silently promoted into design. Current code is branch `feature/playercontrolandmap`, HEAD
+`42471e4c`, not the original feature branch named above. The later recorded T071/T075
+B2-clear-gated separate-B3 route refines the original sprint-only B3 prohibition for that
+follow-up; unsupported old-B3 checkpoint recovery is still unresolved. T084 supersedes
+T082's former facing-based quick-tap expectation with camera-center aiming.
+
+See [current implementation](../../docs/project-current-state.md),
+[audit validation](../../docs/project-audit-validation.md), and BUG-005–010 in the bug log.
+BUG-003/004 were not reproduced in bounded current retests; no fix/closure is asserted.
+B2 continuation visibility, navigation, Pelican damage and duplicate HUD fail current
+integration checks. B1 clear/parkour persistence, farmable ordinary-enemy SP, Hidden
+entrance and boss/exit placement remain explicit design/validation questions, not amended
+FRs. No acceptance scenario or task was checked off by this audit.
+
+
 **Feature Branch**: `basement-split-floors`
 
 **Created**: 2026-11-04
@@ -395,3 +417,43 @@ Q1-Q4 are resolved; no active clarification markers remain. Exact wave definitio
 with Duy's work, not invented here. Interface availability and runtime evidence remain
 completion dependencies. Record each blocker with affected requirement, evidence, owner,
 and required verification or decision. Stop before planning or implementation.
+
+
+## T087 — current user decision: B3 doors and explicit checkpoint
+
+User explicitly authorizes related scene/script implementation, with no commit/push.
+This is a recorded design decision; no Quan/Bao/Duy acceptance is implied.
+
+| Historical requirement | Current scope that supersedes it |
+| --- | --- |
+| US3, FR-004, SC-004 blanket B3 load/checkpoint/recovery prohibition | T071/T075 retain B2-clear-gated separate B3 entry; T087 permits new explicit-F B3 checkpoints and their recovery. Unmarked old B3 saves remain held. |
+| FR-020 / SC-011 placeholder-only B3 route with no B3 loads | Actual separate-scene B3 route remains clear-gated; its down door returns to combined B2. No next-map destination is invented. |
+| US2 scenario8, FR-009, SC-003 and Q1 narrow legacy checkpoint reset | Current no-silent-reset decision: exact old B1/B2 path/UID + known ID pairs normalize in memory to the same B1/B2 ID, without rewriting disk or losing checkpoint progress. |
+| Residual exception policy / T027 / contract treating every B3 checkpoint as unsupported | Only `b3_start` with the new explicit contract and b2_cleared is supported; unmarked, unknown-ID, future-contract or missing-clear B3 data stays unchanged and blocked. |
+| T044 integrated B2→B3 floor connector | T086 retains only existing integrated floor endpoints; B3 remains a separate scene. |
+
+### Current acceptance requirements
+
+- **B3-R1 Exit**: retain Door_b3_exit, empty target_stage/target_door, disable transition
+  interaction and F prompt. No fallback, empty-path load or door-triggered error.
+- **B3-R2 Down**: F returns to `basement_full.tscn` B2 via its dedicated door arrival
+  `Door_b2_up/Spawn` (spawn ID `b2_up`), separate from checkpoint. Supported arrival is
+  outside the trigger, B2 displays and Player moves, with no loop or checkpoint mutation.
+- **B3-R3 Activation**: reuse explicit nearby-F checkpoint detector for Checkpoint_b3;
+  prompt, active tint and exact `Checkpoint activated.` feedback only on acceptance.
+  Walking past/entering scene does not activate. Current checkpoint repeated F causes
+  no save write or feedback replay.
+- **B3-R4 Recovery/rank**: B3 new checkpoint rank3; B1/B2 ranks1/2 cannot overwrite it.
+  Death/restart restores B3 Spawn even after returning by door to B2; door destination
+  remains B2 regardless of active B3 checkpoint. Preserve payload, SP and clear flags.
+- **B3-R5 Compatibility**: new v1 JSON saves carry
+  `basement_checkpoint_contract="explicit_b3_v1"`, canonical B3 + b3_start and b2_cleared.
+  Path/UID aliases accepted for that contract only. No implicit old-B3 migration/reset,
+  rank guessing or recovery fallback. Known B1/B2 identities are preserved; unknown pairs
+  remain held. Serializer version stays1; no new policy for unsupported file formats.
+- **B3-R6 Integration**: keep T086 and B2-clear gate; verify F after Settings, spawn support,
+  camera/floor visibility and save preservation in isolated synthetic-data runs. Do not
+  alter incoming layout/library/AI/Player/camera or claim independent reviewer agreement.
+
+Executed results and manual limits are appended to tasks/validation and
+[project audit validation](../../docs/project-audit-validation.md).

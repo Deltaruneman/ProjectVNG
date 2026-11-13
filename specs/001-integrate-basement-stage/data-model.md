@@ -1,5 +1,8 @@
 # Data Model: Basement Stage and Progress
 
+> T087 current persistence model is appended below. Older proposed tables and reset/B3
+> ineligibility statements remain historical. The save serializer still uses JSON version1.
+
 **Status**: Proposed integration model; existing primitives are distinguished below.
 No fields/code were implemented. Names of new flag keys and Duy interfaces require joint review.
 
@@ -86,3 +89,32 @@ Unknown stage/checkpoint/version cases are not silently absorbed into the approv
 
 Gate visual/collision nodes are map-owned. No gate stores target_stage or invokes change_stage.
 Safe missed-jump landings/retry surfaces are map geometry, not lethal-fall or damage entities.
+
+
+## T087 implemented model — explicit B3 identity, no silent reset
+
+| Entity/field | Current meaning |
+| --- | --- |
+| combined stage + b1_start / b2_start | Trusted rank1 / rank2; forward-only explicit activation |
+| separate basement_b3 + b3_start | Trusted rank3; explicit F, owned declaration + child Spawn |
+| basement_checkpoint_contract | Top-level discriminator `explicit_b3_v1`, written only by accepted new B3 activation |
+| flags.b2_cleared | Existing persistent entry condition; required for supported B3 checkpoint too |
+| pending_spawn=b2_up | Ephemeral main-scene door arrival; never checkpoint progress or saved coordinates |
+| disabled exit | Door_b3_exit targets empty, transition_enabled=false, no interaction Area/prompt; visual/collision stay |
+
+Example synthetic new save (other owned/unknown payload fields are retained by merge):
+
+```json
+{"version":1,"stage":"res://levels/level_1/basement_b3.tscn","checkpoint":"b3_start","basement_checkpoint_contract":"explicit_b3_v1","flags":{"b2_cleared":true},"skill_points":10}
+```
+
+New contract path/UID aliases normalize in memory; do not rewrite disk on load. Unmarked
+old B3, wrong ID, future contract, missing clear and other unknown pairs remain held;
+keep stage/ID/payload/SP/flags and file bytes, no guessed migration. Exact legacy B1/B2
+pairs retain equivalent checkpoint ID, replacing the old reset-to-default policy.
+
+Death/restart reads the checkpoint pair, not the last door destination. Thus active B3
++ runtime main/B2 still recovers B3; travel to B2 uses only pending_spawn. Scene geometry
+is not serialized. Measured B2 door arrival=(38.1885,11.17303,8.2), B3 checkpoint Spawn=
+(47,1.2,11), surfaces≈11.01/1.01 respectively. Positions are existing markers, not new
+save fields or assumed permanent map design. No player/boss/partial-wave state added.

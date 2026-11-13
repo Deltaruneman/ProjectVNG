@@ -1733,6 +1733,100 @@ Godot 4.7.2 Compatibility rendered fixtures: isolated camera 115/115 checks pass
 
 Native cursor display inside the original embedded Game window, every individual elemental combat/ult scenario and Bao visual acceptance remain NOT RUN. Fixtures use U from the earlier copied input map; current E binding was preserved. No commit/push or reviewer agreement is claimed. Source files had Windows memory mappings preventing truncation/replacement; scoped edits were written in place and exact content verified, and the temporary replacement file was removed.
 
+
+## Whole-project audit refresh — 2026-11-13 / HEAD 42471e4c
+
+This cumulative append supersedes earlier present-tense statements only within the tested
+scope; prior evidence/history remains. No game source, scenes, input, vendor assets or
+tracked caches were changed. No task checkboxes or teammate agreement were added.
+
+The definitive current run matrix, engine/build, pre-autoload isolation probe, raw-log
+locations, failures/harness corrections and NOT RUN manual checklist are in
+[project-audit-validation.md](../../docs/project-audit-validation.md).
+System/dependency and design-divergence map: [project-current-state.md](../../docs/project-current-state.md).
+
+- Godot 4.7.2 official, current renderer Radeon 780M Compatibility. Disposable copy plus
+  child APPDATA/custom directory verified with no-autoload probe before startup.
+- 100 authored/integration scripts load/instantiate as scripts; full clean import timeout
+  is BLOCKED, not passed. Current cached main startup succeeds. Four alternate/test scenes
+  emit missing-ext-resource errors even though ResourceLoader may return non-null.
+- Rig 115/115, VFX 6/6, actual-basement U 42/42 and E 42/42, settings 53/53 + restart 2/2,
+  parry 7 cases. None is full manual gameplay/reviewer acceptance.
+- Checkpoint fixtures 54/55 (BUG-010), interaction 25/26 (BUG-008), recovery 45/55
+  (six obsolete camera equality expectations; four real B2 support failures).
+- BUG-003 health bar visible in new B1/B2 captures; BUG-004 not reproduced at six old
+  coordinates. Both retain history and broader retest status; no fix/closure attributed.
+- New High findings: B2 continuation/respawn active_level=2 hides all floors (BUG-005),
+  B1/B2 zero-point navigation (BUG-006), undamageable Pelican blocks B1 clear/chest (BUG-007).
+  Medium: two HUDs (BUG-008), missing legacy scene resources (BUG-009).
+- Actual B2 three-defeat→pickup/save/reload→clear gate→B3 arrival→B2 death recovery ran;
+  recovered B2 visibility fails. B1 genuine all-zone chest flow blocked by Pelican.
+  Unique reward API dedup passes; ordinary SP farm intent remains a design question.
+- Direct API smoke for 12 active skill IDs and 8 ultimates runs without SCRIPT ERROR;
+  actual per-skill target hits, visuals, native feel, boss fight and full route remain unverified.
+  Renderer shader-init, UID fallback and retained objects/resources remain unresolved.
+
+All original requirements and ownership boundaries remain. T071/T075 are recorded later
+B3-gating decisions, not permission to rewrite unrelated sprint requirements. T085 source/
+request existed before audit but task verification was missing; audit backfills an unchecked
+status with actual test results. No game-fix implementation has started.
+
+
+## T086 checkpoint approach / BUG-005 repair — 2026-11-13
+
+Current user authorizes narrow implementation; prior audit-only stop and T044's integrated
+B2→B3 connector assumption are superseded for the three-branch combined scene. Branch/HEAD
+unchanged. Prior audit docs and pre-existing checkpoint local Y6 / relocated door scene
+bytes preserved. No setup, generator, branch switch, commit/push or broad plan regeneration.
+
+Rendered walking before F proves level1→2 selection in B2/LadderSpot_B2_B3, all floors
+hidden while Player remains grounded on B2/World/Floor. At yaw0/zoom9, camera boom remains
+8.94 and has no focus/lens/sightline obstruction; blackout is floor selection, not marker,
+GameManager or F. Leaving connector restores B2. Startup guess independently selects absent
+level2. Fix admits only connectors with existing endpoints and bounds startup fallback to
+existing floor metadata. Camera collision, ceilings/colliders, gameplay and scene unchanged.
+
+Spawn support was already corrected at entry: B2 parent5 + checkpoint6 + child0.2 =11.2,
+support≈11.01. Historical audit12.2 is not current. Before/after identical updated recovery
+fixture63/67→67/67 proves four visibility failures repaired, original support assertions pass
+both. Camera assertion now matches rig focus_offset, not pre-orbit rig=Player equality.
+
+Runtime evidence: rendered approach126/126, F/tint/feedback/idempotence/rank/Settings/jump/
+B2 death/B3 death/payload32/32, actual connector wall-jump ascent/descent2/2, unchanged camera
+suite115/115; five rendered startup/restart/explicit-scene processes each7/7 with synthetic
+save bytes unchanged. Final headless trace126/18→126/0 includes marker paths, ceilings,
+real supporting collider, connector, camera focus/boom obstruction and actual sightline.
+
+See [audit validation](../../docs/project-audit-validation.md) T086 section for exact paths,
+commands, snapshots and limitations. Initial temporary JSON numeric comparison failure is
+retained as harness error, corrected via initial loaded sentinel; game save source unchanged.
+Known UID fallback/exit retained-resource diagnostics remain. Independent BUG-010 fixture
+still54/55; other audit bugs remain out of scope. Native F5/F6/mouse feel and Quan/Bao review
+NOT RUN/pending. No full-task checkbox or independent reviewer sign-off is fabricated.
+
+## T087 — B3 explicit checkpoint / door implementation (2026-11-13)
+
+Current requirements supersede blanket B3 recovery prohibition; only marked new explicit-F
+saves are supported. Exact old B1/B2 pairs retain their IDs without disk reset. See spec.md
+supersession table and contracts/stage-progress.md for authoritative current policy.
+
+| Executed case | Result |
+| --- | --- |
+| Rendered B2 clear→B3→B2; inert exit; F/Settings/tint/feedback; rank3; death; payload | PASSED 99/99 |
+| Legacy/invalid/future B3 hold, supported path/UID cases, spoofed rank | PASSED 47/47 |
+| Existing checkpoint save fixtures / B1/B2 recovery | PASSED 59/59 / 67/67 |
+| T086 approach visibility regression | PASSED 126/126 |
+| Nine fresh rendered main-entry processes, three B3 restart + four held + two legacy | PASSED all; saved bytes unchanged |
+| Old unmarked/invalid B3 recovery itself | BLOCKED intentionally; no migration policy |
+| Native F5/F6/mouse/focus feel, live boss interference, independent reviews | NOT RUN |
+
+Repeated current F checks save bytes plus filesystem modified timestamp and no replay.
+Existing support/visibility assertions retained; optional boss fixture guard matches incoming
+combined scene without DarkFairy. First obsolete-fixture failure is retained, not game bug.
+Detailed commands, isolated paths, raw logs, support coordinates, warnings and checklist:
+[project audit validation T087](../../docs/project-audit-validation.md).
+Godot4.7.2 official Compatibility/OpenGL; no clean import or full-project re-audit claimed.
+T087 unchecked until remaining manual/review work; no teammate sign-off inferred.
 ## T085 Successful parry feedback (2026-11-13)
 
 Implemented Bao-owned Player feedback at the successful parry transition, using exported pixelfx impacts/parry and the existing TomMusic Sword Parry 1 sound. White contact flash, expanding gold ring and sparks play at 1.5x speed, with contact in front toward the attacker and camera-projected world anchoring. Source pivot correction keeps the flash at the intended point. SFX uses the existing SFX/Master bus selection. No slash/ice-shield, map, enemy implementation or combat timing changes.
@@ -1803,3 +1897,8 @@ User requests trying a combo with limited assets. Bao owns Player combat. Existi
 Implemented three hits in the Player attack state. A fresh press after entering queues one next hit; holding does not queue. Each stage restarts the same directional animation and slash, pulses the existing hit shape separately, and the third stage adds one damage. Exit disables the shape and clears queued state. The source changes are static findings only: no Godot run or native playtest has yet established in-game timing, overlap hit registration, or camera orbit behavior. Godot was not found on PATH during this work. Native feel and Bao review are pending; no teammate agreement is claimed.
 
 The user subsequently rejected the trial and requested its removal. The T092 edits in `attack.gd` were reverted; the original single attack, hitbox timing and slash presentation are restored in source. No Godot run was performed for the trial or reversal. T092 is cancelled, not accepted.
+## T093 F9 New Game input route (2026-11-13)
+
+User reports pressing F9 still leaves B2 progress saved. Read-only inspection of the default `user://save.json` found `flags.b2_cleared = true`, checkpoint `b2_start`, and a save timestamp of 2026-11-13 20:42 local. `project.godot` binds `new_game` to physical F9. `GameManager._unhandled_input()` was the only F9 route; focused GUI can consume input before that callback, and the GameManager autoload uses inherited pause processing. `GameManager.new_game()` itself deletes the save, clears in-memory flags and reloads the first stage. The retained flag establishes that the reported F9 attempt did not complete that reset; the precise input interception was not reproduced in Godot.
+
+Bao-owned `PauseMenu` is an always-processing autoload. Its `_input()` now handles one non-echo F9 press before GUI handling, marks it handled to avoid the GameManager fallback processing the same event, and calls the existing `GameManager.new_game()`. While key rebinding is active, F9 remains available for capture. No GameManager, SaveSystem, enemy, map or scene changes were made. Static event-route/source review and `git diff --check` completed. Godot gameplay/pause/rebinding input tests and native confirmation that a fresh B2 run spawns enemies remain NOT RUN; no reviewer agreement is claimed. The real user save was read only and not modified.

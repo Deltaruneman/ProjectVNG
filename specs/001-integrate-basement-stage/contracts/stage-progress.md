@@ -1,5 +1,22 @@
 # Contract: Basement Progress, Checkpoints, and Sprint Destinations
 
+> T087 current contract appears at the end. The original proposal and B3 blanket-refusal/
+> legacy-reset paragraphs are historical and superseded only as specified there.
+
+## Audit applicability — 2026-11-13
+
+The original tables are a historical proposal/snapshot, not a current API inventory.
+`activate_basement_checkpoint`, Player.can_interact, physical F binding, finite
+EnemyZone.clear_kills/cleared and B2 local progress bridge now exist. Save payload
+preservation and a conditional B3 guard are implemented. Their executed evidence and
+failures are in [audit validation](../../../docs/project-audit-validation.md).
+
+The full Duy-facing restore/reset/readiness proposal has not been proven implemented.
+Do not equate B2's flag bridge with all approved B1/parkour persistence semantics.
+Original B1 durable-clear/reset requirements remain questions for owner reconciliation,
+not deleted requirements; old-B3 save recovery still lacks a selected policy.
+
+
 **Status**: Proposed internal integration contract for Lam/Quan, Duy, Bao/input impact,
 and the identified manager/save reviewer. This is documentation, not an implemented API.
 No external network/API service is introduced.
@@ -114,3 +131,31 @@ Record stage path/UID, checkpoint, reason, durable state, requested unfinished f
 outcome for validation. Do not add a telemetry service. Any missing interface, wrong owner,
 unsupported save, duplicate reset/load, new error, or blocked route is recorded as a failure
 or blocked check, not hidden by a fallback or fake clear event.
+
+
+## T087 current checkpoint and door contract
+
+`GameManager.activate_basement_checkpoint(stage_reference,id)` now accepts explicit
+B1/B2 in combined stage and B3 in separate stage. Validate active Stage identity, unique
+owned declaration + child Spawn, changing/conflict state and trusted ranks1/2/3. B3 also
+requires `b2_cleared`. Return accepted/unchanged/rejected; only accepted saves/tints/shows
+`Checkpoint activated.`. Unchanged/rejected clear transient feedback; repeated input
+cannot restart success feedback. Arrival/proximity is never an activation request.
+
+Supported B3 checkpoint = path/UID of basement_b3 + `b3_start` + JSON field
+`basement_checkpoint_contract="explicit_b3_v1"` + persisted `flags.b2_cleared=true`.
+Only validated new activation stamps the field. Old B3 pairs lacking it, unknown IDs,
+future marker or missing clear remain conflicts: no continuation/death destination chosen,
+no progress write, no identity erase. Configured main may instantiate at boot, but emits
+no successful continuation registration for held data; this is not approved B1 recovery.
+
+Known exact legacy B1/B2 pairs normalize to combined stage with the same ID in memory;
+load never rewrites/reset those saved pairs. This supersedes the old approved reset.
+Unknown/missing pairs remain intact and held. No new serializer/version/file-format policy.
+
+Door destinations and checkpoint destinations are separate. Main-stage spawn whitelist
+admits `b2_up` (Door_b2_up/Spawn) for B3 down return; this never changes checkpoint_stage/id.
+Door_b3_down target_stage is combined scene, target_door=b2_up. Preserve B2-clear guard
+on all B3 changes. Door_b3_exit has empty targets and transition_enabled=false: remove
+only its interaction Area, preserving visual/solid gate. Handler also refuses disabled or
+empty-target transition calls before animation/load. No guessed next map or fallback.

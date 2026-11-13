@@ -1612,3 +1612,268 @@ The T-menu now presents the Skill Tree as ink and bronze seals on two parchment 
 **Verification and limits.** Inspected source and existing 0.4-second attack animations; confirmed Godot is not on PATH. No Godot parse, in-engine collision/input test or native playtest was run. Hit registration against overlapping enemies, timing under low frame rate and visual feel require runtime verification. No errors observed from a game run because no game run occurred.
 
 **Reversal.** `scenes/player/states/attack.gd` was restored to the original single attack, original full-state hitbox and original slash size/position. `specs/001-integrate-basement-stage/tasks.md` marks T092 cancelled; `specs/001-integrate-basement-stage/validation.md` records the user rejection and missing runtime evidence; this changelog retains the trial history and reversal. No shared systems or other owners' files changed during reversal. Source/diff inspection is the only check; Godot was not run, and no T092 work remains unfinished.
+
+
+## 2026-11-13 — Whole-project audit at 42471e4c (documentation only)
+
+**Authorization/baseline.** User requests current-project audit and documentation, explicitly
+forbidding game-code fixes. Branch remains `feature/playercontrolandmap`, HEAD
+`42471e4cef0be0a6e355ce459ace2462aba7f9d3`. Initial staged/unstaged diffs empty;
+existing untracked `KayKit_Dungeon/Assets/gltf/dungeon_texture.png.import~RF26cee0.TMP`
+preserved. AGENTS, constitution, active feature artifacts, bug/changelog and Git history
+read before work. No branch/staging/commit/push/reset/clean/generator operation occurred.
+
+**Task state.** No existing completion checkbox changed. T013/T025/T026 remain partial;
+T034 and ceiling/route tasks unaccepted. T071/T075 gain bounded actual B2 kill/clear/save/
+B3-route evidence, but B2 recovery visibility fails. T077 has invocation smoke, not full
+clone combat validation. T079–T084 retain rendered passes, native feel/review pending.
+Existing settings T085 is backfilled unchecked (53/53 rendered + 2/2 restart). The B1
+reward follow-up is from `22ad2661`, not T070 (which is boss framing). No reviewer agreement.
+
+| Included file | Purpose |
+| --- | --- |
+| `docs/project-current-state.md` (new) | Baseline, system/dependency/input map, implementation/docs drift, Git context, design questions and proposed first repair group. |
+| `docs/project-audit-validation.md` (new) | Exact environment/isolation, commands/evidence paths, per-lane results, harness/environment errors, limits and NOT RUN checklist. |
+| `docs/implementation-bugs.md` | Preserve BUG-001–004 history, append current dispositions and BUG-005–010 severity, reproduction, files, expected/actual, logs, impact and status. |
+| `README.md` | Correct main scene/camera/default inputs; link audit and isolated testing. |
+| `docs/build_progress_1.md` | Mark milestone narrative historical without rewriting its content. |
+| `docs/esc-menu-settings.md` | Append actual bounded T085 results and pending native/audio/reviewer acceptance. |
+| `specs/001-integrate-basement-stage/spec.md` | Applicability/later recorded decisions; original requirements/questions retained. |
+| `specs/001-integrate-basement-stage/plan.md` | Historical plan versus current evidence; proposed repair boundary only. |
+| `specs/001-integrate-basement-stage/tasks.md` | Task audit state and unchecked T085, no existing completion ticks. |
+| `specs/001-integrate-basement-stage/validation.md` | Cumulative summary linking the full audit matrix. |
+| `specs/001-integrate-basement-stage/contracts/stage-progress.md` | Historical proposed inventory versus current APIs; preserve unproven wave/reset contract. |
+| `specs/001-integrate-basement-stage/quickstart.md` | Supersession and pre-autoload isolation; withdraw original-workspace launch example for verified `$isolatedCopy`. |
+| `docs/implementation-changelog.md` | This cumulative file/status/integration/verification record. |
+
+**Shared integration effects.** Documentation only. Game source, scenes, resources, input,
+autoloads, vendor assets and tracked caches unchanged. Test-only scripts/scenes/config,
+observer autoload, import/cache, synthetic saves/settings, captures and raw logs live outside
+the repository in isolated audit evidence. A no-autoload probe verifies exact user-data
+path before game startup. No real progress was inspected or changed. Ownership/review
+boundaries remain Lam/Quan map, Bao Player/camera/UI and Duy enemies/boss.
+
+**Verification.** Godot `4.7.2.stable.official.ed1daf0bf`, current renderer OpenGL Compatibility /
+Radeon 780M. 100 authored/integration scripts load; cached normal main startup succeeds.
+Rig 115/115, VFX 6/6, actual-basement U 42/42 and E alias 42/42, settings 53/53 + restart 2/2,
+parry seven enemy cases. Checkpoint fixtures 54/55, interaction 25/26, recovery 45/55;
+six camera-equality assertions are obsolete, four B2 support failures are real. Actual
+B2 three defeats, pickup/save/reload, persistent clear, door→B3 arrival and death→B2 ran
+through diagnostic damage APIs; recovered B2 visibility fails. Six total tested enemy
+SP drops collected and restored. Direct 12 active-skill / eight ultimate API smoke completes
+without SCRIPT ERROR, not full target-hit/damage/visual acceptance.
+
+**Findings.** No Critical defect established. High: BUG-005 B2 continuation/respawn hides
+floors and support mismatch; BUG-006 zero-point B1/B2 navigation; BUG-007 undamageable
+Pelican blocks B1 clear/chest. Medium: BUG-008 duplicate HUD/Skill Trees, BUG-009 four
+scenes with missing references. Low: BUG-010 missing-stage checkpoint identity cleared in
+memory; disk bytes preserved. BUG-003 HP visible in current B1/B2 captures; BUG-004 not
+reproduced at six old coordinates. Preserve their history/open broader retest; no fix claim.
+
+**Errors/limitations/unfinished work.** Full clean import timeout is BLOCKED; later runs use
+cache copied read-only. Non-null ResourceLoader is not proof of clean resources: four
+alternate/test scenes emit missing-ext-resource errors. Copy long-path/console Unicode,
+initial harness type/direct-script singleton/null receiver/pre-FSM death timing failures
+remain in raw logs, followed by corrected harness runs. No game source patched to pass.
+Full-copy renderer shader-init errors, UID fallbacks and retained objects/resources remain
+unresolved; minimal rig/VFX logs are clean. Native embedded feel, full route/stairs/ceiling/
+containment, actual dialogue, boss fight/reward, genuine B1 chest, all-skill hit/visual/audio
+and independent reviewer acceptance remain NOT RUN/BLOCKED. B1 durable clear/unlock,
+ordinary-SP farming and unfinished marker/route design stay explicit questions.
+
+**Preservation/stop.** All 12,668 baseline tracked hashes matched immediately before docs.
+Final documentation-allowlist hash/status/diff reconciliation is recorded in audit validation.
+No game repair started. Proposed first group BUG-005/006 is held for the user's scope choice
+and existing owner/review boundaries; no commit or push.
+
+
+## 2026-11-13 — T086 checkpoint repair: diagnosis and pre-implementation boundary
+
+Current user authorizes narrow checkpoint/floor-visibility/spawn recovery repair; other
+audit bugs remain out of scope. Baseline on `feature/playercontrolandmap` / `42471e4c`
+includes prior audit docs plus pre-existing scene edits: B2 checkpoint local Y=6 and Door_b2_up
+local (38.1885,5.973031,5). Preserve both and all layout/textures/collision. Full hashes
+and binary staged/unstaged diffs are in isolated `cp-fix` evidence workspace.
+
+Before-change headless and rendered walk matrix: 117 assertions, 18 failures, all B2
+visibility-before-F. Player stays grounded on B2/World/Floor at Y≈11.01055; approach enters
+B2/LadderSpot_B2_B3, changes level 1→2, hides all floors; departure restores level 1.
+Yaw 0 / zoom9 focus and lens have no overlap or obstruction and boom remains 8.94 m.
+Thus approach blackout and BUG-005 share absent-floor selection; no GameManager/F/camera
+cause established. Current checkpoint Spawn Y=11.2 is already near actual support,
+so its historical Y=12.2 placement failure must be revalidated, not fixed again blindly.
+
+Proposed implementation files: `levels/level_1/basement_floor_visibility.gd` to admit
+connectors only when both floor endpoints exist and bound startup height fallback to
+existing metadata levels; `tests/basement_checkpoint_check.gd` to correct orbit focus
+expectation and add actual visibility regression without weakening spawn support;
+a focused reusable checkpoint-approach fixture if validated. Docs: this changelog,
+implementation-bugs, project-audit-validation, project-current-state, active tasks and
+validation. Scope recorded as T086; no existing task completion/reviewer sign-off.
+
+Shared interfaces preserved: GameManager checkpoint IDs/ranks/payload and F handling,
+Stage spawn/camera contract, CameraRig obstruction sweep, all asset libraries and user
+scene positions. T044's old B2→B3 midpoint test is superseded for a combined scene that
+has no integrated B3; the existing separate-scene B3 door/gate remains supported.
+Implementation and after-change evidence follow; no fix is claimed in this entry.
+
+
+### T086 implementation and final bounded verification
+
+**Implemented behavior.** Only the scene-local floor selector changes game behavior:
+connector definitions are registered only when both metadata levels actually exist, and
+the startup height estimate resolves to an existing metadata level. Approach to the B2
+column no longer selects absent level2, and B2 continuation/death recovery displays B2.
+Supporting-floor queries, real B1↔B2 connector midpoint/hysteresis, Hidden-area rendering,
+ceiling visual policy, physics collision, camera obstruction, input/F and save rules remain.
+
+| Included T086 file | Purpose |
+| --- | --- |
+| `levels/level_1/basement_floor_visibility.gd` | Filter absent floor endpoints and bound initial floor selection; correct obsolete header comment. |
+| `tests/basement_checkpoint_check.gd` | Match orbit rig focus_offset; retain support/range/tolerance assertions; add floor visibility after settle and death. |
+| `tests/basement_checkpoint_visibility_check.gd` (new) | Reusable guarded actual-Player approach/orbit/zoom regression, support/connector/marker/ceiling/camera traces and optional rendered captures in isolated user data. |
+| `tests/basement_checkpoint_visibility_check.tscn` (new) | Normal-scene entry so production autoloads compile in their intended lifecycle. |
+| `docs/implementation-bugs.md` | BUG-005 shared approach/recovery root cause, historical versus current Spawn evidence, bounded fix verification; other IDs/history preserved. |
+| `docs/project-audit-validation.md` | T086 baseline/isolation, exact commands, before/after matrix, raw logs/captures, warnings and manual gaps. |
+| `docs/project-current-state.md` | Current repair status and supersession, retaining prior audit snapshot/history. |
+| `specs/001-integrate-basement-stage/tasks.md` | T086 authorization/scope/acceptance/evidence; unchecked pending native/reviewer acceptance; no plan regeneration. |
+| `specs/001-integrate-basement-stage/validation.md` | Cumulative before/after results and current requirement applicability. |
+| `docs/implementation-changelog.md` | This cumulative scope/file/integration/verification record. |
+
+**Preserved incoming work / integration.** No T086 edit to `basement_full.tscn`: retain
+checkpoint localY6 and Door_b2_up position exactly as found, plus all layout/textures.
+B2 rootY5 + checkpointY6 + Spawn0.2 gives worldY11.2, support≈11.01, already passing original
+support checks before selector repair. Do not attribute that earlier correction to T086.
+No GameManager, checkpoint detector/resource, CameraRig/Player, input, asset library,
+navigation, enemies/boss or tracked cache edit. Separate B3 clear-gated route is unchanged.
+T044's integrated B2→B3 midpoint assumption and audit-only stop are superseded by current
+user scope; no other design requirement is silently changed. Lam/Quan map and Bao camera/
+Player review boundaries remain; no independent reviewer agreement is claimed.
+
+**Before/after evidence.** Fresh copy of current working tree, exact no-autoload user-data
+probe, synthetic data only. Godot4.7.2 official / Compatibility / Radeon780M. Raw evidence
+lives in sibling visualization workspace `cp-fix`, not repository. Rendered before117
+checks/18 B2 failures; rendered after126/126 (nine additional B1 lens checks). Final paired
+headless trace126/18→126/0 refines correct B1 marker path, ceilings and actual sightline.
+At failure Player is grounded on B2/World/Floor, camera focus/lens/sightline unobstructed,
+connector1→2 hides all floors; after fix same pose/camera retains B2. Screenshots inspected.
+
+Updated recovery fixture63/67→67/67, original spawn support assertions unchanged.
+Rendered F/tint/exact feedback/idempotence/forward-only/Settings/jump/B2 death/B3 death/
+unrelated payload32/32; actual connector wall-jump ascent and physical descent2/2;
+unchanged camera collision fixture115/115. Five rendered fresh entry processes (B1/B2
+start + restart, explicit B2 scene) each7/7, synthetic save bytes unchanged; supported
+Player can move and correct floor displays. No runtime repair is inferred merely from source.
+
+**Known failures / limits.** General save fixture still54/55 on independent BUG-010; its
+assertion is retained. Initial temporary payload check compared int with JSON numeric
+value types (30/32); compare against initial loaded sentinel, then rendered32/32, without
+save code change. Initial unnamed no-autoload probe/console decode checks were corrected
+before game startup using a named probe and UTF-8 result JSON. Full-copy final runs retain
+eight UID fallback warnings and shutdown ObjectDB/1-resource diagnostic, no SCRIPT ERROR;
+minimal camera log is clean. Clean import/full audit not rerun. BUG-006/007/008/009/010 are
+not repaired. Native editor F5/F6 and embedded mouse feel, all pitches/aspect ratios and
+Quan/Bao review remain NOT RUN/pending. T086 stays unchecked for these acceptance gaps,
+while the specific automated/runtime cases above are verified.
+
+**Stop.** No commit/push, branch switch, generator, reset/clean or real-progress access.
+Final baseline/hash/scene-byte reconciliation is appended in project-audit-validation.md.
+This bounded checkpoint group is complete for tested behavior; no additional bug repair
+starts without a new scope selection.
+
+
+## 2026-11-13 — T087 B3 doors/checkpoint: authorized boundary before implementation
+
+User extends implementation to B3 exit/return/explicit checkpoint. Current branch/HEAD
+unchanged; baseline12674 files/diffs saved in isolated `b3-fix` evidence before writes.
+Preserve incoming B3 nested-map layout, MVP library and tracked UID-cache edits and T086.
+
+Planned files: GameManager for ranked B3 checkpoint and separate-door spawn allowance,
+new contract field `basement_checkpoint_contract="explicit_b3_v1"` (save serializer v1
+unchanged), unsupported old B3 preservation; basement checkpoint detector reuse/current
+identity; Door script disabled interaction/empty-target guard; B3 scene wiring and only
+measured supported arrival/checkpoint positions if necessary; focused tests and spec/docs.
+Use existing main-scene Door_b2_up/Spawn as dedicated return rather than checkpoint:
+measured world (38.1885,11.17303,8.2), supporting B2 floor11.01. Check B3 support separately
+before choosing scene changes. No map/library regeneration or boss/Player/camera edits.
+
+New user no-silent-reset requirement supersedes old exact legacy B1/B2 reset: normalize
+known pairs to same checkpoint ID without disk rewrite; unknown/unmarked B3 and missing
+references remain held, never implicitly reset/deleted/fallback. New B3 requires canonical
+ID, explicit new contract and b2_cleared. Lower B1/B2 cannot overwrite rank3. Current B3
+route gate and T086 floor selection remain; no Quan/Bao/Duy sign-off is inferred.
+
+T087 scope/acceptance recorded in tasks. Runtime and final included-file manifest follow;
+this boundary entry is not a completed implementation or validation claim.
+
+## 2026-11-13 — T087 implementation and verified subset
+
+B3 exit had default/fallback transition behavior despite no next map; B3 down did not target
+the combined B2 route; the stock contact checkpoint and blanket B3 refusal could not meet
+explicit-F recovery. This group wires the existing reusable checkpoint and adds a trusted
+rank3 save contract. No contact activation or repeated-current feedback/save write.
+
+### Included file manifest (relative to project root)
+
+| File | Purpose |
+| --- | --- |
+| levels/level_1/basement_b3.tscn | Reuse explicit-F checkpoint; down targets combined scene/b2_up; exit empty+disabled. Incoming GridMaps/transforms retained. |
+| levels/objects/door/door.gd | Default-on transition_enabled; remove only disabled interaction area; empty-target guard before animation/load. |
+| levels/objects/checkpoint/basement_checkpoint.gd | B3-aware current identity and clear transient feedback on unchanged/rejected F. |
+| scripts/autoload/game_manager.gd | Rank3, explicit_b3_v1 contract, supported B3 recovery, dedicated b2_up transient arrival, legacy/unknown identity preservation. |
+| tests/basement_b3_check.gd | Isolated actual-input clear/doors/checkpoint/death/Settings/payload and compatibility suite; repeated F timestamp/byte checks. |
+| tests/basement_b3_check.tscn | Normal scene lifecycle entry for new suite. |
+| tests/basement_checkpoint_check.gd | Replace superseded legacy reset expectation with equivalent ID + no disk rewrite; missing-ref assertion retained. |
+| tests/basement_checkpoint_visibility_check.gd | Optional boss suppression guard; keep all T086 visibility/support assertions. |
+| docs/implementation-bugs.md | T087 causes, fixes, verified evidence; BUG-010 identity preservation; independent bugs/history retained. |
+| docs/project-current-state.md | Current B3 route/contract/recovery, measured safe Spawn, compatibility limits. |
+| docs/project-audit-validation.md | Baseline, isolated engine/commands, geometry, before/after results, diagnostics/manual limits. |
+| docs/implementation-changelog.md | Cumulative scope, full manifest, integration, validation and pending ownership. |
+| specs/001-integrate-basement-stage/spec.md | Explicit current-requirement supersession table and B3-R1–R6. |
+| specs/001-integrate-basement-stage/contracts/stage-progress.md | Current activation/save/door boundary; historical contract retained. |
+| specs/001-integrate-basement-stage/data-model.md | v1 discriminator, trusted rank3, transient b2_up and held-old data policy. |
+| specs/001-integrate-basement-stage/plan.md | Applicability addendum only; no regenerated plan. |
+| specs/001-integrate-basement-stage/tasks.md | T087 scope/results and unfinished acceptance; no invented completion/review. |
+| specs/001-integrate-basement-stage/validation.md | Executed subset and pending/blocked distinction. |
+
+Shared effects: GameManager accepts only B3 stage/UID + b3_start + explicit_b3_v1 + persisted
+b2_cleared; rank comes from trusted metadata, not save rank. New activation stamps marker;
+load never stamps old data. Door travel uses pending b2_up only and never changes checkpoint.
+B2-clear entry gate stays. Known legacy B1/B2 normalize to equivalent ID in memory without
+rewriting disk, explicitly replacing old reset policy under current no-silent-reset request.
+Missing/partial identities are retained (BUG-010), required for old-save preservation.
+SaveSystem serializer/version, unrelated keys/SP/allocations/flags remain intact.
+
+Godot4.7.2.stable.official.ed1daf0bf; isolated copy and APPDATA, exact user directory verified
+before autoload, synthetic saves only. Rendered final flow99/99; compatibility47/47;
+fixtures59/59; recovery67/67; T086126/126; nine rendered fresh entry processes all passed,
+all save bytes unchanged. Flow covers actual three B2 deaths + SP pickups, physical F/Esc,
+B3/B2 death, safe support, visible floors/camera and lower-checkpoint refusal. Repeated F
+also keeps filesystem timestamp unchanged. Rendered B3 recovery/B2-return captures inspected.
+
+Initial T086 fixture failed on incoming removed DarkFairy (240s timeout); guard corrected
+in test only, final126/126. Initial early-physics support probe corrected by waiting six
+frames; no scene placement changed. No SCRIPT ERROR in final suites. Existing UID fallback
+and retained ObjectDB/one-resource shutdown diagnostics remain, separate from inert exit.
+No AI, Player/CameraRig, input, layout/texture/library or unrelated audit bug cleanup.
+
+Old unmarked/future/invalid B3 actual recovery: BLOCKED pending policy; hold/preservation
+PASSED, no silent migration/reset. Native editor F5/F6/mouse/focus feel, all viewpoints and
+live boss combat interference: NOT RUN. Quan/Bao/Duy independent review pending; no owner
+acceptance claimed. T087 remains unchecked for these acceptance items. Full evidence and
+final baseline reconciliation are in project-audit-validation.md; no commit/push.
+
+## 2026-11-13 — T093 F9 New Game input route
+
+**Request/status.** User reports F9 still leaves B2 progress saved. Implemented a Bao-owned pause/input route for the existing New Game action. Runtime behavior and user acceptance remain pending; no commit or push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/pause_menu.gd` | Handles one F9 press in the always-processing input path, including while paused; preserves F9 binding capture. |
+| `specs/001-integrate-basement-stage/tasks.md` | Records T093 scope, owner, acceptance, checks and pending status. |
+| `specs/001-integrate-basement-stage/validation.md` | Records save/source findings, implementation boundary and missing runtime evidence. |
+| `docs/implementation-changelog.md` | Keeps this cumulative implementation record. |
+
+**Integration.** Existing `GameManager.new_game()` remains responsible for deleting the save, resetting flags and loading the first stage. The new input path marks the event handled so the existing GameManager unhandled-input fallback does not call it twice. It does not change save format, enemies, stages, pause menu navigation or other bindings. Existing unrelated working changes were preserved.
+
+**Verification and limits.** Read-only save inspection found `b2_cleared = true` and checkpoint `b2_start` after the reported F9 attempt. Static input and reset paths were reviewed. Godot input/playtest was not run; focused UI interception is a source-based explanation, not a reproduced runtime cause. No user save was deleted or edited during this task. Gameplay, pause, rebinding and B2 spawn behavior require runtime verification; no reviewer sign-off is claimed.
