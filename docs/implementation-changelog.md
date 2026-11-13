@@ -1,5 +1,36 @@
 # Implementation changelog
 
+## T089 Inventory key B (2026-11-13)
+
+User explicitly requests B for the bag. Added the `inventory` action with physical B to `project.godot` so the default is visible in the editor Input Map and runtime, in addition to the existing GameSettings fallback. Existing saved settings inspected: no inventory override and no B attack binding. No user settings file modified; remapping support remains intact.
+
+Files: `project.godot` (declarative B binding), `specs/001-integrate-basement-stage/tasks.md` (scope/status), `specs/001-integrate-basement-stage/validation.md` (evidence), this changelog, `docs/validation/inventory-combat/b-key.log` and `b-key-errors.log` (final rendered regression evidence). Final Godot 4.7.2 Compatibility fixture passes 48/48, including B opening and closing/resuming the bag. Initial headless run passed hotkey checks but failed its physical-window resolution assertion; rendered rerun resolves that fixture limitation. Existing UID fallback and shutdown retained-object/resource diagnostics persist. No other bindings changed, no native manual acceptance or commit/push claimed.
+
+## T088 Lightning 2, ESC, idle dot and inventory (2026-11-13)
+
+User requests removal of lightning-2 teleport, horizontal shooting, ESC improvements, a tiny white dot while not aiming, and a simple equipment/consumable foundation. User explicitly confirms a usable system with sample items. Bao-owned Player/UI implementation with an optional GameManager save field; no map, enemy AI, crafting or drop changes. No teammate or balance acceptance claimed. Starting dirty UID cache and medieval wood texture import sidecar were preserved, never reset by hand.
+
+Included files and purpose:
+- `scenes/player/player.gd`: horizontal lightning-2 endpoints and removal of overhead strike/teleport helpers; connect inventory stat recomputation, equipment bonuses, non-healing equip changes, timed consumable effects with refresh/expiry and 1s use cooldown; quick-use input and idle-dot layer. Original skill damage/stun/reach/cooldown retained.
+- `scenes/player/battle_vfx.gd`, `scenes/player/horizontal_lightning.gd` and generated UID: depth-tested, camera-facing horizontal beam with correct authored endpoints and short fade/cleanup.
+- `tools/export_lightning_beam.mjs`; `assets/effects/pixelfx/lightning/horizontal-beam/{horizontal-beam.png,horizontal-beam.json,contact.png,README.md}` and PNG import sidecars: recolored bundled arcane-beam export, timing/pivot instructions, reproducibility and MIT/Sprite Fusion attribution. Upstream library and protected slash/shield assets unchanged.
+- `scenes/player/skill_aim_reticle.gd`: tiny white idle-dot mode at existing raised aim point, hidden for pause/held aim/dialogue/death/cinematics; held reticle unchanged.
+- `scripts/items/item_catalog.gd`, `item_inventory.gd` and generated UID sidecars: seven data-driven sample items, three unique equipment slots, bounded consumable stacks, one quick selection, validated ID/count/slot restore, grant/equip/unequip/use APIs and change signal.
+- `scripts/autoload/game_manager.gd`: inventory init/reset/new/legacy samples, optional primitive save field, preserve unknown fields and version. Samples do not auto-equip; saved depleted stacks are never refilled.
+- `scripts/autoload/game_settings.gd`: remappable B inventory/Q quick-use actions; preserve old custom keys when newly added defaults collide.
+- `ui/inventory_panel.gd` and generated UID: three equipment cards, list/details, stat comparison and one equip/quick-assign action; explicit empty state.
+- `ui/pause_menu.gd`: compact home, inventory page and shortcut, shared pause/mouse ownership, explicit aim cancellation, back/close handling, clipped content, tighter spacing and cached preview audio generation.
+- `ui/player_hud.gd`: event-driven quick-item/count/key display below health, compensating for pixel HUD scale.
+- `ui/skill_tree_layout.gd`: lightning-2 description matches horizontal shot without teleport.
+- `tests/inventory_combat_test.gd`: actual-Player gear/buff/consumption checks, validated/unknown-field save roundtrip and fresh-process restore, key migration, damage/stun/position/beam checks, ESC/input/focus/settings/dot/UI layout and UI equip checks. Disk writes confined to fixture paths.
+- `docs/inventory-equipment.md`: usage, explicit sample balance, grant API and future loot ownership, persistence boundaries.
+- `docs/validation/inventory-combat/`: import/orb regression/rendered/small/restart logs; home/inventory/dot/beam screenshots at normal and small sizes; fixture JSON save and legacy key config. Final evidence supersedes early layout/import runs.
+- `specs/001-integrate-basement-stage/tasks.md`, `validation.md`, `docs/implementation-changelog.md`: pre-implementation scope and actual validation record.
+
+Verification: final Godot 4.7.2 Compatibility suite passes 48/48 at 1280x720 and 48/48 at verified 960x540, plus fresh-process save restore 4/4. Prior orb regression headless passes 87/87. Export contact sheet and final beam/dot/ESC/inventory screenshots inspected. Stock pixelfx `check.mjs arcane/arcane-beam` passes without warnings. New test confirms no lightning teleport, horizontal world endpoints, retained actual target damage/stun and beam cleanup; gear affects Player without double stacking/free armor healing; consumables reject no-effect/cooldown/dead/dialogue/paused/empty use, refresh buffs without stacking and expire; save keeps depleted stacks/equipment/quick selection and foreign fields. ESC settings cancel/back/resume and both bag hotkey directions pass; all home actions and inventory primary action fit without outer scrolling. `git diff --check` passes with existing line-ending notices.
+
+Corrections/limits: first import found two inferred bool types in UI; made explicit. Visual QA caught pixel-HUD scale and inventory action clipping; reduced HUD label size, compacted equipment/details and added containment assertions. Small-window test initially reset itself to 1280 via settings; final fixture explicitly applies 960 and asserts actual size. Final rendered logs have no SCRIPT ERROR; pre-existing UID fallback and exit diagnostics remain (3 ObjectDB instances, 1 retained resource). Native full-map feel, full original settings suite, manual balance and reviewer acceptance remain pending. No loot/chest/crafting connection, physical equipment art swap or commit/push. Temporary item buffs/current HP are not saved; inventory/equipment persist with existing checkpoint save semantics.
+
 ## T087 Raised skill aim and orb depth (2026-11-13)
 
 User reports skill art overlaying the Player and asks to move default aim up slightly. Static cause: orb art used the foreground PixelFX CanvasLayer, bypassing 3D depth. Bao-owned Player aiming/presentation scope is authorized; camera rig, map/enemy and gameplay balance are unchanged. Prior uncommitted parry/orb work and dirty tracked cache are preserved; no teammate approval claimed.
@@ -1520,3 +1551,64 @@ The T-menu now presents the Skill Tree as ink and bronze seals on two parchment 
 **Integration.** Menu and CameraRig share cursor/pause lifecycle; gameplay capture resumes after menu close. All directed active skills and directional ult effects use the Player's shared center-ray aim API. Ground skills retain horizontal mechanics, projectiles retain their 3D path, and holding still shows the reticle/shoulder view after 0.3 s. Skill balance, self-centered area effects, input mappings, map/AI/save and existing slash/shield assets remain outside this change. Concurrent editor/input-map, Dark Fairy, cache and temporary scene work is preserved.
 
 **Verified/limits.** Godot 4.7.2 Compatibility rendered camera fixture passes 115/115 and isolated full-basement integration passes 42/42. Exact visible cursor, opposing actor/camera directions with lateral input, quick projectile center target and existing held/pause/menu/collision checks pass. Final runs have no SCRIPT ERROR; `git diff --check` passes. Native original embedded Game cursor/feel, each elemental combat and ult case and reviewer acceptance remain NOT RUN. Existing disposable-copy UID fallback and shutdown retained-object/resource diagnostics persist. Windows-mapped source files required in-place writes instead of truncation; final content verified and temporary file removed.
+## 2026-11-13 — T090 Hearthmark inventory and item set
+
+**Request/status.** User installed Hearthmark RPG UI + Icon Pack v1.1 under `assets/items` and asks to replace the old sample items and make the inventory resemble Stardew Valley. Implemented the item/catalog and UI slice; rendered checks pass. Native visual acceptance remains pending, and no reviewer sign-off or commit/push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scripts/items/item_catalog.gd` | Replaced seven initial samples with twelve new items and Hearthmark icon metadata. |
+| `scripts/items/item_inventory.gd` | Writes inventory schema v2 and migrates version-1 item IDs while retaining counts, equipped slots and selected quick item. |
+| `ui/inventory_panel.gd` | Added parchment/wood tabs, equipment cards, quick slot, eight-column icon/count grid, filters, details and actions. |
+| `ui/pause_menu.gd` | Gives the inventory page a wood-tone shell and paper backing; preserves B/ESC pause ownership and focus. |
+| `assets/items/rpg-ui-pack-v1.1/rpg-ui-pack-v1.1/` | Preserves the installed CC0 pack, original LICENSE/README, icon/UI PNGs and Godot import sidecars. |
+| `docs/inventory-equipment.md` | Documents the new sample IDs/effects, asset license, UI and legacy save migration. |
+| `tests/inventory_combat_test.gd` | Covers new catalog/effects, old-ID migration, icon/grid UI, B/Q and save behavior. |
+| `docs/validation/inventory-combat/hearthmark-*.log` and inventory screenshots | Records rendered, small-window and fresh-process checks using disposable fixture save/settings files. |
+| `specs/001-integrate-basement-stage/tasks.md` | Records T090 scope, acceptance and current implementation status. |
+| `specs/001-integrate-basement-stage/validation.md` | Records pre-implementation boundary, implementation, checks, diagnostics and open acceptance. |
+| `docs/implementation-changelog.md` | This cumulative implementation record. |
+
+**Integration.** Active inventory IDs now reference the new icon catalog; old v1 IDs are only accepted by the migration map and are not offered as current items. Existing grant/equip/use APIs, Player effect calculations, B/Q inputs and GameManager save ownership remain in place. Existing saves retain known items and depletion state after migration. The installed upstream pack and its CC0 license are preserved. No map, loot, crafting, enemy, shop or world-pickup systems changed.
+
+**Verification.** Godot 4.7.2 Compatibility rendered fixture passes 53/53 at 1280x720 and 53/53 at 960x540; fresh-process save restore passes 4/4. The fixture checks actual Player stats/consumption, migration from old equipment/consumables including a zero-count quick item, v2 round-trip, icon loading, eight-column grid, category filters, UI equip and B open/close. Inspected large/small screenshots. Final fixture logs contain no SCRIPT ERROR. `git diff --check` reports existing CRLF notices with no whitespace errors. Godot still reports one retained resource on fixture shutdown.
+
+**Limitations.** Native game feel, per-item balance and Bao's visual acceptance remain NOT RUN. Map pickup/loot and crafting integration remain future work. No player `user://` save/settings were edited; only disposable fixture files under `docs/validation/inventory-combat/` were written. Existing dirty tracked caches and unrelated concurrent T088/T089 changes are preserved.
+## 2026-11-13 — T091 G camera lock-on
+
+**Request/status.** User asks for G to lock the camera onto the nearest enemy, prioritize a boss, and press G again to unlock. Implemented Bao-owned Player/camera/input behavior. Rendered fixture passes; native embedded camera feel remains open. No Duy AI edits, reviewer sign-off, commit or push.
+
+| Included file | Purpose |
+| --- | --- |
+| `project.godot` | Declares physical G as the default `lock_on` input action. |
+| `scripts/autoload/game_settings.gd` | Adds lock-on to remappable controls and legacy binding conflict migration. |
+| `scenes/player/player.gd` | Routes one G press to the active CameraRig while gameplay camera control is allowed. |
+| `scenes/camera/camera_rig.gd` | Selects live targets with nearest-boss priority, smooths orbit toward them, points the camera at target and clears invalid locks. |
+| `tests/inventory_combat_test.gd` | Adds rendered tests for G routing, priority, centering, toggle and target cleanup. |
+| `specs/001-integrate-basement-stage/tasks.md` | Records T091 scope, acceptance and status. |
+| `specs/001-integrate-basement-stage/validation.md` | Records pre-implementation ownership/boundary and rendered results/limits. |
+| `docs/validation/inventory-combat/lock-on-rendered.log` and `lock-on-errors.log` | Stores final rendered fixture evidence and runtime diagnostics. |
+| `docs/implementation-changelog.md` | This cumulative implementation record. |
+
+**Integration.** Ordinary enemies already join `enemies` in `scripts/enemy.gd`; current Dark Fairy boss inherits that behavior and has a `BossHUD`. The selector supports both the existing HUD marker and an explicit `boss` group, avoiding edits to Duy-owned AI. New lock-on action appears in settings/help and can be rebound. Free mouse orbit resumes after unlock. Aim reticle and skill targeting use the active camera basis as before. Saves and combat stats are unchanged.
+
+**Verification.** Godot 4.7.2 Compatibility rendered fixture passes 63/63. Checks cover G default, Player input dispatch, a closer regular enemy against two bosses, nearest-boss selection, actual camera center direction after smooth turning, second-press unlock, dead and removed target behavior, and the existing suite. Final log has no SCRIPT ERROR; existing shutdown diagnostics report three ObjectDB instances and one retained resource. `git diff --check` reports only existing CRLF notices.
+
+**Limitations.** Native embedded cursor/mouse feel, every full-stage enemy type and Bao acceptance remain NOT RUN. The existing boss convention is `BossHUD`; new boss scenes should join `boss` or expose that marker. No enemy AI, map, save or teammate-owned implementation changed.
+
+## 2026-11-13 — T092 basic attack combo trial
+
+**Request/status.** User asked to try a normal attack combo with existing assets, then rejected the result and asked to remove it. T092 is cancelled and its Player combat source changes have been reverted. No commit, push, reviewer acceptance or teammate sign-off is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/states/attack.gd` | Queues up to three presses, replays existing directional attack animation and elemental slash, gives each hit a separate active window, and adds one damage to the last hit. |
+| `specs/001-integrate-basement-stage/tasks.md` | Records T092 owner, scope, acceptance, checks and pending status. |
+| `specs/001-integrate-basement-stage/validation.md` | Records static findings, preservation boundary and verification limitations. |
+| `docs/implementation-changelog.md` | Adds this cumulative implementation record. |
+
+**Integration.** Uses the existing Player FSM, hit area, animation and slash scene. Enemy AI, shared hit-area code, skill rules, slash/ice-shield implementation, map and concurrent dirty files were not modified. Each attack stage disables its hit shape outside the active interval; interruption clears the queue.
+
+**Verification and limits.** Inspected source and existing 0.4-second attack animations; confirmed Godot is not on PATH. No Godot parse, in-engine collision/input test or native playtest was run. Hit registration against overlapping enemies, timing under low frame rate and visual feel require runtime verification. No errors observed from a game run because no game run occurred.
+
+**Reversal.** `scenes/player/states/attack.gd` was restored to the original single attack, original full-state hitbox and original slash size/position. `specs/001-integrate-basement-stage/tasks.md` marks T092 cancelled; `specs/001-integrate-basement-stage/validation.md` records the user rejection and missing runtime evidence; this changelog retains the trial history and reversal. No shared systems or other owners' files changed during reversal. Source/diff inspection is the only check; Godot was not run, and no T092 work remains unfinished.

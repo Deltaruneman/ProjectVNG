@@ -1,0 +1,158 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+WARNING: Detected another project.godot at res://assets/effects/Emberline-Free-Six. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "equipment" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://ui/inventory_panel.gd:85)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "active" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://ui/inventory_panel.gd:86)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/pause_menu.gd:0)
+ERROR: Failed to load script "res://ui/pause_menu.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (8 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (79 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | pixel_ui_font.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | contact.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | horizontal-beam.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | ._Icon1.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | ._Icon1_big.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | ._Icon2.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | ._Icon2_big.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | ._Icon3.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | ._Icon3_big.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | ._Icon4.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | ._Icon4_big.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | ._Icon5.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | ._Icon5_big.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | ._Icon6.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | ._Icon6_big.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | ._Icon7.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | ._Icon7_big.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | ._Icon8.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | ._Icon8_big.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | ._Icon9.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | ._Icon9_big.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | ._Icon10.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | ._Icon10_big.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | ._Icon11.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | ._Icon11_big.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | ._Icon12.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | ._Icon12_big.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | ._Icon13.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ._Icon13_big.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | ._Icon14.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | ._Icon14_big.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | ._Icon15.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | ._Icon15_big.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | ._Icon16.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | ._Icon16_big.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | ._Icon17.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | ._Icon17_big.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | ._Icon18.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | ._Icon18_big.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | ._Icon19.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | ._Icon19_big.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | ._Icon20.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | ._Icon20_big.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | ._bookmarks.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | ._book_content.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | ._Close_book.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | ._Icons.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | ._info_tileset.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | ._Open_book.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | ._pages_apper.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | ._pages_desappear-Sheet.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | ._sells_full.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | ._Text1.png[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | ._Text2.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | ._bookmarks.png[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | ._book_content.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | ._Close_book.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | ._Icons.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | ._info_tileset.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | ._Open_book.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | ._pages_apper.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | ._pages_desappear-Sheet.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | ._sells_full.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | ._COUPON.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (2 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | contact.png[39m[0m
+[  33% ] [90m[1mreimport[22m | horizontal-beam.png[39m[0m
+[  66% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (2 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | Reopening scenes...[39m[0m
+WARNING: 'res://KayKit_Dungeon/Assets/obj/floor_tile_small.obj': In external resource #0, invalid UID: 'uid://dsas1fuu7g7ge' - using text path instead: 'res://KayKit_Dungeon/Assets/obj/dungeon_texture.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://KayKit_Dungeon/Assets/obj/torch_lit.obj': In external resource #0, invalid UID: 'uid://dsas1fuu7g7ge' - using text path instead: 'res://KayKit_Dungeon/Assets/obj/dungeon_texture.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+[  50% ] [90m[1mloading_editor_layout[22m | Loading central editor layout...[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | Loading plugin window layout...[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | Editor layout ready.[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

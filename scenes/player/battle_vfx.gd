@@ -14,6 +14,28 @@ const SOUND_ROOT := "res://assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG File
 static var _pixel_frames_cache: Dictionary = {}
 static var _pvfx_frames_cache: Dictionary = {}
 
+static func horizontal_lightning(parent: Node3D, start: Vector3, finish: Vector3) -> Node3D:
+	var frames := _load_pixelfx_frames("lightning/horizontal-beam")
+	if frames == null or start.distance_to(finish) < 0.01:
+		return null
+	var beam := preload("res://scenes/player/horizontal_lightning.gd").new()
+	beam.name = "HorizontalLightning"
+	beam.start = start
+	beam.finish = finish
+	var sprite := AnimatedSprite3D.new()
+	sprite.sprite_frames = frames
+	# The authored beam starts at (41,60) and ends 168 px to its right.
+	sprite.offset = Vector2(91, 10)
+	sprite.pixel_size = start.distance_to(finish) / 168.0
+	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	sprite.shaded = false
+	beam.visual = sprite
+	parent.get_tree().current_scene.add_child(beam)
+	beam.add_child(sprite)
+	sprite.play("default")
+	beam._process(0.0)
+	return beam
+
 
 static func slash(parent: Node3D, position: Vector3, form: String, direction: Vector3, scale: float = 0.42) -> Node3D:
 	return _spawn(SLASH, parent, position, form, direction, scale, true, 0.42, ATTACK_FX_AXIS_OFFSET)

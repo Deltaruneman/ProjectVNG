@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+PASS Fresh process preserves depleted consumable
+PASS Fresh process restores equipped weapon
+PASS Fresh process restores quick item
+PASS Fresh process preserves unknown fields
+INVENTORY_RESTART_RESULT 4/4

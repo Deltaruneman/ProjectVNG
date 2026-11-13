@@ -3,6 +3,7 @@ extends Node
 signal changed
 const PATH := "user://settings.cfg"
 const ACTIONS := {
+	"inventory": "Túi đồ / Trang bị", "use_consumable": "Dùng vật phẩm nhanh", "lock_on": "Khóa mục tiêu",
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
 	"right": "Di chuyển phải", "jump": "Nhảy", "dash": "Lướt", "attack": "Tấn công",
 	"parry": "Đỡ đòn", "carry": "Nhấc / ném", "skill": "Dùng kỹ năng",
@@ -28,6 +29,12 @@ var _focused := true
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	for entry in [["inventory", KEY_B], ["use_consumable", KEY_Q], ["lock_on", KEY_G]]:
+		if not InputMap.has_action(entry[0]):
+			InputMap.add_action(entry[0])
+			var key := InputEventKey.new()
+			key.physical_keycode = entry[1]
+			InputMap.action_add_event(entry[0], key)
 	defaults = BASE.duplicate(true)
 	for action: String in ACTIONS:
 		var slots: Array = []
@@ -90,7 +97,18 @@ func load_settings() -> void:
 		if slots is Array and slots.size() == 2 and _valid_binding(slots[0]) and _valid_binding(slots[1]) \
 				and (not slots[0].is_empty() or not slots[1].is_empty()):
 			candidate[action] = slots
-	# Reject the entire saved map on a conflict: no partially reset/unusable actions.
+	# Preserve legacy custom keys when a newly introduced default would collide.
+	for new_action in ["inventory", "use_consumable", "lock_on"]:
+		if config.has_section_key("bindings", new_action):
+			continue
+		for slot in 2:
+			var binding: Dictionary = candidate[new_action][slot]
+			if binding.is_empty():
+				continue
+			for other: String in ACTIONS:
+				if other != new_action and binding in candidate[other]:
+					candidate[new_action][slot] = {}
+	# Reject the entire saved map on any remaining conflict.
 	var seen: Array = []
 	for action: String in ACTIONS:
 		for binding: Dictionary in candidate[action]:

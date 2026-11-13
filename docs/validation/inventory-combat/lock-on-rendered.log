@@ -1,0 +1,83 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+PASS Legacy custom key wins over newly added inventory default
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+PASS Requested window resolution active
+PASS New samples granted without auto-equipping
+PASS Invalid grant rejected
+PASS Equip weapon
+PASS Equipment affects actual Player attack
+PASS Repeated equip rejected
+PASS Weapon replacement removes old bonus
+PASS Armor raises capacity without free heal
+PASS Equip cycle cannot heal
+PASS Talisman speed applied
+PASS Healing applies and spends one item
+PASS Cooldown blocks double spend
+PASS Full health does not consume item
+PASS Attack consumable used
+PASS Buff refresh does not stack
+PASS Buff expires and restores equipment-derived stats
+PASS Empty stack cannot be consumed
+PASS Dead Player cannot use consumables
+PASS Dialogue blocks consumption
+PASS Stack bounded to 99
+PASS Actual save/load preserves stacks, gear and selected empty stack
+PASS Unknown save fields preserved
+PASS Loading does not replenish used samples
+PASS Old IDs migrate and malformed counts sanitize
+PASS Invalid slots/quick selection rejected
+PASS Legacy save gear and depleted quick stack migrate
+PASS Lightning 2 never teleports
+PASS Lightning 2 retains damage and stun
+PASS Beam spans horizontal world endpoints
+PASS Horizontal beam cleans up
+PASS Lock selection prefers nearest boss over closer ordinary enemy
+PASS First toggle locks onto selected boss
+PASS Locked camera points its center at boss
+PASS Second toggle releases camera lock
+PASS G is the default lock-on binding
+PASS Dead boss is skipped for next living boss
+PASS Removed lock target clears active lock
+PASS Removed boss is skipped in favor of living enemy
+PASS Player G input toggles camera lock
+PASS Player G input toggles camera unlock
+PASS Tiny idle dot visible without aiming
+PASS Idle dot hidden during held aim
+PASS ESC opens single pause owner with visible cursor
+PASS Dot hidden under pause menu
+PASS Pause blocks consuming quick item
+PASS Compact ESC fits viewport
+PASS All home actions visible without scrolling
+PASS ESC cancels settings preview
+PASS Stardew-style inventory panel fits content area
+PASS Inventory renders eight-column icon grid
+PASS Hearthmark equipment and consumable icons load
+PASS Weapon tab filters the new item grid
+PASS Consumable tab filters the new item grid
+PASS Inventory UI equips icon item and updates Player
+PASS Equipped item action disabled after refresh
+PASS Inventory shares pause owner
+PASS Inventory fits viewport
+PASS ESC returns inventory to home
+PASS ESC resumes without stuck pause
+PASS Inventory hotkey opens bag
+PASS Inventory hotkey closes and resumes
+PASS Idle dot restored after menu
+INVENTORY_COMBAT_RESULT 63/63

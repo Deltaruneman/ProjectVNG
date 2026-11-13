@@ -84,6 +84,8 @@ var _skill_aim_point := Vector3.ZERO
 var _cast_aim_point_valid := false
 var _aim_reticle_layer: CanvasLayer
 var _aim_camera_rig: CameraRig
+var _item_buffs: Dictionary = {}
+var _consumable_cooldown := 0.0
 
 
 func _enter_tree() -> void:
@@ -103,6 +105,7 @@ func _ready() -> void:
 	_base_parry_window = parry_window
 	_base_maxjump = maxjump
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
+	GameManager.inventory.changed.connect(_on_inventory_changed)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 	_aim_reticle_layer = CanvasLayer.new()
@@ -114,6 +117,14 @@ func _ready() -> void:
 	_aim_reticle_layer.add_child(reticle)
 	reticle.connect("pause_cancel_requested", _cancel_skill_aim)
 	_aim_reticle_layer.visible = false
+	var idle_layer := CanvasLayer.new()
+	idle_layer.name = "IdleAimDot"
+	idle_layer.layer = 25
+	idle_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(idle_layer)
+	var dot := SKILL_AIM_RETICLE_SCRIPT.new() as Control
+	dot.set("idle_dot", true)
+	idle_layer.add_child(dot)
 
 
 func _physics_process(delta: float) -> void:
@@ -187,6 +198,15 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	_consumable_cooldown = maxf(0.0, _consumable_cooldown - delta)
+	var expired := false
+	for id: String in _item_buffs.keys():
+		_item_buffs[id].remaining -= delta
+		if _item_buffs[id].remaining <= 0.0:
+			_item_buffs.erase(id)
+			expired = true
+	if expired:
+		_apply_skill_bonuses(false)
 	if _skill_button_held:
 		if not _can_start_skill_cast():
 			_cancel_skill_aim()
@@ -245,6 +265,17 @@ func _exit_tree() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_talking:
+		return
+	if event.is_action_pressed("lock_on") and not event.is_echo():
+		if can_control_camera():
+			var active_camera := get_viewport().get_camera_3d()
+			if active_camera != null and active_camera.get_parent() is CameraRig:
+				(active_camera.get_parent() as CameraRig).toggle_lock_on()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("use_consumable"):
+		GameManager.inventory.use_quick(self)
+		get_viewport().set_input_as_handled()
 		return
 	for slot in 4:
 		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
@@ -573,17 +604,50 @@ func _gain_rage(amount: float) -> void:
 	rage_changed.emit(rage, MAX_RAGE)
 
 
-func _apply_skill_bonuses() -> void:
+func _on_inventory_changed() -> void:
+	_apply_skill_bonuses(false)
+
+
+func apply_inventory_consumable(id: String, data: Dictionary) -> bool:
+	if get_tree().paused or health <= 0 or is_talking or _ultimate_cinematic_running or not _can_use_skills() or _consumable_cooldown > 0.0:
+		return false
+	if data.get("kind") != "consumable":
+		return false
+	var effects: Dictionary = data.get("effects", {})
+	if effects.has("heal"):
+		if health >= max_health:
+			return false
+		health += int(effects.heal)
+	else:
+		_item_buffs[id] = {"effects": effects.duplicate(), "remaining": float(data.get("duration", 0.0))}
+		_apply_skill_bonuses(false)
+		if effects.has("attack"):
+			_track_hud_status("attack", float(data.get("duration", 0.0)))
+		if effects.has("speed"):
+			_track_hud_status("speed", float(data.get("duration", 0.0)))
+	_consumable_cooldown = 1.0
+	BattleFX.play_skill_sound(self, "ice_hit")
+	return true
+
+
+func _apply_skill_bonuses(heal_new_capacity: bool = true) -> void:
 	var ranks: Dictionary = GameManager.skill_allocations
-	var extra_health := int(ranks.get("char_health", 0))
+	var equipment: Dictionary = GameManager.inventory.bonuses()
+	var item_attack := 0
+	var item_speed := 0.0
+	for buff: Dictionary in _item_buffs.values():
+		item_attack += int(buff.effects.get("attack", 0))
+		item_speed += float(buff.effects.get("speed", 0.0))
+	var extra_health := int(ranks.get("char_health", 0)) + int(equipment.health)
 	var previous_max := max_health
 	max_health = _base_max_health + extra_health
-	health += maxi(max_health - previous_max, 0)
+	if heal_new_capacity:
+		health += maxi(max_health - previous_max, 0)
 	health = mini(health, max_health)
-	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus
-	movement_speed = _base_movement_speed * (1.0 + 0.08 * int(ranks.get("char_speed", 0))) + _temp_speed_bonus
+	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus + int(equipment.attack) + item_attack
+	movement_speed = _base_movement_speed * (1.0 + 0.08 * int(ranks.get("char_speed", 0))) + _temp_speed_bonus + float(equipment.speed) + item_speed
 	dash_cooldown = _base_dash_cooldown * pow(0.85, int(ranks.get("char_dash", 0)))
-	parry_window = _base_parry_window * (1.0 + 0.25 * int(ranks.get("char_parry", 0)))
+	parry_window = _base_parry_window * (1.0 + 0.25 * int(ranks.get("char_parry", 0))) + float(equipment.parry)
 	maxjump = _base_maxjump + int(ranks.get("char_double_jump", 0))
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 
@@ -690,8 +754,9 @@ func _cast_lightning_beam(aim: Vector3, skill_damage: int, reach: float, chain_r
 	var target_position := target.global_position if is_instance_valid(target) else global_position + Vector3(beam_direction.x, 0.0, beam_direction.y) * reach
 	var beam_offset := target_position - global_position
 	var beam_length := Vector2(beam_offset.x, beam_offset.z).length()
-	var beam_center := global_position + Vector3.UP * 1.35 + Vector3(beam_direction.x, 0.0, beam_direction.y) * (beam_length * 0.5)
-	BattleFX.play_pvfx(self, "lightning/chain-lightning", beam_center, maxf(beam_length * 0.55, 1.2), Color("e5fbff"), Vector3(beam_direction.x, 0.0, beam_direction.y))
+	var beam_start := global_position + Vector3.UP * 1.2
+	var beam_end := beam_start + Vector3(beam_direction.x, 0.0, beam_direction.y) * beam_length
+	BattleFX.horizontal_lightning(self, beam_start, beam_end)
 	if not is_instance_valid(target):
 		return
 	var hurt_area := target.get_node_or_null("Direction/HurtArea3D") as HurtArea3D
@@ -708,9 +773,7 @@ func _cast_lightning_beam(aim: Vector3, skill_damage: int, reach: float, chain_r
 		var freeze_duration := 0.45 + 0.2 * float(chain_rank)
 		target.apply_skill_freeze(freeze_duration)
 		BattleFX.enemy_status(target, "electrified", freeze_duration)
-	BattleFX.play_pvfx(self, "lightning/lightning-strike", hit_position + Vector3.UP * 0.35, 2.4, Color("f4fdff"))
 	BattleFX.impact(self, hit_position + Vector3.UP * 0.55, "lightning", impact_direction.normalized())
-	_teleport_behind_lightning_target(hit_position, beam_direction)
 
 
 func _find_lightning_beam_target(beam_direction: Vector2, reach: float) -> EnemyCharacter:
@@ -735,38 +798,6 @@ func _find_lightning_beam_target(beam_direction: Vector2, reach: float) -> Enemy
 			closest_forward_distance = forward_distance
 			target = enemy
 	return target
-
-
-func _teleport_behind_lightning_target(target_position: Vector3, beam_direction: Vector2) -> bool:
-	var body_shape := get_node_or_null("CollisionShape3D") as CollisionShape3D
-	if body_shape == null or body_shape.shape == null or get_world_3d() == null:
-		return false
-	var flat_direction := Vector3(beam_direction.x, 0.0, beam_direction.y).normalized()
-	var space := get_world_3d().direct_space_state
-	for distance in [2.4, 2.0, 1.7, 1.4]:
-		var candidate_position := target_position + flat_direction * float(distance)
-		if not _is_lightning_teleport_position_safe(candidate_position, body_shape, space):
-			continue
-		global_position = candidate_position
-		velocity.x = 0.0
-		velocity.z = 0.0
-		change_direction(BaseCharacter.direction_from_input(Vector2(-flat_direction.x, -flat_direction.z)))
-		return true
-	return false
-
-
-func _is_lightning_teleport_position_safe(candidate_position: Vector3, body_shape: CollisionShape3D, space: PhysicsDirectSpaceState3D) -> bool:
-	var shape_query := PhysicsShapeQueryParameters3D.new()
-	shape_query.shape = body_shape.shape
-	shape_query.transform = Transform3D(global_transform.basis, candidate_position) * body_shape.transform
-	shape_query.collision_mask = collision_mask
-	shape_query.exclude = [get_rid()]
-	shape_query.margin = 0.05
-	if not space.intersect_shape(shape_query, 1).is_empty():
-		return false
-	var floor_query := PhysicsRayQueryParameters3D.create(candidate_position + Vector3.UP * 1.2, candidate_position - Vector3.UP * 0.3, collision_mask)
-	floor_query.exclude = [get_rid()]
-	return not space.intersect_ray(floor_query).is_empty()
 
 
 func _fire_rage_sequence(damage: int, aim: Vector3) -> void:

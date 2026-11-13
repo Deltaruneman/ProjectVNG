@@ -80,7 +80,7 @@ const SKILL_DESCRIPTIONS := {
 	"Mưa Thiên Thạch": "Gọi thiên thạch xuống vùng phía trước và thiêu đốt mục tiêu.",
 	"Bão Băng": "Tạo bão băng quanh bạn, gây sát thương và đóng băng kẻ địch.",
 	"Lôi Cầu": "Phóng quả cầu điện bay thẳng, không quay về; làm choáng mục tiêu trong thoáng chốc.",
-	"Xích Lôi": "Phóng tia sét thẳng, gây sát thương và dịch chuyển ra sau lưng kẻ địch đầu tiên trúng phải.",
+	"Xích Lôi": "Bắn tia sét theo phương ngang, gây sát thương và làm choáng kẻ địch đầu tiên trúng phải. Không dịch chuyển.",
 	"Sét Đánh": "Triệu hồi phân thân sét đuổi theo kẻ địch, đánh thường trong 5 giây rồi phát nổ gây sát thương và choáng.",
 	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",

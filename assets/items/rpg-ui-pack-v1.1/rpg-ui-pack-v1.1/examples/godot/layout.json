@@ -1,0 +1,479 @@
+{
+ "size": [
+  320,
+  180
+ ],
+ "background": "#262f3d",
+ "elements": [
+  {
+   "type": "nine",
+   "sprite": "window_wood_a",
+   "x": 4,
+   "y": 4,
+   "w": 74,
+   "h": 50
+  },
+  {
+   "type": "text",
+   "x": 25,
+   "y": 13,
+   "text": "WOOD A",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "text",
+   "x": 13,
+   "y": 23,
+   "text": "Gold 120",
+   "color": "#ffffff"
+  },
+  {
+   "type": "nine",
+   "sprite": "window_wood_b",
+   "x": 82,
+   "y": 4,
+   "w": 74,
+   "h": 50
+  },
+  {
+   "type": "text",
+   "x": 103,
+   "y": 13,
+   "text": "WOOD B",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "text",
+   "x": 91,
+   "y": 23,
+   "text": "Gold 120",
+   "color": "#ffffff"
+  },
+  {
+   "type": "nine",
+   "sprite": "window_wood_c",
+   "x": 160,
+   "y": 4,
+   "w": 74,
+   "h": 50
+  },
+  {
+   "type": "text",
+   "x": 181,
+   "y": 11,
+   "text": "WOOD C",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "text",
+   "x": 167,
+   "y": 21,
+   "text": "Gold 120",
+   "color": "#ffffff"
+  },
+  {
+   "type": "nine",
+   "sprite": "window_wood_d",
+   "x": 238,
+   "y": 4,
+   "w": 74,
+   "h": 50
+  },
+  {
+   "type": "text",
+   "x": 259,
+   "y": 13,
+   "text": "WOOD D",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "text",
+   "x": 247,
+   "y": 23,
+   "text": "Gold 120",
+   "color": "#ffffff"
+  },
+  {
+   "type": "nine",
+   "sprite": "panel_stone",
+   "x": 4,
+   "y": 58,
+   "w": 74,
+   "h": 44
+  },
+  {
+   "type": "text",
+   "x": 13,
+   "y": 67,
+   "text": "Stone",
+   "color": "#ffffff"
+  },
+  {
+   "type": "nine",
+   "sprite": "panel_parchment",
+   "x": 82,
+   "y": 58,
+   "w": 74,
+   "h": 44
+  },
+  {
+   "type": "text",
+   "x": 91,
+   "y": 67,
+   "text": "Parchment",
+   "color": "#1b1622"
+  },
+  {
+   "type": "sprite",
+   "sprite": "bar_icon_hp",
+   "x": 160,
+   "y": 59
+  },
+  {
+   "type": "bar",
+   "kind": "hp",
+   "x": 171,
+   "y": 60,
+   "w": 74,
+   "value": 0.5
+  },
+  {
+   "type": "sprite",
+   "sprite": "bar_icon_mp",
+   "x": 160,
+   "y": 71
+  },
+  {
+   "type": "bar",
+   "kind": "mp",
+   "x": 171,
+   "y": 72,
+   "w": 74,
+   "value": 0.3
+  },
+  {
+   "type": "sprite",
+   "sprite": "bar_icon_xp",
+   "x": 160,
+   "y": 83
+  },
+  {
+   "type": "bar",
+   "kind": "xp",
+   "x": 171,
+   "y": 84,
+   "w": 74,
+   "value": 0.8
+  },
+  {
+   "type": "icon",
+   "style": "A",
+   "name": "weapons/sword",
+   "x": 250,
+   "y": 60
+  },
+  {
+   "type": "icon",
+   "style": "C",
+   "name": "weapons/sword",
+   "x": 250,
+   "y": 80
+  },
+  {
+   "type": "icon",
+   "style": "A",
+   "name": "potions/health_potion",
+   "x": 267,
+   "y": 60
+  },
+  {
+   "type": "icon",
+   "style": "C",
+   "name": "potions/health_potion",
+   "x": 267,
+   "y": 80
+  },
+  {
+   "type": "icon",
+   "style": "A",
+   "name": "food/grapes",
+   "x": 284,
+   "y": 60
+  },
+  {
+   "type": "icon",
+   "style": "C",
+   "name": "food/grapes",
+   "x": 284,
+   "y": 80
+  },
+  {
+   "type": "icon",
+   "style": "A",
+   "name": "keys/gold_key",
+   "x": 301,
+   "y": 60
+  },
+  {
+   "type": "icon",
+   "style": "C",
+   "name": "keys/gold_key",
+   "x": 301,
+   "y": 80
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "wood",
+   "state": "normal",
+   "x": 4,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 6,
+   "y": 110,
+   "text": "OK",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "wood",
+   "state": "hover",
+   "x": 23,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 25,
+   "y": 110,
+   "text": "OK",
+   "color": "#3f2419"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "wood",
+   "state": "pressed",
+   "x": 42,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 44,
+   "y": 112,
+   "text": "OK",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "wood",
+   "state": "disabled",
+   "x": 61,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 63,
+   "y": 110,
+   "text": "OK",
+   "color": "#8e8698"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "wood",
+   "state": "normal",
+   "x": 84,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 86,
+   "y": 110,
+   "text": "OK",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "wood",
+   "state": "hover",
+   "x": 103,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 105,
+   "y": 110,
+   "text": "OK",
+   "color": "#3f2419"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "wood",
+   "state": "pressed",
+   "x": 122,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 124,
+   "y": 112,
+   "text": "OK",
+   "color": "#f1e2b6"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "wood",
+   "state": "disabled",
+   "x": 141,
+   "y": 108
+  },
+  {
+   "type": "text",
+   "x": 143,
+   "y": 110,
+   "text": "OK",
+   "color": "#8e8698"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "stone",
+   "state": "normal",
+   "x": 4,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 6,
+   "y": 128,
+   "text": "OK",
+   "color": "#ffffff"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "stone",
+   "state": "hover",
+   "x": 23,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 25,
+   "y": 128,
+   "text": "OK",
+   "color": "#262f3d"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "stone",
+   "state": "pressed",
+   "x": 42,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 44,
+   "y": 130,
+   "text": "OK",
+   "color": "#ffffff"
+  },
+  {
+   "type": "button",
+   "variant": "a",
+   "style": "stone",
+   "state": "disabled",
+   "x": 61,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 63,
+   "y": 128,
+   "text": "OK",
+   "color": "#8e8698"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "stone",
+   "state": "normal",
+   "x": 84,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 86,
+   "y": 128,
+   "text": "OK",
+   "color": "#ffffff"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "stone",
+   "state": "hover",
+   "x": 103,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 105,
+   "y": 128,
+   "text": "OK",
+   "color": "#262f3d"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "stone",
+   "state": "pressed",
+   "x": 122,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 124,
+   "y": 130,
+   "text": "OK",
+   "color": "#ffffff"
+  },
+  {
+   "type": "button",
+   "variant": "c",
+   "style": "stone",
+   "state": "disabled",
+   "x": 141,
+   "y": 126
+  },
+  {
+   "type": "text",
+   "x": 143,
+   "y": 128,
+   "text": "OK",
+   "color": "#8e8698"
+  },
+  {
+   "type": "text",
+   "x": 4,
+   "y": 146,
+   "text": "The quick brown fox jumps over 0123456789!?",
+   "color": "#ffffff"
+  },
+  {
+   "type": "text",
+   "x": 4,
+   "y": 158,
+   "text": "gjpqy {Descenders} [ok] @#$%&*",
+   "color": "#ffe270"
+  }
+ ]
+}

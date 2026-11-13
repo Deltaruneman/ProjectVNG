@@ -69,6 +69,7 @@ var _rage_bar: ProgressBar
 var _rage_label: Label
 var _skill_points_label: Label
 var _skill_controls_label: Label
+var _quick_item_label: Label
 var _ultimate_skill_label: Label
 var _low_health_warning: Label
 var _low_health_vignette_layer: CanvasLayer
@@ -115,6 +116,15 @@ func _ready() -> void:
 	add_child(_skill_points_label)
 	GameManager.skill_progress_changed.connect(_refresh_skill_points)
 	_refresh_skill_points()
+	_quick_item_label = Label.new()
+	_quick_item_label.position = Vector2(10, 34)
+	_quick_item_label.scale = Vector2(1.0 / scale.x, 1.0 / scale.y)
+	_quick_item_label.add_theme_font_size_override("font_size", 6)
+	_quick_item_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_quick_item_label)
+	GameManager.inventory.changed.connect(_refresh_quick_item)
+	GameSettings.changed.connect(_refresh_quick_item)
+	_refresh_quick_item()
 	if _player is Player:
 		_rage_bar = get_node_or_null("RageMeter/RageBar") as ProgressBar
 		_rage_label = get_node_or_null("RageMeter/RageLabel") as Label
@@ -146,6 +156,16 @@ func set_skill_tree_open(open: bool) -> void:
 		if child == _low_health_warning or child == _low_health_vignette_layer:
 			show_child = show_child and _critical_health_active
 		child.visible = show_child
+
+
+func _refresh_quick_item() -> void:
+	if _quick_item_label == null:
+		return
+	var inventory = GameManager.inventory
+	var item: Dictionary = inventory.Catalog.item(inventory.quick_item)
+	var use_key := GameSettings.binding_text(GameSettings.bindings.use_consumable[0])
+	var bag_key := GameSettings.binding_text(GameSettings.bindings.inventory[0])
+	_quick_item_label.text = "[%s] %s ×%d    [%s] Túi đồ" % [use_key, item.get("name", "Chưa gán"), int(inventory.counts.get(inventory.quick_item, 0)), bag_key]
 
 
 func _process(_delta: float) -> void:

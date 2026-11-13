@@ -1,0 +1,53 @@
+{
+	"checkpoint": "",
+	"collected_skill_points": [
+		"stage_1_intro:0",
+		"mini_boss:dark_fairy:0",
+		"mini_boss:dark_fairy:1",
+		"mini_boss:dark_fairy:2",
+		"mini_boss:dark_fairy:3",
+		"mini_boss:dark_fairy:4"
+	],
+	"flags": {
+		"b2_cleared": true
+	},
+	"foreign_field": {
+		"keep": true
+	},
+	"inventory": {
+		"counts": {
+			"amethyst_charm": 1,
+			"battle_axe": 1,
+			"ember_tonic": 0,
+			"hearty_bread": 3,
+			"iron_chestplate": 1,
+			"iron_sword": 1,
+			"leather_tunic": 1,
+			"minor_health_potion": 99,
+			"parry_dagger": 1,
+			"red_apple": 2,
+			"swift_tonic": 2,
+			"traveler_boots": 1
+		},
+		"equipped": {
+			"armor": "leather_tunic",
+			"talisman": "traveler_boots",
+			"weapon": "parry_dagger"
+		},
+		"quick_item": "swift_tonic",
+		"version": 2
+	},
+	"selected_ultimate_skill": "ultimate_lightning_1",
+	"skill_allocations": {},
+	"skill_points": 184,
+	"stage": "",
+	"unlocked_skills": [
+		"active_lightning_2",
+		"active_lightning_1",
+		"active_lightning_3",
+		"active_lightning_4",
+		"ultimate_lightning_1"
+	],
+	"version": 1,
+	"weapon_form": "lightning"
+}

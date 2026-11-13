@@ -5,6 +5,7 @@ signal pause_cancel_requested
 const RETICLE_COLOR := Color(0.93, 0.96, 0.84, 0.95)
 const SHADOW_COLOR := Color(0.07, 0.12, 0.15, 0.75)
 const AIM_SCREEN_POSITION := Vector2(0.5, 0.42)
+var idle_dot := false
 
 
 static func aim_screen_point(viewport_size: Vector2) -> Vector2:
@@ -18,12 +19,20 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if idle_dot:
+		var player := get_parent().get_parent()
+		visible = not get_tree().paused and player.health > 0 and not player.is_talking and not player._skill_aim_active and not player._ultimate_cinematic_running and player._ultimate_visual_remaining <= 0.0
+		return
 	if get_tree().paused and get_parent().visible:
 		pause_cancel_requested.emit()
 
 
 func _draw() -> void:
 	var center := aim_screen_point(size)
+	if idle_dot:
+		draw_circle(center, 1.7, Color(0, 0, 0, 0.5))
+		draw_circle(center, 1.0, Color.WHITE)
+		return
 	draw_arc(center, 3.5, 0.0, TAU, 28, SHADOW_COLOR, 2.0, true)
 	draw_arc(center, 3.5, 0.0, TAU, 28, RETICLE_COLOR, 1.0, true)
 	for axis in [Vector2.RIGHT, Vector2.DOWN]:

@@ -2,6 +2,8 @@ extends CanvasLayer
 ## A single pause owner. Existing Skill Tree / cinematics keep their own pause.
 const GOLD := Color("dbc38a")
 const INK := Color("101820")
+const INVENTORY_PANEL := preload("res://ui/inventory_panel.gd")
+var _preview_stream: AudioStreamWAV
 var is_open := false
 var _page := "home"
 var _previous_mouse := Input.MOUSE_MODE_VISIBLE
@@ -49,7 +51,8 @@ func _build_shell() -> void:
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.add_child(shade)
 	_panel = PanelContainer.new()
-	_panel.add_theme_stylebox_override("panel", _style(INK, GOLD.darkened(0.35), 28))
+	_panel.add_theme_stylebox_override("panel", _style(INK, GOLD.darkened(0.35), 20))
+	_panel.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_root.add_child(_panel)
 	var theme := Theme.new()
 	theme.default_font_size = 17
@@ -63,7 +66,7 @@ func _build_shell() -> void:
 	theme.set_color("font_disabled_color", "Button", Color("8c9496"))
 	_panel.theme = theme
 	_body = VBoxContainer.new()
-	_body.add_theme_constant_override("separation", 16)
+	_body.add_theme_constant_override("separation", 10)
 	_panel.add_child(_body)
 	var eyebrow := _label("T O W E R   O F   A R C A N A", 14)
 	eyebrow.modulate = GOLD
@@ -79,10 +82,11 @@ func _build_shell() -> void:
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.follow_focus = true
+	scroll.clip_contents = true
 	_body.add_child(scroll)
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_content.add_theme_constant_override("separation", 12)
+	_content.add_theme_constant_override("separation", 8)
 	scroll.add_child(_content)
 	_status = _label("", 15)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -154,7 +158,7 @@ func _button(text: String, callback: Callable) -> Button:
 func _layout() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
 	_root.size = viewport_size
-	var design := Vector2(960, 650)
+	var design := Vector2(720, 560) if _page == "home" else Vector2(960, 650)
 	var fit := minf(viewport_size.x * 0.94 / design.x, viewport_size.y * 0.94 / design.y)
 	_panel.size = design
 	_panel.scale = Vector2.ONE * fit
@@ -177,6 +181,11 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		return
 	if not is_open:
+		if event.is_action_pressed("inventory"):
+			if open_menu():
+				_show_inventory()
+				get_viewport().set_input_as_handled()
+			return
 		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 			if open_menu():
 				get_viewport().set_input_as_handled()
@@ -191,12 +200,16 @@ func _input(event: InputEvent) -> void:
 				_cancel_binding()
 		get_viewport().set_input_as_handled()
 		return
+	if event.is_action_pressed("inventory") and _page == "inventory":
+		close_menu()
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		if not _confirmation.is_empty():
 			_cancel_confirmation()
 		elif _page == "settings":
 			_cancel_settings()
-		elif _page == "help":
+		elif _page in ["help", "inventory"]:
 			_show_home()
 		else:
 			close_menu()
@@ -211,6 +224,9 @@ func open_menu() -> bool:
 	if dialogic != null and dialogic.get("current_timeline") != null:
 		return false
 	is_open = true
+	var player := get_tree().get_first_node_in_group("player")
+	if player != null and player.has_method("_cancel_skill_aim"):
+		player._cancel_skill_aim()
 	_previous_mouse = Input.mouse_mode
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -256,6 +272,9 @@ func _process(delta: float) -> void:
 
 func _show_home() -> void:
 	_page = "home"
+	_panel.add_theme_stylebox_override("panel", _style(INK, GOLD.darkened(0.35), 20))
+	_body.get_child(0).show()
+	_title.add_theme_color_override("font_color", Color("e7e4da"))
 	_title.text = "Tạm dừng"
 	_clear(_tabs)
 	_clear(_content)
@@ -263,11 +282,64 @@ func _show_home() -> void:
 	var subtitle := _label("Hành trình có thể đợi một chút.", 20)
 	subtitle.modulate = GOLD
 	_content.add_child(subtitle)
-	for item in [["Tiếp tục hành trình", close_menu], ["Cài đặt", open_settings], ["Hướng dẫn điều khiển", _show_help], ["Thoát trò chơi", _ask_quit]]:
+	for item in [["Tiếp tục", close_menu], ["Cài đặt", open_settings], ["Túi đồ / Trang bị", _show_inventory], ["Điều khiển", _show_help], ["Thoát trò chơi", _ask_quit]]:
 		_content.add_child(_button(item[0], item[1]))
 	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Alt để thả con trỏ khi chơi."
 	_footer.add_child(_label("DAY & NIGHT", 13))
 	(_content.get_child(1) as Button).grab_focus()
+	_layout.call_deferred()
+
+func _show_inventory() -> void:
+	_page = "inventory"
+	var wood_frame := StyleBoxFlat.new()
+	wood_frame.bg_color = Color("9a6236")
+	wood_frame.border_color = Color("3f2419")
+	wood_frame.set_border_width_all(3)
+	wood_frame.set_corner_radius_all(3)
+	wood_frame.content_margin_left = 18
+	wood_frame.content_margin_top = 16
+	wood_frame.content_margin_right = 18
+	wood_frame.content_margin_bottom = 12
+	_panel.add_theme_stylebox_override("panel", wood_frame)
+	_panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_body.get_child(0).hide()
+	_title.add_theme_color_override("font_color", Color("3b3142"))
+	_title.text = "Túi đồ"
+	_clear(_tabs)
+	_clear(_content)
+	_clear(_footer)
+	var view := INVENTORY_PANEL.new()
+	var paper := PanelContainer.new()
+	var paper_style := StyleBoxTexture.new()
+	paper_style.texture = load("res://assets/items/rpg-ui-pack-v1.1/rpg-ui-pack-v1.1/ui/panels/panel_parchment.png") as Texture2D
+	paper_style.texture_margin_left = 8
+	paper_style.texture_margin_top = 8
+	paper_style.texture_margin_right = 8
+	paper_style.texture_margin_bottom = 8
+	paper_style.content_margin_left = 10
+	paper_style.content_margin_top = 8
+	paper_style.content_margin_right = 10
+	paper_style.content_margin_bottom = 8
+	paper.add_theme_stylebox_override("panel", paper_style)
+	paper.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_content.add_child(paper)
+	paper.add_child(view)
+	view.configure(GameManager.inventory, get_tree().get_first_node_in_group("player"))
+	var binding := GameSettings.binding_text(GameSettings.bindings.use_consumable[0])
+	_status.text = "Chọn vật phẩm để xem hiệu ứng và trang bị.\n[%s] dùng tiêu hao sau khi trở lại trận đấu. Lưu cùng tiến trình tại checkpoint." % binding
+	_status.add_theme_color_override("font_color", Color("3b3142"))
+	var back := _button("Quay lại  ·  Esc", _show_home)
+	for state in ["normal", "hover", "pressed"]:
+		var button_style := StyleBoxTexture.new()
+		button_style.texture = load("res://assets/items/rpg-ui-pack-v1.1/rpg-ui-pack-v1.1/ui/buttons/button_a_wood_%s.png" % state) as Texture2D
+		button_style.texture_margin_left = 4
+		button_style.texture_margin_top = 4
+		button_style.texture_margin_right = 4
+		button_style.texture_margin_bottom = 4
+		back.add_theme_stylebox_override(state, button_style)
+	_footer.add_child(back)
+	if view._grid.get_child_count() > 0 and view._grid.get_child(0) is Button:
+		(view._grid.get_child(0) as Button).grab_focus()
 	_layout.call_deferred()
 
 func _ask_quit() -> void:
@@ -491,17 +563,18 @@ func _accept_confirmation() -> void:
 
 func _preview_sound(bus: String) -> void:
 	var audio := AudioStreamPlayer.new()
-	var wave := AudioStreamWAV.new()
-	wave.format = AudioStreamWAV.FORMAT_16_BITS
-	wave.mix_rate = 22050
-	var data := PackedByteArray()
-	data.resize(6615 * 2)
-	for i in 6615:
-		var envelope := sin(PI * float(i) / 6615.0)
-		var sample := int(sin(TAU * 660.0 * float(i) / 22050.0) * envelope * 4500)
-		data.encode_s16(i * 2, sample)
-	wave.data = data
-	audio.stream = wave
+	if _preview_stream == null:
+		_preview_stream = AudioStreamWAV.new()
+		_preview_stream.format = AudioStreamWAV.FORMAT_16_BITS
+		_preview_stream.mix_rate = 22050
+		var data := PackedByteArray()
+		data.resize(6615 * 2)
+		for i in 6615:
+			var envelope := sin(PI * float(i) / 6615.0)
+			var sample := int(sin(TAU * 660.0 * float(i) / 22050.0) * envelope * 4500)
+			data.encode_s16(i * 2, sample)
+		_preview_stream.data = data
+	audio.stream = _preview_stream
 	audio.bus = bus
 	add_child(audio)
 	audio.finished.connect(audio.queue_free)

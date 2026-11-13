@@ -1,4 +1,6 @@
 extends Node
+const ItemInventory := preload("res://scripts/items/item_inventory.gd")
+var inventory := ItemInventory.new()
 
 ## Everything that has to outlive a stage change: where the fox appears in the next stage, the last
 ## checkpoint, world flags (an unlocked door), and the fox's health while it walks through a door.
@@ -258,6 +260,7 @@ func save_game() -> void:
 	payload["unlocked_skills"] = unlocked_skills
 	payload["collected_skill_points"] = collected_skill_points
 	payload["selected_ultimate_skill"] = selected_ultimate_skill
+	payload["inventory"] = inventory.serialize()
 	SaveSystem.save_data(payload)
 	_loaded_payload = payload
 
@@ -339,6 +342,10 @@ func total_skill_points() -> int:
 func load_game() -> void:
 	var data := SaveSystem.load_data()
 	_loaded_payload = data.duplicate(true)
+	if data.has("inventory"):
+		inventory.restore(data["inventory"])
+	else:
+		inventory.reset_with_samples()
 	checkpoint_stage = str(data.get("stage", ""))
 	checkpoint_id = str(data.get("checkpoint", ""))
 	var saved_flags: Variant = data.get("flags", {})
@@ -381,6 +388,7 @@ func new_game() -> void:
 
 ## Forgets everything held in memory, as if the game had just started without a save file.
 func reset() -> void:
+	inventory.reset_with_samples()
 	current_stage = null
 	pending_spawn = ""
 	checkpoint_stage = ""

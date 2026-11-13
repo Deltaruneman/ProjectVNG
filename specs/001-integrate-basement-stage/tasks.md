@@ -737,6 +737,30 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Status: implemented; Godot 4.7.2 rendered isolated rig fixture passes 115/115 checks, actual-basement/Player integration passes 40/40. Final aim screenshot inspected. Native embedded Game feel, representative map locations and Bao visual acceptance remain pending; keep unchecked.
 ## Straight elemental orbs (2026-11-13)
 
+- [ ] T091 Toggle camera lock-on with G, preferring the nearest living boss over ordinary enemies.
+  - Owner: Bao (Player/camera/input). User explicitly requests G lock and a second press to unlock. Preserve free orbit, aim shoulder mode, mouse settings, enemy/boss AI and current combat behavior. Boss classification should use existing boss presentation/interface without editing Duy-owned AI.
+  - Scope: configurable G action/default, nearest live target selection with boss-first priority, smooth camera tracking, toggle off, invalid/dead target cleanup and settings/help display.
+  - Acceptance: G locks the camera to nearest alive enemy; any alive boss is preferred over ordinary enemies; a second G unlocks; destroying/removing the target clears lock. Menus/death/dialogue/cinematics do not leave stale lock state. Free orbit and skill aiming still work when unlocked.
+  - Checks: rendered Godot camera fixture with player, multiple enemies, boss priority/distance, target death/removal, toggle and mouse/orbit regressions; verify G action in defaults/settings. Native embedded feel remains separate.
+  - Status: implemented. Godot 4.7.2 Compatibility rendered fixture passes 63/63, including G default/input, nearest-boss priority over a nearer normal enemy, actual camera center tracking, second-press unlock, dead/removed-target cleanup and existing menu/input regressions. Native embedded mouse feel and Bao acceptance remain pending.
+
+- [ ] T090 Replace sample inventory with Hearthmark item assets and Stardew Valley-like bag UI.
+  - Owner: Bao; user explicitly requests replacing old items and restyling the inventory after installing Hearthmark under `assets/items`. Preserve item grant/equip/consume APIs, Player effect integration, B/Q inputs, and save ownership. No map, loot, crafting, enemy or shop integration.
+  - Scope: stable new catalog IDs with Hearthmark 16px icon paths, varied sample equipment/consumables; migrate old sample IDs in existing saves; wood/parchment 9-slice inventory window, equipment cards, icon grid, category filters and selected item details/actions. Preserve exact upstream pack/license.
+  - Acceptance: inventory visually uses pack icons and UI; all sample items are selectable/equippable/consumable with existing validated effects; old save quantities/equipment/quick slot migrate without replenishing depleted stacks; B/Q and pause-close rules unchanged; UI fits supported viewport sizes.
+  - Checks: rendered Godot fixture at 1280x720 and 960x540, actual model save migration, icon/resource load and UI interactions; inspect screenshots and diff. Native visual feel and Bao acceptance remain pending.
+  - Status: implemented. Godot 4.7.2 Compatibility fixture passes 53/53 at 1280x720 and 53/53 at 960x540; fresh-process save restore passes 4/4. Inspected the rendered large and small inventory screenshots. A shutdown diagnostic still reports one retained resource; no SCRIPT ERROR. Native in-game feel and Bao visual acceptance remain pending.
+
+- [ ] T089 Explicitly declare B as the inventory key in the project Input Map.
+  - Owner: Bao; user explicitly requests B. Scope: inventory Input Map declaration and cumulative records. Acceptance: B is the default in editor and runtime, and opens/closes the existing bag through its input action. Saved custom remapping remains supported. Check: final rendered Godot inventory fixture passes 48/48, including B open/close. Status: implemented and scripted verification passed; native reviewer acceptance pending.
+
+- [ ] T088 Horizontal lightning 2, compact ESC, idle dot and usable inventory foundation.
+  - Owner/reviewer: Bao; user explicitly authorizes gameplay/UI and confirms working inventory with sample items. Shared save boundary: add optional inventory payload to GameManager-owned fields while preserving version/unknown fields. No map, enemy AI, crafting or loot-drop edits; no teammate sign-off claimed.
+  - Scope: remove lightning-2 teleport and overhead hit art, horizontal world-space beam; persistent tiny white aim dot except menus/dialogue/death/cinematics; compact ESC navigation with inventory page; three equipment slots (weapon/armor/talisman), one quick consumable, sample catalog and extensible effect data, validated save/load and Player stat/effect integration.
+  - Acceptance: lightning 2 leaves Player position unchanged and visually links horizontal endpoints; idle dot shares raised aim point and held reticle; ESC remains single pause owner, back/close/focus and settings rollback work, UI fits small viewports. Equip/unequip recalculates without stacking or healing exploits; consumables spend only on successful use, reject dead/paused/casting/no-effect use; bounded counts and validated IDs/slots survive save/load and reset. New/legacy saves get samples once; depleted items never replenish on load. Future loot can grant via one API, without altering map or crafting.
+  - Checks: Godot model and actual-Player integration, isolated save roundtrip, rendered beam/dot/menu/inventory at two resolutions, existing orb regression. Record pending native acceptance and any diagnostics.
+  - Status: implemented; final Godot 4.7.2 rendered fixture passes 48/48 at 1280x720 and 48/48 at verified 960x540, fresh-process inventory restore 4/4, prior orb regression headless 87/87. Inspected beam/dot/home/inventory screenshots; original pixelfx beam check passes. Native full-map feel, sample balance and reviewer acceptance remain pending. Map loot/crafting integrations intentionally remain future work. Existing UID warnings and shutdown retained-object/resource diagnostics persist.
+
 - [ ] T087 Clear the Player silhouette and raise the default skill aim point slightly.
   - Owner/reviewer: Bao; user authorizes Player aiming and projectile presentation. Preserve all existing uncommitted work, projectile gameplay and wind return behavior.
   - Scope: use shared normalized aim point at (0.5, 0.42) for hidden/visible aiming and camera ray; render existing orb sheets as depth-tested 3D sprites instead of foreground CanvasLayer overlays. No camera rig, map, enemy, slash/shield or source sheet changes.
@@ -750,6 +774,14 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Acceptance: neutral casts show a white orb, fire/ice/lightning show their element; travel along the initial 3D aim without return/homing, expire at existing range or wall, and retain existing hit callbacks. Wind still spins/returns/catches, hides/restores blade and receives return upgrades. New orbs never suppress the equipped blade or reset hit monitoring for a return pass. Visual nodes clean up with projectile.
   - Checks: inspect rendered exports, pixelfx checks, Godot fixture covering routing/aim/range/wall/hit callbacks and wind regression, rendered snapshot. Native gameplay feel and Bao acceptance remain pending.
   - Status: implemented; inspected all four exported contact sheets and rendered in-engine screenshot. Godot 4.7.2 headless passes 73/73 checks; final Compatibility renderer fixture passes 77/77 including HUD/Skill Tree names/icon. Stock pixelfx check passes without warnings. Native full-stage input/combat feel and Bao acceptance remain pending; keep unchecked. Existing UID warnings and shutdown retained-object/resource diagnostics remain.
+
+## Basic attack combo trial (2026-11-13)
+
+- [ ] T092 Try a three-hit Player basic attack combo using existing animation and slash assets.
+  - Owner/reviewer: Bao (Player combat); user requests a trial. Scope: `scenes/player/states/attack.gd` and cumulative records. Preserve enemy AI, skills, slash asset implementation, hit-area shared code and concurrent working-tree changes. No cross-owner implementation change or teammate approval claimed.
+  - Acceptance: one press performs one hit; a later press during hit one or two queues exactly one follow-up; a held button does not advance; the third hit ends the chain and has +1 damage; each hit restarts the existing directional attack animation, emits an increasingly sized existing elemental slash, and gives the hitbox a separate active window. Leaving the state clears the queue and hitbox.
+  - Checks: Godot parse/load and focused in-engine input/collision playtest for single, double, triple, held, interruption, enemy overlap and camera orbit. Native feel and Bao acceptance remain pending.
+  - Status: cancelled by user after the trial; combo source reverted to the original single attack. No runtime checks or acceptance were claimed. No T092 gameplay work remains active.
 
 ## Successful parry feedback (2026-11-13)
 

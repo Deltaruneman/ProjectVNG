@@ -24,6 +24,7 @@ extends Node3D
 @export_range(2.0, 12.0, 0.1) var aim_distance := 5.8
 @export_range(0.0, 3.0, 0.1) var aim_shoulder_offset := 2.0
 @export_range(1.0, 30.0, 0.1) var aim_transition_speed := 12.0
+@export_range(1.0, 30.0, 0.1) var lock_turn_speed := 10.0
 
 @onready var camera: Camera3D = $Camera3D
 var yaw := 0.0
@@ -42,10 +43,50 @@ var _foreground_sprites: Dictionary = {}
 var _shape := SphereShape3D.new()
 var _query := PhysicsShapeQueryParameters3D.new()
 var _aim_requested := false
+var lock_target: Node3D
 var aim_blend := 0.0
 
 func set_aim_mode(enabled: bool) -> void:
 	_aim_requested = enabled
+
+func toggle_lock_on() -> bool:
+	if is_instance_valid(lock_target):
+		lock_target = null
+		return false
+	lock_target = _find_lock_target()
+	return is_instance_valid(lock_target)
+
+func _find_lock_target() -> Node3D:
+	if not is_instance_valid(target):
+		return null
+	var candidates := get_tree().get_nodes_in_group("enemies")
+	for boss: Node in get_tree().get_nodes_in_group("boss"):
+		if boss not in candidates:
+			candidates.append(boss)
+	var closest_boss: Node3D
+	var closest_enemy: Node3D
+	var boss_distance := INF
+	var enemy_distance := INF
+	for candidate: Node in candidates:
+		if not candidate is Node3D or candidate == target or not candidate.is_inside_tree():
+			continue
+		if not _lock_candidate_alive(candidate):
+			continue
+		var distance := target.global_position.distance_squared_to((candidate as Node3D).global_position)
+		var is_boss := candidate.is_in_group("boss") or candidate.has_node("BossHUD")
+		if is_boss and distance < boss_distance:
+			boss_distance = distance
+			closest_boss = candidate as Node3D
+		elif not is_boss and distance < enemy_distance:
+			enemy_distance = distance
+			closest_enemy = candidate as Node3D
+	return closest_boss if is_instance_valid(closest_boss) else closest_enemy
+
+func _lock_candidate_alive(candidate: Node) -> bool:
+	for property: Dictionary in candidate.get_property_list():
+		if property.name == "health":
+			return int(candidate.get("health")) > 0
+	return true
 
 func _ready() -> void:
 	# Always process cursor cleanup, but never move the camera during a paused cutscene.
@@ -118,7 +159,7 @@ func _input(event: InputEvent) -> void:
 	# Released cursor clicks and Escape still go through GUI before unhandled input.
 	if not _can_control() or not _focused or _cursor_released or Input.is_key_pressed(KEY_ALT):
 		return
-	if event is InputEventMouseMotion and _owns_mouse and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and _owns_mouse and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not is_instance_valid(lock_target):
 		yaw = wrapf(yaw - deg_to_rad(event.screen_relative.x * mouse_sensitivity), -PI, PI)
 		var sign_y := -1.0 if invert_y else 1.0
 		pitch = clampf(pitch + deg_to_rad(event.screen_relative.y * mouse_sensitivity * sign_y),
@@ -165,6 +206,20 @@ func snap_to_target() -> void:
 func _physics_process(delta: float) -> void:
 	if get_tree().paused or not is_instance_valid(target) or not camera.is_current():
 		return
+	if is_instance_valid(lock_target):
+		if not lock_target.is_inside_tree() or not _lock_candidate_alive(lock_target) \
+				or (target.has_method("can_control_camera") and not target.call("can_control_camera")):
+			lock_target = null
+		else:
+			var lock_point := lock_target.global_position + Vector3.UP * 1.0
+			var sprite := lock_target.get_node_or_null("Sprite3D") as Sprite3D
+			if sprite != null:
+				lock_point = sprite.global_position
+			var boom := (global_position - lock_point).normalized()
+			var desired_yaw := atan2(boom.x, boom.z)
+			var desired_pitch := clampf(asin(clampf(boom.y, -1.0, 1.0)), deg_to_rad(min_pitch_degrees), deg_to_rad(max_pitch_degrees))
+			yaw = lerp_angle(yaw, desired_yaw, 1.0 - exp(-lock_turn_speed * delta))
+			pitch = lerpf(pitch, desired_pitch, 1.0 - exp(-lock_turn_speed * delta))
 	aim_blend = lerpf(aim_blend, 1.0 if _aim_requested else 0.0,
 		1.0 - exp(-aim_transition_speed * delta))
 	if absf(aim_blend - (1.0 if _aim_requested else 0.0)) < 0.001:
@@ -194,6 +249,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		current_distance = lerpf(current_distance, safe_distance, 1.0 - exp(-recovery_speed * delta))
 	_place_camera(true)
+	if is_instance_valid(lock_target):
+		var lock_point := lock_target.global_position + Vector3.UP * 1.0
+		var sprite := lock_target.get_node_or_null("Sprite3D") as Sprite3D
+		if sprite != null:
+			lock_point = sprite.global_position
+		camera.global_basis = Basis.looking_at(camera.global_position.direction_to(lock_point), Vector3.UP)
 	_update_target_visibility()
 	if _snap_pending or safe_distance < desired_distance - collision_padding - 0.001:
 		reset_physics_interpolation()

@@ -1,0 +1,4433 @@
+{
+ "pack": "Hearthmark RPG UI + Icons v1.1",
+ "artPixel": 1,
+ "palette": [
+  "#1b1622",
+  "#3b3142",
+  "#5e5568",
+  "#8e8698",
+  "#c4bfcb",
+  "#ffffff",
+  "#3f2419",
+  "#6b3d27",
+  "#9a6236",
+  "#c98f55",
+  "#262f3d",
+  "#435064",
+  "#687a90",
+  "#9aaec0",
+  "#b98e5a",
+  "#dcc08a",
+  "#f1e2b6",
+  "#5c1a2a",
+  "#a0303a",
+  "#e05a47",
+  "#f5a77f",
+  "#1c2f6b",
+  "#2f63c0",
+  "#5fa8f0",
+  "#1f4a33",
+  "#3a8a3e",
+  "#8bd05a",
+  "#8a5a14",
+  "#dba12c",
+  "#ffe270",
+  "#4e2a6e",
+  "#8f55c4"
+ ],
+ "light": "top-left",
+ "outline": "palette[0], outer edge",
+ "shipped": {
+  "icons": [
+   "A",
+   "C"
+  ],
+  "font": "A",
+  "button": [
+   "A",
+   "C"
+  ],
+  "panel": {
+   "wood": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "stone": [
+    "A"
+   ],
+   "parchment": [
+    "A"
+   ]
+  }
+ },
+ "ui": {
+  "panel_wood_a": {
+   "file": "ui/panels/panel_wood_a.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "variant": "A",
+   "sheetRect": [
+    0,
+    0,
+    24,
+    24
+   ]
+  },
+  "panel_wood_b": {
+   "file": "ui/panels/panel_wood_b.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "variant": "B",
+   "sheetRect": [
+    25,
+    0,
+    24,
+    24
+   ]
+  },
+  "panel_wood_c": {
+   "file": "ui/panels/panel_wood_c.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 6,
+    "top": 6,
+    "right": 6,
+    "bottom": 6,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 6,
+    "top": 6,
+    "right": 6,
+    "bottom": 6
+   },
+   "variant": "C",
+   "sheetRect": [
+    50,
+    0,
+    24,
+    24
+   ]
+  },
+  "panel_wood_d": {
+   "file": "ui/panels/panel_wood_d.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "variant": "D",
+   "sheetRect": [
+    75,
+    0,
+    24,
+    24
+   ]
+  },
+  "panel_stone": {
+   "file": "ui/panels/panel_stone.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "variant": "A",
+   "sheetRect": [
+    100,
+    0,
+    24,
+    24
+   ]
+  },
+  "panel_parchment": {
+   "file": "ui/panels/panel_parchment.png",
+   "group": "panels",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "variant": "A",
+   "sheetRect": [
+    125,
+    0,
+    24,
+    24
+   ]
+  },
+  "window_wood_a": {
+   "file": "ui/panels/window_wood_a.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8
+   },
+   "titleBar": {
+    "x": 8,
+    "y": 8,
+    "h": 9
+   },
+   "variant": "A",
+   "sheetRect": [
+    150,
+    0,
+    24,
+    34
+   ]
+  },
+  "window_wood_b": {
+   "file": "ui/panels/window_wood_b.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8
+   },
+   "titleBar": {
+    "x": 8,
+    "y": 8,
+    "h": 9
+   },
+   "variant": "B",
+   "sheetRect": [
+    175,
+    0,
+    24,
+    34
+   ]
+  },
+  "window_wood_c": {
+   "file": "ui/panels/window_wood_c.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 6,
+    "top": 16,
+    "right": 6,
+    "bottom": 6,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 6,
+    "top": 16,
+    "right": 6,
+    "bottom": 6
+   },
+   "titleBar": {
+    "x": 6,
+    "y": 6,
+    "h": 9
+   },
+   "variant": "C",
+   "sheetRect": [
+    200,
+    0,
+    24,
+    34
+   ]
+  },
+  "window_wood_d": {
+   "file": "ui/panels/window_wood_d.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8
+   },
+   "titleBar": {
+    "x": 8,
+    "y": 8,
+    "h": 9
+   },
+   "variant": "D",
+   "sheetRect": [
+    225,
+    0,
+    24,
+    34
+   ]
+  },
+  "window_stone": {
+   "file": "ui/panels/window_stone.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8
+   },
+   "titleBar": {
+    "x": 8,
+    "y": 8,
+    "h": 9
+   },
+   "variant": "A",
+   "sheetRect": [
+    0,
+    35,
+    24,
+    34
+   ]
+  },
+  "window_parchment": {
+   "file": "ui/panels/window_parchment.png",
+   "group": "panels",
+   "size": [
+    24,
+    34
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8,
+    "edges": "tile",
+    "center": "tile"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 18,
+    "right": 8,
+    "bottom": 8
+   },
+   "titleBar": {
+    "x": 8,
+    "y": 8,
+    "h": 9
+   },
+   "variant": "A",
+   "sheetRect": [
+    25,
+    35,
+    24,
+    34
+   ]
+  },
+  "button_a_wood_normal": {
+   "file": "ui/buttons/button_a_wood_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    50,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_wood_hover": {
+   "file": "ui/buttons/button_a_wood_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    67,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_wood_pressed": {
+   "file": "ui/buttons/button_a_wood_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    84,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_wood_disabled": {
+   "file": "ui/buttons/button_a_wood_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    101,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_stone_normal": {
+   "file": "ui/buttons/button_a_stone_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    118,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_stone_hover": {
+   "file": "ui/buttons/button_a_stone_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    135,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_stone_pressed": {
+   "file": "ui/buttons/button_a_stone_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    152,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_stone_disabled": {
+   "file": "ui/buttons/button_a_stone_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    169,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_parchment_normal": {
+   "file": "ui/buttons/button_a_parchment_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    186,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_parchment_hover": {
+   "file": "ui/buttons/button_a_parchment_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    203,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_parchment_pressed": {
+   "file": "ui/buttons/button_a_parchment_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    220,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_a_parchment_disabled": {
+   "file": "ui/buttons/button_a_parchment_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    237,
+    35,
+    16,
+    14
+   ]
+  },
+  "button_c_wood_normal": {
+   "file": "ui/buttons/button_c_wood_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    0,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_wood_hover": {
+   "file": "ui/buttons/button_c_wood_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    17,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_wood_pressed": {
+   "file": "ui/buttons/button_c_wood_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    34,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_wood_disabled": {
+   "file": "ui/buttons/button_c_wood_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    51,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_stone_normal": {
+   "file": "ui/buttons/button_c_stone_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    68,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_stone_hover": {
+   "file": "ui/buttons/button_c_stone_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    85,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_stone_pressed": {
+   "file": "ui/buttons/button_c_stone_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    102,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_stone_disabled": {
+   "file": "ui/buttons/button_c_stone_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    119,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_parchment_normal": {
+   "file": "ui/buttons/button_c_parchment_normal.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    136,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_parchment_hover": {
+   "file": "ui/buttons/button_c_parchment_hover.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    153,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_parchment_pressed": {
+   "file": "ui/buttons/button_c_parchment_pressed.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 2,
+   "sheetRect": [
+    170,
+    70,
+    16,
+    14
+   ]
+  },
+  "button_c_parchment_disabled": {
+   "file": "ui/buttons/button_c_parchment_disabled.png",
+   "group": "buttons",
+   "size": [
+    16,
+    14
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 2,
+    "y": 1,
+    "w": 12,
+    "h": 10
+   },
+   "contentOffsetY": 0,
+   "sheetRect": [
+    187,
+    70,
+    16,
+    14
+   ]
+  },
+  "tab_wood_active": {
+   "file": "ui/tabs/tab_wood_active.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": true,
+   "content": {
+    "x": 2,
+    "y": 2,
+    "w": 12,
+    "h": 9
+   },
+   "sheetRect": [
+    204,
+    70,
+    16,
+    12
+   ]
+  },
+  "tab_wood_inactive": {
+   "file": "ui/tabs/tab_wood_inactive.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": false,
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 7
+   },
+   "sheetRect": [
+    221,
+    70,
+    16,
+    12
+   ]
+  },
+  "tab_stone_active": {
+   "file": "ui/tabs/tab_stone_active.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": true,
+   "content": {
+    "x": 2,
+    "y": 2,
+    "w": 12,
+    "h": 9
+   },
+   "sheetRect": [
+    238,
+    70,
+    16,
+    12
+   ]
+  },
+  "tab_stone_inactive": {
+   "file": "ui/tabs/tab_stone_inactive.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": false,
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 7
+   },
+   "sheetRect": [
+    0,
+    85,
+    16,
+    12
+   ]
+  },
+  "tab_parchment_active": {
+   "file": "ui/tabs/tab_parchment_active.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": true,
+   "content": {
+    "x": 2,
+    "y": 2,
+    "w": 12,
+    "h": 9
+   },
+   "sheetRect": [
+    17,
+    85,
+    16,
+    12
+   ]
+  },
+  "tab_parchment_inactive": {
+   "file": "ui/tabs/tab_parchment_inactive.png",
+   "group": "tabs",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "joinsPanelBelow": false,
+   "content": {
+    "x": 2,
+    "y": 3,
+    "w": 12,
+    "h": 7
+   },
+   "sheetRect": [
+    34,
+    85,
+    16,
+    12
+   ]
+  },
+  "bar_frame": {
+   "file": "ui/bars/bar_frame.png",
+   "group": "bars",
+   "size": [
+    8,
+    8
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "fillArea": {
+    "x": 2,
+    "y": 2,
+    "h": 4
+   },
+   "sheetRect": [
+    51,
+    85,
+    8,
+    8
+   ]
+  },
+  "bar_fill_hp": {
+   "file": "ui/bars/bar_fill_hp.png",
+   "group": "bars",
+   "size": [
+    4,
+    4
+   ],
+   "tile": "horizontal",
+   "fits": "bar_frame fillArea",
+   "sheetRect": [
+    60,
+    85,
+    4,
+    4
+   ]
+  },
+  "bar_fill_mp": {
+   "file": "ui/bars/bar_fill_mp.png",
+   "group": "bars",
+   "size": [
+    4,
+    4
+   ],
+   "tile": "horizontal",
+   "fits": "bar_frame fillArea",
+   "sheetRect": [
+    65,
+    85,
+    4,
+    4
+   ]
+  },
+  "bar_fill_xp": {
+   "file": "ui/bars/bar_fill_xp.png",
+   "group": "bars",
+   "size": [
+    4,
+    4
+   ],
+   "tile": "horizontal",
+   "fits": "bar_frame fillArea",
+   "sheetRect": [
+    70,
+    85,
+    4,
+    4
+   ]
+  },
+  "bar_icon_hp": {
+   "file": "ui/bars/bar_icon_hp.png",
+   "group": "bars",
+   "size": [
+    9,
+    9
+   ],
+   "sheetRect": [
+    75,
+    85,
+    9,
+    9
+   ]
+  },
+  "bar_icon_mp": {
+   "file": "ui/bars/bar_icon_mp.png",
+   "group": "bars",
+   "size": [
+    9,
+    9
+   ],
+   "sheetRect": [
+    85,
+    85,
+    9,
+    9
+   ]
+  },
+  "bar_icon_xp": {
+   "file": "ui/bars/bar_icon_xp.png",
+   "group": "bars",
+   "size": [
+    9,
+    9
+   ],
+   "sheetRect": [
+    95,
+    85,
+    9,
+    9
+   ]
+  },
+  "slot_normal": {
+   "file": "ui/slots/slot_normal.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    105,
+    85,
+    20,
+    20
+   ]
+  },
+  "slot_hover": {
+   "file": "ui/slots/slot_hover.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    126,
+    85,
+    20,
+    20
+   ]
+  },
+  "slot_selected": {
+   "file": "ui/slots/slot_selected.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    147,
+    85,
+    20,
+    20
+   ]
+  },
+  "slot_locked": {
+   "file": "ui/slots/slot_locked.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    168,
+    85,
+    20,
+    20
+   ]
+  },
+  "slot_rare": {
+   "file": "ui/slots/slot_rare.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    189,
+    85,
+    20,
+    20
+   ]
+  },
+  "slot_epic": {
+   "file": "ui/slots/slot_epic.png",
+   "group": "slots",
+   "size": [
+    20,
+    20
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 2,
+    "right": 2,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "iconAt": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    210,
+    85,
+    20,
+    20
+   ]
+  },
+  "scroll_track": {
+   "file": "ui/scrollbar/scroll_track.png",
+   "group": "scrollbar",
+   "size": [
+    8,
+    12
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 3,
+    "right": 2,
+    "bottom": 3,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "sheetRect": [
+    231,
+    85,
+    8,
+    12
+   ]
+  },
+  "scroll_thumb": {
+   "file": "ui/scrollbar/scroll_thumb.png",
+   "group": "scrollbar",
+   "size": [
+    8,
+    12
+   ],
+   "nineSlice": {
+    "left": 2,
+    "top": 3,
+    "right": 2,
+    "bottom": 3,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "sheetRect": [
+    240,
+    85,
+    8,
+    12
+   ]
+  },
+  "scroll_up": {
+   "file": "ui/scrollbar/scroll_up.png",
+   "group": "scrollbar",
+   "size": [
+    8,
+    8
+   ],
+   "sheetRect": [
+    0,
+    106,
+    8,
+    8
+   ]
+  },
+  "scroll_down": {
+   "file": "ui/scrollbar/scroll_down.png",
+   "group": "scrollbar",
+   "size": [
+    8,
+    8
+   ],
+   "sheetRect": [
+    9,
+    106,
+    8,
+    8
+   ]
+  },
+  "slider_track": {
+   "file": "ui/slider/slider_track.png",
+   "group": "slider",
+   "size": [
+    12,
+    6
+   ],
+   "nineSlice": {
+    "left": 3,
+    "top": 2,
+    "right": 3,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "sheetRect": [
+    18,
+    106,
+    12,
+    6
+   ]
+  },
+  "slider_track_fill": {
+   "file": "ui/slider/slider_track_fill.png",
+   "group": "slider",
+   "size": [
+    12,
+    6
+   ],
+   "nineSlice": {
+    "left": 3,
+    "top": 2,
+    "right": 3,
+    "bottom": 2,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "sheetRect": [
+    31,
+    106,
+    12,
+    6
+   ]
+  },
+  "slider_knob_normal": {
+   "file": "ui/slider/slider_knob_normal.png",
+   "group": "slider",
+   "size": [
+    9,
+    12
+   ],
+   "pivot": {
+    "x": 4,
+    "y": 10
+   },
+   "sheetRect": [
+    44,
+    106,
+    9,
+    12
+   ]
+  },
+  "slider_knob_hover": {
+   "file": "ui/slider/slider_knob_hover.png",
+   "group": "slider",
+   "size": [
+    9,
+    12
+   ],
+   "pivot": {
+    "x": 4,
+    "y": 10
+   },
+   "sheetRect": [
+    54,
+    106,
+    9,
+    12
+   ]
+  },
+  "slider_knob_pressed": {
+   "file": "ui/slider/slider_knob_pressed.png",
+   "group": "slider",
+   "size": [
+    9,
+    12
+   ],
+   "pivot": {
+    "x": 4,
+    "y": 10
+   },
+   "sheetRect": [
+    64,
+    106,
+    9,
+    12
+   ]
+  },
+  "checkbox_unchecked": {
+   "file": "ui/checkbox/checkbox_unchecked.png",
+   "group": "checkbox",
+   "size": [
+    10,
+    10
+   ],
+   "sheetRect": [
+    74,
+    106,
+    10,
+    10
+   ]
+  },
+  "checkbox_unchecked_hover": {
+   "file": "ui/checkbox/checkbox_unchecked_hover.png",
+   "group": "checkbox",
+   "size": [
+    10,
+    10
+   ],
+   "sheetRect": [
+    85,
+    106,
+    10,
+    10
+   ]
+  },
+  "checkbox_checked": {
+   "file": "ui/checkbox/checkbox_checked.png",
+   "group": "checkbox",
+   "size": [
+    10,
+    10
+   ],
+   "sheetRect": [
+    96,
+    106,
+    10,
+    10
+   ]
+  },
+  "checkbox_checked_hover": {
+   "file": "ui/checkbox/checkbox_checked_hover.png",
+   "group": "checkbox",
+   "size": [
+    10,
+    10
+   ],
+   "sheetRect": [
+    107,
+    106,
+    10,
+    10
+   ]
+  },
+  "checkbox_disabled": {
+   "file": "ui/checkbox/checkbox_disabled.png",
+   "group": "checkbox",
+   "size": [
+    10,
+    10
+   ],
+   "sheetRect": [
+    118,
+    106,
+    10,
+    10
+   ]
+  },
+  "cursor_pointer": {
+   "file": "ui/cursors/cursor_pointer.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 1,
+    "y": 1
+   },
+   "sheetRect": [
+    129,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_hand_point": {
+   "file": "ui/cursors/cursor_hand_point.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 5,
+    "y": 1
+   },
+   "sheetRect": [
+    146,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_hand_grab": {
+   "file": "ui/cursors/cursor_hand_grab.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 6
+   },
+   "sheetRect": [
+    163,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_attack": {
+   "file": "ui/cursors/cursor_attack.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 1,
+    "y": 1
+   },
+   "sheetRect": [
+    180,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_target": {
+   "file": "ui/cursors/cursor_target.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "sheetRect": [
+    197,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_inspect": {
+   "file": "ui/cursors/cursor_inspect.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 5,
+    "y": 5
+   },
+   "sheetRect": [
+    214,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_forbidden": {
+   "file": "ui/cursors/cursor_forbidden.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "sheetRect": [
+    231,
+    106,
+    16,
+    16
+   ]
+  },
+  "cursor_text": {
+   "file": "ui/cursors/cursor_text.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "sheetRect": [
+    0,
+    123,
+    16,
+    16
+   ]
+  },
+  "cursor_wait_0": {
+   "file": "ui/cursors/cursor_wait_0.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "animation": "cursor_wait",
+   "frame": 0,
+   "sheetRect": [
+    17,
+    123,
+    16,
+    16
+   ]
+  },
+  "cursor_wait_1": {
+   "file": "ui/cursors/cursor_wait_1.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "animation": "cursor_wait",
+   "frame": 1,
+   "sheetRect": [
+    34,
+    123,
+    16,
+    16
+   ]
+  },
+  "cursor_wait_2": {
+   "file": "ui/cursors/cursor_wait_2.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "animation": "cursor_wait",
+   "frame": 2,
+   "sheetRect": [
+    51,
+    123,
+    16,
+    16
+   ]
+  },
+  "cursor_wait_3": {
+   "file": "ui/cursors/cursor_wait_3.png",
+   "group": "cursors",
+   "size": [
+    16,
+    16
+   ],
+   "hotspot": {
+    "x": 7,
+    "y": 7
+   },
+   "animation": "cursor_wait",
+   "frame": 3,
+   "sheetRect": [
+    68,
+    123,
+    16,
+    16
+   ]
+  },
+  "dialogue_box": {
+   "file": "ui/dialogue/dialogue_box.png",
+   "group": "dialogue",
+   "size": [
+    16,
+    16
+   ],
+   "nineSlice": {
+    "left": 5,
+    "top": 5,
+    "right": 5,
+    "bottom": 5,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "contentInset": {
+    "left": 5,
+    "top": 5,
+    "right": 5,
+    "bottom": 5
+   },
+   "sheetRect": [
+    85,
+    123,
+    16,
+    16
+   ]
+  },
+  "name_plate": {
+   "file": "ui/dialogue/name_plate.png",
+   "group": "dialogue",
+   "size": [
+    16,
+    12
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 3,
+    "right": 4,
+    "bottom": 3,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "content": {
+    "x": 3,
+    "y": 3,
+    "w": 10,
+    "h": 6
+   },
+   "sheetRect": [
+    102,
+    123,
+    16,
+    12
+   ]
+  },
+  "portrait_frame": {
+   "file": "ui/dialogue/portrait_frame.png",
+   "group": "dialogue",
+   "size": [
+    48,
+    48
+   ],
+   "nineSlice": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "opening": {
+    "x": 4,
+    "y": 4,
+    "w": 40,
+    "h": 40
+   },
+   "sheetRect": [
+    119,
+    123,
+    48,
+    48
+   ]
+  },
+  "portrait_sage": {
+   "file": "ui/dialogue/portrait_sage.png",
+   "group": "dialogue",
+   "size": [
+    40,
+    40
+   ],
+   "note": "sample portrait for portrait_frame",
+   "sheetRect": [
+    168,
+    123,
+    40,
+    40
+   ]
+  },
+  "choice_arrow": {
+   "file": "ui/dialogue/choice_arrow.png",
+   "group": "dialogue",
+   "size": [
+    6,
+    9
+   ],
+   "sheetRect": [
+    209,
+    123,
+    6,
+    9
+   ]
+  },
+  "dialogue_next_0": {
+   "file": "ui/dialogue/dialogue_next_0.png",
+   "group": "dialogue",
+   "size": [
+    9,
+    9
+   ],
+   "animation": "dialogue_next",
+   "frame": 0,
+   "sheetRect": [
+    216,
+    123,
+    9,
+    9
+   ]
+  },
+  "dialogue_next_1": {
+   "file": "ui/dialogue/dialogue_next_1.png",
+   "group": "dialogue",
+   "size": [
+    9,
+    9
+   ],
+   "animation": "dialogue_next",
+   "frame": 1,
+   "sheetRect": [
+    226,
+    123,
+    9,
+    9
+   ]
+  },
+  "dialogue_next_2": {
+   "file": "ui/dialogue/dialogue_next_2.png",
+   "group": "dialogue",
+   "size": [
+    9,
+    9
+   ],
+   "animation": "dialogue_next",
+   "frame": 2,
+   "sheetRect": [
+    236,
+    123,
+    9,
+    9
+   ]
+  },
+  "dialogue_next_3": {
+   "file": "ui/dialogue/dialogue_next_3.png",
+   "group": "dialogue",
+   "size": [
+    9,
+    9
+   ],
+   "animation": "dialogue_next",
+   "frame": 3,
+   "sheetRect": [
+    246,
+    123,
+    9,
+    9
+   ]
+  },
+  "minimap_frame": {
+   "file": "ui/minimap/minimap_frame.png",
+   "group": "minimap",
+   "size": [
+    24,
+    24
+   ],
+   "nineSlice": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "edges": "stretch",
+    "center": "stretch"
+   },
+   "contentInset": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8
+   },
+   "sheetRect": [
+    0,
+    172,
+    24,
+    24
+   ]
+  },
+  "map_tile_grass": {
+   "file": "ui/minimap/map_tile_grass.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    25,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_grass_tuft": {
+   "file": "ui/minimap/map_tile_grass_tuft.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    30,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_grass_flower": {
+   "file": "ui/minimap/map_tile_grass_flower.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    35,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_water": {
+   "file": "ui/minimap/map_tile_water.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    40,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_path": {
+   "file": "ui/minimap/map_tile_path.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    45,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_wall": {
+   "file": "ui/minimap/map_tile_wall.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    50,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_tile_tree": {
+   "file": "ui/minimap/map_tile_tree.png",
+   "group": "minimap",
+   "size": [
+    4,
+    4
+   ],
+   "tile": 4,
+   "sheetRect": [
+    55,
+    172,
+    4,
+    4
+   ]
+  },
+  "map_marker_player": {
+   "file": "ui/minimap/map_marker_player.png",
+   "group": "minimap",
+   "size": [
+    7,
+    7
+   ],
+   "hotspot": {
+    "x": 3,
+    "y": 1
+   },
+   "sheetRect": [
+    60,
+    172,
+    7,
+    7
+   ]
+  },
+  "map_marker_enemy": {
+   "file": "ui/minimap/map_marker_enemy.png",
+   "group": "minimap",
+   "size": [
+    5,
+    5
+   ],
+   "hotspot": {
+    "x": 2,
+    "y": 2
+   },
+   "sheetRect": [
+    68,
+    172,
+    5,
+    5
+   ]
+  },
+  "map_marker_quest": {
+   "file": "ui/minimap/map_marker_quest.png",
+   "group": "minimap",
+   "size": [
+    7,
+    7
+   ],
+   "hotspot": {
+    "x": 1,
+    "y": 4
+   },
+   "sheetRect": [
+    74,
+    172,
+    7,
+    7
+   ]
+  },
+  "map_marker_chest": {
+   "file": "ui/minimap/map_marker_chest.png",
+   "group": "minimap",
+   "size": [
+    7,
+    7
+   ],
+   "hotspot": {
+    "x": 3,
+    "y": 3
+   },
+   "sheetRect": [
+    82,
+    172,
+    7,
+    7
+   ]
+  },
+  "map_marker_north": {
+   "file": "ui/minimap/map_marker_north.png",
+   "group": "minimap",
+   "size": [
+    7,
+    7
+   ],
+   "hotspot": {
+    "x": 4,
+    "y": 4
+   },
+   "sheetRect": [
+    90,
+    172,
+    7,
+    7
+   ]
+  }
+ },
+ "iconSets": {
+  "A": {
+   "label": "1px dark outline, top-left light, 3-step + glint",
+   "primary": true,
+   "sheet": "sheets/icons-A.png",
+   "icons": {
+    "weapons/sword": {
+     "file": "icons/A/weapons/sword.png",
+     "category": "weapons",
+     "sheetRect": [
+      0,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/dagger": {
+     "file": "icons/A/weapons/dagger.png",
+     "category": "weapons",
+     "sheetRect": [
+      16,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/battle_axe": {
+     "file": "icons/A/weapons/battle_axe.png",
+     "category": "weapons",
+     "sheetRect": [
+      32,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/mace": {
+     "file": "icons/A/weapons/mace.png",
+     "category": "weapons",
+     "sheetRect": [
+      48,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/spear": {
+     "file": "icons/A/weapons/spear.png",
+     "category": "weapons",
+     "sheetRect": [
+      64,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/bow": {
+     "file": "icons/A/weapons/bow.png",
+     "category": "weapons",
+     "sheetRect": [
+      80,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/staff": {
+     "file": "icons/A/weapons/staff.png",
+     "category": "weapons",
+     "sheetRect": [
+      96,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/war_hammer": {
+     "file": "icons/A/weapons/war_hammer.png",
+     "category": "weapons",
+     "sheetRect": [
+      112,
+      0,
+      16,
+      16
+     ]
+    },
+    "armour/helmet": {
+     "file": "icons/A/armour/helmet.png",
+     "category": "armour",
+     "sheetRect": [
+      0,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/chestplate": {
+     "file": "icons/A/armour/chestplate.png",
+     "category": "armour",
+     "sheetRect": [
+      16,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/leather_tunic": {
+     "file": "icons/A/armour/leather_tunic.png",
+     "category": "armour",
+     "sheetRect": [
+      32,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/round_shield": {
+     "file": "icons/A/armour/round_shield.png",
+     "category": "armour",
+     "sheetRect": [
+      48,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/kite_shield": {
+     "file": "icons/A/armour/kite_shield.png",
+     "category": "armour",
+     "sheetRect": [
+      64,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/boots": {
+     "file": "icons/A/armour/boots.png",
+     "category": "armour",
+     "sheetRect": [
+      80,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/gauntlets": {
+     "file": "icons/A/armour/gauntlets.png",
+     "category": "armour",
+     "sheetRect": [
+      96,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/wizard_hat": {
+     "file": "icons/A/armour/wizard_hat.png",
+     "category": "armour",
+     "sheetRect": [
+      112,
+      16,
+      16,
+      16
+     ]
+    },
+    "potions/health_potion": {
+     "file": "icons/A/potions/health_potion.png",
+     "category": "potions",
+     "sheetRect": [
+      0,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/mana_potion": {
+     "file": "icons/A/potions/mana_potion.png",
+     "category": "potions",
+     "sheetRect": [
+      16,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/stamina_vial": {
+     "file": "icons/A/potions/stamina_vial.png",
+     "category": "potions",
+     "sheetRect": [
+      32,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/poison_flask": {
+     "file": "icons/A/potions/poison_flask.png",
+     "category": "potions",
+     "sheetRect": [
+      48,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/luck_tonic": {
+     "file": "icons/A/potions/luck_tonic.png",
+     "category": "potions",
+     "sheetRect": [
+      64,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/minor_health": {
+     "file": "icons/A/potions/minor_health.png",
+     "category": "potions",
+     "sheetRect": [
+      80,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/empty_bottle": {
+     "file": "icons/A/potions/empty_bottle.png",
+     "category": "potions",
+     "sheetRect": [
+      96,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/ether_vial": {
+     "file": "icons/A/potions/ether_vial.png",
+     "category": "potions",
+     "sheetRect": [
+      112,
+      32,
+      16,
+      16
+     ]
+    },
+    "food/apple": {
+     "file": "icons/A/food/apple.png",
+     "category": "food",
+     "sheetRect": [
+      0,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/bread": {
+     "file": "icons/A/food/bread.png",
+     "category": "food",
+     "sheetRect": [
+      16,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/cheese": {
+     "file": "icons/A/food/cheese.png",
+     "category": "food",
+     "sheetRect": [
+      32,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/drumstick": {
+     "file": "icons/A/food/drumstick.png",
+     "category": "food",
+     "sheetRect": [
+      48,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/fish": {
+     "file": "icons/A/food/fish.png",
+     "category": "food",
+     "sheetRect": [
+      64,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/carrot": {
+     "file": "icons/A/food/carrot.png",
+     "category": "food",
+     "sheetRect": [
+      80,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/mushroom": {
+     "file": "icons/A/food/mushroom.png",
+     "category": "food",
+     "sheetRect": [
+      96,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/grapes": {
+     "file": "icons/A/food/grapes.png",
+     "category": "food",
+     "sheetRect": [
+      112,
+      48,
+      16,
+      16
+     ]
+    },
+    "keys/iron_key": {
+     "file": "icons/A/keys/iron_key.png",
+     "category": "keys",
+     "sheetRect": [
+      0,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/gold_key": {
+     "file": "icons/A/keys/gold_key.png",
+     "category": "keys",
+     "sheetRect": [
+      16,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/ruby_key": {
+     "file": "icons/A/keys/ruby_key.png",
+     "category": "keys",
+     "sheetRect": [
+      32,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/crystal_key": {
+     "file": "icons/A/keys/crystal_key.png",
+     "category": "keys",
+     "sheetRect": [
+      48,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/bronze_key": {
+     "file": "icons/A/keys/bronze_key.png",
+     "category": "keys",
+     "sheetRect": [
+      64,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/skeleton_key": {
+     "file": "icons/A/keys/skeleton_key.png",
+     "category": "keys",
+     "sheetRect": [
+      80,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/dungeon_key": {
+     "file": "icons/A/keys/dungeon_key.png",
+     "category": "keys",
+     "sheetRect": [
+      96,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/padlock": {
+     "file": "icons/A/keys/padlock.png",
+     "category": "keys",
+     "sheetRect": [
+      112,
+      64,
+      16,
+      16
+     ]
+    },
+    "gems/ruby": {
+     "file": "icons/A/gems/ruby.png",
+     "category": "gems",
+     "sheetRect": [
+      0,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/sapphire": {
+     "file": "icons/A/gems/sapphire.png",
+     "category": "gems",
+     "sheetRect": [
+      16,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/emerald": {
+     "file": "icons/A/gems/emerald.png",
+     "category": "gems",
+     "sheetRect": [
+      32,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/amethyst": {
+     "file": "icons/A/gems/amethyst.png",
+     "category": "gems",
+     "sheetRect": [
+      48,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/topaz": {
+     "file": "icons/A/gems/topaz.png",
+     "category": "gems",
+     "sheetRect": [
+      64,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/diamond": {
+     "file": "icons/A/gems/diamond.png",
+     "category": "gems",
+     "sheetRect": [
+      80,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/pearl": {
+     "file": "icons/A/gems/pearl.png",
+     "category": "gems",
+     "sheetRect": [
+      96,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/coin_pile": {
+     "file": "icons/A/gems/coin_pile.png",
+     "category": "gems",
+     "sheetRect": [
+      112,
+      80,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_red": {
+     "file": "icons/A/scrolls/scroll_red.png",
+     "category": "scrolls",
+     "sheetRect": [
+      0,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_blue": {
+     "file": "icons/A/scrolls/scroll_blue.png",
+     "category": "scrolls",
+     "sheetRect": [
+      16,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_green": {
+     "file": "icons/A/scrolls/scroll_green.png",
+     "category": "scrolls",
+     "sheetRect": [
+      32,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/sealed_letter": {
+     "file": "icons/A/scrolls/sealed_letter.png",
+     "category": "scrolls",
+     "sheetRect": [
+      48,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/open_scroll": {
+     "file": "icons/A/scrolls/open_scroll.png",
+     "category": "scrolls",
+     "sheetRect": [
+      64,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/map": {
+     "file": "icons/A/scrolls/map.png",
+     "category": "scrolls",
+     "sheetRect": [
+      80,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/tome_red": {
+     "file": "icons/A/scrolls/tome_red.png",
+     "category": "scrolls",
+     "sheetRect": [
+      96,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/tome_blue": {
+     "file": "icons/A/scrolls/tome_blue.png",
+     "category": "scrolls",
+     "sheetRect": [
+      112,
+      96,
+      16,
+      16
+     ]
+    },
+    "tools/pickaxe": {
+     "file": "icons/A/tools/pickaxe.png",
+     "category": "tools",
+     "sheetRect": [
+      0,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/shovel": {
+     "file": "icons/A/tools/shovel.png",
+     "category": "tools",
+     "sheetRect": [
+      16,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/fishing_rod": {
+     "file": "icons/A/tools/fishing_rod.png",
+     "category": "tools",
+     "sheetRect": [
+      32,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/torch": {
+     "file": "icons/A/tools/torch.png",
+     "category": "tools",
+     "sheetRect": [
+      48,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/lantern": {
+     "file": "icons/A/tools/lantern.png",
+     "category": "tools",
+     "sheetRect": [
+      64,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/rope": {
+     "file": "icons/A/tools/rope.png",
+     "category": "tools",
+     "sheetRect": [
+      80,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/bucket": {
+     "file": "icons/A/tools/bucket.png",
+     "category": "tools",
+     "sheetRect": [
+      96,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/compass": {
+     "file": "icons/A/tools/compass.png",
+     "category": "tools",
+     "sheetRect": [
+      112,
+      112,
+      16,
+      16
+     ]
+    },
+    "magic/fireball": {
+     "file": "icons/A/magic/fireball.png",
+     "category": "magic",
+     "sheetRect": [
+      0,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/ice_shard": {
+     "file": "icons/A/magic/ice_shard.png",
+     "category": "magic",
+     "sheetRect": [
+      16,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/lightning": {
+     "file": "icons/A/magic/lightning.png",
+     "category": "magic",
+     "sheetRect": [
+      32,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/heal": {
+     "file": "icons/A/magic/heal.png",
+     "category": "magic",
+     "sheetRect": [
+      48,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/ward": {
+     "file": "icons/A/magic/ward.png",
+     "category": "magic",
+     "sheetRect": [
+      64,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/poison_cloud": {
+     "file": "icons/A/magic/poison_cloud.png",
+     "category": "magic",
+     "sheetRect": [
+      80,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/arcane_orb": {
+     "file": "icons/A/magic/arcane_orb.png",
+     "category": "magic",
+     "sheetRect": [
+      96,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/gust": {
+     "file": "icons/A/magic/gust.png",
+     "category": "magic",
+     "sheetRect": [
+      112,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/earth_spike": {
+     "file": "icons/A/magic/earth_spike.png",
+     "category": "magic",
+     "sheetRect": [
+      0,
+      144,
+      16,
+      16
+     ]
+    },
+    "magic/holy_light": {
+     "file": "icons/A/magic/holy_light.png",
+     "category": "magic",
+     "sheetRect": [
+      16,
+      144,
+      16,
+      16
+     ]
+    },
+    "magic/summon_rune": {
+     "file": "icons/A/magic/summon_rune.png",
+     "category": "magic",
+     "sheetRect": [
+      32,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/poisoned": {
+     "file": "icons/A/status/poisoned.png",
+     "category": "status",
+     "sheetRect": [
+      48,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/burning": {
+     "file": "icons/A/status/burning.png",
+     "category": "status",
+     "sheetRect": [
+      64,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/frozen": {
+     "file": "icons/A/status/frozen.png",
+     "category": "status",
+     "sheetRect": [
+      80,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/stunned": {
+     "file": "icons/A/status/stunned.png",
+     "category": "status",
+     "sheetRect": [
+      96,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/asleep": {
+     "file": "icons/A/status/asleep.png",
+     "category": "status",
+     "sheetRect": [
+      112,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/bleeding": {
+     "file": "icons/A/status/bleeding.png",
+     "category": "status",
+     "sheetRect": [
+      0,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/regen": {
+     "file": "icons/A/status/regen.png",
+     "category": "status",
+     "sheetRect": [
+      16,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/haste": {
+     "file": "icons/A/status/haste.png",
+     "category": "status",
+     "sheetRect": [
+      32,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/attack_up": {
+     "file": "icons/A/status/attack_up.png",
+     "category": "status",
+     "sheetRect": [
+      48,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/defense_up": {
+     "file": "icons/A/status/defense_up.png",
+     "category": "status",
+     "sheetRect": [
+      64,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/cursed": {
+     "file": "icons/A/status/cursed.png",
+     "category": "status",
+     "sheetRect": [
+      80,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/copper_coin": {
+     "file": "icons/A/materials/copper_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      96,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/silver_coin": {
+     "file": "icons/A/materials/silver_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      112,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/gold_coin": {
+     "file": "icons/A/materials/gold_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      0,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/iron_ore": {
+     "file": "icons/A/materials/iron_ore.png",
+     "category": "materials",
+     "sheetRect": [
+      16,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/gold_ingot": {
+     "file": "icons/A/materials/gold_ingot.png",
+     "category": "materials",
+     "sheetRect": [
+      32,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/wood_log": {
+     "file": "icons/A/materials/wood_log.png",
+     "category": "materials",
+     "sheetRect": [
+      48,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/leather_hide": {
+     "file": "icons/A/materials/leather_hide.png",
+     "category": "materials",
+     "sheetRect": [
+      64,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/cloth_roll": {
+     "file": "icons/A/materials/cloth_roll.png",
+     "category": "materials",
+     "sheetRect": [
+      80,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/herb": {
+     "file": "icons/A/materials/herb.png",
+     "category": "materials",
+     "sheetRect": [
+      96,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/bone": {
+     "file": "icons/A/materials/bone.png",
+     "category": "materials",
+     "sheetRect": [
+      112,
+      176,
+      16,
+      16
+     ]
+    }
+   }
+  },
+  "C": {
+   "label": "heavy 8-way outline, top-left light, 4-step glint",
+   "primary": false,
+   "sheet": "sheets/icons-C.png",
+   "icons": {
+    "weapons/sword": {
+     "file": "icons/C/weapons/sword.png",
+     "category": "weapons",
+     "sheetRect": [
+      0,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/dagger": {
+     "file": "icons/C/weapons/dagger.png",
+     "category": "weapons",
+     "sheetRect": [
+      16,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/battle_axe": {
+     "file": "icons/C/weapons/battle_axe.png",
+     "category": "weapons",
+     "sheetRect": [
+      32,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/mace": {
+     "file": "icons/C/weapons/mace.png",
+     "category": "weapons",
+     "sheetRect": [
+      48,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/spear": {
+     "file": "icons/C/weapons/spear.png",
+     "category": "weapons",
+     "sheetRect": [
+      64,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/bow": {
+     "file": "icons/C/weapons/bow.png",
+     "category": "weapons",
+     "sheetRect": [
+      80,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/staff": {
+     "file": "icons/C/weapons/staff.png",
+     "category": "weapons",
+     "sheetRect": [
+      96,
+      0,
+      16,
+      16
+     ]
+    },
+    "weapons/war_hammer": {
+     "file": "icons/C/weapons/war_hammer.png",
+     "category": "weapons",
+     "sheetRect": [
+      112,
+      0,
+      16,
+      16
+     ]
+    },
+    "armour/helmet": {
+     "file": "icons/C/armour/helmet.png",
+     "category": "armour",
+     "sheetRect": [
+      0,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/chestplate": {
+     "file": "icons/C/armour/chestplate.png",
+     "category": "armour",
+     "sheetRect": [
+      16,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/leather_tunic": {
+     "file": "icons/C/armour/leather_tunic.png",
+     "category": "armour",
+     "sheetRect": [
+      32,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/round_shield": {
+     "file": "icons/C/armour/round_shield.png",
+     "category": "armour",
+     "sheetRect": [
+      48,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/kite_shield": {
+     "file": "icons/C/armour/kite_shield.png",
+     "category": "armour",
+     "sheetRect": [
+      64,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/boots": {
+     "file": "icons/C/armour/boots.png",
+     "category": "armour",
+     "sheetRect": [
+      80,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/gauntlets": {
+     "file": "icons/C/armour/gauntlets.png",
+     "category": "armour",
+     "sheetRect": [
+      96,
+      16,
+      16,
+      16
+     ]
+    },
+    "armour/wizard_hat": {
+     "file": "icons/C/armour/wizard_hat.png",
+     "category": "armour",
+     "sheetRect": [
+      112,
+      16,
+      16,
+      16
+     ]
+    },
+    "potions/health_potion": {
+     "file": "icons/C/potions/health_potion.png",
+     "category": "potions",
+     "sheetRect": [
+      0,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/mana_potion": {
+     "file": "icons/C/potions/mana_potion.png",
+     "category": "potions",
+     "sheetRect": [
+      16,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/stamina_vial": {
+     "file": "icons/C/potions/stamina_vial.png",
+     "category": "potions",
+     "sheetRect": [
+      32,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/poison_flask": {
+     "file": "icons/C/potions/poison_flask.png",
+     "category": "potions",
+     "sheetRect": [
+      48,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/luck_tonic": {
+     "file": "icons/C/potions/luck_tonic.png",
+     "category": "potions",
+     "sheetRect": [
+      64,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/minor_health": {
+     "file": "icons/C/potions/minor_health.png",
+     "category": "potions",
+     "sheetRect": [
+      80,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/empty_bottle": {
+     "file": "icons/C/potions/empty_bottle.png",
+     "category": "potions",
+     "sheetRect": [
+      96,
+      32,
+      16,
+      16
+     ]
+    },
+    "potions/ether_vial": {
+     "file": "icons/C/potions/ether_vial.png",
+     "category": "potions",
+     "sheetRect": [
+      112,
+      32,
+      16,
+      16
+     ]
+    },
+    "food/apple": {
+     "file": "icons/C/food/apple.png",
+     "category": "food",
+     "sheetRect": [
+      0,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/bread": {
+     "file": "icons/C/food/bread.png",
+     "category": "food",
+     "sheetRect": [
+      16,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/cheese": {
+     "file": "icons/C/food/cheese.png",
+     "category": "food",
+     "sheetRect": [
+      32,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/drumstick": {
+     "file": "icons/C/food/drumstick.png",
+     "category": "food",
+     "sheetRect": [
+      48,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/fish": {
+     "file": "icons/C/food/fish.png",
+     "category": "food",
+     "sheetRect": [
+      64,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/carrot": {
+     "file": "icons/C/food/carrot.png",
+     "category": "food",
+     "sheetRect": [
+      80,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/mushroom": {
+     "file": "icons/C/food/mushroom.png",
+     "category": "food",
+     "sheetRect": [
+      96,
+      48,
+      16,
+      16
+     ]
+    },
+    "food/grapes": {
+     "file": "icons/C/food/grapes.png",
+     "category": "food",
+     "sheetRect": [
+      112,
+      48,
+      16,
+      16
+     ]
+    },
+    "keys/iron_key": {
+     "file": "icons/C/keys/iron_key.png",
+     "category": "keys",
+     "sheetRect": [
+      0,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/gold_key": {
+     "file": "icons/C/keys/gold_key.png",
+     "category": "keys",
+     "sheetRect": [
+      16,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/ruby_key": {
+     "file": "icons/C/keys/ruby_key.png",
+     "category": "keys",
+     "sheetRect": [
+      32,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/crystal_key": {
+     "file": "icons/C/keys/crystal_key.png",
+     "category": "keys",
+     "sheetRect": [
+      48,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/bronze_key": {
+     "file": "icons/C/keys/bronze_key.png",
+     "category": "keys",
+     "sheetRect": [
+      64,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/skeleton_key": {
+     "file": "icons/C/keys/skeleton_key.png",
+     "category": "keys",
+     "sheetRect": [
+      80,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/dungeon_key": {
+     "file": "icons/C/keys/dungeon_key.png",
+     "category": "keys",
+     "sheetRect": [
+      96,
+      64,
+      16,
+      16
+     ]
+    },
+    "keys/padlock": {
+     "file": "icons/C/keys/padlock.png",
+     "category": "keys",
+     "sheetRect": [
+      112,
+      64,
+      16,
+      16
+     ]
+    },
+    "gems/ruby": {
+     "file": "icons/C/gems/ruby.png",
+     "category": "gems",
+     "sheetRect": [
+      0,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/sapphire": {
+     "file": "icons/C/gems/sapphire.png",
+     "category": "gems",
+     "sheetRect": [
+      16,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/emerald": {
+     "file": "icons/C/gems/emerald.png",
+     "category": "gems",
+     "sheetRect": [
+      32,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/amethyst": {
+     "file": "icons/C/gems/amethyst.png",
+     "category": "gems",
+     "sheetRect": [
+      48,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/topaz": {
+     "file": "icons/C/gems/topaz.png",
+     "category": "gems",
+     "sheetRect": [
+      64,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/diamond": {
+     "file": "icons/C/gems/diamond.png",
+     "category": "gems",
+     "sheetRect": [
+      80,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/pearl": {
+     "file": "icons/C/gems/pearl.png",
+     "category": "gems",
+     "sheetRect": [
+      96,
+      80,
+      16,
+      16
+     ]
+    },
+    "gems/coin_pile": {
+     "file": "icons/C/gems/coin_pile.png",
+     "category": "gems",
+     "sheetRect": [
+      112,
+      80,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_red": {
+     "file": "icons/C/scrolls/scroll_red.png",
+     "category": "scrolls",
+     "sheetRect": [
+      0,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_blue": {
+     "file": "icons/C/scrolls/scroll_blue.png",
+     "category": "scrolls",
+     "sheetRect": [
+      16,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/scroll_green": {
+     "file": "icons/C/scrolls/scroll_green.png",
+     "category": "scrolls",
+     "sheetRect": [
+      32,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/sealed_letter": {
+     "file": "icons/C/scrolls/sealed_letter.png",
+     "category": "scrolls",
+     "sheetRect": [
+      48,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/open_scroll": {
+     "file": "icons/C/scrolls/open_scroll.png",
+     "category": "scrolls",
+     "sheetRect": [
+      64,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/map": {
+     "file": "icons/C/scrolls/map.png",
+     "category": "scrolls",
+     "sheetRect": [
+      80,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/tome_red": {
+     "file": "icons/C/scrolls/tome_red.png",
+     "category": "scrolls",
+     "sheetRect": [
+      96,
+      96,
+      16,
+      16
+     ]
+    },
+    "scrolls/tome_blue": {
+     "file": "icons/C/scrolls/tome_blue.png",
+     "category": "scrolls",
+     "sheetRect": [
+      112,
+      96,
+      16,
+      16
+     ]
+    },
+    "tools/pickaxe": {
+     "file": "icons/C/tools/pickaxe.png",
+     "category": "tools",
+     "sheetRect": [
+      0,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/shovel": {
+     "file": "icons/C/tools/shovel.png",
+     "category": "tools",
+     "sheetRect": [
+      16,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/fishing_rod": {
+     "file": "icons/C/tools/fishing_rod.png",
+     "category": "tools",
+     "sheetRect": [
+      32,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/torch": {
+     "file": "icons/C/tools/torch.png",
+     "category": "tools",
+     "sheetRect": [
+      48,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/lantern": {
+     "file": "icons/C/tools/lantern.png",
+     "category": "tools",
+     "sheetRect": [
+      64,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/rope": {
+     "file": "icons/C/tools/rope.png",
+     "category": "tools",
+     "sheetRect": [
+      80,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/bucket": {
+     "file": "icons/C/tools/bucket.png",
+     "category": "tools",
+     "sheetRect": [
+      96,
+      112,
+      16,
+      16
+     ]
+    },
+    "tools/compass": {
+     "file": "icons/C/tools/compass.png",
+     "category": "tools",
+     "sheetRect": [
+      112,
+      112,
+      16,
+      16
+     ]
+    },
+    "magic/fireball": {
+     "file": "icons/C/magic/fireball.png",
+     "category": "magic",
+     "sheetRect": [
+      0,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/ice_shard": {
+     "file": "icons/C/magic/ice_shard.png",
+     "category": "magic",
+     "sheetRect": [
+      16,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/lightning": {
+     "file": "icons/C/magic/lightning.png",
+     "category": "magic",
+     "sheetRect": [
+      32,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/heal": {
+     "file": "icons/C/magic/heal.png",
+     "category": "magic",
+     "sheetRect": [
+      48,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/ward": {
+     "file": "icons/C/magic/ward.png",
+     "category": "magic",
+     "sheetRect": [
+      64,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/poison_cloud": {
+     "file": "icons/C/magic/poison_cloud.png",
+     "category": "magic",
+     "sheetRect": [
+      80,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/arcane_orb": {
+     "file": "icons/C/magic/arcane_orb.png",
+     "category": "magic",
+     "sheetRect": [
+      96,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/gust": {
+     "file": "icons/C/magic/gust.png",
+     "category": "magic",
+     "sheetRect": [
+      112,
+      128,
+      16,
+      16
+     ]
+    },
+    "magic/earth_spike": {
+     "file": "icons/C/magic/earth_spike.png",
+     "category": "magic",
+     "sheetRect": [
+      0,
+      144,
+      16,
+      16
+     ]
+    },
+    "magic/holy_light": {
+     "file": "icons/C/magic/holy_light.png",
+     "category": "magic",
+     "sheetRect": [
+      16,
+      144,
+      16,
+      16
+     ]
+    },
+    "magic/summon_rune": {
+     "file": "icons/C/magic/summon_rune.png",
+     "category": "magic",
+     "sheetRect": [
+      32,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/poisoned": {
+     "file": "icons/C/status/poisoned.png",
+     "category": "status",
+     "sheetRect": [
+      48,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/burning": {
+     "file": "icons/C/status/burning.png",
+     "category": "status",
+     "sheetRect": [
+      64,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/frozen": {
+     "file": "icons/C/status/frozen.png",
+     "category": "status",
+     "sheetRect": [
+      80,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/stunned": {
+     "file": "icons/C/status/stunned.png",
+     "category": "status",
+     "sheetRect": [
+      96,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/asleep": {
+     "file": "icons/C/status/asleep.png",
+     "category": "status",
+     "sheetRect": [
+      112,
+      144,
+      16,
+      16
+     ]
+    },
+    "status/bleeding": {
+     "file": "icons/C/status/bleeding.png",
+     "category": "status",
+     "sheetRect": [
+      0,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/regen": {
+     "file": "icons/C/status/regen.png",
+     "category": "status",
+     "sheetRect": [
+      16,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/haste": {
+     "file": "icons/C/status/haste.png",
+     "category": "status",
+     "sheetRect": [
+      32,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/attack_up": {
+     "file": "icons/C/status/attack_up.png",
+     "category": "status",
+     "sheetRect": [
+      48,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/defense_up": {
+     "file": "icons/C/status/defense_up.png",
+     "category": "status",
+     "sheetRect": [
+      64,
+      160,
+      16,
+      16
+     ]
+    },
+    "status/cursed": {
+     "file": "icons/C/status/cursed.png",
+     "category": "status",
+     "sheetRect": [
+      80,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/copper_coin": {
+     "file": "icons/C/materials/copper_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      96,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/silver_coin": {
+     "file": "icons/C/materials/silver_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      112,
+      160,
+      16,
+      16
+     ]
+    },
+    "materials/gold_coin": {
+     "file": "icons/C/materials/gold_coin.png",
+     "category": "materials",
+     "sheetRect": [
+      0,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/iron_ore": {
+     "file": "icons/C/materials/iron_ore.png",
+     "category": "materials",
+     "sheetRect": [
+      16,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/gold_ingot": {
+     "file": "icons/C/materials/gold_ingot.png",
+     "category": "materials",
+     "sheetRect": [
+      32,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/wood_log": {
+     "file": "icons/C/materials/wood_log.png",
+     "category": "materials",
+     "sheetRect": [
+      48,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/leather_hide": {
+     "file": "icons/C/materials/leather_hide.png",
+     "category": "materials",
+     "sheetRect": [
+      64,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/cloth_roll": {
+     "file": "icons/C/materials/cloth_roll.png",
+     "category": "materials",
+     "sheetRect": [
+      80,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/herb": {
+     "file": "icons/C/materials/herb.png",
+     "category": "materials",
+     "sheetRect": [
+      96,
+      176,
+      16,
+      16
+     ]
+    },
+    "materials/bone": {
+     "file": "icons/C/materials/bone.png",
+     "category": "materials",
+     "sheetRect": [
+      112,
+      176,
+      16,
+      16
+     ]
+    }
+   }
+  }
+ },
+ "animations": {
+  "cursor_wait": {
+   "frames": [
+    "cursor_wait_0",
+    "cursor_wait_1",
+    "cursor_wait_2",
+    "cursor_wait_3"
+   ],
+   "durationsMs": [
+    260,
+    140,
+    140,
+    320
+   ],
+   "loop": true
+  },
+  "dialogue_next": {
+   "frames": [
+    "dialogue_next_0",
+    "dialogue_next_1",
+    "dialogue_next_2",
+    "dialogue_next_3"
+   ],
+   "durationsMs": [
+    240,
+    100,
+    180,
+    100
+   ],
+   "loop": true
+  }
+ },
+ "font": {
+  "png": "font/hearthmark5x7.png",
+  "fnt": "font/hearthmark5x7.fnt",
+  "ttf": "font/hearthmark5x7.ttf",
+  "ttfPixelSize": 10,
+  "lineHeight": 10,
+  "base": 7,
+  "glyphs": 191,
+  "ranges": [
+   "U+0020-007E",
+   "U+00A0-00FF"
+  ]
+ }
+}

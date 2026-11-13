@@ -1,0 +1,18 @@
+; Hearthmark UI pack: Godot 4 import check. Run ./run_demo.sh
+config_version=5
+
+[application]
+config/name="Hearthmark UI demo"
+run/main_scene="res://main.tscn"
+
+[display]
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/window_width_override=960
+window/size/window_height_override=540
+window/stretch/mode="viewport"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.149, 0.184, 0.239, 1)
