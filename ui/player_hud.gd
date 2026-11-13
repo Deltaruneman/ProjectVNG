@@ -336,11 +336,11 @@ func _refresh_skill_bar() -> void:
 		var slot_number := index + 1
 		var skill_id := player.get_active_skill_id_for_slot(slot_number)
 		var icon_name := _skill_icon_name(skill_id)
-		var icon_texture: Texture2D = _load_skill_icon(icon_name) if icon_name != "" else _load_basic_dagger_icon()
+		var icon_texture: Texture2D = _load_skill_icon(icon_name) if icon_name != "" else _load_basic_projectile_icon(GameManager.weapon_form if slot_number == 1 else "")
 		_skill_slot_icons[index].texture = icon_texture
 		_skill_slot_icons[index].modulate = Color.WHITE
 		_skill_slot_placeholders[index].visible = icon_texture == null
-		_skill_slot_placeholders[index].text = "D" if skill_id == "" else "?"
+		_skill_slot_placeholders[index].text = "O" if skill_id == "" else "?"
 		var remaining := player.get_active_skill_cooldown_for_slot(slot_number)
 		_skill_slot_cooldown_overlays[index].visible = remaining > 0.0
 		_skill_slot_cooldown_labels[index].visible = remaining > 0.0
@@ -348,6 +348,8 @@ func _refresh_skill_bar() -> void:
 		_skill_slot_styles[index].border_color = Color("52f19a") if player.selected_active_slot == slot_number else Color("68737a")
 		_skill_slot_styles[index].set_border_width_all(2 if player.selected_active_slot == slot_number else 1)
 		var title := _skill_display_name(skill_id)
+		if skill_id == "" and slot_number == 1:
+			title = str({"wind": "Phi Dao Gió", "fire": "Hỏa Cầu", "ice": "Băng Cầu", "lightning": "Lôi Cầu"}.get(GameManager.weapon_form, title))
 		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
 	_refresh_action_slot(DASH_SLOT, "dash", _input_hint("dash") + " · Dash", maxf(0.0, player.dash_cooldown_timer))
 	_refresh_action_slot(PARRY_SLOT, "parry", _input_hint("parry") + " · Parry", maxf(0.0, player.parry_cooldown_timer))
@@ -551,12 +553,12 @@ func _on_skill_tree_slot_input(event: InputEvent) -> void:
 
 func _skill_display_name(skill_id: String) -> String:
 	var names: Dictionary = {
-		"": "Dao găm cơ bản",
+		"": "Quả cầu trắng",
 		"active_wind_1": "Giải Phóng Kiếm Khí", "active_wind_2": "Phong Bộc", "active_wind_3": "Quét Kiếm Phi Gió",
-		"active_fire_1": "Hỏa Ảnh Trảm", "active_fire_2": "Ma Hỏa", "active_fire_3": "Hỏa Nộ",
-		"active_ice_1": "Cấp Đông Tức Thì", "active_ice_2": "Hầm Mộ Băng Giá", "active_ice_3": "Khiên Băng",
+		"active_fire_1": "Hỏa Cầu", "active_fire_2": "Ma Hỏa", "active_fire_3": "Hỏa Nộ",
+		"active_ice_1": "Băng Cầu", "active_ice_2": "Hầm Mộ Băng Giá", "active_ice_3": "Khiên Băng",
 		"active_wind_4": "Lốc Xoáy", "active_fire_4": "Mưa Thiên Thạch", "active_ice_4": "Bão Băng",
-		"active_lightning_1": "Phi Dao Lôi", "active_lightning_2": "Xích Lôi", "active_lightning_3": "Sét Đánh", "active_lightning_4": "Lôi Bạo",
+		"active_lightning_1": "Lôi Cầu", "active_lightning_2": "Xích Lôi", "active_lightning_3": "Sét Đánh", "active_lightning_4": "Lôi Bạo",
 		"ultimate_wind_1": "Cái Chết Tựa Cơn Gió", "ultimate_wind_2": "Trăng Tối",
 		"ultimate_fire_1": "Hỏa Kiếm", "ultimate_fire_2": "Hỏa Thần Giáng Lâm",
 		"ultimate_ice_1": "Chân Băng", "ultimate_ice_2": "Kỷ Băng Hà",
@@ -591,10 +593,19 @@ func _load_skill_icon(icon_name: String) -> Texture2D:
 	return _skill_icon_cache[icon_name] as Texture2D
 
 
-func _load_basic_dagger_icon() -> Texture2D:
-	if not _skill_icon_cache.has("basic_dagger"):
-		_skill_icon_cache["basic_dagger"] = load(BASIC_DAGGER_ICON) as Texture2D
-	return _skill_icon_cache["basic_dagger"] as Texture2D
+func _load_basic_projectile_icon(form: String) -> Texture2D:
+	if form == "wind":
+		if not _skill_icon_cache.has("basic_dagger"):
+			_skill_icon_cache["basic_dagger"] = load(BASIC_DAGGER_ICON) as Texture2D
+		return _skill_icon_cache["basic_dagger"] as Texture2D
+	var palette := form if form in ["fire", "ice", "lightning"] else "white"
+	var key := "orb_" + palette
+	if not _skill_icon_cache.has(key):
+		var icon := AtlasTexture.new()
+		icon.atlas = load("res://assets/effects/pixelfx/projectiles/orb-%s/orb-%s.png" % [palette, palette]) as Texture2D
+		icon.region = Rect2(92, 14, 32, 32)
+		_skill_icon_cache[key] = icon
+	return _skill_icon_cache[key] as Texture2D
 
 
 func _on_rage_changed(current: float, maximum: float) -> void:

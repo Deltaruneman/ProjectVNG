@@ -23,6 +23,31 @@ static func swing(parent: Node3D, position: Vector3, form: String, direction: Ve
 	return _spawn_pixelfx(parent, "melee/spear-sweep", position, form, direction, scale)
 
 
+static func elemental_orb(projectile: Node3D, form: String, _direction: Vector3) -> AnimatedSprite3D:
+	var palette := form if form in ["fire", "ice", "lightning"] else "white"
+	var effect_id := "projectiles/orb-" + palette
+	var frames := _load_pixelfx_frames(effect_id)
+	if frames == null:
+		return null
+	var metadata: Dictionary = _pixel_frames_cache[effect_id + ":metadata"]
+	var frame_size: Array = metadata["frameSize"]
+	var pivot: Array = metadata["pivot"]
+	var sprite := AnimatedSprite3D.new()
+	sprite.name = "OrbVisual"
+	sprite.sprite_frames = frames
+	sprite.pixel_size = 3.6 / float(frame_size[0])
+	sprite.offset = Vector2(float(frame_size[0]) * 0.5 - float(pivot[0]), float(pivot[1]) - float(frame_size[1]) * 0.5)
+	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	sprite.shaded = false
+	sprite.no_depth_test = false
+	sprite.top_level = true
+	sprite.speed_scale = SKILL_VFX_SPEED_SCALE
+	projectile.add_child(sprite)
+	sprite.global_position = projectile.global_position
+	sprite.play("default")
+	return sprite
+
+
 static func claw(parent: Node3D, position: Vector3, form: String, direction: Vector3, scale: float = 0.6) -> Node2D:
 	var effect_id := "ice/ice-shatter" if form == "ice" else "melee/claw-swipe"
 	return _spawn_pixelfx(parent, effect_id, position, form, direction, scale)
@@ -34,6 +59,26 @@ static func impact(parent: Node3D, position: Vector3, form: String, direction: V
 
 static func ultimate_impact_frame(parent: Node3D, position: Vector3, form: String) -> Node2D:
 	return _spawn_pixelfx(parent, "impacts/impact-frame", position, form, Vector3.ZERO, 10.5, 0.0, true)
+
+
+static func parry_success(player: Node3D, attacker: Node3D = null) -> Node2D:
+	var direction_node := player.get_node("Direction") as Node3D
+	var contact_direction := direction_node.global_basis.z
+	if is_instance_valid(attacker):
+		contact_direction = attacker.global_position - player.global_position
+	contact_direction.y = 0.0
+	if contact_direction.length_squared() < 0.001:
+		contact_direction = direction_node.global_basis.z
+	contact_direction = contact_direction.normalized()
+	var contact := player.global_position + Vector3.UP * 0.9 + contact_direction * 0.65
+	# Keep the spark fan upright: the source draws contact 30 pixels above its ground pivot.
+	var effect := _spawn_pixelfx(player, "impacts/parry", contact, "", Vector3.ZERO, 2.4)
+	if effect != null:
+		var sprite := effect.get_child(0) as AnimatedSprite2D
+		sprite.position.y = 30.0
+		sprite.speed_scale = 1.5
+	play_skill_sound(player, "parry_success")
+	return effect
 
 
 static func play_pvfx(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color = Color.WHITE, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
@@ -152,6 +197,10 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 	var pitch_scale := 1.0
 	var volume_db := -5.0
 	match skill_id:
+		"orb_white": relative_path = "Spells/Spell Impact 1.ogg"
+		"parry_success":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Parry 1.ogg"
+			volume_db = -2.0
 		"", "dagger", "active_wind_1": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
 		"active_wind_2": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 2.ogg"
 		"active_wind_3", "ultimate_wind_1", "ultimate_wind_2": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg"

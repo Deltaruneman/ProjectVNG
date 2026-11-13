@@ -183,9 +183,10 @@ func _ready() -> void:
 	aim_shape.shape = aim_box
 	aim_blocker.add_child(aim_shape)
 	stage.add_child(aim_blocker)
-	aim_blocker.global_position = rig.camera.global_position - rig.camera.global_basis.z * 10.0
+	var aim_screen: Vector2 = player.SKILL_AIM_RETICLE_SCRIPT.aim_screen_point(get_viewport().get_visible_rect().size)
+	aim_blocker.global_position = rig.camera.project_ray_origin(aim_screen) + rig.camera.project_ray_normal(aim_screen) * 10.0
 	await ticks(3)
-	check(player._skill_aim_point.distance_to(aim_blocker.global_position) < 1.1, "center sightline stops at blocking body")
+	check(player._skill_aim_point.distance_to(aim_blocker.global_position) < 1.1, "raised sightline stops at blocking body")
 	await capture("skill-aim-reticle")
 	var aimed_point: Vector3 = player._skill_aim_point
 	key(KEY_U, false)

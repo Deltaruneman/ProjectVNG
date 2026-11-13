@@ -1,5 +1,61 @@
 # Implementation changelog
 
+## T087 Raised skill aim and orb depth (2026-11-13)
+
+User reports skill art overlaying the Player and asks to move default aim up slightly. Static cause: orb art used the foreground PixelFX CanvasLayer, bypassing 3D depth. Bao-owned Player aiming/presentation scope is authorized; camera rig, map/enemy and gameplay balance are unchanged. Prior uncommitted parry/orb work and dirty tracked cache are preserved; no teammate approval claimed.
+
+Included files:
+- `scenes/player/skill_aim_reticle.gd`: shared normalized aim point (0.5, 0.42), raising aim 8% of viewport height; draw reticle at that point.
+- `scenes/player/player.gd`: both hidden/default and held target ray use the same shared point, preserving 3D projectile convergence and existing camera shoulder behavior.
+- `scenes/player/battle_vfx.gd`: replace orb-only foreground overlay helper with AnimatedSprite3D, depth test enabled, existing frame metadata/pivot/nearest filtering, same 3.6m sheet width and animation speed. Existing sheets and other VFX remain unchanged.
+- `scenes/objects/elemental_orb.gd`: projectile owns its 3D visual child; update global position and camera-facing basis with projected travel angle after the camera update. Child frees with projectile; no timed foreground loop remains.
+- `tests/elemental_orb_test.gd`: adapt orb assertions to 3D visual, add per-form depth checks, normalized raised aim at three resolutions, ray/reticle and quick/held agreement, Player-center clearance, actual rendered open/blocked core-pixel checks.
+- `tests/camera_gameplay_check.gd`: place obstruction on the new shared aim ray for future full-basement fixture runs.
+- `docs/validation/elemental-orbs/raised-aim.log`, `raised-aim-errors.log`, `depth-open.png`, `depth-occlusion.png`, updated `rendered-orbs.png`: final rendered evidence with raised reticle and native-depth orbs.
+- `specs/001-integrate-basement-stage/tasks.md`, `validation.md`, `docs/implementation-changelog.md`: scope/acceptance and actual evidence.
+
+Verification: Godot 4.7.2 Compatibility final fixture passes 89/89 including prior route/flight/wall/range/cooldown/element-callback/wind catch regressions. Raised ray/reticle aligns at normalized 0.42 height, quick/held targets agree, and actual rendered pixels confirm an unobstructed white core becomes hidden behind foreground 3D geometry. Inspected raised-reticle/four-orb and open/occluded screenshots. Initial fixture pixel checks used logical viewport coordinates against physical screenshot pixels; corrected conversion and hid reticle during pixel checks. Player-clearance fixture now explicitly checks target lies above Player center rather than assuming a fixed 30 logical pixels. Final logs contain no SCRIPT ERROR; existing UID fallback and exit diagnostics remain (3 ObjectDB instances, 1 resource retained). `git diff --check` passes with existing line-ending notices.
+
+Limits: manual native full-stage feel, every camera angle and direct pixel testing against the Player silhouette remain pending; actual foreground-geometry occlusion and Player depth-writing scene configuration establish the corrected rendering path. Full-basement camera fixture was adapted but not rerun in its required isolated copy. No camera rig or collision behavior changed; Bao acceptance and commit/push are not claimed. Tracked UID cache was already dirty and remains untouched by hand.
+
+## T086 Straight elemental orbs (2026-11-13)
+
+User authorizes replacing returning daggers for neutral, fire, ice and lightning with straight elemental orbs while preserving wind. Bao-owned Player combat/VFX/UI scope; no teammate review/sign-off is claimed. Prior T085 parry work and dirty tracked UID cache were preserved.
+
+Included files and purposes:
+- `scenes/objects/elemental_orb.gd`, generated `.gd.uid`, `elemental_orb.tscn`: separate outbound-only projectile inheriting existing speed/range/wall query and HitArea scene. Hide dagger art; travel along initial 3D aim, expire at range/wall, track effect position and free effect with projectile. Never suppress/restore the equipped blade or start a return/hit-reset phase.
+- `scenes/player/states/skillstate.gd`: retain original scene exclusively for wind; route other throws to the orb, snapshot element before spawning, keep wind-only launch slashes and return upgrades, retain cooldown/damage/status callback and aiming. Neutral launch uses a magic sound.
+- `scenes/player/battle_vfx.gd`: orb visual helper using existing world anchor/metadata loader and projectile-owned loop lifetime; neutral magic sound mapping. Existing parry edits retained.
+- `tools/export_elemental_orbs.mjs`: reproducible export of bundled pixelfx plasma-shot, size 8, four palettes, without changing upstream sources.
+- `assets/effects/pixelfx/projectiles/orb-{white,fire,ice,lightning}/`: each contains named PNG/JSON sheet, `palette.json`, `contact.png`, plus Godot PNG import sidecars. White core/corona/trail with neutral-white, fire-orange, ice-cyan and lightning-yellow palettes; 24 frames, 144x60, pivot [108,30], 30fps loop. `projectiles/README.md` records regeneration and MIT/Sprite Fusion attribution.
+- `ui/player_hud.gd`: orb names/tooltips and neutral/fallback orb atlas icon, keeping wind dagger fallback and stable internal cooldown/skill keys.
+- `ui/skill_tree_layout.gd`: Hỏa Cầu/Băng Cầu/Lôi Cầu full/short names and straight-flight descriptions; ember/frostbite wording refers to orbs. Node IDs, prerequisites, costs and upgrades remain intact.
+- `tests/elemental_orb_test.gd`: actual Player cast routing, 3D aim, damage upgrades, elemental hit-signal connection, cooldown, blade suppression, flight/range/wall/cleanup checks; wind return/catch/upgrade regressions; HUD/Skill Tree checks and rendered four-orb capture.
+- `docs/validation/elemental-orbs/{import.log,test.log,rendered.log,rendered-errors.log,rendered-orbs.png,parry-regression.log}`: import, headless/rendered evidence and shared-VFX parry regression (all seven enemies and feedback lifecycle pass).
+- `specs/001-integrate-basement-stage/tasks.md`, `validation.md`, `docs/implementation-changelog.md`: scope/acceptance, verification and cumulative record.
+
+Integration: preserves original `scenes/objects/skill.gd` and `phidao.tscn` for wind, existing enemy damage/status handlers, skill costs/cooldowns/IDs, higher skills, map/save systems, slash and ice-shield implementations. Orbs use the old 14m/s speed and 7m outbound range and wall mask/margin. Existing outbound piercing remains, with no return damage pass. No commit/push.
+
+Verification: inspected all four pixelfx contact sheets and in-engine `rendered-orbs.png`. Stock `check.mjs projectiles/plasma-shot` passes without warnings. Godot 4.7.2 headless fixture passes 73/73 checks; final Compatibility renderer fixture passes 77/77, adding HUD/Skill Tree checks. Final rendered run has no SCRIPT ERROR and confirms actual physics-world wall query; existing UID fallback and shutdown diagnostics (3 ObjectDB instances, 1 retained resource) persist. Early fixture failures were load ordering (typed Player before autoload) and typed-array setup, corrected in test only. Editor memory mapping prevented a whole-file UI write; content remained intact, and scoped patch succeeded. Native full-basement play/combat feel and actual per-enemy burn/slow/stun application with the new projectile were not manually verified; existing callbacks are connected and damage/status code is unchanged. Bao acceptance remains pending. Godot may update the already-dirty tracked UID cache; no cache hand edit/reset occurred.
+
+## T085 Successful parry feedback (2026-11-13)
+
+Implemented for Bao-owned Player combat, authorized by the user's request for Sekiro-style successful-parry feedback and metallic sound. No teammate sign-off or visual acceptance is claimed.
+
+Files and purpose:
+- `scenes/player/parry.gd`: trigger feedback only after entering SUCCESS; retain HP, window, recovery and enemy reaction behavior.
+- `scenes/player/battle_vfx.gd`: gold spark/white flash/ring helper, attacker-facing contact with facing fallback, upright fan and corrected source pivot, 1.5x playback, existing Sword Parry 1 sound through the SFX bus at -2 dB.
+- `assets/effects/pixelfx/impacts/parry/parry.png`, `parry.json`, `parry.png.import`: transparent 31-frame sheet, timing/pivot metadata and Godot import.
+- `assets/effects/pixelfx/impacts/parry/contact.png`, `contact.png.import`, `README.md`: inspected preview, import and regeneration/license attribution. Bundled upstream source and license remain intact.
+- `tests/parry_test.gd`: retain seven-enemy parry regressions; add entry/miss suppression, exactly one burst/clang per success, duplicate rejection, contact/orbit projection and completed-node cleanup.
+- `specs/001-integrate-basement-stage/tasks.md`, `validation.md`: pre-implementation scope/acceptance and final evidence/open review state.
+- `docs/validation/parry-feedback/import.log`, `test.log`: actual Godot import and final regression evidence.
+- `docs/implementation-changelog.md`: this cumulative record.
+
+Integration: uses existing PixelFX world anchor and settings-aware audio lifecycle. No enemy scripts, map, slash or ice-shield implementations changed. The tracked `.godot/uid_cache.bin` was already dirty before this work and remains untouched by hand; Godot import can update caches, and the final tracked file is still dirty. No cache reset or cleanup was performed.
+
+Verification: pixelfx `check.mjs impacts/parry` passes with no warnings; exported contact sheet inspected. Godot 4.7.2 headless final test passes crab, barrel, mushroom, starfish, skeleton warrior, skeleton mage and pelican, plus entry/miss/duplicate/orbit and cleanup checks, with no SCRIPT ERROR. Existing UID fallback warnings and exit diagnostics (7 retained ObjectDB instances, 1 resource still in use) remain unresolved. Native rendered combat and listening to the clang in-game were not performed; visual/audio feel and reviewer agreement remain pending. No commit/push.
+
 This cumulative teammate-facing record describes actual changes and evidence, not
 whole-feature acceptance. Every future implementation group or commit/push must
 update it before publishing; see root AGENTS.md. Keep historical entries and add

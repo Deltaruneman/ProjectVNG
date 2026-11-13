@@ -23,15 +23,15 @@ const FORMS := [
 ]
 const ACTIVE_SKILLS := {
 	"wind": ["Phi Dao Gió", "Phong Bộc", "Quét Kiếm Phi Gió", "Lốc Xoáy"],
-	"fire": ["Phi Dao Hỏa", "Ma Hỏa", "Hỏa Nộ", "Mưa Thiên Thạch"],
-	"ice": ["Phi Dao Băng", "Hầm Mộ Băng Giá", "Khiên Băng", "Bão Băng"],
-	"lightning": ["Phi Dao Lôi", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
+	"fire": ["Hỏa Cầu", "Ma Hỏa", "Hỏa Nộ", "Mưa Thiên Thạch"],
+	"ice": ["Băng Cầu", "Hầm Mộ Băng Giá", "Khiên Băng", "Bão Băng"],
+	"lightning": ["Lôi Cầu", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
 }
 const ACTIVE_SHORT_NAMES := {
 	"wind": ["Phi Dao", "Phong Bộc", "Quét Kiếm", "Lốc Xoáy"],
-	"fire": ["Phi Dao", "Ma Hỏa", "Hỏa Nộ", "Thiên Thạch"],
-	"ice": ["Phi Dao", "Hầm Băng", "Khiên Băng", "Bão Băng"],
-	"lightning": ["Phi Dao", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
+	"fire": ["Hỏa Cầu", "Ma Hỏa", "Hỏa Nộ", "Thiên Thạch"],
+	"ice": ["Băng Cầu", "Hầm Băng", "Khiên Băng", "Bão Băng"],
+	"lightning": ["Lôi Cầu", "Xích Lôi", "Sét Đánh", "Lôi Bạo"],
 }
 const ULTIMATE_SKILLS := {
 	"wind": ["Cái Chết Tựa Cơn Gió", "Trăng Tối"],
@@ -52,12 +52,12 @@ const WEAPON_EVOLUTIONS := {
 		{"id": "evo_wind_tornado", "name": "Cuồng Phong", "short": "Cuồng Phong", "icon": "✧", "icon_asset": "wind_nova", "desc": "Lốc Xoáy lớn hơn và làm chậm lâu hơn.", "req": 10, "requires": "active_wind_4"},
 	],
 	"fire": [
-		{"id": "evo_fire_ember", "name": "Tàn Hỏa", "short": "Tàn Hỏa", "icon": "✦", "icon_asset": "fire_star", "desc": "Phi dao gây thêm 1 sát thương thiêu đốt mỗi giây trong 1 giây.", "req": 3, "requires": "active_fire_1"},
+		{"id": "evo_fire_ember", "name": "Tàn Hỏa", "short": "Tàn Hỏa", "icon": "✦", "icon_asset": "fire_star", "desc": "Hỏa cầu gây thêm 1 sát thương thiêu đốt mỗi giây trong 1 giây.", "req": 3, "requires": "active_fire_1"},
 		{"id": "evo_fire_inferno", "name": "Bùng Nổ", "short": "Bùng Nổ", "icon": "✹", "icon_asset": "fire_nova", "desc": "Ma Hỏa, Hỏa Nộ và Hỏa Thần có bán kính nổ tăng 1m.", "req": 7, "requires": "active_fire_2"},
 		{"id": "evo_fire_meteor", "name": "Mưa Lửa", "short": "Mưa Lửa", "icon": "☄", "icon_asset": "fire_nova", "desc": "Mưa Thiên Thạch gây thêm sát thương và thiêu đốt.", "req": 10, "requires": "active_fire_4"},
 	],
 	"ice": [
-		{"id": "evo_ice_frostbite", "name": "Hàn Khí", "short": "Hàn Khí", "icon": "❄", "icon_asset": "ice_star", "desc": "Phi dao làm chậm thêm 1 giây; Hầm Băng đóng băng thêm 0.5 giây.", "req": 3, "requires": "active_ice_1"},
+		{"id": "evo_ice_frostbite", "name": "Hàn Khí", "short": "Hàn Khí", "icon": "❄", "icon_asset": "ice_star", "desc": "Băng cầu làm chậm thêm 1 giây; Hầm Băng đóng băng thêm 0.5 giây.", "req": 3, "requires": "active_ice_1"},
 		{"id": "evo_ice_shatter", "name": "Vỡ Băng", "short": "Vỡ Băng", "icon": "✧", "icon_asset": "ice_nova", "desc": "Hầm Băng gây thêm 50% sát thương lên kẻ địch đang đóng băng.", "req": 6, "requires": "active_ice_2"},
 		{"id": "evo_ice_storm", "name": "Băng Tâm", "short": "Băng Tâm", "icon": "❄", "icon_asset": "ice_nova", "desc": "Bão Băng đóng băng lâu hơn và tăng bán kính.", "req": 10, "requires": "active_ice_4"},
 	],
@@ -70,16 +70,16 @@ const SKILL_DESCRIPTIONS := {
 	"Phi Dao Gió": "Phóng dao gió xuyên qua nhiều kẻ địch.",
 	"Phong Bộc": "Trong 5 giây, tăng tốc độ chạy và sát thương đòn đánh.",
 	"Quét Kiếm Phi Gió": "Lướt nhanh về phía trước và đánh bật kẻ địch trên đường.",
-	"Phi Dao Hỏa": "Phóng dao gây sát thương và thiêu đốt mục tiêu trong 3 giây.",
+	"Hỏa Cầu": "Phóng quả cầu lửa bay thẳng, không quay về; gây sát thương và thiêu đốt mục tiêu trong 3 giây.",
 	"Ma Hỏa": "Triệu hồi ma hỏa, phát nổ sau 5 giây quanh vị trí người chơi.",
 	"Hỏa Nộ": "Mất 25% máu hiện tại, gây sát thương vòng lửa trong 3 giây.",
-	"Phi Dao Băng": "Phóng dao gây sát thương và làm chậm mục tiêu trong 2 giây.",
+	"Băng Cầu": "Phóng quả cầu băng bay thẳng, không quay về; gây sát thương và làm chậm mục tiêu trong 2 giây.",
 	"Hầm Mộ Băng Giá": "Đóng băng kẻ địch trong vùng hình nón phía trước.",
 	"Khiên Băng": "Tạo khiên hấp thụ sát thương bằng 25% máu tối đa.",
 	"Lốc Xoáy": "Triệu hồi lốc xoáy quanh bạn, gây sát thương và làm chậm địch.",
 	"Mưa Thiên Thạch": "Gọi thiên thạch xuống vùng phía trước và thiêu đốt mục tiêu.",
 	"Bão Băng": "Tạo bão băng quanh bạn, gây sát thương và đóng băng kẻ địch.",
-	"Phi Dao Lôi": "Phóng phi đao mang điện, làm choáng mục tiêu trong thoáng chốc.",
+	"Lôi Cầu": "Phóng quả cầu điện bay thẳng, không quay về; làm choáng mục tiêu trong thoáng chốc.",
 	"Xích Lôi": "Phóng tia sét thẳng, gây sát thương và dịch chuyển ra sau lưng kẻ địch đầu tiên trúng phải.",
 	"Sét Đánh": "Triệu hồi phân thân sét đuổi theo kẻ địch, đánh thường trong 5 giây rồi phát nổ gây sát thương và choáng.",
 	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
