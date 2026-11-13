@@ -1770,3 +1770,18 @@ PASSED, no silent migration/reset. Native editor F5/F6/mouse/focus feel, all vie
 live boss combat interference: NOT RUN. Quan/Bao/Duy independent review pending; no owner
 acceptance claimed. T087 remains unchecked for these acceptance items. Full evidence and
 final baseline reconciliation are in project-audit-validation.md; no commit/push.
+
+## 2026-11-13 — T093 F9 New Game input route
+
+**Request/status.** User reports F9 still leaves B2 progress saved. Implemented a Bao-owned pause/input route for the existing New Game action. Runtime behavior and user acceptance remain pending; no commit or push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/pause_menu.gd` | Handles one F9 press in the always-processing input path, including while paused; preserves F9 binding capture. |
+| `specs/001-integrate-basement-stage/tasks.md` | Records T093 scope, owner, acceptance, checks and pending status. |
+| `specs/001-integrate-basement-stage/validation.md` | Records save/source findings, implementation boundary and missing runtime evidence. |
+| `docs/implementation-changelog.md` | Keeps this cumulative implementation record. |
+
+**Integration.** Existing `GameManager.new_game()` remains responsible for deleting the save, resetting flags and loading the first stage. The new input path marks the event handled so the existing GameManager unhandled-input fallback does not call it twice. It does not change save format, enemies, stages, pause menu navigation or other bindings. Existing unrelated working changes were preserved.
+
+**Verification and limits.** Read-only save inspection found `b2_cleared = true` and checkpoint `b2_start` after the reported F9 attempt. Static input and reset paths were reviewed. Godot input/playtest was not run; focused UI interception is a source-based explanation, not a reproduced runtime cause. No user save was deleted or edited during this task. Gameplay, pause, rebinding and B2 spawn behavior require runtime verification; no reviewer sign-off is claimed.
