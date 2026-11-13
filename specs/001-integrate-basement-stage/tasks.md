@@ -742,3 +742,141 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Scope/acceptance: explicitly visible cursor during opening/open/closing menu, restore gameplay capture on close; quick and held casts use an invisible camera-center target rather than movement/facing, with the visible reticle/shoulder view still gated by 0.3 s hold. Projectile retains 3D aim, ground skills use horizontal bearing, directional ult uses the same camera aim. No reticle is added during ordinary gameplay.
   - Checks: rendered camera and actual-basement menu/input/skill fixtures, exact visible mouse mode including initially hidden cursor, opposing actor/camera directions, projectile trajectory, hold/pause regressions and diff review.
   - Status: implemented; Godot 4.7.2 rendered camera 115/115 and actual-basement integration 42/42 assertions pass. Menu is explicitly VISIBLE from hidden cursor; quick projectile follows center target despite opposite facing/lateral movement. Native embedded cursor feel, per-skill combat review and Bao acceptance remain pending; keep unchecked.
+
+
+## Audit refresh — 2026-11-13 (documentation and verification only)
+
+Baseline: `feature/playercontrolandmap` / `42471e4c`. See
+[whole-project state](../../docs/project-current-state.md) and
+[audit test matrix](../../docs/project-audit-validation.md). No existing checkbox is changed.
+
+- T013 / T025 / T026: fresh checkpoint fixtures 54/55, interaction 25/26, recovery 45/55.
+  BUG-003 is not reproduced in current rendered captures, but two HUDs (BUG-008) and
+  B2 support/visibility (BUG-005) prevent full acceptance. Six recovery failures are
+  obsolete camera=Player expectations after T079; four B2 support failures are real.
+- T034 / T035–T040: BUG-004 not reproduced at six legacy coordinates; changed geometry
+  makes old measurements insufficient. No ceiling/containment/route task is marked done.
+- B1 enemy-drop/chest follow-up (commit `22ad2661`, no dedicated task ID in the old list):
+  genuine end-to-end BLOCKED by Pelican missing damage receiver (BUG-007). API-only
+  chest/unique-pickup dedup passes do not prove this flow. T070 remains boss framing,
+  not rewards.
+- T071 / T075: actual B2 three-defeat count, SP pickup/save/reload, persistent clear flag,
+  stopped reload timer, door→B3 arrival and death→B2 routing now have bounded headless
+  evidence. Recovered B2 is hidden (BUG-005); native full combat/route/reviewer acceptance
+  remain open. No claim that B1 persistence or the whole wave contract is satisfied.
+- T077: clone spawns at caster in diagnostic; direct active-skill invocation smoke passes.
+  Nearest reachable target/chase/attack/explosion behavior across floors remains NOT RUN.
+- T079–T084: current rendered rig 115/115, VFX 6/6, actual-basement U 42/42 and E 42/42.
+  These do not catch duplicate HUD or prove native embedded feel/all-element hit behavior.
+  B2 visible-floor regression takes precedence over older all-map assumptions.
+
+### T085 existing settings implementation — backfilled status, not new implementation
+
+- [ ] T085 Validate the existing Esc menu and persistent settings recorded in
+  `docs/esc-menu-settings.md` and already present in HEAD.
+  - Owner/reviewer: Bao; no teammate approval claimed by audit.
+  - Existing scope: `scripts/autoload/game_settings.gd`, `ui/pause_menu.gd`, project
+    autoload registration and camera/HUD/SFX settings integration; source unchanged here.
+  - Acceptance: pause/cursor/input ownership, config save/restart, rebind conflicts,
+    apply/cancel/defaults, display rollback/layout and existing Skill Tree coexistence.
+  - Audit evidence: rendered settings 53/53, separate restart 2/2; GPU shader-init/UID/
+    shutdown diagnostics retained. Native keyboard/mouse feel, audible mixer check,
+    platform coverage and reviewer acceptance remain NOT RUN. Keep unchecked.
+
+No repair implementation begins until the user chooses scope. BUG-005/006 map integration
+is the first proposed group, followed by BUG-007 enemy damage and BUG-008 HUD ownership.
+
+
+## T086 checkpoint visibility/recovery repair — current user scope, 2026-11-13
+
+- [ ] T086 Diagnose and repair B1/B2 checkpoint approach visibility and related BUG-005 recovery.
+  - Authorization: current user explicitly permits narrow code changes for checkpoint,
+    floor visibility and proven shared-manager cause. This supersedes the audit-only stop
+    and does not authorize navigation, Pelican, duplicate HUD or resource cleanup.
+  - Baseline: same branch/HEAD `feature/playercontrolandmap` / `42471e4c`; prior audit docs
+    dirty plus pre-existing scene changes: Door_b2_up moved to (38.1885,5.973031,5) local and
+    Checkpoint_b2 local Y=6. Preserve both; save full hashes/diffs before edits.
+  - Owner/review boundary: Lam/Quan map/floor selector/checkpoint integration. Bao camera
+    collision/Player contract stays unchanged unless runtime evidence proves a necessary
+    narrow change. Shared GameManager/input are not presumed causes. No Quan/Bao approval
+    or acceptance is claimed; current user authorization permits this bounded repair.
+  - Supersession: T044's connector midpoint criteria apply only to actual existing floor
+    endpoints. A standalone B3 door/marker is not an integrated floor-2 visibility connector.
+    Current scene has B1, B1_5 and B2; layout/textures/collision/gameplay rules are retained.
+    Old camera rig=Player test equality is superseded by the orbit focus_offset contract;
+    support and real visibility assertions must remain strict.
+  - Acceptance: approach/leave B1/B2 by normal movement at representative camera yaw/zoom;
+    selector never chooses absent floor; actual supporting floor visible before F; F tint/
+    feedback/idempotence/forward-only preserved; Esc Settings does not break interaction;
+    connector traversal/jumps and synthetic B1/B2 startup/restart/death (including B3 route)
+    retain supported movable spawn, camera obstruction and unrelated payload.
+  - Checks: before/after rendered isolated diagnostic with Player/support, floor visibility,
+    connector and camera/collider traces; existing checkpoint recovery with justified test
+    updates and added regression assertions; preserve baseline hashes and scene edits.
+    Native/manual gaps and independent bugs stay explicit. No generator/commit/push.
+  - Status before implementation: diagnosis pending; no game code changed by this repair yet.
+
+
+### T086 implementation / executed results
+
+Implemented only in `basement_floor_visibility.gd`: exclude absent connector endpoints
+and bound startup height fallback to existing floor metadata. No GameManager, input,
+CameraRig, checkpoint resource or scene edit. Incoming scene Y6 checkpoint/door placement
+is preserved; supported Spawn Y11.2 is a baseline correction, not authored by this group.
+`tests/basement_checkpoint_check.gd` now uses orbit focus_offset and keeps original spawn
+support assertions, adding real floor visibility checks. New reusable
+`tests/basement_checkpoint_visibility_check.gd/.tscn` exercises actual walking/camera traces.
+
+Verified: paired before/after approach126 with18 failures→0; rendered approach126/126,
+checkpoint/menu/jump/B2+B3 recovery32/32, physical connector wall-jump/descent2/2,
+CameraRig115/115, recovery67/67 and five rendered entry processes7/7 each. Save bytes
+unchanged in process tests; unrelated nested payload/flags preserved. Raw logs/limits:
+[project audit validation T086 append](../../docs/project-audit-validation.md).
+
+BUG-005 is verified for those cases; native editor/mouse feel, full viewpoint coverage and
+independent Quan/Bao acceptance remain pending, so T086 remains unchecked. BUG-006–010
+remain open; general save fixture still54/55 on BUG-010. No generator/commit/push.
+
+
+## T087 — explicit B3 checkpoint and return doors (2026-11-13)
+
+- [ ] T087 Implement current user's three B3 requirements on the current branch.
+  - Authorization/owners: user explicitly authorizes related scenes and shared manager;
+    Lam/Quan map/checkpoint integration boundary, existing Bao camera/Player and Duy boss
+    implementations preserved. No independent reviewer agreement is claimed.
+  - Baseline: HEAD42471e4c, prior T086/docs plus new incoming B3 nested GridMaps/MVP library/
+    tracked UID-cache edits. Hash/diff snapshot before changes; no generator/setup/branch
+    change, commit/push, reset or cleanup. Keep T086 selector and B2-clear entry guard.
+  - Decisions superseded: blanket B3 checkpoint/recovery refusal (old US3/T027 contract)
+    now permits only new explicit-F B3 checkpoint saves with a distinct contract marker.
+    Unmarked old B3 pairs remain unsupported, byte-preserved and blocked; no guessed
+    fallback/migration. Current no-silent-reset request supersedes legacy B1/B2 checkpoint
+    reset: known pairs normalize to their equivalent B1/B2 ID without rewriting disk.
+  - Scope: disabled targetless B3 exit interaction; B3-down to the main scene's separate
+    existing B2 door Spawn (not checkpoint); explicit B3 checkpoint using local detector,
+    trusted rank3, save contract and startup/death recovery; focused tests and docs.
+  - Acceptance: physical F door round-trip without checkpoint mutation/auto loop; no exit
+    prompt/empty load; B3 nearby F activation/tint/exact feedback, no contact activation;
+    repeat current no write/feedback restart; lower B1/B2 refused; B2-clear guard retained;
+    B3 death/restart and B3-active return-to-B2 death/restart restore supported B3 Spawn,
+    camera/floor; Settings roundtrip and payload/SP/flags preserved. Old unsupported B3
+    save cases held unchanged, no reset/delete; current valid B1/B2 and T086 regressions.
+  - Plan: reuse Door_b2_up/Spawn as dedicated arrival, verify surface and trigger clearance;
+    do not invent map coordinates or alter incoming layout/library. Inspect before editing.
+    Runtime/engine/isolation evidence and exact included files recorded cumulatively.
+  - Status at scope record: implementation and runtime acceptance pending.
+
+### T087 implemented / executed evidence
+
+Implemented four gameplay files: B3 scene wiring; opt-out targetless Door interaction;
+checkpoint identity/idempotence; manager rank3/contract/recovery and preserved legacy IDs.
+Existing measured Door_b2_up/Spawn is safe and separate from checkpoint; no placement edit.
+Tests: rendered flow99/99 (bytes AND timestamp unchanged on repeated F), compatibility47/47,
+fixtures59/59, recovery67/67, T086126/126; nine fresh rendered entry/restart cases pass.
+B2 clear uses three actual damage/death/drop/pickup paths; SP7→10 and nested payload survive.
+Old unmarked/future/invalid B3 recovery remains BLOCKED; refusal/preservation tests PASS.
+Obsolete mandatory DarkFairy fixture assumption corrected; initial failure log retained.
+See project-audit-validation.md T087 for raw evidence, commands and engine/isolation.
+Implementation/runtime subset verified; checkbox stays open for native editor/mouse feel,
+live boss interference and independent Quan/Bao/Duy review (NOT RUN, no agreement claimed).
+No setup/generator, branch change, commit/push; T086 and incoming geometry/library preserved.

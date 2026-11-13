@@ -52,15 +52,13 @@ func _activate() -> void:
 		_feedback_seconds = 2.0
 		_feedback.visible = true
 		_refresh_marker()
-	elif result == "rejected":
+	else:
 		_feedback_seconds = 0.0
 		_feedback.visible = false
 
 
 func _is_current() -> bool:
-	return owner is Stage and GameManager.is_basement_reference(owner.scene_file_path) \
-		and GameManager.is_basement_reference(GameManager.checkpoint_stage) \
-		and GameManager.checkpoint_id == id
+	return owner is Stage and GameManager.checkpoint_matches(owner.scene_file_path, id)
 
 
 func _refresh_marker() -> void:

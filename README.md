@@ -1,11 +1,15 @@
 # ProjectVNG
 
-Game 3D góc nhìn top-down được xây dựng bằng **Godot 4.7.2**. Người chơi điều khiển
+Game 3D dùng sprite billboard và camera orbit được xây dựng bằng **Godot 4.7.2**. Người chơi điều khiển
 Foxy khám phá màn chơi, chiến đấu với kẻ địch, nhảy qua địa hình, nhặt và ném
-đối tượng trong môi trường đảo rừng.
+đối tượng trong các màn chơi, hiện khởi động ở basement liên tục B1/B2.
 
 > Đây là project thực hành đang được phát triển. Scene khởi động hiện tại là
-> `levels/level_1/stage_1.tscn`.
+> `levels/level_1/basement_full.tscn`.
+
+## Hiện trạng và kiểm chứng
+
+Snapshot audit ngày 2026-11-13: [hệ thống hiện tại](docs/project-current-state.md), [bug có bằng chứng](docs/implementation-bugs.md), [test và manual checklist](docs/project-audit-validation.md). Có lỗi map/visibility, navigation, Pelican damage và duplicate HUD còn mở; danh sách tính năng bên dưới không phải nghiệm thu. Test cần chạy trong bản sao có user data riêng, xác minh trước autoload; không dùng save thật. F5 continuation và F6 explicit-scene có semantics khác nhau được mô tả trong audit.
 
 ## Tính năng
 
@@ -41,21 +45,27 @@ Project sử dụng renderer `gl_compatibility`, vì vậy không bắt buộc G
 Scene chính được cấu hình tại:
 
 ```text
-levels/level_1/stage_1.tscn
+levels/level_1/basement_full.tscn
 ```
 
 ## Điều khiển
+
+Đây là defaults trong `project.godot`; GameSettings có thể nạp phím tùy chỉnh từ settings riêng.
 
 | Hành động | Phím |
 |---|---|
 | Di chuyển | `W` `A` `S` `D` hoặc phím mũi tên |
 | Nhảy | `Space` |
-| Tấn công | `C` hoặc `J` |
+| Tấn công | `J` hoặc chuột trái |
 | Nhặt / giữ đối tượng | `X` hoặc `K` |
-| Chọn ô kỹ năng thường | `1` `2` `3` |
-| Thi triển kỹ năng thường | `Q` |
-| Thi triển tuyệt kỹ đã chọn khi Nộ đầy | `E` |
+| Chọn ô kỹ năng thường | `1` `2` `3` `4` |
+| Thi triển kỹ năng thường | `U` hoặc `E`; tap cast khi thả, giữ 0.3 s để hiện aim |
+| Thi triển tuyệt kỹ đã chọn khi Nộ đầy | `R` hoặc `I` |
 | Mở cây kỹ năng | `T` |
+| Dash / parry | `Shift` / `L` hoặc chuột phải |
+| Tương tác | `F` |
+| Camera / thả con trỏ | Chuột + wheel / giữ `Alt` |
+| Pause và settings | `Esc` |
 
 ## Cấu trúc thư mục
 

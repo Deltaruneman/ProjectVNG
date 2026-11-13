@@ -17,6 +17,7 @@ const BASEMENT_UID := "uid://mjb8sv4t2f20"
 const BASEMENT_CHECKPOINTS := {
 	"b1_start": {"floor": "b1", "rank": 1},
 	"b2_start": {"floor": "b2", "rank": 2},
+	"b3_start": {"floor": "b3", "rank": 3},
 }
 const LEGACY_BASEMENT_CHECKPOINTS := {
 	"res://levels/level_1/basement_b1.tscn": "b1_start",
@@ -24,7 +25,9 @@ const LEGACY_BASEMENT_CHECKPOINTS := {
 	"res://levels/level_1/basement_b2.tscn": "b2_start",
 	"uid://b7bnu12tjc0e8": "b2_start",
 }
-const B3_REFERENCES := ["res://levels/level_1/basement_b3.tscn", "uid://d12u1s460ag67"]
+const B3_STAGE := "res://levels/level_1/basement_b3.tscn"
+const B3_REFERENCES := [B3_STAGE, "uid://d12u1s460ag67"]
+const B3_CHECKPOINT_CONTRACT := "explicit_b3_v1"
 
 var current_stage: Stage = null
 ## Where the next stage puts the fox: a door id or a checkpoint id. "" = the stage's default spot
@@ -73,7 +76,8 @@ func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool
 		push_warning("B3 load refused until the B2 enemy zones are cleared; saved progress preserved.")
 		return
 	if is_basement_reference(stage_path):
-		if spawn_name != "" and not BASEMENT_CHECKPOINTS.has(spawn_name):
+		# Door arrival is separate from checkpoint progress; B3 checkpoints live in B3.
+		if spawn_name not in ["", "b1_start", "b2_start", "b2_up"]:
 			push_warning("Unknown basement spawn refused; no default fallback selected.")
 			return
 		stage_path = FIRST_STAGE
@@ -162,15 +166,18 @@ func respawn() -> void:
 
 ## A checkpoint was touched: remember it and save the game right away.
 func set_checkpoint(stage_path: String, id: String) -> void:
-	if is_basement_reference(stage_path):
+	if is_basement_reference(stage_path) or stage_path in B3_REFERENCES:
 		activate_basement_checkpoint(stage_path, id)
 		return
-	if stage_path in B3_REFERENCES or has_checkpoint_conflict():
+	if has_checkpoint_conflict():
 		return
 	if LEGACY_BASEMENT_CHECKPOINTS.has(stage_path):
 		var canonical_id := str(LEGACY_BASEMENT_CHECKPOINTS[stage_path])
 		if id != canonical_id:
 			push_warning("Standalone basement checkpoint '%s' refused for mismatched id '%s'." % [stage_path, id])
+			return
+		if is_checkpoint_reference(checkpoint_stage, checkpoint_id) \
+				and basement_checkpoint_rank(canonical_id) <= basement_checkpoint_rank(checkpoint_id):
 			return
 		checkpoint_stage = FIRST_STAGE
 		checkpoint_id = canonical_id
@@ -190,11 +197,33 @@ func basement_checkpoint_rank(id: String) -> int:
 	return int(BASEMENT_CHECKPOINTS.get(id, {}).get("rank", 0))
 
 
+func is_checkpoint_reference(stage_path: String, id: String) -> bool:
+	return (is_basement_reference(stage_path) and id in ["b1_start", "b2_start"]) \
+		or (stage_path in B3_REFERENCES and id == "b3_start")
+
+
+func has_supported_b3_checkpoint() -> bool:
+	return checkpoint_stage in B3_REFERENCES and checkpoint_id == "b3_start" \
+		and _loaded_payload.get("basement_checkpoint_contract", "") == B3_CHECKPOINT_CONTRACT \
+		and is_door_unlocked("b2_cleared")
+
+
+func checkpoint_matches(stage_path: String, id: String) -> bool:
+	if checkpoint_id != id or not is_checkpoint_reference(stage_path, id):
+		return false
+	if id == "b3_start":
+		return has_supported_b3_checkpoint()
+	return is_basement_reference(checkpoint_stage)
+
+
 ## accepted = one progression write; unchanged/rejected = no write or success feedback.
 func activate_basement_checkpoint(stage_path: String, id: String) -> String:
-	if not is_basement_reference(stage_path) or not BASEMENT_CHECKPOINTS.has(id) \
-			or not is_instance_valid(current_stage) or current_stage.scene_file_path != FIRST_STAGE \
+	if not is_checkpoint_reference(stage_path, id) or not is_instance_valid(current_stage) \
 			or _changing or has_checkpoint_conflict():
+		return "rejected"
+	var canonical_stage := B3_STAGE if id == "b3_start" else FIRST_STAGE
+	if current_stage.scene_file_path != canonical_stage \
+			or (id == "b3_start" and not is_door_unlocked("b2_cleared")):
 		return "rejected"
 	# The declaration must belong to this active Stage, not an inherited foreign root.
 	var declared := 0
@@ -205,13 +234,16 @@ func activate_basement_checkpoint(stage_path: String, id: String) -> String:
 			declared += 1
 	if declared != 1:
 		return "rejected"
-	if is_basement_reference(checkpoint_stage):
+	if is_checkpoint_reference(checkpoint_stage, checkpoint_id):
 		if basement_checkpoint_rank(id) < basement_checkpoint_rank(checkpoint_id):
 			return "rejected"
 		if id == checkpoint_id:
 			return "unchanged"
-	checkpoint_stage = FIRST_STAGE
+	checkpoint_stage = canonical_stage
 	checkpoint_id = id
+	if id == "b3_start":
+		# Only a fresh, validated activation creates this discriminator. Old pairs stay held.
+		_loaded_payload["basement_checkpoint_contract"] = B3_CHECKPOINT_CONTRACT
 	save_game()
 	return "accepted"
 
@@ -219,9 +251,9 @@ func activate_basement_checkpoint(stage_path: String, id: String) -> String:
 ## Unknown references are held for explicit case review, never folded into legacy B1/B2.
 func has_checkpoint_conflict() -> bool:
 	if checkpoint_stage in B3_REFERENCES:
-		return true
+		return not has_supported_b3_checkpoint()
 	if is_basement_reference(checkpoint_stage):
-		return checkpoint_id != "" and not BASEMENT_CHECKPOINTS.has(checkpoint_id)
+		return checkpoint_id not in ["", "b1_start", "b2_start"]
 	if LEGACY_BASEMENT_CHECKPOINTS.has(checkpoint_stage):
 		return true # exact known pairs were already normalized by load_game()
 	if checkpoint_stage == "" and checkpoint_id == "":
@@ -334,7 +366,7 @@ func total_skill_points() -> int:
 
 
 ## Reads the save file into memory. Doesn't move the fox — register_stage() does that for the
-## first stage of the session. Only the exact approved old B1/B2 pairs are reset.
+## first stage of the session. Known old B1/B2 pairs retain their checkpoint identity.
 ## Unsupported references are retained for review, not deleted or redirected.
 func load_game() -> void:
 	var data := SaveSystem.load_data()
@@ -359,16 +391,14 @@ func load_game() -> void:
 	if saved_collectibles is Array:
 		for collectible: Variant in saved_collectibles:
 			collected_skill_points.append(str(collectible))
-	if checkpoint_stage == "" or checkpoint_id == "" or not ResourceLoader.exists(checkpoint_stage):
-		checkpoint_stage = ""
 	flags = saved_flags.duplicate(true) if saved_flags is Dictionary else {}
 	if LEGACY_BASEMENT_CHECKPOINTS.get(checkpoint_stage, "") == checkpoint_id \
 			and LEGACY_BASEMENT_CHECKPOINTS.has(checkpoint_stage):
 		checkpoint_stage = FIRST_STAGE
-		checkpoint_id = ""
-		save_game()
-	elif is_basement_reference(checkpoint_stage) and (checkpoint_id == "" or BASEMENT_CHECKPOINTS.has(checkpoint_id)):
+	elif is_basement_reference(checkpoint_stage) and checkpoint_id in ["", "b1_start", "b2_start"]:
 		checkpoint_stage = FIRST_STAGE
+	elif has_supported_b3_checkpoint():
+		checkpoint_stage = B3_STAGE
 
 
 ## F9: forget the save file and start over in stage 1 — even in the middle of a stage change.
