@@ -735,6 +735,31 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Acceptance: aimed Player sprite does not cover the center reticle at representative yaw/pitch/zoom; the center ray and projectile use the reframed Camera3D; lateral/boom wall obstruction keeps the lens outside solid collision; release, dialogue and pause restore normal framing without a stuck offset. Quick taps never enter shoulder view.
   - Checks: rendered isolated camera physics and actual-basement gameplay fixtures, screenshot inspection at normal/aimed framing, diff/resource review; native embedded feel and Bao visual acceptance remain distinct.
   - Status: implemented; Godot 4.7.2 rendered isolated rig fixture passes 115/115 checks, actual-basement/Player integration passes 40/40. Final aim screenshot inspected. Native embedded Game feel, representative map locations and Bao visual acceptance remain pending; keep unchecked.
+## Straight elemental orbs (2026-11-13)
+
+- [ ] T087 Clear the Player silhouette and raise the default skill aim point slightly.
+  - Owner/reviewer: Bao; user authorizes Player aiming and projectile presentation. Preserve all existing uncommitted work, projectile gameplay and wind return behavior.
+  - Scope: use shared normalized aim point at (0.5, 0.42) for hidden/visible aiming and camera ray; render existing orb sheets as depth-tested 3D sprites instead of foreground CanvasLayer overlays. No camera rig, map, enemy, slash/shield or source sheet changes.
+  - Acceptance: visible reticle and actual ray coincide above screen center at multiple resolutions; quick and held casts use the same target; Player/world geometry occlude orbs behind them, orb remains correctly anchored/oriented as camera changes, and previous flight/range/wall/element/wind checks still pass.
+  - Checks: rendered Godot aim/projection/occlusion fixture and screenshots plus orb regression. Native full-stage feel and reviewer acceptance remain pending.
+  - Status: implemented; final Godot 4.7.2 Compatibility fixture passes 89/89 checks, including raised ray/reticle alignment at three viewport sizes, quick/held target agreement, 3D depth flags and rendered pixel occlusion. Screenshot inspected. Native full-stage feel and Bao acceptance remain pending; original full-basement fixture blocker updated to the raised ray but full fixture not rerun. Existing UID fallback/shutdown diagnostics remain.
+
+- [ ] T086 Replace neutral/fire/ice/lightning returning dagger with a straight elemental orb; preserve wind.
+  - Owner/reviewer: Bao; user authorizes Player projectile behavior and associated VFX/UI wording. Preserve prior parry work, enemy/map/save systems and slash/ice shield assets.
+  - Scope: separate orb scene/script reusing existing projectile speed/range/wall query and HitArea damage; pixelfx plasma-shot exports with neutral-white and elemental palettes; first-skill routing and matching UI names/descriptions. Internal skill IDs, costs, cooldowns, damage/status upgrades and higher skills remain intact.
+  - Acceptance: neutral casts show a white orb, fire/ice/lightning show their element; travel along the initial 3D aim without return/homing, expire at existing range or wall, and retain existing hit callbacks. Wind still spins/returns/catches, hides/restores blade and receives return upgrades. New orbs never suppress the equipped blade or reset hit monitoring for a return pass. Visual nodes clean up with projectile.
+  - Checks: inspect rendered exports, pixelfx checks, Godot fixture covering routing/aim/range/wall/hit callbacks and wind regression, rendered snapshot. Native gameplay feel and Bao acceptance remain pending.
+  - Status: implemented; inspected all four exported contact sheets and rendered in-engine screenshot. Godot 4.7.2 headless passes 73/73 checks; final Compatibility renderer fixture passes 77/77 including HUD/Skill Tree names/icon. Stock pixelfx check passes without warnings. Native full-stage input/combat feel and Bao acceptance remain pending; keep unchecked. Existing UID warnings and shutdown retained-object/resource diagnostics remain.
+
+## Successful parry feedback (2026-11-13)
+
+- [ ] T085 Add gold spark burst, white contact flash and metallic sword clang on successful Player parry.
+  - Owner/reviewer: Bao (Player combat/VFX); authorized by the user's request. No enemy, map, slash, ice-shield or shared gameplay-rule changes.
+  - Scope: export existing pixelfx impacts/parry with metadata/attribution, add a BattleVFX helper and existing Sword Parry sound mapping, invoke only in the successful state transition, extend the parry regression fixture.
+  - Acceptance: one burst and one SFX per successful parry; none on entering, missing or retrying an already successful parry. Contact sits in front of Player toward attacker, with facing fallback, and stays anchored during camera orbit. Assets/nodes clean up; HP, enemy reaction, window and recovery remain unchanged; SFX respects settings bus.
+  - Checks: inspect exported contact sheet; Godot parry fixture for success/miss/duplicate/cleanup and existing enemy behavior; diff review. Native visual/audio feel and Bao acceptance remain pending.
+  - Status: implemented; pixelfx check passes, exported contact sheet inspected, Godot 4.7.2 headless regression passes all seven enemies plus miss/duplicate/orbit/cleanup checks. Native visual/audio feel and Bao acceptance remain pending; keep unchecked. Existing UID warnings and shutdown retained-object/resource diagnostics remain.
+
 ## Menu cursor and implicit camera aim (2026-11-13)
 
 - [ ] T084 Show the cursor throughout Skill Tree and aim every directional skill through the camera center.

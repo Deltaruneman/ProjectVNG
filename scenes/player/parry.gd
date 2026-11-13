@@ -1,5 +1,7 @@
 extends PlayerState
 
+const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+
 
 enum Phase { WINDOW, RECOVERY, SUCCESS }
 
@@ -47,6 +49,7 @@ func try_parry() -> bool:
 	_set_invincible = true
 	timer = SUCCESS_TIME
 	var attacker: Node3D = obj.get_node("Direction/HurtArea3D").attacker
+	BattleFX.parry_success(obj, attacker)
 	if is_instance_valid(attacker) and attacker is EnemyCharacter:
 		var hit_direction: Vector3 = attacker.global_position - obj.global_position
 		hit_direction.y = 0.0

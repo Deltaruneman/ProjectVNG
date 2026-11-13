@@ -1,6 +1,7 @@
 class_name PlayerSkillState
 extends PlayerState
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
+const ORB_SCENE := preload("res://scenes/objects/elemental_orb.tscn")
 const SKILL_ANIMATION_SPEED_SCALE := 1.2
 @export var skill_scene: PackedScene
 @export var cast_time := 0.3
@@ -65,12 +66,14 @@ func _enter() -> void:
 	var dir: Vector3 = obj.get_projectile_aim_direction(spawn_position)
 	_play_one_shot("throw")
 	var elemental_form: String = GameManager.weapon_form if obj.selected_active_slot == 1 else ""
-	BattleFX.play_skill_sound(obj, selected_skill_id if selected_skill_id != "" else "dagger")
-	if elemental_form != "":
+	BattleFX.play_skill_sound(obj, selected_skill_id if selected_skill_id != "" else "orb_white")
+	if elemental_form == "wind":
 		BattleFX.slash(obj, obj.global_position + Vector3.UP * 0.85 + flat_dir * 0.55, elemental_form, flat_dir, 0.34)
 		BattleFX.emberline_slash(obj, obj.global_position + Vector3.UP * 0.85 + flat_dir * 0.55, elemental_form, flat_dir, 0.7)
 
-	active = skill_scene.instantiate()
+	active = skill_scene.instantiate() if elemental_form == "wind" else ORB_SCENE.instantiate()
+	if elemental_form != "wind":
+		active.set("elemental_form", elemental_form)
 	if elemental_form == "wind" and int(GameManager.skill_allocations.get("evo_wind_return", 0)) > 0:
 		active.set("max_distance", float(active.get("max_distance")) * 1.25)
 		active.set("return_speed", float(active.get("return_speed")) * 1.2)

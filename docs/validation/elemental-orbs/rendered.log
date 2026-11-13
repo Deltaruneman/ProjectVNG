@@ -1,0 +1,96 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+PASS  spawned
+PASS  correct projectile routing
+PASS  3D aim retained
+PASS  damage upgrades retained
+PASS  elemental callback retained
+PASS  cooldown started
+PASS  dagger hidden
+PASS  equipped blade stays
+PASS  effect exists
+PASS  animated orb
+PASS  straight flight
+PASS  no homing toward thrower
+PASS  expires without returning
+PASS  existing range respected
+PASS  visual cleanup
+PASS fire spawned
+PASS fire correct projectile routing
+PASS fire 3D aim retained
+PASS fire damage upgrades retained
+PASS fire elemental callback retained
+PASS fire cooldown started
+PASS fire dagger hidden
+PASS fire equipped blade stays
+PASS fire effect exists
+PASS fire animated orb
+PASS fire straight flight
+PASS fire no homing toward thrower
+PASS fire expires without returning
+PASS fire existing range respected
+PASS fire visual cleanup
+PASS ice spawned
+PASS ice correct projectile routing
+PASS ice 3D aim retained
+PASS ice damage upgrades retained
+PASS ice elemental callback retained
+PASS ice cooldown started
+PASS ice dagger hidden
+PASS ice equipped blade stays
+PASS ice effect exists
+PASS ice animated orb
+PASS ice straight flight
+PASS ice no homing toward thrower
+PASS ice expires without returning
+PASS ice existing range respected
+PASS ice visual cleanup
+PASS lightning spawned
+PASS lightning correct projectile routing
+PASS lightning 3D aim retained
+PASS lightning damage upgrades retained
+PASS lightning elemental callback retained
+PASS lightning cooldown started
+PASS lightning dagger hidden
+PASS lightning equipped blade stays
+PASS lightning effect exists
+PASS lightning animated orb
+PASS lightning straight flight
+PASS lightning no homing toward thrower
+PASS lightning expires without returning
+PASS lightning existing range respected
+PASS lightning visual cleanup
+PASS wind spawned
+PASS wind correct projectile routing
+PASS wind 3D aim retained
+PASS wind damage upgrades retained
+PASS wind elemental callback retained
+PASS wind cooldown started
+PASS Wind return upgrades retained
+PASS Wind hides equipped blade
+PASS Wind enters return phase
+PASS Wind caught
+PASS Wind restores blade
+PASS Wall expires orb without return
+PASS Orb does not pass through wall
+PASS HUD neutral name
+PASS HUD fire name
+PASS HUD white orb icon
+PASS Skill Tree orb names
+ORB RESULT: 77/77 checks passed

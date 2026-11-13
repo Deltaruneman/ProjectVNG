@@ -4,6 +4,11 @@ signal pause_cancel_requested
 
 const RETICLE_COLOR := Color(0.93, 0.96, 0.84, 0.95)
 const SHADOW_COLOR := Color(0.07, 0.12, 0.15, 0.75)
+const AIM_SCREEN_POSITION := Vector2(0.5, 0.42)
+
+
+static func aim_screen_point(viewport_size: Vector2) -> Vector2:
+	return viewport_size * AIM_SCREEN_POSITION
 
 
 func _ready() -> void:
@@ -18,7 +23,7 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-	var center := size * 0.5
+	var center := aim_screen_point(size)
 	draw_arc(center, 3.5, 0.0, TAU, 28, SHADOW_COLOR, 2.0, true)
 	draw_arc(center, 3.5, 0.0, TAU, 28, RETICLE_COLOR, 1.0, true)
 	for axis in [Vector2.RIGHT, Vector2.DOWN]:

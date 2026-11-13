@@ -351,7 +351,7 @@ func _refresh_skill_aim_point() -> void:
 	if camera == null:
 		_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
 		return
-	var center := get_viewport().get_visible_rect().size * 0.5
+	var center := SKILL_AIM_RETICLE_SCRIPT.aim_screen_point(get_viewport().get_visible_rect().size)
 	var ray_origin := camera.project_ray_origin(center)
 	var ray_end := ray_origin + camera.project_ray_normal(center) * SKILL_AIM_RANGE
 	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
