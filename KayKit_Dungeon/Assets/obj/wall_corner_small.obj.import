@@ -9,6 +9,7 @@ path="res://.godot/imported/wall_corner_small.obj-87e595de2122f54dfdb44f0bd6f314
 [deps]
 
 files=["res://.godot/imported/wall_corner_small.obj-87e595de2122f54dfdb44f0bd6f314f0.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/wall_corner_small.obj"
 dest_files=["res://.godot/imported/wall_corner_small.obj-87e595de2122f54dfdb44f0bd6f314f0.mesh", "res://.godot/imported/wall_corner_small.obj-87e595de2122f54dfdb44f0bd6f314f0.mesh"]
 

@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/stairs_wide.fbx-f1c67dd1582f4d34a951cf700a5e2
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

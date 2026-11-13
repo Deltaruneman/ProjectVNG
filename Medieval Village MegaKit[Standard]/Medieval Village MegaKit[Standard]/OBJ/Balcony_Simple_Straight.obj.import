@@ -9,6 +9,7 @@ path="res://.godot/imported/Balcony_Simple_Straight.obj-20fe5b7302a1ae6be34b2f91
 [deps]
 
 files=["res://.godot/imported/Balcony_Simple_Straight.obj-20fe5b7302a1ae6be34b2f91b5830377.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Balcony_Simple_Straight.obj"
 dest_files=["res://.godot/imported/Balcony_Simple_Straight.obj-20fe5b7302a1ae6be34b2f91b5830377.mesh", "res://.godot/imported/Balcony_Simple_Straight.obj-20fe5b7302a1ae6be34b2f91b5830377.mesh"]
 

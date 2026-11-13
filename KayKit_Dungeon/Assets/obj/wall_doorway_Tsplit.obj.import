@@ -9,6 +9,7 @@ path="res://.godot/imported/wall_doorway_Tsplit.obj-a01fed7a02ce4c07b4cceb9f4d2b
 [deps]
 
 files=["res://.godot/imported/wall_doorway_Tsplit.obj-a01fed7a02ce4c07b4cceb9f4d2be852.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/wall_doorway_Tsplit.obj"
 dest_files=["res://.godot/imported/wall_doorway_Tsplit.obj-a01fed7a02ce4c07b4cceb9f4d2be852.mesh", "res://.godot/imported/wall_doorway_Tsplit.obj-a01fed7a02ce4c07b4cceb9f4d2be852.mesh"]
 

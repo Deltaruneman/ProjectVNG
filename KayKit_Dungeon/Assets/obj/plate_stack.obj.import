@@ -9,6 +9,7 @@ path="res://.godot/imported/plate_stack.obj-c253960b9b33efa43a2f28ed5076e96d.mes
 [deps]
 
 files=["res://.godot/imported/plate_stack.obj-c253960b9b33efa43a2f28ed5076e96d.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/plate_stack.obj"
 dest_files=["res://.godot/imported/plate_stack.obj-c253960b9b33efa43a2f28ed5076e96d.mesh", "res://.godot/imported/plate_stack.obj-c253960b9b33efa43a2f28ed5076e96d.mesh"]
 

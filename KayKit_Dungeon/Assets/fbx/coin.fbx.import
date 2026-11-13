@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/coin.fbx-881d8e6ae65ec94150e4b9474641eeb2.scn
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

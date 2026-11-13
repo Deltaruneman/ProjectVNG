@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/wall_gated.gltf-63f903f23a23b8c7c6f0d45554b55
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

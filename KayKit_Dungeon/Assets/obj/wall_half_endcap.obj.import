@@ -9,6 +9,7 @@ path="res://.godot/imported/wall_half_endcap.obj-baa2894d9e88603ade0d1b0da274133
 [deps]
 
 files=["res://.godot/imported/wall_half_endcap.obj-baa2894d9e88603ade0d1b0da2741336.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/wall_half_endcap.obj"
 dest_files=["res://.godot/imported/wall_half_endcap.obj-baa2894d9e88603ade0d1b0da2741336.mesh", "res://.godot/imported/wall_half_endcap.obj-baa2894d9e88603ade0d1b0da2741336.mesh"]
 

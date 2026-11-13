@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_Plaster_Window_Thin_Round.obj-b2df6fc1a867fce86
 [deps]
 
 files=["res://.godot/imported/Wall_Plaster_Window_Thin_Round.obj-b2df6fc1a867fce869b0268eb5fe0ecf.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_Plaster_Window_Thin_Round.obj"
 dest_files=["res://.godot/imported/Wall_Plaster_Window_Thin_Round.obj-b2df6fc1a867fce869b0268eb5fe0ecf.mesh", "res://.godot/imported/Wall_Plaster_Window_Thin_Round.obj-b2df6fc1a867fce869b0268eb5fe0ecf.mesh"]
 

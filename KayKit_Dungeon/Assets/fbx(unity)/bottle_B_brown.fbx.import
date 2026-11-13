@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/bottle_B_brown.fbx-2a0d6ee464cc2f0c7d8257688b
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

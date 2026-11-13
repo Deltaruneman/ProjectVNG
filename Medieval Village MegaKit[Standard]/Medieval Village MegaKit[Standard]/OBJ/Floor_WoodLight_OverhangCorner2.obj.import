@@ -9,6 +9,7 @@ path="res://.godot/imported/Floor_WoodLight_OverhangCorner2.obj-3ed801d72829bd17
 [deps]
 
 files=["res://.godot/imported/Floor_WoodLight_OverhangCorner2.obj-3ed801d72829bd17aab329d7a00695b0.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Floor_WoodLight_OverhangCorner2.obj"
 dest_files=["res://.godot/imported/Floor_WoodLight_OverhangCorner2.obj-3ed801d72829bd17aab329d7a00695b0.mesh", "res://.godot/imported/Floor_WoodLight_OverhangCorner2.obj-3ed801d72829bd17aab329d7a00695b0.mesh"]
 

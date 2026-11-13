@@ -9,6 +9,7 @@ path="res://.godot/imported/Prop_Support.obj-60c01a603bf335acc936d93fb5a0cfd4.me
 [deps]
 
 files=["res://.godot/imported/Prop_Support.obj-60c01a603bf335acc936d93fb5a0cfd4.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Prop_Support.obj"
 dest_files=["res://.godot/imported/Prop_Support.obj-60c01a603bf335acc936d93fb5a0cfd4.mesh", "res://.godot/imported/Prop_Support.obj-60c01a603bf335acc936d93fb5a0cfd4.mesh"]
 

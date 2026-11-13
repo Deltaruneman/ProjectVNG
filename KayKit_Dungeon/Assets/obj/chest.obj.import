@@ -9,6 +9,7 @@ path="res://.godot/imported/chest.obj-394ada7c91780f0c58d41e3a68c65026.mesh"
 [deps]
 
 files=["res://.godot/imported/chest.obj-394ada7c91780f0c58d41e3a68c65026.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/chest.obj"
 dest_files=["res://.godot/imported/chest.obj-394ada7c91780f0c58d41e3a68c65026.mesh", "res://.godot/imported/chest.obj-394ada7c91780f0c58d41e3a68c65026.mesh"]
 

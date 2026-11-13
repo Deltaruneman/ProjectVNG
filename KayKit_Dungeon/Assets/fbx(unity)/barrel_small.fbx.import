@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/barrel_small.fbx-e0629f4e980d8c6cc77c2a03bf35
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

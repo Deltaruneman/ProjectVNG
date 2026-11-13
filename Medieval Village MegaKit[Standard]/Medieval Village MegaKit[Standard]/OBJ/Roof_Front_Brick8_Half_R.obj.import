@@ -9,6 +9,7 @@ path="res://.godot/imported/Roof_Front_Brick8_Half_R.obj-5cd3d03ae1fcb655182db75
 [deps]
 
 files=["res://.godot/imported/Roof_Front_Brick8_Half_R.obj-5cd3d03ae1fcb655182db75dbc0cb324.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Roof_Front_Brick8_Half_R.obj"
 dest_files=["res://.godot/imported/Roof_Front_Brick8_Half_R.obj-5cd3d03ae1fcb655182db75dbc0cb324.mesh", "res://.godot/imported/Roof_Front_Brick8_Half_R.obj-5cd3d03ae1fcb655182db75dbc0cb324.mesh"]
 

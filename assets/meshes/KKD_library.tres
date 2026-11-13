@@ -1,8 +1,8 @@
 [gd_resource type="MeshLibrary" format=4 uid="uid://6qsq1khaqva3"]
 
-[ext_resource type="Texture2D" uid="uid://cqo3jnwo8n8yl" path="res://KayKit_Dungeon/Assets/fbx/dungeon_texture.png" id="1_5yhul"]
-[ext_resource type="Texture2D" uid="uid://cl36u0y774kt1" path="res://KayKit_Dungeon/Assets/fbx(unity)/dungeon_texture.png" id="2_73s3w"]
-[ext_resource type="Texture2D" uid="uid://kypov6x3wwke" path="res://KayKit_Dungeon/Assets/gltf/dungeon_texture.png" id="3_qsbit"]
+[ext_resource type="Texture2D" uid="uid://bkt3pvefrve55" path="res://KayKit_Dungeon/Assets/fbx/dungeon_texture.png" id="1_5yhul"]
+[ext_resource type="Texture2D" uid="uid://cw3ktw3oiiaue" path="res://KayKit_Dungeon/Assets/fbx(unity)/dungeon_texture.png" id="2_73s3w"]
+[ext_resource type="Texture2D" uid="uid://bs7jvkr0ex1l3" path="res://KayKit_Dungeon/Assets/gltf/dungeon_texture.png" id="3_qsbit"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feeiw"]
 resource_name = "texture"

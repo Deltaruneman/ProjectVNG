@@ -9,6 +9,7 @@ path="res://.godot/imported/Stairs_Exterior_SidePlatform.obj-c52e42f8476431d1eaa
 [deps]
 
 files=["res://.godot/imported/Stairs_Exterior_SidePlatform.obj-c52e42f8476431d1eaa40e84cecfbb84.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Stairs_Exterior_SidePlatform.obj"
 dest_files=["res://.godot/imported/Stairs_Exterior_SidePlatform.obj-c52e42f8476431d1eaa40e84cecfbb84.mesh", "res://.godot/imported/Stairs_Exterior_SidePlatform.obj-c52e42f8476431d1eaa40e84cecfbb84.mesh"]
 

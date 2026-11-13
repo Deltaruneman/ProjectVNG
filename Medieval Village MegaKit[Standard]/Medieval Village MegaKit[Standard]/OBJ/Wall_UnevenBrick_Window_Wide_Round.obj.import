@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_UnevenBrick_Window_Wide_Round.obj-80091aaef105c
 [deps]
 
 files=["res://.godot/imported/Wall_UnevenBrick_Window_Wide_Round.obj-80091aaef105c25748ae296dfc13ca77.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_UnevenBrick_Window_Wide_Round.obj"
 dest_files=["res://.godot/imported/Wall_UnevenBrick_Window_Wide_Round.obj-80091aaef105c25748ae296dfc13ca77.mesh", "res://.godot/imported/Wall_UnevenBrick_Window_Wide_Round.obj-80091aaef105c25748ae296dfc13ca77.mesh"]
 

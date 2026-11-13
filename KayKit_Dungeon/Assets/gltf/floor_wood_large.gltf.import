@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/floor_wood_large.gltf-5b65b4d7b33b68535de8f80
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

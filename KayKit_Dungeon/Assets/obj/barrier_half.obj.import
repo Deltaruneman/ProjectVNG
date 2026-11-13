@@ -9,6 +9,7 @@ path="res://.godot/imported/barrier_half.obj-68e763942dd34a99310f09cb03e3dab1.me
 [deps]
 
 files=["res://.godot/imported/barrier_half.obj-68e763942dd34a99310f09cb03e3dab1.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/barrier_half.obj"
 dest_files=["res://.godot/imported/barrier_half.obj-68e763942dd34a99310f09cb03e3dab1.mesh", "res://.godot/imported/barrier_half.obj-68e763942dd34a99310f09cb03e3dab1.mesh"]
 
