@@ -9,6 +9,7 @@ path="res://.godot/imported/stool.obj-157f5136d3f3f8d0c9dafbf54c3c1a83.mesh"
 [deps]
 
 files=["res://.godot/imported/stool.obj-157f5136d3f3f8d0c9dafbf54c3c1a83.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/stool.obj"
 dest_files=["res://.godot/imported/stool.obj-157f5136d3f3f8d0c9dafbf54c3c1a83.mesh", "res://.godot/imported/stool.obj-157f5136d3f3f8d0c9dafbf54c3c1a83.mesh"]
 

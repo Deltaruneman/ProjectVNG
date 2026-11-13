@@ -9,6 +9,7 @@ path="res://.godot/imported/Window_Wide_Flat1.obj-2212955cc109c943d43d4e05b8126b
 [deps]
 
 files=["res://.godot/imported/Window_Wide_Flat1.obj-2212955cc109c943d43d4e05b8126b17.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Window_Wide_Flat1.obj"
 dest_files=["res://.godot/imported/Window_Wide_Flat1.obj-2212955cc109c943d43d4e05b8126b17.mesh", "res://.godot/imported/Window_Wide_Flat1.obj-2212955cc109c943d43d4e05b8126b17.mesh"]
 

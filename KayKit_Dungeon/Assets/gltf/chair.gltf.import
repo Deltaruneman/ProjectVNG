@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/chair.gltf-eb8b3c10b576f04b04ee13f5e689ae05.s
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

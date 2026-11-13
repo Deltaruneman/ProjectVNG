@@ -9,6 +9,7 @@ path="res://.godot/imported/table_small_decorated_A.obj-b26a0f424434b3515ea7e31e
 [deps]
 
 files=["res://.godot/imported/table_small_decorated_A.obj-b26a0f424434b3515ea7e31ece5d7842.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/table_small_decorated_A.obj"
 dest_files=["res://.godot/imported/table_small_decorated_A.obj-b26a0f424434b3515ea7e31ece5d7842.mesh", "res://.godot/imported/table_small_decorated_A.obj-b26a0f424434b3515ea7e31ece5d7842.mesh"]
 

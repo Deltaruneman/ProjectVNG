@@ -9,6 +9,7 @@ path="res://.godot/imported/banner_patternA_red.obj-a8be654bfea5fe3a0101df20ec0b
 [deps]
 
 files=["res://.godot/imported/banner_patternA_red.obj-a8be654bfea5fe3a0101df20ec0b287f.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/banner_patternA_red.obj"
 dest_files=["res://.godot/imported/banner_patternA_red.obj-a8be654bfea5fe3a0101df20ec0b287f.mesh", "res://.godot/imported/banner_patternA_red.obj-a8be654bfea5fe3a0101df20ec0b287f.mesh"]
 

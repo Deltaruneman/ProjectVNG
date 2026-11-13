@@ -9,6 +9,7 @@ path="res://.godot/imported/Door_1_Round.obj-112fff95ce47f74e31afe9316935d2a2.me
 [deps]
 
 files=["res://.godot/imported/Door_1_Round.obj-112fff95ce47f74e31afe9316935d2a2.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Door_1_Round.obj"
 dest_files=["res://.godot/imported/Door_1_Round.obj-112fff95ce47f74e31afe9316935d2a2.mesh", "res://.godot/imported/Door_1_Round.obj-112fff95ce47f74e31afe9316935d2a2.mesh"]
 

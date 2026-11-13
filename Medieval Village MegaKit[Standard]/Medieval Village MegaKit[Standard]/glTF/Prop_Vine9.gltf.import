@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Prop_Vine9.gltf-b49e0edd80cef5fb8d07a50a76e21
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

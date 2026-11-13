@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/wall_window_closed.fbx-9cf3efa2815e1d8beff2e7
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

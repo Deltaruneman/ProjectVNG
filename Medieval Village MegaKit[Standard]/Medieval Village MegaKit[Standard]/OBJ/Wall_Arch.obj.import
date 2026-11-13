@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_Arch.obj-c7c5c0fbea2831c65010ca99a45fd435.mesh"
 [deps]
 
 files=["res://.godot/imported/Wall_Arch.obj-c7c5c0fbea2831c65010ca99a45fd435.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_Arch.obj"
 dest_files=["res://.godot/imported/Wall_Arch.obj-c7c5c0fbea2831c65010ca99a45fd435.mesh", "res://.godot/imported/Wall_Arch.obj-c7c5c0fbea2831c65010ca99a45fd435.mesh"]
 

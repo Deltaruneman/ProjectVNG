@@ -9,6 +9,7 @@ path="res://.godot/imported/Prop_WoodenFence_Extension1.obj-a81b742d003df5d78d39
 [deps]
 
 files=["res://.godot/imported/Prop_WoodenFence_Extension1.obj-a81b742d003df5d78d3928ec0776274f.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Prop_WoodenFence_Extension1.obj"
 dest_files=["res://.godot/imported/Prop_WoodenFence_Extension1.obj-a81b742d003df5d78d3928ec0776274f.mesh", "res://.godot/imported/Prop_WoodenFence_Extension1.obj-a81b742d003df5d78d3928ec0776274f.mesh"]
 

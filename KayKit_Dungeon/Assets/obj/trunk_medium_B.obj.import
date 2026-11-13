@@ -9,6 +9,7 @@ path="res://.godot/imported/trunk_medium_B.obj-f23f507f99b8b91c693d1c7696c193af.
 [deps]
 
 files=["res://.godot/imported/trunk_medium_B.obj-f23f507f99b8b91c693d1c7696c193af.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/trunk_medium_B.obj"
 dest_files=["res://.godot/imported/trunk_medium_B.obj-f23f507f99b8b91c693d1c7696c193af.mesh", "res://.godot/imported/trunk_medium_B.obj-f23f507f99b8b91c693d1c7696c193af.mesh"]
 

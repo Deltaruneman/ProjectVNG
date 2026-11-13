@@ -9,6 +9,7 @@ path="res://.godot/imported/Window_Thin_Round1.obj-cd9979b094e42583b58fd96e2d636
 [deps]
 
 files=["res://.godot/imported/Window_Thin_Round1.obj-cd9979b094e42583b58fd96e2d63679d.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Window_Thin_Round1.obj"
 dest_files=["res://.godot/imported/Window_Thin_Round1.obj-cd9979b094e42583b58fd96e2d63679d.mesh", "res://.godot/imported/Window_Thin_Round1.obj-cd9979b094e42583b58fd96e2d63679d.mesh"]
 

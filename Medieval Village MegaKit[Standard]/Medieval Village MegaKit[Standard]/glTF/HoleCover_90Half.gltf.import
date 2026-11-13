@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/HoleCover_90Half.gltf-afbfb4a1f85c220e5b7fc56
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true

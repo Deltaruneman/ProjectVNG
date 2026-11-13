@@ -9,6 +9,7 @@ path="res://.godot/imported/HoleCover_StraightHalf.obj-ebac0b4001405eb5f8610173f
 [deps]
 
 files=["res://.godot/imported/HoleCover_StraightHalf.obj-ebac0b4001405eb5f8610173f7b7dd52.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/HoleCover_StraightHalf.obj"
 dest_files=["res://.godot/imported/HoleCover_StraightHalf.obj-ebac0b4001405eb5f8610173f7b7dd52.mesh", "res://.godot/imported/HoleCover_StraightHalf.obj-ebac0b4001405eb5f8610173f7b7dd52.mesh"]
 

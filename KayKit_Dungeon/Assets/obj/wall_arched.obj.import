@@ -9,6 +9,7 @@ path="res://.godot/imported/wall_arched.obj-16704fdde340426d89466c8142b3113f.mes
 [deps]
 
 files=["res://.godot/imported/wall_arched.obj-16704fdde340426d89466c8142b3113f.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/wall_arched.obj"
 dest_files=["res://.godot/imported/wall_arched.obj-16704fdde340426d89466c8142b3113f.mesh", "res://.godot/imported/wall_arched.obj-16704fdde340426d89466c8142b3113f.mesh"]
 

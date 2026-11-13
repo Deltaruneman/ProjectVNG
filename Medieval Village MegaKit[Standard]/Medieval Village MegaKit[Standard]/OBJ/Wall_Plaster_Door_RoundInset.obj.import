@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_Plaster_Door_RoundInset.obj-c46409ad17cc89a3706
 [deps]
 
 files=["res://.godot/imported/Wall_Plaster_Door_RoundInset.obj-c46409ad17cc89a3706aa1202d5d3207.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_Plaster_Door_RoundInset.obj"
 dest_files=["res://.godot/imported/Wall_Plaster_Door_RoundInset.obj-c46409ad17cc89a3706aa1202d5d3207.mesh", "res://.godot/imported/Wall_Plaster_Door_RoundInset.obj-c46409ad17cc89a3706aa1202d5d3207.mesh"]
 

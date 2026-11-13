@@ -9,6 +9,7 @@ path="res://.godot/imported/crates_stacked.obj-c9f4aa568b5e815a3c3d054024cd12ae.
 [deps]
 
 files=["res://.godot/imported/crates_stacked.obj-c9f4aa568b5e815a3c3d054024cd12ae.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/crates_stacked.obj"
 dest_files=["res://.godot/imported/crates_stacked.obj-c9f4aa568b5e815a3c3d054024cd12ae.mesh", "res://.godot/imported/crates_stacked.obj-c9f4aa568b5e815a3c3d054024cd12ae.mesh"]
 

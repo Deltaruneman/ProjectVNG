@@ -9,6 +9,7 @@ path="res://.godot/imported/Corner_Exterior_Brick.obj-e5d783c33d273db5f5259a0f8e
 [deps]
 
 files=["res://.godot/imported/Corner_Exterior_Brick.obj-e5d783c33d273db5f5259a0f8ecd1267.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Corner_Exterior_Brick.obj"
 dest_files=["res://.godot/imported/Corner_Exterior_Brick.obj-e5d783c33d273db5f5259a0f8ecd1267.mesh", "res://.godot/imported/Corner_Exterior_Brick.obj-e5d783c33d273db5f5259a0f8ecd1267.mesh"]
 

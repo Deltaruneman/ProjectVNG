@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_Plaster_Straight_Base.obj-c7b205e59f451c0c76df2
 [deps]
 
 files=["res://.godot/imported/Wall_Plaster_Straight_Base.obj-c7b205e59f451c0c76df254267ffdd48.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_Plaster_Straight_Base.obj"
 dest_files=["res://.godot/imported/Wall_Plaster_Straight_Base.obj-c7b205e59f451c0c76df254267ffdd48.mesh", "res://.godot/imported/Wall_Plaster_Straight_Base.obj-c7b205e59f451c0c76df254267ffdd48.mesh"]
 

@@ -9,6 +9,7 @@ path="res://.godot/imported/stairs_narrow.obj-d4af7ae2fdeca4dab3243610d1c447d5.m
 [deps]
 
 files=["res://.godot/imported/stairs_narrow.obj-d4af7ae2fdeca4dab3243610d1c447d5.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/stairs_narrow.obj"
 dest_files=["res://.godot/imported/stairs_narrow.obj-d4af7ae2fdeca4dab3243610d1c447d5.mesh", "res://.godot/imported/stairs_narrow.obj-d4af7ae2fdeca4dab3243610d1c447d5.mesh"]
 

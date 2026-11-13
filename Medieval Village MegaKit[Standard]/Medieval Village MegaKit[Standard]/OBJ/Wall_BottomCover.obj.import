@@ -9,6 +9,7 @@ path="res://.godot/imported/Wall_BottomCover.obj-f7cfc00c76454e663a16e39812a7334
 [deps]
 
 files=["res://.godot/imported/Wall_BottomCover.obj-f7cfc00c76454e663a16e39812a73341.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Wall_BottomCover.obj"
 dest_files=["res://.godot/imported/Wall_BottomCover.obj-f7cfc00c76454e663a16e39812a73341.mesh", "res://.godot/imported/Wall_BottomCover.obj-f7cfc00c76454e663a16e39812a73341.mesh"]
 

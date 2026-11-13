@@ -9,6 +9,7 @@ path="res://.godot/imported/candle_melted.obj-1b3cac42ca27363f687893d761f72553.m
 [deps]
 
 files=["res://.godot/imported/candle_melted.obj-1b3cac42ca27363f687893d761f72553.mesh"]
+
 source_file="res://KayKit_Dungeon/Assets/obj/candle_melted.obj"
 dest_files=["res://.godot/imported/candle_melted.obj-1b3cac42ca27363f687893d761f72553.mesh", "res://.godot/imported/candle_melted.obj-1b3cac42ca27363f687893d761f72553.mesh"]
 

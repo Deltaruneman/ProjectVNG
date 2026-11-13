@@ -9,6 +9,7 @@ path="res://.godot/imported/Prop_MetalFence_Simple.obj-6d459d4ca83532a9245c05e3c
 [deps]
 
 files=["res://.godot/imported/Prop_MetalFence_Simple.obj-6d459d4ca83532a9245c05e3cde1594b.mesh"]
+
 source_file="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/OBJ/Prop_MetalFence_Simple.obj"
 dest_files=["res://.godot/imported/Prop_MetalFence_Simple.obj-6d459d4ca83532a9245c05e3cde1594b.mesh", "res://.godot/imported/Prop_MetalFence_Simple.obj-6d459d4ca83532a9245c05e3cde1594b.mesh"]
 
