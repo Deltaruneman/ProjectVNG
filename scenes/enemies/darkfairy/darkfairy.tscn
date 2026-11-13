@@ -25,13 +25,14 @@ height = 3.1
 [node name="DarkFairy" type="CharacterBody3D" unique_id=1309309822]
 collision_layer = 8
 script = ExtResource("1")
-max_health = 40
 skill_point_drop = 0
+max_health = 40
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=806006293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 pixel_size = 0.0625
 billboard = 1
+shaded = true
 texture_filter = 0
 texture = ExtResource("4")
 hframes = 8

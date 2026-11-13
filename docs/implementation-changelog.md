@@ -1361,3 +1361,106 @@ The T-menu now presents the Skill Tree as ink and bronze seals on two parchment 
 **Verified.** Godot 4.7.2 UI-only scene with separate user data and stub gameplay/HUD: 103 assertions passed, final log free of script/runtime errors. Covered element choice, all four weapon forms, character page, select-before-confirm, unavailable actions, real T/Escape/mouse events, interrupted transitions, prior pause/removal cleanup, graph bounds and all 56 sprite-frame bounds. Rendered 1280×720, 1024×768, 1920×1080 and 2560×1080; visually inspected both chapters, long selected description and page-turn output. `git diff --check` passes with line-ending notices only.
 
 **Known errors, limitations and unfinished work.** Initial folio type-inference errors and preview sizing/clipping issues were fixed and rechecked. Main-project direct `--script --check-only` could not resolve the GameManager singleton in that entry context; it is not recorded as a whole-project parse pass. Main-game scene/HUD/save integration and manual animation-feel acceptance remain NOT RUN; fixture callback assertions do not establish actual purchase persistence. System serif fonts use fallbacks and are not visually checked on other operating systems. T078 remains unchecked pending those reviews. No reviewer agreement, commit or push is claimed.
+
+## 2026-11-12 — T079 free orbit camera and Player-relative controls
+
+**Authorization/status.** User requests a Zelda/Genshin-style orbit camera and obstruction handling, explicitly selecting mouse-look with held Alt to release the cursor. Bao-owned camera/Player work is implemented; focused rendered physics checks pass. Main-scene integration and reviewer/feel acceptance are pending. No teammate sign-off, commit or push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/camera/camera_rig.gd` | Orbit yaw/pitch, zoom, capture/Alt/Escape/focus/pause lifecycle, sphere obstruction sweep including initial-overlap rejection, immediate contraction/smooth recovery, safe vertical follow, teleport snap, close-range sprite fade. Preserve Stage and cinematic interfaces. |
+| `scenes/camera/camera_rig.tscn` | Replace distant fixed pose with 60-degree lens and 0.05 near plane driven by the rig. |
+| `scenes/player/player.gd` | Camera-relative movement/aim API, continuous world attack facing, view-relative billboard frames with animation phase retention, dialogue/death camera input gate. |
+| `scenes/player/states/player_state.gd` | Route common walking/air movement through camera-relative input. |
+| `scenes/player/states/dash.gd` | Resolve dash direction from the same camera-relative vector. |
+| `scenes/player/states/carry.gd` | Keep carried throw direction aligned with world movement/facing. |
+| `tests/camera_rig_check.gd` | Standalone rendered physics/input regression fixture, run in a minimal disposable project. |
+| `tests/camera_gameplay_check.gd` | Guarded disposable-copy integration playtest using actual basement, Player and Skill Tree. |
+| `tests/camera_gameplay_check.tscn` | Explicit scene entry point for the integration playtest. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T079 owner, scope, acceptance and verification state. |
+| `specs/001-integrate-basement-stage/validation.md` | Cumulative request, baseline, boundaries and runtime evidence. |
+| `docs/implementation-changelog.md` | This cumulative implementation record. |
+
+**Integration effects.** All scenes instancing CameraRig receive the new camera. Stage target/snap_to_target and direct Camera3D child stay compatible. Existing cutscenes own the camera while paused; cursor cleanup still runs. World collision layer 1 blocks the camera, Player/enemy/hurt/trigger layers do not. Player movement speed, damage, cooldowns, skill rules, input mappings, map geometry, BaseCharacter and enemy systems are unchanged. Original dirty Dark Fairy scene is preserved.
+
+**Verified so far.** Godot 4.7.2 / OpenGL Compatibility on AMD Radeon 760M: 100 rendered fixture assertions pass, including 72 orbit samples around real finite wall colliders, thin-wall contraction, recovery, floor/ceiling clearance, overlap fail-closed, target exclusion, teleport, vertical lag, sprite fade/restore, paused camera ownership, mouse pitch clamps and cursor cleanup. Tests use disposable project `ArcanaCamera-T079-20261112` under the OS temp directory; no production autoload/save runs there.
+
+**Known errors/limitations/open work.** First fixture had two type-inference errors, corrected. A finite-wall test incorrectly assumed an infinite wall, corrected to physical overlap checks. Headless run cannot provide OS mouse capture and fails three mouse-motion assertions; renderer run passes those. Full-copy first import reported GameManager autoload type resolution errors before resource scan completed; integration execution remains pending. Geometry missing world-layer collision cannot block the camera. If the target focus itself overlaps solid geometry, the boom collapses; no valid exterior view is invented. Manual gameplay feel, all-map coverage, real combat/carry/cutscene/respawn acceptance remain pending.
+
+### T079 final verification and presentation follow-up
+
+- Added camera-local alpha handling for the existing checkpoint AnimatedSprite3D in the spawn_points group: non-solid markers fade only near the lens, preserving interaction and RGB tint, then restore alpha/cut mode. Player and back-mounted sword use the same Compatibility-supported sprite alpha technique. No checkpoint/map source changed. Initial GeometryInstance transparency did not visibly work on Compatibility; actual images exposed this and the final implementation replaces it.
+- Additional included files: `tests/camera_rig_check.gd.uid` and `tests/camera_gameplay_check.gd.uid`, generated by Godot for stable identities of the new test scripts.
+- Final evidence supersedes the pending checks above: 104/104 rendered isolated camera assertions pass; 20/20 production basement/Player/HUD/Skill Tree integration assertions pass. Inspected start/side/rear views and fixed foreground sword/helm occlusion; real W/dash/aim/Alt/T/Escape behavior is exercised through Godot input/FSM. Preserve attack animation phase when camera crosses sprite quadrants. `git diff --check` passes.
+- Test-only corrections: explicit Player bool type; fixture Transform3D types, finite-wall clearance assertions and waiting for dash state entry. Test isolation, logs, screenshots and reproduction notes are in validation.md. Only the disposable copy receives import/cache and separate APPDATA/user-data configuration; original caches/save/config are untouched by the test commands.
+- Remaining diagnostics: asset UID fallback warnings and full-copy shutdown warnings/error about 5 ObjectDB objects / 1 retained resource. No SCRIPT ERROR in final integration run; attribution of shutdown diagnostics is unresolved. Interactive Computer Use approval timed out, so manual input feel is not claimed. All-map/carry/combat/respawn/actual cutscene acceptance and independent reviewer agreement remain open. Existing Dark Fairy scene work is preserved; no commit or push.
+- Final direct basement smoke also exited; its shutdown diagnostic is 6 retained ObjectDB instances / 1 resource (versus 5 / 1 in the fixture). No test process remains running. These unresolved exit diagnostics do not change the separately recorded 104 camera and 20 gameplay assertion results.
+
+### T080/T081 camera input and existing VFX follow-up — 2026-11-13
+
+- Tasks: T080 and T081 implemented with bounded rendered checks; both remain unchecked pending native embedded mouse/manual VFX feel and Bao reviewer agreement. Do not interpret automated fixture pass as sign-off.
+- Included files and purposes: `scenes/camera/camera_rig.gd` synchronizes actual Game-window focus, recaptures externally released cursor and reads captured motion before HUD; `scenes/player/battle_vfx.gd` routes existing PixelFX/PVFX overlays through live world projection; `scenes/player/world_vfx_anchor.gd` is the new camera-aware screen anchor; `tests/camera_rig_check.gd` adds focus/capture regression; `tests/camera_gameplay_check.gd` exercises actual basement HUD motion plus both old VFX asset pipelines; `tests/world_vfx_anchor_check.gd` verifies orbit/zoom/behind-camera projection; `specs/001-integrate-basement-stage/tasks.md` records T080/T081 scope/criteria/status; `specs/001-integrate-basement-stage/validation.md` records diagnosis, verification and limitations; `docs/implementation-changelog.md` is this cumulative record.
+- Shared integration: CameraRig still preserves Stage target/Camera3D/snap contract and paused cinematic ownership. New anchor affects Player BattleVFX PixelFX/PVFX overlays while active; world hit/cast points, timing, art exports and damage remain. Existing slash assets and shield/cast ring are untouched, as are map/AI/save systems. Original Dark Fairy diff and editor-modified tracked `.godot/uid_cache.bin` are preserved.
+- Verification: Godot 4.7.2 Compatibility rendered isolated fixture 106/106 camera assertions and 6/6 VFX projection assertions; actual basement/Player/HUD/Skill Tree integration 23/23 in disposable copy and isolated user data. No parse/SCRIPT ERROR in final logs; `git diff --check` passes. Early diagnostic established `focus=false` while embedded Window focus=true; early VFX assertions were corrected for center-point geometry and observed projection lag. Final native mouse drag after all edits has not been conclusively observed, so that reported behavior and Bao visual feel are pending. Existing full-copy UID fallback and shutdown retained-object/resource diagnostics remain known, unresolved.
+- Late preservation note: user/editor concurrently changed `project.godot` input bindings and left `levels/level_1/basement_full.tscn~RF481dac7.TMP` while a Game view was running. These are not T080/T081 implementation files and were preserved without cleanup or sign-off. Isolated integration checks used the earlier project copy, so they do not cover the new input-map changes.
+
+## 2026-11-13 — T082 aimed skill release, reticle, ult blade and slash height
+
+**Task/review status.** User requests quick cast plus a held 0.3 s camera-center aim, the sword behind the Player during ult, and slightly higher slash visuals. Bao-owned Player combat scope is implemented and verified in a rendered isolated basement fixture; native embedded control feel, full cut-in/element visual acceptance and Bao review remain pending. No teammate sign-off, commit or push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/player/player.gd` | Hold/release skill input, camera-center physics aim and cancellation, directed skill/projectile aim APIs, temporary camera-relative ult sword position and Player-local slash spawn-height adjustments. Preserve prior T079/T081 work. |
+| `scenes/player/skill_aim_reticle.gd` | Draw the noninteractive centered crosshair while holding the skill button and request aim cancellation during pause. |
+| `scenes/player/skill_aim_reticle.gd.uid` | Stable Godot script UID for the new reticle. |
+| `scenes/player/states/skillstate.gd` | Consume aimed point at deferred FSM entry, aim the thrown projectile in 3D from its spawn point, raise associated slash visuals. |
+| `scenes/player/states/attack.gd` | Raise the existing basic attack slash spawn by 0.2 m. |
+| `scenes/player/weapon/floating_blade.gd` | Apply and clear a temporary blade position without losing its original bob/sway rest pose. |
+| `tests/camera_gameplay_check.gd` | Add actual-basement quick cast, held aim, collision ray, projectile direction, dialogue/pause cancellation and blade pose/restore assertions plus reticle/blade captures. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T082 ownership, scope, acceptance and open review status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record pre-implementation boundary, checks, observed results and remaining limits. |
+| `docs/implementation-changelog.md` | Maintain this cumulative file-level and integration record. |
+
+**Shared/integration effects.** A quick skill now casts on key release so a hold can be distinguished; the HUD/input map, skill IDs, cooldowns, damage, hitboxes and save data are unchanged. Held aim follows the active Camera3D and stops at a solid collider; directional ground skills use a flat bearing and the thrown dagger uses full 3D bearing. The reticle ignores mouse input and disappears on release, dialogue, menu pause or other cancellation. The blade is moved only for ult presentation, then returns to its floating rest position. Existing slash scenes/sheets and ice shield/cast ring implementations remain untouched. Concurrent `project.godot`, Dark Fairy, tracked cache and editor temp changes were preserved.
+
+**Verification.** Godot 4.7.2 Compatibility in disposable full-basement copy with isolated APPDATA/user data: changed scripts import without SCRIPT ERROR; rendered integration fixture passes 36/36 assertions. Rendered reticle and visible ult sword screenshots were inspected; the reticle sits at viewport center and the tested sword pose leaves the Player face unobscured. An initial 31-check run exposed an aim snapshot lost before deferred FSM entry; a later pause check exposed a reticle left visible by the paused Player. Both were corrected and the final 36/36 run passes. `git diff --check` passes with existing line-ending notices.
+
+**Known errors, limitations and unfinished work.** Original embedded Game mouse/E-key feel, full ult cut-in motion, all elemental directional skills, slash height across camera angles and reviewer acceptance remain NOT RUN. The fixture uses U from its earlier copied input map; the user's concurrent `project.godot` also binds E but was not overwritten in the fixture. Disposable-copy UID fallback warnings and shutdown diagnostics (5 retained ObjectDB instances, 1 resource) remain unresolved. T082 stays unchecked pending these reviews; no acceptance is invented.
+
+## 2026-11-13 — T083 shoulder framing and smaller aim reticle
+
+**Task/review status.** User requests a smaller crosshair and over-the-shoulder framing while aiming, using the supplied image as a visual reference. Bao-owned camera/Player presentation is implemented and verified in rendered isolated fixtures. Original embedded Game feel, broader map composition and Bao visual acceptance remain pending; no teammate sign-off, commit or push is claimed.
+
+| Included file | Purpose |
+| --- | --- |
+| `scenes/camera/camera_rig.gd` | Interpolate closer, right-shoulder framing only during held aim; scale lateral offset at close zoom; sphere-sweep the full camera motion; return to normal orbit without changing saved zoom or Stage APIs. |
+| `scenes/player/player.gd` | Activate/reset shoulder camera with aim lifecycle, face the viewed point while aiming and refresh the center ray before release cast. Preserve prior camera, ult, slash and skill changes. |
+| `scenes/player/skill_aim_reticle.gd` | Reduce centered reticle dimensions while preserving mouse-ignore and pause cancellation. |
+| `tests/camera_rig_check.gd` | Cover aimed lateral shift, multiple yaw views, minimum zoom, wall clearance and framing restoration in the rendered minimal fixture. |
+| `tests/camera_gameplay_check.gd` | Cover quick tap remaining in normal view, actual Player-left framing, aimed center ray/projectile and return after release in the isolated basement. |
+| `specs/001-integrate-basement-stage/tasks.md` | Record T083 boundary, acceptance, checks and open review status. |
+| `specs/001-integrate-basement-stage/validation.md` | Record pre-implementation scope, rendered evidence, corrections and limitations. |
+| `docs/implementation-changelog.md` | Maintain this cumulative implementation record. |
+
+**Shared/integration effects.** CameraRig's target, Camera3D child and `snap_to_target()` interface remain intact. Existing normal orbit, collision, wheel zoom and mouse-look behavior are reused; shoulder mode is requested by the Player only after the 0.3 s aim threshold and cleared by the existing release/cancel paths. The center-ray and projectile direction use the actual shifted camera, and Player world movement is unchanged. No map, enemy, save, input-map, slash/ice-shield asset or skill damage/range changes are included. Concurrent editor/input-map, Dark Fairy, tracked cache and temporary scene changes were preserved.
+
+**Verification.** Godot 4.7.2 Compatibility rendered minimal camera fixture passes 115/115 assertions; isolated full-basement/Player fixture passes 40/40. The tests cover near/side wall behavior, several yaw angles, close zoom, Player-left screen projection, quick taps, aim/release and projectile sightline. Inspected final aim screenshot: reduced reticle centered with the Player left of its sightline. Final logs have no SCRIPT ERROR and `git diff --check` passes with pre-existing line-ending notices. Initial fixture type inference error and overstrict mid-transition threshold were corrected before final runs.
+
+**Known errors, limitations and unfinished work.** Native embedded Game mouse/E-key feel, wider stage viewpoints, every aspect ratio and Bao reviewer acceptance remain NOT RUN. Isolated full-copy UID fallback warnings and shutdown retained-object/resource diagnostics persist. T083 remains unchecked; fixture success is not reviewer agreement.
+## 2026-11-13 — T084 menu cursor and hidden camera aim
+
+**Request/status.** User requests a visible Skill Tree cursor and all directional skills to follow an implicit mouse-look target rather than actor facing. Bao-owned implementation is complete; rendered fixtures pass, while native embedded feel, per-skill combat and Bao acceptance remain open. T084 stays unchecked; no reviewer sign-off, commit or push.
+
+| Included file | Purpose |
+| --- | --- |
+| `ui/skill_tree_layout.gd` | Explicitly show cursor throughout opening/open/closing; preserve and restore prior mouse mode with menu pause ownership and cleanup. |
+| `scenes/camera/camera_rig.gd` | Force visible cursor during pause and avoid storing CAPTURED as the pre-capture restore mode. Preserve normal orbit/collision interfaces. |
+| `scenes/player/player.gd` | Snapshot center aim for quick and held releases; use camera-center bearing for all common directional skill/ult calls and full 3D projectile targeting instead of movement/facing. |
+| `tests/camera_gameplay_check.gd` | Require exact VISIBLE menu cursor from hidden state; verify implicit direction and quick shot against opposite facing/lateral input, retaining held/camera/menu regressions. |
+| `specs/001-integrate-basement-stage/tasks.md` | T084 pre-implementation scope/acceptance and final verification/open review state. |
+| `specs/001-integrate-basement-stage/validation.md` | Diagnosis, implementation, rendered evidence and outstanding checks. |
+| `docs/implementation-changelog.md` | This cumulative implementation record. |
+
+**Integration.** Menu and CameraRig share cursor/pause lifecycle; gameplay capture resumes after menu close. All directed active skills and directional ult effects use the Player's shared center-ray aim API. Ground skills retain horizontal mechanics, projectiles retain their 3D path, and holding still shows the reticle/shoulder view after 0.3 s. Skill balance, self-centered area effects, input mappings, map/AI/save and existing slash/shield assets remain outside this change. Concurrent editor/input-map, Dark Fairy, cache and temporary scene work is preserved.
+
+**Verified/limits.** Godot 4.7.2 Compatibility rendered camera fixture passes 115/115 and isolated full-basement integration passes 42/42. Exact visible cursor, opposing actor/camera directions with lateral input, quick projectile center target and existing held/pause/menu/collision checks pass. Final runs have no SCRIPT ERROR; `git diff --check` passes. Native original embedded Game cursor/feel, each elemental combat and ult case and reviewer acceptance remain NOT RUN. Existing disposable-copy UID fallback and shutdown retained-object/resource diagnostics persist. Windows-mapped source files required in-place writes instead of truncation; final content verified and temporary file removed.

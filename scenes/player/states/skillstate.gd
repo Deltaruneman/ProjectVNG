@@ -41,29 +41,34 @@ func _enter() -> void:
 	obj.stop_horizontal()
 	var selected_skill_id: String = obj.get_selected_active_skill_id()
 	if obj.get_active_skill_cooldown_for_id(selected_skill_id) > 0.0:
+		obj.clear_skill_cast_aim()
 		change_state(fsm.states.idle)
 		return
 	if obj.cast_active_skill(selected_skill_id):
+		obj.clear_skill_cast_aim()
 		obj.suppress_blade(true)
 		_cast_blade_suppressed = true
 		obj.start_active_skill_cooldown(selected_skill_id)
 		BattleFX.play_skill_sound(obj, selected_skill_id)
 		if selected_skill_id in ["active_wind_3", "active_ice_2"]:
 			var aim: Vector3 = obj.forward()
-			BattleFX.emberline_slash(obj, obj.skill_effect_position(aim, 1.2, 0.6), GameManager.weapon_form, aim, 1.0)
+			BattleFX.emberline_slash(obj, obj.skill_effect_position(aim, 1.2, 0.8), GameManager.weapon_form, aim, 1.0)
 		_play_one_shot("attack")
 		return
 	if not can_throw():
+		obj.clear_skill_cast_aim()
 		return
 
 	obj.start_active_skill_cooldown(selected_skill_id)
-	var dir: Vector3 = obj.get_skill_aim_direction()
+	var flat_dir: Vector3 = obj.get_skill_aim_direction()
+	var spawn_position: Vector3 = obj.global_position + Vector3.UP * spawn_height + flat_dir * spawn_forward
+	var dir: Vector3 = obj.get_projectile_aim_direction(spawn_position)
 	_play_one_shot("throw")
 	var elemental_form: String = GameManager.weapon_form if obj.selected_active_slot == 1 else ""
 	BattleFX.play_skill_sound(obj, selected_skill_id if selected_skill_id != "" else "dagger")
 	if elemental_form != "":
-		BattleFX.slash(obj, obj.global_position + Vector3.UP * 0.65 + dir * 0.55, elemental_form, dir, 0.34)
-		BattleFX.emberline_slash(obj, obj.global_position + Vector3.UP * 0.65 + dir * 0.55, elemental_form, dir, 0.7)
+		BattleFX.slash(obj, obj.global_position + Vector3.UP * 0.85 + flat_dir * 0.55, elemental_form, flat_dir, 0.34)
+		BattleFX.emberline_slash(obj, obj.global_position + Vector3.UP * 0.85 + flat_dir * 0.55, elemental_form, flat_dir, 0.7)
 
 	active = skill_scene.instantiate()
 	if elemental_form == "wind" and int(GameManager.skill_allocations.get("evo_wind_return", 0)) > 0:
@@ -74,8 +79,9 @@ func _enter() -> void:
 	if hit_area != null:
 		hit_area.damage = obj.attack_damage + int(GameManager.skill_allocations.get("char_element", 0)) + int(GameManager.skill_allocations.get("char_crit", 0))
 		hit_area.hitted.connect(obj._on_skill_hit.bind(elemental_form))
-	active.global_position = obj.global_position + Vector3.UP * spawn_height + dir * spawn_forward
+	active.global_position = spawn_position
 	active.setup(obj, dir)
+	obj.clear_skill_cast_aim()
 
 
 func _update(delta: float) -> void:

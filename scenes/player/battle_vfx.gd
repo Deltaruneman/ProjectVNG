@@ -7,6 +7,7 @@ const EMBER_SLASH: PackedScene = preload("res://emberline/effects/slash_arc.tscn
 const EMBER_RING: PackedScene = preload("res://emberline/effects/impact_ring.tscn")
 const PIXELFX_ROOT := "res://assets/effects/pixelfx/"
 const PVFX_ROOT := "res://assets/effects/pvfx-foundry-thirteen-spritesheets/effects/"
+const WORLD_VFX_ANCHOR = preload("res://scenes/player/world_vfx_anchor.gd")
 const ATTACK_FX_AXIS_OFFSET := -PI / 2.0
 const SKILL_VFX_SPEED_SCALE := 1.2
 const SOUND_ROOT := "res://assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/"
@@ -202,7 +203,7 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 	audio.stream = stream
 	audio.volume_db = volume_db
 	audio.pitch_scale = pitch_scale
-	audio.bus = "Master"
+	audio.bus = "SFX" if AudioServer.get_bus_index("SFX") >= 0 else "Master"
 	parent.add_child(audio)
 	audio.finished.connect(audio.queue_free, CONNECT_ONE_SHOT)
 	audio.play()
@@ -244,7 +245,7 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 			stage.add_child(overlay)
 	var screen_position: Vector2 = camera.unproject_position(position)
 	var projected_half_width := (camera.unproject_position(position + camera.global_transform.basis.x * world_half_extent) - screen_position).length()
-	var effect := Node2D.new()
+	var effect: Node2D = Node2D.new() if process_while_paused else WORLD_VFX_ANCHOR.new()
 	effect.name = effect_id.replace("/", "_")
 	if process_while_paused:
 		effect.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -267,6 +268,8 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 		if screen_direction.length_squared() > 0.001:
 			sprite.rotation = screen_direction.angle()
 	effect.add_child(sprite)
+	if not process_while_paused:
+		effect.call("configure", camera, position, direction, world_half_extent, frame_width * 0.5, sprite)
 	if process_while_paused:
 		effect.tree_exited.connect(overlay.queue_free, CONNECT_ONE_SHOT)
 	if frames.get_animation_loop("default"):
@@ -312,7 +315,7 @@ static func _spawn_pvfx(parent: Node3D, effect_id: String, position: Vector3, wo
 		stage.add_child(overlay)
 	var screen_position: Vector2 = camera.unproject_position(position)
 	var projected_half_width := (camera.unproject_position(position + camera.global_transform.basis.x * world_half_extent) - screen_position).length()
-	var effect := Node2D.new()
+	var effect: Node2D = WORLD_VFX_ANCHOR.new()
 	effect.name = effect_id.replace("/", "_")
 	effect.position = screen_position
 	effect.scale = Vector2.ONE * maxf(projected_half_width / (frame_width * 0.5), 0.01)
@@ -331,6 +334,7 @@ static func _spawn_pvfx(parent: Node3D, effect_id: String, position: Vector3, wo
 		if screen_direction.length_squared() > 0.001:
 			sprite.rotation = screen_direction.angle()
 	effect.add_child(sprite)
+	effect.call("configure", camera, position, direction, world_half_extent, frame_width * 0.5, sprite)
 	if frames.get_animation_loop("default"):
 		var lifetime := loop_duration if loop_duration > 0.0 else 2.4
 		var timer := Timer.new()

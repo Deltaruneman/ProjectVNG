@@ -11,13 +11,13 @@ func _update(delta: float) -> void:
 	pass
 
 func move_by_input(speed_scale: float = 1.0) -> bool:
-	var input: Vector2 = Input.get_vector("left", "right", "up", "down")
+	var input: Vector3 = obj.get_camera_movement_input()
 	if input.length() <= 0.1:
 		obj.stop_horizontal()
 		return false
-	obj.change_direction(BaseCharacter.direction_from_input(input))
+	obj.face_movement(input)
 	obj.velocity.x = obj.movement_speed * speed_scale * input.x
-	obj.velocity.z = obj.movement_speed * speed_scale * input.y
+	obj.velocity.z = obj.movement_speed * speed_scale * input.z
 	return true
 
 #Control moving and changing state to run

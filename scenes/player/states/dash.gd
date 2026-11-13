@@ -13,10 +13,10 @@ func _enter() -> void:
 	obj.invincible = true
 	obj.dash_cooldown_timer = obj.dash_cooldown
 
-	var input: Vector2 = Input.get_vector("left", "right", "up", "down")
+	var input: Vector3 = obj.get_camera_movement_input()
 	if input.length() > 0.1:
-		_dash_dir = Vector3(input.x, 0.0, input.y).normalized()
-		obj.change_direction(BaseCharacter.direction_from_input(input))
+		_dash_dir = input.normalized()
+		obj.face_movement(input)
 	else:
 		_dash_dir = obj.forward()
 

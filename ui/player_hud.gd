@@ -87,6 +87,7 @@ var _skill_icon_cache: Dictionary = {}
 var _action_icon_cache: Dictionary = {}
 var _critical_health_active := false
 var _skill_tree_is_open := false
+var _input_key_labels: Array[Label] = []
 
 
 func _ready() -> void:
@@ -297,7 +298,8 @@ func _create_skill_slot(index: int, row: HBoxContainer) -> void:
 		key_label.add_theme_font_size_override("font_size", 6)
 	key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	key_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	key_label.text = "T" if index == SKILL_TREE_SLOT else "I" if index == ULTIMATE_SLOT else "L" if index == PARRY_SLOT else "SH" if index == DASH_SLOT else str(index + 1)
+	key_label.text = _input_hint(_slot_input_action(index), true)
+	_input_key_labels.append(key_label)
 	key_label.add_theme_color_override("font_color", Color("fff2cf"))
 	key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.add_child(key_label)
@@ -328,6 +330,8 @@ func _refresh_skill_bar() -> void:
 	var player := _player as Player
 	if player == null or _skill_slot_panels.size() != SLOT_COUNT:
 		return
+	for index in _input_key_labels.size():
+		_input_key_labels[index].text = _input_hint(_slot_input_action(index), true)
 	for index in 4:
 		var slot_number := index + 1
 		var skill_id := player.get_active_skill_id_for_slot(slot_number)
@@ -344,9 +348,9 @@ func _refresh_skill_bar() -> void:
 		_skill_slot_styles[index].border_color = Color("52f19a") if player.selected_active_slot == slot_number else Color("68737a")
 		_skill_slot_styles[index].set_border_width_all(2 if player.selected_active_slot == slot_number else 1)
 		var title := _skill_display_name(skill_id)
-		_skill_slot_panels[index].tooltip_text = "%d · %s · U thi triển" % [slot_number, title]
-	_refresh_action_slot(DASH_SLOT, "dash", "Shift · Dash", maxf(0.0, player.dash_cooldown_timer))
-	_refresh_action_slot(PARRY_SLOT, "parry", "L · Parry", maxf(0.0, player.parry_cooldown_timer))
+		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
+	_refresh_action_slot(DASH_SLOT, "dash", _input_hint("dash") + " · Dash", maxf(0.0, player.dash_cooldown_timer))
+	_refresh_action_slot(PARRY_SLOT, "parry", _input_hint("parry") + " · Parry", maxf(0.0, player.parry_cooldown_timer))
 
 	var ultimate_id := GameManager.selected_ultimate_skill
 	var ultimate_icon := _skill_icon_name(ultimate_id)
@@ -371,8 +375,27 @@ func _refresh_skill_bar() -> void:
 			ultimate_status = "Đang hồi chiêu"
 		else:
 			ultimate_status = "Đang nạp nộ khí"
-	_skill_slot_panels[ultimate_slot].tooltip_text = "I · %s · %s" % [_skill_display_name(ultimate_id), ultimate_status]
-	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = "T · Cây kỹ năng"
+	_skill_slot_panels[ultimate_slot].tooltip_text = "%s · %s · %s" % [_input_hint("ultimate"), _skill_display_name(ultimate_id), ultimate_status]
+	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = _input_hint("skill_tree") + " · Cây kỹ năng"
+
+
+func _slot_input_action(index: int) -> String:
+	return ["active_skill_1", "active_skill_2", "active_skill_3", "active_skill_4", "dash", "parry", "ultimate", "skill_tree"][index]
+
+
+func _input_hint(action: String, compact: bool = false) -> String:
+	var hints: Array[String] = []
+	for event in InputMap.action_get_events(action):
+		var text := ""
+		if event is InputEventKey:
+			text = OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
+		elif event is InputEventMouseButton:
+			text = {1: "LMB", 2: "RMB", 3: "MMB"}.get(event.button_index, "M%d" % event.button_index)
+		if not text.is_empty():
+			if compact:
+				return str({"Shift": "SH", "Space": "SP", "Backspace": "BS", "Control": "CT"}.get(text, text)).left(4)
+			hints.append(text)
+	return " / ".join(hints) if not hints.is_empty() else "—"
 
 
 func _skill_slot_width(index: int) -> float:

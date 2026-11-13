@@ -691,3 +691,54 @@ T044 is a focused basement camera visibility follow-up. T045 is implemented with
   - Acceptance: static and animated book use identical frame geometry; text, graph, controls and confirmation stay on their respective paper pages; warm ink/bronze styling and active chapter indicators are consistent. Opening, turning and closing hide/reveal page ink coherently, prevent interaction during transitions, handle rapid T/Escape without stranded pause/HUD state, and retain selection-before-confirm, costs and callbacks. Default zoom remains 115% with clipped pan/zoom inside the right page.
   - Checks: focused Godot UI-only preview with isolated user data, render both chapters and selected descriptions, exercise transition interruption and confirm-only actions, check representative aspect ratios and `git diff --check`. Record stubbed UI checks separately from actual gameplay integration and reviewer acceptance.
   - Status: implemented. Godot 4.7.2 isolated UI scene passed 103 assertions with no script/runtime errors in the final run; rendered both chapters, four forms, selected descriptions and 4:3/16:9/ultrawide sizes. Real T/Escape/mouse input, confirmation gating, all 56 frame bounds, interrupted transitions and pause/HUD restoration passed against fixture stubs. Main-game integration and Bao visual acceptance remain NOT RUN/pending, so the task stays unchecked; see validation.md.
+
+## Free orbit gameplay camera (2026-11-12)
+
+- [ ] T079 Replace the fixed camera with a collision-aware free orbit camera.
+  - Owner/reviewer: Bao (Player camera/input integration). User explicitly requests the rework and selects mouse-look with held Alt releasing the cursor. Shared CameraRig is consumed by Stage; preserve its target, Camera3D child and snap_to_target API. Map/AI/save code and the pre-existing Dark Fairy scene diff are excluded. No teammate sign-off claimed.
+  - Scope: camera rig script/scene; Player-local movement, dash, carry, skill aim and sprite-facing integration; focused camera regression fixture and these cumulative records.
+  - Acceptance: 360-degree yaw, clamped pitch, wheel zoom; mouse capture releases for Alt, pause/menu, dialogue, focus loss and removal. Camera contracts immediately before world collision, including thin walls/corners/floor/ceiling, and extends smoothly; target is excluded. Follow and teleport do not sweep from old stage positions. WASD/dash/carry/aim follow camera yaw without changing speeds/damage or enemy code. Paused cinematics retain camera control. No collision-free viewpoint is promised when the target itself is embedded in solid geometry.
+  - Checks: isolated Godot physics/input regression fixtures, rendered obstacle scenarios, production scene playtest in a disposable copy with isolated save data, whitespace/diff review. Keep manual feel/full-map acceptance and any unexercised integrations explicit.
+  - Status: scope recorded before implementation; checks pending.
+  - Final status (2026-11-12): implemented and verified by 104 rendered camera physics/input assertions plus 20 actual-basement/Player/UI integration assertions. Reviewed spawn/side/obstructed-rear screenshots; fixed Compatibility alpha fading for Player, sword and foreground non-solid checkpoint markers. Stage, map/AI/save code and pre-existing Dark Fairy edits preserved. Manual feel, all-map traversal, real carry/combat/respawn/cutscene acceptance and reviewer agreement remain pending; keep unchecked. Full-copy runtime retains UID fallback and shutdown resource diagnostics, explicitly recorded in validation.md.
+
+## Embedded Game mouse-look regression (2026-11-12)
+
+- [ ] T080 Restore continuous mouse-look in Godot's embedded Game view.
+  - Owner/reviewer: Bao (camera input); user reports no mouse orbit and confirms embedded Game. No map, AI, save or editor-setting changes authorized or needed.
+  - Scope: CameraRig input/focus lifecycle, camera regression fixtures, cumulative task/validation/changelog records. Preserve T079 and existing dirty files.
+  - Acceptance: native mouse movement rotates the actual basement camera in embedded Input mode; cursor capture recovers on entering Game, Alt releases/reacquires, Escape releases until a gameplay click, menus/dialogue/death still block orbit. Standalone input and wall/corner regression checks remain passing.
+  - Validation: reproduce in original embedded editor, diagnose input/focus, run isolated rendered suites, then repeat native embedded mouse input. Synthetic input alone is insufficient acceptance for this regression. Status: implemented; 106/106 rendered camera and 23/23 actual-basement synthetic-input checks pass. Native embedded mouse after final edits and reviewer feel remain pending; keep unchecked.
+
+## Free-orbit VFX projection (2026-11-13)
+
+- [ ] T081 Keep existing Bao-owned combat/skill VFX readable while the camera orbits.
+  - Owner/reviewer: Bao (Player battle VFX). User requests retuning old VFX for the new view. Preserve slash and ice shield/cast ring implementations; no enemy, map, save, skill damage or timing changes.
+  - Scope: world projection of existing PixelFX/PVFX combat and spell overlays, camera-aware orientation/size, targeted verification and cumulative records.
+  - Acceptance: an active effect remains attached to its world hit/cast point as camera yaw/pitch/distance changes; screen direction follows projected world direction; effects hide behind the camera and reappear when visible. Existing sheets, colors and lifetimes remain intact. Screen-space cinematic impact remains unaffected.
+  - Checks: Godot rendered multi-angle effect fixture and actual-basement smoke, source/asset preservation and git diff review. Status: implemented; 6/6 rendered projection and 23/23 actual-basement integration assertions pass. Manual multi-form visual and reviewer acceptance remain pending; keep unchecked.
+
+## Aimed skills and ultimate silhouette (2026-11-13)
+
+- [ ] T082 Add held-skill aiming and improve Player combat presentation.
+  - Owner/reviewer: Bao (Player combat, skill input and VFX placement). User authorizes this scope. Preserve slash and ice-shield effect implementations, map, enemy and save systems; no teammate agreement is asserted.
+  - Scope: quick skill tap casts normally on release; holding skill for 0.3 s shows a centered reticle, and release casts directional skills through the camera's center hit point. Keep movement and mouse orbit usable during aiming. Move the floating blade behind the Player during the ultimate cinematic pose and restore it afterward. Raise Player-spawned slash effects slightly. Add focused checks and cumulative records.
+  - Acceptance: tap still throws/casts with existing facing rules; hold shows a noninteractive centered reticle and sends projectile/line/cone skills toward the viewed world point, including height for projectiles; releasing or cancelling clears the reticle without a stuck cast. Collision in the sightline determines the target. Ult blade no longer overlays the Player in the cut-in and returns to its former pose; slash visuals sit higher without changing hitboxes, damage, timing or effect assets.
+  - Checks: Godot rendered gameplay fixture for tap/hold/release, aim point and obstruction; visual cut-in and slash smoke when feasible; diff/asset review. Native embedded input and Bao visual acceptance remain separate from scripted checks.
+  - Status: implemented; 36/36 rendered actual-basement/Player integration assertions pass in isolated Godot 4.7.2, including quick cast, 0.3 s reticle, blocked sightline, 3D projectile direction, dialogue/pause cancellation and blade pose/restore. Reticle and blade screenshots were inspected. Native embedded input feel, all skill forms, full ult cut-in and slash visual acceptance remain pending; keep unchecked.
+
+## Shoulder camera while aiming (2026-11-13)
+
+- [ ] T083 Make the held-skill aim view smaller and unobstructed by the Player.
+  - Owner/reviewer: Bao (Player camera/skill UI). User supplies an over-the-shoulder reference and requests a smaller crosshair plus camera/character reframing. CameraRig is shared with Stage; preserve target, Camera3D, snap_to_target and normal orbit/collision contracts. No map, enemy, save, input-map or unrelated VFX changes; no teammate sign-off claimed.
+  - Scope: scale down the existing reticle; while hold aim is active, bring the camera to a collision-aware shoulder position so the Player appears to the left of the centered reticle. Return smoothly on release/cancel. Keep center-ray skill aim aligned with the moved camera and retain existing movement, mouse orbit, zoom setting, skill damage/range and 0.3 s threshold.
+  - Acceptance: aimed Player sprite does not cover the center reticle at representative yaw/pitch/zoom; the center ray and projectile use the reframed Camera3D; lateral/boom wall obstruction keeps the lens outside solid collision; release, dialogue and pause restore normal framing without a stuck offset. Quick taps never enter shoulder view.
+  - Checks: rendered isolated camera physics and actual-basement gameplay fixtures, screenshot inspection at normal/aimed framing, diff/resource review; native embedded feel and Bao visual acceptance remain distinct.
+  - Status: implemented; Godot 4.7.2 rendered isolated rig fixture passes 115/115 checks, actual-basement/Player integration passes 40/40. Final aim screenshot inspected. Native embedded Game feel, representative map locations and Bao visual acceptance remain pending; keep unchecked.
+## Menu cursor and implicit camera aim (2026-11-13)
+
+- [ ] T084 Show the cursor throughout Skill Tree and aim every directional skill through the camera center.
+  - Owner/reviewer: Bao; user authorizes Player, camera and Skill Tree UI changes. Preserve existing dirty work, map/AI/save and skill balance.
+  - Scope/acceptance: explicitly visible cursor during opening/open/closing menu, restore gameplay capture on close; quick and held casts use an invisible camera-center target rather than movement/facing, with the visible reticle/shoulder view still gated by 0.3 s hold. Projectile retains 3D aim, ground skills use horizontal bearing, directional ult uses the same camera aim. No reticle is added during ordinary gameplay.
+  - Checks: rendered camera and actual-basement menu/input/skill fixtures, exact visible mouse mode including initially hidden cursor, opposing actor/camera directions, projectile trajectory, hold/pause regressions and diff review.
+  - Status: implemented; Godot 4.7.2 rendered camera 115/115 and actual-basement integration 42/42 assertions pass. Menu is explicitly VISIBLE from hidden cursor; quick projectile follows center target despite opposite facing/lateral movement. Native embedded cursor feel, per-skill combat review and Bao acceptance remain pending; keep unchecked.

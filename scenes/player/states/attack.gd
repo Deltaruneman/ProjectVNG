@@ -28,7 +28,7 @@ func _update(_delta: float) -> void:
 func _spawn_fx(type: SlashFX.Type) -> void:
 	var fx := SLASH_FX.instantiate()
 	obj.get_node("Direction").add_child(fx)
-	fx.position = Vector3.ZERO
+	fx.position = Vector3.UP * 0.2
 	fx.play_slash(type)
 
 func _hit_shape() -> CollisionShape3D:

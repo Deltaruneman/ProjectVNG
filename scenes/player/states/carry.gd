@@ -45,9 +45,9 @@ func _update(delta: float) -> void:
 				change_state(fsm.states.throw)
 				return
 
-	var input: Vector2 = Input.get_vector("left", "right", "up", "down")
+
 	if move_by_input(CARRY_SPEED_SCALE):
-		facing = Vector3(input.x, 0.0, input.y).normalized()
+		facing = obj.forward()
 
 
 func _exit() -> void:

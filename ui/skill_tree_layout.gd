@@ -136,6 +136,7 @@ var _transitioning := false:
 			_input_shield.visible = value
 var _pause_before_open := false
 var _owns_pause := false
+var _mouse_mode_before_open := Input.MOUSE_MODE_VISIBLE
 var _presentation := 1.0
 var _frame_bounds := Rect2(Vector2(52.0, 336.0), BOOK_ART_SIZE)
 var _sheet_cache: Dictionary = {}
@@ -163,6 +164,11 @@ func _notification(what: int) -> void:
 		_layout_book()
 
 
+func _process(_delta: float) -> void:
+	if visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
 func _match_parent_canvas_scale() -> void:
 	var parent_canvas := get_parent() as CanvasLayer
 	if parent_canvas == null:
@@ -175,6 +181,9 @@ func _match_parent_canvas_scale() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	var pause_menu := get_node_or_null("/root/PauseMenu")
+	if pause_menu != null and pause_menu.is_open:
+		return
 	if event.is_echo():
 		return
 	if event.is_action_pressed("skill_tree"):
@@ -211,8 +220,10 @@ func _begin_open() -> void:
 	_transitioning = true
 	if not _owns_pause:
 		_pause_before_open = get_tree().paused
+		_mouse_mode_before_open = Input.mouse_mode
 		_owns_pause = true
 	get_tree().paused = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_notify_hud(true)
 	visible = true
 	_book_body.visible = true
@@ -313,6 +324,7 @@ func _finish_close() -> void:
 func _restore_pause() -> void:
 	if _owns_pause:
 		get_tree().paused = _pause_before_open
+		Input.mouse_mode = _mouse_mode_before_open
 		_owns_pause = false
 
 

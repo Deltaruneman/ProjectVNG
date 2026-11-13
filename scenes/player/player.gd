@@ -5,6 +5,9 @@ const ULTIMATE_CINEMATIC_SCRIPT := preload("res://scenes/player/ultimate_cinemat
 const ULTIMATE_SCREEN_GLOW_SHADER := preload("res://scenes/player/ultimate_screen_glow.gdshader")
 const ULTIMATE_NEON_SHADER := preload("res://scenes/player/ultimate_neon.gdshader")
 const LIGHTNING_CLONE_SCRIPT := preload("res://scenes/player/lightning_clone.gd")
+const SKILL_AIM_RETICLE_SCRIPT := preload("res://scenes/player/skill_aim_reticle.gd")
+const SKILL_AIM_HOLD_TIME := 0.3
+const SKILL_AIM_RANGE := 45.0
 
 const MAX_STAIR_STEP_HEIGHT := 0.75
 const STEP_LIFT_INCREMENT := 0.1
@@ -24,6 +27,8 @@ const LIGHTNING_BEAM_WIDTH := 1.6
 var is_invulnerable: bool = false
 var is_talking: bool = false
 var _movement_enabled_before_talk := true
+var _orbit_facing := Vector3.MODEL_FRONT
+var _last_view_direction := ""
 
 signal died
 signal rage_changed(current: float, maximum: float)
@@ -72,6 +77,13 @@ var _wind_ultimate_start_angle := 0.0
 var _wind_ultimate_radius := 2.2
 var _wind_ultimate_target: EnemyCharacter = null
 var _wind_ultimate_blade_suppressed := false
+var _skill_button_held := false
+var _skill_aim_active := false
+var _skill_hold_elapsed := 0.0
+var _skill_aim_point := Vector3.ZERO
+var _cast_aim_point_valid := false
+var _aim_reticle_layer: CanvasLayer
+var _aim_camera_rig: CameraRig
 
 
 func _enter_tree() -> void:
@@ -93,13 +105,30 @@ func _ready() -> void:
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
+	_aim_reticle_layer = CanvasLayer.new()
+	_aim_reticle_layer.name = "SkillAimReticle"
+	_aim_reticle_layer.layer = 25
+	_aim_reticle_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_aim_reticle_layer)
+	var reticle := SKILL_AIM_RETICLE_SCRIPT.new() as Control
+	_aim_reticle_layer.add_child(reticle)
+	reticle.connect("pause_cancel_requested", _cancel_skill_aim)
+	_aim_reticle_layer.visible = false
 
 
 func _physics_process(delta: float) -> void:
+	if _skill_button_held:
+		_refresh_skill_aim_point()
 	if is_talking:
 		_check_changed_animation()
 		return
 	super._physics_process(delta)
+	if _skill_aim_active:
+		var toward_target := _skill_aim_point - global_position
+		toward_target.y = 0.0
+		if toward_target.length_squared() > 0.01:
+			face_movement(toward_target)
+			_check_changed_animation()
 
 
 func _update_movement(delta: float) -> void:
@@ -158,6 +187,17 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	if _skill_button_held:
+		if not _can_start_skill_cast():
+			_cancel_skill_aim()
+		else:
+			_skill_hold_elapsed += delta
+			if not _skill_aim_active and _skill_hold_elapsed >= SKILL_AIM_HOLD_TIME:
+				_skill_aim_active = true
+				_aim_reticle_layer.visible = true
+				_set_skill_aim_camera(true)
+	if _ultimate_visual_remaining > 0.0:
+		_place_ultimate_blade_behind()
 	if _ultimate_visual_remaining > 0.0:
 		_ultimate_visual_elapsed += delta
 		_ultimate_visual_remaining = maxf(0.0, _ultimate_visual_remaining - delta)
@@ -188,6 +228,7 @@ func _process(delta: float) -> void:
 
 
 func die() -> void:
+	_cancel_skill_aim()
 	if fsm == null or fsm.current_state == null or not fsm.states.has("dead"):
 		return
 	if fsm.current_state == fsm.states.dead:
@@ -198,6 +239,7 @@ func die() -> void:
 
 
 func _exit_tree() -> void:
+	_cancel_skill_aim()
 	_finish_ultimate_presentation()
 
 
@@ -206,17 +248,30 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	for slot in 4:
 		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
+			_cancel_skill_aim()
 			selected_active_slot = slot + 1
 			active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 			get_viewport().set_input_as_handled()
 			return
 	if event.is_action_pressed("skill"):
-		var skill_id := get_selected_active_skill_id()
-		if _can_use_skills() and fsm.states.has("skill") and fsm.states.skill.can_throw() and get_active_skill_cooldown_for_id(skill_id) <= 0.0:
+		if not event.is_echo() and _can_start_skill_cast():
+			_skill_button_held = true
+			_skill_hold_elapsed = 0.0
+			_refresh_skill_aim_point()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_released("skill"):
+		if _skill_button_held and _can_start_skill_cast():
+			_refresh_skill_aim_point()
+			_cancel_skill_aim()
+			_cast_aim_point_valid = true
 			fsm.change_state(fsm.states.skill)
-			get_viewport().set_input_as_handled()
+		else:
+			_cancel_skill_aim()
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("ultimate"):
+		_cancel_skill_aim()
 		if _can_use_skills() and not _ultimate_cinematic_running:
 			var skill_id: String = GameManager.selected_ultimate_skill
 			if _is_ultimate_ready(skill_id) and not _start_ultimate_cinematic(skill_id):
@@ -233,6 +288,7 @@ func can_interact() -> bool:
 func start_talk(_partner: BaseCharacter = null) -> void:
 	if is_talking:
 		return
+	_cancel_skill_aim()
 	is_talking = true
 	_movement_enabled_before_talk = movement_enabled
 	movement_enabled = false
@@ -252,6 +308,56 @@ func _can_use_skills() -> bool:
 	if fsm == null or fsm.current_state == null:
 		return false
 	return not _wind_ultimate_active and not ["dead", "hurt", "carry", "throw", "skill"].has(fsm.current_state.name.to_lower())
+
+
+func _can_start_skill_cast() -> bool:
+	if not _can_use_skills() or is_talking or _ultimate_cinematic_running:
+		return false
+	if not fsm.states.has("skill") or not fsm.states.skill.can_throw():
+		return false
+	return get_active_skill_cooldown_for_id(get_selected_active_skill_id()) <= 0.0
+
+
+func _cancel_skill_aim() -> void:
+	_set_skill_aim_camera(false)
+	_skill_button_held = false
+	_skill_aim_active = false
+	_skill_hold_elapsed = 0.0
+	_cast_aim_point_valid = false
+	if _aim_reticle_layer != null:
+		_aim_reticle_layer.visible = false
+
+
+func _set_skill_aim_camera(enabled: bool) -> void:
+	if not enabled:
+		if is_instance_valid(_aim_camera_rig):
+			_aim_camera_rig.set_aim_mode(false)
+		_aim_camera_rig = null
+		return
+	var camera := get_viewport().get_camera_3d()
+	if camera != null and camera.get_parent() is CameraRig:
+		var rig := camera.get_parent() as CameraRig
+		if rig.target == self:
+			_aim_camera_rig = rig
+			rig.set_aim_mode(true)
+
+
+func clear_skill_cast_aim() -> void:
+	_cast_aim_point_valid = false
+
+
+func _refresh_skill_aim_point() -> void:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
+		return
+	var center := get_viewport().get_visible_rect().size * 0.5
+	var ray_origin := camera.project_ray_origin(center)
+	var ray_end := ray_origin + camera.project_ray_normal(center) * SKILL_AIM_RANGE
+	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	query.exclude = [get_rid()]
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	_skill_aim_point = hit.position if not hit.is_empty() else ray_end
 
 
 func get_selected_active_skill_id() -> String:
@@ -322,12 +428,96 @@ func _track_hud_status(status_id: String, duration: float, refresh: bool = false
 	_hud_status_time_remaining[status_id] = duration if refresh else maxf(existing, duration)
 
 
-func get_skill_aim_direction() -> Vector3:
+func can_control_camera() -> bool:
+	return health > 0 and not is_talking
+
+
+func get_camera_movement_input() -> Vector3:
 	var input := Input.get_vector("left", "right", "up", "down")
-	if input.length() > 0.15:
-		change_direction(BaseCharacter.direction_from_input(input))
-		return Vector3(input.x, 0.0, input.y).normalized()
+	var active_camera := get_viewport().get_camera_3d()
+	if active_camera != null and active_camera.get_parent() is CameraRig:
+		return (active_camera.get_parent() as CameraRig).movement_vector(input)
+	return Vector3(input.x, 0.0, input.y)
+
+
+func face_movement(motion: Vector3) -> void:
+	if motion.length_squared() < 0.000001:
+		return
+	change_direction(BaseCharacter.direction_from_input(Vector2(motion.x, motion.z)))
+	_orbit_facing = Vector3(motion.x, 0.0, motion.z).normalized()
+	_apply_direction()
+
+
+func change_direction(new_direction: String) -> void:
+	super.change_direction(new_direction)
+	_orbit_facing = Vector3.MODEL_FRONT.rotated(Vector3.UP, DIRECTION_YAW[new_direction])
+
+
+func forward() -> Vector3:
+	return _orbit_facing
+
+
+func _apply_direction() -> void:
+	$Direction.rotation.y = atan2(_orbit_facing.x, _orbit_facing.z)
+
+
+# Keep combat direction in world space; choose billboard sprite frames in view space.
+func _view_direction() -> String:
+	var active_camera := get_viewport().get_camera_3d()
+	if active_camera == null or not active_camera.get_parent() is CameraRig:
+		return direction
+	var rig := active_camera.get_parent() as CameraRig
+	var facing_in_view := _orbit_facing.rotated(Vector3.UP, -rig.yaw)
+	return BaseCharacter.direction_from_input(Vector2(facing_in_view.x, facing_in_view.z))
+
+
+func get_animation_name() -> String:
+	if current_animation == null:
+		return ""
+	if current_animation in NON_DIRECTIONAL_ANIMATIONS:
+		return current_animation
+	return "%s_%s" % [current_animation, _view_direction()]
+
+
+func _check_changed_animation() -> void:
+	var view_direction := _view_direction()
+	var changed_view := view_direction != _last_view_direction
+	var preserve_phase: bool = changed_view and _next_animation == current_animation and anim_player.is_playing()
+	var playback_position: float = anim_player.current_animation_position if preserve_phase else 0.0
+	if changed_view:
+		_played_direction = ""
+		_last_view_direction = view_direction
+	super._check_changed_animation()
+	# Orbiting across sprite quadrants must not restart an attack/jump animation.
+	if preserve_phase and anim_player.is_playing():
+		anim_player.seek(minf(playback_position, anim_player.current_animation_length), true)
+
+
+func get_skill_aim_direction() -> Vector3:
+	if not _cast_aim_point_valid:
+		_refresh_skill_aim_point()
+	var toward_target := _skill_aim_point - global_position
+	toward_target.y = 0.0
+	var camera := get_viewport().get_camera_3d()
+	if camera != null:
+		var view_forward := -camera.global_basis.z
+		view_forward.y = 0.0
+		# A floor hit between camera and Player must not turn a ground skill backward.
+		if toward_target.dot(view_forward) <= 0.0:
+			toward_target = view_forward
+	if toward_target.length_squared() > 0.01:
+		face_movement(toward_target)
+		return toward_target.normalized()
 	return forward().normalized()
+
+
+func get_projectile_aim_direction(spawn_position: Vector3) -> Vector3:
+	if not _cast_aim_point_valid:
+		_refresh_skill_aim_point()
+	var toward_target := _skill_aim_point - spawn_position
+	if toward_target.length_squared() > 0.25:
+		return toward_target.normalized()
+	return get_skill_aim_direction()
 
 
 func skill_effect_position(aim: Vector3, distance: float = 0.9, height: float = 0.65) -> Vector3:
@@ -413,7 +603,7 @@ func cast_active_skill(active_id: String) -> bool:
 			var gale_rank := int(GameManager.skill_allocations.get("evo_wind_gale", 0))
 			var dash_reach := 2.5 + 0.5 * float(gale_rank)
 			BattleFX.play_pvfx(self, "wind/wind-blade", skill_effect_position(aim, 1.25, 0.55), 1.6 + 0.18 * float(gale_rank), Color("d2fff9"), aim)
-			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.5), "wind", aim, 0.8 + 0.16 * float(gale_rank))
+			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.7), "wind", aim, 0.8 + 0.16 * float(gale_rank))
 			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, roundi(float(damage * 2) * (1.0 + 0.5 * float(gale_rank))))
 			global_position += aim * (1.5 + 0.5 * float(gale_rank))
 		"active_wind_4":
@@ -691,6 +881,7 @@ func _on_ultimate_cinematic_aborted() -> void:
 
 
 func begin_ultimate_cinematic_pose() -> Dictionary:
+	_cancel_skill_aim()
 	var saved_pose := {
 		"direction": direction,
 		"next_direction": _next_direction,
@@ -707,6 +898,7 @@ func begin_ultimate_cinematic_pose() -> Dictionary:
 	if anim_player.has_animation("idle_down"):
 		anim_player.play("idle_down")
 		anim_player.seek(0.0, true)
+	_place_ultimate_blade_behind()
 	return saved_pose
 
 
@@ -729,6 +921,21 @@ func restore_ultimate_cinematic_pose(saved_pose: Dictionary) -> void:
 			anim_player.stop()
 		sprite.frame = int(saved_pose.get("sprite_frame", sprite.frame))
 		sprite.flip_h = bool(saved_pose.get("sprite_flip_h", sprite.flip_h))
+	$Direction/Blade.clear_temporary_position()
+
+
+func _place_ultimate_blade_behind() -> void:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return
+	var away_from_camera := -camera.global_basis.z
+	away_from_camera.y = 0.0
+	if away_from_camera.length_squared() < 0.01:
+		return
+	var side := camera.global_basis.x
+	side.y = 0.0
+	var target := global_position + Vector3.UP * 1.05 + away_from_camera.normalized() * 1.1 + side.normalized() * 0.2
+	$Direction/Blade.set_temporary_position($Direction.to_local(target))
 
 
 func cast_ultimate(skill_id_override: String = "") -> bool:
@@ -759,12 +966,12 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		for angle_index in 8:
 			var angle := TAU * float(angle_index) / 8.0
 			var radial := Vector3(cos(angle), 0.0, sin(angle))
-			BattleFX.slash(self, global_position + Vector3.UP * 0.55 + radial * 3.5, "wind", radial, 1.1)
+			BattleFX.slash(self, global_position + Vector3.UP * 0.75 + radial * 3.5, "wind", radial, 1.1)
 	elif skill_id == "ultimate_fire_1":
 		_apply_timed_buff(2, 0.0, 5.0)
 		BattleFX.ultimate_impact(self, "fire/fire-pillar", global_position + Vector3.UP * 0.45, 3.8, Color("fff5e4"))
 		BattleFX.ultimate_impact(self, "explosions/fire-nova", vfx_position, 5.8, Color("fff3df"))
-		BattleFX.slash(self, skill_effect_position(aim, 0.65, 0.6), "fire", aim, 0.8)
+		BattleFX.slash(self, skill_effect_position(aim, 0.65, 0.8), "fire", aim, 0.8)
 	elif skill_id == "ultimate_fire_2":
 		BattleFX.charge(self, global_position + Vector3.UP * 3.5, "fire", 2.2)
 		BattleFX.ultimate_impact(self, "fire/meteor-strike", global_position + Vector3.UP * 0.2, 7.2, Color("fff4e4"), aim)
@@ -803,7 +1010,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 			BattleFX.ultimate_impact(self, "lightning/lightning-strike", lightning_target_global.global_position + Vector3.UP * 0.35, 3.5, Color("f4fdff"))
 	else:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
-		BattleFX.slash(self, vfx_position, "ice", aim, 1.1)
+		BattleFX.slash(self, vfx_position + Vector3.UP * 0.2, "ice", aim, 1.1)
 	if skill_id == "ultimate_fire_2":
 		health = maxi(1, health - int(ceil(health * 0.5)))
 	if skill_id == "ultimate_wind_1":
@@ -882,6 +1089,8 @@ func _update_ultimate_neon_frame_region() -> void:
 
 
 func _finish_ultimate_presentation() -> void:
+	if is_instance_valid($Direction/Blade):
+		$Direction/Blade.clear_temporary_position()
 	_ultimate_visual_elapsed = 0.0
 	_ultimate_visual_remaining = 0.0
 	if _ultimate_neon_material != null:
@@ -1004,7 +1213,7 @@ func _wind_ultimate_tangent(angle: float) -> Vector3:
 func _apply_wind_ultimate_pulse(tangent: Vector3) -> void:
 	var damage := maxi(1, attack_damage)
 	BattleFX.ultimate_impact(self, "wind/wind-blade", global_position + Vector3.UP * 0.62, 2.8, Color("c6fff5"), tangent)
-	BattleFX.slash(self, global_position + Vector3.UP * 0.62, "wind", tangent, 0.95)
+	BattleFX.slash(self, global_position + Vector3.UP * 0.82, "wind", tangent, 0.95)
 	_damage_enemies_in_shape(global_position, tangent, "circle", WIND_ULTIMATE_DAMAGE_RADIUS, 0.0, 360.0, damage, 0.0, WIND_ULTIMATE_SLOW_DURATION)
 
 
