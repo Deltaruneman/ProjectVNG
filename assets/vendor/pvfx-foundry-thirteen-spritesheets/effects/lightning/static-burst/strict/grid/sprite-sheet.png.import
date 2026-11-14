@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4cg3d2d522nw"
-path="res://.godot/imported/sprite-sheet.png-0680fee611195f3163e754f956bf275f.ctex"
+path="res://.godot/imported/sprite-sheet.png-88755026d40d6461de8c935011758185.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/lightning/static-burst/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-0680fee611195f3163e754f956bf275f.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-88755026d40d6461de8c935011758185.ctex"]
 
 [params]
 

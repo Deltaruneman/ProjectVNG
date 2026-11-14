@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2mqtk7pt4xa"
-path="res://.godot/imported/sprite-sheet.png-d679cbf7bc71bee3b95b5b4fa0eec999.ctex"
+path="res://.godot/imported/sprite-sheet.png-b029c079a9c6e6fee7c87b431451c780.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/nature/bloom-heal/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-d679cbf7bc71bee3b95b5b4fa0eec999.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-b029c079a9c6e6fee7c87b431451c780.ctex"]
 
 [params]
 

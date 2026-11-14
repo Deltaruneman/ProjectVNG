@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://msxqd4xreck5"
-path="res://.godot/imported/sprite-sheet.png-ee292d9ac9a4241e82c00d3d83929faf.ctex"
+path="res://.godot/imported/sprite-sheet.png-fe2a7a242eb01d3e0bf89172803257f0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/lightning/ball-lightning/lit/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-ee292d9ac9a4241e82c00d3d83929faf.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-fe2a7a242eb01d3e0bf89172803257f0.ctex"]
 
 [params]
 

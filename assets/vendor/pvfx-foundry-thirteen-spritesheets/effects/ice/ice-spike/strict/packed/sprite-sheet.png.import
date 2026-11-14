@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://p56xojy2at2l"
-path="res://.godot/imported/sprite-sheet.png-ade809ad2d12389abce66708c35d8751.ctex"
+path="res://.godot/imported/sprite-sheet.png-240906bc200914b40e79fc82b3527b19.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/ice/ice-spike/strict/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-ade809ad2d12389abce66708c35d8751.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-240906bc200914b40e79fc82b3527b19.ctex"]
 
 [params]
 

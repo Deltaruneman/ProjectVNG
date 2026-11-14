@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c84h7xiyxbbie"
-path="res://.godot/imported/sprite-sheet.png-d08a04004398169a4d31db15c860fc64.ctex"
+path="res://.godot/imported/sprite-sheet.png-4656358e9cbae35557fb313cef21adf9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/nature/acid-spit/strict/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-d08a04004398169a4d31db15c860fc64.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-4656358e9cbae35557fb313cef21adf9.ctex"]
 
 [params]
 

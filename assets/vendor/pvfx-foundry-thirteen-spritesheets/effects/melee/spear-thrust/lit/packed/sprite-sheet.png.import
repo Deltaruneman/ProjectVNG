@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxbwk6vxjwlmw"
-path="res://.godot/imported/sprite-sheet.png-868b9ca186de80c008660dadf105e028.ctex"
+path="res://.godot/imported/sprite-sheet.png-47d03feeabdcb7dfa0e7e340f618c4e3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/melee/spear-thrust/lit/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-868b9ca186de80c008660dadf105e028.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-47d03feeabdcb7dfa0e7e340f618c4e3.ctex"]
 
 [params]
 

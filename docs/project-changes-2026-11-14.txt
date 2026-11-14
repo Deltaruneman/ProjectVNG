@@ -15349,3 +15349,8 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 
 
+
+
+=== FOLLOW-UP — Fix duplicate Emberline global class ===
+
+Reported error: `Class "EmberEffect2D" hides a global script class.` The project contains the integrated runtime script at `assets/effects/emberline/effects/ember_effect.gd` and the same upstream source script under `assets/vendor/Emberline-Free-Six/emberline/effects/ember_effect.gd`; both declare the same global class. Added the empty `assets/vendor/Emberline-Free-Six/.gdignore` marker so Godot treats the vendored standalone source/demo package as non-project source, while the integrated runtime copy remains available. The vendor files are preserved on disk. This follows Godot project organization guidance for `.gdignore`; ignored resources cannot be loaded by `res://`, so the marker covers only the unused vendor source copy, not `assets/effects/emberline`. Static class/reference inspection performed; Godot editor rescan/reparse and runtime checks not run. Existing Godot error may remain in the current editor view until it rescans or reopens the project.

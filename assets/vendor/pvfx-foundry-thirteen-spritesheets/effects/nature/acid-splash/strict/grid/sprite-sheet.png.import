@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ce5s2ek4tqotq"
-path="res://.godot/imported/sprite-sheet.png-4b33748cc9149670104ef63b8b6477ae.ctex"
+path="res://.godot/imported/sprite-sheet.png-250a06ba4822b06f37c0d8ffc8d0330d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/nature/acid-splash/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-4b33748cc9149670104ef63b8b6477ae.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-250a06ba4822b06f37c0d8ffc8d0330d.ctex"]
 
 [params]
 

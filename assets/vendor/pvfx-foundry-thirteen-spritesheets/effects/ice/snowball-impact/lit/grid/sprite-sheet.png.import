@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccat44pls5q87"
-path="res://.godot/imported/sprite-sheet.png-ef3b3704c0aa5d9e2f6e43a51c4beb07.ctex"
+path="res://.godot/imported/sprite-sheet.png-9d9c7cc180ef7d282107f526dfc1396d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/ice/snowball-impact/lit/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-ef3b3704c0aa5d9e2f6e43a51c4beb07.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-9d9c7cc180ef7d282107f526dfc1396d.ctex"]
 
 [params]
 

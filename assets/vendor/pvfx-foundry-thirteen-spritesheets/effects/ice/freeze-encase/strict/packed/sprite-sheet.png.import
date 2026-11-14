@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4l634wd8rmlk"
-path="res://.godot/imported/sprite-sheet.png-998194e6760b9f7f7322ca0886d7327e.ctex"
+path="res://.godot/imported/sprite-sheet.png-65a9300ee38880c029884060c30d75a9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/ice/freeze-encase/strict/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-998194e6760b9f7f7322ca0886d7327e.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-65a9300ee38880c029884060c30d75a9.ctex"]
 
 [params]
 

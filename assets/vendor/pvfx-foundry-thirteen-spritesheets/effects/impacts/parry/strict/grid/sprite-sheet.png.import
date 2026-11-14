@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2nxseiaod7yu"
-path="res://.godot/imported/sprite-sheet.png-d2eab75eec4c019a15b1ea20b99486b9.ctex"
+path="res://.godot/imported/sprite-sheet.png-ad17c2175b5add6dc094cd0dd95837b7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/impacts/parry/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-d2eab75eec4c019a15b1ea20b99486b9.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-ad17c2175b5add6dc094cd0dd95837b7.ctex"]
 
 [params]
 

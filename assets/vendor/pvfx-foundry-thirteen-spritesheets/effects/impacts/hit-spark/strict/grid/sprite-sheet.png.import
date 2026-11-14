@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e5e5sr45tbmy"
-path="res://.godot/imported/sprite-sheet.png-e661906d1bad7637c454e9b8f17ee896.ctex"
+path="res://.godot/imported/sprite-sheet.png-eab966ec5a1f940d3703cc751c3683f1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/impacts/hit-spark/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-e661906d1bad7637c454e9b8f17ee896.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-eab966ec5a1f940d3703cc751c3683f1.ctex"]
 
 [params]
 

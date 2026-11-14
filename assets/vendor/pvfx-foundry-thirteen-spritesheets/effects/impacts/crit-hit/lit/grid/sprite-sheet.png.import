@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1pgdbkecikyy"
-path="res://.godot/imported/sprite-sheet.png-25048df303420bd0557292bc97b62592.ctex"
+path="res://.godot/imported/sprite-sheet.png-f7b31205dfc3f3252352d2f8003c5a26.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/impacts/crit-hit/lit/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-25048df303420bd0557292bc97b62592.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-f7b31205dfc3f3252352d2f8003c5a26.ctex"]
 
 [params]
 

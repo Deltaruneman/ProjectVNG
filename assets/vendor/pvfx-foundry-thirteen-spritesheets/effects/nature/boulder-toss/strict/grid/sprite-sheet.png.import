@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5rfy4xfb64xk"
-path="res://.godot/imported/sprite-sheet.png-932908f25a65a06b7f51fa5b49591c53.ctex"
+path="res://.godot/imported/sprite-sheet.png-88a217bd4065d78404e8105b91579a71.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/nature/boulder-toss/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-932908f25a65a06b7f51fa5b49591c53.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-88a217bd4065d78404e8105b91579a71.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qli415g7xi3d"
-path="res://.godot/imported/sprite-sheet.png-a4ce22332da9fba8c7602b545fccb110.ctex"
+path="res://.godot/imported/sprite-sheet.png-2149baeea043dd4d39c3c0a73d30f022.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/holy/shield-bubble/strict/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-a4ce22332da9fba8c7602b545fccb110.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-2149baeea043dd4d39c3c0a73d30f022.ctex"]
 
 [params]
 

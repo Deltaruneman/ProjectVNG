@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wvtspg46uwhc"
-path="res://.godot/imported/sprite-sheet.png-85cf264d9445a4cf752c6703f8533f84.ctex"
+path="res://.godot/imported/sprite-sheet.png-4d11cc5480c851fd677cabcd6348dd06.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/melee/sword-combo/lit/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-85cf264d9445a4cf752c6703f8533f84.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-4d11cc5480c851fd677cabcd6348dd06.ctex"]
 
 [params]
 

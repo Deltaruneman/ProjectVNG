@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmr8i1i32c0pl"
-path="res://.godot/imported/sprite-sheet.png-ea637bd86ab3cf51e21b95647fc28420.ctex"
+path="res://.godot/imported/sprite-sheet.png-fe63a3c1d1c4cec4d9faa4418d69e3aa.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/ice/frost-nova/lit/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-ea637bd86ab3cf51e21b95647fc28420.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-fe63a3c1d1c4cec4d9faa4418d69e3aa.ctex"]
 
 [params]
 

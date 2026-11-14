@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh261rxugx4vm"
-path="res://.godot/imported/sprite-sheet.png-668425cc44bbaa8abdc60c44cca5ed3f.ctex"
+path="res://.godot/imported/sprite-sheet.png-c414f70d9336c40ffa07b8e1350e5400.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/impacts/rock-shatter/strict/packed/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-668425cc44bbaa8abdc60c44cca5ed3f.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-c414f70d9336c40ffa07b8e1350e5400.ctex"]
 
 [params]
 

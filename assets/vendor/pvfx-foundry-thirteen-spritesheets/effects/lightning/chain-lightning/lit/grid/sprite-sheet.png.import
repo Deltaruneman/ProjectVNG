@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfiv5jav3nyak"
-path="res://.godot/imported/sprite-sheet.png-61dedb1ef6b4bf4bf4a4f40882b30b41.ctex"
+path="res://.godot/imported/sprite-sheet.png-afe16d04a78590c0972a8c4e35af5640.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/lightning/chain-lightning/lit/grid/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-61dedb1ef6b4bf4bf4a4f40882b30b41.ctex"]
+dest_files=["res://.godot/imported/sprite-sheet.png-afe16d04a78590c0972a8c4e35af5640.ctex"]
 
 [params]
 
