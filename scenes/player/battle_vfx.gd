@@ -1,12 +1,12 @@
 class_name BattleVFX
 extends RefCounted
 
-const SLASH: PackedScene = preload("res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn")
-const SHIELD: PackedScene = preload("res://assets/effects/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn")
-const EMBER_SLASH: PackedScene = preload("res://emberline/effects/slash_arc.tscn")
-const EMBER_RING: PackedScene = preload("res://emberline/effects/impact_ring.tscn")
+const SLASH: PackedScene = preload("res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn")
+const SHIELD: PackedScene = preload("res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn")
+const EMBER_SLASH: PackedScene = preload("res://assets/effects/emberline/effects/slash_arc.tscn")
+const EMBER_RING: PackedScene = preload("res://assets/effects/emberline/effects/impact_ring.tscn")
 const PIXELFX_ROOT := "res://assets/effects/pixelfx/"
-const PVFX_ROOT := "res://assets/effects/pvfx-foundry-thirteen-spritesheets/effects/"
+const PVFX_ROOT := "res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/"
 const WORLD_VFX_ANCHOR = preload("res://scenes/player/world_vfx_anchor.gd")
 const ATTACK_FX_AXIS_OFFSET := -PI / 2.0
 const SKILL_VFX_SPEED_SCALE := 1.2

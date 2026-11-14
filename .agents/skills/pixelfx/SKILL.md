@@ -5,14 +5,14 @@ description: Find, create, tune, and export pixel-art visual effects for Project
 
 # Pixel VFX for ProjectVNG
 
-Use the library at `assets/effects/pixelfx-main/pixelfx-main/`. Its upstream skill is at
+Use the library at `assets/vendor/pixelfx-main/pixelfx-main/`. Its upstream skill is at
 `skills/pixelfx/SKILL.md`; use that for effect authoring details and consult `docs/CATALOG.md` and
 `docs/AUTHORING.md` as needed.
 
 ## Scope and exception
 
 - Use pixelfx for new or revised pixel-art VFX other than slash and the existing ice shield.
-- Preserve the current slash implementation: `effects/slash.tscn`, `effects/slash.gd`, and every existing
+- Preserve the current slash implementation: `assets/effects/slash/slash.tscn`, `assets/effects/slash/slash.gd`, and every existing
   slash sheet in `assets/effects/Spritesheets/`. Do not replace, regenerate, rename, or remove those files.
 - Preserve the current ice-shield scene and its cast ring through `BattleVFX.shield` and
   `BattleVFX.emberline_ring` in `scenes/player/battle_vfx.gd`.

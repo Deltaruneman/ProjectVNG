@@ -1,7 +1,7 @@
 extends PlayerState
 
-const SLASH_FX := preload("res://effects/slash.tscn")
-const SlashFX := preload("res://effects/slash.gd")
+const SLASH_FX := preload("res://assets/effects/slash/slash.tscn")
+const SlashFX := preload("res://assets/effects/slash/slash.gd")
 
 func _enter() -> void:
 	obj.change_animation("attack")

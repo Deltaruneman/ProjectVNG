@@ -71,7 +71,9 @@ levels/level_1/basement_full.tscn
 
 ```text
 .
-├── assets/                 # Sprite, model, mesh, shader và dữ liệu animation
+├── assets/                 # Runtime art, audio, effects, mesh và animation
+│   ├── vendor/             # Nguồn các gói bên thứ ba
+│   └── effects/            # Hiệu ứng tích hợp và sprite hiệu ứng
 ├── levels/                 # Các màn chơi
 ├── scenes/
 │   ├── player/             # Scene, animation và state của Foxy
@@ -104,7 +106,7 @@ và đăng ký node state trong scene nhân vật.
 
 - [Hướng dẫn animation chung](assets/sprites/ANIMATION_GUIDE.md)
 - [Animation của Pelican](assets/monsters/pelican/ANIMATION.md)
-- [Animation của King Crab](assets/sprites/boss/kingcrab/ANIMATION.md)
+
 - [Animation của Foxy](assets/foxy/fox_hat/README.md)
 
 ## Đóng góp

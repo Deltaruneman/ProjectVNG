@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const library = join(root, 'assets/effects/pixelfx-main/pixelfx-main');
+const library = join(root, 'assets/vendor/pixelfx-main/pixelfx-main');
 const palettes = {
   white: ['#161b26', '#343d50', '#626f85', '#9ba9be', '#c8d3e4', '#e6edf5', '#f7fbff', '#ffffff'],
   fire: ['#280c0a', '#671b10', '#ad3212', '#e95c18', '#ff9d32', '#ffd275', '#fff0b8', '#ffffff'],

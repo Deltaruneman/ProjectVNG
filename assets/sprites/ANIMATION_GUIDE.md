@@ -6,7 +6,7 @@ Tài liệu này giải thích cách đọc / cắt / phát animation cho **nhâ
 ## Hiệu ứng trong game
 
 Với hiệu ứng pixel ngoài slash và khiên băng, dùng skill [pixelfx](../../.agents/skills/pixelfx/SKILL.md) và thư viện tại
-`assets/effects/pixelfx-main/pixelfx-main/`. Tìm hiệu ứng có sẵn trong catalog trước; nếu cần asset chạy trong
+`assets/vendor/pixelfx-main/pixelfx-main/`. Tìm hiệu ứng có sẵn trong catalog trước; nếu cần asset chạy trong
 Godot, xuất sprite sheet từ thư viện rồi nhập sheet vào project. Không dùng hướng dẫn cắt animation nhân vật bên
 dưới để thay thế quy trình VFX này.
 
@@ -15,7 +15,6 @@ và hiệu ứng khiên băng trong `scenes/player/battle_vfx.gd`, cùng các sh
 `assets/effects/Spritesheets/`.
 
 > Một số nhân vật đóng gói khác hẳn (mỗi frame là 1 file PNG riêng, không có JSON) nên có tài liệu riêng:
-> * Boss King Crab → [`boss/kingcrab/ANIMATION.md`](boss/kingcrab/ANIMATION.md)
 > * Pelican → [`enemy/pelican/ANIMATION.md`](enemy/pelican/ANIMATION.md)
 
 ---
@@ -28,7 +27,7 @@ Trước khi code, **mở thư mục ra xem có file gì** — sẽ rơi vào 1 
 |---|---|---|---|
 | **A. Sheet + JSON** | có cặp `*_sheet.png` + `*_sheet.json` trùng tên | `enemy/crab/` | Đọc `meta.frameTags` trong JSON → có sẵn tên + khoảng frame |
 | **B. Sheet, không JSON** | chỉ có 1 file `*_sheet.png` | `enemy/mushroom/` | Tự chia lưới, tự đặt tên animation |
-| **C. Mỗi frame 1 file PNG** | nhiều PNG đánh số `..._01.png`, `..._1.png` | `boss/kingcrab/`, `enemy/pelican/`, `object/*` | Đọc theo quy ước tên file (mục 4) |
+| **C. Mỗi frame 1 file PNG** | nhiều PNG đánh số `..._01.png`, `..._1.png` | `enemy/pelican/`, `object/*` | Đọc theo quy ước tên file (mục 4) |
 
 Kiểu A là chuẩn nhất — **ưu tiên học kiểu A trước**, vì 2 kiểu còn lại chỉ là kiểu A bị thiếu metadata.
 
@@ -76,8 +75,6 @@ Mỗi tag là một animation hoàn chỉnh:
 
 Ví dụ `crab`: `walk` = frame 0, 1, 2 (3 frame) — `hit` = frame 3, 4 (2 frame).
 
-> **Nếu `frameTags` rỗng** (`war_lord_ulti`, `war_lord_walk`) → sheet đó chỉ có 1 animation duy nhất,
-> dùng toàn bộ frame từ 0 đến hết.
 
 ### 2.3. `duration` — tốc độ, tính bằng **mili-giây / frame**
 
@@ -107,8 +104,6 @@ Số hướng  =  frame.w / frame.h
 Bề rộng 1 ô (cell)  =  frame.h
 ```
 
-Kiểm chứng: `crab` 192 / 64 = **3 hướng**; `foxy` 256 / 64 = **4 cột**; `war_lord_walk` 384 / 128 = **3 hướng**;
-`war_lord_idle_atk` 128 / 128 = **1 hướng** (sheet này chỉ có 1 hướng nhìn nghiêng).
 
 **Quy ước cột dùng thống nhất trong cả project:**
 
@@ -117,7 +112,6 @@ Kiểm chứng: `crab` 192 / 64 = **3 hướng**; `foxy` 256 / 64 = **4 cột**;
 | 0 | **xuống** (down) — quay mặt về phía camera | |
 | 1 | **ngang** (side) — quay **sang TRÁI** | |
 | 2 | **lên** (up) — quay lưng lại | |
-| 3 | **ngang — quay sang PHẢI** | Chỉ `war_lord_defeat_sheet` có. Ở `foxy_*` cột 3 **trống hoàn toàn** (chừa chỗ, chưa dùng). |
 
 → Muốn nhân vật quay **sang phải**: lấy **cột 1** rồi **lật ngang** (`flipX` / `scale.x = -1`),
 trừ khi sheet có sẵn cột 3.
@@ -181,7 +175,6 @@ Không có metadata nào cả, **tên file chính là metadata**. Quy ước:
 > ### ⚠ Kiểu C chỉ có MỘT hướng, và hướng đó là **PHẢI**
 > Khác với kiểu A (sheet có sẵn 3-4 cột hướng, cột nghiêng quay **trái** — xem mục 2.4), asset kiểu C
 > chỉ được vẽ **một hướng duy nhất**, và trong project này là **quay/tấn công sang PHẢI**:
-> King Crab vươn càng và lăn sang phải, Pelican có mỏ hướng sang phải.
 > → Muốn quay sang trái thì **lật ngang** (`flipX` / `scale.x = -1`).
 >
 > Nghĩa là code lật hướng của 2 kiểu là **ngược nhau** — đừng dùng chung một hàm mà không kiểm tra.
@@ -225,24 +218,18 @@ Ví dụ đọc thực tế:
 | `enemy/native` | 192×832 | 192×64 | 64 | 3 | `walk` 0-3 · `hit` 4-6 · `atk` 7-10 · `suprise` 11-12 |
 | `enemy/starfish` | 192×768 | 192×64 | 64 | 3 | `walk` 0-3 · `atk` 4-9 · `hit` 10-11 |
 | `enemy/turtle` | 192×448 | 192×64 | 64 | 3 | `def` 0-4 · `walk` 5-6 |
-| `boss/warlord/war_lord_walk` | 384×1024 | 384×128 | 128 | 3 | *(không tag)* — dùng cả 8 frame |
-| `boss/warlord/war_lord_idle_atk` | 640×256 | 128×128 | 128 | 1 | `idle` 0-3 · `atk` 4-9 |
-| `boss/warlord/war_lord_ulti` | 512×256 | 128×128 | 128 | 1 | *(không tag)* — dùng cả 8 frame |
 | `object/stone/rock_01` | 256×128 | 32×32 | 32 | 1 | `down` 0-15 · `left` 16-31 |
 
 Ghi chú:
 * `aquaman` và `turtle` có thêm tag `Loop` **trùng khoảng frame với `walk`** — dùng `walk`, bỏ qua `Loop`.
 * `native` ghi `suprise` (thiếu chữ `r` so với "surprise") — cứ dùng đúng tên trong file.
-* `war_lord_idle_atk` và `war_lord_ulti` chỉ vẽ **1 hướng nhìn nghiêng** — lật ngang để đổi trái/phải.
 
 ### 5.2. Cần xử lý thủ công
 
 | Asset | Vấn đề | Cách làm |
 |---|---|---|
-| `boss/warlord/war_lord_defeat_sheet` | JSON khai **1 frame duy nhất 512×1024** = cả tấm ảnh → **JSON không dùng được** | Tự chia lưới **128×128** → **4 cột × 8 hàng** = 8 frame × 4 hướng. Cột: 0=xuống, 1=trái, 2=lên, 3=phải |
 | `enemy/mushroom` | không có JSON | Lưới 48×48 → 3 cột × 6 hàng |
 | `player/foxy_hat_*` | không có JSON | Dùng JSON của `foxy_*` tương ứng (mục 3) |
-| `boss/kingcrab` | 32 file PNG rời, không JSON | → [`boss/kingcrab/ANIMATION.md`](boss/kingcrab/ANIMATION.md) |
 | `enemy/pelican` | 7 file PNG rời + 1 file đạn, không JSON | → [`enemy/pelican/ANIMATION.md`](enemy/pelican/ANIMATION.md) |
 
 ---
