@@ -7,7 +7,7 @@ const OPEN_TEXTURE := preload("res://assets/sprites/object/chest/chest_gold_open
 
 
 func _ready() -> void:
-	if GameManager.collected_skill_points.has(REWARD_ID):
+	if GameManager.collected_exp_points.has(REWARD_ID):
 		_show_open()
 	else:
 		_interaction.interacted.connect(_open, CONNECT_ONE_SHOT)

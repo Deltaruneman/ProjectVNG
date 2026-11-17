@@ -23,7 +23,7 @@ const CONNECTOR_DEFINITIONS := [
 	{"path": NodePath("B2/LadderSpot_B2_B3"), "from": 1, "to": 2},
 	{"path": NodePath("B3/LadderSpot_B3_Ground"), "from": 2, "to": 3},
 ]
-const B1_CHEST := preload("res://levels/objects/skill_point/floor_clear_chest.tscn")
+const B1_CHEST := preload("res://levels/objects/experience_point/floor_clear_chest.tscn")
 
 var _floors: Array[Node3D] = []
 var _ceilings: Array[Node3D] = []

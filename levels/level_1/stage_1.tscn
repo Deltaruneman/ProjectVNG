@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dse428mal7ix5" path="res://scenes/enemies/darkfairy/darkfairy.tscn" id="17_d7x21"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="17_md6n3"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="18_d7x21"]
-[ext_resource type="PackedScene" uid="uid://ctycafrbacr3c" path="res://levels/objects/skill_point/skill_point.tscn" id="19_skill_point"]
+[ext_resource type="PackedScene" uid="uid://ctycafrbacr3c" path="res://levels/objects/experience_point/exp_point.tscn" id="19_exp_point"]
 
 [sub_resource type="Environment" id="Environment_1fr5c"]
 ambient_light_source = 3
@@ -86,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.2, 13)
 [node name="Player" parent="." unique_id=1010956037 instance=ExtResource("11_h1rxi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.2, 27)
 
-[node name="SkillPoint" parent="." unique_id=122737221 instance=ExtResource("19_skill_point")]
+[node name="ExpPoint" parent="." unique_id=122737221 instance=ExtResource("19_exp_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1.2, 27)
 pickup_id = "stage_1_intro"
 
@@ -124,16 +124,16 @@ unlock_flag = "gate"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, 27)
 id = "village"
 
-[node name="SkillPoint2" parent="." unique_id=1283228231 instance=ExtResource("19_skill_point")]
+[node name="ExpPoint2" parent="." unique_id=1283228231 instance=ExtResource("19_exp_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.174316, 1, 20.244322)
 
-[node name="SkillPoint3" parent="." unique_id=1617762698 instance=ExtResource("19_skill_point")]
+[node name="ExpPoint3" parent="." unique_id=1617762698 instance=ExtResource("19_exp_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.174316, 1, 27.30526)
 
-[node name="SkillPoint4" parent="." unique_id=1889259186 instance=ExtResource("19_skill_point")]
+[node name="ExpPoint4" parent="." unique_id=1889259186 instance=ExtResource("19_exp_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 27.30526)
 
-[node name="SkillPoint5" parent="." unique_id=1128670338 instance=ExtResource("19_skill_point")]
+[node name="ExpPoint5" parent="." unique_id=1128670338 instance=ExtResource("19_exp_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.084503, 1, 11.1929455)
 
 [node name="DarkFairy" parent="." unique_id=1833670814 instance=ExtResource("17_d7x21")]
