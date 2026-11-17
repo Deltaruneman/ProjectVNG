@@ -596,7 +596,7 @@ func _build_weapon_tree() -> void:
 		var ultimate_milestones := "5 / 8 SP"
 		if current_form == "wind":
 			ultimate_milestones = "5 / 10 SP"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Chiêu tốn 1 / 2 / 3 / 4 SP; tuyệt kỹ 4 / 5 SP. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
 	var root_color := Color("e5d08d")
@@ -610,11 +610,11 @@ func _build_weapon_tree() -> void:
 			var form_id: String = str(form_data["id"])
 			var form_color: Color = form_data["color"]
 			var already_chosen := int(GameManager.skill_allocations.get("form_" + form_id, 0)) > 0
-			var can_choose := GameManager.skill_points > 0 and not already_chosen
+			var can_choose := GameManager.can_purchase_skill("form_" + form_id)
 			graph.add_link(root_position, position, form_color.darkened(0.15), already_chosen)
 			var form_callback := func() -> void:
 				GameManager.spend_skill_point("form_" + form_id, form_id)
-			var form_tooltip := "%s\nChọn nguyên tố này để mở cây kỹ năng tương ứng." % str(form_data["name"])
+			var form_tooltip := "%s\nChọn nguyên tố này để mở cây kỹ năng tương ứng. Tốn 1 SP." % str(form_data["name"])
 			_make_node(graph, position, form_id.substr(0, 1).to_upper(), str(form_data["short"]), "0/1", form_color, can_choose, already_chosen, false, form_tooltip, form_callback, _skill_icon_path(form_id + "_orb"), true, "CHỌN NGUYÊN TỐ")
 		return
 
@@ -663,24 +663,25 @@ func _build_weapon_tree() -> void:
 
 func _add_evolution_node(graph: SkillTreeGraph, position: Vector2, data: Dictionary, color: Color) -> void:
 	var rank := int(GameManager.skill_allocations.get(data.id, 0))
-	var prerequisite_unlocked: bool = GameManager.unlocked_skills.has(data.requires)
-	var can_buy := rank == 0 and prerequisite_unlocked and GameManager.skill_points > 0 and GameManager.total_skill_points() >= int(data.req)
-	var tooltip := "%s\n%s\nCần mở kỹ năng nhánh · Mốc %d SP · Tốn 1 SP" % [data.name, data.desc, data.req]
+	var cost := GameManager.skill_point_cost(str(data.id))
+	var can_buy := GameManager.can_purchase_skill(str(data.id))
+	var tooltip := "%s\n%s\nCần mở kỹ năng nhánh · Mốc %d SP · Tốn %d SP" % [data.name, data.desc, data.req, cost]
 	if rank > 0:
 		tooltip = "%s\n%s\nĐã tiến hóa" % [data.name, data.desc]
 	var purchase_callback := func() -> void:
 		GameManager.spend_skill_point(str(data.id))
-	_make_node(graph, position, str(data.icon), str(data.short), "1/1" if rank > 0 else "%d SP" % int(data.req), color.lightened(0.12), can_buy, rank > 0, false, tooltip, purchase_callback, _skill_icon_path(str(data.icon_asset)), false, "TIẾN HÓA")
+	_make_node(graph, position, str(data.icon), str(data.short), "1/1" if rank > 0 else "%d SP" % cost, color.lightened(0.12), can_buy, rank > 0, false, tooltip, purchase_callback, _skill_icon_path(str(data.icon_asset)), false, "TIẾN HÓA")
 
 
 func _add_skill_node(graph: SkillTreeGraph, position: Vector2, skill_id: String, skill_name: String, short_name: String, icon: String, requirement: int, description: String, ultimate: bool, color: Color) -> void:
 	var unlocked: bool = GameManager.unlocked_skills.has(skill_id)
-	var can_buy := (unlocked and ultimate) or (not unlocked and GameManager.skill_points > 0 and GameManager.total_skill_points() >= requirement)
-	var rank_text := "1/1" if unlocked else "%d SP" % requirement
+	var cost := GameManager.skill_point_cost(skill_id)
+	var can_buy := (unlocked and ultimate) or GameManager.can_purchase_skill(skill_id)
+	var rank_text := "1/1" if unlocked else "%d SP" % cost
 	var is_selected := ultimate and skill_id == GameManager.selected_ultimate_skill
 	if is_selected:
 		rank_text = "ĐANG DÙNG"
-	var tooltip := "%s\n%s\n%s" % [skill_name, description, "Đã mở khóa" if unlocked else "Mốc %d điểm · Tốn 1 SP" % requirement]
+	var tooltip := "%s\n%s\n%s" % [skill_name, description, "Đã mở khóa" if unlocked else "Mốc %d điểm · Tốn %d SP" % [requirement, cost]]
 	var skill_callback := func() -> void:
 		if unlocked and ultimate:
 			GameManager.select_ultimate_skill(skill_id)
@@ -694,7 +695,7 @@ func _add_skill_node(graph: SkillTreeGraph, position: Vector2, skill_id: String,
 
 func _build_character_tree() -> void:
 	_description_title.text = "CÂY NHÂN VẬT"
-	_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn kỹ năng rồi xác nhận bên trái."
+	_description_body.text = "Mỗi cấp nhận 3 SP. Bậc nâng cấp cao tốn nhiều SP hơn. Rê chuột xem giá; chọn rồi xác nhận bên trái."
 	var branch_header := HBoxContainer.new()
 	for data in [
 		{"name": "TẤN CÔNG", "color": Color("ff9c73")},
@@ -726,11 +727,12 @@ func _build_character_tree() -> void:
 				graph.add_link(Vector2(columns[column], [0.16, 0.5, 0.84][row - 1]), position, node_data.color.darkened(0.3))
 			var rank := int(GameManager.skill_allocations.get(node_data.id, 0))
 			var required := int(node_data.req)
-			var can_buy := GameManager.skill_points > 0 and GameManager.total_skill_points() >= required and rank < int(node_data.max)
-			var tooltip := "%s\n%s\nNhánh %s · Mốc %d điểm" % [node_data.name, node_data.desc, node_data.branch, required]
+			var cost := GameManager.skill_point_cost(str(node_data.id))
+			var can_buy := GameManager.can_purchase_skill(str(node_data.id))
+			var tooltip := "%s\n%s\nNhánh %s · Mốc %d điểm · %s" % [node_data.name, node_data.desc, node_data.branch, required, "Đã tối đa" if rank >= int(node_data.max) else "Tốn %d SP" % cost]
 			var upgrade_callback := func() -> void:
 				GameManager.spend_skill_point(str(node_data.id))
-			_make_node(graph, position, str(node_data.icon), str(node_data.short), "%d/%d" % [rank, node_data.max], node_data.color, can_buy, rank > 0, false, tooltip, upgrade_callback, "", false, "NÂNG CẤP")
+			_make_node(graph, position, str(node_data.icon), str(node_data.short), ("%d/%d" % [rank, node_data.max]) + (" · %d SP" % cost if rank < int(node_data.max) else ""), node_data.color, can_buy, rank > 0, false, tooltip, upgrade_callback, "", false, "NÂNG CẤP")
 
 
 func _make_node(graph: SkillTreeGraph, position: Vector2, icon: String, title: String, rank: String, accent: Color, available: bool, purchased: bool, selected: bool, tooltip: String, callback: Callable = Callable(), icon_path: String = "", prominent_icon: bool = false, action_label: String = "HỌC KỸ NĂNG") -> SkillTreeNode:

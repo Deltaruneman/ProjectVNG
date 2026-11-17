@@ -911,3 +911,9 @@ See project-audit-validation.md T087 for raw evidence, commands and engine/isola
 Implementation/runtime subset verified; checkbox stays open for native editor/mouse feel,
 live boss interference and independent Quan/Bao/Duy review (NOT RUN, no agreement claimed).
 No setup/generator, branch change, commit/push; T086 and incoming geometry/library preserved.
+
+## User-authorized EXP progression — 2026-11-17
+
+Scoped tasks, approved balance and ownership/review boundaries: `docs/exp-progression-2026-11-17.md`. This Player progression request does not complete unrelated basement tasks.
+
+EXP outcome: scoped implementation complete; focused headless/rendered 48/48 each and actual stage persistence 20/20 pass. Existing B3 walking suite remains failed/incomplete at B2 door; review and manual campaign pacing pending. Exact files/evidence/limitations are cumulative in the project-changes record and EXP scope document.

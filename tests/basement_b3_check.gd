@@ -97,9 +97,10 @@ func bytes() -> String:
 func preserved(label: String) -> void:
 	var data := SaveSystem.load_data()
 	check(data.get("sentinel") == sentinel, "unknown nested payload " + label)
-	check(int(data.get("skill_points", -1)) == 10 and GameManager.skill_points == 10, "SP preserved " + label)
+	check(int(data.get("exp_points", -1)) == 7 and GameManager.exp_points == 7, "legacy SP preserved; mob rewards now give EXP " + label)
+	check(int(data.get("experience", -1)) == 60 and GameManager.experience == 60 and GameManager.player_level == 1, "three mob rewards and EXP persist " + label)
 	check(data.flags.get("unrelated", false) and data.flags.get("b2_cleared", false), "clear/unrelated flags " + label)
-	check(data.skill_allocations == JSON.parse_string('{"char_attack":1}') and data.collected_skill_points.has("fixture:0"), "allocations/collected IDs " + label)
+	check(data.skill_allocations == JSON.parse_string('{"char_attack":1}') and data.collected_exp_points.has("fixture:0"), "allocations/collected IDs " + label)
 
 func supported(label: String, point: Marker3D, floor_path: String) -> void:
 	var q := PhysicsRayQueryParameters3D.create(point.global_position + Vector3.UP * 0.5, point.global_position - Vector3.UP, 1)
@@ -163,7 +164,7 @@ func run() -> void:
 		await compatibility()
 		return
 	SaveSystem.save_path = "user://t087-flow.json"
-	SaveSystem.save_data({"stage":FULL,"checkpoint":"b2_start","sentinel":{"inventory":["herb",7],"nested":{"keep":true}},"flags":{"unrelated":true},"skill_points":7,"skill_allocations":{"char_attack":1},"collected_skill_points":["fixture:0"]})
+	SaveSystem.save_data({"stage":FULL,"checkpoint":"b2_start","sentinel":{"inventory":["herb",7],"nested":{"keep":true}},"flags":{"unrelated":true},"exp_points":7,"skill_allocations":{"char_attack":1},"collected_exp_points":["fixture:0"]})
 	sentinel = SaveSystem.load_data().sentinel
 	GameManager.reset()
 	GameManager.load_game()
@@ -192,7 +193,7 @@ func run() -> void:
 		await ticks(150)
 	check(zone.is_cleared() and GameManager.is_door_unlocked("b2_cleared"), "actual three defeats persist B2 clear")
 	for area in stage.find_children("*", "Area3D", true, false):
-		if area is SkillPointPickup: area._on_area_entered(player.get_node("Direction/HurtArea3D"))
+		if area is ExpPointPickup: area._on_area_entered(player.get_node("Direction/HurtArea3D"))
 	await ticks(3)
 	preserved("B2-clear")
 	var saved := bytes()
@@ -269,7 +270,7 @@ func compatibility() -> void:
 	for data: Dictionary in cases:
 		data["flags"] = {"b2_cleared":not data.get("no_clear",false),"unrelated":true}
 		data["sentinel"] = {"keep":[1,"untouched"]}
-		data["skill_points"] = 13
+		data["exp_points"] = 13
 		SaveSystem.save_data(data)
 		var saved := bytes()
 		GameManager.reset()
@@ -286,7 +287,7 @@ func compatibility() -> void:
 		GameManager.respawn()
 		await ticks(5)
 		check(bytes() == saved and registrations == before and not GameManager.is_changing(), "unsupported save/death leaves disk and scene unchanged " + data.name)
-		check(GameManager.skill_points == 13 and GameManager.flags.get("unrelated",false), "unsupported payload remains loaded " + data.name)
+		check(GameManager.exp_points == 13 and GameManager.flags.get("unrelated",false), "unsupported payload remains loaded " + data.name)
 		if data.name == "old-path":
 			# Explicit scene entry is allowed for testing; it must not silently stamp old progress.
 			get_tree().change_scene_to_file(B3)
@@ -297,7 +298,7 @@ func compatibility() -> void:
 			await tap(KEY_F)
 			check(bytes() == saved and not GameManager.has_supported_b3_checkpoint() and not point.get_node("ActivationFeedback").visible, "F does not migrate unsupported old B3")
 	for reference: String in [B3,"uid://d12u1s460ag67"]:
-		var data := {"stage":reference,"checkpoint":"b3_start","basement_checkpoint_contract":"explicit_b3_v1","flags":{"b2_cleared":true},"skill_points":13,"arbitrary_saved_rank":999}
+		var data := {"stage":reference,"checkpoint":"b3_start","basement_checkpoint_contract":"explicit_b3_v1","flags":{"b2_cleared":true},"exp_points":13,"arbitrary_saved_rank":999}
 		SaveSystem.save_data(data)
 		var saved := bytes()
 		GameManager.reset()
@@ -309,6 +310,6 @@ func compatibility() -> void:
 		await get_tree().scene_changed
 		await wait_transition(before,B3)
 		await supported("new-b3-compat",stage.get_node("B3/Checkpoint_b3/Spawn"),"B3/World/Floor")
-		check(bytes() == saved and GameManager.skill_points == 13, "marked B3 startup preserves disk bytes/SP")
+		check(bytes() == saved and GameManager.exp_points == 13, "marked B3 startup preserves disk bytes/SP")
 	print("B3_COMPATIBILITY_RESULT checks=",checks," failures=",failures)
 	get_tree().quit(1 if failures else 0)

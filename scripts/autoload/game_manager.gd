@@ -42,12 +42,17 @@ var flags: Dictionary = {}
 var player_health := -1
 ## Skill points live in one pool. Allocations are stored by node id so a free reset can return
 ## every spent point without changing the number earned from the world.
+const PROGRESSION := preload("res://scripts/skill_progression.gd")
+signal level_gained(level: int)
 signal skill_progress_changed
+var player_level := 1
+var experience := 0
+var skill_spending: Dictionary = {}
 var skill_points := 0
 var skill_allocations: Dictionary = {}
 var weapon_form := ""
 var unlocked_skills: Array[String] = []
-var collected_skill_points: Array[String] = []
+var collected_exp_points: Array[String] = []
 var selected_ultimate_skill := ""
 
 var _changing := false
@@ -284,47 +289,88 @@ func save_game() -> void:
 		merged_flags = payload["flags"].duplicate(true)
 	merged_flags.merge(flags, true)
 	payload["flags"] = merged_flags
+	payload["player_level"] = player_level
+	payload["experience"] = experience
+	payload["skill_spending"] = skill_spending
 	payload["skill_points"] = skill_points
 	payload["skill_allocations"] = skill_allocations
 	payload["weapon_form"] = weapon_form
 	payload["unlocked_skills"] = unlocked_skills
-	payload["collected_skill_points"] = collected_skill_points
+	payload["collected_exp_points"] = collected_exp_points
+	 payload.erase("collected_skill_points")
 	payload["selected_ultimate_skill"] = selected_ultimate_skill
 	SaveSystem.save_data(payload)
 	_loaded_payload = payload
 
 
-func award_skill_point(source_id: String = "") -> bool:
-	if source_id != "" and collected_skill_points.has(source_id):
+func exp_to_next_level() -> int:
+	return PROGRESSION.exp_to_next_level(player_level)
+
+
+func award_experience(amount: int, source_id: String = "") -> bool:
+	if amount <= 0 or (source_id != "" and collected_exp_points.has(source_id)):
 		return false
 	if source_id != "":
-		collected_skill_points.append(source_id)
-	skill_points += 1
+		collected_exp_points.append(source_id)
+	experience += amount
+	while experience >= exp_to_next_level():
+		experience -= exp_to_next_level()
+		player_level += 1
+		skill_points += PROGRESSION.SKILL_POINTS_PER_LEVEL
+		level_gained.emit(player_level)
 	skill_progress_changed.emit()
 	save_game()
 	return true
 
 
+# Compatibility adapter for existing enemy/chest reward integrations.
+func award_exp_point(source_id: String = "") -> bool:
+	return award_experience(PROGRESSION.EXP_PER_POINT, source_id)
+
+
 func reward_mini_boss(boss_id: String) -> bool:
-	return award_skill_point("mini_boss:%s" % boss_id)
+	return award_experience(PROGRESSION.EXP_PER_POINT, "mini_boss:%s" % boss_id)
 
 
 func reward_floor_clear(stage_id: String) -> bool:
-	return award_skill_point("floor_clear:%s" % stage_id)
+	return award_experience(PROGRESSION.EXP_PER_POINT, "floor_clear:%s" % stage_id)
 
 
 func reward_hidden_chest(chest_id: String) -> bool:
-	return award_skill_point("hidden_chest:%s" % chest_id)
+	return award_experience(PROGRESSION.EXP_PER_POINT, "hidden_chest:%s" % chest_id)
+
+
+func skill_point_cost(node_id: String) -> int:
+	var data := PROGRESSION.definition(node_id)
+	if data.is_empty():
+		return 0
+	return mini(5, int(data.cost) + (int(skill_allocations.get(node_id, 0)) if data.get("scaling", false) else 0))
+
+
+func can_purchase_skill(node_id: String) -> bool:
+	var data := PROGRESSION.definition(node_id)
+	if data.is_empty() or int(skill_allocations.get(node_id, 0)) >= int(data.max):
+		return false
+	if skill_points < skill_point_cost(node_id) or total_skill_points() < int(data.gate):
+		return false
+	if data.has("choose_form") and weapon_form != "":
+		return false
+	if data.has("form") and weapon_form != str(data.form):
+		return false
+	return not data.has("requires") or unlocked_skills.has(str(data.requires))
 
 
 func spend_skill_point(node_id: String, form: String = "") -> bool:
-	if skill_points <= 0:
+	if not can_purchase_skill(node_id):
 		return false
-	if form != "":
-		if weapon_form != "" and weapon_form != form:
-			return false
-		weapon_form = form
-	skill_points -= 1
+	var data := PROGRESSION.definition(node_id)
+	if form != "" and str(data.get("choose_form", "")) != form:
+		return false
+	var cost := skill_point_cost(node_id)
+	if data.has("choose_form"):
+		weapon_form = str(data.choose_form)
+	skill_points -= cost
+	skill_spending[node_id] = int(skill_spending.get(node_id, 0)) + cost
 	skill_allocations[node_id] = int(skill_allocations.get(node_id, 0)) + 1
 	if node_id.begins_with("active_") or node_id.begins_with("ultimate_"):
 		if not unlocked_skills.has(node_id):
@@ -344,9 +390,9 @@ func select_ultimate_skill(skill_id: String) -> bool:
 
 
 func reset_skill_tree() -> void:
-	for rank: Variant in skill_allocations.values():
-		skill_points += int(rank)
+	skill_points += allocated_skill_points()
 	skill_allocations.clear()
+	skill_spending.clear()
 	weapon_form = ""
 	unlocked_skills.clear()
 	selected_ultimate_skill = ""
@@ -356,8 +402,8 @@ func reset_skill_tree() -> void:
 
 func allocated_skill_points() -> int:
 	var total := 0
-	for rank: Variant in skill_allocations.values():
-		total += int(rank)
+	for node_id: Variant in skill_allocations:
+		total += int(skill_spending.get(node_id, skill_allocations[node_id]))
 	return total
 
 
@@ -374,9 +420,17 @@ func load_game() -> void:
 	checkpoint_stage = str(data.get("stage", ""))
 	checkpoint_id = str(data.get("checkpoint", ""))
 	var saved_flags: Variant = data.get("flags", {})
+	player_level = maxi(1, int(data.get("player_level", 1)))
+	experience = maxi(0, int(data.get("experience", 0)))
+	var saved_spending: Variant = data.get("skill_spending", {})
+	skill_spending = saved_spending.duplicate(true) if saved_spending is Dictionary else {}
 	skill_points = maxi(0, int(data.get("skill_points", 0)))
 	var saved_allocations: Variant = data.get("skill_allocations", {})
-	skill_allocations = saved_allocations if saved_allocations is Dictionary else {}
+	skill_allocations = saved_allocations.duplicate(true) if saved_allocations is Dictionary else {}
+	# Legacy purchases cost one SP per rank. Preserve that basis for future refunds.
+	for node_id: Variant in skill_allocations:
+		if not skill_spending.has(node_id):
+			skill_spending[node_id] = int(skill_allocations[node_id])
 	weapon_form = str(data.get("weapon_form", ""))
 	var saved_skills: Variant = data.get("unlocked_skills", [])
 	unlocked_skills.clear()
@@ -386,11 +440,11 @@ func load_game() -> void:
 	selected_ultimate_skill = str(data.get("selected_ultimate_skill", ""))
 	if not unlocked_skills.has(selected_ultimate_skill):
 		selected_ultimate_skill = ""
-	var saved_collectibles: Variant = data.get("collected_skill_points", [])
-	collected_skill_points.clear()
+	var saved_collectibles: Variant = data.get("collected_exp_points", data.get("collected_skill_points", []))
+	collected_exp_points.clear()
 	if saved_collectibles is Array:
 		for collectible: Variant in saved_collectibles:
-			collected_skill_points.append(str(collectible))
+			collected_exp_points.append(str(collectible))
 	flags = saved_flags.duplicate(true) if saved_flags is Dictionary else {}
 	if LEGACY_BASEMENT_CHECKPOINTS.get(checkpoint_stage, "") == checkpoint_id \
 			and LEGACY_BASEMENT_CHECKPOINTS.has(checkpoint_stage):
@@ -416,13 +470,19 @@ func reset() -> void:
 	checkpoint_stage = ""
 	checkpoint_id = ""
 	flags = {}
+	player_level = 1
+	experience = 0
+	skill_spending.clear()
 	skill_points = 0
 	skill_allocations = {}
 	weapon_form = ""
 	unlocked_skills.clear()
 	selected_ultimate_skill = ""
-	collected_skill_points.clear()
+	collected_exp_points.clear()
 	player_health = -1
 	_changing = false
 	_booted = false
 	_loaded_payload = {}
+
+
+

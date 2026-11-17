@@ -12,7 +12,7 @@ const SLOT_W := 29.0
 const SLOT_H := 29.0
 const SLOT_GAP := 2
 const BAR_PAD := 2
-const BAR_BOTTOM := 5.0
+const BAR_BOTTOM := 22.0
 const DASH_SLOT := 4
 const PARRY_SLOT := 5
 const ULTIMATE_SLOT := 6
@@ -88,6 +88,12 @@ var _action_icon_cache: Dictionary = {}
 var _critical_health_active := false
 var _skill_tree_is_open := false
 var _input_key_labels: Array[Label] = []
+var _experience_bar: ProgressBar
+var _experience_label: Label
+var _level_label: Label
+var _level_notice: Label
+var _book_badge: Label
+var _notice_tween: Tween
 
 
 func _ready() -> void:
@@ -100,6 +106,8 @@ func _ready() -> void:
 	_build_label()
 	_build_low_health_warning()
 	_build_status_strip()
+	_build_experience_bar()
+	GameManager.level_gained.connect(_on_level_gained)
 	_skill_tree_layer = get_node_or_null("SkillTreeLayer") as CanvasLayer
 
 	_player = get_tree().get_first_node_in_group("player") as BaseCharacter
@@ -163,6 +171,14 @@ func _process(_delta: float) -> void:
 func _refresh_skill_points() -> void:
 	if _skill_points_label != null:
 		_skill_points_label.text = "✦ %d SP" % GameManager.skill_points
+	if _experience_bar != null:
+		_experience_bar.max_value = GameManager.exp_to_next_level()
+		_experience_bar.value = GameManager.experience
+		_experience_label.text = "%d / %d EXP" % [GameManager.experience, GameManager.exp_to_next_level()]
+		_level_label.text = "LV. %d" % GameManager.player_level
+	if _book_badge != null:
+		_book_badge.visible = GameManager.skill_points > 0
+		_book_badge.text = str(GameManager.skill_points)
 
 
 func _on_active_skill_slot_changed(slot: int, skill_id: String) -> void:
@@ -318,6 +334,20 @@ func _create_skill_slot(index: int, row: HBoxContainer) -> void:
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot.tooltip_text = "T · Cây kỹ năng"
 		slot.gui_input.connect(_on_skill_tree_slot_input)
+		_book_badge = Label.new()
+		_book_badge.name = "ExpPointBadge"
+		_book_badge.position = Vector2(slot_width - 15.0, -5.0)
+		_book_badge.custom_minimum_size = Vector2(13, 11)
+		_book_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_book_badge.add_theme_font_size_override("font_size", 7)
+		_book_badge.add_theme_color_override("font_color", Color.WHITE)
+		var badge_style := StyleBoxFlat.new()
+		badge_style.bg_color = Color("d63c43")
+		badge_style.set_corner_radius_all(5)
+		badge_style.set_content_margin_all(1)
+		_book_badge.add_theme_stylebox_override("normal", badge_style)
+		_book_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(_book_badge)
 	elif is_defense_slot:
 		var action_id := "dash" if index == DASH_SLOT else "parry"
 		icon.texture = _load_action_icon(action_id)
@@ -378,7 +408,7 @@ func _refresh_skill_bar() -> void:
 		else:
 			ultimate_status = "Đang nạp nộ khí"
 	_skill_slot_panels[ultimate_slot].tooltip_text = "%s · %s · %s" % [_input_hint("ultimate"), _skill_display_name(ultimate_id), ultimate_status]
-	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = _input_hint("skill_tree") + " · Cây kỹ năng"
+	_skill_slot_panels[SKILL_TREE_SLOT].tooltip_text = _input_hint("skill_tree") + " · Cây kỹ năng · %d SP chưa dùng" % GameManager.skill_points
 
 
 func _slot_input_action(index: int) -> String:
@@ -696,3 +726,80 @@ func _refresh(current: int, maximum: int, animate: bool) -> void:
 		_tween.tween_property(_bar, "value", current, tween_time)
 	else:
 		_bar.value = current
+
+
+func _build_experience_bar() -> void:
+	# Independent canvas avoids the legacy HUD horizontal scale (1.5x).
+	var canvas := CanvasLayer.new()
+	canvas.name = "ExperienceHUD"
+	canvas.layer = layer
+	add_child(canvas)
+	var frame := Control.new()
+	frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	canvas.add_child(frame)
+	_experience_bar = ProgressBar.new()
+	_experience_bar.name = "ExperienceBar"
+	_experience_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	_experience_bar.offset_top = -7.0
+	_experience_bar.show_percentage = false
+	_experience_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var background := StyleBoxFlat.new()
+	background.bg_color = Color("101a25")
+	background.border_color = Color("426072")
+	background.border_width_top = 1
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = Color("48d9d0")
+	fill.border_color = Color("a2fff0")
+	fill.border_width_top = 1
+	_experience_bar.add_theme_stylebox_override("background", background)
+	_experience_bar.add_theme_stylebox_override("fill", fill)
+	frame.add_child(_experience_bar)
+	_level_label = Label.new()
+	_level_label.name = "LevelLabel"
+	_level_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	_level_label.offset_left = 5
+	_level_label.offset_top = -20
+	_level_label.offset_right = 95
+	_level_label.offset_bottom = -7
+	_level_label.add_theme_font_size_override("font_size", 9)
+	_level_label.add_theme_color_override("font_color", Color("abfff0"))
+	_level_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.add_child(_level_label)
+	_experience_label = Label.new()
+	_experience_label.name = "ExperienceLabel"
+	_experience_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_experience_label.offset_left = -140
+	_experience_label.offset_right = -5
+	_experience_label.offset_top = -20
+	_experience_label.offset_bottom = -7
+	_experience_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_experience_label.add_theme_font_size_override("font_size", 8)
+	_experience_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.add_child(_experience_label)
+	_level_notice = Label.new()
+	_level_notice.name = "LevelUpNotice"
+	_level_notice.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_level_notice.offset_left = -150
+	_level_notice.offset_right = 150
+	_level_notice.offset_top = 42
+	_level_notice.offset_bottom = 72
+	_level_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_level_notice.add_theme_font_size_override("font_size", 13)
+	_level_notice.add_theme_color_override("font_color", Color("ffe19a"))
+	_level_notice.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_level_notice.modulate.a = 0.0
+	frame.add_child(_level_notice)
+	_refresh_skill_points()
+
+
+func _on_level_gained(level: int) -> void:
+	if _level_notice == null:
+		return
+	if _notice_tween != null and _notice_tween.is_valid():
+		_notice_tween.kill()
+	_level_notice.text = "LÊN CẤP %d  ·  +3 SP" % level
+	_level_notice.modulate.a = 1.0
+	_notice_tween = create_tween()
+	_notice_tween.tween_interval(2.0)
+	_notice_tween.tween_property(_level_notice, "modulate:a", 0.0, 0.6)
