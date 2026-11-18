@@ -15354,3 +15354,93 @@ renderer/rendering_method.mobile="gl_compatibility"
 === FOLLOW-UP — Fix duplicate Emberline global class ===
 
 Reported error: `Class "EmberEffect2D" hides a global script class.` The project contains the integrated runtime script at `assets/effects/emberline/effects/ember_effect.gd` and the same upstream source script under `assets/vendor/Emberline-Free-Six/emberline/effects/ember_effect.gd`; both declare the same global class. Added the empty `assets/vendor/Emberline-Free-Six/.gdignore` marker so Godot treats the vendored standalone source/demo package as non-project source, while the integrated runtime copy remains available. The vendor files are preserved on disk. This follows Godot project organization guidance for `.gdignore`; ignored resources cannot be loaded by `res://`, so the marker covers only the unused vendor source copy, not `assets/effects/emberline`. Static class/reference inspection performed; Godot editor rescan/reparse and runtime checks not run. Existing Godot error may remain in the current editor view until it rescans or reopens the project.
+
+
+=== 2026-11-18 — Enemy hurt fallback and four new enemies (Duy) ===
+Authorization: user requests hurt first, then Evil Wizard 1/2, Necromancer and boss Undead Executioner; explicitly delegates moveset and provisional balance. User prohibits opening/running Godot and excludes enemies without hurt areas.
+Scope/plan: enemy-only shared fallback; preserve existing hurt animations; create separate enemy scenes using supplied sheets, reuse existing damage/SP/projectile/summon contracts. No map/player/save changes or reviewer agreement.
+Acceptance: missing-hurt enemies freeze/red for 0.2s and recover; lethal hits terminate attacks; new enemies detect/chase/attack/recover/die/drop SP; boss changes cadence below half HP; summons bounded and cleaned up.
+Validation plan: static resource/frame/path and source checks; manual Godot gameplay explicitly deferred to user. Existing T086/T087 validation boundaries remain pending. Incoming untracked KayKit_Dungeon and four asset folders preserved.
+
+Implemented files/purpose:
+- scripts/enemy.gd: detect existing hurt clips; missing-hurt damage pauses AI/pose, zeros velocity, tints red for 0.2s, restores color/processing; safe no-FSM damage path and completion signal.
+- scenes/enemies/crab/hurt.gd: do not request absent hurt animation; preserve existing clips.
+- scenes/enemies/arcane/arcane_enemy.gd: five enemy profiles, target/chase/LOS, timed melee/projectiles/summoning, bounded summons, hurt/parry/status handling, death/cleanup, boss cadence and defeated signal.
+- scenes/enemies/arcane/{evil_wizard_1,evil_wizard_2,necromancer,undead_executioner,executioner_summon}.tscn: individual scenes and provisional stats/hurt areas/body shapes.
+- scenes/enemies/arcane/{evil_wizard_1,evil_wizard_2,necromancer,undead_executioner,executioner_summon}_anims.tres: exact sprite grids, animation keys and impact callbacks; no fabricated hurt frames for boss/summon.
+- assets/monsters/Evil_wizard_1/Evil Wizard/{License.txt,Sprites/*.png}, assets/monsters/Evil_wizard_2/EVil Wizard 2/{License.txt,Sprites/*.png}, assets/monsters/undead/Undead executioner puppet/png/*.png: extracted supplied assets without overwriting archives; existing Necromancer sheet referenced unchanged.
+- tests/arcane_enemies_test.tscn: separate four-enemy manual F6 arena using existing Player/camera; no main map integration.
+- docs/arcane-enemies-testing.md: provisional stats and manual checks/limits.
+- docs/project-changes-2026-11-14.txt: cumulative authorization/implementation/verification record.
+Integration: existing HurtArea/HitArea, skeleton projectile and SkeletonWarrior, SP pickup, health bar reused; summoned units drop no SP. Pelican/Mushroom unchanged per user clarification. No Player/map/save/shared manager changes. A concurrent project.godot change adds dotnet assembly_name; not authored here and preserved.
+Verification: Python static checks PASS for 11 resource files, 48 paths, 214 frame keys and 10 impact callbacks (references/grid bounds/key times); PNG alpha inspection removed empty boss idle and summon death cells; foot offsets based on supplied idle alpha bounds; git diff --check PASS (line-ending notice only).
+Limits/errors: no Godot launch/import/parser/runtime/render/collision tests per explicit user instruction; gdtoolkit unavailable. Initial read command used unsupported PowerShell brace syntax and initial image inspection lacked PIL; both replaced with native-compatible commands/System.Drawing, no game changes from those failures. Direct chase does not navigate around complex obstacles. Full balance, visual animation interpretation, boss hitbox/feel and scene gameplay remain unverified pending user's test. Existing imported-resource warnings were not rerun. No reviewer acceptance, commit or push.
+
+=== 2026-11-18 — Authorized commit/push preparation ===
+User explicitly requests commit and push of this enemy implementation to current branch delete, origin ProjectVNG. Gameplay remains unverified; no Godot launched. Static verification above retained. Excluded concurrent .godot/uid_cache.bin, vendor plaster import, project.godot, KayKit_Dungeon and original ZIP archives. Included asset import metadata and script UID support files preserve editor resource identity. No reviewer agreement claimed.
+Exact included manifest (purposes grouped in implementation record above; PNG/import files supply art/import settings, License.txt preserves supplied terms, .uid files preserve script identity):
+- assets/monsters/Evil_wizard_1/Evil Wizard/License.txt
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Attack.png
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Attack.png.import
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Death.png
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Death.png.import
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Idle.png
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Idle.png.import
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Move.png
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Move.png.import
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Take Hit.png
+- assets/monsters/Evil_wizard_1/Evil Wizard/Sprites/Take Hit.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/License.txt
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Attack1.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Attack1.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Attack2.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Attack2.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Death.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Death.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Fall.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Fall.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Idle.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Idle.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Jump.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Jump.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Run.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Run.png.import
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Take hit.png
+- assets/monsters/Evil_wizard_2/EVil Wizard 2/Sprites/Take hit.png.import
+- assets/monsters/necromancer/Necromancer_creativekind-Sheet.png
+- assets/monsters/undead/Undead executioner puppet/png/attacking.png
+- assets/monsters/undead/Undead executioner puppet/png/attacking.png.import
+- assets/monsters/undead/Undead executioner puppet/png/death.png
+- assets/monsters/undead/Undead executioner puppet/png/death.png.import
+- assets/monsters/undead/Undead executioner puppet/png/idle.png
+- assets/monsters/undead/Undead executioner puppet/png/idle.png.import
+- assets/monsters/undead/Undead executioner puppet/png/idle2.png
+- assets/monsters/undead/Undead executioner puppet/png/idle2.png.import
+- assets/monsters/undead/Undead executioner puppet/png/skill1.png
+- assets/monsters/undead/Undead executioner puppet/png/skill1.png.import
+- assets/monsters/undead/Undead executioner puppet/png/summon.png
+- assets/monsters/undead/Undead executioner puppet/png/summon.png.import
+- assets/monsters/undead/Undead executioner puppet/png/summonAppear.png
+- assets/monsters/undead/Undead executioner puppet/png/summonAppear.png.import
+- assets/monsters/undead/Undead executioner puppet/png/summonDeath.png
+- assets/monsters/undead/Undead executioner puppet/png/summonDeath.png.import
+- assets/monsters/undead/Undead executioner puppet/png/summonIdle.png
+- assets/monsters/undead/Undead executioner puppet/png/summonIdle.png.import
+- docs/arcane-enemies-testing.md
+- scenes/enemies/arcane/arcane_enemy.gd
+- scenes/enemies/arcane/arcane_enemy.gd.uid
+- scenes/enemies/arcane/evil_wizard_1.tscn
+- scenes/enemies/arcane/evil_wizard_1_anims.tres
+- scenes/enemies/arcane/evil_wizard_2.tscn
+- scenes/enemies/arcane/evil_wizard_2_anims.tres
+- scenes/enemies/arcane/executioner_summon.tscn
+- scenes/enemies/arcane/executioner_summon_anims.tres
+- scenes/enemies/arcane/necromancer.tscn
+- scenes/enemies/arcane/necromancer_anims.tres
+- scenes/enemies/arcane/undead_executioner.tscn
+- scenes/enemies/arcane/undead_executioner_anims.tres
+- scenes/enemies/crab/hurt.gd
+- scripts/enemy.gd
+- tests/arcane_enemies_test.tscn
+- docs/project-changes-2026-11-14.txt: cumulative implementation and commit/push scope record.
+Git index initially blocked by sandbox permissions; authorized escalation succeeded. Commit/push outcome to be verified by Git command output and remote head comparison.
