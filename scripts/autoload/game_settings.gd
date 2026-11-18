@@ -7,7 +7,7 @@ const ACTIONS := {
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
 	"right": "Di chuyển phải", "jump": "Nhảy", "dash": "Lướt", "attack": "Tấn công",
 	"parry": "Đỡ đòn", "carry": "Nhấc / ném", "skill": "Dùng kỹ năng",
-	"ultimate": "Tuyệt kỹ", "interact": "Tương tác", "skill_tree": "Cây kỹ năng",
+	"quick_item": "Vật phẩm nhanh", "ultimate": "Tuyệt kỹ", "interact": "Tương tác", "skill_tree": "Cây kỹ năng",
 	"active_skill_1": "Ô kỹ năng 1", "active_skill_2": "Ô kỹ năng 2",
 	"active_skill_3": "Ô kỹ năng 3", "active_skill_4": "Ô kỹ năng 4",
 }

@@ -28,9 +28,6 @@ static func exp_to_next_level(level: int) -> int:
 	return 100 + maxi(0, level - 1) * 50
 
 static func definition(node_id: String) -> Dictionary:
-	if node_id.begins_with("offhand_") and node_id.trim_prefix("offhand_") in FORMS:
-		var element := node_id.trim_prefix("offhand_")
-		return {"max": 1, "gate": 1, "cost": 2, "requires": "active_%s_1" % element, "form": element}
 	if CHARACTER.has(node_id):
 		var data: Array = CHARACTER[node_id]
 		return {"max": data[0], "gate": data[1], "cost": data[2], "scaling": true}

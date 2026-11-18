@@ -14,7 +14,7 @@ const ENCHANTS := {
 	"resonance": {"name": "Cường hóa cộng hưởng", "text": "+15% sát thương skill cùng hệ mỗi cấp", "max": 3, "elemental": true},
 	"affliction": {"name": "Dư âm nguyên tố", "text": "+25% thời gian cháy/chậm/choáng mỗi cấp", "max": 3, "elemental": true},
 }
-const SLOTS := {"main": "Vũ khí", "offhand": "Vũ khí phụ", "armor": "Giáp", "charm": "Bùa"}
+const SLOTS := {"main": "Vũ khí", "consumable": "Tiêu hao · Q", "armor": "Giáp", "charm": "Bùa"}
 const WEAPON_ELEMENTS := {"sword": "lightning", "axe": "ice", "spear": "fire", "dagger": "wind"}
 const ELEMENTS := {"wind": "Phong", "fire": "Hỏa", "ice": "Băng", "lightning": "Lôi"}
 

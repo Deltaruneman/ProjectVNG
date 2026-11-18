@@ -492,9 +492,9 @@ func _aerial_and_depth_checks() -> void:
 		var sprite := player.get_node("Direction/Blade/Sprite3D") as Sprite3D
 		var body := player.get_node("Sprite3D") as Sprite3D
 		check((sprite.global_position-body.global_position).dot(-camera.global_basis.z) > 0.04, "active main behind body plane " + str(projection))
-		GameManager.equip_item(GameManager.grant_item("bow"))
+		GameManager.inventory.equipped.offhand = GameManager.grant_item("bow")
 		player.begin_offhand_cast()
-		check((player._offhand_cast_sprite.global_position-body.global_position).dot(-camera.global_basis.z) > 0.04, "offhand behind body plane " + str(projection))
+		check(not is_instance_valid(player._offhand_cast_sprite), "retired offhand remains invisible " + str(projection))
 		player.end_offhand_cast()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	if DisplayServer.get_name() != "headless":

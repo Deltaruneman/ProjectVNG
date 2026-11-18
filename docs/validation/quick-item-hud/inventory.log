@@ -1,0 +1,360 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:5 - ext_resource, invalid UID: uid://dsuk1m8k46ji7 - using text path instead: res://assets/foxy/fox_hat/foxy_hat_full_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/crab/crab.tscn:4 - ext_resource, invalid UID: uid://dsn80h3kc0ccy - using text path instead: res://assets/monsters/crab/crab_sprite_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+PASS new game starts with original Blade
+PASS invalid grants/equips rejected
+PASS consumables stack by definition
+PASS consumable equips into quick slot
+PASS equip owned item item_2
+PASS equip owned item item_5
+PASS equip owned item item_6
+PASS four visible equipment slots plus retained legacy offhand
+PASS retired bow cannot be equipped
+PASS inventory persists across save/load
+PASS unrelated payload preserved
+PASS neutral offhand excludes elemental enchants
+PASS resonant weapon allows elemental enchants
+PASS enchant rejects armor and unowned items
+PASS three distinct eligible enchant choices
+PASS same selected weapon keeps offers
+PASS insufficient SP cannot enchant
+PASS invalid choice and wrong weapon rejected
+PASS one choice consumes exactly its quoted SP
+PASS duplicate consumed offer rejected
+PASS stale UI offer epoch rejected after reroll
+PASS pending offers and spent enchant SP persist
+PASS tree reset does not refund enchant or reduce earned-SP gates
+PASS load rejects wrong slots, equips fallback Blade, and retains clamped inactive elemental rank
+PASS saved inventory with empty main slot equips the original Blade
+PASS load reconstructs unique instance counter
+PASS maxed weapon does not offer impossible upgrades
+PASS supplied art loads starter_blade
+PASS supplied art loads bow
+PASS supplied art loads throwing_knife
+PASS supplied art loads armor
+PASS supplied art loads charm
+PASS supplied art loads healing_potion
+PASS supplied art loads sword
+PASS supplied art loads axe
+PASS supplied art loads spear
+PASS supplied art loads dagger
+PASS offhand has no intrinsic element bow
+PASS offhand has no intrinsic element throwing_knife
+PASS fixed main element sword
+PASS fixed main element axe
+PASS fixed main element spear
+PASS fixed main element dagger
+PASS catalog has original Blade plus four elemental main types and two neutral offhands
+PASS exact legacy variant aliases canonical type sword_wind
+PASS exact legacy variant aliases canonical type sword_fire
+PASS exact legacy variant aliases canonical type sword_ice
+PASS exact legacy variant aliases canonical type sword_lightning
+PASS exact legacy variant aliases canonical type axe_wind
+PASS exact legacy variant aliases canonical type axe_fire
+PASS exact legacy variant aliases canonical type axe_ice
+PASS exact legacy variant aliases canonical type axe_lightning
+PASS exact legacy variant aliases canonical type spear_wind
+PASS exact legacy variant aliases canonical type spear_fire
+PASS exact legacy variant aliases canonical type spear_ice
+PASS exact legacy variant aliases canonical type spear_lightning
+PASS exact legacy variant aliases canonical type dagger_wind
+PASS exact legacy variant aliases canonical type dagger_fire
+PASS exact legacy variant aliases canonical type dagger_ice
+PASS exact legacy variant aliases canonical type dagger_lightning
+PASS exact legacy variant aliases canonical type bow_wind
+PASS exact legacy variant aliases canonical type bow_fire
+PASS exact legacy variant aliases canonical type bow_ice
+PASS exact legacy variant aliases canonical type bow_lightning
+PASS exact legacy variant aliases canonical type throwing_knife_wind
+PASS exact legacy variant aliases canonical type throwing_knife_fire
+PASS exact legacy variant aliases canonical type throwing_knife_ice
+PASS exact legacy variant aliases canonical type throwing_knife_lightning
+PASS migration preserves all separate owned instances, equipped UIDs and spent SP
+PASS legacy wrong-element variants receive confirmed canonical identities
+PASS main migration retains active paid elemental ranks item_1
+PASS main migration retains active paid elemental ranks item_2
+PASS main migration retains active paid elemental ranks item_3
+PASS main migration retains active paid elemental ranks item_4
+PASS main migration retains active paid elemental ranks item_5
+PASS main migration retains active paid elemental ranks item_6
+PASS main migration retains active paid elemental ranks item_7
+PASS main migration retains active paid elemental ranks item_8
+PASS main migration retains active paid elemental ranks item_9
+PASS main migration retains active paid elemental ranks item_10
+PASS main migration retains active paid elemental ranks item_11
+PASS main migration retains active paid elemental ranks item_12
+PASS main migration retains active paid elemental ranks item_13
+PASS main migration retains active paid elemental ranks item_14
+PASS main migration retains active paid elemental ranks item_15
+PASS main migration retains active paid elemental ranks item_16
+PASS neutral migration retains old elemental ranks inactive item_17
+PASS neutral migration retains old elemental ranks inactive item_18
+PASS neutral migration retains old elemental ranks inactive item_19
+PASS neutral migration retains old elemental ranks inactive item_20
+PASS neutral migration retains old elemental ranks inactive item_21
+PASS neutral migration retains old elemental ranks inactive item_22
+PASS neutral migration retains old elemental ranks inactive item_23
+PASS neutral migration retains old elemental ranks inactive item_24
+PASS inactive offhand elemental enchant cannot apply or reappear in pool
+PASS canonical migration and inactive ranks remain stable on repeated restore
+PASS legacy grant cannot recreate a removed variant
+PASS unknown/lookalike IDs are not migrated
+PASS old save without inventory and legacy starter retain original Blade
+PASS outlined atlas row matches requested element in inventory/world sword
+PASS outlined atlas row matches requested element in inventory/world axe
+PASS outlined atlas row matches requested element in inventory/world spear
+PASS outlined atlas row matches requested element in inventory/world dagger
+PASS starter uses original Blade art and no elemental affinity
+PASS three-line weapon can upgrade only its existing enchant types
+PASS existing line upgrade consumes SP without adding a fourth line
+PASS backend rejects stale fourth-type choice even after a valid roll
+PASS one remaining valid upgrade is offered rather than blocked for lacking three
+PASS one-choice pending offer survives save/load
+PASS normal weapon stops after all three existing lines reach rank III
+PASS original Blade accepts more than three non-elemental types and offers ranks above III
+PASS Blade keeps purchasing 50 times beyond rank ten with exact quoted SP spending
+PASS unbounded Blade ranks and spending persist without clamping
+PASS old excess lines retained inactive with spent SP and saved equipment intact
+PASS old prototype inventory gains missing original Blade without overwriting equipped weapon
+PASS overflow migration and starter grant are idempotent
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS equipping weapon replaces current Blade sprite
+PASS equipped armor applies HP bonus
+PASS re-equipping armor cannot heal for free
+PASS consume potion heals and decrements one
+PASS full HP cannot waste consumable
+PASS unequipping main hides blade
+PASS resonant main uses supplied glow atlas
+PASS matching resonance plus charm buffs elemental skill
+PASS wrong element gets charm only
+PASS legacy bow never overrides neutral dagger
+PASS legacy bow never overrides original elemental skill
+PASS retired offhand upgrade cannot spend SP
+PASS legacy bow retained inactive across actual reload
+Player: changing from state Fall to Attack
+PASS weapon attack tempo sword
+PASS weapon attack reach sword
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape sword
+Player: changing from state Idle to Attack
+PASS weapon attack tempo axe
+PASS weapon attack reach axe
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape axe
+Player: changing from state Idle to Attack
+PASS weapon attack tempo spear
+PASS weapon attack reach spear
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape spear
+Player: changing from state Idle to Attack
+PASS weapon attack tempo dagger
+PASS weapon attack reach dagger
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape dagger
+Player: changing from state Idle to Fall
+PASS B opens inventory and pauses gameplay
+PASS inventory item cells have no hover information
+PASS inventory panel fits square viewport
+PASS skill tree cannot steal inventory pause
+PASS Escape closes and releases inventory pause
+PASS P opens cheat menu
+PASS inventory cannot take pause owned by settings
+PASS equipped original Blade restores exact legacy world art and pixel size
+PASS axe applies additional horizontal knockback
+PASS sharpness enchant increases actual attack damage
+PASS haste enchant reduces actual skill cooldown
+PASS resonance and affliction enchants buff matching skill damage and status duration
+PASS impact enchant staggers existing enemy through public status API
+PASS lifesteal enchant heals live Player on seeded weapon contacts
+PASS critical enchant produces seeded double damage alongside normal hits
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:4 - ext_resource, invalid UID: uid://cwlrolotif8dn - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_closeattack.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:5 - ext_resource, invalid UID: uid://c3sniasfsmtg7 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_createshield.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:6 - ext_resource, invalid UID: uid://dbymqxr8shcpv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:7 - ext_resource, invalid UID: uid://bv5ai3somg4x5 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:8 - ext_resource, invalid UID: uid://bvs2bfbc3sh51 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_shieldhit.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:9 - ext_resource, invalid UID: uid://dvy5gxnkkod7b - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:10 - ext_resource, invalid UID: uid://l5cyhtktuh3e - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_teleportation.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:11 - ext_resource, invalid UID: uid://bdqqd0swpxi47 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_castspell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:12 - ext_resource, invalid UID: uid://dg2rjd7v18um - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:13 - ext_resource, invalid UID: uid://dqxrww17vv2xv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_explosion.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:14 - ext_resource, invalid UID: uid://b5ctwsvtsox1o - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:15 - ext_resource, invalid UID: uid://b18hmtvud8cki - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:16 - ext_resource, invalid UID: uid://brdjomoqg11ck - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:17 - ext_resource, invalid UID: uid://1q1dvlcxwto4 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_summonspirits.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:18 - ext_resource, invalid UID: uid://c7uo78q3kenvq - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_transformation_into_phase2.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:19 - ext_resource, invalid UID: uid://cv1335fblfda - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:20 - ext_resource, invalid UID: uid://btipqolcx8rqi - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:21 - ext_resource, invalid UID: uid://csi7s0qwdr5sc - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:22 - ext_resource, invalid UID: uid://le6g0x1u1w67 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_summoned.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:6 - ext_resource, invalid UID: uid://bv5ai3somg4x5 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:373)
+       [1] _ready (res://tests/inventory_check.gd:106)
+       [2] _projectile_checks (res://tests/inventory_check.gd:253)
+       [3] ticks (res://tests/inventory_check.gd:18)
+PASS reported Dark Fairy scene compiles after reward API repair
+PASS boss defeat emits once and drops exactly one five-unit EXP pickup
+PASS existing five boss units still award exactly 100 EXP
+PASS boss pickup repeated collection cannot duplicate EXP
+INVENTORY_RESULT 160/160 passed; failures=0

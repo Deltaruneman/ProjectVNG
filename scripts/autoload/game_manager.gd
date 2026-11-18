@@ -520,6 +520,15 @@ func unequip_item(slot: String) -> bool:
 	notify_inventory_changed()
 	return true
 
+func use_quick_item() -> bool:
+	if get_tree().paused:
+		return false
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player == null or not player.can_interact():
+		return false
+	return use_inventory_item(str(inventory.equipped.get("consumable", "")))
+
+
 func use_inventory_item(uid: String) -> bool:
 	if not inventory.items.has(uid) or inventory.items[uid].definition != "healing_potion":
 		return false
@@ -530,6 +539,8 @@ func use_inventory_item(uid: String) -> bool:
 	inventory.items[uid].count -= 1
 	if inventory.items[uid].count <= 0:
 		inventory.items.erase(uid)
+		if inventory.equipped.get("consumable", "") == uid:
+			inventory.equipped.consumable = ""
 	notify_inventory_changed()
 	return true
 
@@ -548,10 +559,5 @@ func prepare_enchants(uid: String) -> Array[Dictionary]:
 		save_game()
 	return result
 
-func buy_offhand_resonance(form: String) -> bool:
-	var id := "offhand_" + form
-	if inventory.resonance_upgrades.get(form, false) or not spend_skill_point(id):
-		return false
-	inventory.resonance_upgrades[form] = true
-	notify_inventory_changed()
-	return true
+func buy_offhand_resonance(_form: String) -> bool:
+	return false

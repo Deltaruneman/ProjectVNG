@@ -2,7 +2,7 @@ extends RefCounted
 ## Serializable inventory, kept by GameManager across stage changes.
 const CATALOG := preload("res://scripts/item_catalog.gd")
 var items: Dictionary = {}
-var equipped: Dictionary = {"main": "", "offhand": "", "armor": "", "charm": ""}
+var equipped: Dictionary = {"main": "", "offhand": "", "consumable": "", "armor": "", "charm": ""}
 var next_id := 1
 var resonance_upgrades: Dictionary = {}
 var enchant_spent := 0
@@ -32,7 +32,7 @@ func equip(uid: String) -> bool:
 	if not items.has(uid):
 		return false
 	var slot := str(CATALOG.item(items[uid].definition).get("slot", ""))
-	if not equipped.has(slot):
+	if slot == "offhand" or not equipped.has(slot):
 		return false
 	equipped[slot] = uid
 	return true
@@ -46,6 +46,9 @@ func id_for_slot(slot: String) -> String:
 	return str(items[uid].definition) if items.has(uid) else ""
 
 func enchant_rank(slot: String, enchant: String) -> int:
+	# Legacy offhands remain serialized but never contribute stats.
+	if slot == "offhand":
+		return 0
 	var uid := str(equipped.get(slot, ""))
 	return int(items[uid].enchants.get(enchant, 0)) if items.has(uid) else 0
 
@@ -56,7 +59,7 @@ func serialize() -> Dictionary:
 
 func restore(payload: Variant) -> void:
 	items.clear()
-	equipped = {"main": "", "offhand": "", "armor": "", "charm": ""}
+	equipped = {"main": "", "offhand": "", "consumable": "", "armor": "", "charm": ""}
 	next_id = 1
 	resonance_upgrades.clear()
 	enchant_spent = 0
@@ -138,7 +141,7 @@ func eligible_enchants(uid: String) -> Array[String]:
 	if not items.has(uid):
 		return pool
 	var data := CATALOG.item(items[uid].definition)
-	if not str(data.get("slot", "")) in ["main", "offhand"]:
+	if str(data.get("slot", "")) != "main":
 		return pool
 	for id: String in CATALOG.ENCHANTS:
 		var enchant: Dictionary = CATALOG.ENCHANTS[id]

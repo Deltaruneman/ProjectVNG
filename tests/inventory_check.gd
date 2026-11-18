@@ -52,10 +52,11 @@ func _ready() -> void:
 	var charm := GameManager.grant_item("charm")
 	var potion := GameManager.grant_item("healing_potion", 2)
 	check(GameManager.grant_item("healing_potion", 3) == potion and GameManager.inventory.items[potion].count == 5, "consumables stack by definition")
-	check(not GameManager.equip_item(potion), "cannot equip consumable")
-	for uid: String in [sword, bow, armor, charm]:
+	check(GameManager.equip_item(potion), "consumable equips into quick slot")
+	for uid: String in [sword, armor, charm]:
 		check(GameManager.equip_item(uid), "equip owned item " + uid)
-	check(GameManager.inventory.equipped.size() == 4, "exactly four named equipment slots")
+	check(CATALOG.SLOTS.size() == 4 and GameManager.inventory.equipped.size() == 5, "four visible equipment slots plus retained legacy offhand")
+	check(not GameManager.equip_item(bow), "retired bow cannot be equipped")
 	GameManager.save_game()
 	var snapshot := GameManager.inventory.serialize()
 	GameManager.reset()
@@ -100,7 +101,7 @@ func _ready() -> void:
 	_enchant_limit_checks()
 	await _player_checks(sword, fire, bow, armor, charm, potion)
 	await _starter_visual_checks()
-	await _offhand_presentation_checks()
+	# Retired cast cases replaced by quick_item_hud_check and elemental_orb_test.
 	await _projectile_checks()
 	await _boss_drop_check()
 	await ticks(3)
@@ -141,43 +142,16 @@ func _player_checks(sword: String, fire: String, bow: String, armor: String, cha
 	GameManager.weapon_form = "ice"
 	check(player.scaled_skill_damage(10) == 12, "wrong element gets charm only")
 	GameManager.weapon_form = ""
-	check(player.uses_offhand(1) and not player.uses_offhand(2) and player.get_active_skill_id_for_slot(1) == "offhand_bow", "neutral slot 1 assigned equipped offhand only")
+	GameManager.inventory.equipped.offhand = bow
+	check(not player.uses_offhand() and player.get_active_skill_id_for_slot(1) == "", "legacy bow never overrides neutral dagger")
 	GameManager.weapon_form = "fire"
-	check(not player.uses_offhand(), "elemental offhand locked without upgrade")
-	GameManager.skill_points = 20
-	check(not GameManager.buy_offhand_resonance("fire"), "upgrade requires unlocked elemental skill 1")
 	GameManager.unlocked_skills.assign(["active_fire_1"])
-	check(GameManager.buy_offhand_resonance("fire") and player.uses_offhand(), "skill 1 resonance upgrade spends SP and enables offhand")
-	player._active_skill_cooldowns.clear()
-	player.selected_active_slot = 1
-	player._skill_aim_point = player.global_position + Vector3(0, 1, -10)
-	player._cast_aim_point_valid = true
-	player.fsm.change_state(player.fsm.states.skill)
-	player.fsm._update(0.0)
-	var cast_projectile: Node3D
-	for child in yard.get_children():
-		if child.get_script() == preload("res://scenes/objects/offhand_projectile.gd"):
-			cast_projectile = child
-	check(cast_projectile != null and cast_projectile.elemental_form == "fire" and cast_projectile.definition == "bow", "actual Skill state launches equipped elemental offhand")
-	check(player.get_active_skill_cooldown_for_slot(1) > 0.0, "offhand cast starts shared skill cooldown")
-	if cast_projectile != null:
-		var expected: Vector3 = (player._skill_aim_point - cast_projectile.global_position).normalized()
-		expected.y = 0.0
-		expected = expected.normalized()
-		check(absf(cast_projectile.direction.y) < 0.001 and cast_projectile.direction.dot(expected) > 0.999, "bow keeps a straight level aim toward the target")
-		cast_projectile.set_physics_process(false)
-		cast_projectile.global_position = player.global_position + Vector3.UP * 1.1 + cast_projectile.direction * 1.4
-		await capture("straight-bow-projectile")
-		cast_projectile.queue_free()
-	player.fsm.change_state(player.fsm.states.idle)
-	player.fsm._update(0.0)
-	var after := GameManager.skill_points
-	check(not GameManager.buy_offhand_resonance("fire") and GameManager.skill_points == after, "duplicate upgrade rejected")
+	check(player.get_active_skill_id_for_slot(1) == "active_fire_1", "legacy bow never overrides original elemental skill")
+	check(not GameManager.buy_offhand_resonance("fire"), "retired offhand upgrade cannot spend SP")
 	GameManager.save_game()
 	GameManager.load_game()
-	check(player.uses_offhand(), "offhand upgrade survives reload")
+	check(GameManager.inventory.equipped.offhand == bow and not player.uses_offhand(), "legacy bow retained inactive across actual reload")
 	GameManager.reset_skill_tree()
-	check(player.uses_offhand() and GameManager.inventory.resonance_upgrades.is_empty(), "tree reset clears elemental upgrades; neutral offhand remains")
 	var attack: FSMState = player.fsm.states.attack
 	var shape := player.get_node("Direction/HitArea3D/CollisionShape3D") as CollisionShape3D
 	var baseline := shape.scale
@@ -247,37 +221,8 @@ func _enemy(at: Vector3) -> EnemyCharacter:
 	enemy.get_node("Direction/HitArea3D").monitoring = false
 	return enemy
 
-func _projectile(form: String, at: Vector3 = Vector3(0, 0.65, 0)) -> Node3D:
-	var projectile := preload("res://scenes/objects/offhand_projectile.gd").new()
-	projectile.thrower = player
-	projectile.elemental_form = form
-	projectile.damage = 2
-	projectile.direction = Vector3.RIGHT
-	yard.add_child(projectile)
-	projectile.global_position = at
-	return projectile
-
 func _projectile_checks() -> void:
-	player.position = Vector3(0, 0, 8)
-	for element: String in ["", "fire", "ice", "lightning", "wind"]:
-		var first := _enemy(Vector3(2, 0, 0))
-		var second := _enemy(Vector3(4, 0, 0))
-		await ticks()
-		var shot := _projectile(element)
-		await ticks(12 if element == "lightning" else 20)
-		check(first.health == 98, "offhand hits nearest enemy exactly once " + element)
-		check(second.health == (98 if element == "wind" else 100), "wind alone pierces second enemy " + element)
-		if element == "fire":
-			check(first._skill_burn_running, "fire shot applies existing burn")
-		elif element == "ice":
-			check(first.is_skill_slowed(), "ice shot applies existing slow")
-		elif element == "lightning":
-			check(first.is_skill_frozen(), "lightning shot applies existing stun")
-		first.queue_free()
-		second.queue_free()
-		if is_instance_valid(shot):
-			shot.queue_free()
-		await ticks()
+	# Active weapon effects remain covered; retired offhand flight is no longer gameplay.
 	var pushed := _enemy(Vector3(2, 0, 0))
 	GameManager.equip_item(GameManager.grant_item("axe"))
 	pushed.velocity = Vector3.ZERO
@@ -285,37 +230,6 @@ func _projectile_checks() -> void:
 	player._on_attack_hit(pushed.get_node("Direction/HurtArea3D"))
 	check(pushed.velocity.x > 3.9, "axe applies additional horizontal knockback")
 	pushed.queue_free()
-	player.position = Vector3(0, 0, 8)
-	var wall := StaticBody3D.new()
-	var wall_shape := CollisionShape3D.new()
-	var box := BoxShape3D.new()
-	box.size = Vector3(0.2, 3, 3)
-	wall_shape.shape = box
-	wall.add_child(wall_shape)
-	yard.add_child(wall)
-	wall.position = Vector3(1, 0.7, 0)
-	var blocked := _enemy(Vector3(2, 0, 0))
-	await ticks()
-	var shot := _projectile("wind")
-	await ticks(15)
-	check(blocked.health == 100 and not is_instance_valid(shot), "world wall blocks and destroys even wind projectile")
-	player.position = Vector3(0.7, 0, 0)
-	var camera := get_viewport().get_camera_3d()
-	camera.position = Vector3(-5, 5, 0)
-	camera.look_at(Vector3(2, 0.8, 0))
-	player._skill_aim_point = Vector3(10, 0.8, 0)
-	player._cast_aim_point_valid = true
-	GameManager.weapon_form = ""
-	player.cast_offhand()
-	var muzzle_shots := 0
-	for child in yard.get_children():
-		if child.get_script() == preload("res://scenes/objects/offhand_projectile.gd") and not child.is_queued_for_deletion():
-			muzzle_shots += 1
-	check(muzzle_shots == 0, "muzzle cannot spawn projectile through a near wall")
-	player.clear_skill_cast_aim()
-	wall.queue_free()
-	blocked.queue_free()
-	await ticks()
 	var enchanted := GameManager.grant_item("spear")
 	GameManager.inventory.items[enchanted].enchants = {"sharpness": 2, "critical": 3, "vampirism": 3, "haste": 1, "reach": 1, "impact": 1, "resonance": 1, "affliction": 1}
 	GameManager.equip_item(enchanted)
@@ -337,10 +251,6 @@ func _projectile_checks() -> void:
 	check(critical_hits > 0 and critical_hits < 30, "critical enchant produces seeded double damage alongside normal hits")
 	enchant_target.queue_free()
 	await ticks()
-	shot = _projectile("")
-	shot.max_distance = 0.5
-	await ticks(6)
-	check(not is_instance_valid(shot), "projectile expires at range without return")
 
 
 var _stage_inventory: Dictionary
@@ -356,7 +266,7 @@ func _isolate_stage(stage: Stage) -> void:
 			timer.stop()
 
 func _check_stage_inventory(label: String) -> void:
-	check(GameManager.inventory.serialize() == _stage_inventory and GameManager.skill_points == _stage_sp, "inventory/equipment/enchants/offhand upgrade/SP retained " + label)
+	check(GameManager.inventory.serialize() == _stage_inventory and GameManager.skill_points == _stage_sp, "inventory/quick slot/enchants/inactive legacy data/SP retained " + label)
 	var data := SaveSystem.load_data()
 	var expected_saved: Variant = JSON.parse_string(JSON.stringify(_stage_inventory))
 	check(data.get("inventory", {}) == expected_saved and data.get("sentinel", {}).get("keep", 0) == 42, "saved inventory and unrelated payload retained " + label)
@@ -367,13 +277,15 @@ func _stage_flow() -> void:
 	SaveSystem.save_path = "user://inventory-stage-fixture.json"
 	GameManager.reset()
 	GameManager._loaded_payload = {"sentinel": {"keep": 42}}
-	for definition: String in ["spear", "bow", "armor", "charm"]:
+	for definition: String in ["spear", "armor", "charm"]:
 		GameManager.equip_item(GameManager.grant_item(definition))
 	GameManager.grant_item("healing_potion", 3)
 	GameManager.skill_points = 20
 	GameManager.spend_skill_point("form_fire", "fire")
 	GameManager.spend_skill_point("active_fire_1")
-	GameManager.buy_offhand_resonance("fire")
+	# Simulate a legacy equipped offhand while carrying the new quick slot.
+	GameManager.inventory.equipped.offhand = GameManager.grant_item("bow")
+	GameManager.inventory.resonance_upgrades.fire = true
 	var main_uid: String = GameManager.inventory.equipped.main
 	GameManager.prepare_enchants(main_uid)
 	GameManager.enchant_weapon(main_uid, 0, GameManager.inventory.offer_epoch)
@@ -411,62 +323,6 @@ func _stage_flow() -> void:
 	_check_stage_inventory("B2 return and reload")
 	print("INVENTORY_STAGE_RESULT ", checks - failures, "/", checks, " passed; failures=", failures)
 	get_tree().quit(1 if failures else 0)
-
-
-func _offhand_presentation_checks() -> void:
-	var saved_inventory := GameManager.inventory.serialize()
-	var saved_form := GameManager.weapon_form
-	var saved_skills := GameManager.unlocked_skills.duplicate()
-	var state: PlayerSkillState = player.fsm.states.skill
-	for offhand: String in ["bow", "throwing_knife"]:
-		GameManager.equip_item(GameManager.grant_item(offhand))
-		for form: String in ["", "wind", "fire", "ice", "lightning"]:
-			for upgraded: bool in [false, true]:
-				if form == "" and upgraded:
-					continue
-				GameManager.weapon_form = form
-				GameManager.inventory.resonance_upgrades.clear()
-				GameManager.unlocked_skills.clear()
-				if form != "":
-					GameManager.unlocked_skills.append("active_%s_1" % form)
-					if upgraded:
-						GameManager.inventory.resonance_upgrades[form] = true
-				player.selected_active_slot = 1
-				player._active_skill_cooldowns.clear()
-				player._skill_aim_point = player.global_position + Vector3(0, 1, -10)
-				player._cast_aim_point_valid = true
-				var suppression := player._blade_suppress_count
-				player.fsm.change_state(state)
-				player.fsm._update(0.0)
-				var label := "%s/%s/%s" % [offhand, form, "upgraded" if upgraded else "base"]
-				check(is_instance_valid(player._offhand_cast_sprite) and player._offhand_cast_sprite.visible and player._offhand_cast_sprite.texture == CATALOG.texture(offhand), "actual equipped offhand appears during first-skill cast " + label)
-				check(not player.blade.visible and not player._offhand_cast_sprite.no_depth_test, "cast weapon replaces blade and respects depth " + label)
-				if form in ["", "fire"]:
-					await ticks(2)
-					await capture("cast-%s-%s-%s" % [offhand, form if form != "" else "neutral", "upgraded" if upgraded else "base"])
-				# Cover forced interruption as well as ordinary exit.
-				player.fsm.change_state(player.fsm.states.hurt if upgraded else player.fsm.states.idle)
-				player.fsm._update(0.0)
-				if is_instance_valid(state.active):
-					state.active._finish()
-				for child in yard.get_children():
-					if child.get_script() == preload("res://scenes/objects/offhand_projectile.gd"):
-						child.queue_free()
-				await ticks(2)
-				check(not player._offhand_cast_sprite.visible and player._blade_suppress_count == suppression, "cast exit/interruption hides offhand and balances blade " + label)
-	player.fsm.change_state(player.fsm.states.idle)
-	player.fsm._update(0.0)
-	player.selected_active_slot = 2
-	player.begin_offhand_cast()
-	check(not player._offhand_cast_sprite.visible, "other skill slots do not show offhand")
-	player.selected_active_slot = 1
-	GameManager.unequip_item("offhand")
-	player.begin_offhand_cast()
-	check(not player._offhand_cast_sprite.visible, "no offhand equipped produces no phantom cast weapon")
-	GameManager.inventory.restore(saved_inventory)
-	GameManager.weapon_form = saved_form
-	GameManager.unlocked_skills.assign(saved_skills)
-	GameManager.notify_inventory_changed()
 
 
 func _catalog_migration_checks() -> void:
