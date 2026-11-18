@@ -3,7 +3,10 @@ extends EnemyState
 
 # Called when the node enters the scene tree for the first time.
 func _enter() -> void:
-	obj.change_animation("hurt")
+	if obj.has_hurt_animation():
+		obj.change_animation("hurt")
+	else:
+		obj.stop_move()
 	timer = 0.2
 func _exit() -> void:
 	obj.stop_horizontal()

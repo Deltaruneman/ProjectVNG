@@ -188,7 +188,49 @@ func _on_body_exited(_body: Node3D) -> void:
 
 ## The current state decides how to take the hit — the Dead state overrides this to skip it.
 func _on_hurt_area_3d_hurt(direction: Vector3, damage: float) -> void:
-	fsm.current_state.take_damage(direction, damage)
+	if health <= 0 or _fallback_hurt_running:
+		return
+	if fsm != null and fsm.states.has("hurt") and fsm.current_state != null:
+		fsm.current_state.take_damage(direction, damage)
+	else:
+		take_damage(int(damage))
+		if health <= 0:
+			queue_free()
+
+
+func has_hurt_animation() -> bool:
+	for animation in anim_player.get_animation_list():
+		if "hurt" in animation.to_lower():
+			return true
+	return false
+
+
+func take_damage(damage: int) -> void:
+	var previous_health := health
+	super.take_damage(damage)
+	if health > 0 and health < previous_health and not has_hurt_animation():
+		_play_fallback_hurt()
+
+
+## Pause the current pose and AI without changing the enemy's existing state.
+func _play_fallback_hurt() -> void:
+	if _fallback_hurt_running:
+		return
+	_fallback_hurt_running = true
+	var previous_color := sprite.modulate
+	var physics_enabled := is_physics_processing()
+	var animation_was_playing := anim_player.is_playing()
+	anim_player.pause()
+	set_physics_process(false)
+	stop_move()
+	sprite.modulate = Color(1.0, 0.15, 0.15, previous_color.a)
+	await get_tree().create_timer(0.2, false).timeout
+	sprite.modulate = previous_color
+	_fallback_hurt_running = false
+	set_physics_process(physics_enabled)
+	if health > 0 and animation_was_playing:
+		anim_player.play()
+	fallback_hurt_finished.emit()
 
 
 ## Interrupt an existing hurt state without applying damage.
