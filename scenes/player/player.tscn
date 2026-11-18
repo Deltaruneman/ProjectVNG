@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://kx1fr4p8vy0f" path="res://scenes/player/states/run.gd" id="6_run"]
 [ext_resource type="Script" uid="uid://dpcr7kcoh7xdh" path="res://scenes/player/states/jump.gd" id="7_jump"]
 [ext_resource type="Script" uid="uid://cqn00yvsknulb" path="res://scenes/player/states/fall.gd" id="8_fall"]
-[ext_resource type="Script" uid="uid://e18al3cgjb1u" path="res://scenes/player/states/attack.gd" id="9_attack"]
+[ext_resource type="Script" path="res://scenes/player/states/weapon_attack.gd" id="9_attack"]
 [ext_resource type="Script" uid="uid://m25b1ajy4mbb" path="res://scenes/player/hurt.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://3iypijwid1uy" path="res://scenes/player/dead.gd" id="12_ugbui"]
 [ext_resource type="Script" uid="uid://to03pbynjbtu" path="res://scenes/player/states/carry.gd" id="14_carry"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cjv0myegiav6k" path="res://scenes/player/weapon/blade.tscn" id="21_3j4b4"]
 [ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="22_yj68g"]
 [ext_resource type="Script" uid="uid://wktq6d6j2o0p" path="res://scenes/player/states/wind_ultimate.gd" id="23_windult"]
+[ext_resource type="Script" path="res://scenes/player/states/stamina_exhausted.gd" id="24_stamina_exhausted"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnqru"]
 radius = 0.6
@@ -137,6 +138,9 @@ script = ExtResource("20_8ydkj")
 
 [node name="WindUltimate" type="Node" parent="States" index="13" unique_id=912639592]
 script = ExtResource("23_windult")
+
+[node name="StaminaExhausted" type="Node" parent="States" index="14"]
+script = ExtResource("24_stamina_exhausted")
 
 [node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=583087062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)

@@ -45,6 +45,7 @@ func _enter() -> void:
 		obj.clear_skill_cast_aim()
 		change_state(fsm.states.idle)
 		return
+	obj.begin_offhand_cast()
 	if obj.cast_active_skill(selected_skill_id):
 		obj.clear_skill_cast_aim()
 		obj.suppress_blade(true)
@@ -80,7 +81,7 @@ func _enter() -> void:
 	obj.get_parent().add_child(active)
 	var hit_area := active.get_node_or_null("HitArea3D") as HitArea3D
 	if hit_area != null:
-		hit_area.damage = obj.attack_damage + int(GameManager.skill_allocations.get("char_element", 0)) + int(GameManager.skill_allocations.get("char_crit", 0))
+		hit_area.damage = obj.scaled_skill_damage(obj.attack_damage + int(GameManager.skill_allocations.get("char_element", 0)) + int(GameManager.skill_allocations.get("char_crit", 0)))
 		hit_area.hitted.connect(obj._on_skill_hit.bind(elemental_form))
 	active.global_position = spawn_position
 	active.setup(obj, dir)
@@ -94,11 +95,14 @@ func _update(delta: float) -> void:
 
 
 func _exit() -> void:
+	obj.end_offhand_cast()
 	_restore_animation_speed()
 	_release_cast_blade()
 
 
 func _finish() -> void:
+	if is_instance_valid(obj):
+		obj.end_offhand_cast()
 	_restore_animation_speed()
 	_release_cast_blade()
 	queue_free()

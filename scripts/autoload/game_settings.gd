@@ -3,6 +3,7 @@ extends Node
 signal changed
 const PATH := "user://settings.cfg"
 const ACTIONS := {
+	"inventory": "Túi đồ", "cheat_menu": "Menu thử nghiệm",
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
 	"right": "Di chuyển phải", "jump": "Nhảy", "dash": "Lướt", "attack": "Tấn công",
 	"parry": "Đỡ đòn", "carry": "Nhấc / ném", "skill": "Dùng kỹ năng",

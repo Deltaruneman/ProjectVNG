@@ -48,6 +48,9 @@ signal skill_progress_changed
 var player_level := 1
 var experience := 0
 var skill_spending: Dictionary = {}
+const INVENTORY_STATE := preload("res://scripts/inventory_state.gd")
+signal inventory_changed
+var inventory := INVENTORY_STATE.new()
 var skill_points := 0
 var skill_allocations: Dictionary = {}
 var weapon_form := ""
@@ -297,8 +300,9 @@ func save_game() -> void:
 	payload["weapon_form"] = weapon_form
 	payload["unlocked_skills"] = unlocked_skills
 	payload["collected_exp_points"] = collected_exp_points
-	 payload.erase("collected_skill_points")
+	payload.erase("collected_skill_points")
 	payload["selected_ultimate_skill"] = selected_ultimate_skill
+	payload["inventory"] = inventory.serialize()
 	SaveSystem.save_data(payload)
 	_loaded_payload = payload
 
@@ -392,6 +396,7 @@ func select_ultimate_skill(skill_id: String) -> bool:
 func reset_skill_tree() -> void:
 	skill_points += allocated_skill_points()
 	skill_allocations.clear()
+	inventory.resonance_upgrades.clear()
 	skill_spending.clear()
 	weapon_form = ""
 	unlocked_skills.clear()
@@ -408,7 +413,7 @@ func allocated_skill_points() -> int:
 
 
 func total_skill_points() -> int:
-	return skill_points + allocated_skill_points()
+	return skill_points + allocated_skill_points() + inventory.enchant_spent
 
 
 ## Reads the save file into memory. Doesn't move the fox — register_stage() does that for the
@@ -420,6 +425,7 @@ func load_game() -> void:
 	checkpoint_stage = str(data.get("stage", ""))
 	checkpoint_id = str(data.get("checkpoint", ""))
 	var saved_flags: Variant = data.get("flags", {})
+	inventory.restore(data.get("inventory", {}))
 	player_level = maxi(1, int(data.get("player_level", 1)))
 	experience = maxi(0, int(data.get("experience", 0)))
 	var saved_spending: Variant = data.get("skill_spending", {})
@@ -479,6 +485,8 @@ func reset() -> void:
 	unlocked_skills.clear()
 	selected_ultimate_skill = ""
 	collected_exp_points.clear()
+	inventory = INVENTORY_STATE.new()
+	inventory_changed.emit()
 	player_health = -1
 	_changing = false
 	_booted = false
@@ -486,3 +494,64 @@ func reset() -> void:
 
 
 
+
+
+func notify_inventory_changed() -> void:
+	inventory_changed.emit()
+	skill_progress_changed.emit()
+	save_game()
+
+func grant_item(definition: String, count: int = 1) -> String:
+	var uid := inventory.grant(definition, count)
+	if uid != "":
+		notify_inventory_changed()
+	return uid
+
+func equip_item(uid: String) -> bool:
+	if not inventory.equip(uid):
+		return false
+	notify_inventory_changed()
+	return true
+
+func unequip_item(slot: String) -> bool:
+	if not inventory.equipped.has(slot) or inventory.equipped[slot] == "":
+		return false
+	inventory.equipped[slot] = ""
+	notify_inventory_changed()
+	return true
+
+func use_inventory_item(uid: String) -> bool:
+	if not inventory.items.has(uid) or inventory.items[uid].definition != "healing_potion":
+		return false
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player == null or player.health <= 0 or player.health >= player.max_health:
+		return false
+	player.health = player.max_health
+	inventory.items[uid].count -= 1
+	if inventory.items[uid].count <= 0:
+		inventory.items.erase(uid)
+	notify_inventory_changed()
+	return true
+
+
+func enchant_weapon(uid: String, choice: int, epoch: int) -> bool:
+	var cost := inventory.apply_enchant(uid, choice, skill_points, epoch)
+	if cost <= 0:
+		return false
+	skill_points -= cost
+	notify_inventory_changed()
+	return true
+
+func prepare_enchants(uid: String) -> Array[Dictionary]:
+	var result := inventory.roll_enchants(uid)
+	if not result.is_empty():
+		save_game()
+	return result
+
+func buy_offhand_resonance(form: String) -> bool:
+	var id := "offhand_" + form
+	if inventory.resonance_upgrades.get(form, false) or not spend_skill_point(id):
+		return false
+	inventory.resonance_upgrades[form] = true
+	notify_inventory_changed()
+	return true

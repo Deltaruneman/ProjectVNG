@@ -1,0 +1,159 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+PASS attack VFX frames load melee/sword-slash
+PASS attack VFX frames load melee/thrust
+PASS attack VFX frames load melee/spear-sweep
+PASS attack VFX frames load melee/dagger-flurry
+PASS attack VFX frames load impacts/ground-slam
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Nhan sat thuong
+Player: changing from state Attack to Idle
+PASS dagger physically airborne
+PASS dagger has impact window
+PASS dagger impact uses its assigned Player body motion
+PASS dagger charge terminates
+PASS dagger charge damages actual crab
+DAGGER_AIR peak=1.21540169790387 outward=2.08333325386047 return=1.21540169790387 saw=true end=(0.0, -0.019957, -0.0)
+PASS dagger has separate outward and return airborne arcs
+PASS dagger returns near starting point
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS axe physically airborne
+PASS axe has impact window
+PASS axe impact uses its assigned Player body motion
+PASS axe charge terminates
+PASS axe charge damages actual crab
+PASS axe damage opens only on ground after jump
+PASS axe streak points down at impact
+PASS axe ground shock stays upright at impact
+PASS weapon attack effects depth-test behind Player
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS dagger obstruction recovers
+PASS dagger respects physical blocker
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS axe obstruction recovers
+PASS axe respects physical blocker
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS interrupted flight falls to ground
+PASS flight interruption restores floating weapon
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS active main behind body plane 1
+PASS offhand behind body plane 1
+PASS active main behind body plane 0
+PASS offhand behind body plane 0
+PASS rendered Player silhouette occludes overlapping active weapon pixels
+AERIAL_RESULT 32/32

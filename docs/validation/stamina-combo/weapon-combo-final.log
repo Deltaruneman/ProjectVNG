@@ -1,0 +1,622 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+PASS attack VFX frames load melee/sword-slash
+PASS attack VFX frames load melee/thrust
+PASS attack VFX frames load melee/spear-sweep
+PASS attack VFX frames load melee/dagger-flurry
+PASS attack VFX frames load impacts/ground-slam
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS sword first click completes one strike
+PASS sword one click stays at strike 1
+PASS sword never auto advances
+PASS sword click finishes next strike
+PASS sword click sequence 2
+PASS sword click finishes next strike
+PASS sword click sequence 3
+PASS sword finisher accepts fresh click
+PASS sword finisher wraps to first
+Player: changing from state Attack to Idle
+PASS sword idle gap ends combo
+PASS sword animation speed restored
+Player: changing from state Idle to Attack
+PASS sword new combo after timeout
+PASS sword timeout resets index
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS axe first click completes one strike
+PASS axe one click stays at strike 1
+PASS axe never auto advances
+PASS axe click finishes next strike
+PASS axe click sequence 2
+PASS axe click finishes next strike
+PASS axe click sequence 3
+PASS axe finisher accepts fresh click
+PASS axe finisher wraps to first
+Player: changing from state Attack to Idle
+PASS axe idle gap ends combo
+PASS axe animation speed restored
+Player: changing from state Idle to Attack
+PASS axe new combo after timeout
+PASS axe timeout resets index
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS spear first click completes one strike
+PASS spear one click stays at strike 1
+PASS spear never auto advances
+PASS spear click finishes next strike
+PASS spear click sequence 2
+PASS spear click finishes next strike
+PASS spear click sequence 3
+PASS spear click finishes next strike
+PASS spear click sequence 4
+PASS spear finisher accepts fresh click
+PASS spear finisher wraps to first
+Player: changing from state Attack to Idle
+PASS spear idle gap ends combo
+PASS spear animation speed restored
+Player: changing from state Idle to Attack
+PASS spear new combo after timeout
+PASS spear timeout resets index
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS dagger first click completes one strike
+PASS dagger one click stays at strike 1
+PASS dagger never auto advances
+PASS dagger finisher accepts fresh click
+PASS dagger finisher wraps to first
+Player: changing from state Attack to Idle
+PASS dagger idle gap ends combo
+PASS dagger animation speed restored
+Player: changing from state Idle to Attack
+PASS dagger new combo after timeout
+PASS dagger timeout resets index
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS one early buffered click is consumed
+PASS buffer advances exactly once
+Player: changing from state Attack to Idle
+PASS buffer does not auto chain third strike
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS actual hit window completes
+PASS one click damages overlapping target exactly once
+PASS second actual hit completes
+PASS second click rearms target once
+PASS no automatic third hit
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS non-Blade uses compact attack-like weapon pose instead of raised-arm attack clip
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS legacy Blade keeps the original attack animation
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS hold-release chooses charge rather than normal combo
+Player: changing from state Attack to Idle
+PASS interrupt restores sprite grip offset
+PASS interrupt restores floating process
+PASS interrupt disables hitbox
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS sword correct tip up camera 0.0
+PASS sword correct tip down camera 0.0
+PASS sword correct tip left camera 0.0
+PASS sword correct tip right camera 0.0
+PASS sword correct tip up camera 1.5707963267949
+PASS sword correct tip down camera 1.5707963267949
+PASS sword correct tip left camera 1.5707963267949
+PASS sword correct tip right camera 1.5707963267949
+PASS sword correct tip up camera 3.14159265358979
+PASS sword correct tip down camera 3.14159265358979
+PASS sword correct tip left camera 3.14159265358979
+PASS sword correct tip right camera 3.14159265358979
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS spear correct tip up camera 0.0
+PASS spear correct tip down camera 0.0
+PASS spear correct tip left camera 0.0
+PASS spear correct tip right camera 0.0
+PASS spear correct tip up camera 1.5707963267949
+PASS spear correct tip down camera 1.5707963267949
+PASS spear correct tip left camera 1.5707963267949
+PASS spear correct tip right camera 1.5707963267949
+PASS spear correct tip up camera 3.14159265358979
+PASS spear correct tip down camera 3.14159265358979
+PASS spear correct tip left camera 3.14159265358979
+PASS spear correct tip right camera 3.14159265358979
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS starter_blade correct tip up camera 0.0
+PASS starter_blade correct tip down camera 0.0
+PASS starter_blade correct tip left camera 0.0
+PASS starter_blade correct tip right camera 0.0
+PASS starter_blade correct tip up camera 1.5707963267949
+PASS starter_blade correct tip down camera 1.5707963267949
+PASS starter_blade correct tip left camera 1.5707963267949
+PASS starter_blade correct tip right camera 1.5707963267949
+PASS starter_blade correct tip up camera 3.14159265358979
+PASS starter_blade correct tip down camera 3.14159265358979
+PASS starter_blade correct tip left camera 3.14159265358979
+PASS starter_blade correct tip right camera 3.14159265358979
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Nhan sat thuong
+Player: changing from state Attack to Idle
+PASS dagger physically airborne
+PASS dagger has impact window
+PASS dagger impact uses its assigned Player body motion
+PASS dagger charge terminates
+PASS dagger charge damages actual crab
+DAGGER_AIR peak=1.21540169790387 outward=2.08333325386047 return=1.21540169790387 saw=true end=(0.0, -0.019957, -0.0)
+PASS dagger has separate outward and return airborne arcs
+PASS dagger returns near starting point
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS axe physically airborne
+PASS axe has impact window
+PASS axe impact uses its assigned Player body motion
+PASS axe charge terminates
+PASS axe charge damages actual crab
+PASS axe damage opens only on ground after jump
+PASS axe streak points down at impact
+PASS axe ground shock stays upright at impact
+PASS weapon attack effects depth-test behind Player
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS dagger obstruction recovers
+PASS dagger respects physical blocker
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+PASS axe obstruction recovers
+PASS axe respects physical blocker
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Player: changing from state Attack to Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS interrupted flight falls to ground
+PASS flight interruption restores floating weapon
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS active main behind body plane 1
+PASS offhand behind body plane 1
+PASS active main behind body plane 0
+PASS offhand behind body plane 0
+PASS rendered Player silhouette occludes overlapping active weapon pixels
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS combo lock setup strike 1
+PASS combo lock setup strike 2
+PASS combo lock setup strike 3
+PASS completed combo enters recovery
+PASS completed combo recovery is half a second
+PASS attack input stays locked during combo recovery
+Player: changing from state Attack to Idle
+PASS player returns to control after combo recovery
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS spear sweep effect is created
+PASS spear sweep follows the equipped spear tip direction
+PASS rendered spear FX axis matches rendered weapon axis
+PASS spear sweep spawns along the actual weapon pose
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+WEAPON_COMBO_RESULT 143/143 failures=0

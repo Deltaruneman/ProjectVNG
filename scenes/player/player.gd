@@ -1,5 +1,7 @@
 class_name Player
 extends BaseCharacter
+const OFFHAND_PROJECTILE := preload("res://scenes/objects/offhand_projectile.gd")
+const ITEM_CATALOG := preload("res://scripts/item_catalog.gd")
 const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 const ULTIMATE_CINEMATIC_SCRIPT := preload("res://scenes/player/ultimate_cinematic.gd")
 const ULTIMATE_SCREEN_GLOW_SHADER := preload("res://scenes/player/ultimate_screen_glow.gdshader")
@@ -22,6 +24,13 @@ const WIND_ULTIMATE_DASH_SPEED := 14.0
 const WIND_ULTIMATE_DAMAGE_RADIUS := 3.2
 const WIND_ULTIMATE_SLOW_DURATION := 0.55
 const LIGHTNING_BEAM_WIDTH := 1.6
+const MAX_STAMINA := 100.0
+const STAMINA_DASH_COST := 20.0
+const STAMINA_PARRY_COST := 15.0
+const STAMINA_CHARGE_COST := 25.0
+const STAMINA_REGEN_RATE := 25.0
+const STAMINA_REGEN_DELAY := 0.7
+const STAMINA_EXHAUSTION_DURATION := 1.0
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
@@ -32,8 +41,12 @@ var _last_view_direction := ""
 
 signal died
 signal rage_changed(current: float, maximum: float)
+signal stamina_changed(current: float, maximum: float)
 signal active_skill_slot_changed(slot: int, skill_id: String)
 var rage := 0.0
+var stamina := MAX_STAMINA
+var _stamina_regen_delay := 0.0
+var stamina_exhausted := false
 const MAX_RAGE := 100.0
 var selected_active_slot := 1
 const ACTIVE_SKILL_COOLDOWNS := {
@@ -59,8 +72,14 @@ var _ultimate_previous_material_overlay: Material
 var _ultimate_visual_elapsed := 0.0
 var _ultimate_visual_remaining := 0.0
 var _hud_status_time_remaining: Dictionary = {}
+var _offhand_cast_sprite: Sprite3D
+var _offhand_cast_suppressed_blade := false
+var _original_blade_texture: Texture2D
+var _original_blade_pixel_size := 0.0625
 var _base_attack_damage := 1
 var _base_max_health := 3
+var _equipment_health_bonus := 0
+var _equipment_initialized := false
 var _base_movement_speed := 6.0
 var _base_dash_cooldown := 0.75
 var _base_parry_window := 0.167
@@ -102,6 +121,11 @@ func _ready() -> void:
 	_base_dash_cooldown = dash_cooldown
 	_base_parry_window = parry_window
 	_base_maxjump = maxjump
+	if blade != null:
+		var blade_sprite := blade.get_node_or_null("Sprite3D") as Sprite3D
+		if blade_sprite != null:
+			_original_blade_texture = blade_sprite.texture
+			_original_blade_pixel_size = blade_sprite.pixel_size
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
@@ -117,6 +141,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_update_stamina(delta)
 	if _skill_button_held:
 		_refresh_skill_aim_point()
 	if is_talking:
@@ -129,6 +154,41 @@ func _physics_process(delta: float) -> void:
 		if toward_target.length_squared() > 0.01:
 			face_movement(toward_target)
 			_check_changed_animation()
+
+
+func try_spend_stamina(amount: float) -> bool:
+	if amount <= 0.0:
+		return true
+	if stamina + 0.0001 < amount:
+		return false
+	stamina = maxf(0.0, stamina - amount)
+	_stamina_regen_delay = STAMINA_REGEN_DELAY
+	stamina_changed.emit(stamina, MAX_STAMINA)
+	if stamina <= 0.0001:
+		_begin_stamina_exhaustion()
+		return false
+	return true
+
+
+func _begin_stamina_exhaustion() -> void:
+	if stamina_exhausted:
+		return
+	stamina_exhausted = true
+	_cancel_skill_aim()
+	if fsm != null and fsm.states.has("staminaexhausted"):
+		fsm.change_state(fsm.states.staminaexhausted)
+
+
+func _update_stamina(delta: float) -> void:
+	if stamina >= MAX_STAMINA:
+		return
+	if _stamina_regen_delay > 0.0:
+		_stamina_regen_delay = maxf(0.0, _stamina_regen_delay - delta)
+		return
+	var previous := stamina
+	stamina = minf(MAX_STAMINA, stamina + STAMINA_REGEN_RATE * delta)
+	if not is_equal_approx(previous, stamina):
+		stamina_changed.emit(stamina, MAX_STAMINA)
 
 
 func _update_movement(delta: float) -> void:
@@ -187,6 +247,7 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	_update_offhand_cast_pose()
 	if _skill_button_held:
 		if not _can_start_skill_cast():
 			_cancel_skill_aim()
@@ -228,6 +289,7 @@ func _process(delta: float) -> void:
 
 
 func die() -> void:
+	end_offhand_cast()
 	_cancel_skill_aim()
 	if fsm == null or fsm.current_state == null or not fsm.states.has("dead"):
 		return
@@ -239,6 +301,7 @@ func die() -> void:
 
 
 func _exit_tree() -> void:
+	end_offhand_cast()
 	_cancel_skill_aim()
 	_finish_ultimate_presentation()
 
@@ -282,7 +345,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func can_interact() -> bool:
-	return health > 0 and not is_talking
+	return health > 0 and not is_talking and not stamina_exhausted
 
 
 func start_talk(_partner: BaseCharacter = null) -> void:
@@ -307,10 +370,14 @@ func finish_talk() -> void:
 func _can_use_skills() -> bool:
 	if fsm == null or fsm.current_state == null:
 		return false
-	return not _wind_ultimate_active and not ["dead", "hurt", "carry", "throw", "skill"].has(fsm.current_state.name.to_lower())
+	return not stamina_exhausted and not _wind_ultimate_active and not ["dead", "hurt", "carry", "throw", "skill", "staminaexhausted"].has(fsm.current_state.name.to_lower())
 
 
 func _can_start_skill_cast() -> bool:
+	if stamina_exhausted:
+		return false
+	if GameManager.weapon_form == "" and not uses_offhand(selected_active_slot):
+		return false
 	if not _can_use_skills() or is_talking or _ultimate_cinematic_running:
 		return false
 	if not fsm.states.has("skill") or not fsm.states.skill.can_throw():
@@ -365,6 +432,8 @@ func get_selected_active_skill_id() -> String:
 
 
 func get_active_skill_id_for_slot(slot: int) -> String:
+	if uses_offhand(slot):
+		return "offhand_" + GameManager.inventory.id_for_slot("offhand")
 	if GameManager.weapon_form == "" or slot < 1 or slot > 4:
 		return ""
 	var skill_id := "active_%s_%d" % [GameManager.weapon_form, slot]
@@ -391,7 +460,8 @@ func get_active_skill_cooldown_duration_for_slot(slot: int) -> float:
 
 func get_active_skill_cooldown_duration(skill_id: String) -> float:
 	var cooldown_key := skill_id if skill_id != "" else "basic_dagger"
-	return float(ACTIVE_SKILL_COOLDOWNS.get(cooldown_key, ACTIVE_SKILL_COOLDOWNS["basic_dagger"]))
+	var haste := GameManager.inventory.enchant_rank("main", "haste") + GameManager.inventory.enchant_rank("offhand", "haste")
+	return float(ACTIVE_SKILL_COOLDOWNS.get(cooldown_key, ACTIVE_SKILL_COOLDOWNS["basic_dagger"])) * maxf(0.4, 1.0 - 0.1 * haste)
 
 
 func start_active_skill_cooldown(skill_id: String) -> void:
@@ -525,29 +595,27 @@ func skill_effect_position(aim: Vector3, distance: float = 0.9, height: float = 
 
 
 func _on_attack_hit(_area: Area3D) -> void:
-	if rage >= MAX_RAGE:
-		return
-	rage = minf(MAX_RAGE, rage + 12.5)
-	rage_changed.emit(rage, MAX_RAGE)
+	_weapon_hit_effect(_area, "main")
+	_gain_rage(12.5)
 
 
 func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
-	_on_attack_hit(area)
+	_gain_rage(12.5)
 	var enemy := _get_enemy_from_hurt_area(area)
 	if enemy != null:
 		if elemental_form == "fire":
 			var ember_rank := int(GameManager.skill_allocations.get("evo_fire_ember", 0))
-			var burn_duration := 3.0 + float(ember_rank)
+			var burn_duration := (3.0 + float(ember_rank)) * elemental_status_multiplier()
 			enemy.apply_skill_burn(self, maxi(1, int(attack_damage / 2)) + ember_rank, burn_duration, 1.0)
 			BattleFX.enemy_status(enemy, "burning", burn_duration)
 		elif elemental_form == "ice":
 			var frostbite_rank := int(GameManager.skill_allocations.get("evo_ice_frostbite", 0))
-			var slow_duration := 2.0 + float(frostbite_rank)
+			var slow_duration := (2.0 + float(frostbite_rank)) * elemental_status_multiplier()
 			enemy.apply_skill_slow(slow_duration, 0.5)
 			BattleFX.enemy_status(enemy, "slowed", slow_duration)
 		elif elemental_form == "lightning":
-			enemy.apply_skill_freeze(0.35)
-			BattleFX.enemy_status(enemy, "electrified", 0.35)
+			enemy.apply_skill_freeze(0.35 * elemental_status_multiplier())
+			BattleFX.enemy_status(enemy, "electrified", 0.35 * elemental_status_multiplier())
 	var stage := get_tree().current_scene as Node3D
 	if stage != null and elemental_form != "":
 		var impact_direction := area.global_position - global_position
@@ -577,10 +645,17 @@ func _apply_skill_bonuses() -> void:
 	var ranks: Dictionary = GameManager.skill_allocations
 	var extra_health := int(ranks.get("char_health", 0))
 	var previous_max := max_health
-	max_health = _base_max_health + extra_health
-	health += maxi(max_health - previous_max, 0)
+	var armor_health := int(GameManager.inventory.definition_for_slot("armor").get("health", 0))
+	max_health = _base_max_health + extra_health + armor_health
+	# Equipping/removing armor must not become a repeatable heal action.
+	health += maxi(max_health - armor_health - (previous_max - _equipment_health_bonus), 0)
+	_equipment_health_bonus = armor_health
+	if not _equipment_initialized:
+		health = max_health
+		_equipment_initialized = true
 	health = mini(health, max_health)
-	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus
+	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus + int(GameManager.inventory.definition_for_slot("main").get("bonus", 0)) + GameManager.inventory.enchant_rank("main", "sharpness")
+	_refresh_equipment_art()
 	movement_speed = _base_movement_speed * (1.0 + 0.08 * int(ranks.get("char_speed", 0))) + _temp_speed_bonus
 	dash_cooldown = _base_dash_cooldown * pow(0.85, int(ranks.get("char_dash", 0)))
 	parry_window = _base_parry_window * (1.0 + 0.25 * int(ranks.get("char_parry", 0)))
@@ -589,10 +664,14 @@ func _apply_skill_bonuses() -> void:
 
 
 func cast_active_skill(active_id: String) -> bool:
+	if stamina_exhausted:
+		return false
+	if active_id.begins_with("offhand_"):
+		return cast_offhand()
 	if active_id in ["", "active_wind_1", "active_fire_1", "active_ice_1", "active_lightning_1"]:
 		return false
 	var aim := get_skill_aim_direction()
-	var damage := attack_damage + int(GameManager.skill_allocations.get("char_element", 0))
+	var damage := scaled_skill_damage(attack_damage + int(GameManager.skill_allocations.get("char_element", 0)))
 	var effect_position := skill_effect_position(aim)
 	match active_id:
 		"active_wind_2":
@@ -854,7 +933,7 @@ func _is_ultimate_ready(skill_id: String) -> bool:
 
 
 func _start_ultimate_cinematic(skill_id: String) -> bool:
-	if _ultimate_cinematic_running or get_tree().paused:
+	if stamina_exhausted or _ultimate_cinematic_running or get_tree().paused:
 		return false
 	var camera := get_viewport().get_camera_3d()
 	var scene := get_tree().current_scene
@@ -939,6 +1018,8 @@ func _place_ultimate_blade_behind() -> void:
 
 
 func cast_ultimate(skill_id_override: String = "") -> bool:
+	if stamina_exhausted:
+		return false
 	var skill_id: String = skill_id_override if skill_id_override != "" else GameManager.selected_ultimate_skill
 	if not _is_ultimate_ready(skill_id):
 		return false
@@ -958,7 +1039,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	var radius := 18.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else 7.0
 	if skill_id == "ultimate_fire_2":
 		radius += float(GameManager.skill_allocations.get("evo_fire_inferno", 0))
-	var damage := attack_damage * (4 if radius < 10.0 else 2)
+	var damage := scaled_skill_damage(attack_damage * (4 if radius < 10.0 else 2))
 	var vfx_position := global_position + Vector3.UP * 0.6
 	if skill_id == "ultimate_wind_1":
 		BattleFX.ultimate_impact(self, "wind/wind-gust", vfx_position, 5.8, Color("d2fff9"), aim)
@@ -1211,7 +1292,7 @@ func _wind_ultimate_tangent(angle: float) -> Vector3:
 
 
 func _apply_wind_ultimate_pulse(tangent: Vector3) -> void:
-	var damage := maxi(1, attack_damage)
+	var damage := scaled_skill_damage(maxi(1, attack_damage), "wind")
 	BattleFX.ultimate_impact(self, "wind/wind-blade", global_position + Vector3.UP * 0.62, 2.8, Color("c6fff5"), tangent)
 	BattleFX.slash(self, global_position + Vector3.UP * 0.82, "wind", tangent, 0.95)
 	_damage_enemies_in_shape(global_position, tangent, "circle", WIND_ULTIMATE_DAMAGE_RADIUS, 0.0, 360.0, damage, 0.0, WIND_ULTIMATE_SLOW_DURATION)
@@ -1266,3 +1347,156 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 		if damage <= 0.0:
 			return
 	fsm.current_state.take_damage(int(damage))
+
+
+func uses_offhand(slot: int = 1) -> bool:
+	if slot != 1 or GameManager.inventory.id_for_slot("offhand") == "":
+		return false
+	var form := GameManager.weapon_form
+	return form == "" or (GameManager.inventory.resonance_upgrades.get(form, false) and GameManager.unlocked_skills.has("active_%s_1" % form))
+
+func cast_offhand() -> bool:
+	if not uses_offhand(selected_active_slot):
+		return false
+	var projectile := OFFHAND_PROJECTILE.new()
+	projectile.definition = GameManager.inventory.id_for_slot("offhand")
+	if projectile.definition.begins_with("bow"):
+		projectile.speed = 18.0
+		projectile.max_distance = 10.0
+	projectile.elemental_form = GameManager.weapon_form
+	projectile.thrower = self
+	projectile.damage = scaled_skill_damage(attack_damage + GameManager.inventory.enchant_rank("offhand", "sharpness") + int(GameManager.skill_allocations.get("char_element", 0)))
+	projectile.damage = roll_weapon_damage(projectile.damage, "offhand")
+	projectile.max_distance *= 1.0 + 0.1 * GameManager.inventory.enchant_rank("offhand", "reach")
+	var origin := global_position + Vector3.UP * 0.8 + get_skill_aim_direction() * 0.5
+	var projectile_aim := get_projectile_aim_direction(origin)
+	if projectile.definition.begins_with("bow"):
+		# Bows fire a level, straight shot across the ground plane. A floor hit on
+		# the camera ray must not pull the arrow sharply down as it leaves the bow.
+		projectile_aim.y = 0.0
+		if projectile_aim.length_squared() < 0.01:
+			projectile_aim = get_skill_aim_direction()
+	projectile.direction = projectile_aim.normalized()
+	var muzzle := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * 0.8, origin, collision_mask)
+	var exclusions: Array[RID] = [get_rid()]
+	for enemy_body: Node in get_tree().get_nodes_in_group("enemies"):
+		if enemy_body is CollisionObject3D:
+			exclusions.append(enemy_body.get_rid())
+	muzzle.exclude = exclusions
+	if not get_world_3d().direct_space_state.intersect_ray(muzzle).is_empty():
+		projectile.free()
+		return true
+	get_parent().add_child(projectile)
+	projectile.global_position = origin
+	return true
+
+
+func _refresh_equipment_art() -> void:
+	if blade == null:
+		return
+	var blade_sprite := blade.get_node_or_null("Sprite3D") as Sprite3D
+	if blade_sprite == null:
+		return
+	var id := GameManager.inventory.id_for_slot("main")
+	var data := ITEM_CATALOG.item(id)
+	has_weapon = id != ""
+	blade_sprite.texture = _original_blade_texture if data.get("legacy", false) or id == "" else ITEM_CATALOG.texture(id, str(data.get("resonance", "")) != "")
+	blade_sprite.pixel_size = _original_blade_pixel_size if data.get("legacy", false) else 0.035
+
+func roll_weapon_damage(base: int, slot: String = "main") -> int:
+	var chance := float(GameManager.inventory.definition_for_slot(slot).get("crit", 0.0)) + 0.1 * GameManager.inventory.enchant_rank(slot, "critical")
+	return base * 2 if randf() < chance else base
+
+func _weapon_hit_effect(area: Area3D, slot: String) -> void:
+	var enemy := _get_enemy_from_hurt_area(area)
+	if enemy == null:
+		return
+	if slot == "main" and GameManager.inventory.definition_for_slot("main").get("kind", "") == "axe":
+		var push := enemy.global_position - global_position
+		push.y = 0.0
+		if push.length_squared() > 0.001:
+			push = push.normalized() * 4.0
+			enemy.velocity.x += push.x
+			enemy.velocity.z += push.z
+	var drain := GameManager.inventory.enchant_rank(slot, "vampirism")
+	if health > 0 and drain > 0 and randf() < 0.2 * drain:
+		health += 1
+	var impact := GameManager.inventory.enchant_rank(slot, "impact")
+	if impact > 0:
+		enemy.apply_skill_freeze(0.1 * impact)
+
+func scaled_skill_damage(base: int, form: String = "") -> int:
+	if form == "":
+		form = GameManager.weapon_form
+	if form == "":
+		return base
+	var bonus := float(GameManager.inventory.definition_for_slot("charm").get("skill_bonus", 0.0))
+	for slot: String in ["main", "offhand"]:
+		if GameManager.inventory.definition_for_slot(slot).get("resonance", "") == form:
+			bonus += 0.25 + 0.15 * GameManager.inventory.enchant_rank(slot, "resonance")
+	return maxi(1, ceili(float(base) * (1.0 + bonus)))
+
+func elemental_status_multiplier() -> float:
+	var rank := 0
+	for slot: String in ["main", "offhand"]:
+		if GameManager.inventory.definition_for_slot(slot).get("resonance", "") == GameManager.weapon_form:
+			rank += GameManager.inventory.enchant_rank(slot, "affliction")
+	return 1.0 + 0.25 * rank
+
+
+func begin_offhand_cast() -> void:
+	if selected_active_slot != 1:
+		return
+	var definition := GameManager.inventory.id_for_slot("offhand")
+	if definition == "":
+		return
+	if not is_instance_valid(_offhand_cast_sprite):
+		_offhand_cast_sprite = Sprite3D.new()
+		_offhand_cast_sprite.name = "OffhandCastWeapon"
+		_offhand_cast_sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		_offhand_cast_sprite.pixel_size = 0.009
+		_offhand_cast_sprite.no_depth_test = false
+		add_child(_offhand_cast_sprite)
+	_offhand_cast_sprite.texture = ITEM_CATALOG.texture(definition)
+	_offhand_cast_sprite.show()
+	if not _offhand_cast_suppressed_blade:
+		suppress_blade(true)
+		_offhand_cast_suppressed_blade = true
+	_update_offhand_cast_pose()
+
+func _update_offhand_cast_pose() -> void:
+	if not is_instance_valid(_offhand_cast_sprite) or not _offhand_cast_sprite.visible:
+		return
+	var camera := get_viewport().get_camera_3d()
+	var side := camera.global_basis.x if camera != null else global_basis.x
+	_offhand_cast_sprite.global_position = global_position + Vector3.UP * 0.9 + forward().normalized() * 0.3 + side * 0.45
+	if camera != null:
+		_offhand_cast_sprite.global_basis = camera.global_basis
+	place_weapon_below_body(_offhand_cast_sprite)
+
+func end_offhand_cast() -> void:
+	if is_instance_valid(_offhand_cast_sprite):
+		_offhand_cast_sprite.hide()
+	if _offhand_cast_suppressed_blade:
+		suppress_blade(false)
+		_offhand_cast_suppressed_blade = false
+
+
+func place_weapon_below_body(weapon_sprite: SpriteBase3D) -> void:
+	# Keep projected position, but depth-test active weapon/effect pixels behind the Player plane.
+	# Terrain still occludes both; the floating back weapon never calls this helper.
+	var camera := get_viewport().get_camera_3d()
+	if camera == null or not is_instance_valid(weapon_sprite):
+		return
+	var body := get_node("Sprite3D") as Sprite3D
+	var at := weapon_sprite.global_position
+	var depth := (body.global_position - camera.global_position).dot(-camera.global_basis.z) + 0.06
+	var screen := camera.unproject_position(at)
+	var ray_origin := camera.project_ray_origin(screen)
+	var ray := camera.project_ray_normal(screen)
+	var along := ray.dot(-camera.global_basis.z)
+	if absf(along) < 0.001:
+		return
+	var origin_depth := (ray_origin - camera.global_position).dot(-camera.global_basis.z)
+	weapon_sprite.global_position = ray_origin + ray * ((depth - origin_depth) / along)
+	weapon_sprite.no_depth_test = false

@@ -181,6 +181,9 @@ func _match_parent_canvas_scale() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	var inventory_menu := get_node_or_null("/root/InventoryMenu")
+	if inventory_menu != null and inventory_menu.is_open:
+		return
 	var pause_menu := get_node_or_null("/root/PauseMenu")
 	if pause_menu != null and pause_menu.is_open:
 		return

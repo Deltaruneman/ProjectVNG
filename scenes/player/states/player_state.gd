@@ -52,6 +52,8 @@ func control_attack() -> bool:
 #Return true if dashing
 func control_dash() -> bool:
 	if Input.is_action_just_pressed("dash") and obj.dash_cooldown_timer <= 0.0:
+		if not obj.try_spend_stamina(Player.STAMINA_DASH_COST):
+			return obj.stamina_exhausted
 		change_state(fsm.states.dash)
 		return true
 	return false
@@ -72,6 +74,8 @@ func take_damage(damage: int = 1) -> void:
 #Return true if parrying
 func control_parry() -> bool:
 	if Input.is_action_just_pressed("parry") and obj.parry_cooldown_timer <= 0.0 and obj.is_on_floor():
+		if not obj.try_spend_stamina(Player.STAMINA_PARRY_COST):
+			return obj.stamina_exhausted
 		change_state(fsm.states.parry)
 		return true
 	return false

@@ -61,6 +61,7 @@ void fragment() {
 @export var low_color: Color = Color("ff9d1f") ## Màu khi máu còn từ 1/3 trở xuống
 
 var _bar: Range
+var _stamina_bar: ProgressBar
 var _label: Label
 var _fill: StyleBoxFlat ## chỉ có ở chế độ fallback
 var _tween: Tween
@@ -104,6 +105,7 @@ func _ready() -> void:
 	else:
 		_build_flat_bar()
 	_build_label()
+	_build_stamina_bar()
 	_build_low_health_warning()
 	_build_status_strip()
 	_build_experience_bar()
@@ -124,6 +126,8 @@ func _ready() -> void:
 	GameManager.skill_progress_changed.connect(_refresh_skill_points)
 	_refresh_skill_points()
 	if _player is Player:
+		(_player as Player).stamina_changed.connect(_on_stamina_changed)
+		_on_stamina_changed((_player as Player).stamina, Player.MAX_STAMINA)
 		_rage_bar = get_node_or_null("RageMeter/RageBar") as ProgressBar
 		_rage_label = get_node_or_null("RageMeter/RageLabel") as Label
 		_build_skill_bar()
@@ -154,6 +158,8 @@ func set_skill_tree_open(open: bool) -> void:
 		if child == _low_health_warning or child == _low_health_vignette_layer:
 			show_child = show_child and _critical_health_active
 		child.visible = show_child
+	if not open and _player is Player:
+		_on_stamina_changed((_player as Player).stamina, Player.MAX_STAMINA)
 
 
 func _process(_delta: float) -> void:
@@ -209,6 +215,17 @@ func _build_skill_bar() -> void:
 	frame.offset_bottom = -BAR_BOTTOM
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(frame)
+	if _stamina_bar != null:
+		_stamina_bar.anchor_left = center_anchor_x
+		_stamina_bar.anchor_right = center_anchor_x
+		_stamina_bar.anchor_top = 1.0
+		_stamina_bar.anchor_bottom = 1.0
+		_stamina_bar.offset_left = -bar_w * 0.5
+		_stamina_bar.offset_right = bar_w * 0.5
+		_stamina_bar.offset_top = -(bar_h + BAR_BOTTOM + 10.0)
+		_stamina_bar.offset_bottom = -(bar_h + BAR_BOTTOM + 3.0)
+		_stamina_bar.size = Vector2(bar_w, 7.0)
+		_stamina_bar.custom_minimum_size = _stamina_bar.size
 
 	var main_row := _create_skill_group(frame, "PrimarySkills", Color(0.015, 0.025, 0.035, 0.55), Color(0.19, 0.25, 0.28, 0.6))
 	var defense_row := _create_skill_group(frame, "DefenseSkills", Color(0.018, 0.045, 0.055, 0.72), Color("4a929a"))
@@ -367,10 +384,14 @@ func _refresh_skill_bar() -> void:
 		var skill_id := player.get_active_skill_id_for_slot(slot_number)
 		var icon_name := _skill_icon_name(skill_id)
 		var icon_texture: Texture2D = _load_skill_icon(icon_name) if icon_name != "" else _load_basic_projectile_icon(GameManager.weapon_form if slot_number == 1 else "")
+		if skill_id.begins_with("offhand_"):
+			icon_texture = preload("res://scripts/item_catalog.gd").texture(GameManager.inventory.id_for_slot("offhand"))
+		if GameManager.weapon_form == "" and not skill_id.begins_with("offhand_"):
+			icon_texture = null
 		_skill_slot_icons[index].texture = icon_texture
 		_skill_slot_icons[index].modulate = Color.WHITE
 		_skill_slot_placeholders[index].visible = icon_texture == null
-		_skill_slot_placeholders[index].text = "O" if skill_id == "" else "?"
+		_skill_slot_placeholders[index].text = "—" if skill_id == "" else "?"
 		var remaining := player.get_active_skill_cooldown_for_slot(slot_number)
 		_skill_slot_cooldown_overlays[index].visible = remaining > 0.0
 		_skill_slot_cooldown_labels[index].visible = remaining > 0.0
@@ -378,6 +399,10 @@ func _refresh_skill_bar() -> void:
 		_skill_slot_styles[index].border_color = Color("52f19a") if player.selected_active_slot == slot_number else Color("68737a")
 		_skill_slot_styles[index].set_border_width_all(2 if player.selected_active_slot == slot_number else 1)
 		var title := _skill_display_name(skill_id)
+		if skill_id.begins_with("offhand_"):
+			title = str(GameManager.inventory.definition_for_slot("offhand").get("name", "Vũ khí phụ")) + (" · " + GameManager.weapon_form if GameManager.weapon_form != "" else "")
+		if skill_id == "" and GameManager.weapon_form == "":
+			title = "Chưa trang bị vũ khí phụ" if slot_number == 1 else "Chưa có kỹ năng"
 		if skill_id == "" and slot_number == 1:
 			title = str({"wind": "Phi Dao Gió", "fire": "Hỏa Cầu", "ice": "Băng Cầu", "lightning": "Lôi Cầu"}.get(GameManager.weapon_form, title))
 		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
@@ -706,6 +731,41 @@ func _build_label() -> void:
 
 func _on_health_changed(current: int, maximum: int) -> void:
 	_refresh(current, maximum, true)
+
+
+func _build_stamina_bar() -> void:
+	_stamina_bar = ProgressBar.new()
+	_stamina_bar.name = "StaminaBar"
+	_stamina_bar.show_percentage = false
+	_stamina_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var health_control := _bar as Control
+	var health_size := health_control.size * health_control.scale if health_control != null else bar_size
+	_stamina_bar.position = Vector2(margin.x, margin.y + health_size.y + 4.0)
+	_stamina_bar.size = Vector2(health_size.x, 7.0)
+	_stamina_bar.custom_minimum_size = _stamina_bar.size
+	_stamina_bar.min_value = 0.0
+	_stamina_bar.max_value = Player.MAX_STAMINA
+	_stamina_bar.step = 0.01
+	var track := StyleBoxFlat.new()
+	track.bg_color = Color("11171b", 0.72)
+	track.border_color = Color("e6efd9", 0.72)
+	track.set_border_width_all(1)
+	track.set_corner_radius_all(3)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = Color("c8e9bd")
+	fill.set_corner_radius_all(3)
+	_stamina_bar.add_theme_stylebox_override("background", track)
+	_stamina_bar.add_theme_stylebox_override("fill", fill)
+	_stamina_bar.visible = false
+	add_child(_stamina_bar)
+
+
+func _on_stamina_changed(current: float, maximum: float) -> void:
+	if _stamina_bar == null:
+		return
+	_stamina_bar.max_value = maximum
+	_stamina_bar.value = current
+	_stamina_bar.visible = current < maximum - 0.01 and not _skill_tree_is_open
 
 
 func _refresh(current: int, maximum: int, animate: bool) -> void:

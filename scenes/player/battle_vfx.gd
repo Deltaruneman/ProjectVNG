@@ -339,6 +339,59 @@ static func _spawn_pixelfx(parent: Node3D, effect_id: String, position: Vector3,
 	return effect
 
 
+static func weapon_attack_effect(parent: Node3D, effect_id: String, position: Vector3, form: String, direction: Vector3, world_half_extent: float) -> AnimatedSprite3D:
+	# Weapon hits use a depth-tested world sprite so the Player billboard can cover it.
+	# Spell and skill VFX keep using _spawn_pixelfx's existing CanvasLayer path.
+	if not is_instance_valid(parent):
+		return null
+	var camera := parent.get_viewport().get_camera_3d()
+	var stage := parent.get_tree().current_scene as Node3D
+	if camera == null or camera.is_position_behind(position) or stage == null:
+		return null
+	var frames := _load_pixelfx_frames(effect_id)
+	if frames == null:
+		return null
+	var metadata: Dictionary = _pixel_frames_cache[effect_id + ":metadata"]
+	var frame_size: Array = metadata.get("frameSize", [128, 128])
+	var frame_width := maxf(float(frame_size[0]), 1.0)
+	var pivot: Array = metadata.get("pivot", [frame_width * 0.5, float(frame_size[1]) * 0.5])
+	var sprite := AnimatedSprite3D.new()
+	sprite.name = "WeaponAttackFX_" + effect_id.replace("/", "_")
+	sprite.sprite_frames = frames
+	sprite.animation = "default"
+	sprite.speed_scale = SKILL_VFX_SPEED_SCALE
+	sprite.centered = false
+	sprite.offset = -Vector2(float(pivot[0]), float(pivot[1]))
+	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	# Explicit camera-facing basis below; billboard roll overrides its weapon angle.
+	sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
+	sprite.shaded = false
+	sprite.no_depth_test = false
+	sprite.pixel_size = world_half_extent * 2.0 / frame_width
+	sprite.modulate = _pixelfx_tint(effect_id, form)
+	sprite.set_meta("world_direction", direction)
+	stage.add_child(sprite)
+	sprite.global_position = position
+	if direction.length_squared() > 0.001:
+		var screen_start := camera.unproject_position(position)
+		var screen_direction := camera.unproject_position(position + direction.normalized()) - screen_start
+		if screen_direction.length_squared() > 0.001:
+			sprite.global_basis = camera.global_basis * Basis(Vector3.BACK, -screen_direction.angle())
+	if parent.has_method("place_weapon_below_body"):
+		parent.call("place_weapon_below_body", sprite)
+	if frames.get_animation_loop("default"):
+		var timer := Timer.new()
+		timer.one_shot = true
+		timer.wait_time = 0.8
+		timer.timeout.connect(sprite.queue_free, CONNECT_ONE_SHOT)
+		sprite.add_child(timer)
+		timer.start()
+	else:
+		sprite.animation_finished.connect(sprite.queue_free, CONNECT_ONE_SHOT)
+	sprite.play()
+	return sprite
+
+
 static func _spawn_pvfx(parent: Node3D, effect_id: String, position: Vector3, world_half_extent: float, tint: Color, direction: Vector3 = Vector3.ZERO, loop_duration: float = 0.0) -> Node2D:
 	if not is_instance_valid(parent):
 		return null
