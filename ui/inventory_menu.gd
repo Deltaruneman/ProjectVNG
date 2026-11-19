@@ -237,6 +237,8 @@ func _refresh() -> void:
 	var found := false
 	for uid: String in GameManager.inventory.items:
 		var data := CATALOG.item(GameManager.inventory.items[uid].definition)
+		if data.slot == "offhand":
+			continue
 		if (data.slot == "consumable") != (page == "consumables"):
 			continue
 		found = true
@@ -307,6 +309,8 @@ func _item_tile(parent: Control, uid: String, equipment: bool = false) -> void:
 		tile.add_child(badge)
 
 func _select(uid: String) -> void:
+	if page == "equipment" and GameManager.inventory.items.has(uid) and CATALOG.item(GameManager.inventory.items[uid].definition).slot == "consumable":
+		page = "consumables"
 	selected = uid
 	_refresh()
 
@@ -326,6 +330,10 @@ func _item_details(uid: String) -> void:
 	for enchant: String in entry.get("inactive_enchants", {}):
 		_paragraph(_detail, "%s %d · Được giữ lại, không hoạt động" % [CATALOG.ENCHANTS.get(enchant, {}).get("name", enchant), entry.inactive_enchants[enchant]])
 	if data.slot == "consumable":
+		if GameManager.inventory.equipped.get("consumable", "") == uid:
+			_button(_detail, "Bỏ khỏi ô Q", func() -> void: GameManager.unequip_item("consumable"))
+		else:
+			_button(_detail, "Gán vào ô Q", func() -> void: GameManager.equip_item(uid))
 		_button(_detail, "Sử dụng", func() -> void:
 			_status.text = "Đã sử dụng." if GameManager.use_inventory_item(uid) else "Chỉ dùng khi còn sống và thiếu HP.")
 	else:
@@ -338,6 +346,8 @@ func _build_cheat() -> void:
 	_paragraph(_list, "VẬT PHẨM & NÂNG CẤP THỬ NGHIỆM")
 	_button(_list, "Nhận bộ vật phẩm", func() -> void:
 		for definition: String in CATALOG.definitions():
+			if CATALOG.item(definition).slot == "offhand":
+				continue
 			GameManager.inventory.grant(definition, 5 if CATALOG.item(definition).slot == "consumable" else 1)
 		GameManager.notify_inventory_changed())
 	_button(_list, "+20 SP để thử", func() -> void:
@@ -352,21 +362,15 @@ func _build_cheat() -> void:
 			GameManager.skill_points = maxi(GameManager.skill_points, 3)
 			GameManager.spend_skill_point("form_" + form, form)
 			GameManager.spend_skill_point("active_%s_1" % form))
-	var current_form := GameManager.weapon_form
-	if current_form != "":
-		var upgrade := _button(_detail, "Cộng hưởng skill 1 · 2 SP", func() -> void:
-			_status.text = "Đã mở cộng hưởng vũ khí phụ." if GameManager.buy_offhand_resonance(current_form) else "Cần skill 1, 2 SP và chưa mua nâng cấp.")
-		upgrade.disabled = not GameManager.can_purchase_skill("offhand_" + current_form)
-		_paragraph(_detail, "Vũ khí phụ không có hệ riêng. Sau nâng cấp, ô 1 truyền hệ đang dùng: Hỏa cháy / Băng chậm / Lôi choáng / Phong xuyên địch.")
 	_paragraph(_detail, "Đồ và SP cấp ở đây được lưu cùng tiến trình. Chưa có tỉ lệ drop hay nguồn nâng cấp trong thế giới.")
 
 func _build_enchant() -> void:
 	_paragraph(_list, "Chọn một vũ khí trong túi.")
 	for uid: String in GameManager.inventory.items:
 		var data := CATALOG.item(GameManager.inventory.items[uid].definition)
-		if data.slot in ["main", "offhand"]:
+		if data.slot == "main":
 			_button(_list, str(data.name), _select.bind(uid))
-	if not GameManager.inventory.items.has(selected) or not str(CATALOG.item(GameManager.inventory.items[selected].definition).slot) in ["main", "offhand"]:
+	if not GameManager.inventory.items.has(selected) or str(CATALOG.item(GameManager.inventory.items[selected].definition).slot) != "main":
 		_paragraph(_detail, "Chọn vũ khí để xem 3 lựa chọn ngẫu nhiên.")
 		return
 	var definition := CATALOG.item(GameManager.inventory.items[selected].definition)

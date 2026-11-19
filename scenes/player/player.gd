@@ -309,6 +309,10 @@ func _exit_tree() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if is_talking:
 		return
+	if event.is_action_pressed("quick_item") and not event.is_echo():
+		GameManager.use_quick_item()
+		get_viewport().set_input_as_handled()
+		return
 	for slot in 4:
 		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
 			_cancel_skill_aim()
@@ -1349,11 +1353,9 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 	fsm.current_state.take_damage(int(damage))
 
 
-func uses_offhand(slot: int = 1) -> bool:
-	if slot != 1 or GameManager.inventory.id_for_slot("offhand") == "":
-		return false
-	var form := GameManager.weapon_form
-	return form == "" or (GameManager.inventory.resonance_upgrades.get(form, false) and GameManager.unlocked_skills.has("active_%s_1" % form))
+func uses_offhand(_slot: int = 1) -> bool:
+	# Retired equipment is retained only for old-save compatibility.
+	return false
 
 func cast_offhand() -> bool:
 	if not uses_offhand(selected_active_slot):
@@ -1445,7 +1447,7 @@ func elemental_status_multiplier() -> float:
 
 
 func begin_offhand_cast() -> void:
-	if selected_active_slot != 1:
+	if not uses_offhand(selected_active_slot):
 		return
 	var definition := GameManager.inventory.id_for_slot("offhand")
 	if definition == "":

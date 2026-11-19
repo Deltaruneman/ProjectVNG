@@ -18,7 +18,7 @@ const PARRY_SLOT := 5
 const ULTIMATE_SLOT := 6
 const SKILL_TREE_SLOT := 7
 const SLOT_COUNT := 8
-const DEFENSE_SLOT_W := 28.0
+const DEFENSE_SLOT_W := 22.0
 const DEFENSE_GROUP_GAP := 6.0
 const LOW_HEALTH_VIGNETTE_SHADER := """
 shader_type canvas_item;
@@ -61,6 +61,10 @@ void fragment() {
 @export var low_color: Color = Color("ff9d1f") ## Màu khi máu còn từ 1/3 trở xuống
 
 var _bar: Range
+var _quick_icon: TextureRect
+var _quick_count: Label
+var _quick_key: Label
+var _quick_panel: PanelContainer
 var _stamina_bar: ProgressBar
 var _label: Label
 var _fill: StyleBoxFlat ## chỉ có ở chế độ fallback
@@ -118,11 +122,6 @@ func _ready() -> void:
 		return
 	_player.health_changed.connect(_on_health_changed)
 	_refresh(_player.health, _player.max_health, false)
-	_skill_points_label = Label.new()
-	_skill_points_label.position = Vector2(300, 10)
-	_skill_points_label.size = Vector2(100, 12)
-	_skill_points_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	add_child(_skill_points_label)
 	GameManager.skill_progress_changed.connect(_refresh_skill_points)
 	_refresh_skill_points()
 	if _player is Player:
@@ -131,6 +130,9 @@ func _ready() -> void:
 		_rage_bar = get_node_or_null("RageMeter/RageBar") as ProgressBar
 		_rage_label = get_node_or_null("RageMeter/RageLabel") as Label
 		_build_skill_bar()
+		_build_quick_item()
+		GameManager.inventory_changed.connect(_refresh_quick_item)
+		GameSettings.changed.connect(_refresh_quick_item)
 		(_player as Player).active_skill_slot_changed.connect(_on_active_skill_slot_changed)
 		_on_active_skill_slot_changed((_player as Player).selected_active_slot, (_player as Player).get_selected_active_skill_id())
 		GameManager.skill_progress_changed.connect(_refresh_skill_bar)
@@ -146,6 +148,8 @@ func set_skill_bar_visible(value: bool) -> void:
 	var bar := get_node_or_null("SkillBar")
 	if bar != null:
 		bar.visible = value
+	if _quick_panel != null:
+		_quick_panel.visible = value
 
 
 func set_skill_tree_open(open: bool) -> void:
@@ -231,6 +235,66 @@ func _build_skill_bar() -> void:
 	var defense_row := _create_skill_group(frame, "DefenseSkills", Color(0.018, 0.045, 0.055, 0.72), Color("4a929a"))
 	for index in SLOT_COUNT:
 		_create_skill_slot(index, defense_row if index == DASH_SLOT or index == PARRY_SLOT else main_row)
+
+
+
+func _build_quick_item() -> void:
+	var bar := get_node("SkillBar") as Control
+	_quick_panel = PanelContainer.new()
+	_quick_panel.name = "QuickItemSlot"
+	_quick_panel.anchor_left = bar.anchor_left
+	_quick_panel.anchor_right = bar.anchor_right
+	_quick_panel.anchor_top = 1.0
+	_quick_panel.anchor_bottom = 1.0
+	_quick_panel.offset_left = bar.offset_left - 46.0
+	_quick_panel.offset_right = bar.offset_left - 8.0
+	_quick_panel.offset_top = bar.offset_top - 3.0
+	_quick_panel.offset_bottom = bar.offset_bottom
+	_quick_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("161d22")
+	style.border_color = Color("b7a477")
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(3)
+	_quick_panel.add_theme_stylebox_override("panel", style)
+	add_child(_quick_panel)
+	var content := Control.new()
+	content.custom_minimum_size = Vector2(36, 36)
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_quick_panel.add_child(content)
+	_quick_icon = TextureRect.new()
+	_quick_icon.position = Vector2(7, 2)
+	_quick_icon.size = Vector2(24, 25)
+	_quick_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_quick_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_quick_icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_quick_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(_quick_icon)
+	_quick_key = Label.new()
+	_quick_key.position = Vector2(3, 25)
+	_quick_key.add_theme_font_size_override("font_size", 8)
+	_quick_key.add_theme_color_override("font_color", Color("e9d6a8"))
+	content.add_child(_quick_key)
+	_quick_count = Label.new()
+	_quick_count.position = Vector2(18, 25)
+	_quick_count.size = Vector2(16, 10)
+	_quick_count.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_quick_count.add_theme_font_size_override("font_size", 8)
+	content.add_child(_quick_count)
+	_refresh_quick_item()
+
+
+func _refresh_quick_item() -> void:
+	if _quick_panel == null:
+		return
+	var uid := str(GameManager.inventory.equipped.get("consumable", ""))
+	var entry: Dictionary = GameManager.inventory.items.get(uid, {})
+	var count := int(entry.get("count", 0))
+	_quick_icon.texture = preload("res://scripts/item_catalog.gd").texture(str(entry.definition)) if count > 0 else null
+	_quick_count.text = str(count)
+	_quick_key.text = _input_hint("quick_item", true)
+	_quick_panel.modulate = Color.WHITE if count > 0 else Color(0.6, 0.6, 0.6, 1)
+	_quick_panel.tooltip_text = "B · Túi đồ → Tiêu hao → Gán vào ô Q" if count == 0 else "%s · %s · ×%d" % [_input_hint("quick_item"), GameManager.inventory.definition_for_slot("consumable").get("name", ""), count]
 
 
 func _create_skill_group(parent: HBoxContainer, group_name: String, background: Color, border: Color) -> HBoxContainer:
@@ -341,12 +405,12 @@ func _create_skill_slot(index: int, row: HBoxContainer) -> void:
 		icon.offset_top = -2.0
 		icon.offset_right = 1.0
 		icon.offset_bottom = 2.0
-		var book_icon := AtlasTexture.new()
-		book_icon.atlas = load(SKILL_TREE_BOOK_ICON_SHEET) as Texture2D
-		book_icon.region = SKILL_TREE_BOOK_ICON_REGION
-		book_icon.filter_clip = true
-		icon.texture = book_icon
-		placeholder.visible = false
+		icon.texture = null
+		placeholder.visible = true
+		placeholder.text = "T"
+		key_label.visible = false
+		slot_style.bg_color = Color(0.05, 0.06, 0.07, 0.45)
+		slot_style.border_color = Color("384148")
 		key_label.add_theme_color_override("font_color", Color("ffe19a"))
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot.tooltip_text = "T · Cây kỹ năng"
@@ -379,6 +443,8 @@ func _refresh_skill_bar() -> void:
 		return
 	for index in _input_key_labels.size():
 		_input_key_labels[index].text = _input_hint(_slot_input_action(index), true)
+		if index == SKILL_TREE_SLOT:
+			_skill_slot_placeholders[index].text = _input_hint("skill_tree", true)
 	for index in 4:
 		var slot_number := index + 1
 		var skill_id := player.get_active_skill_id_for_slot(slot_number)
@@ -386,8 +452,10 @@ func _refresh_skill_bar() -> void:
 		var icon_texture: Texture2D = _load_skill_icon(icon_name) if icon_name != "" else _load_basic_projectile_icon(GameManager.weapon_form if slot_number == 1 else "")
 		if skill_id.begins_with("offhand_"):
 			icon_texture = preload("res://scripts/item_catalog.gd").texture(GameManager.inventory.id_for_slot("offhand"))
-		if GameManager.weapon_form == "" and not skill_id.begins_with("offhand_"):
+		if skill_id == "" and slot_number != 1:
 			icon_texture = null
+		elif GameManager.weapon_form == "":
+			icon_texture = load(BASIC_DAGGER_ICON) as Texture2D if slot_number == 1 else null
 		_skill_slot_icons[index].texture = icon_texture
 		_skill_slot_icons[index].modulate = Color.WHITE
 		_skill_slot_placeholders[index].visible = icon_texture == null
@@ -402,7 +470,7 @@ func _refresh_skill_bar() -> void:
 		if skill_id.begins_with("offhand_"):
 			title = str(GameManager.inventory.definition_for_slot("offhand").get("name", "Vũ khí phụ")) + (" · " + GameManager.weapon_form if GameManager.weapon_form != "" else "")
 		if skill_id == "" and GameManager.weapon_form == "":
-			title = "Chưa trang bị vũ khí phụ" if slot_number == 1 else "Chưa có kỹ năng"
+			title = "Phi dao" if slot_number == 1 else "Chưa có kỹ năng"
 		if skill_id == "" and slot_number == 1:
 			title = str({"wind": "Phi Dao Gió", "fire": "Hỏa Cầu", "ice": "Băng Cầu", "lightning": "Lôi Cầu"}.get(GameManager.weapon_form, title))
 		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
@@ -456,7 +524,7 @@ func _input_hint(action: String, compact: bool = false) -> String:
 
 
 func _skill_slot_width(index: int) -> float:
-	return DEFENSE_SLOT_W if index == DASH_SLOT or index == PARRY_SLOT else SLOT_W
+	return 18.0 if index == SKILL_TREE_SLOT else (DEFENSE_SLOT_W if index == DASH_SLOT or index == PARRY_SLOT else SLOT_W)
 
 
 func _refresh_action_slot(slot_index: int, action_id: String, action_name: String, remaining: float) -> void:
@@ -540,7 +608,7 @@ func _build_low_health_warning() -> void:
 	_low_health_warning = Label.new()
 	_low_health_warning.name = "LowHealthWarning"
 	_low_health_warning.text = "MÁU THẤP"
-	_low_health_warning.position = Vector2(margin.x, margin.y + 51.0)
+	_low_health_warning.position = Vector2(margin.x, margin.y + 36.0)
 	_low_health_warning.size = Vector2(100.0, 15.0)
 	_low_health_warning.visible = false
 	_low_health_warning.add_theme_font_size_override("font_size", 9)
@@ -705,12 +773,12 @@ func _build_flat_bar() -> void:
 	var background := StyleBoxFlat.new()
 	background.bg_color = Color(0, 0, 0, 0.6)
 	background.border_color = Color(1, 1, 1, 0.8)
-	background.set_border_width_all(2)
-	background.set_corner_radius_all(6)
+	background.set_border_width_all(1)
+	background.set_corner_radius_all(2)
 
 	_fill = StyleBoxFlat.new()
 	_fill.bg_color = fill_color
-	_fill.set_corner_radius_all(6)
+	_fill.set_corner_radius_all(2)
 
 	bar.add_theme_stylebox_override("background", background)
 	bar.add_theme_stylebox_override("fill", _fill)
@@ -719,6 +787,8 @@ func _build_flat_bar() -> void:
 
 
 func _build_label() -> void:
+	if not show_label:
+		return
 	# Chế độ fallback luôn hiện chữ; chế độ ảnh chỉ hiện khi bật show_label
 	if texture_progress != null and not show_label:
 		return
@@ -801,7 +871,7 @@ func _build_experience_bar() -> void:
 	_experience_bar = ProgressBar.new()
 	_experience_bar.name = "ExperienceBar"
 	_experience_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	_experience_bar.offset_top = -7.0
+	_experience_bar.offset_top = -3.0
 	_experience_bar.show_percentage = false
 	_experience_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var background := StyleBoxFlat.new()
@@ -809,7 +879,7 @@ func _build_experience_bar() -> void:
 	background.border_color = Color("426072")
 	background.border_width_top = 1
 	var fill := StyleBoxFlat.new()
-	fill.bg_color = Color("48d9d0")
+	fill.bg_color = Color("79958d")
 	fill.border_color = Color("a2fff0")
 	fill.border_width_top = 1
 	_experience_bar.add_theme_stylebox_override("background", background)
