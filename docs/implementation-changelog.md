@@ -8809,3 +8809,18 @@ Moved four third-party source packs from `assets/effects/` into `assets/vendor/`
 | `docs/implementation-changelog.md` | Records the follow-up path correction. |
 
 Static search found these two non-`res://` references after the folder move; both now point to `assets/vendor/pixelfx-main/pixelfx-main`. Runtime and tool execution were not run.
+
+## 2026-11-19 — Camera and Player sprite device audit
+
+**Status.** Audit documented for `Playerandlevel` at `0e8512b5`. BUG-011 is reproduced on the current Windows laptop. T079/T080 task and acceptance status stays as recorded. No game implementation or owner sign-off.
+
+| Included file | Purpose |
+| --- | --- |
+| `docs/camera-device-audit.md` | Records the baseline, configuration and packed Windows build, controlled runtime measurements, evidence, and the second-device checklist. |
+| `docs/implementation-bugs.md` | Adds BUG-011 with observed yaw-dependent billboard failure, diagnostics and pending comparisons. |
+| `docs/implementation-changelog.md` | Records the audit scope and results. |
+| `docs/project-changes-2026-11-14.txt` | Extends the cumulative project record with verification and remaining work. |
+
+**Verification.** The hash-matched copy of the Windows export reproduced an edge-on Player on Godot 4.7.2 / native OpenGL Compatibility / Radeon 780M. The copied basement/Player fixture selected all four idle directions and camera-relative run clips under native OpenGL, ANGLE/D3D11 and Mobile/Vulkan. Native OpenGL hid the body at the side angle with either billboard mode enabled. At the same yaw, ANGLE and Mobile rendered it. A minimal Camera3D/Sprite3D fixture reproduced the backend difference independently. The same copied Windows export booted with the ANGLE launch flag.
+
+**Integration and limits.** All runtime work used separate user directories and copies. The canonical settings file was absent, so there was no saved profile to replay. Copied source runs emitted Dialogic startup and UID diagnostics plus shutdown retention warnings. Exact Windows export interaction with ANGLE, a fresh Embedded Game A/B and the second laptop remain pending. No renderer migration, commit or push.

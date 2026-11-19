@@ -15875,3 +15875,18 @@ Shared-system/integration effects: legacy Blade visibility now follows weapon at
 Verification results: weapon suite confirms Blade is hidden during original Player attack animation, stays at back position instead of moving to hand, and returns afterward; existing combo, charge, aerial and FX checks remain green. Inventory suite verifies new game and saved populated inventory with empty main both select `starter_blade`. Final results143/143 and238/238; no SCRIPT ERROR/Parse Error.
 
 Known diagnostics/limitations/unfinished: shutdown reports28 ObjectDB instances/1 resource in weapon tests and16/1 in inventory tests; vendor invalid-UID text-path fallback warnings remain. No clean shutdown claimed. Legacy back Blade remains hidden during the attack clip; the original Player attack animation provides the strike motion. No independent reviewer sign-off, commit or push.
+
+=== 2026-11-19 Camera and Player sprite device audit ===
+Status: documentation complete for baseline Playerandlevel at 0e8512b5. BUG-011 reproduced on the current laptop and remains open. Existing T079/T080 status and ownership remain as recorded. No gameplay implementation, owner agreement, commit or push.
+
+Files and purpose:
+- docs/camera-device-audit.md: records Git preservation baseline, source/settings/packed configuration, runtime camera/Player samples, renderer comparisons, screenshots/log locations, smallest workaround and second-device collection checklist.
+- docs/implementation-bugs.md: appends BUG-011 with reproduction, verified backend and animation behavior, and remaining evidence.
+- docs/implementation-changelog.md: appends the documentation-only audit and verification scope.
+- docs/project-changes-2026-11-14.txt: records this audit group, file manifest, integration effects, verification, diagnostics and pending work.
+
+Shared-system/integration effects: audited CameraRig, Player Sprite3D and FSM, settings and export together. The working-tree Player scene already used fixed-Y/unlit while the copied Windows export used inherited full/lit. Temporary harnesses, copied game and user directories, renderer launch overrides, screenshots and logs are all outside the original repository. The original game source, config, cache and save are outside the changes for this audit.
+
+Verification results: exact Windows export copy matched SHA-256 for executable, external PCK and console wrapper. Its native OpenGL Compatibility run reproduced an edge-on body on Radeon 780M. Copied basement/Player windows at 1280x720 used the same defaults. On native OpenGL, ANGLE and Mobile the harness passed 50 assertions each including 25 image saves per run. Idle switched all four quadrants, while held W used run_up at each measured yaw. Native OpenGL hid the body at yaw 90 degrees for full and fixed-Y. ANGLE and Mobile restored it. The minimal Sprite3D fixture reproduced the same difference. Exact Windows export booted and loaded basement on ANGLE. All 133 pre-existing non-doc status paths matched their original SHA-256 and git diff --check passed.
+
+Known diagnostics/limitations/unfinished: canonical settings.cfg was absent, so no saved-profile A/B. Copied source runs reported Dialogic/cache indexer errors, UID fallbacks and shutdown retention. Exact export startup reported retained objects/resources and an orphan node-path error at exit. Native window automation ended at physical Esc after collecting export side-angle evidence. Exact export interactive ANGLE, a new Embedded Game A/B, the second laptop and engine/driver attribution remain pending. No owner or independent device review recorded.
