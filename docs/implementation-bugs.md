@@ -366,3 +366,10 @@ Known UID fallback/retained-object/resource exit diagnostics persist; no SCRIPT 
 final flow/compatibility/entry runs. Native editor/control feel and live boss interference
 remain NOT RUN; no Quan/Bao/Duy review is claimed. Old unmarked B3 migration is intentionally
 still unsupported until an explicit policy, not declared fixed/recovered by the new contract.
+
+## [HIGH] BUG-011 — Player and other billboards go edge-on on native OpenGL
+
+- Status: reproduced on the current laptop, open. Windows 11 25H2, Godot `4.7.2.stable.official.ed1daf0bf`, native OpenGL 3.3 Compatibility, AMD Radeon 780M, Windows driver `32.0.22024.3004`.
+- Reproduction: use the hash-verified Windows export copy with isolated defaults, stay near the initial basement spawn and orbit across a side angle. The Player body becomes a thin vertical line even though packed BaseCharacter enables full billboard. In the copied basement fixture at yaw 90° and pitch 20°, body pixels disappear with both full and fixed-Y while the active rig and `idle_left` quadrant/clip remain correct. Idle changes through all four clips and held W retains the expected camera-relative `run_up`.
+- Controlled comparison: same adapter, scene, window size and settings. ANGLE/D3D11 preserves Compatibility and restores the body at the affected angle. Mobile/Vulkan also restores it. The minimal Sprite3D probe reproduced native OpenGL acting like billboard disabled. Fixed-Y shortening at high pitch on working backends is tracked separately in the audit.
+- Boundary: evidence isolates the native OpenGL billboard path on this setup. Exact engine-versus-driver attribution, the working laptop's binary hashes/backend, a fresh Embedded Game comparison and interactive ANGLE play with the exact export remain open. The exact export starts on ANGLE with a launch flag. No implementation or owner sign-off. [Audit and evidence index](camera-device-audit.md).
