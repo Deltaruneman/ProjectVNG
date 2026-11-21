@@ -1,0 +1,96 @@
+WARNING: res://ui/hud.tscn:3 - ext_resource, invalid UID: uid://b1p1fbmcbnusv - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_border.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:4 - ext_resource, invalid UID: uid://cny6aobeujp3v - using text path instead: res://ui/player_hud.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/experience_point/exp_point.tscn:3 - ext_resource, invalid UID: uid://c200x2vrv555u - using text path instead: res://levels/objects/experience_point/exp_point.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:6 - ext_resource, invalid UID: uid://vjbmo2l40p81 - using text path instead: res://ui/skill_tree.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:4 - ext_resource, invalid UID: uid://2euugfy3lnlf - using text path instead: res://scenes/player/player.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:5 - ext_resource, invalid UID: uid://dsuk1m8k46ji7 - using text path instead: res://assets/foxy/fox_hat/foxy_hat_full_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:6 - ext_resource, invalid UID: uid://blgio7o0e5eqa - using text path instead: res://scenes/player/player_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:7 - ext_resource, invalid UID: uid://bytwgpxy1wbb3 - using text path instead: res://scenes/player/states/idle.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:8 - ext_resource, invalid UID: uid://coy8holsj103m - using text path instead: res://scripts/hurt_area_3d.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:9 - ext_resource, invalid UID: uid://bvv36o7f0oebf - using text path instead: res://scripts/hit_area_3d.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:10 - ext_resource, invalid UID: uid://kx1fr4p8vy0f - using text path instead: res://scenes/player/states/run.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:11 - ext_resource, invalid UID: uid://dpcr7kcoh7xdh - using text path instead: res://scenes/player/states/jump.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:12 - ext_resource, invalid UID: uid://cqn00yvsknulb - using text path instead: res://scenes/player/states/fall.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:14 - ext_resource, invalid UID: uid://m25b1ajy4mbb - using text path instead: res://scenes/player/hurt.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:15 - ext_resource, invalid UID: uid://3iypijwid1uy - using text path instead: res://scenes/player/dead.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:16 - ext_resource, invalid UID: uid://to03pbynjbtu - using text path instead: res://scenes/player/states/carry.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:17 - ext_resource, invalid UID: uid://dta71g715vcmo - using text path instead: res://scenes/player/states/throw.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:18 - ext_resource, invalid UID: uid://db5g52ymtofcn - using text path instead: res://scenes/player/states/skillstate.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/objects/phidao.tscn:3 - ext_resource, invalid UID: uid://b6uc3y2ta2cgg - using text path instead: res://scenes/objects/skill.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/objects/phidao.tscn:4 - ext_resource, invalid UID: uid://bjqboljrdhusv - using text path instead: res://assets/models/objects/item4.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/objects/phidao.tscn:5 - ext_resource, invalid UID: uid://bvv36o7f0oebf - using text path instead: res://scripts/hit_area_3d.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:19 - ext_resource, invalid UID: uid://bt0ugv6i2masa - using text path instead: res://scenes/objects/phidao.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:20 - ext_resource, invalid UID: uid://btfduaibqr301 - using text path instead: res://scenes/player/states/wall_slide.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:21 - ext_resource, invalid UID: uid://chqhxa1ysnfuq - using text path instead: res://scenes/player/states/dash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:22 - ext_resource, invalid UID: uid://c6qhjt3tp4dso - using text path instead: res://scenes/player/parry.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:23 - ext_resource, invalid UID: uid://cjv0myegiav6k - using text path instead: res://scenes/player/weapon/blade.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/weapon/blade.tscn:3 - ext_resource, invalid UID: uid://bjqboljrdhusv - using text path instead: res://assets/models/objects/item4.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/weapon/blade.tscn:4 - ext_resource, invalid UID: uid://cdt8gyh7spobh - using text path instead: res://scenes/player/weapon/floating_blade.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:24 - ext_resource, invalid UID: uid://b1lscpg7tjenr - using text path instead: res://ui/hud.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:25 - ext_resource, invalid UID: uid://wktq6d6j2o0p - using text path instead: res://scenes/player/states/wind_ultimate.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.tscn:3 - ext_resource, invalid UID: uid://ci7s5odxo7543 - using text path instead: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @implicit_new (res://addons/dialogic/Modules/Background/subsystem_backgrounds.gd:25)
+       [1] add_subsystem (res://addons/dialogic/Core/DialogicGameHandler.gd:482)
+       [2] _collect_subsystems (res://addons/dialogic/Core/DialogicGameHandler.gd:452)
+       [3] _ready (res://addons/dialogic/Core/DialogicGameHandler.gd:178)
+WARNING: res://addons/dialogic/Modules/Character/default_portrait.tscn:3 - ext_resource, invalid UID: uid://cork0heubbx7f - using text path instead: res://addons/dialogic/Modules/Character/default_portrait.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @implicit_new (res://addons/dialogic/Modules/Character/subsystem_portraits.gd:19)
+       [1] add_subsystem (res://addons/dialogic/Core/DialogicGameHandler.gd:482)
+       [2] _collect_subsystems (res://addons/dialogic/Core/DialogicGameHandler.gd:452)
+       [3] _ready (res://addons/dialogic/Core/DialogicGameHandler.gd:178)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

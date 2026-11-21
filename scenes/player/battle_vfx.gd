@@ -377,8 +377,8 @@ static func weapon_attack_effect(parent: Node3D, effect_id: String, position: Ve
 		var screen_direction := camera.unproject_position(position + direction.normalized()) - screen_start
 		if screen_direction.length_squared() > 0.001:
 			sprite.global_basis = camera.global_basis * Basis(Vector3.BACK, -screen_direction.angle())
-	if parent.has_method("place_weapon_below_body"):
-		parent.call("place_weapon_below_body", sprite)
+	if parent.has_method("place_weapon_fx_behind_body"):
+		parent.call("place_weapon_fx_behind_body", sprite)
 	if frames.get_animation_loop("default"):
 		var timer := Timer.new()
 		timer.one_shot = true

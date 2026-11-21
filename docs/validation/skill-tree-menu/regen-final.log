@@ -1,0 +1,124 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS no early heal rank 1 at 59.9s
+PASS one HP at approved interval rank 1
+PASS cap and reset at full rank 1
+PASS no full-health time bank rank 1
+PASS no early heal rank 2 at 39.9s
+PASS one HP at approved interval rank 2
+PASS cap and reset at full rank 2
+PASS no full-health time bank rank 2
+PASS no early heal rank 3 at 19.9s
+PASS one HP at approved interval rank 3
+PASS cap and reset at full rank 3
+PASS no full-health time bank rank 3
+PASS unlearned skill never heals
+PASS rank change clears credit without healing
+PASS rank removal and relearn cannot retain credit
+PASS instant full heal then damage resets previous credit
+PASS dead Player cannot regenerate or bank credit
+PASS foreign pause retains only prior gameplay time
+PASS resume completes saved partial interval
+PASS regeneration does not alter SP or purchase history
+PASS real physics gameplay does not heal before 20s
+PASS book pause crossing wall-clock threshold cannot heal
+PASS real gameplay resumes and heals one HP after 20 active seconds
+PASS rank retained across menu and timed recovery
+PASS ordinary T opens and pauses
+PASS opening T at low health never heals
+PASS Escape closes and resumes
+PASS rapid ordinary T reversals settle closed
+PASS rapid reopen never heals
+PASS programmatic open refuses another system pause
+PASS rejected menu preserves external pause
+PASS cinematic starts ultimate_wind_1
+PASS T spam cannot open during cinematic ultimate_wind_1
+PASS cinematic freezes regeneration ultimate_wind_1
+PASS cinematic and menu release pause ultimate_wind_1
+PASS ultimate executes once ultimate_wind_1
+PASS ultimate gameplay finishes ultimate_wind_1
+PASS T usable after ultimate ultimate_wind_1
+PASS subsequent close resumes ultimate_wind_1
+PASS cinematic starts ultimate_fire_1
+PASS T spam cannot open during cinematic ultimate_fire_1
+PASS cinematic freezes regeneration ultimate_fire_1
+PASS cinematic and menu release pause ultimate_fire_1
+PASS ultimate executes once ultimate_fire_1
+PASS ultimate gameplay finishes ultimate_fire_1
+PASS T usable after ultimate ultimate_fire_1
+PASS subsequent close resumes ultimate_fire_1
+PASS cinematic starts ultimate_fire_2
+PASS T spam cannot open during cinematic ultimate_fire_2
+PASS cinematic freezes regeneration ultimate_fire_2
+PASS cinematic and menu release pause ultimate_fire_2
+PASS ultimate executes once ultimate_fire_2
+PASS ultimate gameplay finishes ultimate_fire_2
+PASS T usable after ultimate ultimate_fire_2
+PASS subsequent close resumes ultimate_fire_2
+PASS cinematic starts ultimate_ice_1
+PASS T spam cannot open during cinematic ultimate_ice_1
+PASS cinematic freezes regeneration ultimate_ice_1
+PASS cinematic and menu release pause ultimate_ice_1
+PASS ultimate executes once ultimate_ice_1
+PASS ultimate gameplay finishes ultimate_ice_1
+PASS T usable after ultimate ultimate_ice_1
+PASS subsequent close resumes ultimate_ice_1
+PASS cinematic starts ultimate_ice_2
+PASS T spam cannot open during cinematic ultimate_ice_2
+PASS cinematic freezes regeneration ultimate_ice_2
+PASS cinematic and menu release pause ultimate_ice_2
+PASS ultimate executes once ultimate_ice_2
+PASS ultimate gameplay finishes ultimate_ice_2
+PASS T usable after ultimate ultimate_ice_2
+PASS subsequent close resumes ultimate_ice_2
+PASS cinematic starts ultimate_lightning_1
+PASS T spam cannot open during cinematic ultimate_lightning_1
+PASS cinematic freezes regeneration ultimate_lightning_1
+PASS cinematic and menu release pause ultimate_lightning_1
+PASS ultimate executes once ultimate_lightning_1
+PASS ultimate gameplay finishes ultimate_lightning_1
+PASS T usable after ultimate ultimate_lightning_1
+PASS subsequent close resumes ultimate_lightning_1
+PASS cinematic starts ultimate_lightning_2
+PASS T spam cannot open during cinematic ultimate_lightning_2
+PASS cinematic freezes regeneration ultimate_lightning_2
+PASS cinematic and menu release pause ultimate_lightning_2
+PASS ultimate executes once ultimate_lightning_2
+PASS ultimate gameplay finishes ultimate_lightning_2
+PASS T usable after ultimate ultimate_lightning_2
+PASS subsequent close resumes ultimate_lightning_2
+PASS cinematic starts ultimate_wind_2
+PASS T spam cannot open during cinematic ultimate_wind_2
+PASS cinematic freezes regeneration ultimate_wind_2
+Player: changing from state Idle to WindUltimate
+PASS cinematic and menu release pause ultimate_wind_2
+PASS ultimate executes once ultimate_wind_2
+Player: changing from state WindUltimate to Idle
+PASS ultimate gameplay finishes ultimate_wind_2
+PASS T usable after ultimate ultimate_wind_2
+PASS subsequent close resumes ultimate_wind_2
+PASS abort case starts
+PASS cinematic teardown releases pause without stranded menu
+PASS cinematic refuses existing book pause
+PASS book teardown during opening restores pause
+MENU_CHECK pause_only=false checks=99 failures=0

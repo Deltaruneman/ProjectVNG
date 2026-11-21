@@ -36,8 +36,9 @@ var _secret_areas: Dictionary[Node3D, Rect2] = {}
 func _ready() -> void:
 	super._ready()
 	if has_node("B1/ChestSpot"):
-		for zone: EnemyZone in $B1/EnemyZones.get_children():
-			zone.cleared.connect(_spawn_b1_chest)
+		for child: Node in $B1/EnemyZones.get_children():
+			if child is EnemyZone:
+				(child as EnemyZone).cleared.connect(_spawn_b1_chest)
 	for child: Node in get_children():
 		var node := child as Node3D
 		if node != null and node.has_meta("floor_level"):
@@ -61,8 +62,8 @@ func _ready() -> void:
 
 
 func _spawn_b1_chest() -> void:
-	for zone: EnemyZone in $B1/EnemyZones.get_children():
-		if not zone.is_cleared():
+	for child: Node in $B1/EnemyZones.get_children():
+		if child is EnemyZone and not (child as EnemyZone).is_cleared():
 			return
 	$B1/ChestSpot.add_child(B1_CHEST.instantiate())
 

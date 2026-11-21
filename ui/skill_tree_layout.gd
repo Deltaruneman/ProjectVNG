@@ -97,7 +97,7 @@ const CHARACTER_NODES := [
 	{"id": "char_crit", "name": "Sắc Bén", "short": "Sắc Bén", "icon": "CRT", "desc": "+10% sát thương dao phóng", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 1},
 	{"id": "char_element", "name": "Cộng Hưởng", "short": "Cộng Hưởng", "icon": "ELM", "desc": "+1 sát thương kỹ năng nguyên tố", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 2},
 	{"id": "char_health", "name": "Sinh Lực", "short": "Sinh Lực", "icon": "HP", "desc": "+1 giới hạn máu tối đa", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 3, "req": 0},
-	{"id": "char_heal", "name": "Hồi Phục", "short": "Hồi Phục", "icon": "RGN", "desc": "Hồi 1 máu khi mở cây kỹ năng", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 3, "req": 1},
+	{"id": "char_heal", "name": "Hồi Phục", "short": "Hồi Phục", "icon": "RGN", "desc": "Tự hồi 1 máu mỗi 60/40/20 giây ở bậc 1/2/3. Không tính thời gian tạm dừng.", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 3, "req": 1},
 	{"id": "char_parry", "name": "Phản Đòn", "short": "Phản Đòn", "icon": "DEF", "desc": "+25% thời gian Parry", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 2, "req": 2},
 	{"id": "char_dash", "name": "Bước Gió", "short": "Bước Gió", "icon": "DSH", "desc": "Giảm 15% hồi chiêu Dash", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 0},
 	{"id": "char_speed", "name": "Nhanh Nhẹn", "short": "Nhanh Nhẹn", "icon": "SPD", "desc": "+8% tốc độ di chuyển", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 1},
@@ -206,6 +206,10 @@ func _notify_hud(open: bool) -> void:
 
 
 func set_open(open: bool) -> void:
+	# Never capture a pause owned by a cinematic or another gameplay system.
+	# Our own opening/closing transitions may still reverse while paused.
+	if open and get_tree().paused and not _owns_pause:
+		return
 	if open == _is_open:
 		return
 	_is_open = open
@@ -237,9 +241,6 @@ func _begin_open() -> void:
 	_shade.modulate.a = 0.0
 	_layout_book()
 	_refresh()
-	var player := get_tree().get_first_node_in_group("player") as Player
-	if player != null:
-		player.health += int(GameManager.skill_allocations.get("char_heal", 0))
 	_new_sequence()
 	_book_animation.tween_property(_shade, "modulate:a", 1.0, 0.14)
 	_append_sheet(BOOK_OPEN_SHEET, 4, 3)

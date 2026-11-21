@@ -28,6 +28,7 @@ const MAX_STAMINA := 100.0
 const STAMINA_DASH_COST := 20.0
 const STAMINA_PARRY_COST := 15.0
 const STAMINA_CHARGE_COST := 25.0
+const HEALTH_REGEN_INTERVALS := [60.0, 40.0, 20.0]
 const STAMINA_REGEN_RATE := 25.0
 const STAMINA_REGEN_DELAY := 0.7
 const STAMINA_EXHAUSTION_DURATION := 1.0
@@ -46,6 +47,8 @@ signal active_skill_slot_changed(slot: int, skill_id: String)
 var rage := 0.0
 var stamina := MAX_STAMINA
 var _stamina_regen_delay := 0.0
+var _health_regen_elapsed := 0.0
+var _health_regen_rank := 0
 var stamina_exhausted := false
 const MAX_RAGE := 100.0
 var selected_active_slot := 1
@@ -126,6 +129,7 @@ func _ready() -> void:
 		if blade_sprite != null:
 			_original_blade_texture = blade_sprite.texture
 			_original_blade_pixel_size = blade_sprite.pixel_size
+	health_changed.connect(_on_regeneration_health_changed)
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
@@ -141,12 +145,19 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_update_health_regeneration(delta)
 	_update_stamina(delta)
 	if _skill_button_held:
 		_refresh_skill_aim_point()
 	if is_talking:
 		_check_changed_animation()
 		return
+	if can_control_camera() and fsm != null and fsm.current_state != null and fsm.current_state.name.to_lower() in ["idle", "run", "jump", "fall"]:
+		var active_camera := get_viewport().get_camera_3d()
+		if active_camera != null and active_camera.get_parent() is CameraRig:
+			var rig := active_camera.get_parent() as CameraRig
+			if rig.view_mode != CameraRig.ViewMode.TPS:
+				face_movement(rig.facing_vector())
 	super._physics_process(delta)
 	if _skill_aim_active:
 		var toward_target := _skill_aim_point - global_position
@@ -154,6 +165,25 @@ func _physics_process(delta: float) -> void:
 		if toward_target.length_squared() > 0.01:
 			face_movement(toward_target)
 			_check_changed_animation()
+
+
+func _on_regeneration_health_changed(current: int, maximum: int) -> void:
+	# Full-health time cannot be banked for the next hit, and death never revives.
+	if current <= 0 or current >= maximum:
+		_health_regen_elapsed = 0.0
+
+
+func _update_health_regeneration(delta: float) -> void:
+	if _health_regen_rank <= 0 or health <= 0 or health >= max_health:
+		_health_regen_elapsed = 0.0
+		return
+	if get_tree().paused:
+		return
+	_health_regen_elapsed += maxf(delta, 0.0)
+	var interval: float = HEALTH_REGEN_INTERVALS[_health_regen_rank - 1]
+	while _health_regen_elapsed >= interval and health > 0 and health < max_health:
+		_health_regen_elapsed -= interval
+		health += 1
 
 
 func try_spend_stamina(amount: float) -> bool:
@@ -307,7 +337,7 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_talking:
+	if _is_gameplay_menu_open() or is_talking:
 		return
 	if event.is_action_pressed("quick_item") and not event.is_echo():
 		GameManager.use_quick_item()
@@ -329,7 +359,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_released("skill"):
 		if _skill_button_held and _can_start_skill_cast():
-			_refresh_skill_aim_point()
+			var aimed_cast := _skill_aim_active
+			if aimed_cast:
+				_refresh_skill_aim_point()
+			else:
+				_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
 			_cancel_skill_aim()
 			_cast_aim_point_valid = true
 			fsm.change_state(fsm.states.skill)
@@ -348,8 +382,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	super._unhandled_input(event)
 
 
+func _is_gameplay_menu_open() -> bool:
+	if get_tree().paused:
+		return true
+	for menu_name in ["PauseMenu", "InventoryMenu"]:
+		var menu := get_node_or_null("/root/" + menu_name)
+		if menu != null and bool(menu.get("is_open")):
+			return true
+	return false
+
+
 func can_interact() -> bool:
-	return health > 0 and not is_talking and not stamina_exhausted
+	return health > 0 and not is_talking and not _is_gameplay_menu_open() and not stamina_exhausted
 
 
 func start_talk(_partner: BaseCharacter = null) -> void:
@@ -423,6 +467,12 @@ func _refresh_skill_aim_point() -> void:
 		_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
 		return
 	var center := SKILL_AIM_RETICLE_SCRIPT.aim_screen_point(get_viewport().get_visible_rect().size)
+	if camera.get_parent() is CameraRig:
+		var rig := camera.get_parent() as CameraRig
+		center = rig.get_aim_screen_point()
+		if rig.view_mode == CameraRig.ViewMode.TOP_DOWN:
+			_skill_aim_point = rig.top_down_aim_point()
+			return
 	var ray_origin := camera.project_ray_origin(center)
 	var ray_end := ray_origin + camera.project_ray_normal(center) * SKILL_AIM_RANGE
 	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
@@ -515,6 +565,11 @@ func get_camera_movement_input() -> Vector3:
 
 
 func face_movement(motion: Vector3) -> void:
+	var active_camera := get_viewport().get_camera_3d()
+	if active_camera != null and active_camera.get_parent() is CameraRig:
+		var rig := active_camera.get_parent() as CameraRig
+		if rig.view_mode != CameraRig.ViewMode.TPS and can_control_camera() and not _cast_aim_point_valid:
+			motion = rig.facing_vector()
 	if motion.length_squared() < 0.000001:
 		return
 	change_direction(BaseCharacter.direction_from_input(Vector2(motion.x, motion.z)))
@@ -569,11 +624,11 @@ func _check_changed_animation() -> void:
 
 func get_skill_aim_direction() -> Vector3:
 	if not _cast_aim_point_valid:
-		_refresh_skill_aim_point()
+		return forward().normalized()
 	var toward_target := _skill_aim_point - global_position
 	toward_target.y = 0.0
 	var camera := get_viewport().get_camera_3d()
-	if camera != null:
+	if camera != null and not (camera.get_parent() is CameraRig and camera.get_parent().view_mode == CameraRig.ViewMode.TOP_DOWN):
 		var view_forward := -camera.global_basis.z
 		view_forward.y = 0.0
 		# A floor hit between camera and Player must not turn a ground skill backward.
@@ -587,7 +642,7 @@ func get_skill_aim_direction() -> Vector3:
 
 func get_projectile_aim_direction(spawn_position: Vector3) -> Vector3:
 	if not _cast_aim_point_valid:
-		_refresh_skill_aim_point()
+		return forward().normalized()
 	var toward_target := _skill_aim_point - spawn_position
 	if toward_target.length_squared() > 0.25:
 		return toward_target.normalized()
@@ -647,6 +702,10 @@ func _gain_rage(amount: float) -> void:
 
 func _apply_skill_bonuses() -> void:
 	var ranks: Dictionary = GameManager.skill_allocations
+	var regen_rank := clampi(int(ranks.get("char_heal", 0)), 0, HEALTH_REGEN_INTERVALS.size())
+	if regen_rank != _health_regen_rank:
+		_health_regen_rank = regen_rank
+		_health_regen_elapsed = 0.0
 	var extra_health := int(ranks.get("char_health", 0))
 	var previous_max := max_health
 	var armor_health := int(GameManager.inventory.definition_for_slot("armor").get("health", 0))
@@ -1485,14 +1544,29 @@ func end_offhand_cast() -> void:
 
 
 func place_weapon_below_body(weapon_sprite: SpriteBase3D) -> void:
-	# Keep projected position, but depth-test active weapon/effect pixels behind the Player plane.
-	# Terrain still occludes both; the floating back weapon never calls this helper.
+	# Keep the visible screen position while switching weapon occlusion with the
+	# Player's camera-relative facing. The back-facing "up" pose covers the weapon.
+	var depth_offset := 0.06 if _view_direction() == "up" else -0.06
+	_place_sprite_at_body_depth(weapon_sprite, depth_offset)
+
+
+func place_weapon_fx_behind_body(effect_sprite: SpriteBase3D) -> void:
+	# Weapon attack FX remain behind Player at every facing; terrain still occludes them.
+	_place_sprite_at_body_depth(effect_sprite, 0.06)
+
+
+func _place_sprite_at_body_depth(sprite: SpriteBase3D, depth_offset: float) -> void:
 	var camera := get_viewport().get_camera_3d()
-	if camera == null or not is_instance_valid(weapon_sprite):
+	if camera == null or not is_instance_valid(sprite):
 		return
 	var body := get_node("Sprite3D") as Sprite3D
-	var at := weapon_sprite.global_position
-	var depth := (body.global_position - camera.global_position).dot(-camera.global_basis.z) + 0.06
+	var at := sprite.global_position
+	var depth := (body.global_position - camera.global_position).dot(-camera.global_basis.z) + depth_offset
+	if depth_offset < 0.0 and camera.get_parent() is CameraRig and camera.get_parent().view_mode == CameraRig.ViewMode.TOP_DOWN:
+		# A front weapon already closer than the feet plane must stay at its native
+		# height. Pushing it back along a steep Top-down ray buries it in the floor.
+		var native_depth := (at - camera.global_position).dot(-camera.global_basis.z)
+		depth = minf(depth, native_depth)
 	var screen := camera.unproject_position(at)
 	var ray_origin := camera.project_ray_origin(screen)
 	var ray := camera.project_ray_normal(screen)
@@ -1500,5 +1574,24 @@ func place_weapon_below_body(weapon_sprite: SpriteBase3D) -> void:
 	if absf(along) < 0.001:
 		return
 	var origin_depth := (ray_origin - camera.global_position).dot(-camera.global_basis.z)
-	weapon_sprite.global_position = ray_origin + ray * ((depth - origin_depth) / along)
-	weapon_sprite.no_depth_test = false
+	sprite.global_position = ray_origin + ray * ((depth - origin_depth) / along)
+	sprite.no_depth_test = false
+
+
+## Screen-space weapon presentation reuses equipped art; no gameplay state is changed.
+func get_first_person_weapon() -> Dictionary:
+	if not has_weapon or not can_control_camera():
+		return {}
+	if is_instance_valid(_offhand_cast_sprite) and _offhand_cast_sprite.visible:
+		return {"texture": _offhand_cast_sprite.texture, "kind": "offhand", "phase": "thrust", "progress": 1.0, "legacy": false}
+	var weapon_sprite := get_node_or_null("Direction/Blade/Sprite3D") as Sprite3D
+	if weapon_sprite == null or weapon_sprite.texture == null:
+		return {}
+	var definition: Dictionary = GameManager.inventory.definition_for_slot("main")
+	var pose := {"phase": "idle", "progress": 0.0, "strike": 0, "kind": str(definition.get("kind", "sword")), "legacy": bool(definition.get("legacy", false))}
+	if fsm != null and fsm.current_state != null and fsm.current_state.has_method("get_first_person_pose"):
+		pose = fsm.current_state.get_first_person_pose()
+	elif _blade_suppress_count > 0:
+		return {}
+	pose["texture"] = weapon_sprite.texture
+	return pose

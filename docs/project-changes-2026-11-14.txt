@@ -15876,6 +15876,22 @@ Verification results: weapon suite confirms Blade is hidden during original Play
 
 Known diagnostics/limitations/unfinished: shutdown reports28 ObjectDB instances/1 resource in weapon tests and16/1 in inventory tests; vendor invalid-UID text-path fallback warnings remain. No clean shutdown claimed. Legacy back Blade remains hidden during the attack clip; the original Player attack animation provides the strike motion. No independent reviewer sign-off, commit or push.
 
+=== 2026-11-18 W15: Weapon Sprite3D depth by Player facing ===
+Status: implemented; rendered weapon/combo regression150/150 passed in the disposable Godot4.7.2 Compatibility project. No manual campaign playtest or teammate/reviewer agreement claimed.
+
+Files and purpose:
+- scenes/player/player.gd: project active weapon sprites to the Player depth plane behind only when camera-relative facing is `up`; place them in front for `down`, `left` and `right`, preserving screen coordinates and world depth testing; separate always-behind FX helper.
+- scenes/player/battle_vfx.gd: route weapon attack FX to the always-behind-Player helper, preserving prior FX occlusion.
+- tests/weapon_combo_check.gd: verify active weapon depth for all four facings under orthographic and perspective cameras; assert FX remain behind Player.
+- docs/inventory-enchant-2026-11-17.md: W15 behavior, integration, verification and limitations.
+- docs/validation/weapon-polish/weapon-depth-by-facing-final.log: rendered150/150 validation output.
+
+Shared-system/integration effects: Sprite3D camera-space placement for active main/offhand weapons and a distinct placement method for weapon FX. Weapon image screen position and world obstruction remain depth-tested; attack hit shapes, effect direction/tint and spell/orb FX routes remain unchanged. Test uses the disposable project/user-data directory; source cache and saves unchanged by the test.
+
+Verification results: all four facings yield correct front/behind depth sign under both camera projections; spear FX stays behind Player. Full combo/aerial/charge suite passed150/150; no SCRIPT ERROR or Parse Error.
+
+Known diagnostics/limitations/unfinished: shutdown reports28 ObjectDB instances/1 resource in use and vendor invalid-UID fallback warnings persist. No clean shutdown, teammate approval, commit or push claimed.
+
 
 === 2026-11-18 W15: Consumable Q / HUD prototype — in progress ===
 
@@ -16020,3 +16036,182 @@ Exact included manifest (purposes grouped in implementation record above; PNG/im
 - tests/arcane_enemies_test.tscn
 - docs/project-changes-2026-11-14.txt: cumulative implementation and commit/push scope record.
 Git index initially blocked by sandbox permissions; authorized escalation succeeded. Commit/push outcome to be verified by Git command output and remote head comparison.
+
+=== 2026-11-18 — Reported enemy fallback declaration error ===
+Task/status: user reports enemy.gd line191 undefined _fallback_hurt_running; minimal declaration repair implemented. Scope/owner: existing Duy enemy fallback compatibility repair authorized by the explicit error report; no new AI behavior or teammate agreement inferred.
+Acceptance/check plan: EnemyCharacter declares its existing boolean guard initialized false and its existing completion signal, so both the base script and ArcaneEnemy can resolve their references. Inspect declarations/usages and scoped diff; do not launch Godot under the recorded enemy-feature restriction.
+Included files/purpose:
+- scripts/enemy.gd: declare _fallback_hurt_running := false and fallback_hurt_finished, previously referenced but absent; retain all existing fallback timing/damage/AI code.
+- docs/project-changes-2026-11-14.txt: cumulative scope, checks and limitations for this repair.
+Integration: shared EnemyCharacter guard inherited by ArcaneEnemy; completion signal already emitted by base fallback and connected by ArcaneEnemy. No scenes, assets, Player, maps, saves or other owner systems changed. Incoming dirty .godot/uid_cache.bin and untracked temporary/import files preserved.
+Verification: static inspection confirms missing declarations were the reported cause and both declarations now exist exactly once; scoped git diff --check pending below. No Godot launch, engine parser, runtime/playtest or gameplay acceptance; those remain unverified per existing no-Godot instruction. No new test assets, commit/push or reviewer sign-off.
+Final static check: scoped git diff --check PASS; exactly one guard and signal declaration confirmed. Engine/parser/runtime checks remain NOT RUN. Only the two listed text files were edited in this repair; pre-existing dirty cache preserved.
+
+## 2026-11-19 — B1 enemy clear / EXP child type crash
+Task/status: user reported a runtime type error in `_spawn_b1_chest()` after merging enemy and EXP drop work. Static source tracing confirms the B1 chest code assumed every direct child of `B1/EnemyZones` was an `EnemyZone`; the actual error identifies an `exp_point.gd` instance at that iteration. Enemy drops are authored as siblings under their enemy's parent (`scripts/enemy.gd`), so the exact runtime parenting path still needs Godot reproduction; the new code defensively filters all children by type.
+Acceptance/check plan: connecting clear signals and checking completion must skip non-zone children safely, inspect existing EXP parent/collection behavior and scoped diff, run `git diff --check`; Godot runtime reproduction is required for behavioral confirmation.
+Included files/purpose:
+- `levels/level_1/basement_floor_visibility.gd`: iterate children as generic Nodes and connect/check only actual `EnemyZone` instances, preventing an EXP pickup from being assigned to an `EnemyZone` typed loop variable while preserving clear gating.
+- `docs/project-changes-2026-11-14.txt`: cumulative task, scope, verification, limitations and unresolved runtime condition.
+Integration: map clear callback remains connected to the existing `EnemyZone.cleared` signal; enemy spawning/drop code and EXP pickup logic were not changed. Only map integration and change record are included. No teammate review or acceptance claimed.
+Verification: inspected the failing typed loops and all direct-child checks after the patch; scoped `git diff --check` passes (Git reports only the existing Markdown CRLF normalization notice). No Godot parser, scene launch or runtime reproduction performed.
+Known limitation: the reported exact parenting/event sequence is not reproduced in Godot; this narrow type guard makes the callback tolerant of mixed children but does not establish full EXP and chest gameplay acceptance.
+
+## 2026-11-19 — Skill aim, cast lock and menu/ultimate input
+Task/status: user requests center reticle aiming only for held active skill, forward cast for a quick press, unavailable default cast without a selected elemental weapon, cast movement locked through its skill animation, and no ultimate activation while a menu is open.
+Acceptance criteria: (1) tap/release before the existing 0.3 s aim threshold uses Player forward; (2) holding through threshold retains center-ray aim; (3) no selected elemental weapon remains blocked by `_can_start_skill_cast`; (4) skill state stops horizontal motion and lasts through its attack/throw animation duration; (5) pause/inventory menus prevent Player gameplay input, including ultimate. Static diff/source inspection and whitespace check; Godot run is needed for gameplay confirmation.
+Files and purpose:
+- `scenes/player/player.gd`: preserve center-ray point only for held aimed casts; quick casts snapshot Player forward; refuse gameplay inputs while paused or PauseMenu/InventoryMenu is open.
+- `docs/project-changes-2026-11-14.txt`: cumulative status, scope, integration and validation record.
+Integration effects: changes only Player skill direction/input gating. Existing `_can_start_skill_cast` already blocks the default/main skill when `GameManager.weapon_form` is empty; `PlayerSkillState._enter` already stops horizontal velocity and `_cast_duration` follows the selected attack/throw animation at its configured playback scale, so those mechanics were inspected and left intact. No menu, inventory, skill-tree, ultimate gameplay, or animation assets changed. Pre-existing Player edits and other dirty/untracked files remain preserved; no reviewer agreement claimed.
+Verification: static review confirms quick-cast aim point is explicitly set from `forward()`, held casts refresh the reticle ray, and Player input checks paused/menu state before processing actions. `git diff --check` pending. No Godot parser/run, rendered check, or manual gameplay verification performed.
+Known limitations: in-game aim feel, cast movement lock, default skill disabled state, and simultaneous menu/ultimate input are not runtime-verified. If the skill tree is open it pauses the tree; `_is_gameplay_menu_open()` also blocks all gameplay input on that paused state.
+
+## 2026-11-19 — F2 camera modes: pre-implementation scope
+User requests Top-down default, then TPS, then FPS via F2, with suitable input/presentation. Bao-owned Player/camera scope authorized directly; no other-owner implementation or teammate review inferred. Read constitution, active task/validation state and current diffs. Criteria/tasks C01–C05 recorded in docs/camera-views-2026-11-19.md. Shared boundaries: existing Stage target/Camera3D/snap API, Player facing/skill ray and camera input; no save/map/enemy/settings changes. Preserve incoming dirty Player/combat/map/enemy/docs/export/cache and untracked files. Tests planned in isolated copies. Implementation/verification pending.
+
+## 2026-11-19 — F2 camera views implemented and focused validation
+Task status: C01–C04 implemented; C05 focused rendered validation PASS, manual full-map/feel and independent review pending. User-authorized Bao Player/camera/UI boundary; no teammate acceptance inferred.
+Included files and purposes:
+- scenes/camera/camera_rig.gd: default Top-down/TPS/FPS modes, F2 cycle, retained pitches/separate zoom, MMB Top-down orbit (RMB parry preserved), pointer-plane facing, FPS eye follow and sprite-layer suppression/restoration, FPS checkpoint sightline fade, mode-specific aim framing and mouse ownership. Existing collision sweep and Stage APIs retained.
+- scenes/camera/camera_view_overlay.gd: passive resolution-scaled mode/control hint and centered FPS dot.
+- scenes/camera/camera_view_overlay.gd.uid: engine-generated script identity from isolated import.
+- scenes/player/player.gd: per-view facing, Top-down pointer/FPS center held aim, locked released skill snapshot and menu-aware camera gate; preserve incoming skill tap-forward/menu/depth changes.
+- scenes/player/skill_aim_reticle.gd: draw held reticle at actual per-view aim point.
+- tests/camera_rig_check.gd: explicit TPS baseline plus new mode/input/visibility/cleanup regression coverage.
+- tests/camera_views_check.gd: isolated actual basement/Player/HUD movement/aim/menu/visibility and screenshot fixture.
+- tests/camera_views_check.gd.uid: engine-generated fixture identity.
+- tests/camera_views_check.tscn: scene entry for rendered Player fixture.
+- docs/camera-views-2026-11-19.md: pre-implementation criteria, final controls, exact validation/diagnostics/manual limits.
+- specs/001-integrate-basement-stage/tasks.md: append this authorized slice's implementation and pending manual/review state.
+- specs/001-integrate-basement-stage/validation.md: append focused evidence without closing unrelated map tasks.
+- docs/project-changes-2026-11-14.txt: cumulative scope/file/verification/integration record.
+- docs/validation/camera-views/camera-rendered.log and camera-rendered-errors.log: final139/139 rendered isolated camera results/diagnostics.
+- docs/validation/camera-views/player-rendered.log and player-rendered-errors.log: final29/29 actual Player/HUD results/diagnostics.
+- docs/validation/camera-views/isolated-import.log: disposable full-project import diagnostics.
+- docs/validation/camera-views/initial-headless-failed.log: retained initial type-inference/headless-check failure history, superseded by rendered passes.
+- docs/validation/camera-views/views-basement-topdown.png, views-basement-tps.png, views-basement-fps.png: inspected final real-stage view captures.
+Integration effects: Player movement remains camera-relative; Top-down/FPS facing follows aim while TPS follows movement. Skill tap-forward/held snapshot maintained, including direction lock after release. Camera presentation temporarily hides only Player geometry in FPS and restores original layers; nearby checkpoint visuals fade without interaction/map edits. Existing input bindings, settings sensitivity/invert/FOV, Stage APIs, map/enemy/save logic, slash/ice-shield and incoming dirty/untracked work preserved. Each new rig starts Top-down; view preference is not saved.
+Verification: Godot4.7.2 Compatibility, isolated custom user directories; camera139/139 and actual Player29/29 PASS, final3 screenshots reviewed, scoped git diff --check PASS. Final script/parse errors absent. No source editor/import/real saves used. Initial overlay type inference fixed and UI scaled to project viewport; screenshot fixture corrected to run camera presentation after marker refresh.
+Known diagnostics/unfinished: vendor UID fallback and import case warnings, Player exit3 ObjectDB/1 resource retained diagnostics and repeated-state prints remain. No manual full-basement traversal/all weapons/skills/long-session feel/cross-platform export or independent reviewer agreement; this is not whole-feature acceptance. No commit or push.
+
+## 2026-11-19 — C06 reported camera freed-instance cleanup repair
+Task/status: user reports _restore_first_person_visibility assigning an invalid previously freed instance. Bao-owned camera-only repair authorized by the error report; read constitution/current task/validation/diff before edits. AC recorded in camera feature document before implementation: safely skip deleted cached visuals during pause/view switching/fading/removal, restore surviving visuals and clear caches.
+Cause: a typed dictionary-key loop assigns/casts the freed Object before is_instance_valid() executes.
+Included files/purpose:
+- scenes/camera/camera_rig.gd: remove premature node type assignments from the four cached visibility loops; retain existing validity checks and restoration semantics; comment explains cache lifetime.
+- tests/camera_rig_check.gd: add actual queue_free() regressions for cached FPS visuals, third-person blade and foreground marker, including pause, mode switching and rig removal; retain previous139 checks.
+- docs/camera-views-2026-11-19.md: C06 criteria, cause, implementation, before/after evidence and limits.
+- specs/001-integrate-basement-stage/tasks.md: append C06 implementation/verification state.
+- specs/001-integrate-basement-stage/validation.md: append focused reproduction and repair evidence.
+- docs/project-changes-2026-11-14.txt: cumulative repair/file/integration/verification record.
+- docs/validation/camera-views/freed-before.log and freed-before-errors.log: rendered pre-fix reproduction,147 checks/5 failures with matching invalid-freed-instance errors.
+- docs/validation/camera-views/freed-fixed.log and freed-fixed-errors.log: rendered post-fix147/147 pass, empty stderr/no script errors.
+Integration effects: camera cached-reference cleanup only; same render-layer/alpha restoration and no changes to movement/skills/input/map/enemy/save/asset contracts. All incoming dirty/untracked work preserved.
+Verification: isolated minimal Godot4.7.2 Compatibility camera/input/physics fixture; expired objects genuinely removed between ticks, then cleanup/update paths exercised. Scoped git diff --check PASS. No source engine import/cache writes or real save use.
+Limitations: full-basement Player suite/manual traversal not rerun for this narrow repair; prior29/29 remains historical. No new native long-session/manual gameplay acceptance, teammate sign-off, commit or push.
+
+## 2026-11-20 — C07/C08 implementation and validation in progress
+User requests visible FPS weapons including legacy Blade, explicitly requires real attack animation, and fixed Top-down. Bao camera/Player presentation scope. Implemented: camera_rig.gd fixed angle/zoom, matching render follow, foreground near-plane cutaway instead of obstruction-driven zoom; camera_view_overlay.gd fixed-view hint; first_person_weapon.gd/.uid camera-local weapon projection from live combat grip/tip, original legacy Blade sprite regions, readable foreshortening; player.gd read-only equipped presentation interface; states/weapon_attack.gd read-only current pose/frame interface; camera_rig_check.gd and camera_views_check.gd expanded fixed-follow/full-combo/frame tests. Detailed criteria in docs/camera-views-2026-11-19.md. Initial illustrative movement superseded by user clarification. First complete-combo run66/66 passed and original4 Blade frames confirmed; latest readability/cutaway adjustments await rerun. Temporary initial tests had stale render-frame comparisons/pointer coordinates, now corrected; histories retained in isolated project pending final evidence copy. Original textures, damage/hitboxes/timing, map/enemy/save implementation untouched by this group. Source now retires offhand gameplay (uses_offhand returns false); preserve that concurrent change, do not re-enable it or claim offhand acceptance. Source UID/cache may have been touched outside this task; preserve incoming state. No reviewer sign-off, commit or push. Final file/evidence manifest and limitations will follow.
+
+## 2026-11-20 — C07/C08 final exact FPS animation / fixed Top-down
+Status: implemented, focused rendered validation complete; manual full-map/cutaway feel and independent review pending. User explicitly rejects illustrative weapon waving; final implementation uses live attack grip/tip trajectories and original Blade animation frames. Owner: Bao camera/Player/weapon presentation. No external teammate acceptance inferred.
+Included implementation/document files and purposes:
+- scenes/camera/camera_rig.gd: fixed Top-down yaw/pitch/distance and render-target follow, viewport pointer capture, obstruction-driven foreground near-plane cutaway instead of zoom changes, normal near-plane restoration, FPS presentation child behind HUD; previous cleanup guards preserved.
+- scenes/camera/camera_view_overlay.gd: fixed-view control hint replaces obsolete MMB/wheel instructions.
+- scenes/camera/first_person_weapon.gd: read-only projection of live grip/tip, original Blade attack regions/frame selection, held/recovery presentation and readable foreshortened sprite sizing; no combat timers or hitboxes.
+- scenes/camera/first_person_weapon.gd.uid: script identity present on resume and retained.
+- scenes/player/player.gd: expose equipped art/current attack pose for FPS; preserve concurrent retired-offhand and previous skill/input/depth edits.
+- scenes/player/states/weapon_attack.gd: read-only presentation method exposing actual grip/tip/phase; original Blade row-to-frame/pixel grip-tip mapping for regular and charged animations. Gameplay transitions/hit windows/damage unchanged.
+- tests/camera_rig_check.gd: replace obsolete orbit expectations with fixed pointer/input/follow/obstruction/near-plane checks; retain collision/F2/freed-cache regressions.
+- tests/camera_views_check.gd: after-render pose checks, deterministic pointer projection alongside separate input-dispatch coverage, full regular combos, original4 Blade frames/charged Blade, sword charge and menu/interruption/fixed-follow checks and captures.
+- docs/camera-views-2026-11-19.md: final user clarification, implementation/evidence, failure history and explicit limits.
+- specs/001-integrate-basement-stage/tasks.md and validation.md: append C07/C08 state and evidence without closing other map tasks.
+- docs/project-changes-2026-11-14.txt: cumulative implementation/verification manifest.
+Evidence files (under docs/validation/camera-views/c07-c08/):
+- camera.log and camera-errors.log: final154/154 rendered camera suite, empty stderr.
+- player.log and player-errors.log: final67/67 rendered actual Player/HUD suite and retained vendor/shutdown diagnostics.
+- initial-phase-only.log: initial60 checks/5 pointer fixture failures; phase-only visual superseded by user clarification.
+- initial-exact-comparison.log: initial119 checks/63 stale-render/pointer assertion failures, superseded after render sampling/input fixture correction.
+- pointer-input-history.log:66 checks/5 pointer fixture failures retained, superseded by deterministic math/facing checks plus separate input routing test.
+- views-basement-topdown.png: final actual-stage fixed overhead framing.
+- views-fps-starter_blade-idle.png, views-fps-starter_blade-strike-0.png, views-fps-starter_blade-heavy.png: legacy equipped art and actual normal/charged frame-region presentation.
+- views-fps-sword-strike-0.png, views-fps-sword-strike-1.png, views-fps-sword-strike-2.png: sword's three actual combo paths.
+- views-fps-axe-strike-2.png, views-fps-spear-strike-2.png, views-fps-dagger-strike-0.png: representative other weapon attacks.
+Integration: FPS reuses equipped textures/attack state without modifying combat, while Player body/world weapons remain suppressed to avoid duplicates. Top-down uses a foreground cutaway with fixed camera framing; no map collider/resource changes. Other camera modes and settings FOV/sensitivity/inversion preserved. Source offhand retirement preserved; no offhand acceptance claim. Original assets, enemy logic, saves, slash/ice-shield and incoming dirty/untracked work preserved.
+Verification: Godot4.7.2 Compatibility, disposable projects/custom user directories;154/154 camera and67/67 actual Player PASS, no script/parse errors. Complete regular combos compare live grip/tip; all4 legacy frames and charged legacy path verified. Fixed follow screen-anchor drift0.0px over45 movement samples. Final representative images inspected, scoped git diff --check PASS.
+Known limits/errors: vendor UID/retained ObjectDB/resource shutdown diagnostics persist. Native full-map ceiling-cutaway/long-session feel, every charged attack/contact and independent owner review not performed. Initial frame-timing/pointer fixture failures retained as history, not acceptance. No source engine/import or real-save writes by these tools; source cache/UID changes outside this task retained. Automatic approval temporarily failed due usage quota before user resumed; no bypass used. No commit or push.
+
+## 2026-11-20 — C09 Top-down weapon ground clipping: implementation
+User reports weapon sprite sinking when facing down. Bao Player depth-placement repair; criteria in docs/camera-views-2026-11-19.md before implementation. Actual isolated floor/Player attack sampling reproduced48 failures/177 checks: down-facing sword y0.969→0.001, axe0.900→-0.036, spear0.989→0.038, dagger0.996→-0.056. First fixture did not drain queued FSM transitions and sampled floating poses; corrected before accepting reproduction.
+Implemented scenes/player/player.gd: for Top-down front-facing weapon placement, keep the nearer of native weapon depth and front-of-body depth, preventing projection back toward the ground. Preserve screen grip, up-facing body-over-weapon ordering, FX-behind-body, terrain depth testing and other camera modes. Tests added in tests/topdown_weapon_depth_check.gd/.tscn; no combat/map/enemy/asset changes. Before screenshots saved under docs/validation/camera-views/c09-depth/. Final verification pending; no reviewer acceptance/commit/push.
+
+## 2026-11-20 — C09 Top-down weapon ground clipping verified
+Status: implemented and focused rendered177/177 PASS; broader manual/map/charged-pose acceptance pending. User-reported Bao-owned Player sprite-depth bug reproduced, no other-owner changes or inferred reviewer agreement.
+Included files/purpose:
+- scenes/player/player.gd: five-line Top-down front-depth guard; choose nearer native depth instead of pushing an already-front weapon back toward the feet plane. Screen grip projection, terrain depth test, up/back/FX layering and other camera modes retained.
+- tests/topdown_weapon_depth_check.gd: isolated actual Player/floor/weapon pose reproduction and177 assertions; explicitly enter queued FSM states before sampling, capture down-facing art for four weapon types, check front height/body depth/projection, up/back ordering and TPS offset.
+- tests/topdown_weapon_depth_check.tscn: rendered fixture entry.
+- docs/camera-views-2026-11-19.md: C09 pre-implementation AC, cause/reproduction/fix/verification/limits.
+- specs/001-integrate-basement-stage/tasks.md and validation.md: append C09 status/evidence without closing unrelated tasks.
+- docs/project-changes-2026-11-14.txt: cumulative scope, file and verification record.
+Evidence under docs/validation/camera-views/c09-depth/: initial-fixture-invalid.log (excluded17-failure run with unentered FSM); before.log and before-errors.log (actual48 failures/177 with sinking measurements); fixed.log and fixed-errors.log (177/177, no script/parse errors); before-depth-sword-down.png, before-depth-axe-down.png, before-depth-spear-down.png, before-depth-dagger-down.png and corresponding after-depth-sword-down.png, after-depth-axe-down.png, after-depth-spear-down.png, after-depth-dagger-down.png (before/after rendered poses).
+Integration: presentation placement only; no changes to movement, weapon attack paths/damage/hitboxes, FX/slash/ice-shield, FPS viewmodel, map/enemy/save/assets. All incoming dirty/untracked work preserved; no source Godot/import/real saves used.
+Verification: Godot4.7.2 Compatibility in existing disposable ArcanaViews copy/custom user data. Four weapon types, four directions, four first-strike progress samples; before down sword0.969→0.001, axe0.900→-0.036, spear0.989→0.038, dagger0.996→-0.056; after native heights retained within floating precision. Projected grip and depth-test flags preserved, up/back body ordering/TPS exact front offset pass. Four after screenshots visually inspected against baseline. Scoped git diff --check PASS.
+Known diagnostics/limits: vendor UID fallbacks and exit3 retained ObjectDB/1 resource warnings persist. First fixture timing error corrected before reproducing; its output is not evidence of gameplay failure. Native full-map/slopes/ceilings, later combo/all charged-pose coverage and independent reviewer acceptance not performed. No commit/push or teammate sign-off.
+
+## M01/M02 — menu T health exploit and ultimate pause lock (2026-11-21)
+Owner/scope: Bao Player/Skill Tree UI; user-requested bug repair. Preserve incoming dirty files and all unrelated map/enemy/camera work. No teammate agreement claimed.
+Before implementation AC: M01 opening/closing T must not change HP; replacement/retirement of existing char_heal skill awaits user choice (current tooltip explicitly promises healing on opening). M02 T cannot acquire a pause owned by the ultimate cinematic or another system; rapid T/Escape during ordinary book transitions must still settle closed/unpaused, ultimate must complete and gameplay resume. Scope UI pause guard; no shared pause-manager redesign.
+Checks: isolated Godot runtime with actual Player, cinematic and book, injected input and transition timing; before/after reproduction, low HP/ranked heal, ordinary reversal/Escape, other-system pause, cinematic completion/abort and subsequent menu reuse. No source engine/imports or real save writes. Runtime verification pending.
+
+## 2026-11-21 — M02 menu T/ultimate pause repair verified; M01 awaiting design choice
+Status: M02 implemented and focused rendered65/65 PASS. M01 identified/reproduced, NOT FIXED: existing char_heal rank is added to HP in _begin_open, matching its tooltip. User was asked whether to retire/refund it or replace with timed regeneration; answer pending. No healing, purchase, rank, SP or save changes made.
+Root cause M02: book could capture paused=true from cinematic, then restore that stale pause after cinematic ended. set_open now refuses opening during a foreign pause unless book already owns it, preserving rapid reversal during its own transition. This mirrors other gameplay-menu entry gates without changing shared pause infrastructure.
+Included files/purpose:
+- ui/skill_tree_layout.gd: four-line foreign-pause entry guard only; char_heal unchanged pending decision.
+- tests/skill_tree_menu_check.gd: isolated actual Player/HUD/camera/floor integration fixture, injected T-action/Escape,8 real ultimates and cleanup. Use -- --pause-only for65 implemented M02 checks; full mode adds2 known-failing pending M01 no-heal assertions. No real-save execution permitted by user-dir guard.
+- tests/skill_tree_menu_check.gd.uid: stable fixture script UID generated in disposable import.
+- tests/skill_tree_menu_check.tscn: fixture scene entry.
+- specs/001-integrate-basement-stage/tasks.md: scoped M01 pending/M02 verified status, no unrelated closure.
+- specs/001-integrate-basement-stage/validation.md: executed evidence, fixture-history distinctions and limitations.
+- docs/project-changes-2026-11-14.txt: cumulative pre-scope and final status/file/integration record.
+- docs/validation/skill-tree-menu/before-incomplete.log and before-incomplete-errors.log: partial old-copy reproduction of healing/stranded pause; incomplete frame-limited run with missing-resource warnings, not full-suite acceptance.
+- docs/validation/skill-tree-menu/initial-timing.log and initial-timing-errors.log:63/65 first actual-HUD run; WindUltimate sampled before its3.6s duration and queued T drained after cinematic teardown. These are fixture timing errors, corrected before final acceptance.
+- docs/validation/skill-tree-menu/verified.log and verified-errors.log: final65/65 Compatibility-rendered pause subset and diagnostics.
+Integration: Bao-owned Skill Tree UI only; cinematic/combat implementation, HP/progression/SP/save schemas, map/enemy/loot, existing dirty camera/weapon work and tracked cache retained. HUD click/programmatic set_open share the guard with keyboard actions; other systems retain their own pause. No shared manager redesign or teammate review agreement.
+Verification: Godot4.7.2 in disposable TEMP/ArcanaMenu-20261121 with custom user directory and fixture-only save, source copied read-only. Command: Godot --path <isolated-copy> --rendering-method gl_compatibility --resolution 800x600 --max-fps60 res://tests/skill_tree_menu_check.tscn -- --pause-only (actual invocation passes --max-fps and60 as separate arguments). All8 ultimates reject15 T presses during cinematic, spend rage/start cooldown, finish gameplay and allow subsequent menu use; foreign pause retained; close/reversal/abort/teardown release own pause. Scoped git diff --check passes (line-ending notice only).
+Known limitations/errors: M01 remains open pending choice; default full fixture intentionally exposes its2 failing expectations. Native physical-key/manual full-map combat feel and independent owner acceptance not run. Existing vendor/Dialogic UID warnings and shutdown3 ObjectDB/1 resource diagnostics persist; no final parse/script/missing-resource/autoload error. Fresh broad import was stopped at unrelated FBX work once required fixture assets existed, final run performed with importer stopped; no claim of whole-project clean import. Earlier preliminary duplicate-menu/import-overlap attempt excluded; final fixture uses actual HUD menu. No original engine/cache/save modification, generator, commit or push.
+
+## M01 decision update — 2026-11-21
+User selected replacing char_heal with timed regeneration, superseding retirement/refund question. Existing ranks/costs/save IDs must be retained. Exact rank1/2/3 interval is now the only pending balance choice; offered1HP per30/20/10s or60/40/20s. Do not invent an unapproved balance rule.
+Planned Bao Player/UI scope before implementation: remove menu-triggered healing; advance a Player gameplay-delta accumulator only while alive, injured, ranked and unpaused; cap at max HP, clear accumulated credit at full HP/death/no-rank or rank change, prevent pause/menu/cinematic time from counting; preserve already-earned partial interval across menu pause. Update skill tooltip from opening menu to timed recovery. No save schema/migration, SP refund, enemy/map/crafting changes.
+AC/checks: all3 ranks heal1HP only after their interval; no heal without rank/dead/full, no banked heal from time at full HP, rank removal/reset clears credit, T opening/reversals/cinematic and other pause stop timer; resume continues partial interval; previous65 pause checks and2 no-menu-heal assertions must pass together. Use actual Player in isolated runtime plus controlled accumulator boundary tests and real elapsed gameplay checks. Rate-dependent implementation pending answer.
+
+## M01 approved balance / implementation start — 2026-11-21
+User explicitly chose1HP per60/40/20 gameplay seconds for char_heal ranks1/2/3. This resolves the outstanding design choice. Proceed with previously recorded Player/UI scope and AC, preserve all purchased ranks/SP/save identifiers. Reset timer at full health/death/rank change; pause retains partial progress without accumulating menu/cinematic time. Focused controlled-boundary and real elapsed Godot checks plus full M01/M02 regression required; no reviewer sign-off inferred.
+
+## 2026-11-21 — M01 timed regeneration implemented; full M01/M02 verified99/99
+User chose1HP per60/40/20 gameplay seconds at ranks1/2/3. M01 design choice resolved and implemented; M02 pause guard retained. This supersedes prior pending-M01/default-test-failure notes without erasing their history. Bao Player/UI scope only; no independent reviewer agreement claimed.
+Included files/purpose for this implementation group:
+- scenes/player/player.gd: approved interval constant; Player physics-delta regeneration with1HP ticks; no tick while paused/dead/full/unlearned. Reset accumulated credit on reaching full health/death and on rank change/removal; preserve partial progress across menu/cinematic pause. Existing incoming camera/aim/weapon changes retained.
+- ui/skill_tree_layout.gd: remove health mutation from book opening; replace char_heal tooltip with60/40/20s timed recovery/no paused time. Existing M02 foreign-pause guard retained.
+- tests/skill_tree_menu_check.gd: extend actual Player/HUD fixture with24 controlled-boundary/lifecycle/SP/real-time regeneration checks and8 cinematic timer checks; full default run now passes both previously failing no-menu-heal expectations. Existing fixture .tscn/.gd.uid reused unchanged.
+- specs/001-integrate-basement-stage/tasks.md: final implemented/verified status, approved rates, preserved unrelated tasks and manual-review limits.
+- specs/001-integrate-basement-stage/validation.md: exact executed full-suite evidence and remaining limits.
+- docs/validation/skill-tree-menu/regen-final.log: final full99/99 rendered assertions.
+- docs/validation/skill-tree-menu/regen-final-errors.log: engine diagnostics; no script/parse/resource-load/autoload failure.
+- docs/project-changes-2026-11-14.txt: cumulative approved balance, implementation, file and validation record.
+Integration: existing char_heal ID,3 ranks, purchase prices, allocated SP, save schema and health_changed HUD signal remain intact. Recovery now belongs to Player gameplay time rather than UI opening. No migration/refund or real-save edit. No enemy/map/loot/crafting/shared pause-manager edits; all incoming dirty work preserved.
+Verification: isolated TEMP/ArcanaMenu-20261121 custom user directory, existing imported assets; Godot4.7.2 --path <copy> --rendering-method gl_compatibility --resolution800x600 --max-fps60 res://tests/skill_tree_menu_check.tscn (actual CLI uses separate option/value arguments). Full99/99 PASS:65 prior pause lifecycle cases +2 no-menu-heal cases +24 regen checks +8 cinematic-freeze assertions. Three interval boundaries use controlled elapsed delta on actual Player; rank3 also uses real physics time (19.5s no heal, paused book crosses wall-clock threshold without heal, closing/resuming then yields exactly1HP). All8 ultimates complete under T spam with no stale pause, and wind gameplay finishes. Scoped git diff --check PASS.
+Known errors/limits: inherited vendor/Dialogic UID warnings and shutdown3 retained ObjectDB/1 resource diagnostics remain; no new gameplay script error. Native keyboard/full-map manual feel, long-session balance and independent review not performed. Rates1/2 validated via controlled gameplay deltas, not separate60s/40s wall-clock waits; rank3 has actual elapsed runtime evidence. No source Godot/import/cache/real-save write, generator, commit or push.
+
+## User request — dash cancels attack; lower B3 camera (2026-11-21)
+Owner Bao movement/combat/camera boundary. Preserve existing dirty work. AC: pressing dash during any weapon-attack phase immediately exits attack, cleans hit/weapon state through existing _exit, and enters dash if cooldown/stamina allow; dash checked before buffered attacks/phases. B3 only: reduce Top-down camera distance and focus height slightly; other floors/views unchanged. Required verification per constitution: Godot playtest dash from attack/charge/link/hit and B3 ceiling clearance, all in disposable copy; no run yet.
+
+## 2026-11-21 — dash priority and lower B3 camera implemented; runtime pending
+Included files:
+- scenes/player/states/weapon_attack.gd: check eligible dash first each update; interrupt current attack before buffered click/phase processing; established `_exit` performs hitbox/weapon cleanup.
+- levels/level_1/basement_b3.tscn: B3-only CameraRig distance10.8 and focus offset1.1 to lower overhead camera slightly; shared defaults/other stages preserved.
+- docs/project-changes-2026-11-14.txt, specs/001-integrate-basement-stage/tasks.md, specs/001-integrate-basement-stage/validation.md: scope, status and pending acceptance.
+Verification: source diff review and git diff --check only. Godot run/playtest NOT RUN this turn; ceiling clearance and attack cancel runtime remain unverified under constitution criteria. No map geometry or other owners' systems changed; no reviewer acceptance or commit/push.

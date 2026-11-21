@@ -1,0 +1,129 @@
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: Ultimate cinematic: missing PixelFX impact-frame manifest
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_impact_frame_animation (res://scenes/player/ultimate_cinematic.gd:133)
+       [1] _play_fullscreen_impact_frame (res://scenes/player/ultimate_cinematic.gd:113)
+       [2] _play_impact (res://scenes/player/ultimate_cinematic.gd:109)
+       [3] _process (res://scenes/player/ultimate_cinematic.gd:77)
+WARNING: PVFX: missing sheet or manifest for wind/wind-gust
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_pvfx_frames (res://scenes/player/battle_vfx.gd:566)
+       [1] _spawn_pvfx (res://scenes/player/battle_vfx.gd:404)
+       [2] play_pvfx (res://scenes/player/battle_vfx.gd:85)
+       [3] ultimate_impact (res://scenes/player/battle_vfx.gd:89)
+       [4] cast_ultimate (res://scenes/player/player.gd:1080)
+       [5] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [6] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [7] _process (res://scenes/player/ultimate_cinematic.gd:93)
+WARNING: PVFX: missing sheet or manifest for impacts/shockwave-ring
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_pvfx_frames (res://scenes/player/battle_vfx.gd:566)
+       [1] _spawn_pvfx (res://scenes/player/battle_vfx.gd:404)
+       [2] play_pvfx (res://scenes/player/battle_vfx.gd:85)
+       [3] ultimate_impact (res://scenes/player/battle_vfx.gd:89)
+       [4] cast_ultimate (res://scenes/player/player.gd:1081)
+       [5] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [6] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [7] _process (res://scenes/player/ultimate_cinematic.gd:93)
+ERROR: Resource file not found: res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/wind/wind_nova.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_skill_icon (res://ui/player_hud.gd:715)
+       [1] _refresh_skill_bar (res://ui/player_hud.gd:482)
+       [2] _process (res://ui/player_hud.gd:170)
+WARNING: Ultimate cinematic: missing PixelFX impact-frame manifest
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_impact_frame_animation (res://scenes/player/ultimate_cinematic.gd:133)
+       [1] _play_fullscreen_impact_frame (res://scenes/player/ultimate_cinematic.gd:113)
+       [2] _play_impact (res://scenes/player/ultimate_cinematic.gd:109)
+       [3] _process (res://scenes/player/ultimate_cinematic.gd:77)
+ERROR: Resource file not found: res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/fire/fire_nova.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_skill_icon (res://ui/player_hud.gd:715)
+       [1] _refresh_skill_bar (res://ui/player_hud.gd:482)
+       [2] _on_active_skill_slot_changed (res://ui/player_hud.gd:195)
+       [3] _apply_skill_bonuses (res://scenes/player/player.gd:698)
+       [4] _apply_timed_buff (res://scenes/player/player.gd:902)
+       [5] cast_ultimate (res://scenes/player/player.gd:1087)
+       [6] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [7] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [8] _process (res://scenes/player/ultimate_cinematic.gd:93)
+WARNING: PVFX: missing sheet or manifest for fire/fire-pillar
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_pvfx_frames (res://scenes/player/battle_vfx.gd:566)
+       [1] _spawn_pvfx (res://scenes/player/battle_vfx.gd:404)
+       [2] play_pvfx (res://scenes/player/battle_vfx.gd:85)
+       [3] ultimate_impact (res://scenes/player/battle_vfx.gd:89)
+       [4] cast_ultimate (res://scenes/player/player.gd:1088)
+       [5] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [6] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [7] _process (res://scenes/player/ultimate_cinematic.gd:93)
+WARNING: PVFX: missing sheet or manifest for explosions/fire-nova
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_pvfx_frames (res://scenes/player/battle_vfx.gd:566)
+       [1] _spawn_pvfx (res://scenes/player/battle_vfx.gd:404)
+       [2] play_pvfx (res://scenes/player/battle_vfx.gd:85)
+       [3] ultimate_impact (res://scenes/player/battle_vfx.gd:89)
+       [4] cast_ultimate (res://scenes/player/player.gd:1089)
+       [5] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [6] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [7] _process (res://scenes/player/ultimate_cinematic.gd:93)
+WARNING: Ultimate cinematic: missing PixelFX impact-frame manifest
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_impact_frame_animation (res://scenes/player/ultimate_cinematic.gd:133)
+       [1] _play_fullscreen_impact_frame (res://scenes/player/ultimate_cinematic.gd:113)
+       [2] _play_impact (res://scenes/player/ultimate_cinematic.gd:109)
+       [3] _process (res://scenes/player/ultimate_cinematic.gd:77)
+ERROR: Resource file not found: res://assets/effects/pixelfx/ice/frost-nova/frost-nova.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_pixelfx_frames (res://scenes/player/battle_vfx.gd:463)
+       [1] _spawn_pixelfx (res://scenes/player/battle_vfx.gd:274)
+       [2] circle_burst (res://scenes/player/battle_vfx.gd:104)
+       [3] cast_ultimate (res://scenes/player/player.gd:1128)
+       [4] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [5] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [6] _process (res://scenes/player/ultimate_cinematic.gd:93)
+WARNING: PixelFX: missing exported sheet or metadata for ice/frost-nova
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _load_pixelfx_frames (res://scenes/player/battle_vfx.gd:466)
+       [1] _spawn_pixelfx (res://scenes/player/battle_vfx.gd:274)
+       [2] circle_burst (res://scenes/player/battle_vfx.gd:104)
+       [3] cast_ultimate (res://scenes/player/player.gd:1128)
+       [4] _on_ultimate_cinematic_finished (res://scenes/player/player.gd:990)
+       [5] _finish (res://scenes/player/ultimate_cinematic.gd:308)
+       [6] _process (res://scenes/player/ultimate_cinematic.gd:93)
+ERROR: Resource file not found: res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/ice/ice_star.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_skill_icon (res://ui/player_hud.gd:715)
+       [1] _refresh_skill_bar (res://ui/player_hud.gd:482)
+       [2] _process (res://ui/player_hud.gd:170)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

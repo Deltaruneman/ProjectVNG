@@ -10,11 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="7_kohv5"]
-[ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_7roa1"]
-[ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_1.tscn" id="8_jnqiw"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
 [ext_resource type="PackedScene" uid="uid://m71d8f517f26" path="res://levels/objects/checkpoint/basement_checkpoint.tscn" id="12_checkpoint"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="13_b2_door"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="13_dbw46"]
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
@@ -125,7 +125,7 @@ clear_kills = 3
 
 [node name="EnemyZone_B" parent="B1/EnemyZones" unique_id=782010491 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 22)
-enemy_scene = ExtResource("8_w875x")
+enemy_scene = ExtResource("8_jnqiw")
 clear_kills = 3
 
 [node name="EnemyZone_C" parent="B1/EnemyZones" unique_id=1386295952 instance=ExtResource("4_mohxj")]
@@ -277,7 +277,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 7, 14)
 
 [node name="EnemyZone_A" parent="B2/EnemyZones" unique_id=1973627187 instance=ExtResource("4_mohxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 7, 14)
-enemy_scene = ExtResource("8_7roa1")
+enemy_scene = ExtResource("13_dbw46")
 clear_kills = 3
 
 [node name="EnemyZone_B" parent="B2/EnemyZones" unique_id=15538645 instance=ExtResource("4_mohxj")]

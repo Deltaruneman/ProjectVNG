@@ -276,6 +276,10 @@ func _spear_fx_direction_check() -> void:
 	check(effect != null, "spear sweep effect is created")
 	if effect != null:
 		check(effect.billboard == BaseMaterial3D.BILLBOARD_DISABLED, "weapon FX keeps its explicitly rotated camera-facing plane")
+		var body := player.get_node("Sprite3D") as Sprite3D
+		var body_depth := (body.global_position - camera.global_position).dot(-camera.global_basis.z)
+		var effect_depth := (effect.global_position - camera.global_position).dot(-camera.global_basis.z)
+		check(effect_depth > body_depth + 0.04, "weapon attack FX remains behind Player at every facing")
 		var effect_direction: Vector3 = effect.get_meta("world_direction")
 		check(effect_direction.dot(expected_direction) > 0.99, "spear sweep follows the equipped spear tip direction")
 		var weapon_axis := (state.get("_weapon") as Node3D).global_basis * Vector3(cos(float(state.get("_source_tip_angle"))), sin(float(state.get("_source_tip_angle"))), 0.0)
@@ -483,15 +487,20 @@ func _aerial_and_depth_checks() -> void:
 	await frames(45)
 	check(player.is_on_floor() and player.position.y < 0.2, "interrupted flight falls to ground")
 	check(player.get_node("Direction/Blade").is_processing(), "flight interruption restores floating weapon")
-	# Orthographic and perspective camera: active weapon origin is behind Player depth.
+	# Active weapon sprites follow the camera-relative up/back Player layer rule.
 	await fresh("sword")
 	await click()
 	for projection in [Camera3D.PROJECTION_ORTHOGONAL, Camera3D.PROJECTION_PERSPECTIVE]:
 		camera.projection = projection
-		state.call("_set_weapon_pose", Vector3(0.2, 1, 0.4), Vector3(0,0,1))
-		var sprite := player.get_node("Direction/Blade/Sprite3D") as Sprite3D
-		var body := player.get_node("Sprite3D") as Sprite3D
-		check((sprite.global_position-body.global_position).dot(-camera.global_basis.z) > 0.04, "active main behind body plane " + str(projection))
+		for facing in ["up", "down", "left", "right"]:
+			player.change_direction(facing)
+			player._apply_direction()
+			await frames(1)
+			state.call("_set_weapon_pose", Vector3(0.2, 1, 0.4), Vector3(0,0,1))
+			var sprite := player.get_node("Direction/Blade/Sprite3D") as Sprite3D
+			var body := player.get_node("Sprite3D") as Sprite3D
+			var depth_delta: float = (sprite.global_position-body.global_position).dot(-camera.global_basis.z)
+			check(depth_delta > 0.04 if facing == "up" else depth_delta < -0.04, "active main depth follows " + facing + " facing " + str(projection))
 		GameManager.inventory.equipped.offhand = GameManager.grant_item("bow")
 		player.begin_offhand_cast()
 		check(not is_instance_valid(player._offhand_cast_sprite), "retired offhand remains invisible " + str(projection))
@@ -510,6 +519,8 @@ func _aerial_and_depth_checks() -> void:
 		add_child(quad)
 		quad.global_basis = camera.global_basis
 		quad.global_position = player.global_position + Vector3.UP * 0.9
+		player.change_direction("up")
+		player._apply_direction()
 		player.place_weapon_below_body(quad)
 		await frames(3)
 		await RenderingServer.frame_post_draw

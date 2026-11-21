@@ -1,6 +1,10 @@
 class_name EnemyCharacter
 extends BaseCharacter
 
+signal fallback_hurt_finished
+
+var _fallback_hurt_running := false
+
 const HEALTH_BAR_SCENE := preload("res://scenes/ui/enemy_health_bar.tscn")
 const SKILL_POINT_SCENE := preload("res://levels/objects/experience_point/exp_point.tscn")
 

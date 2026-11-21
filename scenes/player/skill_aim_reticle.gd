@@ -18,12 +18,16 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	queue_redraw()
 	if get_tree().paused and get_parent().visible:
 		pause_cancel_requested.emit()
 
 
 func _draw() -> void:
 	var center := aim_screen_point(size)
+	var camera := get_viewport().get_camera_3d()
+	if camera != null and camera.get_parent() is CameraRig:
+		center = camera.get_parent().get_aim_screen_point()
 	draw_arc(center, 3.5, 0.0, TAU, 28, SHADOW_COLOR, 2.0, true)
 	draw_arc(center, 3.5, 0.0, TAU, 28, RETICLE_COLOR, 1.0, true)
 	for axis in [Vector2.RIGHT, Vector2.DOWN]:

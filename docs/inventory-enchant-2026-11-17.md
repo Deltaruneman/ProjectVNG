@@ -253,6 +253,16 @@ Verification: rendered Godot4.7.2 Compatibility weapon/combo suite passed143/143
 
 Known diagnostics/limits: engine shutdown reports28 ObjectDB instances and1 resource in the weapon suite, and16/1 in inventory; vendor invalid-UID text-path fallback warnings persist. No clean shutdown or teammate review claimed. No commit or push.
 
+## W15 outcome — weapon sprite depth follows Player facing
+
+Weapon sprites now sit behind Player only when the camera-relative Player facing is `up` (back toward camera); for `down`, `left` and `right`, active main-hand/offhand weapon sprites sit slightly in front. The depth adjustment preserves each sprite's projected screen position and still depth-tests against the world. Weapon attack FX use a separate placement helper and remain behind Player at every facing, as previously requested.
+
+Files: `scenes/player/player.gd` (camera-relative facing depth selection and shared projection helper), `scenes/player/battle_vfx.gd` (route attack FX through always-behind helper), `tests/weapon_combo_check.gd` (four-facing checks under orthographic and perspective cameras plus invariant FX depth), this note, cumulative change record, and validation log. No hitboxes, animation direction, item art, projectile behavior or saved data changed.
+
+Verification: rendered Godot4.7.2 Compatibility weapon/combo suite passed150/150. Main weapon depth sign matches all four facings for both tested camera projections; spear FX remains behind Player. Log: `docs/validation/weapon-polish/weapon-depth-by-facing-final.log`. No SCRIPT ERROR or Parse Error.
+
+Known diagnostics/limits: Godot shutdown still reports28 ObjectDB instances and1 resource in use; vendor invalid-UID fallback warnings persist. No clean shutdown or independent review claimed. No commit or push.
+
 
 ## W15 before implementation — consumable Q and HUD prototype (2026-11-18)
 User authorizes the proposed HUD prototype and removal of active offhand gameplay. Owner: Bao Player/input/inventory/HUD; shared review boundary is inventory serialization, GameManager use/equip API and InputMap. No Lam crafting/drop, map or Duy enemy edits. No independent owner/reviewer agreement claimed. Clean git status observed before this group.
