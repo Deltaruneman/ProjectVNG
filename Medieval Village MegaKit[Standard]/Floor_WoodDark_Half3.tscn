@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://c80dgn8p703pm"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_sco3e"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_3lmt5"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_hopqj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lr6p"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_sco3e")
+metallic_texture = ExtResource("2_3lmt5")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_3lmt5")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_hopqj")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1j11u"]
+_surfaces = [{
+"aabb": AABB(-1, -0.010000384, -1, 2, 0.020000376, 1),
+"attribute_data": PackedByteArray("PAIAPxeF3j7Y/r8/nxAOP9j+vz8Xhd4+PAIAP58QDj/Y/r83HH+fPvT8fz/0aN0+9Px/Pxx/nz7Y/r839GjdPnf4/z4cf58+dP7/vvRo3T50/v++HH+fPnf4/z70aN0+d/j/PrsRDj90/v++F4XePnT+/76fEA4/d/j/PheF3j48AgA/F4XePtj+vz+fEA4/2P6/PxeF3j48AgA/nxAOP9j+vzccf58+9Px/P/Ro3T70/H8/HH+fPtj+vzf0aN0+d/j/Phx/nz50/v++9GjdPnT+/74cf58+d/j/PvRo3T53+P8+uxEOP3T+/74Xhd4+dP7/vp8QDj93+P8+F4XePg=="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0A"),
+"material": SubResource("StandardMaterial3D_3lr6p"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("AACAvwHXIzzAAEC/AACAPwHXIzwAAIC/AACAPwHXIzzAAEC/AACAvwHXIzwAAIC/AACAvwHXIzwAAAAAAACAPwHXIzyAAIC+AACAPwHXIzwAAAAAAACAvwHXIzyAAIC+AACAvwHXIzyAAIC+AACAPwHXIzyAAAC/AACAPwHXIzyAAIC+AACAvwHXIzyAAAC/AACAvwHXIzyAAAC/AACAPwHXIzzAAEC/AACAPwHXIzyAAAC/AACAvwHXIzzAAEC/AACAPxjWI7zAAEC/AACAv6fYI7wAAIC/AACAv6fYI7zAAEC/AACAPxjWI7wAAIC/AACAPxjWI7wAAAAAAACAv6fYI7yAAIC+AACAv6fYI7wAAAAAAACAPxjWI7yAAIC+AACAPxjWI7yAAIC+AACAv6fYI7yAAAC/AACAv6fYI7yAAIC+AACAPxjWI7yAAAC/AACAPxjWI7yAAAC/AACAv6fYI7zAAEC/AACAv6fYI7yAAAC/AACAPxjWI7zAAEC//H/+//7//z/8f/7//v//P/x//v/+//8//H/+//7//z/8f/7//v//P/x//v/+//8//H/+//7//z/8f/7//v//P/5//v8AAP6//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6//n/+/wAAAED+f/7/AAAAQP5//v8AAABA/n/+/wAAAED6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j/6fwEAAQD+P/p/AQABAP4/AIABAP7//78AgAEA/v//vwCAAQD+//+/AIABAP7//78CgAAA/v//PwKAAAD+//8/AoAAAP7//z8CgAAA/v//Pw==")
+}]
+
+[node name="Floor_WoodDark_Half3" type="MeshInstance3D" unique_id=1107110430]
+mesh = SubResource("ArrayMesh_1j11u")

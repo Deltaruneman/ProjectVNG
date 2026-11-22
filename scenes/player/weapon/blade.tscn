@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cjv0myegiav6k"]
+
+[ext_resource type="Texture2D" uid="uid://bjqboljrdhusv" path="res://assets/models/objects/item4.png" id="1_0605i"]
+
+[sub_resource type="GDScript" id="GDScript_0605i"]
+
+[node name="Blade" type="Node3D" unique_id=1929356891]
+script = SubResource("GDScript_0605i")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1106961589]
+pixel_size = 0.0625
+texture_filter = 0
+texture = ExtResource("1_0605i")

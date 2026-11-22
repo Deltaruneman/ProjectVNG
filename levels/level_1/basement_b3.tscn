@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://d12u1s460ag67"]
+
+[ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
+[ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
+[ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
+[ext_resource type="PackedScene" uid="uid://b1lscpg7tjenr" path="res://ui/hud.tscn" id="11_lpgvr"]
+[ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
+[ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
+[ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
+
+[sub_resource type="Environment" id="Environment_1ccrl"]
+background_mode = 1
+background_color = Color(0.015, 0.012, 0.02, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.47, 0.62, 1)
+ambient_light_energy = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_py5rg"]
+albedo_color = Color(1, 0.55, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_y6pd3"]
+material = SubResource("StandardMaterial3D_py5rg")
+size = Vector3(0.25, 0.5, 0.25)
+
+[node name="Stage" type="Node3D" unique_id=1031867662]
+script = ExtResource("stage")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1873455484]
+environment = SubResource("Environment_1ccrl")
+
+[node name="B3" type="Node3D" parent="." unique_id=171564207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0)
+metadata/floor_level = 2
+
+[node name="World" type="GridMap" parent="B3" unique_id=1839607552]
+mesh_library = ExtResource("2_0i3fv")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(393227, 65535, 3, 393227, 0, 3, 393227, 1, 0, 393227, 2, 3, 393227, 3, 2, 393227, 4, 3, 393227, 5, 0, 393227, 6, 3, 393227, 7, 3, 393227, 8, 3, 393227, 9, 0, 393227, 10, 1, 393227, 11, 1, 393227, 12, 1, 393227, 13, 1, 393227, 14, 2, 393228, 65535, 1, 393228, 0, 0, 393228, 1, 3, 393228, 2, 0, 393228, 3, 2, 393228, 4, 3, 393228, 5, 3, 393228, 6, 3, 393228, 7, 1, 393228, 8, 0, 393228, 9, 2, 393228, 10, 3, 393228, 11, 2, 393228, 12, 2, 393228, 13, 3, 393228, 14, 3, 393229, 65535, 0, 393229, 0, 0, 393229, 1, 3, 393229, 2, 2, 393229, 3, 0, 393229, 4, 3, 393229, 5, 1, 393229, 6, 2, 393229, 7, 2, 393229, 8, 2, 393229, 9, 0, 393229, 10, 2, 393229, 11, 3, 393229, 12, 0, 393229, 13, 0, 393229, 14, 3, 393230, 65535, 3, 393230, 0, 1, 393230, 1, 2, 393230, 2, 1, 393230, 3, 2, 393230, 4, 2, 393230, 5, 2, 393230, 6, 1, 393230, 7, 3, 393230, 8, 1, 393230, 9, 0, 393230, 10, 1, 393230, 11, 3, 393230, 12, 2, 393230, 13, 3, 393230, 14, 0, 393231, 65535, 3, 393231, 0, 1, 393231, 1, 0, 393231, 2, 2, 393231, 3, 1, 393231, 4, 0, 393231, 5, 0, 393231, 6, 0, 393231, 7, 2, 393231, 8, 2, 393231, 9, 0, 393231, 10, 2, 393231, 11, 2, 393231, 12, 3, 393231, 13, 0, 393231, 14, 0, 393232, 65535, 2, 393232, 0, 1, 393232, 1, 3, 393232, 2, 1, 393232, 3, 3, 393232, 4, 1, 393232, 5, 3, 393232, 6, 2, 393232, 7, 0, 393232, 8, 2, 393232, 9, 2, 393232, 10, 1, 393232, 11, 2, 393232, 12, 0, 393232, 13, 0, 393232, 14, 0, 393233, 65535, 1, 393233, 0, 1, 393233, 1, 3, 393233, 2, 1, 393233, 3, 3, 393233, 4, 2, 393233, 5, 1, 393233, 6, 1, 393233, 7, 2, 393233, 8, 2, 393233, 9, 0, 393233, 10, 1, 393233, 11, 1, 393233, 12, 2, 393233, 13, 3, 393233, 14, 3, 393234, 65535, 3, 393234, 0, 3, 393234, 1, 3, 393234, 2, 0, 393234, 3, 3, 393234, 4, 3, 393234, 5, 1, 393234, 6, 2, 393234, 7, 0, 393234, 8, 2, 393234, 9, 1, 393234, 10, 3, 393234, 11, 3, 393234, 12, 0, 393234, 13, 1, 393234, 14, 3, 393235, 65535, 1, 393235, 0, 0, 393235, 1, 3, 393235, 2, 1, 393235, 3, 1, 393235, 4, 3, 393235, 5, 3, 393235, 6, 1, 393235, 7, 3, 393235, 8, 2, 393235, 9, 1, 393235, 10, 2, 393235, 11, 1, 393235, 12, 2, 393235, 13, 1, 393235, 14, 2, 393236, 65535, 3, 393236, 0, 0, 393236, 1, 2, 393236, 2, 2, 393236, 3, 1, 393236, 4, 0, 393236, 5, 1, 393236, 6, 0, 393236, 7, 1, 393236, 8, 0, 393236, 9, 3, 393236, 10, 0, 393236, 11, 2, 393236, 12, 3, 393236, 13, 1, 393236, 14, 0, 393237, 65535, 3, 393237, 0, 2, 393237, 1, 1, 393237, 2, 1, 393237, 3, 2, 393237, 4, 1, 393237, 5, 0, 393237, 6, 3, 393237, 7, 2, 393237, 8, 0, 393237, 9, 1, 393237, 10, 2, 393237, 11, 0, 393237, 12, 1, 393237, 13, 2, 393237, 14, 3, 393238, 65535, 2, 393238, 0, 3, 393238, 1, 0, 393238, 2, 2, 393238, 3, 0, 393238, 4, 3, 393238, 5, 2, 393238, 6, 1, 393238, 7, 2, 393238, 8, 0, 393238, 9, 0, 393238, 10, 1, 393238, 11, 1, 393238, 12, 1, 393238, 13, 3, 393238, 14, 2, 393239, 65535, 1, 393239, 0, 2, 393239, 1, 0, 393239, 2, 0, 393239, 3, 1, 393239, 4, 3, 393239, 5, 0, 393239, 6, 2, 393239, 7, 3, 393239, 8, 2, 393239, 9, 2, 393239, 10, 2, 393239, 11, 1, 393239, 12, 3, 393239, 13, 2, 393239, 14, 3, 393240, 65535, 0, 393240, 0, 0, 393240, 1, 0, 393240, 2, 1, 393240, 3, 3, 393240, 4, 2, 393240, 5, 3, 393240, 6, 1, 393240, 7, 1, 393240, 8, 2, 393240, 9, 2, 393240, 10, 0, 393240, 11, 3, 393240, 12, 3, 393240, 13, 1, 393240, 14, 2, 393241, 65535, 1, 393241, 0, 2, 393241, 1, 3, 393241, 3, 1, 393241, 4, 1, 393241, 5, 0, 393241, 6, 3, 393241, 7, 3, 393241, 8, 2, 393241, 9, 1, 393241, 10, 0, 393241, 11, 0, 393241, 12, 3, 393241, 13, 1, 393241, 14, 3, 393242, 65535, 0, 393242, 0, 2, 393242, 1, 3, 393242, 2, 1, 393242, 3, 3, 393242, 4, 3, 393242, 5, 3, 393242, 6, 1, 393242, 7, 2, 393242, 8, 2, 393242, 9, 3, 393242, 10, 2, 393242, 11, 3, 393242, 12, 1, 393242, 13, 3, 393242, 14, 0, 393243, 65535, 2, 393243, 0, 2, 393243, 1, 0, 393243, 2, 2, 393243, 3, 2, 393243, 4, 2, 393243, 5, 3, 393243, 6, 2, 393243, 7, 3, 393243, 8, 2, 393243, 9, 3, 393243, 10, 2, 393243, 11, 3, 393243, 12, 2, 393243, 13, 3, 393243, 14, 1, 393244, 65535, 2, 393244, 0, 3, 393244, 1, 1, 393244, 2, 3, 393244, 3, 0, 393244, 4, 3, 393244, 5, 2, 393244, 6, 2, 393244, 7, 3, 393244, 8, 3, 393244, 9, 2, 393244, 10, 2, 393244, 11, 3, 393244, 12, 2, 393244, 13, 1, 393244, 14, 3, 458763, 0, 1048596, 524299, 0, 1048605, 458780, 0, 1441812, 524316, 0, 1441821, 458763, 1, 1048596, 524299, 1, 1048605, 458780, 1, 1441812, 524316, 1, 1441821, 458763, 2, 1048596, 524299, 2, 1048605, 458780, 2, 1441812, 524316, 2, 1441821, 458763, 3, 1048596, 524299, 3, 1048605, 458780, 3, 1441812, 524316, 3, 1441821, 458763, 4, 1048596, 524299, 4, 1048605, 458780, 4, 1441812, 524316, 4, 1441821, 458763, 5, 1048596, 524299, 5, 1048605, 458780, 5, 1441812, 524316, 5, 1441821, 458763, 6, 1048596, 524299, 6, 1048605, 458780, 6, 1441812, 524316, 6, 1441821, 458763, 7, 1048596, 524299, 7, 1048605, 458780, 7, 1441812, 524316, 7, 1441821, 458763, 8, 1048596, 524299, 8, 1048605, 458780, 8, 1441812, 524316, 8, 1441821, 458763, 9, 1048596, 524299, 9, 1048605, 458780, 9, 1441812, 524316, 9, 1441821, 458763, 10, 1048596, 524299, 10, 1048605, 458780, 10, 1441812, 524316, 10, 1441821, 458763, 11, 1048596, 524299, 11, 1048605, 458780, 11, 1441812, 524316, 11, 1441821, 458763, 12, 1048596, 524299, 12, 1048605, 458780, 12, 1441812, 524316, 12, 1441821, 458763, 13, 1048596, 524299, 13, 1048605, 458780, 13, 1441812, 524316, 13, 1441821, 458764, 65535, 20, 524300, 65535, 29, 458764, 14, 655386, 458765, 65535, 20, 524301, 65535, 29, 458765, 14, 655386, 458766, 65535, 20, 524302, 65535, 29, 458766, 14, 655386, 458767, 65535, 20, 524303, 65535, 29, 458767, 14, 655386, 458768, 65535, 20, 524304, 65535, 29, 458768, 14, 655386, 458769, 65535, 20, 524305, 65535, 29, 458769, 14, 655386, 458770, 65535, 20, 524306, 65535, 29, 458770, 14, 655386, 458771, 65535, 20, 524307, 65535, 29, 458771, 14, 655386, 458772, 65535, 20, 524308, 65535, 29, 458772, 14, 655386, 458773, 65535, 20, 524309, 65535, 29, 458773, 14, 655386, 458774, 65535, 20, 524310, 65535, 29, 458774, 14, 655386, 458775, 65535, 20, 524311, 65535, 29, 458775, 14, 655386, 458776, 65535, 20, 524312, 65535, 29, 458776, 14, 655386, 458777, 65535, 20, 524313, 65535, 29, 458777, 14, 655386, 458778, 65535, 20, 524314, 65535, 29, 458778, 14, 655386, 458779, 65535, 20, 524315, 65535, 29, 458779, 14, 655386, 458763, 65535, 22, 524299, 65535, 31, 458780, 65535, 1441814, 524316, 65535, 1441823, 458763, 14, 1048604, 458780, 14, 655388, 458776, 2, 1441818, 458778, 2, 1048602, 458777, 1, 655386)
+}
+
+[node name="Pathfinder" type="Node" parent="B3" unique_id=939024848 node_paths=PackedStringArray("floor_map")]
+script = ExtResource("3_0ceix")
+floor_map = NodePath("../World")
+
+[node name="MiniBossSpot_B3" type="Marker3D" parent="B3" unique_id=578778800]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 13, 14)
+
+[node name="ElevatorSlot" type="Marker3D" parent="B3" unique_id=1522927679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 13, 2)
+
+[node name="LadderSpot_B3_Ground" type="Marker3D" parent="B3" unique_id=2127900906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 3)
+
+[node name="Torches" type="Node3D" parent="B3" unique_id=786394237]
+
+[node name="Torch0" type="OmniLight3D" parent="B3/Torches" unique_id=1749712292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 15.6, -0.6)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch0" unique_id=1493555016]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_y6pd3")
+
+[node name="Torch1" type="OmniLight3D" parent="B3/Torches" unique_id=681253790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 15.6, -0.6)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch1" unique_id=769833008]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_y6pd3")
+
+[node name="Torch2" type="OmniLight3D" parent="B3/Torches" unique_id=1384532689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4, 15.6, 13)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch2" unique_id=266406400]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_y6pd3")
+
+[node name="Torch3" type="OmniLight3D" parent="B3/Torches" unique_id=626272664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 15.6, 17)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch3" unique_id=1242371863]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_y6pd3")
+
+[node name="Door_b3_down" parent="B3" unique_id=97764041 instance=ExtResource("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 13, 5)
+id = "b3_down"
+target_stage = "uid://b7bnu12tjc0e8"
+target_door = "b2_up"
+metadata/note = "Thang xuống B2"
+
+[node name="Door_b3_exit" parent="B3" unique_id=458261634 instance=ExtResource("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 3)
+id = "b3_exit"
+metadata/note = "Lối lên mặt đất — CHƯA gán target_stage/target_door"
+
+[node name="Checkpoint_b3" parent="B3" unique_id=540661895 instance=ExtResource("checkpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 13, 9)
+id = "b3_start"
+
+[node name="GroundExit" type="Node3D" parent="." unique_id=35331806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0)
+metadata/floor_level = 3
+
+[node name="World" type="GridMap" parent="GroundExit" unique_id=1545155894]
+mesh_library = ExtResource("2_0i3fv")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(589836, 0, 0, 589836, 1, 3, 589836, 2, 1, 589837, 0, 1, 589837, 2, 3, 589838, 0, 0, 589838, 1, 1, 589838, 2, 3)
+}
+
+[node name="Spawn" type="Marker3D" parent="." unique_id=254418968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 1, 8.2)
+
+[node name="Player" parent="." unique_id=1010956037 instance=ExtResource("5_7roa1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 1, 8.2)
+
+[node name="CameraRig" parent="." unique_id=626657845 node_paths=PackedStringArray("target") instance=ExtResource("6_lpgvr")]
+target = NodePath("../Player")
+
+[node name="Bullets" type="Node3D" parent="." unique_id=967244177]
+
+[node name="Hud" parent="." unique_id=1949566559 instance=ExtResource("11_lpgvr")]
+scale = Vector2(6, 4)
+transform = Transform2D(6, 0, 0, 4, 0, 0)
+margin = Vector2(3, 2)
+show_label = true

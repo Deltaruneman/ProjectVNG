@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://icalni7ywn0a"]
+
+[ext_resource type="ArrayMesh" uid="uid://bpahha2hd0xet" path="res://KayKit_Dungeon/Assets/obj/torch_lit.obj" id="1_st6tw"]
+
+[node name="Torch" type="OmniLight3D" unique_id=1466570129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015940547, 0.021596551, -0.02215314)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="." unique_id=549225515]
+transform = Transform3D(0.9492835, 0.3144215, 0, -0.3144215, 0.9492835, 0, 0, 0, 1, -0.21729004, -0.55211496, -0.07757187)
+cast_shadow = 0
+mesh = ExtResource("1_st6tw")

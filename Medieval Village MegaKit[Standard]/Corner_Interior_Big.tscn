@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://br44q0a3e6d47"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_lcyxn"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_pir0f"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_5555k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1xpr"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_lcyxn")
+metallic_texture = ExtResource("2_pir0f")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_pir0f")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_5555k")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3s77q"]
+_surfaces = [{
+"aabb": AABB(-0.009263996, -1.1920929e-07, -0.32389143, 0.33314267, 3, 0.3681251),
+"attribute_data": PackedByteArray("2zTbPrnLOD/bNNs+oF0gP/sK+z6gXSA/+wr7Psl2ST+qPKo+yXZJP6o8qj65yzg/AAAAAIiUBz4AAIA/+ER4PgAAAAD4RHg+AACAP4iUBz4AAIA/zCBMPQAAAAD7AHs7AAAAAMwgTD0AAIA/+wB7OwAAgD+IlAc+AAAAALT4Mz4AAIA/tPgzPgAAAACIlAc++wr7PqBdID/bNNs+oF0gP9s02z65yzg/+wr7Psl2ST+qPKo+ucs4P6o8qj7Jdkk/AACAP/Ag8D0AAAAA+wB7OwAAAADwIPA9AACAP/sAezv7Cvs+ucs4P9s02z7Jdkk/AACAP5LokT0AAAAAkuiRPQAAAAC0+DM+AACAP7T4Mz77Cvs+ucs4P9s02z7Jdkk/"),
+"format": 34359742487,
+"index_count": 72,
+"index_data": PackedByteArray("AAACABwAAAABAAIAHQAAABwAHQAcAAMABAAAAB0ABAAFAAAAHgAZAB8AHgAbABkAGAAeAB8AGAAfABoAIAAHAAgAIAAhAAcABgAhACAABgAJACEACgALAAwACgANAAsADgAPABAADgARAA8AIgATABQAIgASABMAFQAiABQAFQAUACMAIwAUABYAIwAWABcA"),
+"material": SubResource("StandardMaterial3D_a1xpr"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("lUpBPgAAQEASKje+BMgXvAAAQEASKje+BMgXvAAAQEAZ1aW+wtKlPgAAQEAZ1aW+bdOlPgAAQECAKDU9lUpBPgAAQECAKDU9wtKlPgAAQEAZ1aW+wtKlPgAAALRgLjU9bdOlPgAAQECAKDU9wtKlPgAAALQZ1aW+lUpBPgAAQECAKDU9wtKlPgAAALRgLjU9QElBPgAAALSAKDU9bdOlPgAAQECAKDU9BMgXvAAAALQZ1aW+BMgXvAAAQEASKje+BMgXvAAAALQSKje+BMgXvAAAQEAZ1aW+BMgXvAAAALQZ1aW+BMgXvAAAALQSKje+QElBPgAAALQSKje+wtKlPgAAALQZ1aW+QElBPgAAALSAKDU9wtKlPgAAALRgLjU9wtKlPgAAQEAZ1aW+BMgXvAAAALQZ1aW+wtKlPgAAALQZ1aW+BMgXvAAAQEAZ1aW+lUpBPgAAQEAZ1aW+wtKlPgAAQEASKje+lUpBPgAAQEAZ1aW+QElBPgAAALQZ1aW+wtKlPgAAQEASKje+wtKlPgAAALQSKje+QElBPgAAALQZ1aW+wtKlPgAAALQSKje+AYD7/wAA/v8BgPv/AAD+/wGA+/8AAP7/AYD7/wAA/v8BgPv/AAD+/wGA+/8AAP7//f8AgAGAAID9/wCAAYAAgP3/AIABgACA/f8AgAGAAID/f/9//X8BAP9//3/9fwEA/3//f/1/AQD/f/9//X8BAAIA+X8CgP5/AgD5fwKA/n8CAPl/AoD+fwIA+X8CgP5/CIACAPj/AQAIgAIA+P8BAAWAAgADAAAABYACAAMAAAAFgAIAAwAAAAWAAgADAAAA/v/+//9/AAD+//7//38AAP7//v//fwAA/v/+//9/AAABgPv/AAD+/wGA+/8AAP7//v/+//9/AAD+//7//38AAP3/AIABgACA/f8AgAGAAIAFgAIAAwAAAAWAAgADAAAA")
+}]
+
+[node name="Corner_Interior_Big" type="MeshInstance3D" unique_id=2119374598]
+mesh = SubResource("ArrayMesh_3s77q")

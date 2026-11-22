@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bj43nujpi8cbr"]
+
+[ext_resource type="Script" uid="uid://d1mvuk5jtyfnc" path="res://scenes/enemies/crab/barrel.gd" id="1_2afss"]
+[ext_resource type="Script" uid="uid://bec57758p7ipw" path="res://scripts/node3d_factory.gd" id="1_q6hxd"]
+[ext_resource type="Texture2D" uid="uid://8xv3tso56oou" path="res://assets/monsters/barrel/barrel_sprite_sheet.png" id="2_j3liy"]
+[ext_resource type="AnimationLibrary" uid="uid://s0xkp2t7er6t" path="res://scenes/enemies/barrel/barrel_anims.tres" id="3_ausst"]
+[ext_resource type="Script" uid="uid://d1vhhj1xnnl8h" path="res://scenes/enemies/crab/idle.gd" id="4_j3liy"]
+[ext_resource type="Script" uid="uid://d1qbnl8rfxwen" path="res://scenes/enemies/crab/shoot.gd" id="5_e567v"]
+[ext_resource type="PackedScene" uid="uid://cb4a26wtq5isy" path="res://scenes/enemies/crab/barrel_bullet.tscn" id="5_uf108"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cju0s"]
+height = 1.5
+
+[node name="Barrel" type="CharacterBody3D" unique_id=628865863]
+collision_layer = 8
+script = ExtResource("1_2afss")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2068778409]
+offset = Vector2(0, 15.5)
+pixel_size = 0.0625
+texture_filter = 0
+texture = ExtResource("2_j3liy")
+hframes = 3
+vframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=530395766]
+libraries/ = ExtResource("3_ausst")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=910116677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_cju0s")
+
+[node name="Direction" type="Node3D" parent="." unique_id=2115660936]
+
+[node name="BulletFactory" type="Marker3D" parent="Direction" unique_id=1277879982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.8)
+script = ExtResource("1_q6hxd")
+product_packed_scene = ExtResource("5_uf108")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://bec57758p7ipw"
+
+[node name="States" type="Node3D" parent="." unique_id=93791958]
+
+[node name="Idle" type="Node3D" parent="States" unique_id=1149862179]
+script = ExtResource("4_j3liy")
+
+[node name="Shoot" type="Node3D" parent="States" unique_id=2119646863]
+script = ExtResource("5_e567v")

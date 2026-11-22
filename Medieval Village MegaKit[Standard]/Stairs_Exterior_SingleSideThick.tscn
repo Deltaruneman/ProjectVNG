@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://byb0h7q44ahrr"]
+
+[ext_resource type="Texture2D" uid="uid://c10vsy5novdbt" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png" id="1_gdspb"]
+[ext_resource type="Texture2D" uid="uid://d22hknmc48b75" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png" id="2_6giqd"]
+[ext_resource type="Texture2D" uid="uid://tsht43l0a4e0" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png" id="3_0ri4c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_84unx"]
+resource_name = "MI_Brick"
+cull_mode = 2
+albedo_texture = ExtResource("1_gdspb")
+metallic_texture = ExtResource("2_6giqd")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_6giqd")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_0ri4c")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jpfne"]
+_surfaces = [{
+"aabb": AABB(-0.20000029, 0, -1, 0.4000001, 1, 2),
+"attribute_data": PackedByteArray("AAAAAAD/fz8AAIA/mP8XPwAAAACY/xc/AACAPwAAgD8AAAAAAP9/PwAAgD+Y/xc/AACAPwAAgD8AAAAAmP8XP9ulWj/9znw/u6i6PeBgYD+7qLo9/c58P9ulWj/gYGA/AAAAAObPZT8AAIA/y+tKPwAAgD/mz2U/AAAAAMvrSj+WehY/AACAP8/PTj+YnBc/z89OPwAAgD+WehY/mJwXP8/PTj8AAIA/lnoWP5icFz+WehY/AACAP8/PTj+YnBc/"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_84unx"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("4MxMvgAAAAAAAIA/4MxMvgAAgD8AAIC/4MxMvgAAgD8AAIA/4MxMvgAAAAAAAIC/wMxMPgAAAAAAAIA/wMxMPgAAgD8AAIC/wMxMPgAAAAAAAIC/wMxMPgAAgD8AAIA/wMxMPgAAAAAAAIC/4MxMvgAAAAAAAIA/wMxMPgAAAAAAAIA/4MxMvgAAAAAAAIC/4MxMvgAAgD8AAIC/wMxMPgAAgD8AAIA/4MxMvgAAgD8AAIA/wMxMPgAAgD8AAIC/4MxMvgAAAAAAAIA/wMxMPgAAgD8AAIA/wMxMPgAAAAAAAIA/4MxMvgAAgD8AAIA/wMxMPgAAAAAAAIC/4MxMvgAAgD8AAIC/4MxMvgAAAAAAAIC/wMxMPgAAgD8AAIC/AAD6f/7/AQAAAPp//v8BAAAA+n/+/wEAAAD6f/7/AQD9/wCA/v/+//3/AID+//7//f8AgP7//v/9/wCA/v/+//p/AAD7/wEACIACAPj/AQAIgAIA+P8BAPp/AAD7/wEA/n/9/wCA/r/+f/r//X/9v/5/+v/9f/2/AYD5/wCA/b/9f/9//f//v/1//3/9//+//X//f/3//7/9f/9//f//vwAAAAD//wBAAAAAAP//AEAAAAAA//8AQAAAAAD//wBA")
+}]
+
+[node name="Stairs_Exterior_SingleSideThick" type="MeshInstance3D" unique_id=942189745]
+mesh = SubResource("ArrayMesh_jpfne")

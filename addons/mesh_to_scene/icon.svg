@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <!-- GridMap tile -->
+  <polygon points="12,13 21,17.5 12,22 3,17.5" fill="#4a9eff" fill-opacity="0.16" stroke="#4a9eff" stroke-width="1.15"/>
+  <g stroke="#5aa8ff" stroke-width="0.9" opacity="0.72">
+    <line x1="7.5" y1="15.25" x2="16.5" y2="19.75"/>
+    <line x1="16.5" y1="15.25" x2="7.5" y2="19.75"/>
+  </g>
+
+  <!-- Contact shadow -->
+  <polygon points="12,14.9 15.1,16.45 12,18 8.9,16.45" fill="#080d18" opacity="0.26"/>
+
+  <!-- Mesh cube -->
+  <g stroke="#0e131f" stroke-width="0.5" stroke-linejoin="round">
+    <polygon points="12,3 17.5,6.1 12,9.2 6.5,6.1" fill="#8fcbff"/>
+    <polygon points="6.5,6.1 12,9.2 12,15.3 6.5,12.2" fill="#3d7fd0"/>
+    <polygon points="12,9.2 17.5,6.1 17.5,12.2 12,15.3" fill="#2559a0"/>
+  </g>
+</svg>

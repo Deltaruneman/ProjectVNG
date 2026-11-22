@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://dy3a731mwb158"]
+
+[ext_resource type="Texture2D" uid="uid://c10vsy5novdbt" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png" id="1_0uv5n"]
+[ext_resource type="Texture2D" uid="uid://d22hknmc48b75" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png" id="2_k007w"]
+[ext_resource type="Texture2D" uid="uid://tsht43l0a4e0" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png" id="3_8jeo5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuuk5"]
+resource_name = "MI_Brick"
+cull_mode = 2
+albedo_texture = ExtResource("1_0uv5n")
+metallic_texture = ExtResource("2_k007w")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_k007w")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_8jeo5")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dnytq"]
+_surfaces = [{
+"aabb": AABB(-1.0000002, -3.8206755e-16, -1, 2.0000005, 1, 2),
+"attribute_data": PackedByteArray("AAAAAAD/fz8AAIA/mP8XPwAAgD8AAIA/AAAAAJj/Fz/bpVo/mgiaPbuouj3ZStk+u6i6PZoImj3bpVo/2UrZPtulWj/9znw/u6i6PeBgYD/bpVo/4GBgP7uouj39znw/AAAAAMvrSj8AAIA/5s9lPwAAAADmz2U/AACAP8vrSj8AAAAAAP9/PwAAgD+Y/xc/AAAAAJj/Fz8AAIA/AACAP9ulWj+aCJo9u6i6PdlK2T7bpVo/2UrZPruouj2aCJo926VaP/3OfD+7qLo94GBgP7uouj39znw/26VaP+BgYD8AAAAA5s9lPwAAgD/L60o/AACAP+bPZT8AAAAAy+tKPw=="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0A"),
+"material": SubResource("StandardMaterial3D_wuuk5"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("AgCAPzg/3KUAAIA/BP5/PwAAgD8AAIC/BP5/Pzg/3KUAAIC/AgCAPwAAgD8AAIA/0MtMPzg/3KUAAIC/0MtMPwAAgD8AAIA/0MtMPzg/3KUAAIA/0MtMPwAAgD8AAIC/0MtMPzg/3KUAAIC/AgCAPzg/3KUAAIA/BP5/Pzg/3KUAAIC/0MtMPzg/3KUAAIA/BP5/PwAAgD8AAIC/0MtMPwAAgD8AAIA/0MtMPwAAgD8AAIC/AgCAPwAAgD8AAIA/AgCAvzg/3KUAAIA/AgCAvwAAgD8AAIC/AgCAvwAAgD8AAIA/AgCAvzg/3KUAAIC/0M1Mvzg/3KUAAIC/0M1MvwAAgD8AAIA/0M1MvwAAgD8AAIC/0M1Mvzg/3KUAAIA/0M1Mvzg/3KUAAIC/AgCAvzg/3KUAAIA/0M1Mvzg/3KUAAIA/AgCAvzg/3KUAAIC/AgCAvwAAgD8AAIC/0M1MvwAAgD8AAIA/AgCAvwAAgD8AAIA/0M1MvwAAgD8AAIC//f8AgP7//v/9/wCA/v/+//3/AID+//7//f8AgP7//v8AAPp//v/9/wAA+n/+//3/AAD6f/7//f8AAPp//v/9/wWAAwD8//7/BYADAPz//v8FgAMA/P/+/wWAAwD8//7/AYD5/wCA/b8BgPn/AID9vwGA+f8AgP2/AYD5/wCA/b8AAPp//v8BAAAA+n/+/wEAAAD6f/7/AQAAAPp//v8BAP7/AoAAAAEA/v8CgAAAAQD+/wKAAAABAP7/AoAAAAEA+n8AAPv/AQD6fwAA+/8BAPp/AAD7/wEA+n8AAPv/AQD+f/3/AID+v/5/+v/9f/2//n/6//1//b/+f/3/AID+vw==")
+}]
+
+[node name="Stairs_Exterior_Sides" type="MeshInstance3D" unique_id=2027627619]
+mesh = SubResource("ArrayMesh_dnytq")

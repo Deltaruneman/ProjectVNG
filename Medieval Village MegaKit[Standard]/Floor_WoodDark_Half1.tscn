@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://bs85a5kwu7k2e"]
+
+[ext_resource type="Texture2D" uid="uid://phqlqgej41fd" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png" id="1_mp7gr"]
+[ext_resource type="Texture2D" uid="uid://ckbi85v2xop4h" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png" id="2_5e3ky"]
+[ext_resource type="Texture2D" uid="uid://bfcnqy87cxqdf" path="res://Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png" id="3_73345"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbknc"]
+resource_name = "MI_WoodTrim"
+cull_mode = 2
+albedo_texture = ExtResource("1_mp7gr")
+metallic_texture = ExtResource("2_5e3ky")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_5e3ky")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_73345")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_b1bjk"]
+_surfaces = [{
+"aabb": AABB(-1, -0.010000384, -1, 1, 0.020000376, 2),
+"attribute_data": PackedByteArray("9P9/PxeF3j7Y/r8/nxAOP9j+vz8Xhd4+9P9/P58QDj/Y/r+3HH+fPnT+/770aN0+dP7/vhx/nz7Y/r+3BffdPtj+v7efEA4/d/j/Pp8QDj93+P8+F4XePnf+/z4cf58+2P6/N/Ro3T7Y/r83HH+fPnf+/z70aN0+2P6/t58QDj90/v++F4XePnT+/76fEA4/2P6/txeF3j53/v8+HH+fPvT8fz/0aN0+9Px/Pxx/nz53/v8+9GjdPtj+v7ccf58+dP7/vvRo3T50/v++HH+fPtj+v7f0aN0+2P6/t58QDj90/v++F4XePnT+/76fEA4/2P6/txeF3j53+P8+uxEOP9j+v7cXhd4+2P6/t58QDj93+P8+F4XePnf4/z4cf58+2P6/t/Ro3T7Y/r+3HH+fPnf4/z70aN0+2P6/Nxx/nz53/v8+9GjdPnf+/z4cf58+2P6/N/Ro3T53+P8+uxEOP9j+v7cXhd4+2P6/t58QDj93+P8+F4XePvT8fz8cf58+d/7/PvRo3T53/v8+HH+fPvT8fz/0aN0+dP7/vheF3j7Y/r+3nxAOP9j+v7cF990+dP7/vp8QDj93+P8+HH+fPnf4/z70aN0+2P6/txx/nz48AgA/F4XePvT/fz+fEA4/9P9/PxeF3j48AgA/nxAOPw=="),
+"format": 34359742487,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUABwAIAAkABwAJAAoACwAMAA0ACwAOAAwADwAQABEADwASABAAEwAUABUAEwAWABQAFwAYABkAFwAaABgAGwAcAB0AGwAeABwAHwAgACEAHwAiACAAIwAkACUAIwAmACQAJwAoACkAJwAqACgAKwAsAC0AKwAuACwALwAwADEALwAyADAAMwA0ADUAMwA2ADQANwA4ADUANwA1ADkAOgA7ADwAOgA9ADsA"),
+"material": SubResource("StandardMaterial3D_vbknc"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 62,
+"vertex_data": PackedByteArray("AAAAAF/XI7zAAUC/AACAv6fYI7wAAIC/AACAv6fYI7zAAUC/AAAAAF/XI7wAAIC/AAAAAF/XI7wAAIA/AACAv6fYI7zA/z8/AACAv6fYI7wAAIA/AAAAAF/XI7zA/z8/AAAAAF/XI7wA//8+AACAv6fYI7wA//8+AACAv6fYI7zA/z8/AAAAAF/XI7wA//8+AACAv6fYI7wA/X8+AACAv6fYI7wA//8+AAAAAF/XI7wA/X8+AAAAAF/XI7wA/X8+AACAv6fYI7wAAIC3AACAv6fYI7wA/X8+AAAAAF/XI7wAAIC3AAAAAF/XI7wAAIC3AACAv6fYI7yAAoC+AACAv6fYI7wAAIC3AAAAAF/XI7yAAoC+AAAAAF/XI7yAAoC+AACAv6fYI7yAAQC/AACAv6fYI7yAAoC+AAAAAF/XI7yAAQC/AAAAAF/XI7yAAQC/AACAv6fYI7zAAUC/AACAv6fYI7yAAQC/AAAAAF/XI7zAAUC/AACAvwHXIzyAAQC/AAAAAAHXIzzAAUC/AAAAAAHXIzyAAQC/AACAvwHXIzzAAUC/AACAvwHXIzyAAoC+AAAAAAHXIzyAAQC/AAAAAAHXIzyAAoC+AACAvwHXIzyAAQC/AACAvwHXIzwAAIC3AAAAAAHXIzyAAoC+AAAAAAHXIzwAAIC3AACAvwHXIzyAAoC+AACAvwHXIzwA/X8+AAAAAAHXIzwAAIC3AAAAAAHXIzwA/X8+AACAvwHXIzwAAIC3AACAvwHXIzwA//8+AAAAAAHXIzwA/X8+AAAAAAHXIzwA//8+AACAvwHXIzwA/X8+AACAvwHXIzzA/z8/AAAAAAHXIzwA//8+AAAAAAHXIzzA/z8/AACAvwHXIzwA//8+AACAvwHXIzwAAIA/AACAvwHXIzzA/z8/AAAAAAHXIzwAAIA/AACAvwHXIzzAAUC/AAAAAAHXIzwAAIC/AAAAAAHXIzzAAUC/AACAvwHXIzwAAIC/+n8BAAEA/j/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j8AgAEAwv//vwCAAQD0//+/AIABAP7//78FgAcACwACQPp/AQABAP4/A4ADAD8AAUABgAMASwAAQACAAQD+//+/AIABAP7//78AgAEA/v//vwCAAQD+//+/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AoAAAP7//z/6fwEAAQD+P/p/AQABAP4/+n8BAAEA/j/6fwEAAQD+PwCAAQD+//+/AIABAP7//78AgAEA/v//vwCAAQD+//+/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AoAAAP7//z/+f/7/AAAAQP5//v8AAABA/n/+/wAAAED+f/7/AAAAQP5//v8AAP6//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6//H/+//7//z/8f/7//v//P/x//v/+//8//H/+//7//z/+f/7/AAAAQP5//v8AAABA/n/+/wAAAED+f/7/AAAAQP5//v8AAP6//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6/AoD+//7/BUD8f/7//v/gP/p/+/8EAPu//H/+//7//z8DgPv/AwAewAKA/f8BACTA/n/+/wAA/r/8f/7//v//P/x//v/+//8//H/+//7//z/8f/7//v//Pw==")
+}]
+
+[node name="Floor_WoodDark_Half1" type="MeshInstance3D" unique_id=421161282]
+mesh = SubResource("ArrayMesh_b1bjk")

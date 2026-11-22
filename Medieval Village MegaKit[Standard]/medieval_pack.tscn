@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b4u7qnpojjbgr"]
+
+[ext_resource type="Script" uid="uid://b7yawg7eblv7g" path="res://Medieval Village MegaKit[Standard]/medieval_pack.gd" id="1_iofsu"]
+
+[node name="Medieval_Pack" type="Node3D" unique_id=305843768]
+script = ExtResource("1_iofsu")
