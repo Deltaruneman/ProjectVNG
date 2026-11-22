@@ -1910,3 +1910,20 @@ User-approved1HP every60/40/20 gameplay seconds at ranks1/2/3 implemented. Godot
 
 ## Dash priority / B3 camera — 2026-11-21
 Static implementation complete; runtime behavior unverified. `weapon_attack.gd` routes eligible dash before attack phase updates and buffered-click capture, so state exit clears attack through established cleanup. B3 CameraRig overrides only its scene instance to distance10.8/focus1.1, versus shared defaults12/1.3. Required Godot playtest: initiate dash during regular attack, charge, combo/link and hit phase, check immediate dash and hit/weapon cleanup; enter B3, traverse beneath lowest ceiling, inspect framing/occlusion and transitions. Not run. Scope/file-level record in docs/project-changes. No approval or gameplay acceptance inferred.
+
+## EnemyPlacement — fixed encounters and clear portals (2026-11-22)
+
+Godot 4.7.2 Compatibility, rendered on a disposable project copy with a unique custom user directory. Final sweep passed **76/76** checks and exited 0. The scene-tree fixture opened split B1 and exercised the existing enemies' damage handlers and death animations. Injected F input through the viewport used the production InteractiveArea3D and GameManager transition callbacks.
+
+| Check | Result |
+| --- | --- |
+| Authored roster and placement support | B1 8, B2 5 including Undead Executioner, B3 one Dark Fairy. Physics rays hit world floor at each authored enemy, forward portal, and arrival tested. |
+| Clear gate | Hidden and inactive on entry and through partial clear. B3 remained closed during Dark Fairy's phase change. Final death completed before each portal opened. |
+| Navigation through exits | F before clear was inert. F after clear reached split B2, B3, and Castle in order. Return door F interactions reached split B2 and B1. |
+| Persistence | Cleared in-memory flags, reloaded the isolated save, and verified three split clear flags and the existing B2 prerequisite. Revisited all three floors with the portals open and no authored enemies restored. |
+
+The first probe was excluded because its directory filter omitted the real KayKit vendor dependency, its save directory was unwritable, and it counted dropped pickups as enemies. A corrected rendered forward/re-entry sweep passed 68/68, then the final sweep also covered save reads and return doors. The engine emitted vendor UID fallbacks and retained-resource diagnostics at shutdown (one resource still in use); no final gameplay script/parse error appeared. Manual combat balance and full on-foot traversal were not exercised. Existing checkpoint recovery and independent owner review were outside the tested acceptance boundary.
+
+### B3 exit rollback follow-up (2026-11-22)
+
+Restored the original Door_b3_exit node block verbatim from the branch baseline. No forward portal instance or Castle target remains in B3. Rendered Godot 4.7.2 Compatibility in the disposable copy passed 77/77 checks and exited 0. F at the restored exit stayed in B3 before and after Dark Fairy's defeat. Defeat still saved B3 clear, and the B1/B2 forward portals, saved clear state, and both reverse doors passed. The retained-resource shutdown diagnostic persisted. This result supersedes the previous B3-to-Castle check.

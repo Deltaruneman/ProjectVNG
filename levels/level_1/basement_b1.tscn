@@ -5,15 +5,14 @@
 [ext_resource type="MeshLibrary" uid="uid://6qsq1khaqva3" path="res://assets/meshes/KKD_library.tres" id="2_mohxj"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
 [ext_resource type="MeshLibrary" uid="uid://uavljtls5sk3" path="res://assets/meshes/MVP_library.tres" id="3_mohxj"]
-[ext_resource type="PackedScene" path="res://levels/objects/enemy_zone/enemy_zone.tscn" id="4_mohxj"]
 [ext_resource type="PackedScene" uid="uid://icalni7ywn0a" path="res://scenes/map/torches/torch.tscn" id="5_0i3fv"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="7_kohv5"]
-[ext_resource type="PackedScene" uid="uid://ckmh8wj3liaec" path="res://scenes/enemies/pelican/pelican.tscn" id="8_w875x"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="9_8shw5"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
-[ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
+[ext_resource type="PackedScene" path="res://levels/objects/door/clear_portal.tscn" id="clear_portal"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_1.tscn" id="wizard"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -42,7 +41,7 @@ emission_energy_multiplier = 3.0
 material = SubResource("StandardMaterial3D_8shw5")
 size = Vector3(0.25, 0.5, 0.25)
 
-[node name="Stage2" type="Node3D" unique_id=1650261821]
+[node name="Stage" type="Node3D" unique_id=1650261821]
 script = ExtResource("1_i11w6")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1873455484]
@@ -88,21 +87,7 @@ script = ExtResource("3_0ceix")
 floor_map = NodePath("../World")
 obstacle_maps = [NodePath("../HiddenGate_B1_5/B1_5Side")]
 
-[node name="EnemyZones" type="Node3D" parent="B1" unique_id=1630822430]
-
-[node name="EnemyZone_A" parent="B1/EnemyZones" unique_id=1373516594 instance=ExtResource("4_mohxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 6)
-enemy_scene = ExtResource("7_kohv5")
-
-[node name="EnemyZone_B" parent="B1/EnemyZones" unique_id=782010491 instance=ExtResource("4_mohxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 22)
-enemy_scene = ExtResource("8_w875x")
-
-[node name="EnemyZone_C" parent="B1/EnemyZones" unique_id=1386295952 instance=ExtResource("4_mohxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 22)
-enemy_scene = ExtResource("9_8shw5")
-
-[node name="ChestSpot" type="Marker3D" parent="B1" unique_id=866726834]
+[node name="ClearReward" type="Marker3D" parent="B1" unique_id=866726834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, 14)
 
 [node name="ElevatorSlot" type="Marker3D" parent="B1" unique_id=1455509192]
@@ -153,12 +138,40 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("BoxMesh_kohv5")
 
-[node name="Door_b1_up" parent="B1" unique_id=666618217 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 1)
+[node name="Enemies" type="Node3D" parent="B1"]
+
+[node name="NorthMage" parent="B1/Enemies" instance=ExtResource("7_kohv5")]
+position = Vector3(28, 1, 0)
+
+[node name="NorthGuard" parent="B1/Enemies" instance=ExtResource("9_8shw5")]
+position = Vector3(32, 1, 1)
+
+[node name="EastWizard" parent="B1/Enemies" instance=ExtResource("wizard")]
+position = Vector3(36, 1, 8)
+
+[node name="EastGuard" parent="B1/Enemies" instance=ExtResource("9_8shw5")]
+position = Vector3(33, 1, 11)
+
+[node name="WestMage" parent="B1/Enemies" instance=ExtResource("7_kohv5")]
+position = Vector3(11, 1, 19)
+
+[node name="WestGuard" parent="B1/Enemies" instance=ExtResource("9_8shw5")]
+position = Vector3(14, 1, 22)
+
+[node name="SouthMage" parent="B1/Enemies" instance=ExtResource("7_kohv5")]
+position = Vector3(23, 1, 27)
+
+[node name="SouthGuard" parent="B1/Enemies" instance=ExtResource("9_8shw5")]
+position = Vector3(27, 1, 27)
+
+[node name="ClearPortal" parent="B1" node_paths=PackedStringArray("encounters", "clear_reward") instance=ExtResource("clear_portal")]
+position = Vector3(17, 1, 1)
+target_stage = "res://levels/level_1/basement_b2.tscn"
+clear_flag = "b1_split_cleared"
+encounters = NodePath("../Enemies")
+target_spawn = "b2_down"
 id = "b1_up"
-target_stage = "uid://b7bnu12tjc0e8"
-target_door = "b2_down"
-metadata/note = "Thang lên B2"
+clear_reward = NodePath("../ClearReward")
 
 [node name="Checkpoint_b1" parent="B1" unique_id=529563751 instance=ExtResource("checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 14)

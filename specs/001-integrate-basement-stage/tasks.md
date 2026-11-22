@@ -962,3 +962,12 @@ M01/M02 final (2026-11-21): user selected1HP per60/40/20s at ranks1/2/3. M01 imp
 
 ## User request — dash priority / B3 camera (2026-11-21)
 Bao-owned Player combat and B3 camera setup. Implemented: weapon_attack checks dash before processing/buffering any attack phase; existing state exit restores hitbox, weapon and animation when FSM changes to Dash. B3 instance CameraRig lowers top-down distance12→10.8 and focus offset1.3→1.1; only B3 scene affected. No runtime verification run in this turn; required Godot playtest of attack cancellation and B3 ceiling clearance remains pending. No map geometry, enemies, shared camera defaults or unrelated dirty files changed; no reviewer agreement.
+
+## EnemyPlacement — split basement encounters and forward portals
+
+- Scope: Lam / Quan map configuration in `basement_b1.tscn`, `basement_b2.tscn`, and `basement_b3.tscn`. The user superseded the respawn marker in the reference with fixed authored encounters. Use only Arcane, Skeleton, and Dark Fairy placements, with Undead Executioner as B2 mini-boss and Dark Fairy as B3 boss.
+- Implemented: B1 has four pairs (8 total) in the northern, eastern, western, and southern areas. B2 has two pairs plus the eastern Undead Executioner (5 total). B3 has one Dark Fairy at the central boss spot. Each forward portal stays hidden and inactive until the last authored enemy's death completes. The Castle sketch serves as the arrival scene; no onward route was requested for it.
+- Integration: split clear flags preserve opened portals and skip the defeated roster on return. The existing `b2_cleared` prerequisite is set after split B2 clear. B3's existing return door leads to split B2 when that split clear flag exists. The main entry scene and existing checkpoint recovery policy remain outside this scope.
+- Status: implemented. See the EnemyPlacement section in `validation.md` for the Godot results and playtest limits. No independent owner approval is recorded.
+
+- Follow-up exit decision (2026-11-22): the user asked to remove the newly added Castle link. Restored the original disabled B3 exit with its empty destination. B3 still tracks Dark Fairy defeat without a forward portal. This supersedes the Castle destination in the previous entry.
