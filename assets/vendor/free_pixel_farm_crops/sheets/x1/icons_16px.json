@@ -1,0 +1,853 @@
+{
+ "frames": {
+  "rice_seeds": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "cucumber_seeds": {
+   "frame": {
+    "x": 16,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "zucchini_seeds": {
+   "frame": {
+    "x": 32,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "broccoli_seeds": {
+   "frame": {
+    "x": 48,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "spinach_seeds": {
+   "frame": {
+    "x": 64,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "celery_seeds": {
+   "frame": {
+    "x": 80,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "asparagus_seeds": {
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "sweet_potato_seeds": {
+   "frame": {
+    "x": 112,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "green_bean_seeds": {
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "okra_seeds": {
+   "frame": {
+    "x": 144,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "soybean_seeds": {
+   "frame": {
+    "x": 160,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "ginger_seeds": {
+   "frame": {
+    "x": 176,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "pineapple_seeds": {
+   "frame": {
+    "x": 0,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "grape_seeds": {
+   "frame": {
+    "x": 16,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "raspberry_seeds": {
+   "frame": {
+    "x": 32,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "cotton_seeds": {
+   "frame": {
+    "x": 48,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "coffee_seeds": {
+   "frame": {
+    "x": 64,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "tea_seeds": {
+   "frame": {
+    "x": 80,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "lavender_seeds": {
+   "frame": {
+    "x": 96,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "tulip_seeds": {
+   "frame": {
+    "x": 112,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "hops_seeds": {
+   "frame": {
+    "x": 128,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "artichoke_seeds": {
+   "frame": {
+    "x": 144,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "bok_choy_seeds": {
+   "frame": {
+    "x": 160,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "rhubarb_seeds": {
+   "frame": {
+    "x": 176,
+    "y": 16,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "rice": {
+   "frame": {
+    "x": 0,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "cucumber": {
+   "frame": {
+    "x": 16,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "zucchini": {
+   "frame": {
+    "x": 32,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "broccoli": {
+   "frame": {
+    "x": 48,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "spinach": {
+   "frame": {
+    "x": 64,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "celery": {
+   "frame": {
+    "x": 80,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "asparagus": {
+   "frame": {
+    "x": 96,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "sweet_potato": {
+   "frame": {
+    "x": 112,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "green_bean": {
+   "frame": {
+    "x": 128,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "okra": {
+   "frame": {
+    "x": 144,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "soybean": {
+   "frame": {
+    "x": 160,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "ginger": {
+   "frame": {
+    "x": 176,
+    "y": 32,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "pineapple": {
+   "frame": {
+    "x": 0,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "grape": {
+   "frame": {
+    "x": 16,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "raspberry": {
+   "frame": {
+    "x": 32,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "cotton": {
+   "frame": {
+    "x": 48,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "coffee": {
+   "frame": {
+    "x": 64,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "tea": {
+   "frame": {
+    "x": 80,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "lavender": {
+   "frame": {
+    "x": 96,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "tulip": {
+   "frame": {
+    "x": 112,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "hops": {
+   "frame": {
+    "x": 128,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "artichoke": {
+   "frame": {
+    "x": 144,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "bok_choy": {
+   "frame": {
+    "x": 160,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "rhubarb": {
+   "frame": {
+    "x": 176,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "hoe": {
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "watering_can": {
+   "frame": {
+    "x": 16,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "axe": {
+   "frame": {
+    "x": 32,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "pickaxe": {
+   "frame": {
+    "x": 48,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "shovel": {
+   "frame": {
+    "x": 64,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "sickle": {
+   "frame": {
+    "x": 80,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "pitchfork": {
+   "frame": {
+    "x": 96,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "rake": {
+   "frame": {
+    "x": 112,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "trowel": {
+   "frame": {
+    "x": 128,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "pruning_shears": {
+   "frame": {
+    "x": 144,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "harvest_basket": {
+   "frame": {
+    "x": 160,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "wheelbarrow": {
+   "frame": {
+    "x": 176,
+    "y": 64,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  }
+ },
+ "meta": {
+  "image": "icons_16px.png",
+  "size": {
+   "w": 192,
+   "h": 80
+  },
+  "scale": "1",
+  "app": "Willosuna"
+ }
+}

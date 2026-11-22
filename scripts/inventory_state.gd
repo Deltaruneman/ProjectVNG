@@ -45,6 +45,14 @@ func id_for_slot(slot: String) -> String:
 	var uid := str(equipped.get(slot, ""))
 	return str(items[uid].definition) if items.has(uid) else ""
 
+func consume_equipped_charm(definition: String) -> bool:
+	var uid := str(equipped.get("charm", ""))
+	if not items.has(uid) or str(items[uid].get("definition", "")) != definition:
+		return false
+	equipped["charm"] = ""
+	items.erase(uid)
+	return true
+
 func enchant_rank(slot: String, enchant: String) -> int:
 	# Legacy offhands remain serialized but never contribute stats.
 	if slot == "offhand":
@@ -108,7 +116,7 @@ func restore(payload: Variant) -> void:
 			var uid := str(payload.equipped.get(slot, ""))
 			if items.has(uid) and CATALOG.item(items[uid].definition).slot == slot:
 				equipped[slot] = uid
-	if equipped.main == "" and starter_uid != "":
+	if equipped.main == "" and starter_uid != "" and not (payload.get("equipped") is Dictionary and payload.equipped.get("main", null) == ""):
 		equipped.main = starter_uid
 	if payload.get("resonance_upgrades") is Dictionary:
 		for element: String in CATALOG.ELEMENTS:

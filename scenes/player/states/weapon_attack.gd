@@ -520,6 +520,14 @@ func _update_recovery(delta: float) -> void:
 
 func _finish_attacking(combo_finished: bool = false) -> void:
 	_set_hit_active(false)
+	# Recovery still locks actions, but the body must no longer hold the last attack frame.
+	obj.anim_player.speed_scale = _old_anim_speed
+	(obj.get_node("Sprite3D") as Sprite3D).offset = _body_offset
+	if _legacy_blade_suppressed:
+		obj.suppress_blade(false)
+		_legacy_blade_suppressed = false
+	obj.change_animation("idle")
+	obj.call("_check_changed_animation")
 	_phase = PHASE_RECOVER
 	_elapsed = 0.0
 	_recovery_lock_duration = COMBO_END_RECOVERY if combo_finished else STRIKE_RECOVERY

@@ -40,6 +40,7 @@ var checkpoint_id := ""
 var flags: Dictionary = {}
 ## The fox's health carried through a door; -1 = start with full health.
 var player_health := -1
+var _pending_brimstone_respawn := false
 ## Skill points live in one pool. Allocations are stored by node id so a free reset can return
 ## every spent point without changing the number earned from the world.
 const PROGRESSION := preload("res://scripts/skill_progression.gd")
@@ -78,7 +79,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## The only way to switch stages. `spawn_name` is a door id or a checkpoint id in the new stage
 ## ("" = the stage's default spot). `keep_health` = false for respawning and new games: full
 ## health.
-func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool = true) -> void:
+func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool = true, brimstone_respawn: bool = false) -> void:
 	# Refuse before dialogue/health/loading state changes. No recovery fallback is chosen.
 	if stage_path in B3_REFERENCES and not is_door_unlocked("b2_cleared"):
 		push_warning("B3 load refused until the B2 enemy zones are cleared; saved progress preserved.")
@@ -101,6 +102,7 @@ func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool
 		health = current_stage.player.health
 		if health <= 0:
 			return    # a dead fox goes nowhere: respawn() takes it from here, with full health
+	_pending_brimstone_respawn = brimstone_respawn and inventory.id_for_slot("charm") == "brimstone_rune"
 	_end_dialogue()
 	_changing = true
 	pending_spawn = spawn_name
@@ -146,10 +148,16 @@ func register_stage(stage: Stage) -> void:
 				pending_spawn = checkpoint_id
 	if player_health > 0:
 		stage.player.health = player_health
+	if _pending_brimstone_respawn:
+		_pending_brimstone_respawn = false
+		if inventory.consume_equipped_charm("brimstone_rune"):
+			stage.player.health = 2
+			notify_inventory_changed()
 	if pending_spawn != "":
 		stage.place_player_at(pending_spawn)
 		pending_spawn = ""
 	stage_changed.emit(stage)
+	_restore_thrown_weapon.call_deferred(stage)
 
 
 ## A scene that isn't a Stage (the test yard, a menu) never calls register_stage(), so nothing else
@@ -167,9 +175,9 @@ func respawn() -> void:
 		push_warning("Respawn blocked: unresolved checkpoint reference; progress preserved.")
 		return
 	if checkpoint_id != "":
-		change_stage(checkpoint_stage, checkpoint_id, false)
+		change_stage(checkpoint_stage, checkpoint_id, false, true)
 	else:
-		change_stage(FIRST_STAGE, "", false)
+		change_stage(FIRST_STAGE, "", false, true)
 
 
 ## A checkpoint was touched: remember it and save the game right away.
@@ -413,7 +421,7 @@ func allocated_skill_points() -> int:
 
 
 func total_skill_points() -> int:
-	return skill_points + allocated_skill_points() + inventory.enchant_spent
+	return skill_points + allocated_skill_points() + inventory.enchant_spent + maxi(0, int(flags.get("farm_seed_spent", 0)))
 
 
 ## Reads the save file into memory. Doesn't move the fox — register_stage() does that for the
@@ -508,6 +516,8 @@ func grant_item(definition: String, count: int = 1) -> String:
 	return uid
 
 func equip_item(uid: String) -> bool:
+	if not flags.get("thrown_main_weapon", {}).is_empty() and inventory.items.has(uid) and str(INVENTORY_STATE.CATALOG.item(inventory.items[uid].definition).get("slot", "")) == "main":
+		return false
 	if not inventory.equip(uid):
 		return false
 	notify_inventory_changed()
@@ -561,3 +571,29 @@ func prepare_enchants(uid: String) -> Array[Dictionary]:
 
 func buy_offhand_resonance(_form: String) -> bool:
 	return false
+
+func _restore_thrown_weapon(stage: Stage) -> void:
+	var record: Dictionary = flags.get("thrown_main_weapon", {})
+	if not is_instance_valid(stage) or record.is_empty() or str(record.get("stage", "")) != stage.scene_file_path:
+		return
+	var uid := str(record.get("uid", ""))
+	var point: Array = record.get("position", [])
+	if not inventory.items.has(uid) or point.size() != 3:
+		return
+	for node in get_tree().get_nodes_in_group("thrown_weapons"):
+		if stage.is_ancestor_of(node):
+			return
+	var drop = load("res://scenes/player/thrown_weapon.gd").new()
+	drop.item_uid = uid
+	drop.definition = str(inventory.items[uid].definition)
+	drop.target = Vector3(float(point[0]), float(point[1]), float(point[2]))
+	# Old flight records could be embedded in ceilings. Recover those at spawn.
+	if int(record.get("flight_version", 0)) < 2:
+		drop.target = stage.player.global_position
+		record["position"] = [drop.target.x, drop.target.y, drop.target.z]
+		record["flight_version"] = 2
+		flags["thrown_main_weapon"] = record
+		save_game()
+	drop.landed = true
+	stage.add_child(drop)
+	drop.global_position = drop.target

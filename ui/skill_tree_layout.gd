@@ -47,8 +47,8 @@ const ULTIMATE_SHORT_NAMES := {
 }
 const WEAPON_EVOLUTIONS := {
 	"wind": [
-		{"id": "evo_wind_return", "name": "Hồi Phong", "short": "Hồi Phong", "icon": "↩", "icon_asset": "wind_shard", "desc": "Phi dao bay xa hơn 25% và quay về nhanh hơn 20%.", "req": 3, "requires": "active_wind_1"},
-		{"id": "evo_wind_gale", "name": "Tàn Ảnh", "short": "Tàn Ảnh", "icon": "➤", "icon_asset": "wind_strike", "desc": "Quét Kiếm lướt xa hơn 0.5m và gây thêm 50% sát thương.", "req": 7, "requires": "active_wind_3"},
+		{"id": "evo_wind_return", "name": "Hồi Phong", "short": "Hồi Phong", "icon": "↩", "icon_asset": "wind_shard", "desc": "Phi dao bay xa hơn 1m và quay về nhanh hơn 1m/s.", "req": 3, "requires": "active_wind_1"},
+		{"id": "evo_wind_gale", "name": "Tàn Ảnh", "short": "Tàn Ảnh", "icon": "➤", "icon_asset": "wind_strike", "desc": "Quét Kiếm lướt xa hơn 0.5m và gây thêm 2 sát thương mỗi cấp.", "req": 7, "requires": "active_wind_3"},
 		{"id": "evo_wind_tornado", "name": "Cuồng Phong", "short": "Cuồng Phong", "icon": "✧", "icon_asset": "wind_nova", "desc": "Lốc Xoáy lớn hơn và làm chậm lâu hơn.", "req": 10, "requires": "active_wind_4"},
 	],
 	"fire": [
@@ -58,7 +58,7 @@ const WEAPON_EVOLUTIONS := {
 	],
 	"ice": [
 		{"id": "evo_ice_frostbite", "name": "Hàn Khí", "short": "Hàn Khí", "icon": "❄", "icon_asset": "ice_star", "desc": "Băng cầu làm chậm thêm 1 giây; Hầm Băng đóng băng thêm 0.5 giây.", "req": 3, "requires": "active_ice_1"},
-		{"id": "evo_ice_shatter", "name": "Vỡ Băng", "short": "Vỡ Băng", "icon": "✧", "icon_asset": "ice_nova", "desc": "Hầm Băng gây thêm 50% sát thương lên kẻ địch đang đóng băng.", "req": 6, "requires": "active_ice_2"},
+		{"id": "evo_ice_shatter", "name": "Vỡ Băng", "short": "Vỡ Băng", "icon": "✧", "icon_asset": "ice_nova", "desc": "Hầm Băng gây thêm 2 sát thương mỗi cấp lên kẻ địch đang đóng băng.", "req": 6, "requires": "active_ice_2"},
 		{"id": "evo_ice_storm", "name": "Băng Tâm", "short": "Băng Tâm", "icon": "❄", "icon_asset": "ice_nova", "desc": "Bão Băng đóng băng lâu hơn và tăng bán kính.", "req": 10, "requires": "active_ice_4"},
 	],
 	"lightning": [
@@ -72,10 +72,10 @@ const SKILL_DESCRIPTIONS := {
 	"Quét Kiếm Phi Gió": "Lướt nhanh về phía trước và đánh bật kẻ địch trên đường.",
 	"Hỏa Cầu": "Phóng quả cầu lửa bay thẳng, không quay về; gây sát thương và thiêu đốt mục tiêu trong 3 giây.",
 	"Ma Hỏa": "Triệu hồi ma hỏa, phát nổ sau 5 giây quanh vị trí người chơi.",
-	"Hỏa Nộ": "Mất 25% máu hiện tại, gây sát thương vòng lửa trong 3 giây.",
+	"Hỏa Nộ": "Mất 5 HP (giữ lại tối thiểu 1 HP), gây sát thương vòng lửa trong 3 giây.",
 	"Băng Cầu": "Phóng quả cầu băng bay thẳng, không quay về; gây sát thương và làm chậm mục tiêu trong 2 giây.",
 	"Hầm Mộ Băng Giá": "Đóng băng kẻ địch trong vùng hình nón phía trước.",
-	"Khiên Băng": "Tạo khiên hấp thụ sát thương bằng 25% máu tối đa.",
+	"Khiên Băng": "Tạo khiên đỡ trọn vẹn một đòn đánh của người chơi trong 8 giây.",
 	"Lốc Xoáy": "Triệu hồi lốc xoáy quanh bạn, gây sát thương và làm chậm địch.",
 	"Mưa Thiên Thạch": "Gọi thiên thạch xuống vùng phía trước và thiêu đốt mục tiêu.",
 	"Bão Băng": "Tạo bão băng quanh bạn, gây sát thương và đóng băng kẻ địch.",
@@ -86,7 +86,7 @@ const SKILL_DESCRIPTIONS := {
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",
 	"Trăng Tối": "Trong 3,6 giây, lướt vòng quanh địch gần nhất, gây sát thương và làm chậm kẻ địch trên đường đi. Miễn sát thương khi thi triển; kết thúc sẽ hồi kỹ năng Wind đã mở khóa.",
 	"Hỏa Kiếm": "Tuyệt kỹ lửa gây sát thương diện rộng.",
-	"Hỏa Thần Giáng Lâm": "Hy sinh 50% máu hiện tại để bùng nổ diện rộng.",
+	"Hỏa Thần Giáng Lâm": "Mất 10 HP (giữ lại tối thiểu 1 HP) để bùng nổ diện rộng.",
 	"Chân Băng": "Đóng băng và gây sát thương kẻ địch quanh bạn.",
 	"Kỷ Băng Hà": "Đóng băng kẻ địch toàn khu vực và gây sát thương băng.",
 	"Tâm Bão": "Gây bão điện diện rộng quanh người.",
@@ -94,13 +94,13 @@ const SKILL_DESCRIPTIONS := {
 }
 const CHARACTER_NODES := [
 	{"id": "char_attack", "name": "Tấn Công", "short": "Tấn Công", "icon": "ATK", "desc": "+1 sát thương đòn đánh thường", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 0},
-	{"id": "char_crit", "name": "Sắc Bén", "short": "Sắc Bén", "icon": "CRT", "desc": "+10% sát thương dao phóng", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 1},
+	{"id": "char_crit", "name": "Sắc Bén", "short": "Sắc Bén", "icon": "CRT", "desc": "+1 sát thương dao phóng mỗi cấp", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 1},
 	{"id": "char_element", "name": "Cộng Hưởng", "short": "Cộng Hưởng", "icon": "ELM", "desc": "+1 sát thương kỹ năng nguyên tố", "branch": "Tấn công", "color": Color("ff9c73"), "max": 3, "req": 2},
 	{"id": "char_health", "name": "Sinh Lực", "short": "Sinh Lực", "icon": "HP", "desc": "+1 giới hạn máu tối đa", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 3, "req": 0},
 	{"id": "char_heal", "name": "Hồi Phục", "short": "Hồi Phục", "icon": "RGN", "desc": "Tự hồi 1 máu mỗi 60/40/20 giây ở bậc 1/2/3. Không tính thời gian tạm dừng.", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 3, "req": 1},
-	{"id": "char_parry", "name": "Phản Đòn", "short": "Phản Đòn", "icon": "DEF", "desc": "+25% thời gian Parry", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 2, "req": 2},
-	{"id": "char_dash", "name": "Bước Gió", "short": "Bước Gió", "icon": "DSH", "desc": "Giảm 15% hồi chiêu Dash", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 0},
-	{"id": "char_speed", "name": "Nhanh Nhẹn", "short": "Nhanh Nhẹn", "icon": "SPD", "desc": "+8% tốc độ di chuyển", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 1},
+	{"id": "char_parry", "name": "Phản Đòn", "short": "Phản Đòn", "icon": "DEF", "desc": "+0,05 giây thời gian Parry mỗi cấp", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 2, "req": 2},
+	{"id": "char_dash", "name": "Bước Gió", "short": "Bước Gió", "icon": "DSH", "desc": "Giảm 0,1 giây hồi chiêu Dash mỗi cấp", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 0},
+	{"id": "char_speed", "name": "Nhanh Nhẹn", "short": "Nhanh Nhẹn", "icon": "SPD", "desc": "+0,5 m/s tốc độ di chuyển mỗi cấp", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 1},
 	{"id": "char_double_jump", "name": "Nhảy Linh Hoạt", "short": "Nhảy", "icon": "JMP", "desc": "+1 lần nhảy trên không", "branch": "Cơ động", "color": Color("e4cb78"), "max": 1, "req": 2},
 ]
 

@@ -43,7 +43,7 @@ func control_jump() -> bool:
 #Control attack
 #Return true if attacking
 func control_attack() -> bool:
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and GameManager.inventory.id_for_slot("main") != "":
 		change_state(fsm.states.attack)
 		return true
 	return false
@@ -54,6 +54,7 @@ func control_dash() -> bool:
 	if Input.is_action_just_pressed("dash") and obj.dash_cooldown_timer <= 0.0:
 		if not obj.try_spend_stamina(Player.STAMINA_DASH_COST):
 			return obj.stamina_exhausted
+		obj._cancel_skill_aim()
 		change_state(fsm.states.dash)
 		return true
 	return false

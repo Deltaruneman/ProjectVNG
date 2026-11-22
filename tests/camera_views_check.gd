@@ -156,7 +156,7 @@ func _ready() -> void:
 	Input.action_press("right")
 	await ticks(10)
 	Input.action_release("right")
-	check(player.forward().dot(Vector3.RIGHT) > 0.99, "TPS retains movement-facing behavior")
+	check(player.forward().dot(rig.facing_vector()) > 0.99, "TPS retains rear view while strafing")
 	await exercise_fps_weapons()
 	print("RESULT checks=%d failures=%d" % [checks, failures])
 	get_tree().quit(1 if failures else 0)

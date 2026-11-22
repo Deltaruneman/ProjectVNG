@@ -14,13 +14,14 @@ const FPS_WEAPON = preload("res://scenes/camera/first_person_weapon.gd")
 
 @export var target: Node3D
 @export var focus_offset := Vector3(0.0, 1.3, 0.0)
-@export_range(2.0, 20.0, 0.1) var orbit_distance := 9.0
+@export_range(2.0, 20.0, 0.1) var orbit_distance := 5.5
 @export_range(1.0, 10.0, 0.1) var min_zoom := 3.0
 @export_range(3.0, 30.0, 0.1) var max_zoom := 14.0
 @export var camera_fov := 60.0
 @export_range(-80.0, 0.0) var min_pitch_degrees := -30.0
 @export_range(0.0, 85.0) var max_pitch_degrees := 70.0
-@export var initial_pitch_degrees := 20.0
+@export var initial_pitch_degrees := 10.0
+@export var tps_focus_height := 1.7
 @export_range(0.01, 1.0, 0.01) var mouse_sensitivity := 0.12
 @export var invert_y := false
 @export_range(0.05, 1.0, 0.01) var collision_radius := 0.24
@@ -70,6 +71,9 @@ func set_view_mode(mode: ViewMode) -> void:
 	_restore_first_person_visibility()
 	_release_mouse()
 	view_mode = mode
+	var preferences := get_node_or_null("/root/GameSettings")
+	if preferences != null:
+		preferences.set_camera_view_mode(int(mode))
 	camera.near = 0.05
 	_aim_pointer_valid = false
 	var default_pitch := top_down_pitch_degrees if mode == ViewMode.TOP_DOWN else (initial_pitch_degrees if mode == ViewMode.TPS else 0.0)
@@ -105,7 +109,9 @@ func facing_vector() -> Vector3:
 	return -Vector3(sin(yaw), 0.0, cos(yaw))
 
 func _focus_offset() -> Vector3:
-	return Vector3(0.0, eye_height, 0.0) if is_first_person() else focus_offset
+	if is_first_person():
+		return Vector3(0.0, eye_height, 0.0)
+	return Vector3(0.0, tps_focus_height, 0.0) if view_mode == ViewMode.TPS else focus_offset
 
 func _apply_fixed_view() -> void:
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF if view_mode == ViewMode.TOP_DOWN else Node.PHYSICS_INTERPOLATION_MODE_ON
@@ -138,6 +144,9 @@ func set_aim_mode(enabled: bool) -> void:
 
 func _ready() -> void:
 	# Always process cursor cleanup, but never move the camera during a paused cutscene.
+	var preferences := get_node_or_null("/root/GameSettings")
+	if preferences != null:
+		view_mode = clampi(preferences.camera_view_mode, 0, 2) as ViewMode
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	process_physics_priority = 100
 	process_priority = 100

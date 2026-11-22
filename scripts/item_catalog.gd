@@ -8,11 +8,11 @@ const ENCHANTS := {
 	"sharpness": {"name": "Sắc bén", "text": "+1 sát thương mỗi cấp", "max": 3},
 	"critical": {"name": "Chí mạng", "text": "+10% tỉ lệ chí mạng mỗi cấp", "max": 3},
 	"vampirism": {"name": "Hút máu", "text": "20% mỗi cấp hồi 1 HP khi trúng địch", "max": 3},
-	"haste": {"name": "Nhanh nhẹn", "text": "Giảm 10% hồi chiêu skill mỗi cấp (tối đa 60%)", "max": 3},
+	"haste": {"name": "Nhanh nhẹn", "text": "Giảm 1 giây hồi chiêu skill mỗi cấp", "max": 3},
 	"reach": {"name": "Vươn xa", "text": "+10% tầm đánh/bắn mỗi cấp", "max": 3},
 	"impact": {"name": "Chấn động", "text": "Đòn vũ khí làm khựng 0.1 giây mỗi cấp", "max": 3},
-	"resonance": {"name": "Cường hóa cộng hưởng", "text": "+15% sát thương skill cùng hệ mỗi cấp", "max": 3, "elemental": true},
-	"affliction": {"name": "Dư âm nguyên tố", "text": "+25% thời gian cháy/chậm/choáng mỗi cấp", "max": 3, "elemental": true},
+	"resonance": {"name": "Cường hóa cộng hưởng", "text": "+1 sát thương skill cùng hệ mỗi cấp", "max": 3, "elemental": true},
+	"affliction": {"name": "Dư âm nguyên tố", "text": "+1 giây hiệu ứng nguyên tố mỗi cấp", "max": 3, "elemental": true},
 }
 const SLOTS := {"main": "Vũ khí", "consumable": "Tiêu hao · Q", "armor": "Giáp", "charm": "Bùa"}
 const WEAPON_ELEMENTS := {"sword": "lightning", "axe": "ice", "spear": "fire", "dagger": "wind"}
@@ -28,7 +28,13 @@ static func definitions() -> Dictionary:
 		"bow": {"name": "Cung săn", "slot": "offhand", "icon": "BowT1", "projectile_icon": "SpearT1", "description": "Bắn một mũi tên theo tâm ngắm. Không có hệ riêng; nâng cấp skill 1 truyền nguyên tố đang dùng."},
 		"throwing_knife": {"name": "Dao ném", "slot": "offhand", "icon": "DaggerT1", "projectile_icon": "DaggerT1", "description": "Ném dao theo tâm ngắm. Không có hệ riêng; nâng cấp skill 1 truyền nguyên tố đang dùng."},
 		"armor": {"name": "Giáp hộ vệ", "slot": "armor", "icon": "ArmorT1", "description": "Ô giáp thử nghiệm. Chỉ số chờ thiết kế."},
-		"charm": {"name": "Bùa hộ mệnh", "slot": "charm", "icon": "GemGreen", "description": "Ô bùa thử nghiệm. Chỉ số chờ thiết kế."},
+		"charm": {"name": "Bùa ma pháp", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/arcane_rune.png", "description": "+1 sát thương kỹ năng nguyên tố.", "skill_damage_bonus": 1},
+		"amber_rune": {"name": "Bùa hỏa ngục", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/amber_rune.png", "description": "+1 sát thương thiêu đốt mỗi giây.", "burn_damage_bonus": 1},
+		"binding_rune": {"name": "Bùa trói buộc", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/binding_rune.png", "description": "+1 giây làm chậm, đóng băng và choáng.", "control_duration_bonus": 1.0},
+		"blood_rune": {"name": "Bùa xích huyết", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/blood_rune.png", "description": "Mỗi đòn có 10% cơ hội hồi 1 HP.", "heal_on_hit_chance": 0.1},
+		"brimstone_rune": {"name": "Bùa Brimstone", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/brimstone_rune.png", "description": "Khi chết, hồi sinh với 2 HP. Bùa bị phá hủy sau khi dùng.", "respawn_health": 2, "consume_on_death": true},
+		"sky_rune": {"name": "Bùa trời cao", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/sky_rune.png", "description": "+0,5 m/s tốc độ di chuyển.", "movement_speed_bonus": 0.5},
+		"time_rune": {"name": "Bùa thời gian", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/time_rune.png", "description": "Giảm 1 giây hồi chiêu skill.", "cooldown_reduction": 1.0},
 		"healing_potion": {"name": "Bình hồi phục", "slot": "consumable", "icon": "PotionRed", "description": "Hồi đầy HP. Vật phẩm test, chưa nối crafting/drop."},
 	}
 	# Prototype catalog only: no drop rates or final balance implied.
@@ -49,8 +55,6 @@ static func definitions() -> Dictionary:
 		items[kind] = data
 	items.armor.description = "Giáp thử nghiệm: +2 HP tối đa."
 	items.armor.health = 2
-	items.charm.description = "Bùa thử nghiệm: +15% sát thương skill nguyên tố."
-	items.charm.skill_bonus = 0.15
 	_definitions = items
 	return _definitions
 

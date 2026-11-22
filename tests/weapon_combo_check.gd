@@ -91,6 +91,46 @@ func _ready() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 5.0
 	camera.current = true
+	if OS.get_cmdline_user_args().has("--throw-test"):
+		await fresh("starter_blade")
+		GameManager.weapon_form = ""
+		player.selected_active_slot = 1
+		var uid: String = GameManager.inventory.equipped.main
+		check(player._can_start_skill_cast(), "neutral E available before throw")
+		player.fsm.change_state(player.fsm.states.skill)
+		await frames(1)
+		var drops := get_tree().get_nodes_in_group("thrown_weapons")
+		check(drops.size() == 1, "single thrown weapon spawned")
+		var drop = drops[0]
+		check(GameManager.inventory.equipped.main == "", "weapon removed from hand")
+		check(not player._can_start_skill_cast(), "cannot throw while unarmed")
+		check(not GameManager.equip_item(uid), "inventory cannot bypass pickup")
+		var saved := GameManager.inventory.serialize()
+		GameManager.inventory.restore(saved)
+		check(GameManager.inventory.equipped.main == "", "empty hand survives inventory restore")
+		drop.set_physics_process(false)
+		drop.origin = player.global_position + Vector3.UP
+		drop.target = player.global_position + Vector3(3,0,0)
+		drop.duration = 1.0
+		drop.elapsed = 0.0
+		drop.global_position = drop.origin
+		drop._physics_process(0.5)
+		check(drop.global_position.y <= maxf(drop.origin.y, drop.target.y) + 0.35 and not drop.landed, "flight follows low arc")
+		drop._physics_process(0.5)
+		for i in range(30):
+			if not drop.landed:
+				drop._physics_process(0.05)
+		check(drop.landed and drop.global_position.distance_to(drop.target) < 0.01, "weapon lands at target")
+		check(not drop.pickup(), "pickup rejected at distance")
+		player.global_position = drop.target
+		check(drop.pickup(), "nearby pickup succeeds")
+		check(GameManager.inventory.equipped.main == uid, "same weapon UID restored")
+		check(GameManager.flags.thrown_main_weapon.is_empty(), "drop record cleared")
+		check(not drop.pickup(), "duplicate pickup blocked")
+		await frames(2)
+		print("THROW_RESULT ", checks-failures, "/", checks)
+		get_tree().quit(0 if failures == 0 else 1)
+		return
 	if OS.get_cmdline_user_args().has("--pose-only"):
 		await fresh("starter_blade")
 		player.fsm.change_state(state)
@@ -131,6 +171,8 @@ func _ready() -> void:
 				check(state.get("_strike_index") == index, kind + " click sequence " + str(index + 1))
 		else:
 			check(state.get("_phase") == 6, kind + " single-strike chain enters recovery")
+		check(player.current_animation == "idle" and player.anim_player.current_animation.begins_with("idle_") and player.anim_player.speed_scale > 0.0, kind + " restores idle animation immediately in recovery")
+		check((player.get_node("Sprite3D") as Sprite3D).offset == state.get("_body_offset"), kind + " restores body offset in recovery")
 		await frames(32)
 		check(player.fsm.current_state != state, kind + " combo recovery ends")
 		check(player.anim_player.speed_scale == 1.0, kind + " animation speed restored")
@@ -179,6 +221,9 @@ func _ready() -> void:
 	state.call("_apply_combo_pose", 0.5, 0)
 	check(not legacy_weapon.visible, "legacy Blade stays hidden during the Player attack animation")
 	check(legacy_weapon.position.distance_to(legacy_home) < 0.001, "legacy Blade does not fly into the attack pose")
+	state.call("_finish_attacking", true)
+	check(player.current_animation == "idle" and player.anim_player.current_animation.begins_with("idle_") and player.anim_player.speed_scale > 0.0, "legacy Blade restores idle during recovery")
+	check(legacy_weapon.visible, "legacy Blade visible during recovery")
 	player.fsm.change_state(player.fsm.states.idle)
 	await frames(2)
 	check(legacy_weapon.visible, "legacy Blade returns after its Player attack animation")

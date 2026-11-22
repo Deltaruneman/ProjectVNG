@@ -45,6 +45,34 @@ func _enter() -> void:
 		obj.clear_skill_cast_aim()
 		change_state(fsm.states.idle)
 		return
+	if selected_skill_id == "" and GameManager.weapon_form == "" and obj.selected_active_slot == 1:
+		var weapon_id: String = GameManager.inventory.id_for_slot("main")
+		if weapon_id == "":
+			obj.clear_skill_cast_aim()
+			change_state(fsm.states.idle)
+			return
+		var thrown := preload("res://scenes/player/thrown_weapon.gd").new()
+		thrown.thrower = obj
+		thrown.definition = weapon_id
+		var equipped_sprite := obj.get_node("Direction/Blade/Sprite3D") as Sprite3D
+		thrown.visual_texture = equipped_sprite.texture
+		thrown.visual_pixel_size = equipped_sprite.pixel_size
+		thrown.visual_scale = equipped_sprite.global_basis.get_scale()
+		thrown.item_uid = str(GameManager.inventory.equipped.main)
+		thrown.damage = obj.roll_weapon_damage(obj.attack_damage)
+		thrown.origin = obj.global_position + Vector3.UP * spawn_height
+		thrown.target = obj.get_mouse_throw_target()
+		thrown.duration = clampf(thrown.origin.distance_to(thrown.target) / 14.0, 0.4, 1.3)
+		var point: Vector3 = thrown.target
+		GameManager.flags["thrown_main_weapon"] = {"flight_version": 2, "uid": thrown.item_uid, "stage": obj.get_tree().current_scene.scene_file_path, "position": [point.x, point.y, point.z]}
+		GameManager.inventory.equipped.main = ""
+		GameManager.notify_inventory_changed()
+		obj.get_parent().add_child(thrown)
+		thrown.global_position = thrown.origin
+		obj.start_active_skill_cooldown(selected_skill_id)
+		obj.clear_skill_cast_aim()
+		_play_one_shot("throw")
+		return
 	obj.begin_offhand_cast()
 	if obj.cast_active_skill(selected_skill_id):
 		obj.clear_skill_cast_aim()
@@ -89,6 +117,10 @@ func _enter() -> void:
 
 
 func _update(delta: float) -> void:
+	# Dash exits the cast animation through this state's normal cleanup. The active
+	# skill cooldown was already started in _enter() and intentionally remains spent.
+	if control_dash():
+		return
 	_time += delta
 	if _time >= _cast_duration:
 		change_state(fsm.states.idle)

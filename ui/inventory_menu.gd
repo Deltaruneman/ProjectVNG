@@ -1,5 +1,7 @@
 extends CanvasLayer
 const CATALOG := preload("res://scripts/item_catalog.gd")
+const FARM_CROPS := {"broccoli": "Bông cải", "cucumber": "Dưa leo", "spinach": "Rau bina", "pineapple": "Dứa"}
+const FARM_ICONS := "res://assets/vendor/free_pixel_farm_crops/icons/32px/x1/"
 const GOLD := Color("f1e2b6")
 const INK := Color("3f2419")
 const SKIN_ROOT := "res://assets/ui/hearthmark/"
@@ -213,7 +215,7 @@ func _refresh() -> void:
 	_clear(_list)
 	_clear(_detail)
 	_title.text = "THỬ NGHIỆM" if page in ["cheat", "enchant"] else "TÚI ĐỒ"
-	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["cheat", "Cheat · P"], ["enchant", "Bàn enchant"]]:
+	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["farm_items", "Vật phẩm"], ["cheat", "Cheat · P"], ["enchant", "Bàn enchant"]]:
 		var tab := _button(_tabs, entry[1], _show_page.bind(entry[0]))
 		for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 			tab.add_theme_stylebox_override(state, _skin("tab_wood_active" if page == entry[0] else "tab_wood_inactive", 10))
@@ -224,6 +226,9 @@ func _refresh() -> void:
 		return
 	if page == "enchant":
 		_build_enchant()
+		return
+	if page == "farm_items":
+		_build_farm_items()
 		return
 	if page == "equipment":
 		_equipment_summary()
@@ -254,6 +259,74 @@ func _refresh() -> void:
 	if not has_detail:
 		_paragraph(_detail, "CHỌN MỘT VẬT PHẨM")
 		_paragraph(_detail, "Bấm vào ô đồ để xem đặc tính, trang bị hoặc sử dụng. Dấu ✓ cho biết vật phẩm đang mang.")
+
+func _build_farm_items() -> void:
+	var raw: Variant = GameManager.flags.get("garden_farm_v1", {})
+	var farm: Dictionary = raw if raw is Dictionary else {}
+	var seeds: Dictionary = farm.get("seeds", {}) if farm.get("seeds", {}) is Dictionary else {}
+	var produce: Dictionary = farm.get("produce", {}) if farm.get("produce", {}) is Dictionary else {}
+	for kind in ["seeds", "produce"]:
+		_paragraph(_list, "HẠT GIỐNG" if kind == "seeds" else "NÔNG SẢN")
+		var grid := GridContainer.new()
+		grid.name = "FarmSeeds" if kind == "seeds" else "FarmProduce"
+		grid.columns = 4
+		grid.add_theme_constant_override("h_separation", 8)
+		grid.add_theme_constant_override("v_separation", 8)
+		_list.add_child(grid)
+		var counts: Dictionary = seeds if kind == "seeds" else produce
+		for crop: String in FARM_CROPS:
+			_farm_tile(grid, kind, crop, maxi(0, int(counts.get(crop, 0))))
+	var parts := selected.split(":")
+	if parts.size() == 3 and parts[0] == "farm" and parts[1] in ["seeds", "produce"] and FARM_CROPS.has(parts[2]):
+		var kind := str(parts[1])
+		var crop := str(parts[2])
+		var count := int((seeds if kind == "seeds" else produce).get(crop, 0))
+		var art := TextureRect.new()
+		art.texture = _farm_icon(kind, crop)
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		art.custom_minimum_size = Vector2(100, 90)
+		_detail.add_child(art)
+		_paragraph(_detail, ("Hạt giống · " if kind == "seeds" else "Nông sản · ") + str(FARM_CROPS[crop]))
+		_paragraph(_detail, "Số lượng: %d" % maxi(0, count))
+		_paragraph(_detail, "Dùng F tại ô đất trống để trồng. Cây lớn sau 90 giây." if kind == "seeds" else "Thu hoạch từ cây đã trưởng thành trong khu vườn.")
+	else:
+		_paragraph(_detail, "CHỌN MỘT VẬT PHẨM")
+		_paragraph(_detail, "Chọn hạt giống hoặc nông sản để xem số lượng và thông tin.")
+
+func _farm_icon(kind: String, crop: String) -> Texture2D:
+	var path := FARM_ICONS + ("seeds/" + crop + "_seeds.png" if kind == "seeds" else "products/" + crop + ".png")
+	return load(path) as Texture2D
+
+func _farm_tile(parent: Control, kind: String, crop: String, count: int) -> void:
+	var id := "farm:%s:%s" % [kind, crop]
+	var tile := _button(parent, "", _select.bind(id))
+	tile.name = "Farm_%s_%s" % [kind, crop]
+	tile.custom_minimum_size = Vector2(84, 94)
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		var asset := "slot_selected" if selected == id or state in ["pressed", "focus"] else ("slot_hover" if state == "hover" else "slot_normal")
+		tile.add_theme_stylebox_override(state, _skin(asset, 6))
+	var icon := TextureRect.new()
+	icon.texture = _farm_icon(kind, crop)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.position = Vector2(14, 8)
+	icon.size = Vector2(56, 52)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tile.add_child(icon)
+	var caption := _label(str(FARM_CROPS[crop]), 12)
+	caption.position = Vector2(5, 65)
+	caption.size = Vector2(74, 20)
+	caption.clip_text = true
+	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tile.add_child(caption)
+	var badge := _label(str(count), 14)
+	badge.name = "Count"
+	badge.position = Vector2(60, 3)
+	badge.add_theme_color_override("font_color", GOLD)
+	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tile.add_child(badge)
 
 func _equipment_summary() -> void:
 	_paragraph(_list, "ĐANG TRANG BỊ")

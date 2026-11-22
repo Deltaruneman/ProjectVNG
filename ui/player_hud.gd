@@ -294,7 +294,7 @@ func _refresh_quick_item() -> void:
 	_quick_count.text = str(count)
 	_quick_key.text = _input_hint("quick_item", true)
 	_quick_panel.modulate = Color.WHITE if count > 0 else Color(0.6, 0.6, 0.6, 1)
-	_quick_panel.tooltip_text = "B · Túi đồ → Tiêu hao → Gán vào ô Q" if count == 0 else "%s · %s · ×%d" % [_input_hint("quick_item"), GameManager.inventory.definition_for_slot("consumable").get("name", ""), count]
+	_quick_panel.tooltip_text = "B · Túi đồ → Tiêu hao → Gán vào ô %s" % _input_hint("quick_item") if count == 0 else "%s · %s · ×%d" % [_input_hint("quick_item"), GameManager.inventory.definition_for_slot("consumable").get("name", ""), count]
 
 
 func _create_skill_group(parent: HBoxContainer, group_name: String, background: Color, border: Color) -> HBoxContainer:

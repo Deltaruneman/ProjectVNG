@@ -23,6 +23,7 @@ var values: Dictionary = {}
 var defaults: Dictionary = {}
 var bindings: Dictionary = {}
 var default_bindings: Dictionary = {}
+var camera_view_mode := 0
 var settings_path := PATH
 var load_notice := ""
 var _focused := true
@@ -62,6 +63,7 @@ func reset_defaults() -> void:
 	apply()
 
 func load_settings() -> void:
+	camera_view_mode = 0
 	values = defaults.duplicate(true)
 	bindings = default_bindings.duplicate(true)
 	load_notice = ""
@@ -72,6 +74,9 @@ func load_settings() -> void:
 	if error != OK or config.get_value("meta", "version", 0) != 1:
 		load_notice = "Không đọc được cài đặt cũ; đang dùng mặc định."
 		return
+	var saved_view: Variant = config.get_value("camera", "view_mode", 0)
+	if saved_view is int and saved_view in [0, 1, 2]:
+		camera_view_mode = saved_view
 	for key: String in defaults:
 		var value: Variant = config.get_value("settings", key, defaults[key])
 		if typeof(value) == typeof(defaults[key]) or (defaults[key] is float and value is int):
@@ -91,6 +96,11 @@ func load_settings() -> void:
 		if slots is Array and slots.size() == 2 and _valid_binding(slots[0]) and _valid_binding(slots[1]) \
 				and (not slots[0].is_empty() or not slots[1].is_empty()):
 			candidate[action] = slots
+	# The former defaults were reversed. Migrate only that exact primary-key pair;
+	# preserve all other saved/custom bindings and secondary slots.
+	if candidate["dash"][0] == {"key": KEY_Q} and candidate["quick_item"][0] == {"key": KEY_SHIFT}:
+		candidate["dash"][0] = default_bindings["dash"][0].duplicate()
+		candidate["quick_item"][0] = default_bindings["quick_item"][0].duplicate()
 	# Reject the entire saved map on a conflict: no partially reset/unusable actions.
 	var seen: Array = []
 	for action: String in ACTIONS:
@@ -109,6 +119,7 @@ func _finite_clamp(value: float, low: float, high: float, fallback: float) -> fl
 func save_settings() -> Error:
 	var config := ConfigFile.new()
 	config.set_value("meta", "version", 1)
+	config.set_value("camera", "view_mode", camera_view_mode)
 	for key: String in values:
 		config.set_value("settings", key, values[key])
 	for action: String in bindings:
@@ -238,3 +249,11 @@ func apply_display() -> void:
 			window.borderless = mode == 1
 			window.size = target_size
 			window.position = screen.position + (screen.size - target_size) / 2
+
+func set_camera_view_mode(mode: int) -> void:
+	if mode not in [0, 1, 2] or camera_view_mode == mode:
+		return
+	camera_view_mode = mode
+	var error := save_settings()
+	if error != OK:
+		push_warning("Cannot save camera preference: " + error_string(error))

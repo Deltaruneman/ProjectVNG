@@ -1,0 +1,1693 @@
+{
+ "frames": {
+  "rice_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_stage0_seed": {
+   "frame": {
+    "x": 0,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_stage1_sprout": {
+   "frame": {
+    "x": 32,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_stage2_growing": {
+   "frame": {
+    "x": 64,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_stage3_mature": {
+   "frame": {
+    "x": 96,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_stage4_harvest": {
+   "frame": {
+    "x": 128,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  }
+ },
+ "meta": {
+  "image": "crops_stages.png",
+  "size": {
+   "w": 160,
+   "h": 768
+  },
+  "scale": "2",
+  "app": "Willosuna"
+ }
+}

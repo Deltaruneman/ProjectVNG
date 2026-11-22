@@ -6,6 +6,9 @@ const SWAY_ANGLE := 0.0418879 # 2.4 degrees
 const SWAY_FREQUENCY := 0.62
 const TILT_ANGLE := 0.0139626 # 0.8 degrees
 
+var _depth_adjusted := false
+var _sprite_rest_position := Vector3.ZERO
+
 var _rest_position := Vector3.ZERO
 var _rest_rotation := Vector3.ZERO
 var _elapsed := 0.0
@@ -42,11 +45,15 @@ func get_attack_rest_rotation() -> Vector3:
 
 
 func _ready() -> void:
+	_sprite_rest_position = $Sprite3D.position
 	_rest_position = position
 	_rest_rotation = rotation
 
 
 func _process(delta: float) -> void:
+	if _depth_adjusted:
+		$Sprite3D.position = _sprite_rest_position
+		_depth_adjusted = false
 	_elapsed += delta
 	if _has_attack_pose:
 		position = _attack_position
@@ -57,3 +64,9 @@ func _process(delta: float) -> void:
 	var tilt := sin(_elapsed * TAU * SWAY_FREQUENCY * 0.73 + 1.1) * TILT_ANGLE
 	position = (_temporary_position if _has_temporary_position else _rest_position) + Vector3.UP * bob
 	rotation = _rest_rotation + Vector3(tilt, 0.0, sway)
+	# Resting equipment is covered by the body; attack owns its pose.
+	var camera := get_viewport().get_camera_3d()
+	var player := get_parent().get_parent()
+	if not _has_temporary_position and camera != null and camera.get_parent() is CameraRig and camera.get_parent().view_mode == CameraRig.ViewMode.TOP_DOWN:
+		player.place_weapon_fx_behind_body($Sprite3D)
+		_depth_adjusted = true

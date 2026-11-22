@@ -50,7 +50,6 @@ has_weapon = true
 [node name="Sprite3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056610703, -0.0026197433, 0.003525138)
 offset = Vector2(0, 21.5)
-billboard = 2
 shaded = false
 texture = ExtResource("3_sheet")
 hframes = 4

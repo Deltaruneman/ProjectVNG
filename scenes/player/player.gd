@@ -26,6 +26,7 @@ const WIND_ULTIMATE_SLOW_DURATION := 0.55
 const LIGHTNING_BEAM_WIDTH := 1.6
 const MAX_STAMINA := 100.0
 const STAMINA_DASH_COST := 20.0
+const BASE_DASH_COOLDOWN_SECONDS := 2.0
 const STAMINA_PARRY_COST := 15.0
 const STAMINA_CHARGE_COST := 25.0
 const HEALTH_REGEN_INTERVALS := [60.0, 40.0, 20.0]
@@ -90,6 +91,8 @@ var _base_maxjump := 2
 var _temp_attack_bonus := 0
 var _temp_speed_bonus := 0.0
 var ice_shield := 0
+var _ice_shield_generation := 0
+var _ice_shield_visual: Node3D
 var _wind_ultimate_active := false
 var _wind_ultimate_elapsed := 0.0
 var _wind_ultimate_pulse_timer := 0.0
@@ -121,6 +124,7 @@ func _ready() -> void:
 	_base_attack_damage = attack_damage
 	_base_max_health = max_health
 	_base_movement_speed = movement_speed
+	dash_cooldown = BASE_DASH_COOLDOWN_SECONDS
 	_base_dash_cooldown = dash_cooldown
 	_base_parry_window = parry_window
 	_base_maxjump = maxjump
@@ -156,8 +160,7 @@ func _physics_process(delta: float) -> void:
 		var active_camera := get_viewport().get_camera_3d()
 		if active_camera != null and active_camera.get_parent() is CameraRig:
 			var rig := active_camera.get_parent() as CameraRig
-			if rig.view_mode != CameraRig.ViewMode.TPS:
-				face_movement(rig.facing_vector())
+			face_movement(rig.facing_vector())
 	super._physics_process(delta)
 	if _skill_aim_active:
 		var toward_target := _skill_aim_point - global_position
@@ -424,7 +427,7 @@ func _can_use_skills() -> bool:
 func _can_start_skill_cast() -> bool:
 	if stamina_exhausted:
 		return false
-	if GameManager.weapon_form == "" and not uses_offhand(selected_active_slot):
+	if GameManager.weapon_form == "" and (selected_active_slot != 1 or GameManager.inventory.id_for_slot("main") == ""):
 		return false
 	if not _can_use_skills() or is_talking or _ultimate_cinematic_running:
 		return false
@@ -514,8 +517,7 @@ func get_active_skill_cooldown_duration_for_slot(slot: int) -> float:
 
 func get_active_skill_cooldown_duration(skill_id: String) -> float:
 	var cooldown_key := skill_id if skill_id != "" else "basic_dagger"
-	var haste := GameManager.inventory.enchant_rank("main", "haste") + GameManager.inventory.enchant_rank("offhand", "haste")
-	return float(ACTIVE_SKILL_COOLDOWNS.get(cooldown_key, ACTIVE_SKILL_COOLDOWNS["basic_dagger"])) * maxf(0.4, 1.0 - 0.1 * haste)
+	return maxf(0.1, float(ACTIVE_SKILL_COOLDOWNS.get(cooldown_key, ACTIVE_SKILL_COOLDOWNS["basic_dagger"])) - _flat_skill_cooldown_reduction())
 
 
 func start_active_skill_cooldown(skill_id: String) -> void:
@@ -528,7 +530,11 @@ func get_ultimate_cooldown_remaining() -> float:
 
 
 func get_ultimate_cooldown_duration(skill_id: String) -> float:
-	return float(ULTIMATE_SKILL_COOLDOWNS.get(skill_id, 20.0))
+	return maxf(0.1, float(ULTIMATE_SKILL_COOLDOWNS.get(skill_id, 20.0)) - _flat_skill_cooldown_reduction())
+
+
+func _flat_skill_cooldown_reduction() -> float:
+	return float(GameManager.inventory.enchant_rank("main", "haste")) + float(GameManager.inventory.definition_for_slot("charm").get("cooldown_reduction", 0.0))
 
 
 func get_hud_statuses() -> Array[Dictionary]:
@@ -568,7 +574,7 @@ func face_movement(motion: Vector3) -> void:
 	var active_camera := get_viewport().get_camera_3d()
 	if active_camera != null and active_camera.get_parent() is CameraRig:
 		var rig := active_camera.get_parent() as CameraRig
-		if rig.view_mode != CameraRig.ViewMode.TPS and can_control_camera() and not _cast_aim_point_valid:
+		if can_control_camera() and not _cast_aim_point_valid:
 			motion = rig.facing_vector()
 	if motion.length_squared() < 0.000001:
 		return
@@ -655,26 +661,30 @@ func skill_effect_position(aim: Vector3, distance: float = 0.9, height: float = 
 
 func _on_attack_hit(_area: Area3D) -> void:
 	_weapon_hit_effect(_area, "main")
+	_try_blood_charm_heal()
 	_gain_rage(12.5)
 
 
 func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
+	_try_blood_charm_heal()
 	_gain_rage(12.5)
 	var enemy := _get_enemy_from_hurt_area(area)
 	if enemy != null:
 		if elemental_form == "fire":
 			var ember_rank := int(GameManager.skill_allocations.get("evo_fire_ember", 0))
-			var burn_duration := (3.0 + float(ember_rank)) * elemental_status_multiplier()
-			enemy.apply_skill_burn(self, maxi(1, int(attack_damage / 2)) + ember_rank, burn_duration, 1.0)
+			var burn_duration := 3.0 + float(ember_rank) + elemental_status_duration_bonus()
+			var burn_damage := maxi(1, int(attack_damage / 2)) + ember_rank + int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
+			enemy.apply_skill_burn(self, burn_damage, burn_duration, 1.0)
 			BattleFX.enemy_status(enemy, "burning", burn_duration)
 		elif elemental_form == "ice":
 			var frostbite_rank := int(GameManager.skill_allocations.get("evo_ice_frostbite", 0))
-			var slow_duration := (2.0 + float(frostbite_rank)) * elemental_status_multiplier()
+			var slow_duration := 2.0 + float(frostbite_rank) + elemental_status_duration_bonus(true)
 			enemy.apply_skill_slow(slow_duration, 0.5)
 			BattleFX.enemy_status(enemy, "slowed", slow_duration)
 		elif elemental_form == "lightning":
-			enemy.apply_skill_freeze(0.35 * elemental_status_multiplier())
-			BattleFX.enemy_status(enemy, "electrified", 0.35 * elemental_status_multiplier())
+			var freeze_duration := 0.35 + elemental_status_duration_bonus(true)
+			enemy.apply_skill_freeze(freeze_duration)
+			BattleFX.enemy_status(enemy, "electrified", freeze_duration)
 	var stage := get_tree().current_scene as Node3D
 	if stage != null and elemental_form != "":
 		var impact_direction := area.global_position - global_position
@@ -691,6 +701,12 @@ func _get_enemy_from_hurt_area(area: Area3D) -> EnemyCharacter:
 			return candidate as EnemyCharacter
 		candidate = candidate.get_parent()
 	return null
+
+
+func _try_blood_charm_heal() -> void:
+	var chance := float(GameManager.inventory.definition_for_slot("charm").get("heal_on_hit_chance", 0.0))
+	if health > 0 and health < max_health and chance > 0.0 and randf() < chance:
+		health = mini(max_health, health + 1)
 
 
 func _gain_rage(amount: float) -> void:
@@ -719,9 +735,9 @@ func _apply_skill_bonuses() -> void:
 	health = mini(health, max_health)
 	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus + int(GameManager.inventory.definition_for_slot("main").get("bonus", 0)) + GameManager.inventory.enchant_rank("main", "sharpness")
 	_refresh_equipment_art()
-	movement_speed = _base_movement_speed * (1.0 + 0.08 * int(ranks.get("char_speed", 0))) + _temp_speed_bonus
-	dash_cooldown = _base_dash_cooldown * pow(0.85, int(ranks.get("char_dash", 0)))
-	parry_window = _base_parry_window * (1.0 + 0.25 * int(ranks.get("char_parry", 0)))
+	movement_speed = _base_movement_speed + 0.5 * float(ranks.get("char_speed", 0)) + float(GameManager.inventory.definition_for_slot("charm").get("movement_speed_bonus", 0.0)) + _temp_speed_bonus
+	dash_cooldown = maxf(0.1, _base_dash_cooldown - 0.1 * float(ranks.get("char_dash", 0)))
+	parry_window = _base_parry_window + 0.05 * float(ranks.get("char_parry", 0))
 	maxjump = _base_maxjump + int(ranks.get("char_double_jump", 0))
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 
@@ -746,7 +762,7 @@ func cast_active_skill(active_id: String) -> bool:
 			var dash_reach := 2.5 + 0.5 * float(gale_rank)
 			BattleFX.play_pvfx(self, "wind/wind-blade", skill_effect_position(aim, 1.25, 0.55), 1.6 + 0.18 * float(gale_rank), Color("d2fff9"), aim)
 			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.7), "wind", aim, 0.8 + 0.16 * float(gale_rank))
-			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, roundi(float(damage * 2) * (1.0 + 0.5 * float(gale_rank))))
+			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, damage * 2 + 2 * gale_rank)
 			global_position += aim * (1.5 + 0.5 * float(gale_rank))
 		"active_wind_4":
 			var tornado_rank := int(GameManager.skill_allocations.get("evo_wind_tornado", 0))
@@ -765,7 +781,7 @@ func cast_active_skill(active_id: String) -> bool:
 					BattleFX.play_skill_sound(self, "fire_impact")
 					_damage_enemies_in_shape(blast_center, aim, "circle", blast_radius, 0.0, 360.0, damage * 2))
 		"active_fire_3":
-			health = maxi(1, health - int(ceil(health * 0.25)))
+			health = maxi(1, health - 5)
 			_fire_rage_sequence.call_deferred(damage, aim)
 		"active_fire_4":
 			var meteor_rank := int(GameManager.skill_allocations.get("evo_fire_meteor", 0))
@@ -778,14 +794,19 @@ func cast_active_skill(active_id: String) -> bool:
 			var cone_reach := 5.0
 			var cone_half_angle := 32.0
 			BattleFX.play_pvfx(self, "ice/frost-breath", global_position + Vector3.UP * 0.55, cone_reach * 0.5, Color.WHITE, aim, 0.72)
-			_damage_enemies_in_shape(global_position, aim, "cone", cone_reach, 0.0, cone_half_angle, damage * 2, 2.0 + 0.5 * float(frostbite_rank), 0.0, 0.5 * float(shatter_rank))
+			_damage_enemies_in_shape(global_position, aim, "cone", cone_reach, 0.0, cone_half_angle, damage * 2, 2.0 + 0.5 * float(frostbite_rank), 0.0, 2 * shatter_rank)
 		"active_ice_3":
-			ice_shield = int(ceil(max_health * 0.25))
+			ice_shield = 1
+			_ice_shield_generation += 1
+			var shield_generation := _ice_shield_generation
 			_track_hud_status("shield", 8.0, true)
-			BattleFX.shield(self, global_position, "ice", 8.0, 0.25)
+			_ice_shield_visual = BattleFX.shield(self, global_position, "ice", 8.0, 0.25)
 			BattleFX.emberline_ring(self, global_position, "ice", aim, 1.25)
 			get_tree().create_timer(8.0).timeout.connect(func() -> void:
+				if shield_generation != _ice_shield_generation:
+					return
 				ice_shield = 0
+				_ice_shield_visual = null
 				_hud_status_time_remaining.erase("shield"))
 		"active_ice_4":
 			var storm_rank := int(GameManager.skill_allocations.get("evo_ice_storm", 0))
@@ -847,7 +868,7 @@ func _cast_lightning_beam(aim: Vector3, skill_damage: int, reach: float, chain_r
 	hurt_area.take_damage(impact_direction.normalized(), skill_damage * 2, self)
 	_gain_rage(12.5)
 	if is_instance_valid(target):
-		var freeze_duration := 0.45 + 0.2 * float(chain_rank)
+		var freeze_duration := 0.45 + 0.2 * float(chain_rank) + elemental_status_duration_bonus(true)
 		target.apply_skill_freeze(freeze_duration)
 		BattleFX.enemy_status(target, "electrified", freeze_duration)
 	BattleFX.play_pvfx(self, "lightning/lightning-strike", hit_position + Vector3.UP * 0.35, 2.4, Color("f4fdff"))
@@ -935,7 +956,14 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: float = 0.0, burn_duration: float = 0.0, burn_damage: int = 0, freeze_status_id: String = "frozen") -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: int = 0, freeze_status_id: String = "frozen") -> int:
+	if freeze_duration > 0.0:
+		freeze_duration += elemental_status_duration_bonus(true)
+	if slow_duration > 0.0:
+		slow_duration += elemental_status_duration_bonus(true)
+	if burn_duration > 0.0:
+		burn_duration += elemental_status_duration_bonus()
+		burn_damage += int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
 	var aim_2d := Vector2(aim.x, aim.z).normalized()
 	if aim_2d.length_squared() < 0.001:
 		aim_2d = Vector2(forward().x, forward().z).normalized()
@@ -970,11 +998,12 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			if impact_direction.length_squared() < 0.001:
 				impact_direction = Vector3(aim_2d.x, 0.0, aim_2d.y)
 			var final_damage := damage
-			if bonus_vs_frozen > 0.0 and enemy.is_skill_frozen():
-				final_damage += roundi(float(damage) * bonus_vs_frozen)
+			if bonus_vs_frozen > 0 and enemy.is_skill_frozen():
+				final_damage += bonus_vs_frozen
 			hurt_area.take_damage(impact_direction, final_damage, self)
 			if not _wind_ultimate_active:
 				_gain_rage(12.5)
+			_try_blood_charm_heal()
 			var stage := get_tree().current_scene as Node3D
 			if stage != null:
 				BattleFX.impact(stage, enemy.global_position + Vector3.UP * 0.55, GameManager.weapon_form, impact_direction)
@@ -1156,7 +1185,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
 		BattleFX.slash(self, vfx_position + Vector3.UP * 0.2, "ice", aim, 1.1)
 	if skill_id == "ultimate_fire_2":
-		health = maxi(1, health - int(ceil(health * 0.5)))
+		health = maxi(1, health - 10)
 	if skill_id == "ultimate_wind_1":
 		movement_speed *= 1.5
 		_track_hud_status("speed", 4.0)
@@ -1402,13 +1431,13 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 	if is_invulnerable:
 		return
 	if ice_shield > 0:
-		var absorbed := mini(ice_shield, int(damage))
-		ice_shield -= absorbed
-		if ice_shield <= 0:
-			_hud_status_time_remaining.erase("shield")
-		damage -= absorbed
-		if damage <= 0.0:
-			return
+		ice_shield = 0
+		_ice_shield_generation += 1
+		_hud_status_time_remaining.erase("shield")
+		if is_instance_valid(_ice_shield_visual):
+			_ice_shield_visual.queue_free()
+		_ice_shield_visual = null
+		return
 	fsm.current_state.take_damage(int(damage))
 
 
@@ -1426,7 +1455,7 @@ func cast_offhand() -> bool:
 		projectile.max_distance = 10.0
 	projectile.elemental_form = GameManager.weapon_form
 	projectile.thrower = self
-	projectile.damage = scaled_skill_damage(attack_damage + GameManager.inventory.enchant_rank("offhand", "sharpness") + int(GameManager.skill_allocations.get("char_element", 0)))
+	projectile.damage = scaled_skill_damage(attack_damage + GameManager.inventory.enchant_rank("offhand", "sharpness") + int(GameManager.skill_allocations.get("char_element", 0)) + int(GameManager.skill_allocations.get("char_crit", 0)))
 	projectile.damage = roll_weapon_damage(projectile.damage, "offhand")
 	projectile.max_distance *= 1.0 + 0.1 * GameManager.inventory.enchant_rank("offhand", "reach")
 	var origin := global_position + Vector3.UP * 0.8 + get_skill_aim_direction() * 0.5
@@ -1491,18 +1520,19 @@ func scaled_skill_damage(base: int, form: String = "") -> int:
 		form = GameManager.weapon_form
 	if form == "":
 		return base
-	var bonus := float(GameManager.inventory.definition_for_slot("charm").get("skill_bonus", 0.0))
-	for slot: String in ["main", "offhand"]:
-		if GameManager.inventory.definition_for_slot(slot).get("resonance", "") == form:
-			bonus += 0.25 + 0.15 * GameManager.inventory.enchant_rank(slot, "resonance")
-	return maxi(1, ceili(float(base) * (1.0 + bonus)))
+	var bonus := int(GameManager.inventory.definition_for_slot("charm").get("skill_damage_bonus", 0))
+	var main_weapon: Dictionary = GameManager.inventory.definition_for_slot("main")
+	if main_weapon.get("resonance", "") == form:
+		bonus += 2 + GameManager.inventory.enchant_rank("main", "resonance")
+	return maxi(1, base + bonus)
 
-func elemental_status_multiplier() -> float:
-	var rank := 0
-	for slot: String in ["main", "offhand"]:
-		if GameManager.inventory.definition_for_slot(slot).get("resonance", "") == GameManager.weapon_form:
-			rank += GameManager.inventory.enchant_rank(slot, "affliction")
-	return 1.0 + 0.25 * rank
+func elemental_status_duration_bonus(include_control: bool = false) -> float:
+	var bonus := 0.0
+	if GameManager.weapon_form != "" and GameManager.inventory.definition_for_slot("main").get("resonance", "") == GameManager.weapon_form:
+		bonus += float(GameManager.inventory.enchant_rank("main", "affliction"))
+	if include_control:
+		bonus += float(GameManager.inventory.definition_for_slot("charm").get("control_duration_bonus", 0.0))
+	return bonus
 
 
 func begin_offhand_cast() -> void:
@@ -1595,3 +1625,23 @@ func get_first_person_weapon() -> Dictionary:
 		return {}
 	pose["texture"] = weapon_sprite.texture
 	return pose
+
+func get_mouse_throw_target() -> Vector3:
+	var camera := get_viewport().get_camera_3d()
+	var point := global_position + forward().normalized() * 7.0
+	if camera != null:
+		var mouse := get_viewport().get_mouse_position()
+		var from := camera.project_ray_origin(mouse)
+		var ray := camera.project_ray_normal(mouse)
+		var ground: Variant = Plane(Vector3.UP, global_position.y).intersects_ray(from, ray)
+		if ground is Vector3:
+			point = ground
+	# Resolve the floor from below ceiling height, rather than selecting a roof
+	# between the camera and the mouse. Throw on the Player's current floor.
+	var query := PhysicsRayQueryParameters3D.create(point + Vector3.UP * 0.5, point + Vector3.DOWN * 3.0, collision_mask)
+	query.exclude = [get_rid()]
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy is CollisionObject3D:
+			query.exclude = query.exclude + [enemy.get_rid()]
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	return hit.position if not hit.is_empty() and hit.normal.y > 0.5 else global_position
