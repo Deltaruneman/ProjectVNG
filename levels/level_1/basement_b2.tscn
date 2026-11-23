@@ -2,14 +2,15 @@
 
 [ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
-[ext_resource type="PackedScene" path="res://levels/objects/enemy_zone/enemy_zone.tscn" id="4_mohxj"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
-[ext_resource type="PackedScene" uid="uid://codd5u20c1oql" path="res://scenes/enemies/starfish/starfish.tscn" id="8_7roa1"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
 [ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
-[ext_resource type="Script" path="res://levels/level_1/basement_b2_progress.gd" id="b2_progress"]
+[ext_resource type="PackedScene" path="res://levels/objects/door/clear_portal.tscn" id="clear_portal"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="wizard"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="skeleton"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/arcane/undead_executioner.tscn" id="executioner"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -36,7 +37,6 @@ environment = SubResource("Environment_1ccrl")
 
 [node name="B2" type="Node3D" parent="." unique_id=2076872938]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
-script = ExtResource("b2_progress")
 metadata/floor_level = 1
 
 [node name="World" type="GridMap" parent="B2" unique_id=161478790]
@@ -53,16 +53,6 @@ floor_map = NodePath("../World")
 [node name="ChestSpot_B2" type="Marker3D" parent="B2" unique_id=115413646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 7, 14)
 
-[node name="EnemyZones" type="Node3D" parent="B2" unique_id=1391096088]
-
-[node name="EnemyZone_A" parent="B2/EnemyZones" unique_id=1973627187 instance=ExtResource("4_mohxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 7, 14)
-enemy_scene = ExtResource("8_7roa1")
-clear_kills = 3
-
-[node name="EnemyZone_B" parent="B2/EnemyZones" unique_id=15538645 instance=ExtResource("4_mohxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 7, 14)
-enemy_scene = null
 [node name="ElevatorSlot" type="Marker3D" parent="B2" unique_id=1468180899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 7, 2)
 
@@ -118,18 +108,35 @@ mesh = SubResource("BoxMesh_pwane")
 [node name="Door_b2_down" parent="B2" unique_id=1585894263 instance=ExtResource("door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 7, 1)
 id = "b2_down"
-target_stage = "uid://ut8i8xxf74gj"
+target_stage = "res://levels/level_1/basement_b1.tscn"
 target_door = "b1_up"
 metadata/note = "Thang xuống B1"
 
-[node name="Door_b2_up" parent="B2" unique_id=816705486 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 7, 5)
+[node name="Enemies" type="Node3D" parent="B2"]
+
+[node name="WestWizard" parent="B2/Enemies" instance=ExtResource("wizard")]
+position = Vector3(23, 7, 16)
+
+[node name="WestGuard" parent="B2/Enemies" instance=ExtResource("skeleton")]
+position = Vector3(27, 7, 18)
+
+[node name="NorthWizard" parent="B2/Enemies" instance=ExtResource("wizard")]
+position = Vector3(36, 7, 7)
+
+[node name="NorthGuard" parent="B2/Enemies" instance=ExtResource("skeleton")]
+position = Vector3(39, 7, 9)
+
+[node name="UndeadExecutioner" parent="B2/Enemies" instance=ExtResource("executioner")]
+position = Vector3(51, 7, 16)
+
+[node name="ClearPortal" parent="B2" node_paths=PackedStringArray("encounters") instance=ExtResource("clear_portal")]
+position = Vector3(51, 7, 5)
+target_stage = "res://levels/level_1/basement_b3.tscn"
+clear_flag = "b2_split_cleared"
+encounters = NodePath("../Enemies")
+target_spawn = "b3_down"
 id = "b2_up"
-target_stage = "uid://d12u1s460ag67"
-target_door = "b3_down"
-locked = true
-unlock_flag = "b2_cleared"
-metadata/note = "Thang lên B3"
+required_unlock = "b2_cleared"
 
 [node name="Checkpoint_b2" parent="B2" unique_id=166322398 instance=ExtResource("checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 7, 5)

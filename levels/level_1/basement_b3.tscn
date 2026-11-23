@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://m71d8f517f26" path="res://levels/objects/checkpoint/basement_checkpoint.tscn" id="checkpoint"]
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="door"]
 [ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
+[ext_resource type="Script" path="res://levels/objects/door/clear_portal.gd" id="encounter_progress"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -142,6 +143,17 @@ target_door = ""
 transition_enabled = false
 metadata/note = "Lối lên mặt đất — CHƯA gán target_stage/target_door"
 
+[node name="Enemies" type="Node3D" parent="B3"]
+
+[node name="DarkFairy" parent="B3/Enemies" instance=ExtResource("8_givlk")]
+position = Vector3(38, 13.1, 14)
+
+[node name="EncounterProgress" type="Node3D" parent="B3" node_paths=PackedStringArray("encounters", "return_door")]
+script = ExtResource("encounter_progress")
+clear_flag = "b3_split_cleared"
+encounters = NodePath("../Enemies")
+return_door = NodePath("../Door_b3_down")
+
 [node name="Checkpoint_b3" parent="B3" unique_id=540661895 instance=ExtResource("checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 13, 9)
 id = "b3_start"
@@ -169,6 +181,3 @@ top_down_distance = 10.8
 focus_offset = Vector3(0, 1.1, 0)
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
-
-[node name="DarkFairy" parent="." unique_id=1309309822 instance=ExtResource("8_givlk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.001118, 2.1, 11.726539)
