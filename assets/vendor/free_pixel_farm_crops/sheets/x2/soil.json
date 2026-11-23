@@ -1,0 +1,1469 @@
+{
+ "frames": {
+  "soil_dry_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_01": {
+   "frame": {
+    "x": 32,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_02": {
+   "frame": {
+    "x": 64,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_03": {
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_04": {
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_05": {
+   "frame": {
+    "x": 160,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_06": {
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_07": {
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_08": {
+   "frame": {
+    "x": 0,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_09": {
+   "frame": {
+    "x": 32,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_10": {
+   "frame": {
+    "x": 64,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_11": {
+   "frame": {
+    "x": 96,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_12": {
+   "frame": {
+    "x": 128,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_13": {
+   "frame": {
+    "x": 160,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_14": {
+   "frame": {
+    "x": 192,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_15": {
+   "frame": {
+    "x": 224,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_16": {
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_17": {
+   "frame": {
+    "x": 32,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_18": {
+   "frame": {
+    "x": 64,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_19": {
+   "frame": {
+    "x": 96,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_20": {
+   "frame": {
+    "x": 128,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_21": {
+   "frame": {
+    "x": 160,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_22": {
+   "frame": {
+    "x": 192,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_23": {
+   "frame": {
+    "x": 224,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_24": {
+   "frame": {
+    "x": 0,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_25": {
+   "frame": {
+    "x": 32,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_26": {
+   "frame": {
+    "x": 64,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_27": {
+   "frame": {
+    "x": 96,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_28": {
+   "frame": {
+    "x": 128,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_29": {
+   "frame": {
+    "x": 160,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_30": {
+   "frame": {
+    "x": 192,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_31": {
+   "frame": {
+    "x": 224,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_32": {
+   "frame": {
+    "x": 0,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_33": {
+   "frame": {
+    "x": 32,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_34": {
+   "frame": {
+    "x": 64,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_35": {
+   "frame": {
+    "x": 96,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_36": {
+   "frame": {
+    "x": 128,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_37": {
+   "frame": {
+    "x": 160,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_38": {
+   "frame": {
+    "x": 192,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_39": {
+   "frame": {
+    "x": 224,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_40": {
+   "frame": {
+    "x": 0,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_41": {
+   "frame": {
+    "x": 32,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_42": {
+   "frame": {
+    "x": 64,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_43": {
+   "frame": {
+    "x": 96,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_44": {
+   "frame": {
+    "x": 128,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_45": {
+   "frame": {
+    "x": 160,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_46": {
+   "frame": {
+    "x": 192,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_fill_1": {
+   "frame": {
+    "x": 224,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_fill_2": {
+   "frame": {
+    "x": 0,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_dry_fill_3": {
+   "frame": {
+    "x": 32,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_00": {
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_01": {
+   "frame": {
+    "x": 32,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_02": {
+   "frame": {
+    "x": 64,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_03": {
+   "frame": {
+    "x": 96,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_04": {
+   "frame": {
+    "x": 128,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_05": {
+   "frame": {
+    "x": 160,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_06": {
+   "frame": {
+    "x": 192,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_07": {
+   "frame": {
+    "x": 224,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_08": {
+   "frame": {
+    "x": 0,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_09": {
+   "frame": {
+    "x": 32,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_10": {
+   "frame": {
+    "x": 64,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_11": {
+   "frame": {
+    "x": 96,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_12": {
+   "frame": {
+    "x": 128,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_13": {
+   "frame": {
+    "x": 160,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_14": {
+   "frame": {
+    "x": 192,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_15": {
+   "frame": {
+    "x": 224,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_16": {
+   "frame": {
+    "x": 0,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_17": {
+   "frame": {
+    "x": 32,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_18": {
+   "frame": {
+    "x": 64,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_19": {
+   "frame": {
+    "x": 96,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_20": {
+   "frame": {
+    "x": 128,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_21": {
+   "frame": {
+    "x": 160,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_22": {
+   "frame": {
+    "x": 192,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_23": {
+   "frame": {
+    "x": 224,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_24": {
+   "frame": {
+    "x": 0,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_25": {
+   "frame": {
+    "x": 32,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_26": {
+   "frame": {
+    "x": 64,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_27": {
+   "frame": {
+    "x": 96,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_28": {
+   "frame": {
+    "x": 128,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_29": {
+   "frame": {
+    "x": 160,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_30": {
+   "frame": {
+    "x": 192,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_31": {
+   "frame": {
+    "x": 224,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_32": {
+   "frame": {
+    "x": 0,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_33": {
+   "frame": {
+    "x": 32,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_34": {
+   "frame": {
+    "x": 64,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_35": {
+   "frame": {
+    "x": 96,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_36": {
+   "frame": {
+    "x": 128,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_37": {
+   "frame": {
+    "x": 160,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_38": {
+   "frame": {
+    "x": 192,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_39": {
+   "frame": {
+    "x": 224,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_40": {
+   "frame": {
+    "x": 0,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_41": {
+   "frame": {
+    "x": 32,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_42": {
+   "frame": {
+    "x": 64,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_43": {
+   "frame": {
+    "x": 96,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_44": {
+   "frame": {
+    "x": 128,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_45": {
+   "frame": {
+    "x": 160,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_46": {
+   "frame": {
+    "x": 192,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_fill_1": {
+   "frame": {
+    "x": 224,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_fill_2": {
+   "frame": {
+    "x": 0,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soil_wet_fill_3": {
+   "frame": {
+    "x": 32,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grass_0": {
+   "frame": {
+    "x": 0,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grass_1": {
+   "frame": {
+    "x": 32,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grass_2": {
+   "frame": {
+    "x": 64,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grass_3": {
+   "frame": {
+    "x": 96,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  }
+ },
+ "meta": {
+  "image": "soil.png",
+  "size": {
+   "w": 256,
+   "h": 480
+  },
+  "scale": "2",
+  "app": "Willosuna"
+ }
+}

@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS ordinary T opens and pauses
+FAIL opening T at low health never heals
+PASS Escape closes and resumes
+PASS rapid ordinary T reversals settle closed
+FAIL rapid reopen never heals
+FAIL programmatic open refuses another system pause
+PASS rejected menu preserves external pause
+PASS cinematic starts ultimate_wind_1
+FAIL T spam cannot open during cinematic ultimate_wind_1
+FAIL cinematic and menu release pause ultimate_wind_1
+PASS ultimate executes once ultimate_wind_1
+PASS ultimate gameplay finishes ultimate_wind_1
+PASS T usable after ultimate ultimate_wind_1
+PASS subsequent close resumes ultimate_wind_1
+PASS cinematic starts ultimate_fire_1
+FAIL T spam cannot open during cinematic ultimate_fire_1
+FAIL cinematic and menu release pause ultimate_fire_1
+PASS ultimate executes once ultimate_fire_1
+PASS ultimate gameplay finishes ultimate_fire_1
+PASS T usable after ultimate ultimate_fire_1
+PASS subsequent close resumes ultimate_fire_1
+PASS cinematic starts ultimate_ice_2
+FAIL T spam cannot open during cinematic ultimate_ice_2
+FAIL cinematic and menu release pause ultimate_ice_2
+PASS ultimate executes once ultimate_ice_2

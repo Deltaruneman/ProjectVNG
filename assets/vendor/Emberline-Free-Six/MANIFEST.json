@@ -1,0 +1,115 @@
+{
+  "name": "Emberline Free Six",
+  "version": "1.0.0",
+  "effects": 6,
+  "godot": "4.7.2 stable",
+  "renderer": "Compatibility",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "bytes": 1064,
+      "sha256": "f8662764081262410a04ee00ed7bb4f8a119af7cf0c2ae6faedaddae247aa2f9"
+    },
+    {
+      "path": "PROVENANCE.md",
+      "bytes": 1869,
+      "sha256": "d73e077430998186eacf3b1a28ee32a8984967e7992e888ba4c6274c07f7655c"
+    },
+    {
+      "path": "README.ko.md",
+      "bytes": 2610,
+      "sha256": "893b24ff81209352031526ca8b05e664ecfeec8ebd3b9d2e018ec0f30d08c665"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6593,
+      "sha256": "4916a6e057c4a8482ca6ce656a79cf0c746d581371a05d2e6e0e76ab680d2637"
+    },
+    {
+      "path": "emberline/demo/showcase.gd",
+      "bytes": 9143,
+      "sha256": "b9781e1126d2720b4583e0b80f0621cc31464306d86eb626590bc7c7894e1663"
+    },
+    {
+      "path": "emberline/demo/showcase.gd.uid",
+      "bytes": 20,
+      "sha256": "7a8447bc9a4dffe28c8f818a427f56f5d24584e427032ad8c33723d8e2bb71a3"
+    },
+    {
+      "path": "emberline/demo/showcase.tscn",
+      "bytes": 189,
+      "sha256": "2db0aec36eb1620a786a79066bae0c41f8d16f00263912a33002afe1a597b5a0"
+    },
+    {
+      "path": "emberline/effects/area_burst.tscn",
+      "bytes": 240,
+      "sha256": "231d83078afcb95847bd759266134ddfd0aac0a0b473f6f7f1bd8eb8324fcb31"
+    },
+    {
+      "path": "emberline/effects/ember_effect.gd",
+      "bytes": 6424,
+      "sha256": "72780f59c8c28d3e3997f304a4fe76f39a84c8c7f9563ece4452a8be6da40b30"
+    },
+    {
+      "path": "emberline/effects/ember_effect.gd.uid",
+      "bytes": 19,
+      "sha256": "7dc7b1c6910da9c3726bd0dcba59b9732f07314108b1c99e55daffd74a40d125"
+    },
+    {
+      "path": "emberline/effects/emberline.gdshader",
+      "bytes": 6382,
+      "sha256": "a88177bdd7f55320a8500194527936d9938e6de54c6680e098290f9aab3a9bce"
+    },
+    {
+      "path": "emberline/effects/emberline.gdshader.uid",
+      "bytes": 20,
+      "sha256": "a7de145ce6fd2828a737fa1fadb7c76b362b11921643ee04ec28cf1b11d5cdbb"
+    },
+    {
+      "path": "emberline/effects/impact_ring.tscn",
+      "bytes": 241,
+      "sha256": "8eaac3e196297bed277d7aa4b35c47234264c6af24b622740ed44e79f4461867"
+    },
+    {
+      "path": "emberline/effects/impact_spark.tscn",
+      "bytes": 242,
+      "sha256": "04f5788c1e8758bdb29d44d9cdc52437ecc714c0c1128d4731080813f657caea"
+    },
+    {
+      "path": "emberline/effects/projectile_orb.tscn",
+      "bytes": 242,
+      "sha256": "ad70b9fc73f75fcda657c03b02909df88084b14c05dac7d072f86fcb8daf1cf2"
+    },
+    {
+      "path": "emberline/effects/projectile_trail.tscn",
+      "bytes": 244,
+      "sha256": "df997e97c0c60b8b33d12f2ce229adb88fd14b3b683ac2abc2b91c7bb85f3f71"
+    },
+    {
+      "path": "emberline/effects/slash_arc.tscn",
+      "bytes": 238,
+      "sha256": "c09b47d02e2cde57fce2e7d931a3abb3e932469d81a074fc85319c16983a68d7"
+    },
+    {
+      "path": "preview/showcase-dark.png",
+      "bytes": 176480,
+      "sha256": "36d91f1d31a5264a8a6b35c324be51d66ac0d95b3089e5ec79e474d84e704ae6"
+    },
+    {
+      "path": "preview/showcase-light.png",
+      "bytes": 178178,
+      "sha256": "bcb5b39c212c1db5c7716bd605117b561e56208f636da724fe766a2359ffcc53"
+    },
+    {
+      "path": "preview/showcase.gif",
+      "bytes": 7436930,
+      "sha256": "84986dcf43465d3537365972891f2a4572f2eef7369647c04eb1479567ea95e4"
+    },
+    {
+      "path": "project.godot",
+      "bytes": 707,
+      "sha256": "7c7d58c0f1725e1f2ca5de05e5defc40319d70c5287af00135a2a708ef4345d0"
+    }
+  ]
+}

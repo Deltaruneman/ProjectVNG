@@ -1,0 +1,275 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+PASS new game retains starter blade
+PASS invalid grants/equips rejected
+PASS consumables stack by definition
+PASS cannot equip consumable
+PASS equip owned item item_2
+PASS equip owned item item_4
+PASS equip owned item item_5
+PASS equip owned item item_6
+PASS exactly four named equipment slots
+PASS inventory persists across save/load
+PASS unrelated payload preserved
+PASS ordinary weapon excludes elemental enchants
+PASS resonant weapon allows elemental enchants
+PASS enchant rejects armor and unowned items
+PASS three distinct eligible enchant choices
+PASS same selected weapon keeps offers
+PASS insufficient SP cannot enchant
+PASS invalid choice and wrong weapon rejected
+PASS one choice consumes exactly its quoted SP
+PASS duplicate consumed offer rejected
+PASS stale UI offer epoch rejected after reroll
+PASS pending offers and spent enchant SP persist
+PASS tree reset does not refund enchant or reduce earned-SP gates
+PASS load rejects wrong slots/elemental enchants and clamps ranks
+PASS load reconstructs unique instance counter
+PASS maxed weapon does not offer impossible upgrades
+PASS supplied art loads starter_blade
+PASS supplied art loads bow
+PASS supplied art loads throwing_knife
+PASS supplied art loads armor
+PASS supplied art loads charm
+PASS supplied art loads healing_potion
+PASS supplied art loads sword
+PASS supplied art loads sword_wind
+PASS supplied art loads sword_fire
+PASS supplied art loads sword_ice
+PASS supplied art loads sword_lightning
+PASS supplied art loads axe
+PASS supplied art loads axe_wind
+PASS supplied art loads axe_fire
+PASS supplied art loads axe_ice
+PASS supplied art loads axe_lightning
+PASS supplied art loads spear
+PASS supplied art loads spear_wind
+PASS supplied art loads spear_fire
+PASS supplied art loads spear_ice
+PASS supplied art loads spear_lightning
+PASS supplied art loads dagger
+PASS supplied art loads dagger_wind
+PASS supplied art loads dagger_fire
+PASS supplied art loads dagger_ice
+PASS supplied art loads dagger_lightning
+PASS supplied art loads bow_wind
+PASS supplied art loads bow_fire
+PASS supplied art loads bow_ice
+PASS supplied art loads bow_lightning
+PASS supplied art loads throwing_knife_wind
+PASS supplied art loads throwing_knife_fire
+PASS supplied art loads throwing_knife_ice
+PASS supplied art loads throwing_knife_lightning
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS equipping weapon replaces current Blade sprite
+PASS equipped armor applies HP bonus
+PASS re-equipping armor cannot heal for free
+PASS consume potion heals and decrements one
+PASS full HP cannot waste consumable
+PASS unequipping main hides blade
+PASS resonant main uses supplied glow atlas
+PASS matching resonance plus charm buffs elemental skill
+PASS wrong element gets charm only
+PASS neutral slot 1 assigned equipped offhand only
+PASS elemental offhand locked without upgrade
+PASS upgrade requires unlocked elemental skill 1
+PASS skill 1 resonance upgrade spends SP and enables offhand
+Player: changing from state Fall to Skill
+PASS actual Skill state launches equipped elemental offhand
+PASS offhand cast starts shared skill cooldown
+PASS offhand converges on existing 3D aim target
+Player: changing from state Skill to Idle
+PASS duplicate upgrade rejected
+PASS offhand upgrade survives reload
+PASS tree reset clears elemental upgrades; neutral offhand remains
+Player: changing from state Idle to Attack
+PASS weapon attack tempo sword
+PASS weapon attack reach sword
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape sword
+Player: changing from state Idle to Attack
+PASS weapon attack tempo axe
+PASS weapon attack reach axe
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape axe
+Player: changing from state Idle to Attack
+PASS weapon attack tempo spear
+PASS weapon attack reach spear
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape spear
+Player: changing from state Idle to Attack
+PASS weapon attack tempo dagger
+PASS weapon attack reach dagger
+Player: changing from state Attack to Idle
+PASS attack restores shared animation/shape dagger
+Player: changing from state Idle to Fall
+PASS B opens inventory and pauses gameplay
+PASS inventory panel fits square viewport
+PASS skill tree cannot steal inventory pause
+PASS Escape closes and releases inventory pause
+PASS P opens cheat menu
+PASS inventory cannot take pause owned by settings
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow//base
+PASS cast weapon replaces blade and respects depth bow//base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade bow//base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow/wind/base
+PASS cast weapon replaces blade and respects depth bow/wind/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade bow/wind/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow/wind/upgraded
+PASS cast weapon replaces blade and respects depth bow/wind/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade bow/wind/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast bow/fire/base
+PASS cast weapon replaces blade and respects depth bow/fire/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade bow/fire/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow/fire/upgraded
+PASS cast weapon replaces blade and respects depth bow/fire/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade bow/fire/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast bow/ice/base
+PASS cast weapon replaces blade and respects depth bow/ice/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade bow/ice/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow/ice/upgraded
+PASS cast weapon replaces blade and respects depth bow/ice/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade bow/ice/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast bow/lightning/base
+PASS cast weapon replaces blade and respects depth bow/lightning/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade bow/lightning/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast bow/lightning/upgraded
+PASS cast weapon replaces blade and respects depth bow/lightning/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade bow/lightning/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife//base
+PASS cast weapon replaces blade and respects depth throwing_knife//base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade throwing_knife//base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/wind/base
+PASS cast weapon replaces blade and respects depth throwing_knife/wind/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/wind/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/wind/upgraded
+PASS cast weapon replaces blade and respects depth throwing_knife/wind/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/wind/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/fire/base
+PASS cast weapon replaces blade and respects depth throwing_knife/fire/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/fire/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/fire/upgraded
+PASS cast weapon replaces blade and respects depth throwing_knife/fire/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/fire/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/ice/base
+PASS cast weapon replaces blade and respects depth throwing_knife/ice/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/ice/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/ice/upgraded
+PASS cast weapon replaces blade and respects depth throwing_knife/ice/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/ice/upgraded
+Player: changing from state Hurt to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/lightning/base
+PASS cast weapon replaces blade and respects depth throwing_knife/lightning/base
+Player: changing from state Skill to Idle
+Player: changing from state Idle to Fall
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/lightning/base
+Player: changing from state Fall to Skill
+PASS actual equipped offhand appears during first-skill cast throwing_knife/lightning/upgraded
+PASS cast weapon replaces blade and respects depth throwing_knife/lightning/upgraded
+Player: changing from state Skill to Hurt
+PASS cast exit/interruption hides offhand and balances blade throwing_knife/lightning/upgraded
+Player: changing from state Hurt to Idle
+PASS other skill slots do not show offhand
+PASS no offhand equipped produces no phantom cast weapon
+Player: changing from state Idle to Fall
+PASS offhand hits nearest enemy exactly once 
+PASS wind alone pierces second enemy 
+PASS offhand hits nearest enemy exactly once fire
+PASS wind alone pierces second enemy fire
+PASS fire shot applies existing burn
+PASS offhand hits nearest enemy exactly once ice
+PASS wind alone pierces second enemy ice
+PASS ice shot applies existing slow
+PASS offhand hits nearest enemy exactly once lightning
+PASS wind alone pierces second enemy lightning
+PASS lightning shot applies existing stun
+PASS offhand hits nearest enemy exactly once wind
+PASS wind alone pierces second enemy wind
+PASS axe applies additional horizontal knockback
+PASS world wall blocks and destroys even wind projectile
+PASS muzzle cannot spawn projectile through a near wall
+PASS sharpness enchant increases actual attack damage
+PASS haste enchant reduces actual skill cooldown
+PASS resonance and affliction enchants buff matching skill damage and status duration
+PASS lifesteal enchant heals live Player on seeded weapon contacts
+PASS critical enchant produces seeded double damage alongside normal hits
+PASS impact enchant staggers existing enemy through public status API
+PASS projectile expires at range without return
+INVENTORY_RESULT 176/176 passed; failures=0
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

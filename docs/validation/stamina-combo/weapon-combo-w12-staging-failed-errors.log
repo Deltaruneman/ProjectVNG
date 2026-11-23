@@ -1,0 +1,52 @@
+SCRIPT ERROR: Parse Error: Could not preload resource script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/player.gd:5)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/player.gd:5)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/player.gd:5)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/player_hud.gd:0)
+ERROR: Failed to load script "res://ui/player_hud.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:5 - ext_resource, invalid UID: uid://dsuk1m8k46ji7 - using text path instead: res://assets/foxy/fox_hat/foxy_hat_full_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/states/weapon_attack.gd:3)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/states/weapon_attack.gd:3)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "effect" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/states/weapon_attack.gd:542)
+ERROR: Failed to load script "res://scenes/player/states/weapon_attack.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/objects/elemental_orb.gd:3)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/objects/elemental_orb.gd:3)
+ERROR: Failed to load script "res://scenes/objects/elemental_orb.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/states/skillstate.gd:3)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/states/skillstate.gd:3)
+ERROR: Failed to load script "res://scenes/player/states/skillstate.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/states/dash.gd:4)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/states/dash.gd:4)
+ERROR: Failed to load script "res://scenes/player/states/dash.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scenes/player/battle_vfx.gd".
+   at: GDScript::reload (res://scenes/player/parry.gd:3)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "BattleFX" constant because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/player/parry.gd:3)
+ERROR: Failed to load script "res://scenes/player/parry.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+WARNING: res://scenes/enemies/crab/crab.tscn:4 - ext_resource, invalid UID: uid://dsn80h3kc0ccy - using text path instead: res://assets/monsters/crab/crab_sprite_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+SCRIPT ERROR: Parse Error: Could not resolve class "BattleVFX", because of a parser error.
+   at: GDScript::reload (res://tests/weapon_combo_check.gd:67)
+ERROR: Failed to load script "res://tests/weapon_combo_check.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

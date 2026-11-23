@@ -1,0 +1,15 @@
+LICENSE
+
+These sprites are free game assets. By downloading this pack you receive a non-exclusive, non-transferable license.
+
+You MAY:
+  - use the sprites in your own games, servers and other interactive projects, commercial or not;
+  - edit, recolor and resize them to fit your project.
+
+You MAY NOT:
+  - resell, share, give away or redistribute the sprites, edited or not, as files, asset packs or sprite sheets;
+  - claim authorship of the original artwork;
+  - use the sprites to train machine-learning models or to create competing asset packs.
+
+The preview images published by the seller are for display only and carry no license.
+All rights not expressly granted above are reserved by the seller.

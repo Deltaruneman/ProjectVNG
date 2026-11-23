@@ -1,0 +1,83 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+ISOLATED_USER_DATA C:/Users/BaoHo/AppData/Roaming/ArcanaInventory-20261117
+PASS new game starts at level 1 with 100 EXP threshold
+PASS nonpositive EXP rejected
+PASS four normal rewards produce 80 EXP and no SP
+PASS fifth normal reward grants level 2 and exactly 3 SP
+PASS repeated unique reward rejected
+PASS multi-level award retains overflow and grants 3 SP per level
+PASS one ordered signal per earned level
+PASS threshold rises by 50 each level
+PASS unknown and wrong-form purchases rejected
+PASS element selection costs 1 SP
+PASS cannot buy second form
+PASS first active costs 1 SP
+PASS active skill cannot be purchased twice
+PASS evolution prerequisite enforced
+PASS advanced active costs 4 SP
+PASS insufficient SP rejected despite reached milestone
+PASS second character rank quotes 2 SP
+PASS second character rank charges 2 SP and third quotes 3
+PASS ultimate and late evolution quote their higher costs
+PASS weighted spending total remains exact
+PASS new save round trip retains level EXP and weighted purchases
+PASS reset refunds exact weighted cost
+PASS repeat reset creates no SP and preserves EXP
+PASS maximum character rank enforced
+PASS legacy save preserves SP skills and form without retroactive charges
+PASS legacy purchase basis and collected IDs retained
+PASS mixed legacy and new purchases refund exact amount after reload
+PASS unknown payload and world flags survive progression saves
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+PASS HUD starts level 1 with empty EXP and no book badge
+PASS unchanged enemy death path spawns an EXP pickup
+PASS EXP homes from distance before contact without early award
+PASS automatic homing awards exactly 20 EXP on arrival
+PASS repeat contact cannot double award
+PASS dead Player cannot attract or collect EXP
+PASS five-unit boss pickup converts to 100 EXP with overflow
+PASS level EXP and red SP badge refresh after pickup
+PASS level-up notice shows +3 SP
+PASS unique boss drop stays consumed
+PASS EXP bar spans bottom viewport (480, 270)
+PASS EXP bar spans bottom viewport (800, 270)
+PASS EXP bar spans bottom viewport (360, 360)
+PASS T opens Skill Tree and hides gameplay EXP HUD
+PASS Skill Tree shows actual SP balance
+PASS spending all SP removes red badge
+PASS advanced skill UI displays actual 4 SP price and disables purchase
+PASS Escape restores EXP HUD
+PASS stage teardown preserves progression in autoload
+PASS new-game memory reset clears progression
+EXP_RESULT 48 checks, 0 failures

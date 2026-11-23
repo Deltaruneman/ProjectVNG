@@ -1,0 +1,1285 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+ERROR: Failed loading resource: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png.
+   at: _load (core/io/resource_loader.cpp:317)
+[  66% ] first_scan_filesystem | Initializing plugins...
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/StyleEditor/styles_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/StyleEditor/styles_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/variable.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/variable.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Unrecognized UID: "uid://dybg3l5pwetne".
+   at: get_id_path (core/io/resource_uid.cpp:214)
+   GDScript backtrace (most recent call first):
+       [0] _get_plugin_icon (res://addons/dialogic/plugin.gd:71)
+ERROR: Condition "local_path.is_empty()" is true. Returning: Ref<ResourceLoader::LoadToken>()
+   at: _load_start (core/io/resource_loader.cpp:752)
+   GDScript backtrace (most recent call first):
+       [0] _get_plugin_icon (res://addons/dialogic/plugin.gd:71)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/dialogic-logo.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/Common/sidebar.gd:53)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/dialogic-logo.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/Common/sidebar.gd:53)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/HomePage/icon_bg.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/HomePage/icon_bg.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/dialogic-logo.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/dialogic-logo.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Editor/HomePage/home_page.gd:11)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Editor/HomePage/home_page.gd:11)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:40)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-timeline.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:41)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-timeline.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:41)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:181)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:41)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:181)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:41)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] setup_portrait_list_tab (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:305)
+       [1] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:155)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] setup_portrait_list_tab (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:305)
+       [1] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:155)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:51)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:51)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:42)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/add-glossary.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Modules/Glossary/glossary_editor.gd:32)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/add-glossary.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Modules/Glossary/glossary_editor.gd:32)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Glossary/glossary_editor.gd:19)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Glossary/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Glossary/glossary_editor.gd:19)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/StyleEditor/styles_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/StyleEditor/style_editor.gd:24)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/StyleEditor/styles_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/StyleEditor/style_editor.gd:24)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:71)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Pieces/add-folder.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/variable.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Variable/variables_editor/variables_editor.gd:13)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/variable.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Variable/variables_editor/variables_editor.gd:13)
+       [1] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:74)
+       [2] _ready (res://addons/dialogic/Editor/editors_manager.gd:47)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] register_settings_section (res://addons/dialogic/Editor/Settings/settings_editor.gd:42)
+       [1] _ready (res://addons/dialogic/Editor/Settings/settings_editor.gd:34)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:48)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] register_settings_section (res://addons/dialogic/Editor/Settings/settings_editor.gd:42)
+       [1] _ready (res://addons/dialogic/Editor/Settings/settings_editor.gd:34)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:48)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] register_settings_section (res://addons/dialogic/Editor/Settings/settings_editor.gd:42)
+       [1] _ready (res://addons/dialogic/Editor/Settings/settings_editor.gd:34)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:48)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] register_settings_section (res://addons/dialogic/Editor/Settings/settings_editor.gd:42)
+       [1] _ready (res://addons/dialogic/Editor/Settings/settings_editor.gd:34)
+       [2] _add_editor (res://addons/dialogic/Editor/editors_manager.gd:72)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:48)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-timeline.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:21)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-timeline.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:21)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Audio/icon_music.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Audio/event_audio.gd:84)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Audio/icon_music.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Audio/event_audio.gd:84)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Background/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Background/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Call/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Call/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Character/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Character/event_character.gd:214)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Character/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Character/event_character.gd:214)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Choice/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Choice/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Clear/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Clear/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Comment/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Comment/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Condition/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Condition/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/End/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/End/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_jump.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_jump.gd:66)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_jump.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_jump.gd:66)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_label.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_label.gd:46)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_label.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_label.gd:46)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_return.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_return.gd:34)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_return.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_return.gd:34)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Signal/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Signal/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Style/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Style/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/TextInput/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/TextInput/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Voice/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Voice/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Wait/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Wait/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/WaitInput/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/WaitInput/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Text/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Text/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _register (res://addons/dialogic/Editor/TimelineEditor/timeline_editor.gd:45)
+       [3] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [4] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _register (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:30)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Toolbar/add-character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _register (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:30)
+       [1] _ready (res://addons/dialogic/Editor/editors_manager.gd:55)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/Common/ReferenceManager_AddReplacementPanel.gd:15)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/Common/ReferenceManager_AddReplacementPanel.gd:15)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] update_theme_additions (res://addons/dialogic/Editor/editor_main.gd:248)
+       [1] _ready (res://addons/dialogic/Editor/editor_main.gd:43)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/plugin-icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] update_theme_additions (res://addons/dialogic/Editor/editor_main.gd:248)
+       [1] _ready (res://addons/dialogic/Editor/editor_main.gd:43)
+       [2] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Audio/icon_music.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Audio/event_audio.gd:84)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Audio/icon_music.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Audio/event_audio.gd:84)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Background/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Background/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Call/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Call/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Character/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Character/event_character.gd:214)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Character/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Character/event_character.gd:214)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Choice/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Choice/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Clear/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Clear/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Comment/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Comment/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Condition/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Condition/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/End/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/End/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_jump.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_jump.gd:66)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_jump.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_jump.gd:66)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_label.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_label.gd:46)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_label.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_label.gd:46)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_return.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_return.gd:34)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Jump/icon_return.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Modules/Jump/event_return.gd:34)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Signal/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Signal/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Style/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Style/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/TextInput/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/TextInput/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Variable/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Voice/icon.png. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Voice/icon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Wait/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Wait/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/WaitInput/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/WaitInput/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Text/icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Modules/Text/icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _get_icon (res://addons/dialogic/Resources/event.gd:460)
+       [1] load_event_buttons (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:243)
+       [2] _ready (res://addons/dialogic/Editor/TimelineEditor/VisualEditor/timeline_editor_visual.gd:194)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/portrait.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/char_edit_section_portraits.gd:21)
+       [1] add_settings_section (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:229)
+       [2] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/portrait.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/char_edit_section_portraits.gd:21)
+       [1] add_settings_section (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:229)
+       [2] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:174)
+       [3] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:181)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:181)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:181)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:181)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:186)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/increment_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:186)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:186)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Interactable/decrement_icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://addons/dialogic/Editor/CharacterEditor/character_editor.gd:186)
+       [1] _enter_tree (res://addons/dialogic/plugin.gd:39)
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] update_resource_list (res://addons/dialogic/Editor/Common/sidebar.gd:201)
+       [1] reload_resource_list_from_grouping (res://addons/dialogic/Editor/Common/sidebar.gd:574)
+       [2] _ready (res://addons/dialogic/Editor/Common/sidebar.gd:121)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] update_resource_list (res://addons/dialogic/Editor/Common/sidebar.gd:201)
+       [1] reload_resource_list_from_grouping (res://addons/dialogic/Editor/Common/sidebar.gd:574)
+       [2] _ready (res://addons/dialogic/Editor/Common/sidebar.gd:121)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg. The file doesn't seem to exist.
+   at: _load_resource_on_startup (editor/file_system/editor_file_system.cpp:3472)
+   GDScript backtrace (most recent call first):
+       [0] update_resource_list (res://addons/dialogic/Editor/Common/sidebar.gd:201)
+       [1] _on_editors_editor_changed (res://addons/dialogic/Editor/Common/sidebar.gd:167)
+       [2] open_editor (res://addons/dialogic/Editor/editors_manager.gd:165)
+       [3] load_saved_state (res://addons/dialogic/Editor/editors_manager.gd:220)
+       [4] _ready (res://addons/dialogic/Editor/editors_manager.gd:62)
+ERROR: Failed loading resource: res://addons/dialogic/Editor/Images/Resources/character.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] update_resource_list (res://addons/dialogic/Editor/Common/sidebar.gd:201)
+       [1] _on_editors_editor_changed (res://addons/dialogic/Editor/Common/sidebar.gd:167)
+       [2] open_editor (res://addons/dialogic/Editor/editors_manager.gd:165)
+       [3] load_saved_state (res://addons/dialogic/Editor/editors_manager.gd:220)
+       [4] _ready (res://addons/dialogic/Editor/editors_manager.gd:62)
+[   0% ] update_scripts_classes | Started Registering global classes... (2 steps)
+[   0% ] update_scripts_classes | 
+[  33% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started Scanning actions... (78 steps)
+[   0% ] _update_scan_actions | pixel_ui_font.png
+[   1% ] _update_scan_actions | spear-sweep.png
+[   2% ] _update_scan_actions | ._Close_book_boolmarks.png
+[   3% ] _update_scan_actions | ._Open_book_bookmarks1.png
+[   5% ] _update_scan_actions | ._Open_book_bookmarks2.png
+[   6% ] _update_scan_actions | ._Turning_pages_left.png
+[   7% ] _update_scan_actions | ._Turning_pages_right.png
+[   8% ] _update_scan_actions | ._Icon1.png
+[  10% ] _update_scan_actions | ._Icon1_big.png
+[  11% ] _update_scan_actions | ._Icon2.png
+[  12% ] _update_scan_actions | ._Icon2_big.png
+[  13% ] _update_scan_actions | ._Icon3.png
+[  15% ] _update_scan_actions | ._Icon3_big.png
+[  16% ] _update_scan_actions | ._Icon4.png
+[  17% ] _update_scan_actions | ._Icon4_big.png
+[  18% ] _update_scan_actions | ._Icon5.png
+[  20% ] _update_scan_actions | ._Icon5_big.png
+[  21% ] _update_scan_actions | ._Icon6.png
+[  22% ] _update_scan_actions | ._Icon6_big.png
+[  24% ] _update_scan_actions | ._Icon7.png
+[  25% ] _update_scan_actions | ._Icon7_big.png
+[  26% ] _update_scan_actions | ._Icon8.png
+[  27% ] _update_scan_actions | ._Icon8_big.png
+[  29% ] _update_scan_actions | ._Icon9.png
+[  30% ] _update_scan_actions | ._Icon9_big.png
+[  31% ] _update_scan_actions | ._Icon10.png
+[  32% ] _update_scan_actions | ._Icon10_big.png
+[  34% ] _update_scan_actions | ._Icon11.png
+[  35% ] _update_scan_actions | ._Icon11_big.png
+[  36% ] _update_scan_actions | ._Icon12.png
+[  37% ] _update_scan_actions | ._Icon12_big.png
+[  39% ] _update_scan_actions | ._Icon13.png
+[  40% ] _update_scan_actions | ._Icon13_big.png
+[  41% ] _update_scan_actions | ._Icon14.png
+[  43% ] _update_scan_actions | ._Icon14_big.png
+[  44% ] _update_scan_actions | ._Icon15.png
+[  45% ] _update_scan_actions | ._Icon15_big.png
+[  46% ] _update_scan_actions | ._Icon16.png
+[  48% ] _update_scan_actions | ._Icon16_big.png
+[  49% ] _update_scan_actions | ._Icon17.png
+[  50% ] _update_scan_actions | ._Icon17_big.png
+[  51% ] _update_scan_actions | ._Icon18.png
+[  53% ] _update_scan_actions | ._Icon18_big.png
+[  54% ] _update_scan_actions | ._Icon19.png
+[  55% ] _update_scan_actions | ._Icon19_big.png
+[  56% ] _update_scan_actions | ._Icon20.png
+[  58% ] _update_scan_actions | ._Icon20_big.png
+[  59% ] _update_scan_actions | ._bookmarks.png
+[  60% ] _update_scan_actions | ._book_content.png
+[  62% ] _update_scan_actions | ._Close_book.png
+[  63% ] _update_scan_actions | ._Close_book_boolmarks.png
+[  64% ] _update_scan_actions | ._Icons.png
+[  65% ] _update_scan_actions | ._info_tileset.png
+[  67% ] _update_scan_actions | ._Open_book.png
+[  68% ] _update_scan_actions | ._Open_book_bookmarks1.png
+[  69% ] _update_scan_actions | ._Open_book_bookmarks2.png
+[  70% ] _update_scan_actions | ._pages_apper.png
+[  72% ] _update_scan_actions | ._pages_desappear-Sheet.png
+[  73% ] _update_scan_actions | ._sells_full.png
+[  74% ] _update_scan_actions | ._Text1.png
+[  75% ] _update_scan_actions | ._Text2.png
+[  77% ] _update_scan_actions | ._Turning_pages_left.png
+[  78% ] _update_scan_actions | ._Turning_pages_right.png
+[  79% ] _update_scan_actions | ._bookmarks.png
+[  81% ] _update_scan_actions | ._book_content.png
+[  82% ] _update_scan_actions | ._Close_book.png
+[  83% ] _update_scan_actions | ._Close_book_boolmarks.png
+[  84% ] _update_scan_actions | ._Icons.png
+[  86% ] _update_scan_actions | ._info_tileset.png
+[  87% ] _update_scan_actions | ._Open_book.png
+[  88% ] _update_scan_actions | ._Open_book_bookmarks1.png
+[  89% ] _update_scan_actions | ._Open_book_bookmarks2.png
+[  91% ] _update_scan_actions | ._pages_apper.png
+[  92% ] _update_scan_actions | ._pages_desappear-Sheet.png
+[  93% ] _update_scan_actions | ._sells_full.png
+[  94% ] _update_scan_actions | ._Turning_pages_left.png
+[  96% ] _update_scan_actions | ._Turning_pages_right.png
+[  97% ] _update_scan_actions | ._COUPON.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started (Re)Importing Assets (1 steps)
+[   0% ] reimport | Preparing files to reimport...
+[   0% ] reimport | Executing pre-reimport operations...
+[   0% ] reimport | spear-sweep.png
+[  50% ] reimport | Finalizing Asset Import...
+[ DONE ] reimport
+
+[   0% ] reimport | Started (Re)Importing Assets (1 steps)
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+ERROR: Unrecognized UID: "uid://bbea0efx0ybu7".
+   at: get_id_path (core/io/resource_uid.cpp:214)
+ERROR: Condition "local_path.is_empty()" is true. Returning: Ref<ResourceLoader::LoadToken>()
+   at: _load_start (core/io/resource_loader.cpp:752)
+ERROR: Unrecognized UID: "uid://bbea0efx0ybu7".
+   at: get_id_path (core/io/resource_uid.cpp:214)
+ERROR: Condition "local_path.is_empty()" is true. Returning: Ref<ResourceLoader::LoadToken>()
+   at: _load_start (core/io/resource_loader.cpp:752)
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+ERROR: Unrecognized UID: "uid://bbea0efx0ybu7".
+   at: get_id_path (core/io/resource_uid.cpp:214)
+ERROR: Condition "local_path.is_empty()" is true. Returning: Ref<ResourceLoader::LoadToken>()
+   at: _load_start (core/io/resource_loader.cpp:752)
+ERROR: Unrecognized UID: "uid://bbea0efx0ybu7".
+   at: get_id_path (core/io/resource_uid.cpp:214)
+ERROR: Condition "local_path.is_empty()" is true. Returning: Ref<ResourceLoader::LoadToken>()
+   at: _load_start (core/io/resource_loader.cpp:752)
+[  33% ] loading_editor_layout | Reopening scenes...
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #1, invalid UID: 'uid://dc30shn6vtvrv' - using text path instead: 'res://assets/grid_map/basement/floor_ground_1_floor_ground_1_floor_ground_1.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #2, invalid UID: 'uid://btpq7ll6c821p' - using text path instead: 'res://assets/grid_map/basement/floor_ground_2_floor_ground_2_floor_ground_2.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #3, invalid UID: 'uid://dlis365e8jd6b' - using text path instead: 'res://assets/grid_map/basement/floor_ground_3_floor_ground_3_floor_ground_3.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #4, invalid UID: 'uid://d08elbslikc6q' - using text path instead: 'res://assets/grid_map/basement/floor_path_0_floor_path_0_floor_path_0.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #5, invalid UID: 'uid://cijkfnly2acpx' - using text path instead: 'res://assets/grid_map/basement/floor_path_1_floor_path_1_floor_path_1.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #6, invalid UID: 'uid://4f4ld40xibpu' - using text path instead: 'res://assets/grid_map/basement/floor_path_2_floor_path_2_floor_path_2.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #7, invalid UID: 'uid://cyepukach7163' - using text path instead: 'res://assets/grid_map/basement/floor_path_corner_in_floor_path_corner_in_floor_path_corner_in.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #8, invalid UID: 'uid://ch0otxswkfadt' - using text path instead: 'res://assets/grid_map/basement/floor_path_corner_out_floor_path_corner_out_floor_path_corner_out.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #9, invalid UID: 'uid://basvtaqdspsyd' - using text path instead: 'res://assets/grid_map/basement/stair_beside_bottom_stair_beside_bottom_stair_beside_bottom.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #10, invalid UID: 'uid://dimtcgldlkgll' - using text path instead: 'res://assets/grid_map/basement/stair_beside_medium_stair_beside_medium_stair_beside_medium.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #11, invalid UID: 'uid://bxyvu3ep5k56q' - using text path instead: 'res://assets/grid_map/basement/stair_beside_top_stair_beside_top_stair_beside_top.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #12, invalid UID: 'uid://pcyubbgadaru' - using text path instead: 'res://assets/grid_map/basement/stair_bottom_left_stair_bottom_left_stair_bottom_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #13, invalid UID: 'uid://dmiwnkfr1ydti' - using text path instead: 'res://assets/grid_map/basement/stair_bottom_right_stair_bottom_right_stair_bottom_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #14, invalid UID: 'uid://d0iplr708330d' - using text path instead: 'res://assets/grid_map/basement/stair_medium_left_stair_medium_left_stair_medium_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #15, invalid UID: 'uid://bcyjuqgcu8g72' - using text path instead: 'res://assets/grid_map/basement/stair_medium_right_stair_medium_right_stair_medium_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #16, invalid UID: 'uid://bh8oa08sh5ovs' - using text path instead: 'res://assets/grid_map/basement/stair_small_left_stair_small_left_stair_small_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #17, invalid UID: 'uid://dtmr3ay2v82e0' - using text path instead: 'res://assets/grid_map/basement/stair_small_right_stair_small_right_stair_small_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #18, invalid UID: 'uid://t7bsexb22vvy' - using text path instead: 'res://assets/grid_map/basement/stair_top_left_stair_top_left_stair_top_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #19, invalid UID: 'uid://hhoou7k0edy0' - using text path instead: 'res://assets/grid_map/basement/stair_top_right_stair_top_right_stair_top_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #20, invalid UID: 'uid://xmfe43qyd6s3' - using text path instead: 'res://assets/grid_map/basement/wall_bottom_wall_bottom_wall_bottom.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #21, invalid UID: 'uid://dp8u6sshth880' - using text path instead: 'res://assets/grid_map/basement/wall_bottom_corner_wall_bottom_corner_wall_bottom_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #22, invalid UID: 'uid://ca5ygb2j0a2vi' - using text path instead: 'res://assets/grid_map/basement/wall_bottom_inner_wall_bottom_inner_wall_bottom_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #23, invalid UID: 'uid://curmugh6ktu6l' - using text path instead: 'res://assets/grid_map/basement/wall_medium_wall_medium_wall_medium.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #24, invalid UID: 'uid://cm5plcpjsvyx5' - using text path instead: 'res://assets/grid_map/basement/wall_medium_corner_wall_medium_corner_wall_medium_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #25, invalid UID: 'uid://c32g0nfb4mn3h' - using text path instead: 'res://assets/grid_map/basement/wall_medium_inner_wall_medium_inner_wall_medium_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #26, invalid UID: 'uid://ceuuxpo1l7bul' - using text path instead: 'res://assets/grid_map/basement/wall_small_wall_small_wall_small.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #27, invalid UID: 'uid://hucbuusmew04' - using text path instead: 'res://assets/grid_map/basement/wall_small_corner_wall_small_corner_wall_small_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #28, invalid UID: 'uid://hj8vcj0mcdwx' - using text path instead: 'res://assets/grid_map/basement/wall_small_inner_wall_small_inner_wall_small_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #29, invalid UID: 'uid://p7urly23al8i' - using text path instead: 'res://assets/grid_map/basement/wall_top_wall_top_wall_top.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #30, invalid UID: 'uid://dc10k8fg48mvn' - using text path instead: 'res://assets/grid_map/basement/wall_top_corner_wall_top_corner_wall_top_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #31, invalid UID: 'uid://dlelfd6vfjrst' - using text path instead: 'res://assets/grid_map/basement/wall_top_inner_wall_top_inner_wall_top_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #1, invalid UID: 'uid://b4dtb1eicssc1' - using text path instead: 'res://assets/grid_map/forest/floor_ground_1_floor_ground_1.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #2, invalid UID: 'uid://bqom160vmtfxk' - using text path instead: 'res://assets/grid_map/forest/floor_ground_2_floor_ground_2.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #3, invalid UID: 'uid://be0f0htf5pgrb' - using text path instead: 'res://assets/grid_map/forest/floor_ground_3_floor_ground_3.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #4, invalid UID: 'uid://bomumdyjmlsy0' - using text path instead: 'res://assets/grid_map/forest/floor_path_0_floor_path_0.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #5, invalid UID: 'uid://dx8kl0mgvmd3u' - using text path instead: 'res://assets/grid_map/forest/floor_path_1_floor_path_1.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #6, invalid UID: 'uid://bwduwp8ilap5n' - using text path instead: 'res://assets/grid_map/forest/floor_path_2_floor_path_2.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #7, invalid UID: 'uid://csq46prg88773' - using text path instead: 'res://assets/grid_map/forest/floor_path_corner_in_floor_path_corner_in.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #8, invalid UID: 'uid://c27iyawplanqt' - using text path instead: 'res://assets/grid_map/forest/floor_path_corner_out_floor_path_corner_out.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #9, invalid UID: 'uid://dfawaxkd475qt' - using text path instead: 'res://assets/grid_map/forest/stair_beside_bottom_stair_beside_bottom.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #10, invalid UID: 'uid://dlxitoacomsd0' - using text path instead: 'res://assets/grid_map/forest/stair_beside_medium_stair_beside_medium.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #11, invalid UID: 'uid://bdgdn87ud64rf' - using text path instead: 'res://assets/grid_map/forest/stair_beside_top_stair_beside_top.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #12, invalid UID: 'uid://bhdx0jip61ic1' - using text path instead: 'res://assets/grid_map/forest/stair_bottom_left_stair_bottom_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #13, invalid UID: 'uid://ca7ciftarllh6' - using text path instead: 'res://assets/grid_map/forest/stair_bottom_right_stair_bottom_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #14, invalid UID: 'uid://cf2xr87a0fsq0' - using text path instead: 'res://assets/grid_map/forest/stair_medium_left_stair_medium_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #15, invalid UID: 'uid://bdpjtrtb53hm5' - using text path instead: 'res://assets/grid_map/forest/stair_medium_right_stair_medium_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #16, invalid UID: 'uid://c575hxt4jyb5f' - using text path instead: 'res://assets/grid_map/forest/stair_small_left_stair_small_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #17, invalid UID: 'uid://duimvl765yb10' - using text path instead: 'res://assets/grid_map/forest/stair_small_right_stair_small_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #18, invalid UID: 'uid://bsutkpdhg31u1' - using text path instead: 'res://assets/grid_map/forest/stair_top_left_stair_top_left.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #19, invalid UID: 'uid://g5i1a3slmjvr' - using text path instead: 'res://assets/grid_map/forest/stair_top_right_stair_top_right.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #20, invalid UID: 'uid://bei8131oj2qyp' - using text path instead: 'res://assets/grid_map/forest/wall_bottom_wall_bottom.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #21, invalid UID: 'uid://134h120g6s26' - using text path instead: 'res://assets/grid_map/forest/wall_bottom_corner_wall_bottom_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #22, invalid UID: 'uid://mikod035286p' - using text path instead: 'res://assets/grid_map/forest/wall_bottom_inner_wall_bottom_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #23, invalid UID: 'uid://d2lwyglb8ecof' - using text path instead: 'res://assets/grid_map/forest/wall_medium_wall_medium.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #24, invalid UID: 'uid://mj7t6mmu1jix' - using text path instead: 'res://assets/grid_map/forest/wall_medium_corner_wall_medium_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #25, invalid UID: 'uid://jghhch5kgmlj' - using text path instead: 'res://assets/grid_map/forest/wall_medium_inner_wall_medium_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #26, invalid UID: 'uid://bfuj42cug3bum' - using text path instead: 'res://assets/grid_map/forest/wall_small_wall_small.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #27, invalid UID: 'uid://bn2mksypj4tun' - using text path instead: 'res://assets/grid_map/forest/wall_small_corner_wall_small_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #28, invalid UID: 'uid://bfxg8t8wc12g8' - using text path instead: 'res://assets/grid_map/forest/wall_small_inner_wall_small_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #29, invalid UID: 'uid://cby87pbe8tw4k' - using text path instead: 'res://assets/grid_map/forest/wall_top_wall_top.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #30, invalid UID: 'uid://7teosyl31s27' - using text path instead: 'res://assets/grid_map/forest/wall_top_corner_wall_top_corner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+WARNING: 'res://assets/meshes/forest_library.meshlib': In external resource #31, invalid UID: 'uid://djmfnvd2sp5wd' - using text path instead: 'res://assets/grid_map/forest/wall_top_inner_wall_top_inner.png'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+[  50% ] loading_editor_layout | Loading central editor layout...
+[  66% ] loading_editor_layout | Loading plugin window layout...
+[  83% ] loading_editor_layout | Editor layout ready.
+[ DONE ] loading_editor_layout
+

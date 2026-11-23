@@ -1,0 +1,2701 @@
+{
+ "frames": {
+  "rice_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rice_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cucumber_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 32,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "zucchini_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 64,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "broccoli_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 96,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "spinach_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 128,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "celery_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 160,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "asparagus_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 192,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "sweet_potato_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 224,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "green_bean_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 256,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "okra_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 288,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "soybean_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 320,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "ginger_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 352,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "pineapple_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 384,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "grape_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 416,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "raspberry_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 448,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "cotton_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 480,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "coffee_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 512,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tea_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 544,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "lavender_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 576,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "tulip_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 608,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "hops_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 640,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "artichoke_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 672,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "bok_choy_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 704,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_mature_sway_0": {
+   "frame": {
+    "x": 0,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_mature_sway_1": {
+   "frame": {
+    "x": 32,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_mature_sway_2": {
+   "frame": {
+    "x": 64,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_mature_sway_3": {
+   "frame": {
+    "x": 96,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_harvest_sway_0": {
+   "frame": {
+    "x": 128,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_harvest_sway_1": {
+   "frame": {
+    "x": 160,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_harvest_sway_2": {
+   "frame": {
+    "x": 192,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  },
+  "rhubarb_harvest_sway_3": {
+   "frame": {
+    "x": 224,
+    "y": 736,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   }
+  }
+ },
+ "meta": {
+  "image": "crops_sway.png",
+  "size": {
+   "w": 256,
+   "h": 768
+  },
+  "scale": "2",
+  "app": "Willosuna"
+ }
+}

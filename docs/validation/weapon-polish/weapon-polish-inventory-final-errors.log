@@ -1,0 +1,173 @@
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/player/player.tscn:5 - ext_resource, invalid UID: uid://dsuk1m8k46ji7 - using text path instead: res://assets/foxy/fox_hat/foxy_hat_full_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/crab/crab.tscn:4 - ext_resource, invalid UID: uid://dsn80h3kc0ccy - using text path instead: res://assets/monsters/crab/crab_sprite_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:4 - ext_resource, invalid UID: uid://cwlrolotif8dn - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_closeattack.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:5 - ext_resource, invalid UID: uid://c3sniasfsmtg7 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_createshield.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:6 - ext_resource, invalid UID: uid://dbymqxr8shcpv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:7 - ext_resource, invalid UID: uid://bv5ai3somg4x5 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:8 - ext_resource, invalid UID: uid://bvs2bfbc3sh51 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_shieldhit.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:9 - ext_resource, invalid UID: uid://dvy5gxnkkod7b - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:10 - ext_resource, invalid UID: uid://l5cyhtktuh3e - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_teleportation.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:11 - ext_resource, invalid UID: uid://bdqqd0swpxi47 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_castspell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:12 - ext_resource, invalid UID: uid://dg2rjd7v18um - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:13 - ext_resource, invalid UID: uid://dqxrww17vv2xv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_explosion.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:14 - ext_resource, invalid UID: uid://b5ctwsvtsox1o - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:15 - ext_resource, invalid UID: uid://b18hmtvud8cki - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:16 - ext_resource, invalid UID: uid://brdjomoqg11ck - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:17 - ext_resource, invalid UID: uid://1q1dvlcxwto4 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_summonspirits.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:18 - ext_resource, invalid UID: uid://c7uo78q3kenvq - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_transformation_into_phase2.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:19 - ext_resource, invalid UID: uid://cv1335fblfda - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:20 - ext_resource, invalid UID: uid://btipqolcx8rqi - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:21 - ext_resource, invalid UID: uid://csi7s0qwdr5sc - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:22 - ext_resource, invalid UID: uid://le6g0x1u1w67 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_summoned.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:6 - ext_resource, invalid UID: uid://bv5ai3somg4x5 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _boss_drop_check (res://tests/inventory_check.gd:506)
+       [1] _ready (res://tests/inventory_check.gd:102)
+       [2] _projectile_checks (res://tests/inventory_check.gd:332)
+       [3] ticks (res://tests/inventory_check.gd:18)
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
