@@ -1,0 +1,12 @@
+label Greeting
+mushroom: Chào bạn! Bạn muốn trò chuyện hay chọn hạt cho khu vườn?
+- Bắt chuyện
+    foxy: Tôi muốn trồng cây. Bạn chỉ tôi cách chăm vườn nhé!
+    mushroom: Mỗi ô đất nhỏ trồng được một cây. Đến gần ô đất rồi nhấn F để gieo hạt.
+    mushroom: Cây lớn sau 90 giây. Nhấn F để thu hoạch; hạt và nông sản nằm trong túi Vật phẩm.
+    jump Greeting
+- Mua bán
+    [signal arg="seed_shop"]
+    [end_timeline]
+- Rời đi
+    [end_timeline]

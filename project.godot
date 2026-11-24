@@ -39,9 +39,13 @@ directories/dtl_directory={
 "example_dialog": "res://dialog/timelines/example_dialog.dtl",
 "example_diatog": "res://dialog/timelines/example_diatog.dtl",
 "first_dialog": "res://dialog/timelines/first_dialog.dtl",
-"mushroom": "res://dialog/timelines/mushroom.dtl"
+"mushroom": "res://dialog/timelines/mushroom.dtl",
+"seed_merchant": "res://dialog/timelines/seed_merchant.dtl"
 }
-layout/style_directory={}
+layout/style_directory={
+"": "res://dialog/customs/dialog_style.tres"
+}
+layout/default_style="res://dialog/customs/dialog_style.tres"
 
 [display]
 

@@ -1941,3 +1941,104 @@ The first probe was excluded because its directory filter omitted the real KayKi
 ### B3 exit rollback follow-up (2026-11-22)
 
 Restored the original Door_b3_exit node block verbatim from the branch baseline. No forward portal instance or Castle target remains in B3. Rendered Godot 4.7.2 Compatibility in the disposable copy passed 77/77 checks and exited 0. F at the restored exit stayed in B3 before and after Dark Fairy's defeat. Defeat still saved B3 clear, and the B1/B2 forward portals, saved clear state, and both reverse doors passed. The retained-resource shutdown diagnostic persisted. This result supersedes the previous B3-to-Castle check.
+
+## Garden / basement verification — 2026-11-23
+
+G01–G03 implemented and focused runtime checks pass. G04 focused verification complete;
+full manual traversal/combat and independent owner review remain NOT RUN. This does not
+close unrelated basement tasks or claim teammate agreement.
+
+Environment: Godot 4.7.2 official, Compatibility renderer (ANGLE / AMD Radeon 780M),
+disposable C:/Users/BaoHo/AppData/Local/Temp/ArcanaGarden-20261123,
+custom user directory ArcanaPlacement-Garden-20261123. Command:
+`Godot_v4.7.2-stable_win64_console.exe --path <copy> --rendering-method gl_compatibility --script res://tests/basement_clear_portal_check.gd -- --isolated-copy`.
+Final check5: **127/127 PASS, exit 0**, no gameplay SCRIPT ERROR, parse failure or
+Dialogic expression error. Source cache and real save/settings were not used for writes.
+
+### G01 — Garden / basement route
+PASSED: real viewport F through split B1 → B2 → B3 → garden, garden → B3 → B2 → B1.
+B3 exit refuses travel before boss clear and opens after terminal defeat. Physics rays
+confirm authored enemy positions, entrances/exits, garden arrival, merchant and all eight
+plot centers have floor support. Existing reverse route and saved clear flags pass.
+Player positioning is controlled by the fixture; complete on-foot traversal is NOT RUN.
+
+### G02 — Revisit persistence
+PASSED: Executioner terminal signal is saved before death animation cleanup, then actual
+scene transition to B1, save reload, and B2 revisit leave exactly four living encounters.
+Ordinary-enemy death persists through a second revisit, leaving three living encounters;
+partial clear keeps the forward portal closed. Full B1/B2 clears persist. Dark Fairy phase
+change does not clear B3; final defeat persists after garden return and save reload.
+Only confirmed authored defeat keys persist; ongoing health/AI state is not saved. Runtime
+spawned summons and unrelated infinite-spawn zones are outside this adapter's scope.
+
+### G03 — Garden farming and merchant
+PASSED: eight existing plots bind to the controller; F opens greeting and locks Player,
+Bắt chuyện / Mua bán / Rời đi are present, F activates focused chat, shop buttons buy the
+four existing crops for exactly four SP, zero SP rejects further purchases. F at soil
+opens planting, consumes one seed and uses a garden-prefixed plot key. Early harvest is
+rejected; timestamp advanced by the fixture past 90 seconds survives actual save and
+scene reload; F harvest grants one produce and repeated harvest grants nothing. Leaving
+releases Player/menu. The legacy sketch scene retains default node path/unprefixed keys
+by source inspection; full sketch runtime regression was not run.
+
+### G04 — Dialogue and viewport
+PASSED: greeting, chat and shop panel bounds in 480×270, 1280×720, 800×800 and 540×960;
+actual Dialogic compact style selected and textbox bounds pass at those four sizes.
+1280×720 screenshots of shop and ordinary dialogue were inspected: readable content,
+inside viewport. Shop has bounded scrolling and back navigation. Existing Dialogic
+choice offset was moved above the textbox; individual choice geometry was not separately
+asserted. Full physical-mouse/controller UX and all other timelines remain unverified.
+
+Evidence: docs/validation/garden-basement-2026-11-23/runtime.log,
+runtime-diagnostics.log, garden-shop.png, garden-dialogue.png.
+Initial test-copy failure: older reusable copy lacked KayKit OBJ dependencies; source
+vendor files copied into disposable project and reimported, without source generators.
+An interim test launched before import completion still had missing UID/dependency
+errors and is not counted. A fixture directly referencing Conversation before autoload
+initialization caused a compile failure; changed to runtime load. An interim mushroom
+sample timeline exposed its pre-existing escaped-condition parse error; final dialogue
+check uses the production door_locked timeline, leaving that unrelated sample unchanged.
+Vendor reimport also reports unused Medieval OBJ author-machine texture paths; final
+exercised scenes load successfully. Final runtime diagnostics retain vendor UID text-path
+fallbacks, 19 ObjectDB instances and one retained resource on shutdown; no claim these
+project-wide cleanup issues are repaired. No independent reviewer acceptance/commit/push.
+
+## G05/G06/G07 — Garden cells, Dialogic and speaker portraits (2026-11-24)
+Implemented and focused rendered verification passed157/157, exit0. Godot4.7.2 Compatibility
+in the previously recorded isolated ArcanaGarden copy/custom save directory. Same invocation
+as G01–G04; final output portraits3.log, diagnostics portraits3-errors.log.
+
+### G05 — Expanded marked cells
+PASSED:32 actual cells, each with label and physics floor support; closest-cell F planting;
+new cell independent of legacy garden/Plot_01 crop; both timestamps survive actual save and
+stage reload; early harvest rejected, mature harvest exactly once without clearing neighbor.
+Overhead screenshot inspected: four groups around central path, expanded soil cells with
+numbered markers. No floor/collision generator used. Full on-foot traversal remains unrun.
+
+### G06 — Real Dialogic conversation
+PASSED: F opens actual timeline with no custom greeting panel; actual Bắt chuyện/Mua bán/
+Rời đi choice labels; chat returns to greeting; purchase handoff/insufficient SP/shop back/
+leave/Escape cleanup; prior split-stage forward/reverse and boss-persistence regressions.
+Textbox and all three choice bounds pass480x270,1280x720,800x800,540x960. Dialogic canvas105
+renders above HUD. Previous interrupted revision4 had passed153/153; subsequent portrait
+work extends that same suite. Full physical mouse/controller UX remains unrun.
+
+### G07 — NPC and Player images
+Root cause (static): both .dch portrait image overrides pointed at nonexistent
+assets/dialog/characters PNGs. Implemented AtlasTextures from actual existing NPC/Player
+sprite sheets. Added Foxy reply to the chat branch. PASSED: actual speaker-mode container
+contains each character's expected visible AtlasTexture;1280x720 captures inspected after
+portrait fade-in/frame draw: mushroom and Foxy appear inside portrait panel beside their
+own dialogue text. NPC and Player swap with the active speaker. No new generated bitmap.
+First test incorrectly queried joined-character API for speaker-only containers; fixture
+corrected to inspect speaker containers. Initial capture preceded fade completion; final
+fixture waits90 physics frames and frame_post_draw. No gameplay fix needed for these
+fixture issues. Final run has no SCRIPT ERROR/parse/Dialogue expression failure; inherited
+vendor UID text-path warnings,19 ObjectDB instances and1 retained resource remain at exit.
+Evidence: docs/validation/garden-portraits-2026-11-24/runtime.log, runtime-diagnostics.log,
+npc-portrait.png, player-portrait.png, garden-cells.png. Source caches/real saves unchanged
+by the isolated test; incoming editor/cache changes retained. Independent owner acceptance
+not supplied; no commit or push. Unrelated basement checkboxes remain unchanged.
+
+### G08 — Remove cell numbers (2026-11-24)
+Implemented user-requested label-only correction in garden.tscn:32 numeric Label3D blocks removed;32 soil cells with existing stable names, positions/resources preserved. Existing regression assertion updated to require no Label child. Static count checks and git diff --check pass; runtime NOT RUN for this reversible presentation change. Prior157/157 remains historical, not a new run. No independent review, commit/push; incoming work preserved.

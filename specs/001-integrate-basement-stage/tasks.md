@@ -991,3 +991,30 @@ Static review confirms migration condition, Player cooldown initialization, dash
 - Status: implemented. See the EnemyPlacement section in `validation.md` for the Godot results and playtest limits. No independent owner approval is recorded.
 
 - Follow-up exit decision (2026-11-22): the user asked to remove the newly added Castle link. Restored the original disabled B3 exit with its empty destination. B3 still tracks Dark Fairy defeat without a forward portal. This supersedes the Castle destination in the previous entry.
+
+## G01–G04 — Garden integration (2026-11-23)
+User-authorized scope/owners/AC are recorded before implementation in docs/project-changes-2026-11-14.txt.
+- [X] G01 Connect boss-gated B3 exit and garden return, retaining checkpoint and reverse routes.
+- [X] G02 Persist confirmed partial encounter defeats and completed boss across revisit/save reload; no living/phase-change false clears. Map progression adapters only; Duy AI unchanged.
+- [X] G03 Reuse existing four-crop farm in garden, preserve sketch save identities, add greeting/chat/purchase-only/leave NPC. User confirms existing 1 SP/seed.
+- [ ] G04 Fit dialogue/shop to viewport; rendered route, persistence, farm and layout checks; record exact limits and review status.
+Independent Quan/Bao/Duy review not supplied; no prior unrelated task closed.
+
+G01–G03 implemented (2026-11-23); G04 focused rendered verification passed 127/127,
+exit 0, including actual F routes, partial/whole defeat persistence, garden farming and
+four viewport sizes. Shop/dialogue screenshots inspected. Full on-foot/manual combat,
+legacy sketch runtime, physical controller/mouse UX and independent review remain unrun.
+See validation.md Garden / basement verification and the cumulative change record.
+
+## G05/G06 — Garden revision (2026-11-24)
+- [X] G05 Expand eight beds into32 marked independent cells, preserving old crops in first cell; Lam/Quan map scope, user authorized. Verify actual scene support, independent planting and save reload.
+- [X] G06 Use Dialogic greeting/chat/trade/leave and handoff to existing seed shop; UI/farm adapter scope, user authorized. Verify actual choices, control/mouse cleanup, shop return and four viewport sizes. Independent review unrun.
+
+G05/G06/G07 focused completion (2026-11-24):32 supported numbered cells with legacy/new
+crop identity persistence, actual Dialogic choices/shop/back/leave/Escape and four viewport
+sizes pass. G07 repairs both missing portrait paths with AtlasTextures from existing sheets,
+adds Foxy reply, verifies actual NPC/Player speaker images and inspects both screenshots.
+Final isolated Godot4.7.2 rendered157/157, exit0. Full manual traversal/controller UX and
+independent review remain unrun; see validation.md and cumulative record.
+
+- [X] G08 (2026-11-24): user requests removing cell numbers. Removed32 numeric Label3D children; preserved32 cells and their stable save keys/positions. Existing regression expectation updated. Static count/whitespace checks passed; runtime not rerun for label-only change. See cumulative record.

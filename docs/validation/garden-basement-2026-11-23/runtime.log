@@ -1,0 +1,433 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS partial revisit fixture finds executioner
+PASS boss defeat saved before death animation finishes
+PASS boss alone does not clear remaining enemies
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS partial clear survives reverse trip and save reload
+PASS partial revisit keeps forward portal closed
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS ordinary defeat persists; living enemies aren't falsely cleared
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS B1 authored enemy count
+PASS B1 arrival has floor support
+PASS B1 floor under NorthMage
+PASS B1 floor under NorthGuard
+PASS B1 floor under EastWizard
+PASS B1 floor under EastGuard
+PASS B1 floor under WestMage
+PASS B1 floor under WestGuard
+PASS B1 floor under SouthMage
+PASS B1 floor under SouthGuard
+PASS B1 portal hidden and inactive
+PASS B1 exit has floor support
+PASS B1 early F cannot advance
+PASS B1 death cleanup 1
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 2
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 3
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 4
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 5
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 6
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 7
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 8
+PASS B1 last defeat opens portal
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS F advances to res://levels/level_1/basement_b2.tscn
+PASS B2 authored enemy count
+PASS B2 arrival has floor support
+PASS B2 floor under WestWizard
+PASS B2 floor under WestGuard
+PASS B2 floor under NorthWizard
+PASS B2 floor under NorthGuard
+PASS B2 floor under UndeadExecutioner
+PASS B2 portal hidden and inactive
+PASS B2 exit has floor support
+PASS B2 early F cannot advance
+PASS B2 death cleanup 1
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 2
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 3
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 4
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 5
+PASS B2 last defeat opens portal
+PASS B2 satisfies the existing B3 gate
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS F advances to res://levels/level_1/basement_b3.tscn
+PASS B3 authored enemy count
+PASS B3 arrival has floor support
+PASS B3 floor under DarkFairy
+PASS B3 garden exit is boss-gated
+PASS B3 exit has floor support
+PASS B3 early F cannot advance
+PASS Dark Fairy phase change does not clear B3
+PASS B3 death cleanup 1
+PASS Dark Fairy defeat records B3 clear
+PASS B3 exit unlocks after final defeat
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/garden.tscn
+PASS garden binds eight existing plots
+PASS garden arrival has floor support
+PASS merchant has floor support
+PASS garden plot has floor support: Plot_01
+PASS garden plot has floor support: Plot_02
+PASS garden plot has floor support: Plot_03
+PASS garden plot has floor support: Plot_04
+PASS garden plot has floor support: Plot_05
+PASS garden plot has floor support: Plot_06
+PASS garden plot has floor support: Plot_07
+PASS garden plot has floor support: Plot_08
+PASS F opens merchant greeting and locks combat
+PASS merchant offers chat / trade / leave
+PASS F activates focused chat option
+PASS four seed purchases cost exactly four SP
+PASS insufficient SP cannot purchase
+PASS merchant greeting fits (480, 270)
+PASS merchant chat fits (480, 270)
+PASS merchant shop fits (480, 270)
+PASS merchant greeting fits (1280, 720)
+PASS merchant chat fits (1280, 720)
+PASS merchant shop fits (1280, 720)
+PASS merchant greeting fits (800, 800)
+PASS merchant chat fits (800, 800)
+PASS merchant shop fits (800, 800)
+PASS merchant greeting fits (540, 960)
+PASS merchant chat fits (540, 960)
+PASS merchant shop fits (540, 960)
+PASS leave releases player and menu
+PASS F at garden soil opens planting
+PASS plant consumes one seed and uses garden-specific identity
+PASS early harvest rejected
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS actual save and stage reload retain seeds and crop
+PASS F harvest awards once and clears plot
+PASS Dialogic selects game's compact style
+PASS Dialogic textbox fits (480, 270)
+PASS Dialogic textbox fits (1280, 720)
+PASS Dialogic textbox fits (800, 800)
+PASS Dialogic textbox fits (540, 960)
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/basement_b3.tscn
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS garden return never revives Dark Fairy
+PASS saved clear flag b1_split_cleared
+PASS saved clear flag b2_split_cleared
+PASS saved clear flag b2_cleared
+PASS saved clear flag b3_split_cleared
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B1 stays cleared when revisited
+PASS B1 portal stays open
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B2 stays cleared when revisited
+PASS B2 portal stays open
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B3 stays cleared when revisited
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/basement_b2.tscn
+PASS exit interaction is available
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/basement_b1.tscn
+TOTAL 127/127
+Player: starting with state Idle

@@ -19,7 +19,7 @@
 &"portraits": {
 "normal": {
 "export_overrides": {
-"image": "\"res://assets/dialog/characters/foxy.png\""
+"image": "\"res://dialog/portraits/foxy.tres\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),

@@ -138,10 +138,11 @@ metadata/note = "Thang xuống B2"
 [node name="Door_b3_exit" parent="B3" unique_id=458261634 instance=ExtResource("door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 3)
 id = "b3_exit"
-target_stage = ""
-target_door = ""
-transition_enabled = false
-metadata/note = "Lối lên mặt đất — CHƯA gán target_stage/target_door"
+target_stage = "res://levels/level_1/garden.tscn"
+target_door = "garden_from_basement"
+locked = true
+unlock_flag = "b3_split_cleared"
+metadata/note = "Lối lên Garden, mở sau khi hạ Dark Fairy."
 
 [node name="Enemies" type="Node3D" parent="B3"]
 
