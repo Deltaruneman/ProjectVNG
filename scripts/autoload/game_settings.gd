@@ -2,6 +2,7 @@ extends Node
 ## Preferences are independent of checkpoint progress. Only primitive data is loaded.
 signal changed
 const PATH := "user://settings.cfg"
+const DEFAULT_CAMERA_VIEW_MODE := 1 # TPS; enum values stay compatible with saved choices.
 const ACTIONS := {
 	"inventory": "Túi đồ", "cheat_menu": "Menu thử nghiệm",
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
@@ -23,7 +24,7 @@ var values: Dictionary = {}
 var defaults: Dictionary = {}
 var bindings: Dictionary = {}
 var default_bindings: Dictionary = {}
-var camera_view_mode := 0
+var camera_view_mode := DEFAULT_CAMERA_VIEW_MODE
 var settings_path := PATH
 var load_notice := ""
 var _focused := true
@@ -63,7 +64,7 @@ func reset_defaults() -> void:
 	apply()
 
 func load_settings() -> void:
-	camera_view_mode = 0
+	camera_view_mode = DEFAULT_CAMERA_VIEW_MODE
 	values = defaults.duplicate(true)
 	bindings = default_bindings.duplicate(true)
 	load_notice = ""
@@ -74,7 +75,7 @@ func load_settings() -> void:
 	if error != OK or config.get_value("meta", "version", 0) != 1:
 		load_notice = "Không đọc được cài đặt cũ; đang dùng mặc định."
 		return
-	var saved_view: Variant = config.get_value("camera", "view_mode", 0)
+	var saved_view: Variant = config.get_value("camera", "view_mode", DEFAULT_CAMERA_VIEW_MODE)
 	if saved_view is int and saved_view in [0, 1, 2]:
 		camera_view_mode = saved_view
 	for key: String in defaults:

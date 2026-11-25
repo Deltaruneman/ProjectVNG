@@ -40,6 +40,10 @@ func _on_interacted() -> void:
 	GameManager.change_stage(target_stage, target_door)
 
 func _tell_locked() -> void:
+	var story := get_tree().current_scene.get_node_or_null("BasementStory")
+	if unlock_flag == "b2_cleared" and story != null:
+		story.play_event("b2_locked")
+		return
 	for body: Node3D in $InteractiveArea3D.get_overlapping_bodies():
 		if body is Player:
 			Conversation.play("door_locked", body)

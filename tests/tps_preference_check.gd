@@ -2,13 +2,16 @@ extends "res://tests/weapon_combo_check.gd"
 var rig: CameraRig
 
 func _ready() -> void:
-	if not "ArcanaInventory" in OS.get_user_data_dir():
+	if not ("ArcanaInventory" in OS.get_user_data_dir() or "ArcanaCameraDefaults-" in OS.get_user_data_dir()):
 		get_tree().quit(2)
 		return
 	SaveSystem.save_path = "user://tps-fixture-save.json"
 	GameManager.reset()
 	GameSettings.settings_path = "user://tps-fixture-settings.cfg"
-	GameSettings.camera_view_mode = 0
+	GameSettings.settings_path = "user://tps-missing-settings.cfg"
+	GameSettings.load_settings()
+	check(GameSettings.camera_view_mode == CameraRig.ViewMode.TPS, "missing settings default to TPS")
+	GameSettings.settings_path = "user://tps-fixture-settings.cfg"
 	var env := WorldEnvironment.new()
 	env.environment = Environment.new()
 	env.environment.background_mode = Environment.BG_COLOR
@@ -22,6 +25,7 @@ func _ready() -> void:
 	rig.target = player
 	add_child(rig)
 	rig.set_process_input(false) # Native cursor recenter events must not perturb synthetic look tests.
+	check(rig.view_mode == CameraRig.ViewMode.TPS, "fresh actual rig starts TPS")
 	rig.set_view_mode(CameraRig.ViewMode.TPS)
 	await frames(8)
 	check(rig.orbit_distance == 5.5 and is_equal_approx(rad_to_deg(rig.pitch), 10.0), "closer low-pitch TPS framing")
@@ -88,7 +92,8 @@ func _ready() -> void:
 	invalid.set_value("camera", "view_mode", 99)
 	invalid.save(GameSettings.settings_path)
 	GameSettings.load_settings()
-	check(GameSettings.camera_view_mode == 0, "invalid view setting defaults safely")
+	check(GameSettings.camera_view_mode == CameraRig.ViewMode.TPS, "invalid view setting defaults to TPS")
+	await _top_down_wheel()
 	print("TPS_RESULT ", checks-failures, "/", checks)
 	get_tree().quit(0 if failures == 0 else 1)
 
@@ -107,3 +112,60 @@ func _obstacle(at: Vector3, size: Vector3) -> StaticBody3D:
 	body.position = at
 	add_child(body)
 	return body
+
+func _wheel(button: MouseButton) -> void:
+	rig._focused = true
+	var event := InputEventMouseButton.new()
+	event.button_index = button
+	event.pressed = true
+	get_viewport().push_input(event)
+
+func _top_down_wheel() -> void:
+	rig.set_view_mode(CameraRig.ViewMode.TOP_DOWN)
+	rig.set_process(false)
+	await frames(3)
+	var distance := rig.top_down_distance
+	var basis := rig.camera.global_basis
+	var tps_distance := rig.orbit_distance
+	_wheel(MOUSE_BUTTON_WHEEL_UP)
+	await frames(3)
+	check(rig.top_down_distance < distance and is_equal_approx(rig.current_distance,rig.top_down_distance), "real wheel up moves Top-down closer")
+	check(rig.camera.global_basis.is_equal_approx(basis) and rig.orbit_distance == tps_distance, "Top-down wheel preserves angle and independent TPS zoom")
+	_wheel(MOUSE_BUTTON_WHEEL_DOWN)
+	await frames(3)
+	check(is_equal_approx(rig.top_down_distance,distance), "real wheel down moves Top-down farther")
+	player.start_talk()
+	_wheel(MOUSE_BUTTON_WHEEL_UP)
+	check(rig.top_down_distance == distance, "dialogue blocks Top-down zoom")
+	player.finish_talk()
+	get_tree().paused = true
+	_wheel(MOUSE_BUTTON_WHEEL_UP)
+	check(rig.top_down_distance == distance, "pause blocks Top-down zoom")
+	get_tree().paused = false
+	var health := player.health
+	player.health = 0
+	_wheel(MOUSE_BUTTON_WHEEL_UP)
+	check(rig.top_down_distance == distance, "dead Player blocks Top-down zoom")
+	player.health = health
+	for i in 30: _wheel(MOUSE_BUTTON_WHEEL_UP)
+	await frames(3)
+	check(is_equal_approx(rig.top_down_distance,rig.min_zoom), "Top-down near zoom clamps at minimum")
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("user://topdown-near.png")
+	for i in 30: _wheel(MOUSE_BUTTON_WHEEL_DOWN)
+	await frames(3)
+	check(is_equal_approx(rig.top_down_distance,rig.max_zoom), "Top-down far zoom clamps at maximum")
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("user://topdown-far.png")
+	var selected := rig.top_down_distance
+	rig.set_view_mode(CameraRig.ViewMode.TPS)
+	await frames(3)
+	check(rig.orbit_distance == tps_distance, "TPS keeps its own zoom after Top-down adjustment")
+	rig.set_view_mode(CameraRig.ViewMode.FPS)
+	_wheel(MOUSE_BUTTON_WHEEL_UP)
+	check(rig.top_down_distance == selected and rig.orbit_distance == tps_distance, "FPS ignores wheel for both stored zooms")
+	rig.set_view_mode(CameraRig.ViewMode.TOP_DOWN)
+	await frames(3)
+	check(rig.top_down_distance == selected and is_equal_approx(rig.current_distance,selected), "return to Top-down retains selected zoom")

@@ -1,0 +1,8 @@
+dark_fairy: ???
+dark_fairy: Ngươi là kẻ bị giam giữ ở cái ngục tù đó ư?
+dark_fairy: Cứ nghĩ ngươi đã chết ở đó rồi.
+foxy: Ý ngươi là sao?
+foxy: Trả lời cho ta mọi câu hỏi.
+foxy: Hoặc bỏ lại mạng tại đây đi.
+[signal arg="story_done"]
+[end_timeline]

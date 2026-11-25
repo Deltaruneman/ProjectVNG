@@ -31,15 +31,23 @@ InventoryMenu="*res://ui/inventory_menu.gd"
 [dialogic]
 
 directories/dch_directory={
+"dark_fairy": "res://dialog/characters/dark_fairy.dch",
 "foxy": "res://dialog/characters/foxy.dch",
-"mushroom": "res://dialog/characters/mushroom.dch"
+"mushroom": "res://dialog/characters/mushroom.dch",
+"prison_door": "res://dialog/characters/prison_door.dch"
 }
 directories/dtl_directory={
+"b1_clear": "res://dialog/timelines/b1_clear.dtl",
+"b2_locked": "res://dialog/timelines/b2_locked.dtl",
+"dark_fairy_defeat": "res://dialog/timelines/dark_fairy_defeat.dtl",
+"dark_fairy_intro": "res://dialog/timelines/dark_fairy_intro.dtl",
 "door_locked": "res://dialog/timelines/door_locked.dtl",
 "example_dialog": "res://dialog/timelines/example_dialog.dtl",
 "example_diatog": "res://dialog/timelines/example_diatog.dtl",
 "first_dialog": "res://dialog/timelines/first_dialog.dtl",
 "mushroom": "res://dialog/timelines/mushroom.dtl",
+"possession": "res://dialog/timelines/possession.dtl",
+"prison_notebook": "res://dialog/timelines/prison_notebook.dtl",
 "seed_merchant": "res://dialog/timelines/seed_merchant.dtl"
 }
 layout/style_directory={

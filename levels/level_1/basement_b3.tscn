@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d12u1s460ag67"]
 
+[ext_resource type="Script" path="res://levels/level_1/basement_story.gd" id="story_adapter"]
 [ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
 [ext_resource type="MeshLibrary" uid="uid://uavljtls5sk3" path="res://assets/meshes/MVP_library.tres" id="3_p7pck"]
@@ -182,3 +183,6 @@ top_down_distance = 10.8
 focus_offset = Vector3(0, 1.1, 0)
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
+
+[node name="BasementStory" type="Node" parent="."]
+script = ExtResource("story_adapter")

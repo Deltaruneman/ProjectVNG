@@ -54,7 +54,7 @@ func _run() -> void:
 	target.add_child(sprite)
 	stage.add_child(target)
 	rig = Rig.new()
-	check(rig.view_mode == Rig.ViewMode.TOP_DOWN, "new rig defaults to Top-down")
+	check(rig.view_mode == Rig.ViewMode.TPS, "new rig defaults to TPS")
 	rig.view_mode = Rig.ViewMode.TPS
 	var camera := Camera3D.new()
 	camera.name = "Camera3D"
@@ -260,7 +260,8 @@ func _run() -> void:
 	var overhead_zoom: float = rig.top_down_distance
 	orbit_button.button_index = MOUSE_BUTTON_WHEEL_UP
 	root.push_input(orbit_button)
-	check(rig.top_down_distance == overhead_zoom, "fixed Top-down ignores wheel zoom")
+	check(rig.top_down_distance < overhead_zoom, "Top-down wheel moves closer")
+	await ticks()
 	var overhead_offset: Vector3 = rig.camera.global_position - target.global_position
 	var max_follow_error := 0.0
 	for sample in 24:

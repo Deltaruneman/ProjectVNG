@@ -16,6 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="13_b2_door"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="13_dbw46"]
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
+[ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
+[ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
+[ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
+[ext_resource type="PackedScene" path="res://levels/objects/experience_point/floor_clear_chest.tscn" id="secret_chest"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="secret_hurt"]
+[ext_resource type="Script" uid="uid://bnrpc1cgos3cn" path="res://levels/level_1/secret_wall.gd" id="secret_wall"]
+[ext_resource type="Script" uid="uid://ccsjcrmtbn32x" path="res://levels/level_1/basement_story.gd" id="story_adapter"]
 
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
@@ -23,6 +30,9 @@ background_color = Color(0.015, 0.012, 0.02, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.45, 0.47, 0.62, 1)
 ambient_light_energy = 0.35
+
+[sub_resource type="BoxShape3D" id="SecretHurtShape"]
+size = Vector3(1.3, 3, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w875x"]
 albedo_color = Color(1, 0.55, 0.2, 1)
@@ -44,6 +54,9 @@ emission_energy_multiplier = 3.0
 material = SubResource("StandardMaterial3D_8shw5")
 size = Vector3(0.25, 0.5, 0.25)
 
+[sub_resource type="SphereShape3D" id="NotebookRange"]
+radius = 1.5
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbw46"]
 albedo_color = Color(1, 0.55, 0.2, 1)
 emission_enabled = true
@@ -64,6 +77,7 @@ environment = SubResource("Environment_1ccrl")
 metadata/floor_level = 0
 
 [node name="HiddenGate_B1_5" type="Node3D" parent="B1" unique_id=105738262]
+script = ExtResource("secret_wall")
 metadata/note = "Lối vào B1.5 (x = 18, z 6–7). Mở: queue_free() node này. Ẩn (visible) KHÔNG tắt va chạm."
 
 [node name="B1_5Side" type="GridMap" parent="B1/HiddenGate_B1_5" unique_id=1417552252]
@@ -73,6 +87,15 @@ data = {
 "cells": PackedInt32Array(19, 5, 1048612, 19, 7, 1048612, 19, 4, 1442215, 19, 6, 1442215, 19, 8, 1442215)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="HurtArea3D" type="Area3D" parent="B1/HiddenGate_B1_5" unique_id=6757399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 2, 13)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("secret_hurt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/HiddenGate_B1_5/HurtArea3D" unique_id=1471026971]
+shape = SubResource("SecretHurtShape")
 
 [node name="World" type="GridMap" parent="B1" unique_id=1307685429]
 mesh_library = ExtResource("2_0i3fv")
@@ -231,6 +254,35 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("BoxMesh_jnqiw")
 
+[node name="SecretChest" parent="B1_5" unique_id=2144557076 instance=ExtResource("secret_chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 1, 15)
+chest_id = "basement_b1_secret"
+guaranteed_weapon = false
+
+[node name="PrisonNotebook" type="Node3D" parent="B1_5" unique_id=202675325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
+script = ExtResource("notebook")
+
+[node name="Book" type="Sprite3D" parent="B1_5/PrisonNotebook" unique_id=1328896040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+pixel_size = 0.018
+billboard = 1
+texture_filter = 0
+texture = ExtResource("notebook_icon")
+
+[node name="Label" type="Label3D" parent="B1_5/PrisonNotebook" unique_id=704821168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+pixel_size = 0.007
+billboard = 1
+text = "Sổ ghi chép"
+
+[node name="InteractiveArea3D" type="Area3D" parent="B1_5/PrisonNotebook" unique_id=675402047]
+script = ExtResource("notebook_interact")
+prompt_height = 1.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1_5/PrisonNotebook/InteractiveArea3D" unique_id=762079316]
+shape = SubResource("NotebookRange")
+
 [node name="B2" type="Node3D" parent="." unique_id=2076872938]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 script = ExtResource("14_b2_progress")
@@ -359,6 +411,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.2, 14)
 target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
+
+[node name="BasementStory" type="Node" parent="." unique_id=1041056428]
+script = ExtResource("story_adapter")
 
 [editable path="B1/Torches/Torch1"]
 [editable path="B1/Torches/Torch"]

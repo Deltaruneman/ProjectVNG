@@ -6,7 +6,7 @@ extends Node3D
 enum ViewMode { TOP_DOWN, TPS, FPS }
 const VIEW_OVERLAY = preload("res://scenes/camera/camera_view_overlay.gd")
 const FPS_WEAPON = preload("res://scenes/camera/first_person_weapon.gd")
-@export var view_mode: ViewMode = ViewMode.TOP_DOWN
+@export var view_mode: ViewMode = ViewMode.TPS
 @export var top_down_pitch_degrees := 60.0
 @export var top_down_yaw_degrees := 0.0
 @export var top_down_distance := 12.0
@@ -273,9 +273,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and _cursor_released:
 			_cursor_released = false
 			get_viewport().set_input_as_handled()
-		elif view_mode == ViewMode.TPS and _owns_mouse and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+		elif event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			var step := -0.75 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 0.75
-			orbit_distance = clampf(orbit_distance + step, min_zoom, max_zoom)
+			if view_mode == ViewMode.TOP_DOWN:
+				top_down_distance = clampf(top_down_distance + step, min_zoom, max_zoom)
+			elif view_mode == ViewMode.TPS and _owns_mouse:
+				orbit_distance = clampf(orbit_distance + step, min_zoom, max_zoom)
+			else:
+				return
 			get_viewport().set_input_as_handled()
 
 ## Positive input Y means backward, matching Input.get_vector's down action.

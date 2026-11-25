@@ -1,0 +1,165 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/crab/crab.tscn:4 - ext_resource, invalid UID: uid://dsn80h3kc0ccy - using text path instead: res://assets/monsters/crab/crab_sprite_sheet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+PASS missing settings default to TPS
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS fresh actual rig starts TPS
+PASS closer low-pitch TPS framing
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS up yaw 0.0
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS down yaw 0.0
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS left yaw 0.0
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS right yaw 0.0
+Player: changing from state Run to Idle
+PASS body presents its back after mouse yaw
+PASS resting weapon stays behind Player
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS up yaw 1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS down yaw 1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS left yaw 1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS right yaw 1.5707963267949
+Player: changing from state Run to Idle
+PASS body presents its back after mouse yaw
+PASS resting weapon stays behind Player
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS up yaw -1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS down yaw -1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS left yaw -1.5707963267949
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+PASS rear-facing TPS right yaw -1.5707963267949
+Player: changing from state Run to Idle
+PASS body presents its back after mouse yaw
+PASS resting weapon stays behind Player
+PASS no TPS view banner
+PASS rear TPS camera retracts before wall
+PASS view preference updated 1
+PASS view preference written 1
+PASS view preference reload 1
+PASS replacement rig retains mode 1
+PASS view preference updated 2
+PASS view preference written 2
+PASS view preference reload 2
+PASS replacement rig retains mode 2
+PASS view preference updated 0
+PASS view preference written 0
+PASS view preference reload 0
+PASS replacement rig retains mode 0
+PASS progress reset does not reset camera preference
+PASS F2 cycles and remembers mode 2
+PASS banner absent with only FPS reticle 2
+PASS F2 cycles and remembers mode 0
+PASS banner absent with only FPS reticle 0
+PASS F2 cycles and remembers mode 1
+PASS banner absent with only FPS reticle 1
+PASS invalid view setting defaults to TPS
+PASS real wheel up moves Top-down closer
+PASS Top-down wheel preserves angle and independent TPS zoom
+PASS real wheel down moves Top-down farther
+PASS dialogue blocks Top-down zoom
+PASS pause blocks Top-down zoom
+PASS dead Player blocks Top-down zoom
+PASS Top-down near zoom clamps at minimum
+PASS Top-down far zoom clamps at maximum
+PASS TPS keeps its own zoom after Top-down adjustment
+PASS FPS ignores wheel for both stored zooms
+PASS return to Top-down retains selected zoom
+TPS_RESULT 54/54
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ENGINE_EXIT_CODE=0

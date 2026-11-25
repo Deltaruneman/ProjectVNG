@@ -73,14 +73,18 @@ func _has_floor(world: World3D, at: Vector3) -> bool:
 func _run() -> void:
 	var custom := str(ProjectSettings.get_setting("application/config/custom_user_dir_name", ""))
 	var uses_custom := bool(ProjectSettings.get_setting("application/config/use_custom_user_dir", false))
-	if not uses_custom or not custom.begins_with("ArcanaPlacement-") or not "--isolated-copy" in OS.get_cmdline_user_args():
+	if not uses_custom or not (custom.begins_with("ArcanaPlacement-") or custom.begins_with("ArcanaStory-")) or not "--isolated-copy" in OS.get_cmdline_user_args():
 		push_error("Use a disposable project with custom user directory ArcanaPlacement-<unique>.")
 		quit(1)
 		return
 	var manager := root.get_node("GameManager")
 	manager.reset()
+	for story_flag in ["story_possession", "story_b1_clear", "story_dark_fairy_intro", "story_dark_fairy_defeat"]:
+		manager.flags[story_flag] = true
 	await _partial_revisit(manager)
 	manager.reset()
+	for story_flag in ["story_possession", "story_b1_clear", "story_dark_fairy_intro", "story_dark_fairy_defeat"]:
+		manager.flags[story_flag] = true
 	manager.change_stage(B1)
 	await scene_changed
 
@@ -170,6 +174,8 @@ func _run() -> void:
 		_check(_living_roster(floor_node).is_empty(), str(floor_node.name) + " stays cleared when revisited")
 		if index < 2:
 			_check(floor_node.get_node("ClearPortal").visible, str(floor_node.name) + " portal stays open")
+		if index == 1:
+			_check(floor_node.get_node("ClearPortal")._locked_interaction == null, "cleared B2 revisit never creates orphan locked interaction")
 	var stage := current_scene as Node3D
 	stage.player.set_physics_process(false)
 	if await _check_transition(stage, stage.get_node("B3/Door_b3_down"), B2):

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b7bnu12tjc0e8"]
 
+[ext_resource type="Script" path="res://levels/level_1/basement_story.gd" id="story_adapter"]
 [ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
@@ -152,3 +153,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 4.2)
 target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=967244177]
+
+[node name="BasementStory" type="Node" parent="."]
+script = ExtResource("story_adapter")

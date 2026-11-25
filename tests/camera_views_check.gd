@@ -38,19 +38,26 @@ func capture(label: String) -> void:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	if not "ArcanaViews-20261119" in OS.get_user_data_dir():
+	if not ("ArcanaViews-20261119" in OS.get_user_data_dir() or "ArcanaCameraDefaults-" in OS.get_user_data_dir()):
 		push_error("Requires isolated ArcanaViews user directory")
 		get_tree().quit(2)
 		return
 	SaveSystem.save_path = "user://camera-views-fixture.json"
 	GameManager.reset()
+	GameSettings.camera_view_mode = GameSettings.DEFAULT_CAMERA_VIEW_MODE
+	GameManager.flags["story_possession"] = true
+	GameManager.flags["story_b1_clear"] = true
 	var stage := preload("res://levels/level_1/basement_full.tscn").instantiate()
 	add_child(stage)
 	player = stage.get_node("Player")
 	rig = stage.get_node("CameraRig")
 	player.invincible = true
 	await ticks(35)
-	check(rig.view_mode == CameraRig.ViewMode.TOP_DOWN, "actual stage defaults to Top-down")
+	check(rig.view_mode == CameraRig.ViewMode.TPS, "actual stage defaults to TPS")
+	await capture("basement-tps-default")
+	rig.set_view_mode(CameraRig.ViewMode.TOP_DOWN)
+	await ticks(3)
+	check(rig.view_mode == CameraRig.ViewMode.TOP_DOWN, "Top-down remains optional")
 	check(rig.target == player and rig.camera.is_current(), "existing Stage camera contract preserved")
 	await capture("basement-topdown")
 	# Keep OS focus changes from making synthetic input nondeterministic.

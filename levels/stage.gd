@@ -13,6 +13,7 @@ func _ready() -> void:
 	if get_node_or_null("Hud") == null:
 		add_child(preload("res://ui/hud.tscn").instantiate())
 	GameManager.register_stage(self)
+	load("res://levels/objects/experience_point/floor_clear_chest.gd").restore_pending.call_deferred(self)
 
 
 ## Moves the fox to the spawn point `spawn_name`. Every door and checkpoint joins the

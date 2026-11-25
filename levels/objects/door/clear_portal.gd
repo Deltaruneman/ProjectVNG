@@ -12,6 +12,7 @@ extends Node3D
 const B1_CHEST := preload("res://levels/objects/experience_point/floor_clear_chest.tscn")
 var _remaining: Array[EnemyCharacter] = []
 var _opened := false
+var _locked_interaction: InteractiveArea3D
 @onready var _interaction := get_node_or_null("InteractiveArea3D") as InteractiveArea3D
 
 func _ready() -> void:
@@ -25,6 +26,8 @@ func _ready() -> void:
 	if _interaction != null:
 		_interaction.interacted.connect(_travel)
 	var restored_clear := GameManager.is_door_unlocked(clear_flag)
+	if clear_flag == "b2_split_cleared" and not restored_clear:
+		_setup_locked_interaction.call_deferred()
 	var authored_count := 0
 	for child in encounters.get_children():
 		if not child is EnemyCharacter:
@@ -81,6 +84,8 @@ func _open() -> void:
 	if _opened:
 		return
 	_opened = true
+	if is_instance_valid(_locked_interaction):
+		_locked_interaction.queue_free()
 	if clear_reward != null:
 		clear_reward.add_child.call_deferred(B1_CHEST.instantiate())
 	if _interaction != null:
@@ -90,3 +95,24 @@ func _open() -> void:
 func _travel() -> void:
 	if visible:
 		GameManager.change_stage(target_stage, target_spawn)
+
+func _setup_locked_interaction() -> void:
+	if _opened or not is_inside_tree():
+		return
+	_locked_interaction = InteractiveArea3D.new()
+	_locked_interaction.position = position + Vector3.UP
+	var shape := CollisionShape3D.new()
+	var cylinder := CylinderShape3D.new()
+	cylinder.radius = 1.45
+	cylinder.height = 2.2
+	shape.shape = cylinder
+	_locked_interaction.add_child(shape)
+	get_parent().add_child(_locked_interaction)
+	_locked_interaction.interacted.connect(_tell_locked)
+
+func _tell_locked() -> void:
+	if _opened:
+		return
+	var story := get_tree().current_scene.get_node_or_null("BasementStory")
+	if story != null:
+		story.play_event("b2_locked")

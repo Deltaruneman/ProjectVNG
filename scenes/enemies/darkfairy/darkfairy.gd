@@ -74,7 +74,20 @@ func _update_boss_hud() -> void:
 	boss_label.text = "DARK FAIRY  /  PHASE %d%s" % [phase, "  /  SHIELD" if shield_hits > 0 else ""]
 
 
-func _start_boss_cinematic(kind: StringName) -> bool:
+func _story_then_cinematic(story: Node, kind: StringName) -> void:
+	await story.play_boss_story(kind)
+	if not is_inside_tree():
+		return
+	if not _start_boss_cinematic(kind, true):
+		_on_boss_cinematic_aborted(kind)
+
+
+func _start_boss_cinematic(kind: StringName, skip_story: bool = false) -> bool:
+	var stage := get_tree().current_scene
+	var story := stage.get_node_or_null("BasementStory") if stage != null else null
+	if not skip_story and story != null and story.wants_boss_story(kind):
+		_story_then_cinematic.call_deferred(story, kind)
+		return true
 	if get_tree().paused:
 		return false
 	var camera := get_viewport().get_camera_3d()
