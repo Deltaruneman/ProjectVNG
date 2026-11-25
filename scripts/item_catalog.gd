@@ -1,5 +1,5 @@
 extends RefCounted
-## Item definitions and tuning live here; no world-drop or crafting integration.
+## Item definitions and tuning live here.
 const ROOT := "res://assets/sprites/item/"
 const RAVEN := ROOT + "RavenmoreIconPack2023/RavenmoreIconPack2023/128/"
 const SHEET := ROOT + "weapons/fantasy_weapons_pack1_noglow.png"
@@ -35,7 +35,14 @@ static func definitions() -> Dictionary:
 		"brimstone_rune": {"name": "Bùa Brimstone", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/brimstone_rune.png", "description": "Khi chết, hồi sinh với 2 HP. Bùa bị phá hủy sau khi dùng.", "respawn_health": 2, "consume_on_death": true},
 		"sky_rune": {"name": "Bùa trời cao", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/sky_rune.png", "description": "+0,5 m/s tốc độ di chuyển.", "movement_speed_bonus": 0.5},
 		"time_rune": {"name": "Bùa thời gian", "slot": "charm", "texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/static/runes/time_rune.png", "description": "Giảm 1 giây hồi chiêu skill.", "cooldown_reduction": 1.0},
-		"healing_potion": {"name": "Bình hồi phục", "slot": "consumable", "icon": "PotionRed", "description": "Hồi đầy HP. Vật phẩm test, chưa nối crafting/drop."},
+		"healing_potion": {"name": "Bình hồi phục", "slot": "consumable", "description": "Hồi đầy HP. Điều chế tại NPC Garden.",
+			"texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/spritesheet/potions/great_health_potion_icon.tres"},
+		"protection_potion": {"name": "Bình hộ mệnh", "slot": "consumable", "description": "Tạo khiên bằng 50% HP hiện tại, làm tròn lên. Khiên tồn tại 8 giây hoặc đến khi vỡ.",
+			"texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/spritesheet/potions/oasis_elixir_icon.tres"},
+		"strength_potion": {"name": "Bình cường lực", "slot": "consumable", "description": "Nhân đôi sát thương đòn đánh thường trong 8 giây.",
+			"texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/spritesheet/potions/dragonfire_potion_icon.tres"},
+		"venom_potion": {"name": "Bình độc lan", "slot": "consumable", "description": "Gán vào ô Q để ném. Khi vỡ, bình tạo vùng độc trong 8 giây, ảnh hưởng cả Foxy.",
+			"texture_path": "res://assets/vendor/32x32_rpg_animated_free_pack_v2/spritesheet/potions/venom_potion_icon.tres"},
 	}
 	# Prototype catalog only: no drop rates or final balance implied.
 	var archetypes := {

@@ -9,6 +9,8 @@ class_name HitArea3D
 @export var damage: int = 1
 
 var attacker: Node3D = null
+## Optional contact-time adjustment for this hitbox. The stored damage stays unchanged.
+var damage_modifier := Callable()
 
 ## Emitted AFTER damage has been dealt, so outside code can do more with it (a bullet uses it
 ## to destroy itself).
@@ -41,7 +43,8 @@ func hit(hurt_area: Node) -> void:
 				source = ancestor
 				break
 			ancestor = ancestor.get_parent()
-	hurt_area.take_damage(hit_dir.normalized(), damage, source)
+	var hit_damage: int = damage_modifier.call(damage) if damage_modifier.is_valid() else damage
+	hurt_area.take_damage(hit_dir.normalized(), hit_damage, source)
 
 func _on_area_entered(area: Area3D) -> void:
 	hit(area)

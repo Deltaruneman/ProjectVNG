@@ -1059,3 +1059,30 @@ Implemented and isolated rendered verification PASSED. TPS is the export/default
 Included files/purpose: scenes/camera/camera_rig.gd changes fallback/export view toTPS and handles Top-down wheel through existing gameplay/unhandled-input gating; scripts/autoload/game_settings.gd defines DEFAULT_CAMERA_VIEW_MODE=1 and uses it consistently for initialization/load/missing-key fallback, preserving valid saved modes. tests/tps_preference_check.gd checks fresh default/missing/invalid settings and all saved modes, real viewport wheel directions/clamps, angle/TPS independence, pause/dialogue/dead gates, FPS ignore and return-to-view zoom; tests/camera_views_check.gd starts actual Stage atTPS, explicitly selects optional Top-down before existing F2/FPS/Player/HUD checks, marks narrative as already seen to preserve camera-fixture scope. tests/camera_rig_check.gd updates historical default/wheel expectations and waits for physics after zoom; this standalone minimal fixture was NOT RUN in this turn. docs/camera-views-2026-11-19.md, specs/001-integrate-basement-stage/tasks.md, validation.md and docs/project-changes-2026-11-14.txt record scope, AC, file purposes, results and limitations.
 Verification: Godot4.7.2 Compatibility/ANGLE, disposable C:/Users/BaoHo/AppData/Local/Temp/ArcanaGarden-20261123 with fresh custom user directory ArcanaCameraDefaults-20261125. Commands use --path <copy> --rendering-method gl_compatibility --scene res://tests/<suite>.tscn. tps_preference_check54/54, ENGINE_EXIT_CODE=0; camera_views_check68/68, ENGINE_EXIT_CODE=0. These are rendered actor/input checks, not headless-only loading. Actual Player/HUD defaultTPS, F2 other views, rear facing, TPS wall retraction, pointer aim, pause/dialogue/death switching, FPS presentation/weapon animation and stable Top-down follow pass. All new wheel assertions pass. Source whitespace check passes.
 Evidence/file purposes: docs/validation/tps-default-topdown-zoom-2026-11-25/preference-runtime.log and player-hud-runtime.log contain final assertions/full diagnostics; topdown-near.png and topdown-far.png show actual controlled test-platform zoom limits; tps-default.png shows defaultTPS in actual basement. All three images visually inspected: scale changes as expected, Player visible, TPS rear framing and HUD intact. Retained existing3 ObjectDB/one resource shutdown warnings and same-state animation notices; no script/parse/native failure. Source cache and real save/settings not edited; incoming story/chest work preserved. No new AI/combat/map/collision geometry/input binding/save schema changes, generators, commit or push. Full manual all-map ceiling/zoom feel, native physical-device UX, Alt-wheel runtime case and independent owner review NOT RUN; Alt guard remains statically present in existing input flow. No broad feature acceptance or teammate agreement implied.
+## G09–G12 — Garden potion brewing, Milestone 1 (2026-11-25)
+
+- [X] G09 Add the Garden NPC Brew choice, reuse the merchant panel and verify focus, Esc, mouse and seed shop continuity.
+- [X] G10 Exchange one harvested cucumber and pineapple for `healing_potion`, with one save for produce and inventory. Verify insufficient ingredients, rapid attempts, harvest after brewing and the 32×32 potion icon.
+- [X] G11 Verify B inventory and the existing quick slot, Q, exact consumption, no-op at full HP, one-second HUD feedback, Continue and version-1 potion/assignment compatibility.
+- [ ] G12 Former proposal to bind 2 to the quick item. **SUPERSEDED** by G16. It was blocked in Mốc 1 by the existing `active_skill_2` binding.
+
+Lam approved this milestone. Review scope covers the merchant, farming/Inventory adapter and potion-use feedback. See the milestone spec and validation for acceptance and evidence.
+
+
+## G13–G17 — Garden protection and strength potions, Milestone 2 (2026-11-25)
+
+- [X] G13 Add two harvested-produce recipes and potion frames to Garden Brew and the v1 save flow (Lam).
+- [X] G14 Integrate one-item Q/Inventory use, shield and ordinary melee damage (Lam and Bao-authorized combat points).
+- [X] G15 Display timers and the shield gauge, reject duplicate use, freeze on pause and clear on death. Verify respawn, scene change and Continue.
+- [X] G16 Verify Q and retain 2 for active skill slot 2 per the user's final decision.
+- [X] G17 Run isolated Garden/combat checks and healing regression. Record validation and the cumulative implementation history.
+
+
+## G18–G23 — Venom potion, Milestone 3 (2026-11-25)
+
+- [X] G18 Add the fourth Garden recipe and 32×32 frame, retaining Q and the user-confirmed skill 2 binding (Lam).
+- [X] G19 Implement accepted-only spending and camera-directed, terrain-checked independent throws (Lam).
+- [X] G20 Implement impact merging, isolated zone clocks, manifest-based visual and enemy damage via HurtArea3D (Lam). Verify defeat, EXP and Castle EnemyZone progression through existing APIs.
+- [X] G21 Implement Foxy's single pause-aware infection and HUD. Verify exact-expiry tick, overlap, death and the existing scene-reset behavior (Lam).
+- [X] G22 Run isolated Garden and Castle checks including real scene death/respawn and wave isolation.
+- [X] G23 Rerun the three existing potion regressions and record handoff/evidence.

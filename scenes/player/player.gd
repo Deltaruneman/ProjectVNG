@@ -91,6 +91,13 @@ var _base_maxjump := 2
 var _temp_attack_bonus := 0
 var _temp_speed_bonus := 0.0
 var ice_shield := 0
+const POTION_EFFECT_SECONDS := 8.0
+signal potion_effects_changed
+var potion_shield_health := 0
+var potion_shield_capacity := 0
+var potion_shield_remaining := 0.0
+var potion_strength_remaining := 0.0
+
 var _ice_shield_generation := 0
 var _ice_shield_visual: Node3D
 var _wind_ultimate_active := false
@@ -134,6 +141,7 @@ func _ready() -> void:
 			_original_blade_texture = blade_sprite.texture
 			_original_blade_pixel_size = blade_sprite.pixel_size
 	health_changed.connect(_on_regeneration_health_changed)
+	health_changed.connect(_clear_potion_effects_on_death)
 	GameManager.skill_progress_changed.connect(_apply_skill_bonuses)
 	_apply_skill_bonuses()
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
@@ -280,6 +288,7 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	_tick_potion_effects(delta)
 	_update_offhand_cast_pose()
 	if _skill_button_held:
 		if not _can_start_skill_cast():
@@ -319,6 +328,73 @@ func _process(delta: float) -> void:
 			_hud_status_time_remaining.erase(status_id)
 		else:
 			_hud_status_time_remaining[status_id] = status_remaining
+
+
+func apply_potion(definition: String) -> String:
+	if health <= 0:
+		return "Chỉ dùng thuốc khi còn sống."
+	match definition:
+		"healing_potion":
+			if health >= max_health:
+				return "HP đã đầy."
+			health = max_health
+		"protection_potion":
+			if potion_shield_health > 0:
+				return "Khiên hộ mệnh vẫn còn hiệu lực."
+			potion_shield_capacity = ceili(health / 2.0)
+			potion_shield_health = potion_shield_capacity
+			potion_shield_remaining = POTION_EFFECT_SECONDS
+			potion_effects_changed.emit()
+		"strength_potion":
+			if potion_strength_remaining > 0.0:
+				return "Cường lực vẫn còn hiệu lực."
+			potion_strength_remaining = POTION_EFFECT_SECONDS
+			potion_effects_changed.emit()
+		_:
+			return "Vật phẩm này không dùng được."
+	return ""
+
+
+func absorb_potion_damage(damage: int) -> int:
+	if damage <= 0 or potion_shield_health == 0:
+		return damage
+	var absorbed := mini(damage, potion_shield_health)
+	potion_shield_health -= absorbed
+	if potion_shield_health == 0:
+		_clear_potion_shield()
+	potion_effects_changed.emit()
+	return damage - absorbed
+
+
+func potion_normal_attack_damage(damage: int) -> int:
+	return damage * 2 if potion_strength_remaining > 0.0 else damage
+
+
+func _tick_potion_effects(delta: float) -> void:
+	var expired := false
+	if potion_shield_remaining > 0.0:
+		potion_shield_remaining = maxf(0.0, potion_shield_remaining - delta)
+		if potion_shield_remaining == 0.0:
+			_clear_potion_shield()
+			expired = true
+	if potion_strength_remaining > 0.0:
+		potion_strength_remaining = maxf(0.0, potion_strength_remaining - delta)
+		expired = expired or potion_strength_remaining == 0.0
+	if expired:
+		potion_effects_changed.emit()
+
+
+func _clear_potion_shield() -> void:
+	potion_shield_health = 0
+	potion_shield_capacity = 0
+	potion_shield_remaining = 0.0
+
+
+func _clear_potion_effects_on_death(current: int, _maximum: int) -> void:
+	if current == 0 and (potion_shield_health > 0 or potion_strength_remaining > 0.0):
+		_clear_potion_shield()
+		potion_strength_remaining = 0.0
+		potion_effects_changed.emit()
 
 
 func die() -> void:

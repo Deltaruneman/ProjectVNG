@@ -50,7 +50,10 @@ var player_level := 1
 var experience := 0
 var skill_spending: Dictionary = {}
 const INVENTORY_STATE := preload("res://scripts/inventory_state.gd")
+const POISON_POTION := preload("res://scenes/objects/poison_potion.gd")
 signal inventory_changed
+signal healing_potion_used
+signal potion_use_rejected(reason: String)
 var inventory := INVENTORY_STATE.new()
 var skill_points := 0
 var skill_allocations: Dictionary = {}
@@ -540,19 +543,42 @@ func use_quick_item() -> bool:
 
 
 func use_inventory_item(uid: String) -> bool:
-	if not inventory.items.has(uid) or inventory.items[uid].definition != "healing_potion":
+	if not inventory.items.has(uid) or int(inventory.items[uid].count) <= 0:
+		return false
+	var definition := str(inventory.items[uid].definition)
+	if INVENTORY_STATE.CATALOG.item(definition).get("slot") != "consumable":
 		return false
 	var player := get_tree().get_first_node_in_group("player") as Player
-	if player == null or player.health <= 0 or player.health >= player.max_health:
+	if player == null:
 		return false
-	player.health = player.max_health
+	var reason := _throw_poison_potion(player) if definition == "venom_potion" else player.apply_potion(definition)
+	if not reason.is_empty():
+		potion_use_rejected.emit(reason)
+		return false
 	inventory.items[uid].count -= 1
 	if inventory.items[uid].count <= 0:
 		inventory.items.erase(uid)
 		if inventory.equipped.get("consumable", "") == uid:
 			inventory.equipped.consumable = ""
 	notify_inventory_changed()
+	if definition == "healing_potion":
+		healing_potion_used.emit()
 	return true
+
+
+func _throw_poison_potion(player: Player) -> String:
+	if get_tree().paused or is_changing() or not player.can_interact():
+		return "Dùng phím Q để ném khi đang chơi."
+	if has_checkpoint_conflict() or not is_instance_valid(current_stage) or current_stage.player != player:
+		return "Chưa thể ném bình tại đây."
+	var effects := current_stage.get_node_or_null(POISON_POTION.NODE_NAME)
+	if effects == null:
+		effects = POISON_POTION.new()
+		effects.name = POISON_POTION.NODE_NAME
+		current_stage.add_child(effects)
+	if not effects.throw_from_camera():
+		return "Không tìm thấy điểm đáp cho bình độc."
+	return ""
 
 
 func enchant_weapon(uid: String, choice: int, epoch: int) -> bool:

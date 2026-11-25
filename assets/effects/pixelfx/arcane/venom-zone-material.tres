@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/arcane/rune-trap/strict/packed/sprite-sheet.png" id="1_sheet"]
+
+[sub_resource type="Shader" id="Shader_venom"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled;
+
+uniform sampler2D sheet : source_color, filter_nearest, repeat_disable;
+
+void fragment() {
+	vec4 texel = texture(sheet, UV);
+	float intensity = max(texel.g, texel.b);
+	ALBEDO = mix(vec3(0.38, 0.68, 0.22), vec3(0.78, 1.0, 0.59), intensity);
+	ALPHA = texel.a;
+}
+"
+
+[resource]
+shader = SubResource("Shader_venom")
+shader_parameter/sheet = ExtResource("1_sheet")

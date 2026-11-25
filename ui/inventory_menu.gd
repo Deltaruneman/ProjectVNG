@@ -30,6 +30,7 @@ func _ready() -> void:
 	get_tree().scene_changed.connect(close_menu)
 	GameManager.inventory_changed.connect(_refresh)
 	GameManager.skill_progress_changed.connect(_refresh_balance)
+	GameManager.potion_use_rejected.connect(_show_potion_rejection)
 	_layout()
 	_root.hide()
 
@@ -407,13 +408,20 @@ func _item_details(uid: String) -> void:
 			_button(_detail, "Bỏ khỏi ô Q", func() -> void: GameManager.unequip_item("consumable"))
 		else:
 			_button(_detail, "Gán vào ô Q", func() -> void: GameManager.equip_item(uid))
-		_button(_detail, "Sử dụng", func() -> void:
-			_status.text = "Đã sử dụng." if GameManager.use_inventory_item(uid) else "Chỉ dùng khi còn sống và thiếu HP.")
+		if entry.definition != "venom_potion":
+			_button(_detail, "Sử dụng", func() -> void:
+				if GameManager.use_inventory_item(uid):
+					_status.text = "Đã sử dụng.")
 	else:
 		if GameManager.inventory.equipped.values().has(uid):
 			_button(_detail, "Tháo trang bị", func() -> void: GameManager.unequip_item(str(data.slot)))
 		else:
 			_button(_detail, "Trang bị", func() -> void: GameManager.equip_item(uid))
+
+func _show_potion_rejection(reason: String) -> void:
+	if is_open:
+		_status.text = reason
+
 
 func _build_cheat() -> void:
 	_paragraph(_list, "VẬT PHẨM & NÂNG CẤP THỬ NGHIỆM")
