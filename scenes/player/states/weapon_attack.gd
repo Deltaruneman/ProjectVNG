@@ -205,6 +205,7 @@ func _update_link(delta: float) -> void:
 		_finish_attacking(true)
 
 func _start_combo() -> void:
+	_hit_area.damage_modifier = obj.potion_normal_attack_damage
 	_phase = PHASE_COMBO
 	_elapsed = 0.0
 	_strike_index = _next_strike
@@ -682,6 +683,8 @@ func _ease_out(value: float) -> float:
 
 
 func _exit() -> void:
+	if is_instance_valid(_hit_area):
+		_hit_area.damage_modifier = Callable()
 	if is_instance_valid(_hit_shape):
 		_hit_shape.set_deferred("disabled", true)
 		_hit_shape.scale = _previous_shape_scale

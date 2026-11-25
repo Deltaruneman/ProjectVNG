@@ -457,3 +457,82 @@ This is a recorded design decision; no Quan/Bao/Duy acceptance is implied.
 
 Executed results and manual limits are appended to tasks/validation and
 [project audit validation](../../docs/project-audit-validation.md).
+
+## Milestone 1 — Garden potion brewing (2026-11-25)
+
+Lam approved this slice on `features/BasementandGarden` at `1e410e4`. The main Garden
+merchant offers Điều chế Thuốc beside Mua bán. Brew uses the merchant panel, keyboard
+focus and close controls. Closing Brew returns control to gameplay. The seed shop
+retains its return to dialogue. The sketch merchant keeps its existing menu.
+
+The NPC displays each ingredient's owned and required quantities and the potion reward.
+The recipe grants one Bình hồi phục (`healing_potion`) for one harvested Dưa leo and
+one harvested Dứa. Seeds cannot pay the cost. Confirming rechecks the same produce
+counts exposed by Inventory B → Vật phẩm, updates the farming state and potion stack
+together, and submits both in one normal save. Refresh the panel immediately and
+reject further confirmation when ingredients are exhausted. The potion uses one
+32×32 frame from the great health potion sheet and appears under Tiêu hao.
+
+The existing quick item slot retains the `consumable` save key. Successful use at
+partial HP restores full HP, spends one potion and shows the potion icon at the top
+right for about one second. At full HP, neither the count nor the indicator changes.
+Q and 2 are requested aliases. At the audited HEAD, 2 selects `active_skill_2`.
+Lam directed Brew to proceed independently if this conflict exists, so Q remains the
+available quick item binding while the alias awaits an input ownership decision.
+
+Integration is limited to Lam's brewing and the existing potion interfaces in the
+merchant, catalog, GameManager and HUD. Retain the SaveSystem contract and version,
+old potion IDs and quick assignments. This slice does not need edits to Player,
+skill input, combat or authored stages. Record isolated Garden and main-route
+verification separately. Independent teammate review has not been recorded.
+
+
+## Milestone 2 — Garden protection and strength potions (2026-11-25)
+
+Lam reports testing Milestone 1 and authorizes this scope. Bao confirmed and authorized
+the two combat integrations as reported by the user.
+
+- At Garden, exchange one harvested broccoli and spinach for Bình hộ mệnh, or one
+  harvested broccoli and pineapple for Bình cường lực. Both use a 32×32 frame of the
+  specified sheet. The three recipes share the existing recheck and combined save.
+- B assigns the consumable quick slot. Q spends one potion on successful use. The
+  baseline routes 2 to active skill slot 2 and lacks a weapon-switch action. The user
+  chose to retain 2 for active skill slot 2. The older G12 potion-alias proposal and
+  the initial Milestone 2 weapon-switch request are superseded.
+- Hộ mệnh gives a separate shield of ceil(current HP / 2), including at full HP.
+  It lasts eight gameplay seconds or until depleted. Existing Ice Shield resolves
+  first. After invulnerability and successful parry resolve, the potion shield
+  absorbs eligible damage. Only the remainder reaches HP.
+- Cường lực doubles ordinary uncharged melee damage once after its existing damage
+  calculation, at hit contact. Charged attacks, skills, projectiles and DoT retain
+  their existing damage.
+- The two effects can coexist with independent icon timers and a separate shield
+  gauge. Pause freezes them. Duplicate use returns a reason and keeps the item.
+  Death clears effects before respawn. Observe scene change and Continue for Mốc 4.
+
+
+## Milestone 3 — Garden venom potion (2026-11-25)
+
+Lam approves the Brew, throw, poison damage and HUD scope. The final key decision
+keeps 2 for active skill slot 2. Q uses the assigned consumable.
+
+- Brew one Bình độc lan for one harvested cucumber and one spinach. Use the requested
+  venom sheet's first 32×32 frame and the existing combined farm/inventory update.
+- Sample the active camera's horizontal forward on Q. Use Foxy's facing near
+  vertical. Search up to 4 m along continuous reachable support, stay in front of
+  a solid obstruction, and reject with no stock change when no landing is valid.
+  Each valid launch consumes one. In-flight bottles and active zones can coexist.
+- Resolve merging at impact. Refresh a containing accessible same-floor zone to
+  eight seconds with its original center, one-meter radius and tick schedule.
+  Otherwise create an independent zone. Living enemies in an eligible zone take
+  one hit per second through their existing HurtArea3D, including normal defeat,
+  EXP and EnemyZone progression. The zone loops the first four strict packed
+  rune-trap frames at manifest timing, tinted pale green.
+- Foxy gets a single infection with the longest remaining exposure and a stable
+  two-second cadence. Persistent exposure does not restart the cadence. A tick
+  due exactly at expiration is applied. The effect follows Foxy outside the zone.
+  The periodic cost is one HP and uses existing Player.die() if lethal.
+- The upper-right badge represents only Foxy's infection. Pause freezes flight,
+  zone life, exposure and ticks. Death clears the infection while the old Stage
+  lives. Stage-owned zones are removed on reload, so replacement waves do not
+  inherit old zones. Checkpoint and wave code remain the existing implementation.

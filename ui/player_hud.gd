@@ -1,6 +1,8 @@
 class_name PlayerHUD
 extends CanvasLayer
 
+const POISON_POTION := preload("res://scenes/objects/poison_potion.gd")
+
 const SKILL_ICON_ROOT := "res://assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/"
 const BASIC_DAGGER_ICON := "res://assets/sprites/object/blade/blade_throw_1.png"
 const SKILL_TREE_BOOK_ICON_SHEET := "res://assets/ui/craftpix-net-809047-free-animated-magic-book-pixel-art-asset-pack/PNG/Open_book.png"
@@ -65,6 +67,9 @@ var _quick_icon: TextureRect
 var _quick_count: Label
 var _quick_key: Label
 var _quick_panel: PanelContainer
+var _potion_badges: Dictionary[String, PanelContainer] = {}
+var _potion_seconds: Dictionary[String, Label] = {}
+var _potion_shield_bar: ProgressBar
 var _stamina_bar: ProgressBar
 var _label: Label
 var _fill: StyleBoxFlat ## chỉ có ở chế độ fallback
@@ -131,6 +136,7 @@ func _ready() -> void:
 		_rage_label = get_node_or_null("RageMeter/RageLabel") as Label
 		_build_skill_bar()
 		_build_quick_item()
+		_build_potion_hud()
 		GameManager.inventory_changed.connect(_refresh_quick_item)
 		GameSettings.changed.connect(_refresh_quick_item)
 		(_player as Player).active_skill_slot_changed.connect(_on_active_skill_slot_changed)
@@ -170,6 +176,7 @@ func _process(_delta: float) -> void:
 	_refresh_skill_bar()
 	_refresh_rage_label()
 	_refresh_status_strip()
+	_refresh_potion_buffs()
 	if _critical_health_active:
 		var pulse := 0.5 + 0.5 * sin(float(Time.get_ticks_msec()) * 0.007)
 		if _low_health_warning != null:
@@ -282,6 +289,144 @@ func _build_quick_item() -> void:
 	_quick_count.add_theme_font_size_override("font_size", 8)
 	content.add_child(_quick_count)
 	_refresh_quick_item()
+
+
+func _build_potion_hud() -> void:
+	var stack := VBoxContainer.new()
+	stack.name = "PotionHUD"
+	stack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(stack)
+	stack.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	stack.offset_right = -margin.x
+	stack.offset_left = -margin.x
+	stack.offset_top = margin.y
+	stack.offset_bottom = margin.y
+	stack.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	stack.grow_vertical = Control.GROW_DIRECTION_END
+
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_END
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stack.add_child(row)
+	var shield := _add_potion_badge(row, "protection_potion")
+	_add_potion_badge(row, "strength_potion")
+	_add_potion_badge(row, "venom_potion")
+	_build_healing_potion_feedback(row)
+
+	_potion_shield_bar = ProgressBar.new()
+	_potion_shield_bar.name = "PotionShieldBar"
+	_potion_shield_bar.custom_minimum_size = Vector2(58, 5)
+	_potion_shield_bar.show_percentage = false
+	_potion_shield_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = Color("61d0e8")
+	_potion_shield_bar.add_theme_stylebox_override("fill", fill)
+	shield.add_child(_potion_shield_bar)
+
+	var notice := Label.new()
+	notice.name = "PotionNotice"
+	notice.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	notice.add_theme_font_size_override("font_size", 10)
+	notice.add_theme_color_override("font_outline_color", Color("182030"))
+	notice.add_theme_constant_override("outline_size", 3)
+	notice.hide()
+	stack.add_child(notice)
+	var timer := Timer.new()
+	timer.one_shot = true
+	notice.add_child(timer)
+	timer.timeout.connect(notice.hide)
+	GameManager.potion_use_rejected.connect(_show_potion_rejection.bind(notice, timer))
+	var player := _player as Player
+	player.potion_effects_changed.connect(_refresh_potion_buffs)
+	_refresh_potion_buffs()
+
+
+func _show_potion_rejection(reason: String, notice: Label, timer: Timer) -> void:
+	if not InventoryMenu.is_open:
+		notice.text = reason
+		notice.show()
+		timer.start(1.5)
+
+
+func _add_potion_badge(parent: HBoxContainer, definition: String) -> VBoxContainer:
+	var badge := PanelContainer.new()
+	badge.name = definition
+	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	badge.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.07, 0.10, 0.16, 0.92)
+	style.set_corner_radius_all(3)
+	style.content_margin_left = 3
+	style.content_margin_right = 3
+	style.content_margin_top = 2
+	style.content_margin_bottom = 2
+	badge.add_theme_stylebox_override("panel", style)
+	parent.add_child(badge)
+	_potion_badges[definition] = badge
+	var box := VBoxContainer.new()
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	badge.add_child(box)
+	var line := HBoxContainer.new()
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(line)
+	var icon := TextureRect.new()
+	icon.texture = preload("res://scripts/item_catalog.gd").texture(definition)
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.custom_minimum_size = Vector2(24, 24)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	line.add_child(icon)
+	var seconds := Label.new()
+	seconds.add_theme_font_size_override("font_size", 10)
+	line.add_child(seconds)
+	_potion_seconds[definition] = seconds
+	return box
+
+
+func _refresh_potion_buffs() -> void:
+	if _potion_shield_bar == null or not is_instance_valid(_player):
+		return
+	var player := _player as Player
+	var shield_active := player.potion_shield_health > 0
+	_potion_badges["protection_potion"].visible = shield_active
+	_potion_badges["strength_potion"].visible = player.potion_strength_remaining > 0.0
+	if shield_active:
+		_potion_seconds["protection_potion"].text = "%ds · %d/%d" % [
+			ceili(player.potion_shield_remaining), player.potion_shield_health, player.potion_shield_capacity]
+		_potion_shield_bar.max_value = player.potion_shield_capacity
+		_potion_shield_bar.value = player.potion_shield_health
+	_potion_seconds["strength_potion"].text = "%ds" % ceili(player.potion_strength_remaining)
+	var poison_time := POISON_POTION.infection_remaining(player)
+	_potion_badges["venom_potion"].visible = poison_time > 0.0
+	_potion_seconds["venom_potion"].text = "%ds" % ceili(poison_time)
+
+
+func _build_healing_potion_feedback(parent: HBoxContainer) -> void:
+	var holder := Control.new()
+	holder.name = "HealingPotionFeedback"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.custom_minimum_size = Vector2(32, 32)
+	holder.hide()
+	parent.add_child(holder)
+
+	var icon := TextureRect.new()
+	icon.name = "Icon"
+	icon.texture = preload("res://scripts/item_catalog.gd").texture("healing_potion")
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.hide()
+	holder.add_child(icon)
+
+	var timer := Timer.new()
+	timer.one_shot = true
+	holder.add_child(timer)
+	timer.timeout.connect(icon.hide)
+	timer.timeout.connect(holder.hide)
+	GameManager.healing_potion_used.connect(icon.show)
+	GameManager.healing_potion_used.connect(holder.show)
+	GameManager.healing_potion_used.connect(timer.start.bind(1.0))
 
 
 func _refresh_quick_item() -> void:
@@ -801,6 +946,8 @@ func _build_label() -> void:
 
 func _on_health_changed(current: int, maximum: int) -> void:
 	_refresh(current, maximum, true)
+	if current <= 0 and _potion_badges.has("venom_potion"):
+		_potion_badges["venom_potion"].hide()
 
 
 func _build_stamina_bar() -> void:

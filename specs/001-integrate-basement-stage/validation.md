@@ -2042,3 +2042,195 @@ not supplied; no commit or push. Unrelated basement checkboxes remain unchanged.
 
 ### G08 — Remove cell numbers (2026-11-24)
 Implemented user-requested label-only correction in garden.tscn:32 numeric Label3D blocks removed;32 soil cells with existing stable names, positions/resources preserved. Existing regression assertion updated to require no Label child. Static count checks and git diff --check pass; runtime NOT RUN for this reversible presentation change. Prior157/157 remains historical, not a new run. No independent review, commit/push; incoming work preserved.
+
+
+## G09–G12 — Milestone 1 Garden potion brewing (2026-11-25)
+
+Tested working tree based on `features/BasementandGarden @ 1e410e4f`, including the
+incoming Garden scene. Godot 4.7.2 (ed1daf0bf), Compatibility renderer via ANGLE.
+The three final rendered runs exited 0. Runs used a copied project and dedicated
+`user://` directories. The source Garden and tracked UID cache match their incoming
+SHA-256 hashes.
+
+| Route and case | Status | Observation |
+| --- | --- | --- |
+| Direct Garden, seed shop | PASSED | F opens the actual merchant. Mua bán buys three cucumber and two pineapple seeds for five SP. Esc returns to dialogue. |
+| Direct Garden, plant and harvest | PASSED | F selects and plants individual cells. The fixture ages the timestamps; ripe F harvest gives two of each crop. B → Vật phẩm shows the same quantities. |
+| Direct Garden, dialogue to Brew | PASSED | Actual Điều chế Thuốc choice beside Mua bán. Player remains locked across handoff. Up/Down moves focus, F confirms, Esc and Đóng both return to gameplay. |
+| Direct Garden, missing ingredients | PASSED | Seeds alone, no produce after exchange and one missing crop each keep the control disabled. Invoking a disabled confirmation leaves inventory unchanged. |
+| Direct Garden, recipe/art | PASSED | Panel shows owned / required for both crops and one Bình hồi phục, with the first 32×32 frame of the specified great health potion sheet. Rendered screenshot inspected. |
+| Direct Garden, repeat and save | PASSED | Two available pairs produce exactly two potions. A third confirmation made in the same function call spends nothing. Counts and disabled state update immediately. Disk contains both final produce counts and the potion stack. Source inspection shows one existing save call per successful Brew. |
+| Direct Garden, next harvest | PASSED | A third cucumber harvested after brewing restores cucumber to one and leaves pineapple at zero, both in the controller and on disk. |
+| Direct Garden, B → Tiêu hao and Q | PASSED | The potion is visible and assignable to the existing quick slot. Physical Q heals to full and consumes one. Full HP consumes none and displays no new indicator. The upper-right icon appears and hides after roughly one second. Rendered screenshot inspected. |
+| Direct Garden, physical 2 binding | PASSED | Physical 2 selects `active_skill_2` without consuming a potion. |
+| Physical 2 as potion shortcut | BLOCKED | Conflicts with the active skill binding. G12 awaits a decision about that binding. |
+| Continue from the configured main scene | PASSED | A new process loads the earlier isolated save via GameManager startup. Starting the configured main scene continues at `garden_start`, with one assigned potion and harvested counts 1 cucumber / 0 pineapple. |
+| Legacy version-1 saves | PASSED | Synthetic payloads containing a potion without a quick key and with an existing `consumable` UID both load. The assigned potion works via Q. |
+| Split B1 → B2 → B3 → Garden regression | PASSED | Existing F route fixture loads Garden through the boss-gated exit, verifies all four choices at 480×270, 1280×720, 800×800 and 540×960, and retests seed trade, chat, back, leave and farming. Both reverse routes also pass. |
+| Full on-foot run from a fresh configured main scene | NOT RUN | Split route uses controlled positioning and encounter completion. Continue starts the configured main scene with a saved Garden checkpoint. |
+| Manual physical input and legacy sketch playtest | NOT RUN | Test runner injects Godot keys and invokes UI actions. Sketch keeps three options by the Garden-only choice condition. |
+| Disk-write failure / recovery | NOT RUN | SaveSystem v1 reports open failures to the log and provides no write result or rollback. Successful Brew uses the standard combined save, with no change to that contract. |
+
+### Reproduction
+
+Use a disposable copy with imported assets, enable `application/config/use_custom_user_dir`
+and set `application/config/custom_user_dir_name` to a new name beginning with
+`ArcanaPlacement-`. In PowerShell, use a dedicated writable APPDATA directory for the
+test processes. Keep the same APPDATA directory for the first two commands. Use a
+different one for the split route so it has its own save. Set `$godot` to the Godot 4.7.2
+executable and `$copy` to the copied project.
+
+```powershell
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-only
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-continue
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy
+```
+
+Direct Garden passed **33/33** (`brew-rendered-v4`), Continue and legacy passed **6/6**
+(`continue-rendered-v4`), and split route passed **162/162** (`split-rendered-final`).
+Local stdout, stderr and engine logs are in the ignored
+`.godot/ArcanaBrew-20261125-73d194/` directory. Screenshots `brew-panel.png` and
+`brew-used.png` are under `userdata/ArcanaPlacement-Brew-73d194/`. The final runs
+have existing vendor UID fallbacks, ObjectDB leakage (3, 4 and 19 instances,
+respectively) and one retained resource each on shutdown. No final gameplay script
+or Dialogic expression errors were observed.
+
+An early compile probe failed because the SceneTree fixture referenced the Player class
+before autoload registration. The fixture now accesses the Player node at runtime.
+The first rendered run exposed PauseMenu consuming Esc before the shared farm panel.
+The panel now handles cancellation at the input phase. A subsequent rendered run
+exposed a fixture timing error after closing Inventory; closing waits for two process
+frames. The fixture now waits before sending the next gameplay input. All three
+final runs above completed. Independent teammate review remains unrecorded.
+
+
+## G13–G17 — Milestone 2 combat potions (2026-11-25)
+
+Baseline was `features/BasementandGarden @ 1e410e4f` plus the existing Milestone 1
+working tree. Lam reports verifying Milestone 1. The user confirms Bao's permission
+for both combat points and chose to keep physical 2 on skill slot 2 for this milestone.
+
+Godot 4.7.2 (ed1daf0bf), Compatibility via ANGLE, isolated save directories.
+Final rendered totals are **43/43** direct Garden/combat, **2/2** Milestone 2 Continue,
+**33/33** healing regression and **6/6** healing Continue/legacy. All exited 0.
+
+| Case | Status | Evidence |
+| --- | --- | --- |
+| Garden Hộ mệnh and Cường lực recipes | PASSED | Actual NPC and Brew panel accept broccoli + spinach or broccoli + pineapple, each at one of each crop for one potion. Each row shows live ownership and its requested 32×32 frame. |
+| Brew confirm, count refresh and exhaustion | PASSED | Rapid confirmation against shared broccoli stock caps both stacks at four. Shared recipe counts update immediately and disk contains the new produce and both stacks. Keyboard focus skips disabled recipes, follows the enabled recipes and reaches Đóng. |
+| B and Q for each new potion | PASSED | Actual B → Tiêu hao buttons assign each item. Q takes exactly one bottle on success, including for Hộ mệnh at full HP. |
+| Key 2, HUD and Inventory labels | PASSED | Q labels the consumable slot. Physical 2 selects skill slot 2 per the final user decision, with the weapon and potion counts retained. The earlier weapon-switch request is superseded. |
+| Hộ mệnh allocation and ordinary mitigation | PASSED | 5 current HP yields a 3-point shield. Reuse after break at 3 current HP yields two points. A covered hit consumes only shield points. |
+| Hộ mệnh with parry, immunity and Ice Shield | PASSED | The actual parry state and both immunity checks preserve potion shield. The existing Ice Shield gate consumes its one hit first. The fixture sets up Ice Shield directly. |
+| Hộ mệnh overflow, break and timeout | PASSED | A 5-damage valid hit through a 3-point shield removes 2 HP. Break hides the shield gauge and badge while the strength badge remains. A fresh shield is present late in its eight-second window and expires on gameplay time. |
+| Cường lực ordinary melee | PASSED | The same ordinary combo and actual hitbox overlap yield exactly one hit at 1 → 2 → 1 damage before, during and after the effect. A separate unmodified hitbox owned by Foxy still emits 7 damage. |
+| Other damage routes | NOT RUN | Full charged attack, skill, projectile and DoT gameplay regressions were not run. Source inspection shows only the ordinary combo enables the modifier, and the separate HitArea default-path probe passed. |
+| Two HUD effects and pause | PASSED | Both icons, separate countdown values and shield gauge are visible together. Inventory B and Escape pause both freeze the timers. Captured and visually inspected the combined HUD and three-recipe panel at 1280×720. |
+| Duplicate use | PASSED | Both Q rejections display a reason and retain count. Strength keeps its remaining time. B → Sử dụng also reports the active strength effect and preserves the stack. |
+| Lethal combat hit and respawn | PASSED | Incoming 5+shield damage uses the real hurt and death flow. Shield and strength vanish before the death delay. Actual Garden checkpoint respawn has full health, no effects, and the post-use counts. |
+| District/scene change and Continue observation for Mốc 4 | PASSED | Garden → configured main scene clears transient potion effects. A new process continues at the Garden checkpoint with the paid counts and Q assignment, with neither runtime buff restored. |
+| Healing regression | PASSED | Mốc 1 Garden suite covers purchase, planting, harvest, focus, repeated Brew, later harvest, full-heal/exact-one, full-HP no-op and healing HUD. Existing v1 save and Continue cases pass. |
+| Wave reset, hardware controls and disk-error recovery | NOT RUN | Wave/encounter code was outside this change. Death used the actual Garden checkpoint. Inputs are injected through Godot. Standard SaveSystem v1 has no write result/rollback. |
+
+### Combat integration and run instructions
+
+Incoming damage flows through `Player._on_hurt_area_3d_hurt()`, which retains the Ice
+Shield gate, then `PlayerState.take_damage()`, where the potion absorbs damage after
+invincibility and successful parry checks and before HP damage. The ordinary combo in
+`weapon_attack.gd` opts its specific hitbox into one contact-time adjustment in
+`HitArea3D.hit()` after the current damage calculation. State transitions, timing,
+wave reset and scene loading continue to use their original implementations.
+
+Use the disposable-copy setup from Mốc 1 above. Keep one dedicated APPDATA directory
+for the first two commands and a separate one for the last two.
+
+```powershell
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/garden_combat_potions_check.gd -- --isolated-copy
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/garden_combat_potions_check.gd -- --isolated-copy --continue
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-only
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-continue
+```
+
+Local evidence is under the ignored `.godot/ArcanaPotions2-20261125/` directory.
+Final log stems are `m2-final`, `m2-continue`, `healing-final` and `healing-continue`.
+`potions-brew.png` and `potions-both-active.png` are in the isolated Mốc 2 user
+directory. The fixture supplies harvested produce directly for Mốc 2, drives the
+actual Garden NPC and B menus, and uses a controlled target position to exercise
+weapon contact and incoming damage. It also waits real gameplay seconds for expiry.
+
+Earlier healing regression exposed focus stopping at disabled recipes. The Brew
+panel now links its enabled buttons and close button. The first rendered Mốc 2
+run compared two physics-frame samples as if a process tick was guaranteed between
+them. The repeat-use test now establishes elapsed time before retrying and accepts
+equal or decreasing time only, with the rejection message and unchanged count also
+required. Final runs retain vendor UID fallbacks and ObjectDB/resource shutdown
+diagnostics. No final gameplay script or Dialogic error was observed. Bao's
+implementation authorization is recorded. Independent patch review is unrecorded.
+
+
+## G18–G23 — Milestone 3 venom potion (2026-11-25)
+
+Working-tree baseline is `features/BasementandGarden @ 1e410e4f` with Mốc 1–2 and
+the team's existing changes. Lam approved Mốc 3. The final user decision keeps 2
+on skill slot 2. Godot 4.7.2 (ed1daf0bf) Compatibility via ANGLE ran in an isolated
+copy with independent save directories. The final Garden → Castle run passed
+**56/56**. All four existing-potion regression runs also exited 0.
+
+| Case | Status | Observed result |
+| --- | --- | --- |
+| Garden Brew, icon, combined save | PASSED | Real merchant lists the 32×32 venom frame. Fourteen exchanges each charge one cucumber and spinach. A fifteenth attempt cannot craft. Saved counts contain both produce and potion updates. |
+| Assign B → Tiêu hao, real F Garden → Castle, Q and 2 | PASSED | The assigned potion goes through the existing Q slot. Physical 2 selects skill slot 2 and leaves the weapon and bottle count intact. Each accepted Q subtracts one bottle, including on disk. |
+| Camera snapshot, horizontal limit and near-vertical fallback | PASSED | Real active Camera3D orientation drives the throw. On Castle F1 the unobstructed launch goes 4 m horizontally. Rotating the camera during flight leaves the first target fixed. A near-vertical camera uses Foxy's facing. |
+| Castle wall, stair edge and invalid launch | PASSED | The authored wall shortens the throw to its near side. The stair edge lands on the Castle ramp around Y=7. Unsupported launch is rejected with the bottle retained and a gameplay reason. |
+| Simultaneous flights and active zones | PASSED | A second bottle spends one while the first is airborne. Four independently timed regions coexist. Source imposes no active-zone cap. |
+| Main throw A, same A at roughly 2 s, new B | PASSED | First impact creates A. Second impact restores A to 8 s with the same center, visual and damage phase. B lands outside A, starts its own clock and leaves A's deadline intact. |
+| Atlas loop and visibility | PASSED | First four strict packed frames at 65 ms each loop on the ground and use the light-green palette. Flight alone leaves the infection icon hidden. The visual starts at impact and hides when the zone expires. Inspected Castle captures at 1280×720. |
+| Enemy tick, exit, floor and occlusion | PASSED | A living Skeleton loses one HP after one second. Leaving the radius stops subsequent hits. The other floor and a solid test wall each block damage within the horizontal footprint. Existing hurt/invulnerability behavior still applies. |
+| Foxy exact 2 s and shorter exposure | PASSED | On entry the icon appears. After leaving, exactly 2 s produces one final HP tick as the icon clears. A 1.5 s exposure displays the icon and expires without a tick. |
+| Overlap and pause | PASSED | The two overlapping zones select the longer expiry with one two-second damage cadence. Escape pause holds flights, zone clocks, infection and the next scheduled damage. |
+| Lethal infection and Castle checkpoint reset | PASSED | Foxy's health reaches zero and infection/icon clear before respawn. The old encounter continues advancing its zone clock during death. Castle F2 reload removes all old potion nodes and retains paid counts. Fresh enemies spawning in the same footprint receive no stale hit. |
+| Defeat, EXP and Castle F2 wave-clear | PASSED | Poison defeats the nine test-positioned enemies spawned by the actual three Castle EnemyZones. All three zones clear, the exit unlocks, and a regular EXP pickup reaches Foxy. |
+| Bình hồi phục regression | PASSED | Garden 33/33 and Continue/legacy 6/6. |
+| Bình hộ mệnh and Bình cường lực regression | PASSED | Garden/combat 43/43 and Continue 2/2. |
+| Manual on-foot combat, hardware input and other maps | NOT RUN | The fixture injects Godot input and controls positioning, local Camera3D orientation, initial harvested stock, drop-target HP, and some exact clock boundaries. Castle uses the authored navigation, walls, stairs, checkpoint and native EnemyZones. |
+| Venom Continue in a new process and disk-write failure | NOT RUN | Castle reload and raw saved stock were checked. SaveSystem keeps its existing write-error behavior. |
+
+### Integration boundary and reproduction
+
+Lam's scene-local poison node calls `HurtArea3D.take_damage()` for a valid enemy tick.
+Castle then uses the existing `Skeleton._on_hurt_area_3d_hurt()` /
+`ArcaneEnemy._on_hurt_area_3d_hurt()`, EXP drop and `EnemyZone._on_enemy_tree_exited()`
+paths. Foxy's periodic cost decrements HP directly, and lethal cost uses
+`Player.die()` followed by the existing `GameManager.respawn()`. Bao or Duy can
+review these call sites separately from patch sign-off. Their implementation files,
+checkpoint handling, scene resources and wave reset rules have no Mốc 3 edits.
+Range is measured horizontally. The search follows nearby floor and ramp support
+in 0.25 m steps and checks world geometry along the actual launch arc.
+
+Use the disposable copy setup above, with imported resources and a unique
+`ArcanaPlacement-` custom user directory. Give each suite its own APPDATA path.
+Reuse that suite's path for its Continue command.
+
+```powershell
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/garden_poison_potion_check.gd -- --isolated-copy
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-only
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/basement_clear_portal_check.gd -- --isolated-copy --brew-continue
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/garden_combat_potions_check.gd -- --isolated-copy
+& $godot --path $copy --rendering-method gl_compatibility --resolution 1280x720 --script res://tests/garden_combat_potions_check.gd -- --isolated-copy --continue
+```
+
+Local evidence is under `.godot/ArcanaVenom-20261125/`. Final log stems are
+`venom-verified`, `healing-verified`, `healing-continue-verified`,
+`m2-verified` and `m2-continue-verified`. Under
+`userdata/ArcanaPlacement-Venom-20261125/`, `venom-castle-zones.png`
+shows A/B without an infection badge and `venom-infection-hud.png` shows the
+active badge when Foxy stands in the overlap.
+
+The initial fixture parse error was fixed with an explicit Boolean type.
+The early headless fixture could sample the HUD before its process frame and
+looked for EXP after its auto-collection. It now waits for HUD layout and
+observes actual EXP drops as well as collection. Rendered evidence prompted
+a light-green remap of the selected atlas frames and immediate badge hiding
+on lethal health change. Final runs have vendor UID fallbacks and existing
+ObjectDB/retained-resource diagnostics at exit. No final gameplay script,
+shader or Dialogic compile error was observed.

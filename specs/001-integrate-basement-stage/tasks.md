@@ -1018,3 +1018,31 @@ Final isolated Godot4.7.2 rendered157/157, exit0. Full manual traversal/controll
 independent review remain unrun; see validation.md and cumulative record.
 
 - [X] G08 (2026-11-24): user requests removing cell numbers. Removed32 numeric Label3D children; preserved32 cells and their stable save keys/positions. Existing regression expectation updated. Static count/whitespace checks passed; runtime not rerun for label-only change. See cumulative record.
+
+## G09–G12 — Garden potion brewing, Milestone 1 (2026-11-25)
+
+- [X] G09 Add the Garden NPC Brew choice, reuse the merchant panel and verify focus, Esc, mouse and seed shop continuity.
+- [X] G10 Exchange one harvested cucumber and pineapple for `healing_potion`, with one save for produce and inventory. Verify insufficient ingredients, rapid attempts, harvest after brewing and the 32×32 potion icon.
+- [X] G11 Verify B inventory and the existing quick slot, Q, exact consumption, no-op at full HP, one-second HUD feedback, Continue and version-1 potion/assignment compatibility.
+- [ ] G12 Former proposal to bind 2 to the quick item. **SUPERSEDED** by G16. It was blocked in Mốc 1 by the existing `active_skill_2` binding.
+
+Lam approved this milestone. Review scope covers the merchant, farming/Inventory adapter and potion-use feedback. See the milestone spec and validation for acceptance and evidence.
+
+
+## G13–G17 — Garden protection and strength potions, Milestone 2 (2026-11-25)
+
+- [X] G13 Add two harvested-produce recipes and potion frames to Garden Brew and the v1 save flow (Lam).
+- [X] G14 Integrate one-item Q/Inventory use, shield and ordinary melee damage (Lam and Bao-authorized combat points).
+- [X] G15 Display timers and the shield gauge, reject duplicate use, freeze on pause and clear on death. Verify respawn, scene change and Continue.
+- [X] G16 Verify Q and retain 2 for active skill slot 2 per the user's final decision.
+- [X] G17 Run isolated Garden/combat checks and healing regression. Record validation and the cumulative implementation history.
+
+
+## G18–G23 — Venom potion, Milestone 3 (2026-11-25)
+
+- [X] G18 Add the fourth Garden recipe and 32×32 frame, retaining Q and the user-confirmed skill 2 binding (Lam).
+- [X] G19 Implement accepted-only spending and camera-directed, terrain-checked independent throws (Lam).
+- [X] G20 Implement impact merging, isolated zone clocks, manifest-based visual and enemy damage via HurtArea3D (Lam). Verify defeat, EXP and Castle EnemyZone progression through existing APIs.
+- [X] G21 Implement Foxy's single pause-aware infection and HUD. Verify exact-expiry tick, overlap, death and the existing scene-reset behavior (Lam).
+- [X] G22 Run isolated Garden and Castle checks including real scene death/respawn and wave isolation.
+- [X] G23 Rerun the three existing potion regressions and record handoff/evidence.

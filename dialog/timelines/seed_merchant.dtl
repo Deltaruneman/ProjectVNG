@@ -8,5 +8,8 @@ mushroom: Chào bạn! Bạn muốn trò chuyện hay chọn hạt cho khu vư�
 - Mua bán
     [signal arg="seed_shop"]
     [end_timeline]
+- Điều chế Thuốc | [if GameManager.current_stage.get_node("Farm").offers_brewing()]
+    [signal arg="brew"]
+    [end_timeline]
 - Rời đi
     [end_timeline]

@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/vendor/32x32_rpg_animated_free_pack_v2/spritesheet/potions/oasis_elixir.png" id="1_sheet"]
+
+[resource]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true

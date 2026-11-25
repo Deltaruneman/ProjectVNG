@@ -65,7 +65,10 @@ func take_damage(damage: int = 1) -> void:
 	# Đang trong khung parry -> gạt đòn, không mất máu
 	if obj.parrying and fsm.states.has("parry") and fsm.states.parry.try_parry():
 		return
-	obj.take_damage(damage)
+	var hp_damage: int = obj.absorb_potion_damage(damage)
+	if damage > 0 and hp_damage == 0:
+		return
+	obj.take_damage(hp_damage)
 	if obj.health <= 0 :
 		change_state(fsm.states.dead)
 	else:

@@ -8,11 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="6_checkpoint"]
 [ext_resource type="PackedScene" path="res://scenes/objects/bush.tscn" id="7_bush"]
 [ext_resource type="PackedScene" uid="uid://b4ieghv46oq47" path="res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/Prop_WoodenFence_Single.gltf" id="8_fence"]
-[ext_resource type="PackedScene" uid="uid://n0wu1j1a8c4d" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/floor_dirt_large.gltf" id="9_dirt"]
 [ext_resource type="PackedScene" uid="uid://b2ldhvifgu2o7" path="res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/Prop_Crate.gltf" id="10_crate"]
 [ext_resource type="PackedScene" uid="uid://ekdrygupkwbd" path="res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/Prop_Wagon.gltf" id="11_wagon"]
-
-[ext_resource type="Script" path="res://levels/sketch/farm_controller.gd" id="12_farm"]
+[ext_resource type="Script" uid="uid://cthn57qbkick8" path="res://levels/sketch/farm_controller.gd" id="12_farm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.36, 0.58, 0.85, 1)
@@ -44,12 +42,11 @@ size = Vector3(28, 1.4, 0.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fence_side"]
 size = Vector3(0.3, 1.4, 16)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wagon"]
-size = Vector3(2, 1.6, 4)
-
 [sub_resource type="StandardMaterial3D" id="GardenSoil"]
 albedo_color = Color(0.36, 0.22, 0.12, 1)
-roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wagon"]
+size = Vector3(2, 1.6, 4)
 
 [node name="Stage" type="Node3D" unique_id=1231076529]
 script = ExtResource("1_stage")
@@ -275,163 +272,163 @@ shape = SubResource("BoxShape3D_fence_side")
 [node name="Plots" type="Node3D" parent="FarmZone" unique_id=1467936735]
 metadata/note = "8 luống mở rộng, mỗi luống 4 ô đất độc lập 2.1m."
 
-[node name="Plot_01" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(20.3, 1.07, 22.8)
+[node name="Plot_01" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1983912013 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_01_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(22.7, 1.07, 22.8)
+[node name="Plot_01_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1951817199 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_01_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(20.3, 1.07, 25.2)
+[node name="Plot_01_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1472178648 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_01_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(22.7, 1.07, 25.2)
+[node name="Plot_01_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=617434945 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_02" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(25.3, 1.07, 22.8)
+[node name="Plot_02" type="CSGBox3D" parent="FarmZone/Plots" unique_id=776552582 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_02_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(27.7, 1.07, 22.8)
+[node name="Plot_02_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=2004384353 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_02_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(25.3, 1.07, 25.2)
+[node name="Plot_02_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1475933457 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_02_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(27.7, 1.07, 25.2)
+[node name="Plot_02_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=879682826 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_03" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(20.3, 1.07, 29.8)
+[node name="Plot_03" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1574658785 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_03_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(22.7, 1.07, 29.8)
+[node name="Plot_03_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1902220080 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_03_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(20.3, 1.07, 32.2)
+[node name="Plot_03_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1964132071 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_03_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(22.7, 1.07, 32.2)
+[node name="Plot_03_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=946421161 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_04" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(25.3, 1.07, 29.8)
+[node name="Plot_04" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1429070099 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_04_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(27.7, 1.07, 29.8)
+[node name="Plot_04_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=382235681 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_04_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(25.3, 1.07, 32.2)
+[node name="Plot_04_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=881375363 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_04_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(27.7, 1.07, 32.2)
+[node name="Plot_04_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1281949297 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_05" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(36.3, 1.07, 22.8)
+[node name="Plot_05" type="CSGBox3D" parent="FarmZone/Plots" unique_id=880163289 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_05_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(38.7, 1.07, 22.8)
+[node name="Plot_05_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=676900881 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_05_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(36.3, 1.07, 25.2)
+[node name="Plot_05_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=2136612363 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_05_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(38.7, 1.07, 25.2)
+[node name="Plot_05_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=738236567 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_06" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(41.3, 1.07, 22.8)
+[node name="Plot_06" type="CSGBox3D" parent="FarmZone/Plots" unique_id=2059992888 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.3, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_06_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(43.7, 1.07, 22.8)
+[node name="Plot_06_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1266819024 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.7, 1.07, 22.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_06_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(41.3, 1.07, 25.2)
+[node name="Plot_06_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1737417633 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.3, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_06_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(43.7, 1.07, 25.2)
+[node name="Plot_06_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=175023491 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.7, 1.07, 25.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_07" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(36.3, 1.07, 29.8)
+[node name="Plot_07" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1249896647 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_07_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(38.7, 1.07, 29.8)
+[node name="Plot_07_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=795150500 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_07_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(36.3, 1.07, 32.2)
+[node name="Plot_07_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=1462854637 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_07_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(38.7, 1.07, 32.2)
+[node name="Plot_07_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=930554564 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_08" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(41.3, 1.07, 29.8)
+[node name="Plot_08" type="CSGBox3D" parent="FarmZone/Plots" unique_id=686036813 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.3, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_08_2" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(43.7, 1.07, 29.8)
+[node name="Plot_08_2" type="CSGBox3D" parent="FarmZone/Plots" unique_id=921364256 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.7, 1.07, 29.8)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_08_3" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(41.3, 1.07, 32.2)
+[node name="Plot_08_3" type="CSGBox3D" parent="FarmZone/Plots" unique_id=2133316084 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.3, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
-[node name="Plot_08_4" type="CSGBox3D" parent="FarmZone/Plots" groups=["plant_plots"]]
-position = Vector3(43.7, 1.07, 32.2)
+[node name="Plot_08_4" type="CSGBox3D" parent="FarmZone/Plots" unique_id=587736273 groups=["plant_plots"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.7, 1.07, 32.2)
 size = Vector3(2.1, 0.1, 2.1)
 material = SubResource("GardenSoil")
 
@@ -552,7 +549,7 @@ target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=1533580739]
 
-[node name="Farm" type="Node3D" parent="."]
+[node name="Farm" type="Node3D" parent="." unique_id=988548618]
 script = ExtResource("12_farm")
 plots_path = NodePath("../FarmZone/Plots")
 plot_key_prefix = "garden/"
