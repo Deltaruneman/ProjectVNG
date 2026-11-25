@@ -1,5 +1,6 @@
 extends CanvasLayer
 const CATALOG := preload("res://scripts/item_catalog.gd")
+const CHEAT_MENU_SCRIPT := preload("res://ui/cheat_menu.gd")
 const FARM_CROPS := {"broccoli": "Bông cải", "cucumber": "Dưa leo", "spinach": "Rau bina", "pineapple": "Dứa"}
 const FARM_ICONS := "res://assets/vendor/free_pixel_farm_crops/icons/32px/x1/"
 const GOLD := Color("f1e2b6")
@@ -20,12 +21,16 @@ var _tabs: HBoxContainer
 var _title: Label
 var _skin_data: Dictionary = {}
 var _skin_cache: Dictionary = {}
+var _cheat_menu: CanvasLayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 115
 	_skin_data = JSON.parse_string(FileAccess.get_file_as_string(SKIN_ROOT + "slices.json"))
 	_build()
+	_cheat_menu = CHEAT_MENU_SCRIPT.new()
+	_cheat_menu.name = "CheatMenu"
+	add_child(_cheat_menu)
 	get_viewport().size_changed.connect(_layout)
 	get_tree().scene_changed.connect(close_menu)
 	GameManager.inventory_changed.connect(_refresh)
@@ -99,7 +104,7 @@ func _build() -> void:
 	body.add_child(columns)
 	_list = _scroll_column(columns, 1.25)
 	_detail = _scroll_column(columns, 1.0, true)
-	_status = _label("B · Túi đồ    /    P · Thử nghiệm", 14)
+	_status = _label("B · Túi đồ", 14)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body.add_child(_status)
 
@@ -160,13 +165,20 @@ func _input(event: InputEvent) -> void:
 	if _closing:
 		return
 	if is_open:
-		if event.is_action_pressed("inventory") or event.is_action_pressed("cheat_menu") or event.is_action_pressed("ui_cancel"):
+		if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
 			get_viewport().set_input_as_handled()
 			close_menu()
 		return
-	if event.is_action_pressed("inventory") or event.is_action_pressed("cheat_menu"):
-		if open_menu("cheat" if event.is_action_pressed("cheat_menu") else "equipment"):
-			get_viewport().set_input_as_handled()
+	if event.is_action_pressed("inventory"):
+		get_viewport().set_input_as_handled()
+		if bool(_cheat_menu.get("is_open")):
+			_open_after_cheat("equipment")
+		else:
+			open_menu("equipment")
+
+func _open_after_cheat(target: String) -> void:
+	await _cheat_menu.call("close_menu")
+	open_menu(target)
 
 func open_menu(target: String = "equipment") -> bool:
 	if is_open or _closing or get_tree().paused or GameManager.is_changing():
@@ -215,16 +227,13 @@ func _refresh() -> void:
 	_clear(_tabs)
 	_clear(_list)
 	_clear(_detail)
-	_title.text = "THỬ NGHIỆM" if page in ["cheat", "enchant"] else "TÚI ĐỒ"
-	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["farm_items", "Vật phẩm"], ["cheat", "Cheat · P"], ["enchant", "Bàn enchant"]]:
+	_title.text = "THỬ NGHIỆM" if page == "enchant" else "TÚI ĐỒ"
+	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["farm_items", "Vật phẩm"]]:
 		var tab := _button(_tabs, entry[1], _show_page.bind(entry[0]))
 		for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 			tab.add_theme_stylebox_override(state, _skin("tab_wood_active" if page == entry[0] else "tab_wood_inactive", 10))
 		tab.add_theme_color_override("font_disabled_color", GOLD)
 		tab.disabled = page == entry[0]
-	if page == "cheat":
-		_build_cheat()
-		return
 	if page == "enchant":
 		_build_enchant()
 		return
@@ -422,28 +431,6 @@ func _show_potion_rejection(reason: String) -> void:
 	if is_open:
 		_status.text = reason
 
-
-func _build_cheat() -> void:
-	_paragraph(_list, "VẬT PHẨM & NÂNG CẤP THỬ NGHIỆM")
-	_button(_list, "Nhận bộ vật phẩm", func() -> void:
-		for definition: String in CATALOG.definitions():
-			if CATALOG.item(definition).slot == "offhand":
-				continue
-			GameManager.inventory.grant(definition, 5 if CATALOG.item(definition).slot == "consumable" else 1)
-		GameManager.notify_inventory_changed())
-	_button(_list, "+20 SP để thử", func() -> void:
-		GameManager.skill_points += 20
-		GameManager.notify_inventory_changed())
-	_button(_list, "Mở bàn enchant", _show_page.bind("enchant"))
-	_button(_list, "Trở về không nguyên tố", GameManager.reset_skill_tree)
-	_list.add_child(HSeparator.new())
-	for form: String in CATALOG.ELEMENTS:
-		_button(_list, "Test hệ " + str(CATALOG.ELEMENTS[form]) + " + skill 1", func() -> void:
-			GameManager.reset_skill_tree()
-			GameManager.skill_points = maxi(GameManager.skill_points, 3)
-			GameManager.spend_skill_point("form_" + form, form)
-			GameManager.spend_skill_point("active_%s_1" % form))
-	_paragraph(_detail, "Đồ và SP cấp ở đây được lưu cùng tiến trình. Chưa có tỉ lệ drop hay nguồn nâng cấp trong thế giới.")
 
 func _build_enchant() -> void:
 	_paragraph(_list, "Chọn một vũ khí trong túi.")

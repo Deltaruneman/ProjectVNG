@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bi6pdh2menfqm"]
 
-[ext_resource type="Texture2D" path="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/arcane/rune-trap/strict/packed/sprite-sheet.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://c10p1nk4fngqu" path="res://assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/arcane/rune-trap/strict/packed/sprite-sheet.png" id="1_sheet"]
 
 [sub_resource type="Shader" id="Shader_venom"]
 code = "shader_type spatial;
@@ -17,5 +17,6 @@ void fragment() {
 "
 
 [resource]
+render_priority = 0
 shader = SubResource("Shader_venom")
 shader_parameter/sheet = ExtResource("1_sheet")

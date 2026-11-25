@@ -116,14 +116,28 @@ func _run() -> void:
 	await ticks(3)
 	check(manager.flags.get("story_possession",false) and not story.busy and not stage.player.is_talking and stage.process_mode != Node.PROCESS_MODE_DISABLED, "Có accepts and restores gameplay")
 	stage.player.set_physics_process(false)
-	for zone in stage.get_node("B1/EnemyZones").get_children():
+	stage.camera_rig.set_view_mode(1) # TPS is the current default and must get an obvious ladder close-up.
+	var b1_zones: Array = stage.get_node("B1/EnemyZones").get_children()
+	var active_zones: Array = []
+	for zone in b1_zones:
 		zone.get_node("Timer").stop()
-		zone._defeated = zone.clear_kills
-		zone.cleared.emit()
+		zone._defeated = 0
+		if zone.enemy_scene == null:
+			continue
+		active_zones.append(zone)
+		zone._defeated = zone.clear_kills - 1
+	check(active_zones.size() == 2, "B1 fixture has two active enemy zones and skips the empty one")
+	for index in active_zones.size() - 1:
+		active_zones[index]._defeated = active_zones[index].clear_kills
+		active_zones[index].cleared.emit()
+	await ticks(3)
+	check(not story.busy, "B1 monologue waits for the last active zone")
+	var last_zone = active_zones.back()
+	last_zone._defeated = last_zone.clear_kills
+	last_zone.cleared.emit()
 	await ticks(5)
-	check(story.busy and story._active == "b1_clear", "actual zone-clear signals trigger B1 monologue")
+	check(story.busy and story._active == "b1_clear", "last B1 zone clear starts the monologue")
 	var camera: Camera3D = stage.camera_rig.camera
-	var old_pose: Transform3D = story._camera_transform
 	for step in 40:
 		if story._camera_tween != null:
 			break
@@ -133,11 +147,17 @@ func _run() -> void:
 			dialogue.handle_next_event()
 		await ticks(2)
 	await ticks(45)
-	check(camera.fov < 50 and camera.global_position.distance_to(stage.get_node("B1/LadderSpot_B1_B2").global_position) < 12, "rendered ladder focus zoom")
+	var ladder_focus: Vector3 = stage.get_node("B1/LadderSpot_B1_B2").global_position + Vector3.UP * 4.0
+	check(camera.fov < 42 and camera.unproject_position(ladder_focus).distance_to(get_root().get_visible_rect().size * 0.5) < 5.0, "rendered TPS ladder close-up centers the ladder")
 	await capture("ladder-focus")
 	await finish_dialogue()
 	await ticks(2)
-	check(manager.flags.get("story_b1_clear",false) and camera.global_transform.is_equal_approx(old_pose) and is_equal_approx(camera.fov, story._camera_fov), "camera restored and B1 story saved")
+	check(manager.flags.get("story_b1_clear",false) and is_equal_approx(camera.fov, story._camera_fov), "camera FOV restored and B1 story saved")
+	check(stage.camera_rig.view_mode == 1 and stage.camera_rig.process_mode == Node.PROCESS_MODE_ALWAYS and stage.player.can_interact(), "camera view and Player controls resume after B1 story")
+	if OS.get_cmdline_user_args().has("--b1-gate-only"):
+		print("B1_GATE_RESULT ", checks-failures, "/", checks, " failures=", failures)
+		quit(0 if failures == 0 else 1)
+		return
 	await _camera_views(stage)
 	await _chest(stage)
 	stage = current_scene
@@ -283,7 +303,7 @@ func _boss() -> void:
 	check(manager.flags.get("story_dark_fairy_defeat",false) and manager.flags.get("b3_split_cleared",false) and not is_instance_valid(boss) and not paused, "defeat cinematic despawns boss, persists clear and releases world")
 
 func _camera_views(stage: Node3D) -> void:
-	for mode in [0,1,2]:
+	for mode in [1,0,2]:
 		stage.camera_rig.set_view_mode(mode)
 		stage.camera_rig.snap_to_target()
 		await ticks(3)
@@ -299,7 +319,8 @@ func _camera_views(stage: Node3D) -> void:
 				dialogue.handle_next_event()
 			await ticks(2)
 		await ticks(45)
-		check(stage.camera_rig.camera.fov < 50, "ladder focus works from view" + str(mode))
+		var ladder_focus: Vector3 = stage.get_node("B1/LadderSpot_B1_B2").global_position + Vector3.UP * 4.0
+		check(stage.camera_rig.camera.fov < 42 and stage.camera_rig.camera.unproject_position(ladder_focus).distance_to(get_root().get_visible_rect().size * 0.5) < 5.0, "ladder close-up centers in view" + str(mode))
 		await finish_dialogue()
 		check(stage.camera_rig.view_mode == mode and not stage.player.is_talking and stage.camera_rig.process_mode == Node.PROCESS_MODE_ALWAYS, "view/control restored for view" + str(mode))
 	stage.camera_rig.set_view_mode(0)

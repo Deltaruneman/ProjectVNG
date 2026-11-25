@@ -1,6 +1,8 @@
 class_name PlayerState
 extends FSMState
 
+const PLAYER_HIT_FX := preload("res://scenes/player/battle_vfx.gd")
+
 func _enter() -> void:
 	pass
 
@@ -43,7 +45,8 @@ func control_jump() -> bool:
 #Control attack
 #Return true if attacking
 func control_attack() -> bool:
-	if Input.is_action_just_pressed("attack") and GameManager.inventory.id_for_slot("main") != "":
+	var player := obj as Player
+	if Input.is_action_just_pressed("attack") and player != null and player.attack_input_cooldown <= 0.0 and GameManager.inventory.id_for_slot("main") != "":
 		change_state(fsm.states.attack)
 		return true
 	return false
@@ -65,6 +68,8 @@ func take_damage(damage: int = 1) -> void:
 	# Đang trong khung parry -> gạt đòn, không mất máu
 	if obj.parrying and fsm.states.has("parry") and fsm.states.parry.try_parry():
 		return
+	if damage > 0:
+		PLAYER_HIT_FX.play_skill_sound(obj, "player_hit")
 	var hp_damage: int = obj.absorb_potion_damage(damage)
 	if damage > 0 and hp_damage == 0:
 		return

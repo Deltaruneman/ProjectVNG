@@ -205,6 +205,7 @@ func _update_link(delta: float) -> void:
 		_finish_attacking(true)
 
 func _start_combo() -> void:
+	BattleFX.play_skill_sound(obj, "weapon_attack")
 	_hit_area.damage_modifier = obj.potion_normal_attack_damage
 	_phase = PHASE_COMBO
 	_elapsed = 0.0
@@ -339,6 +340,7 @@ func _start_charged_attack() -> void:
 			return
 		_start_combo()
 		return
+	BattleFX.play_skill_sound(obj, "weapon_attack")
 	_elapsed = 0.0
 	_strike_index = -1
 	var equipment: Dictionary = GameManager.inventory.definition_for_slot("main")
@@ -521,6 +523,20 @@ func _update_recovery(delta: float) -> void:
 
 func _finish_attacking(combo_finished: bool = false) -> void:
 	_set_hit_active(false)
+	if combo_finished:
+		# Only attack input is locked after the full combo; other states handle movement and dash.
+		var player := obj as Player
+		if player != null:
+			player.attack_input_cooldown = maxf(player.attack_input_cooldown, COMBO_END_RECOVERY)
+		obj.anim_player.speed_scale = _old_anim_speed
+		(obj.get_node("Sprite3D") as Sprite3D).offset = _body_offset
+		if _legacy_blade_suppressed:
+			obj.suppress_blade(false)
+			_legacy_blade_suppressed = false
+		obj.change_animation("idle")
+		obj.call("_check_changed_animation")
+		change_state(fsm.states.idle)
+		return
 	# Recovery still locks actions, but the body must no longer hold the last attack frame.
 	obj.anim_player.speed_scale = _old_anim_speed
 	(obj.get_node("Sprite3D") as Sprite3D).offset = _body_offset
@@ -531,7 +547,7 @@ func _finish_attacking(combo_finished: bool = false) -> void:
 	obj.call("_check_changed_animation")
 	_phase = PHASE_RECOVER
 	_elapsed = 0.0
-	_recovery_lock_duration = COMBO_END_RECOVERY if combo_finished else STRIKE_RECOVERY
+	_recovery_lock_duration = STRIKE_RECOVERY
 	if is_instance_valid(_weapon):
 		_recovery_start_position = _weapon.position
 		_recovery_start_rotation = _weapon.rotation

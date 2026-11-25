@@ -7,6 +7,7 @@ var _fallback_hurt_running := false
 
 const HEALTH_BAR_SCENE := preload("res://scenes/ui/enemy_health_bar.tscn")
 const SKILL_POINT_SCENE := preload("res://levels/objects/experience_point/exp_point.tscn")
+const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 
 @export var exp_point_drop := 1
 var _exp_point_dropped := false
@@ -51,6 +52,16 @@ func _ready() -> void:
 	add_child(HEALTH_BAR_SCENE.instantiate())
 	if exp_point_drop > 0:
 		health_changed.connect(_on_exp_point_health_changed)
+	if anim_player != null:
+		anim_player.animation_started.connect(_on_enemy_animation_started)
+
+
+func _on_enemy_animation_started(animation_name: StringName) -> void:
+	var animation := str(animation_name).to_lower()
+	if animation.contains("attack") or animation.contains("shoot") or animation.contains("castspell") \
+			or animation.contains("closeattack") or animation.contains("explosion") \
+			or animation.contains("skill") or animation.ends_with("_atk") or animation == "atk":
+		BattleFX.play_skill_sound(self, "enemy_attack")
 
 
 func _on_exp_point_health_changed(current: int, _maximum: int) -> void:
@@ -212,6 +223,8 @@ func has_hurt_animation() -> bool:
 func take_damage(damage: int) -> void:
 	var previous_health := health
 	super.take_damage(damage)
+	if health < previous_health:
+		BattleFX.play_skill_sound(self, "enemy_hit")
 	if health > 0 and health < previous_health and not has_hurt_animation():
 		_play_fallback_hurt()
 

@@ -35,10 +35,12 @@ var _secret_areas: Dictionary[Node3D, Rect2] = {}
 
 func _ready() -> void:
 	super._ready()
-	if has_node("B1/ChestSpot"):
-		for child: Node in $B1/EnemyZones.get_children():
+	var b1_zones := get_node_or_null("B1/EnemyZones")
+	if has_node("B1/ChestSpot") and b1_zones != null:
+		for child: Node in b1_zones.get_children():
 			if child is EnemyZone:
 				(child as EnemyZone).cleared.connect(_spawn_b1_chest)
+		_spawn_b1_chest.call_deferred()
 	for child: Node in get_children():
 		var node := child as Node3D
 		if node != null and node.has_meta("floor_level"):
@@ -62,10 +64,26 @@ func _ready() -> void:
 
 
 func _spawn_b1_chest() -> void:
-	for child: Node in $B1/EnemyZones.get_children():
-		if child is EnemyZone and not (child as EnemyZone).is_cleared():
+	var chest_spot := get_node_or_null("B1/ChestSpot") as Node3D
+	var b1_zones := get_node_or_null("B1/EnemyZones")
+	if chest_spot == null or b1_zones == null:
+		return
+	var active_zone_count := 0
+	for child: Node in b1_zones.get_children():
+		if not child is EnemyZone:
+			continue
+		var zone := child as EnemyZone
+		if zone.enemy_scene == null or zone.clear_kills <= 0:
+			continue
+		active_zone_count += 1
+		if not zone.is_cleared():
 			return
-	$B1/ChestSpot.add_child(B1_CHEST.instantiate())
+	if active_zone_count == 0:
+		return
+	for child: Node in chest_spot.get_children():
+		if child.name == "FloorClearChest":
+			return
+	chest_spot.add_child(B1_CHEST.instantiate())
 
 
 func _physics_process(_delta: float) -> void:

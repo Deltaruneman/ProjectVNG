@@ -7,6 +7,8 @@ extends Node3D
 @export var required_unlock := ""
 @export var encounters: Node3D
 @export var clear_reward: Marker3D
+## Optional unique reward chest key; empty keeps the chest scene's existing default ID.
+@export var clear_reward_chest_id := ""
 @export var return_door: Node3D
 
 const B1_CHEST := preload("res://levels/objects/experience_point/floor_clear_chest.tscn")
@@ -87,7 +89,10 @@ func _open() -> void:
 	if is_instance_valid(_locked_interaction):
 		_locked_interaction.queue_free()
 	if clear_reward != null:
-		clear_reward.add_child.call_deferred(B1_CHEST.instantiate())
+		var chest := B1_CHEST.instantiate()
+		if not clear_reward_chest_id.is_empty():
+			chest.set("chest_id", clear_reward_chest_id)
+		clear_reward.add_child.call_deferred(chest)
 	if _interaction != null:
 		show()
 		_interaction.set_deferred("monitoring", true)

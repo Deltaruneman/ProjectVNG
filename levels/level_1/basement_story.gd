@@ -41,12 +41,16 @@ func _b1_cleared() -> bool:
 	if GameManager.is_door_unlocked("b1_split_cleared"):
 		return true
 	var zones := _stage.get_node_or_null("B1/EnemyZones")
-	if zones == null or zones.get_child_count() == 0:
+	if zones == null:
 		return false
+	var enemy_zone_count := 0
 	for zone: Node in zones.get_children():
-		if zone is EnemyZone and not zone.is_cleared():
+		if not zone is EnemyZone or zone.enemy_scene == null:
+			continue
+		enemy_zone_count += 1
+		if not zone.is_cleared():
 			return false
-	return true
+	return enemy_zone_count > 0
 
 func wants_boss_story(kind: StringName) -> bool:
 	return not GameManager.flags.get("story_dark_fairy_" + str(kind), false)
@@ -99,12 +103,13 @@ func _focus_ladder() -> void:
 	if ladder == null or not is_instance_valid(_camera):
 		return
 	# A fixed downward shot stays above the authored opening; original view is restored exactly.
-	var focus := ladder.global_position + Vector3.UP
-	var pose := Transform3D(Basis.IDENTITY, focus + Vector3(0, 7, 5)).looking_at(focus, Vector3.UP)
+	# Frame the ladder itself with a tighter shot than the default TPS follow view.
+	var focus := ladder.global_position + Vector3.UP * 4.0
+	var pose := Transform3D(Basis.IDENTITY, focus + Vector3(0, 6.0, 4.5)).looking_at(focus, Vector3.UP)
 	_camera_tween = create_tween()
 	_camera_tween.set_parallel(true)
 	_camera_tween.tween_property(_camera, "global_transform", pose, 0.65).set_trans(Tween.TRANS_SINE)
-	_camera_tween.tween_property(_camera, "fov", 42.0, 0.65)
+	_camera_tween.tween_property(_camera, "fov", 38.0, 0.65)
 
 func _restore() -> void:
 	if is_instance_valid(_camera_tween):

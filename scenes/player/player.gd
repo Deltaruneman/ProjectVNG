@@ -47,6 +47,7 @@ signal stamina_changed(current: float, maximum: float)
 signal active_skill_slot_changed(slot: int, skill_id: String)
 var rage := 0.0
 var stamina := MAX_STAMINA
+var attack_input_cooldown := 0.0
 var _stamina_regen_delay := 0.0
 var _health_regen_elapsed := 0.0
 var _health_regen_rank := 0
@@ -288,6 +289,7 @@ func _try_step_up(horizontal_motion: Vector3) -> bool:
 
 
 func _process(delta: float) -> void:
+	attack_input_cooldown = maxf(0.0, attack_input_cooldown - delta)
 	_tick_potion_effects(delta)
 	_update_offhand_cast_pose()
 	if _skill_button_held:
@@ -1507,6 +1509,7 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 	if is_invulnerable:
 		return
 	if ice_shield > 0:
+		BattleFX.play_skill_sound(self, "player_hit")
 		ice_shield = 0
 		_ice_shield_generation += 1
 		_hud_status_time_remaining.erase("shield")

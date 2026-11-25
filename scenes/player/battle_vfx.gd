@@ -198,6 +198,18 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 	var volume_db := -5.0
 	match skill_id:
 		"orb_white": relative_path = "Spells/Spell Impact 1.ogg"
+		"weapon_attack":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
+			volume_db = -8.0
+		"player_hit":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 2.ogg"
+			volume_db = -7.0
+		"enemy_attack":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 2.ogg"
+			volume_db = -9.0
+		"enemy_hit":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 3.ogg"
+			volume_db = -8.0
 		"parry_success":
 			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Parry 1.ogg"
 			volume_db = -2.0

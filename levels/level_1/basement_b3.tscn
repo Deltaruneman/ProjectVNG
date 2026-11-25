@@ -77,6 +77,9 @@ floor_map = NodePath("../World")
 [node name="MiniBossSpot_B3" type="Marker3D" parent="B3" unique_id=578778800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 13, 14)
 
+[node name="ClearReward" type="Marker3D" parent="B3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 13, 14)
+
 [node name="ElevatorSlot" type="Marker3D" parent="B3" unique_id=1522927679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 13, 2)
 
@@ -150,11 +153,13 @@ metadata/note = "Lối lên Garden, mở sau khi hạ Dark Fairy."
 [node name="DarkFairy" parent="B3/Enemies" instance=ExtResource("8_givlk")]
 position = Vector3(38, 13.1, 14)
 
-[node name="EncounterProgress" type="Node3D" parent="B3" node_paths=PackedStringArray("encounters", "return_door")]
+[node name="EncounterProgress" type="Node3D" parent="B3" node_paths=PackedStringArray("encounters", "return_door", "clear_reward")]
 script = ExtResource("encounter_progress")
 clear_flag = "b3_split_cleared"
 encounters = NodePath("../Enemies")
 return_door = NodePath("../Door_b3_down")
+clear_reward = NodePath("../ClearReward")
+clear_reward_chest_id = "basement_b3_dark_fairy"
 
 [node name="Checkpoint_b3" parent="B3" unique_id=540661895 instance=ExtResource("checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 13, 9)

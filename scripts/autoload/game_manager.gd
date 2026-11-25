@@ -66,6 +66,8 @@ var _changing := false
 var _booted := false
 ## Retain unknown fields; SaveSystem's version-1 serializer remains unchanged.
 var _loaded_payload: Dictionary = {}
+## XP and inventory copied at the most recently accepted checkpoint.
+var _checkpoint_progress: Dictionary = {}
 
 
 func _ready() -> void:
@@ -177,6 +179,8 @@ func respawn() -> void:
 	if has_checkpoint_conflict():
 		push_warning("Respawn blocked: unresolved checkpoint reference; progress preserved.")
 		return
+	_restore_checkpoint_progress()
+	save_game()
 	if checkpoint_id != "":
 		change_stage(checkpoint_stage, checkpoint_id, false, true)
 	else:
@@ -200,10 +204,12 @@ func set_checkpoint(stage_path: String, id: String) -> void:
 			return
 		checkpoint_stage = FIRST_STAGE
 		checkpoint_id = canonical_id
+		_checkpoint_progress = _capture_checkpoint_progress()
 		save_game()
 		return
 	checkpoint_stage = stage_path
 	checkpoint_id = id
+	_checkpoint_progress = _capture_checkpoint_progress()
 	save_game()
 
 
@@ -260,6 +266,7 @@ func activate_basement_checkpoint(stage_path: String, id: String) -> String:
 			return "unchanged"
 	checkpoint_stage = canonical_stage
 	checkpoint_id = id
+	_checkpoint_progress = _capture_checkpoint_progress()
 	if id == "b3_start":
 		# Only a fresh, validated activation creates this discriminator. Old pairs stay held.
 		_loaded_payload["basement_checkpoint_contract"] = B3_CHECKPOINT_CONTRACT
@@ -289,6 +296,33 @@ func is_door_unlocked(flag: String) -> bool:
 	return flags.get(flag, false)
 
 
+func enemy_zone_defeated_slots(zone_key: String) -> Array[int]:
+	var defeated_by_zone: Variant = flags.get("enemy_zone_defeated_slots", {})
+	var saved_slots: Variant = defeated_by_zone.get(zone_key, []) if defeated_by_zone is Dictionary else []
+	var result: Array[int] = []
+	if saved_slots is Array:
+		for raw_slot: Variant in saved_slots:
+			var slot := int(raw_slot)
+			if slot >= 0 and not result.has(slot):
+				result.append(slot)
+	return result
+
+
+func record_enemy_zone_defeat(zone_key: String, slot: int) -> void:
+	if zone_key.is_empty() or slot < 0:
+		return
+	var defeated_by_zone: Variant = flags.get("enemy_zone_defeated_slots", {})
+	var stored: Dictionary = defeated_by_zone.duplicate(true) if defeated_by_zone is Dictionary else {}
+	var defeated_slots: Variant = stored.get(zone_key, [])
+	var slots: Array = defeated_slots.duplicate() if defeated_slots is Array else []
+	if slots.has(slot):
+		return
+	slots.append(slot)
+	stored[zone_key] = slots
+	flags["enemy_zone_defeated_slots"] = stored
+	save_game()
+
+
 ## Writes everything to disk. Starts from _loaded_payload so unknown fields in the save file are
 ## kept, then overwrites the fields this script owns.
 func save_game() -> void:
@@ -311,6 +345,7 @@ func save_game() -> void:
 	payload["weapon_form"] = weapon_form
 	payload["unlocked_skills"] = unlocked_skills
 	payload["collected_exp_points"] = collected_exp_points
+	payload["checkpoint_progress"] = _checkpoint_progress.duplicate(true)
 	payload.erase("collected_skill_points")
 	payload["selected_ultimate_skill"] = selected_ultimate_skill
 	payload["inventory"] = inventory.serialize()
@@ -336,6 +371,35 @@ func award_experience(amount: int, source_id: String = "") -> bool:
 	skill_progress_changed.emit()
 	save_game()
 	return true
+
+
+func _capture_checkpoint_progress() -> Dictionary:
+	var enemy_slots: Variant = flags.get("enemy_zone_defeated_slots", {})
+	return {
+		"player_level": player_level,
+		"experience": experience,
+		"collected_exp_points": collected_exp_points.duplicate(),
+		"inventory": inventory.serialize(),
+		"enemy_zone_defeated_slots": enemy_slots.duplicate(true) if enemy_slots is Dictionary else {},
+	}
+
+
+func _restore_checkpoint_progress() -> void:
+	if _checkpoint_progress.is_empty():
+		_checkpoint_progress = _capture_checkpoint_progress()
+	player_level = maxi(1, int(_checkpoint_progress.get("player_level", player_level)))
+	experience = maxi(0, int(_checkpoint_progress.get("experience", experience)))
+	var saved_collectibles: Variant = _checkpoint_progress.get("collected_exp_points", collected_exp_points)
+	collected_exp_points.clear()
+	if saved_collectibles is Array:
+		for collectible: Variant in saved_collectibles:
+			collected_exp_points.append(str(collectible))
+	inventory.restore(_checkpoint_progress.get("inventory", inventory.serialize()))
+	var checkpoint_enemy_slots: Variant = _checkpoint_progress.get("enemy_zone_defeated_slots", {})
+	if checkpoint_enemy_slots is Dictionary:
+		flags["enemy_zone_defeated_slots"] = checkpoint_enemy_slots.duplicate(true)
+	inventory_changed.emit()
+	skill_progress_changed.emit()
 
 
 # Compatibility adapter for existing enemy/chest reward integrations.
@@ -470,6 +534,12 @@ func load_game() -> void:
 		checkpoint_stage = FIRST_STAGE
 	elif has_supported_b3_checkpoint():
 		checkpoint_stage = B3_STAGE
+	var saved_checkpoint_progress: Variant = data.get("checkpoint_progress", {})
+	if saved_checkpoint_progress is Dictionary and saved_checkpoint_progress.has("inventory"):
+		_checkpoint_progress = saved_checkpoint_progress.duplicate(true)
+	else:
+		# Older saves have no checkpoint snapshot; treat their loaded progress as the baseline.
+		_checkpoint_progress = _capture_checkpoint_progress()
 
 
 ## F9: forget the save file and start over in stage 1 — even in the middle of a stage change.
@@ -486,6 +556,7 @@ func reset() -> void:
 	pending_spawn = ""
 	checkpoint_stage = ""
 	checkpoint_id = ""
+	_checkpoint_progress = {}
 	flags = {}
 	player_level = 1
 	experience = 0
@@ -502,6 +573,7 @@ func reset() -> void:
 	_changing = false
 	_booted = false
 	_loaded_payload = {}
+	_checkpoint_progress = _capture_checkpoint_progress()
 
 
 
