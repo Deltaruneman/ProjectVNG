@@ -90,9 +90,9 @@ metadata/note = "Nền thấp bên ngoài (mặt Y = 0.5) để lỡ nhảy qua 
 [node name="Door_from_basement" parent="Transitions" unique_id=176660308 instance=ExtResource("5_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 1)
 id = "garden_from_basement"
-target_stage = "res://levels/level_1/basement_b3.tscn"
-target_door = "b3_exit"
-metadata/note = "Cửa về Basement B3. Bên B3, Door_b3_exit cần target_stage = garden.tscn, target_door = garden_from_basement."
+target_stage = "res://levels/level_1/basement_3.tscn"
+target_door = "b3_from_garden"
+metadata/note = "Cửa về Basement 3 (phòng boss). Bên basement_3, B3/ExitToGarden có id = b3_from_garden."
 
 [node name="Door_to_castle" parent="Transitions" unique_id=1212154949 instance=ExtResource("5_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 1, 1)
