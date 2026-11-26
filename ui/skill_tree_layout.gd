@@ -84,7 +84,7 @@ const SKILL_DESCRIPTIONS := {
 	"Sét Đánh": "Triệu hồi phân thân sét đuổi theo kẻ địch, đánh thường trong 5 giây rồi phát nổ gây sát thương và choáng.",
 	"Lôi Bạo": "Phóng thích vụ nổ điện quanh người, làm choáng kẻ địch.",
 	"Cái Chết Tựa Cơn Gió": "Tuyệt kỹ diện rộng; tăng tốc độ di chuyển.",
-	"Trăng Tối": "Trong 3,6 giây, lướt vòng quanh địch gần nhất, gây sát thương và làm chậm kẻ địch trên đường đi. Miễn sát thương khi thi triển; kết thúc sẽ hồi kỹ năng Wind đã mở khóa.",
+	"Trăng Tối": "Trong 3,6 giây, lướt vòng quanh địch gần con trỏ trong tầm, gây sát thương và làm chậm kẻ địch trên đường đi. Miễn sát thương khi thi triển; kết thúc sẽ hồi kỹ năng Wind đã mở khóa.",
 	"Hỏa Kiếm": "Tuyệt kỹ lửa gây sát thương diện rộng.",
 	"Hỏa Thần Giáng Lâm": "Mất 10 HP (giữ lại tối thiểu 1 HP) để bùng nổ diện rộng.",
 	"Chân Băng": "Đóng băng và gây sát thương kẻ địch quanh bạn.",

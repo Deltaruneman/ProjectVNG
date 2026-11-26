@@ -28,7 +28,7 @@ var panel: PanelContainer
 var ui_root: Control
 var title: Label
 var choices: VBoxContainer
-var hint: Label
+var hint: Label3D
 var target_plot: Node3D
 var opened := false
 var old_mouse := Input.MOUSE_MODE_VISIBLE
@@ -86,11 +86,14 @@ func _make_ui() -> void:
 	ui_root.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	ui_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(ui_root)
-	hint = Label.new()
-	hint.position = Vector2(20, 90)
-	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hint.add_theme_font_size_override("font_size", 20)
-	ui_root.add_child(hint)
+	hint = Label3D.new()
+	hint.name = "PlotHint"
+	hint.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	hint.no_depth_test = true
+	hint.font_size = 32
+	hint.outline_size = 8
+	hint.pixel_size = 0.008
+	add_child(hint)
 	panel = PanelContainer.new()
 	panel.name = "FarmPanel"
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -131,7 +134,6 @@ func _layout_ui() -> void:
 	ui_root.scale = Vector2.ONE * factor
 	ui_root.size = viewport_size / factor
 	panel.size = Vector2(minf(560, ui_root.size.x - 32), minf(480, ui_root.size.y - 32))
-	hint.size.x = ui_root.size.x - 40
 	panel.position = (ui_root.size - panel.size) * 0.5
 
 func _process(delta: float) -> void:
@@ -143,6 +145,8 @@ func _process(delta: float) -> void:
 		hint.text = ""
 		return
 	var near := _nearest()
+	if near != null:
+		hint.global_position = near.global_position + Vector3.UP * (2.15 if near == $SeedMerchant else 1.35)
 	if near == null:
 		hint.text = ""
 	elif near == $SeedMerchant:

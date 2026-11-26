@@ -1,0 +1,58 @@
+{
+  "stairs": {
+    "maxVerticalCameraLag": 0.1514343,
+    "position": "404.2381, 1.000176, 400",
+    "test": "Actual Player walks physical six-step fixture; authored full campaign traversal not run"
+  },
+  "performance": {
+    "sampleTicks": 120,
+    "scope": "B3 fixed test position, helper CPU time only; no baseline comparison or whole-game FPS claim",
+    "occlusionMicrosecondsPerTick": 906.69
+  },
+  "audio": {
+    "actualSpeakerListening": "Not performed; mixed signal observed; no claim that all possible user audio problems are resolved",
+    "driver": "WASAPI",
+    "SFXPeakDb": -14.6988,
+    "userBackgroundMute": false
+  },
+  "date": "2026-11-26",
+  "files": [
+    {
+      "sha256": "6A63CF3B8CE6BE237E0AD3B9B8833859EC84F5BB058B80DC96D46E43B2B37C7A",
+      "path": "scenes/camera/camera_rig.gd",
+      "matchesTestedCopy": true
+    },
+    {
+      "sha256": "3663B04A97BD16B792CC24C47F158034DC882A520A871F2CAF516BB38FB287DC",
+      "path": "scenes/camera/wall_occlusion.gd",
+      "matchesTestedCopy": true
+    },
+    {
+      "sha256": "BBF6A97091E6AA11A93E6748DBB32A0DCE3BF38309E45A58BC1269C1D738383F",
+      "path": "scenes/player/weapon/floating_blade.gd",
+      "matchesTestedCopy": true
+    },
+    {
+      "sha256": "A0FDB752F211586550BF4336587B2A9AF43FB5BAD38C883EB43B3E01FE764958",
+      "path": "levels/level_1/basement_b3.tscn",
+      "matchesTestedCopy": true
+    },
+    {
+      "sha256": "9412A5590564C8C417C8859134789232E512BB423DF63FA8EF30EDC7E15454B8",
+      "path": "tests/presentation_audio_check.gd",
+      "matchesTestedCopy": true
+    },
+    {
+      "sha256": "3611B31CF29B684DBE40B8349E0BB13931E0C7F9B9F75C12E7CE82DB3D63B384",
+      "path": "tests/presentation_audio_check.tscn",
+      "matchesTestedCopy": true
+    }
+  ],
+  "checks": {
+    "focused": 9,
+    "engineExit": 0,
+    "retainedGameplay": "95/95",
+    "wallFade": "18/18",
+    "focusedFailures": 0
+  }
+}

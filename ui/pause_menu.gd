@@ -271,7 +271,7 @@ func _show_home() -> void:
 	_content.add_child(subtitle)
 	for item in [["Tiếp tục hành trình", close_menu], ["Cài đặt", open_settings], ["Hướng dẫn điều khiển", _show_help], ["Thoát trò chơi", _ask_quit]]:
 		_content.add_child(_button(item[0], item[1]))
-	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Alt để thả con trỏ khi chơi."
+	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Camera chéo cố định."
 	_footer.add_child(_label("DAY & NIGHT", 13))
 	(_content.get_child(1) as Button).grab_focus()
 	_layout.call_deferred()
@@ -288,7 +288,7 @@ func _show_help() -> void:
 		var row := _row(GameSettings.ACTIONS[action])
 		var slots: Array = GameSettings.bindings[action]
 		row.add_child(_label("%s    /    %s" % [GameSettings.binding_text(slots[0]), GameSettings.binding_text(slots[1])]))
-	_status.text = "Chuột: xoay camera · Con lăn: zoom · Alt: thả con trỏ\nChạm phím kỹ năng để dùng; giữ 0,3 giây để ngắm rồi thả."
+	_status.text = "Di chuyển để quay nhân vật · Chuột: ngắm kỹ năng\nNhấn nhanh hoặc giữ kỹ năng đều ngắm theo chuột; thả để thi triển."
 	var back := _button("Quay lại  ·  Esc", _show_home)
 	_footer.add_child(back)
 	back.grab_focus()
@@ -321,12 +321,9 @@ func _show_tab(index: int) -> void:
 	(_body.get_node("ContentScroll") as ScrollContainer).scroll_vertical = 0
 	for i in 3:
 		(_tabs.get_child(i) as Button).set_pressed_no_signal(i == index)
-	_status.text = "Âm thanh và camera được nghe / xem thử ngay. Áp dụng để lưu; Hủy để hoàn tác."
+	_status.text = "Âm thanh được nghe thử ngay. Áp dụng để lưu; Hủy để hoàn tác."
 	match index:
 		0:
-			_slider("Độ nhạy chuột", "sensitivity", 0.02, 0.5, 0.01)
-			_toggle("Đảo chiều trục dọc camera", "invert_y")
-			_slider("Góc nhìn camera", "fov", 45, 85, 1)
 			var note := _label("Chọn một ô rồi nhấn phím / nút chuột. Esc hủy gán; × xóa ô phụ.", 15)
 			note.modulate = GOLD
 			_content.add_child(note)
@@ -386,7 +383,7 @@ func _slider(text: String, key: String, low: float, high: float, step: float) ->
 	value_label.custom_minimum_size.x = 75
 	row.add_child(value_label)
 	var update := func(value: float):
-		value_label.text = "%d%%" % roundi(value * 100) if high <= 1.0 and key != "sensitivity" else "%.2f" % value
+		value_label.text = "%d%%" % roundi(value * 100) if high <= 1.0 else "%.2f" % value
 	update.call(slider.value)
 	slider.value_changed.connect(func(value: float):
 		_edit(key, value)

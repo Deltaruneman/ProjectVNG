@@ -91,7 +91,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0892181, 0.22729492, -0.093
 shape = SubResource("BoxShape3D_oket5")
 
 [node name="Blade" parent="Direction" index="4" unique_id=1929356891 instance=ExtResource("21_3j4b4")]
-transform = Transform3D(-0.96139157, -0.4098161, -0.7731602, 0.59165287, -1.1507093, -0.1257578, -0.644727, -0.44488075, 1.0375009, -0.1050099, 1.6510817, -1.1588768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.9, 0.18)
 
 [node name="CollisionShape3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84887695, 0)

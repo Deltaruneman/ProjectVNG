@@ -1,0 +1,14 @@
+{
+  "assets/vendor/KayKit_Dungeon/Assets/obj/dungeon_texture.png.import": {
+    "sha256": "d1b6d0e9207278783d805fc055811cc7c8b5a9c41d79ca9b26cde7ba7b56e602",
+    "matchesDeletionManifest": true
+  },
+  "assets/vendor/KayKit_Dungeon/Assets/obj/torch_lit.mtl": {
+    "sha256": "d235885d7fa5a3bb36f80ff1d9285f379858b49c5564a035189a22cb36598147",
+    "matchesDeletionManifest": true
+  },
+  "assets/vendor/KayKit_Dungeon/Assets/obj/dungeon_texture.png": {
+    "sha256": "ceb331d6ed53273da5e26808560bca8496f8f6ebc12d83b570c0e317560f1d03",
+    "matchesDeletionManifest": true
+  }
+}

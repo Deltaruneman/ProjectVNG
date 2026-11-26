@@ -1,0 +1,307 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+ISOLATED_USER_DATA C:/Users/BaoHo/AppData/Roaming/ArcanaFixedCamera-20261126
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS actual basement Stage binds Player and current Camera3D
+PASS single left-to-right diagonal action view
+PASS F2, mouse motion, wheel and MMB cannot change the view
+PASS pointer stays available
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS real movement controls facing up
+PASS pointer and held aim leave body facing unchanged up
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS real movement controls facing right
+PASS pointer and held aim leave body facing unchanged right
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS real movement controls facing down
+PASS pointer and held aim leave body facing unchanged down
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS real movement controls facing left
+PASS pointer and held aim leave body facing unchanged left
+PASS render follow stays anchored while moving
+MAX_ANCHOR_ERROR_PIXELS 0.00376892089844
+0
+Player: changing from state Idle to Jump
+PASS jump follows vertically without rotating view
+Player: changing from state Jump to Fall
+Player: changing from state Fall to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS fire tap spawns through real skill input
+SKILL_TRACE fire tap wanted=(402.7577, 0.750358, 402.8991) snapshot=(402.7577, 0.750359, 402.8991) direction=(0.706458, -0.042818, 0.706458) expected=(0.706458, -0.042817, 0.706458) pointer=(163.8749, 142.953)
+PASS fire tap uses release-time cursor target, never body facing
+PASS fire tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS fire held spawns through real skill input
+SKILL_TRACE fire held wanted=(402.7577, 0.750358, 402.8991) snapshot=(402.7577, 0.750359, 402.8991) direction=(0.706458, -0.042818, 0.706458) expected=(0.706458, -0.042817, 0.706458) pointer=(163.8746, 142.9517)
+PASS fire held uses release-time cursor target, never body facing
+PASS fire held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS ice tap spawns through real skill input
+SKILL_TRACE ice tap wanted=(402.7577, 0.750358, 397.2423) snapshot=(402.7577, 0.750359, 397.2423) direction=(0.706458, -0.042818, -0.706458) expected=(0.706458, -0.042817, -0.706458) pointer=(240.0, 209.8176)
+PASS ice tap uses release-time cursor target, never body facing
+PASS ice tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS ice held spawns through real skill input
+SKILL_TRACE ice held wanted=(402.7577, 0.750358, 397.2423) snapshot=(402.7577, 0.750359, 397.2423) direction=(0.706458, -0.042818, -0.706458) expected=(0.706458, -0.042817, -0.706458) pointer=(240.0, 209.8176)
+PASS ice held uses release-time cursor target, never body facing
+PASS ice held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS lightning tap spawns through real skill input
+SKILL_TRACE lightning tap wanted=(397.1009, 0.750358, 397.2423) snapshot=(397.1009, 0.750359, 397.2423) direction=(-0.706458, -0.042818, -0.706458) expected=(-0.706458, -0.042817, -0.706458) pointer=(316.1254, 142.9517)
+PASS lightning tap uses release-time cursor target, never body facing
+PASS lightning tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS lightning held spawns through real skill input
+SKILL_TRACE lightning held wanted=(397.1009, 0.750358, 397.2423) snapshot=(397.1009, 0.750359, 397.2423) direction=(-0.706458, -0.042818, -0.706458) expected=(-0.706458, -0.042817, -0.706458) pointer=(316.1254, 142.9517)
+PASS lightning held uses release-time cursor target, never body facing
+PASS lightning held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS wind tap spawns through real skill input
+SKILL_TRACE wind tap wanted=(397.1009, 0.750358, 402.8991) snapshot=(397.1009, 0.750359, 402.8991) direction=(-0.706458, -0.042818, 0.706458) expected=(-0.706458, -0.042813, 0.706458) pointer=(240.0, 89.80168)
+PASS wind tap uses release-time cursor target, never body facing
+PASS wind tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS wind held spawns through real skill input
+SKILL_TRACE wind held wanted=(397.1009, 0.750358, 402.8991) snapshot=(397.1009, 0.750359, 402.8991) direction=(-0.706458, -0.042818, 0.706458) expected=(-0.706458, -0.042817, 0.706458) pointer=(240.0, 89.80168)
+PASS wind held uses release-time cursor target, never body facing
+PASS wind held does not turn movement-facing body
+Player: changing from state Skill to Idle
+PASS ultimate starts with pointer aim
+PASS ultimate preserves pointer target through paused cinematic
+PASS Wind ultimate chooses the enemy by cursor rather than body/proximity
+PASS Wind mouse selection keeps the existing8m eligibility limit
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS default skill launches the actual equipped weapon
+PASS default throw uses mouse direction and7m range
+PASS default throw is straight and does not rotate the body
+Player: changing from state Skill to Idle
+PASS default weapon falls and plants on the floor
+PASS planted weapon retains UID and can be picked up
+PASS starter_blade grip sits at hand instead of behind back
+PASS starter_blade no idle float or sway
+Player: changing from state Idle to Attack
+PASS starter_blade real attack input enters combat
+Player: changing from state Attack to Dash
+Player: changing from state Dash to Idle
+PASS starter_blade attack/dash cleanup restores held grip
+PASS sword grip sits at hand instead of behind back
+PASS sword no idle float or sway
+Player: changing from state Idle to Attack
+PASS sword real attack input enters combat
+Player: changing from state Attack to Dash
+Player: changing from state Dash to Idle
+PASS sword attack/dash cleanup restores held grip
+PASS axe grip sits at hand instead of behind back
+PASS axe no idle float or sway
+Player: changing from state Idle to Attack
+PASS axe real attack input enters combat
+Player: changing from state Attack to Dash
+Player: changing from state Dash to Idle
+PASS axe attack/dash cleanup restores held grip
+PASS spear grip sits at hand instead of behind back
+PASS spear no idle float or sway
+Player: changing from state Idle to Attack
+PASS spear real attack input enters combat
+Player: changing from state Attack to Dash
+Player: changing from state Dash to Idle
+PASS spear attack/dash cleanup restores held grip
+PASS dagger grip sits at hand instead of behind back
+PASS dagger no idle float or sway
+Player: changing from state Idle to Attack
+PASS dagger real attack input enters combat
+Player: changing from state Attack to Idle
+Player: changing from state Idle to Dash
+Player: changing from state Dash to Idle
+PASS dagger attack/dash cleanup restores held grip
+PASS foreground walls keep normal clipping and fixed camera framing
+PASS normal near plane persists after obstacle removal
+PASS checkpoint-style teleport snaps to Player
+PASS actual pause menu owns pause and visible cursor
+PASS camera settings removed from preferences
+PASS menu closes and gameplay resumes
+PASS dialogue input gate remains intact
+PASS dialogue restores fixed view and controls
+PASS ladder story shot centers its target with a clear near plane
+PASS story restores fixed framing and controls
+PASS legacy camera config ignored while audio value survives
+PASS migrated settings save
+PASS next save removes legacy camera options
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS basement_full replacement Stage keeps camera contract
+PASS basement_full uses the same fixed view
+PASS basement_full keeps wall depth without near-plane cutaway
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS basement_b3 replacement Stage keeps camera contract
+PASS basement_b3 uses the same fixed view
+PASS basement_b3 keeps wall depth without near-plane cutaway
+PASS legacy clear flag keeps B3 return connected to Basementfull
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS garden replacement Stage keeps camera contract
+PASS garden uses the same fixed view
+PASS garden keeps wall depth without near-plane cutaway
+PASS Garden retains B3 connection
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS castle replacement Stage keeps camera contract
+PASS castle uses the same fixed view
+PASS castle keeps wall depth without near-plane cutaway
+PASS Castle retains Garden connection
+FIXED_CAMERA_RESULT 95/95
+ENGINE_EXIT_CODE=0

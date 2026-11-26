@@ -22,7 +22,7 @@ func _ready() -> void:
 	rig.set_process(false)
 	rig.set_physics_process(false)
 	rig.set_process_input(false)
-	rig.view_mode = CameraRig.ViewMode.TOP_DOWN
+	rig.set_view_mode(CameraRig.ViewMode.TOP_DOWN)
 	camera = rig.get_node("Camera3D")
 	camera.position = Vector3(4,7,7)
 	camera.look_at(Vector3(0,1,0))
@@ -36,10 +36,11 @@ func _ready() -> void:
 			player.change_direction(facing)
 			player._apply_direction()
 			await frames(3)
-			check((sprite.global_position - body.global_position).dot(-camera.global_basis.z) > 0.05, kind + " rests behind body " + facing)
-		rig.view_mode = CameraRig.ViewMode.TPS
+			var grip: Vector3 = player.get_node("Direction/Blade").global_position
+			check(grip.distance_to(player.global_position) < 1.0, kind + " rests at hand " + facing)
+		rig.set_view_mode(CameraRig.ViewMode.TPS)
 		await frames(2)
-		check(sprite.position.is_equal_approx(Vector3.ZERO), kind + " TPS restores sprite position")
+		check(rig.view_mode == CameraRig.ViewMode.TOP_DOWN, kind + " removed TPS request keeps fixed view")
 		rig.view_mode = CameraRig.ViewMode.TOP_DOWN
 		await frames(2)
 		var expected_scale := sprite.global_basis.get_scale()

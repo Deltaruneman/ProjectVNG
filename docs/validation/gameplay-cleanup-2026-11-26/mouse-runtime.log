@@ -1,0 +1,86 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+ISOLATED_USER_DATA C:/Users/BaoHo/AppData/Roaming/ArcanaFixedCamera-20261126-ArcanaCleanup-0648a9dd
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS actual basement Stage binds Player and current Camera3D
+PASS single left-to-right diagonal action view
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS fire tap spawns through real skill input
+SKILL_TRACE fire tap wanted=(402.8284, 0.750146, 402.8284) snapshot=(402.8284, 0.750147, 402.8284) direction=(0.706458, -0.042818, 0.706458) expected=(0.706458, -0.042817, 0.706458) pointer=(163.8746, 142.9517)
+PASS fire tap uses release-time cursor target, never body facing
+PASS fire tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS fire held spawns through real skill input
+SKILL_TRACE fire held wanted=(402.8284, 0.750146, 402.8284) snapshot=(402.8284, 0.750147, 402.8284) direction=(0.706458, -0.042818, 0.706458) expected=(0.706458, -0.042817, 0.706458) pointer=(163.8746, 142.9517)
+PASS fire held uses release-time cursor target, never body facing
+PASS fire held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS ice tap spawns through real skill input
+SKILL_TRACE ice tap wanted=(402.8284, 0.750146, 397.1716) snapshot=(402.8284, 0.750147, 397.1716) direction=(0.706458, -0.042818, -0.706458) expected=(0.706458, -0.042817, -0.706458) pointer=(240.0, 209.8176)
+PASS ice tap uses release-time cursor target, never body facing
+PASS ice tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS ice held spawns through real skill input
+SKILL_TRACE ice held wanted=(402.8284, 0.750146, 397.1716) snapshot=(402.8284, 0.750147, 397.1716) direction=(0.706458, -0.042818, -0.706458) expected=(0.706458, -0.042817, -0.706458) pointer=(240.0, 209.8176)
+PASS ice held uses release-time cursor target, never body facing
+PASS ice held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS lightning tap spawns through real skill input
+SKILL_TRACE lightning tap wanted=(397.1716, 0.750146, 397.1716) snapshot=(397.1716, 0.750147, 397.1716) direction=(-0.706458, -0.042818, -0.706458) expected=(-0.706458, -0.042817, -0.706458) pointer=(316.1254, 142.9517)
+PASS lightning tap uses release-time cursor target, never body facing
+PASS lightning tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS lightning held spawns through real skill input
+SKILL_TRACE lightning held wanted=(397.1716, 0.750146, 397.1716) snapshot=(397.1716, 0.750147, 397.1716) direction=(-0.706458, -0.042818, -0.706458) expected=(-0.706458, -0.042817, -0.706458) pointer=(316.1254, 142.9517)
+PASS lightning held uses release-time cursor target, never body facing
+PASS lightning held does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS wind tap spawns through real skill input
+SKILL_TRACE wind tap wanted=(397.1716, 0.750146, 402.8284) snapshot=(397.1716, 0.750147, 402.8284) direction=(-0.706458, -0.042818, 0.706458) expected=(-0.706458, -0.042817, 0.706458) pointer=(240.0, 89.80168)
+PASS wind tap uses release-time cursor target, never body facing
+PASS wind tap does not turn movement-facing body
+Player: changing from state Skill to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Skill
+PASS wind held spawns through real skill input
+SKILL_TRACE wind held wanted=(397.1716, 0.750146, 402.8284) snapshot=(397.1716, 0.750147, 402.8284) direction=(-0.706458, -0.042818, 0.706458) expected=(-0.706458, -0.042817, 0.706458) pointer=(240.0, 89.80168)
+PASS wind held uses release-time cursor target, never body facing
+PASS wind held does not turn movement-facing body
+Player: changing from state Skill to Idle
+PASS ultimate starts with pointer aim
+PASS ultimate preserves pointer target through paused cinematic
+Warning: Trying to change to same state
+MOUSE_SKILL_RESULT 28/28
+ENGINE_EXIT_CODE=0

@@ -1,0 +1,223 @@
+{
+  "inventoryFiles": 4973,
+  "retainedFiles": 4967,
+  "candidateFiles": 5,
+  "byCategory": {
+    "project metadata: preserve/manual review": {
+      "files": 5,
+      "bytes": 7188,
+      "dirty": 1
+    }
+  },
+  "dynamic": [
+    {
+      "from": "tools/build_basement_library.gd",
+      "prefix": "assets/grid_map/basement/",
+      "count": 64
+    },
+    {
+      "from": "tools/build_forest_library.gd",
+      "prefix": "assets/grid_map/forest/",
+      "count": 64
+    },
+    {
+      "from": "addons/dialogic/Core/DialogicUtil.gd",
+      "prefix": "addons/dialogic/Modules/",
+      "count": 298
+    },
+    {
+      "from": "addons/dialogic/Core/DialogicUtil.gd",
+      "prefix": "addons/dialogic_additions/",
+      "count": 0
+    },
+    {
+      "from": "addons/dialogic/Editor/Common/update_manager.gd",
+      "prefix": "test-project/",
+      "count": 0
+    },
+    {
+      "from": "addons/dialogic/Editor/Common/update_manager.gd",
+      "prefix": "addons/dialogic/",
+      "count": 541
+    },
+    {
+      "from": "addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.gd",
+      "prefix": "addons/dialogic/Example Assets/sound-effects/",
+      "count": 5
+    },
+    {
+      "from": "addons/dialogic/Modules/StyleEditor/style_editor.gd",
+      "prefix": "addons/dialogic/",
+      "count": 541
+    },
+    {
+      "from": "addons/dialogic/export_plugin.gd",
+      "prefix": "addons/dialogic/",
+      "count": 541
+    },
+    {
+      "from": "levels/level_1/basement_story.gd",
+      "prefix": "dialog/timelines/",
+      "count": 12
+    },
+    {
+      "from": "levels/sketch/farm_controller.gd",
+      "prefix": "assets/vendor/free_pixel_farm_crops/crops/x1/",
+      "count": 120
+    },
+    {
+      "from": "ui/inventory_menu.gd",
+      "prefix": "assets/vendor/free_pixel_farm_crops/icons/32px/x1/",
+      "count": 60
+    },
+    {
+      "from": "ui/inventory_menu.gd",
+      "prefix": "assets/ui/hearthmark/",
+      "count": 14
+    },
+    {
+      "from": "scripts/item_catalog.gd",
+      "prefix": "assets/sprites/item/",
+      "count": 195
+    },
+    {
+      "from": "ui/player_hud.gd",
+      "prefix": "assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/",
+      "count": 48
+    },
+    {
+      "from": "ui/player_hud.gd",
+      "prefix": "assets/effects/pixelfx/projectiles/",
+      "count": 16
+    },
+    {
+      "from": "ui/skill_tree_layout.gd",
+      "prefix": "assets/ui/craftpix-net-809047-free-animated-magic-book-pixel-art-asset-pack/PNG/",
+      "count": 61
+    },
+    {
+      "from": "ui/skill_tree_layout.gd",
+      "prefix": "assets/sprites/Pixel_Skill_Spell_Icons_v1.0/PNG/32x32/",
+      "count": 48
+    },
+    {
+      "from": "scenes/player/battle_vfx.gd",
+      "prefix": "assets/effects/pixelfx/",
+      "count": 53
+    },
+    {
+      "from": "scenes/player/battle_vfx.gd",
+      "prefix": "assets/vendor/pvfx-foundry-thirteen-spritesheets/effects/",
+      "count": 808
+    },
+    {
+      "from": "scenes/player/battle_vfx.gd",
+      "prefix": "assets/sfx/Free Fantasy SFX Pack By TomMusic/OGG Files/SFX/",
+      "count": 183
+    },
+    {
+      "from": "ui/cheat_menu.gd",
+      "prefix": "assets/ui/hearthmark/",
+      "count": 14
+    }
+  ],
+  "missing": [
+    {
+      "from": "addons/dialogic/Core/DialogicUtil.gd",
+      "path": "addons/dialogic_additions",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Core/DialogicUtil.gd",
+      "path": "addons/dialogic/Editor/Events/Fields/field_vector",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Core/DialogicUtil.gd",
+      "path": "addons/dialogic/Editor/Events/Fields/field_vector",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Editor/Settings/CoreSettingsPages/settings_general.gd",
+      "path": "addons/dialogic_additions",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Editor/Settings/CoreSettingsPages/settings_general.gd",
+      "path": "addons/dialogic_additions",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Editor/Settings/CoreSettingsPages/settings_general.gd",
+      "path": "addons/dialogic_additions",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Editor/Settings/CoreSettingsPages/settings_general.tscn",
+      "path": "addons/dialogic_additions/Events",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.tscn",
+      "path": "path/to/my/character.dch",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "addons/dialogic/Modules/StyleEditor/style_editor.tscn",
+      "path": "addons/dialogic/Modules/LayoutStuff/Base_Default/default_layout_base.tscn",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_checkpoint_check.gd",
+      "uid": "uid://ut8i8xxf74gj",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_checkpoint_check.gd",
+      "uid": "uid://b7bnu12tjc0e8",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_checkpoint_check.gd",
+      "path": "unknown/basement_b2.tscn",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_checkpoint_check.gd",
+      "uid": "uid://ut8i8xxf74gj",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_checkpoint_check.gd",
+      "uid": "uid://b7bnu12tjc0e8",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/basement_b3_check.gd",
+      "path": "unknown/basement_b2.tscn",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/elemental_orb_test.gd",
+      "path": "docs/validation/elemental-orbs/depth-open.png",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/elemental_orb_test.gd",
+      "path": "docs/validation/elemental-orbs/depth-occlusion.png",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/elemental_orb_test.gd",
+      "path": "docs/validation/elemental-orbs/rendered-orbs.png",
+      "reason": "literal resource/load path"
+    },
+    {
+      "from": "tests/world_vfx_anchor_check.gd",
+      "path": "world_vfx_anchor.gd",
+      "reason": "literal resource/load path"
+    }
+  ],
+  "missingCount": 19,
+  "caseFallbackCount": 0
+}

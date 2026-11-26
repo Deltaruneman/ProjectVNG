@@ -1,6 +1,10 @@
 class_name Stage
 extends Node3D
 
+## Local encounter pacing. Other stages retain the original combat values.
+@export_range(1.0, 3.0) var enemy_attack_interval_scale := 1.0
+@export_range(0.1, 1.0) var enemy_projectile_speed_scale := 1.0
+
 ## The root node of every level. In _ready() it hands itself to GameManager, which decides where
 ## the fox appears. Keep the node NAMED "Stage": Node3DFactory finds the level's containers through
 ## find_parent("Stage").

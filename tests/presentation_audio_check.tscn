@@ -1,0 +1,4 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://tests/presentation_audio_check.gd" id="1"]
+[node name="PresentationCheck" type="Node3D"]
+script = ExtResource("1")

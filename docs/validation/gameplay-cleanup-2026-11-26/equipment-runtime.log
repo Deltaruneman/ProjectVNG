@@ -1,0 +1,145 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS starter_blade rests at hand up
+PASS starter_blade rests at hand down
+PASS starter_blade rests at hand left
+PASS starter_blade rests at hand right
+PASS starter_blade removed TPS request keeps fixed view
+Player: changing from state Idle to Skill
+PASS starter_blade launches
+PASS starter_blade preserves equipped texture and pixel size
+PASS starter_blade spinning flight preserves equipped world scale
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS sword rests at hand up
+PASS sword rests at hand down
+PASS sword rests at hand left
+PASS sword rests at hand right
+PASS sword removed TPS request keeps fixed view
+Player: changing from state Idle to Skill
+PASS sword launches
+PASS sword preserves equipped texture and pixel size
+PASS sword spinning flight preserves equipped world scale
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS axe rests at hand up
+PASS axe rests at hand down
+PASS axe rests at hand left
+PASS axe rests at hand right
+PASS axe removed TPS request keeps fixed view
+Player: changing from state Idle to Skill
+PASS axe launches
+PASS axe preserves equipped texture and pixel size
+PASS axe spinning flight preserves equipped world scale
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS spear rests at hand up
+PASS spear rests at hand down
+PASS spear rests at hand left
+PASS spear rests at hand right
+PASS spear removed TPS request keeps fixed view
+Player: changing from state Idle to Skill
+PASS spear launches
+PASS spear preserves equipped texture and pixel size
+PASS spear spinning flight preserves equipped world scale
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS dagger rests at hand up
+PASS dagger rests at hand down
+PASS dagger rests at hand left
+PASS dagger rests at hand right
+PASS dagger removed TPS request keeps fixed view
+Player: changing from state Idle to Skill
+PASS dagger launches
+PASS dagger preserves equipped texture and pixel size
+PASS dagger spinning flight preserves equipped world scale
+PRESENTATION_RESULT 40/40
+ENGINE_EXIT_CODE=0

@@ -11,6 +11,7 @@ const BattleFX := preload("res://scenes/player/battle_vfx.gd")
 
 @export var exp_point_drop := 1
 var _exp_point_dropped := false
+var projectile_speed_scale := 1.0
 
 ## Common framework for every enemy. Every child node below is OPTIONAL — attach whichever an
 ## enemy needs: a stationary barrel doesn't need a RayCast, a crab doesn't need a detection area.
@@ -43,6 +44,15 @@ var _skill_burn_running := false
 
 
 func _ready() -> void:
+	var stage := get_parent()
+	while stage != null and not stage is Stage:
+		stage = stage.get_parent()
+	if stage is Stage:
+		projectile_speed_scale = stage.enemy_projectile_speed_scale
+		# Instance values only: never mutate shared scenes/resources or Castle defaults.
+		for property in ["attack_cooldown", "cooldown"]:
+			if property in self:
+				set(property, float(get(property)) * stage.enemy_attack_interval_scale)
 	add_to_group("enemies")
 	_init_ray_cast()
 	_init_detect_player_area()

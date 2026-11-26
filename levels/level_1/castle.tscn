@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="skeleton_mage"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton/skeleton_warrior.tscn" id="skeleton_warrior"]
 [ext_resource type="Script" uid="uid://b4nyuxbjm1tl3" path="res://levels/level_1/castle_floors.gd" id="stage"]
+[ext_resource type="Script" path="res://levels/objects/automatic_stairs.gd" id="auto_stairs"]
 [ext_resource type="PackedScene" uid="uid://cmuqipu6xx4eb" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/stairs_long.gltf" id="stairs_long"]
 [ext_resource type="PackedScene" uid="uid://c0oulfu6sje6g" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/stool.gltf" id="stool"]
 [ext_resource type="PackedScene" uid="uid://ley4h21labwe" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/sword_shield.gltf" id="sword_shield"]
@@ -58,6 +59,9 @@ size = Vector3(1, 8, 62)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3"]
 size = Vector3(5, 0.5, 17.8885)
+
+[sub_resource type="BoxShape3D" id="StairEntranceShape"]
+size = Vector3(4.5, 2, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4"]
 size = Vector3(0.5, 1.2, 17.8885)
@@ -188,6 +192,16 @@ data = {
 
 [node name="Stairs" type="Node3D" parent="F1" unique_id=526045983]
 metadata/note = "Cầu thang lên F2: stairs_long kéo dài (cao 8 m, dài 16 m). Va chạm là mặt dốc 26.6° (Player đi được dốc tới 50°)."
+
+[node name="AutoClimb" type="Area3D" parent="F1/Stairs"]
+position = Vector3(7, 1, 45.5)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_stairs")
+
+[node name="Shape" type="CollisionShape3D" parent="F1/Stairs/AutoClimb"]
+position = Vector3(0, 1, 0)
+shape = SubResource("StairEntranceShape")
 
 [node name="Mesh" parent="F1/Stairs" unique_id=1098814590 instance=ExtResource("stairs_long")]
 transform = Transform3D(1, 0, 0, 0, 1.568627, 0, 0, 0, 2, 7, 1, 28)

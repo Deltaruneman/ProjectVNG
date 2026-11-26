@@ -20,8 +20,7 @@ var _locked_interaction: InteractiveArea3D
 func _ready() -> void:
 	if id != "":
 		add_to_group("spawn_points")
-	if return_door != null and GameManager.is_door_unlocked("b2_split_cleared"):
-		return_door.target_stage = "res://levels/level_1/basement_b2.tscn"
+	# Authored return door points to the current integrated Basementfull scene.
 	if encounters == null or clear_flag.is_empty():
 		push_error("%s has no encounter container or stable clear flag." % get_path())
 		return

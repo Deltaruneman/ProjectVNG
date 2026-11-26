@@ -600,7 +600,7 @@ func _refresh_skill_bar() -> void:
 		if skill_id == "" and slot_number != 1:
 			icon_texture = null
 		elif GameManager.weapon_form == "":
-			icon_texture = load(BASIC_DAGGER_ICON) as Texture2D if slot_number == 1 else null
+			icon_texture = preload("res://scripts/item_catalog.gd").texture(GameManager.inventory.id_for_slot("main")) if slot_number == 1 else null
 		_skill_slot_icons[index].texture = icon_texture
 		_skill_slot_icons[index].modulate = Color.WHITE
 		_skill_slot_placeholders[index].visible = icon_texture == null
@@ -615,10 +615,12 @@ func _refresh_skill_bar() -> void:
 		if skill_id.begins_with("offhand_"):
 			title = str(GameManager.inventory.definition_for_slot("offhand").get("name", "Vũ khí phụ")) + (" · " + GameManager.weapon_form if GameManager.weapon_form != "" else "")
 		if skill_id == "" and GameManager.weapon_form == "":
-			title = "Phi dao" if slot_number == 1 else "Chưa có kỹ năng"
+			title = "Ném vũ khí" if slot_number == 1 else "Chưa có kỹ năng"
 		if skill_id == "" and slot_number == 1:
 			title = str({"wind": "Phi Dao Gió", "fire": "Hỏa Cầu", "ice": "Băng Cầu", "lightning": "Lôi Cầu"}.get(GameManager.weapon_form, title))
 		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
+		if slot_number == 1 and GameManager.weapon_form == "":
+			_skill_slot_panels[index].tooltip_text += "\nNém thẳng theo chuột tối đa 7 m; chạm vật cản thì rơi. F để nhặt lại."
 	_refresh_action_slot(DASH_SLOT, "dash", _input_hint("dash") + " · Dash", maxf(0.0, player.dash_cooldown_timer))
 	_refresh_action_slot(PARRY_SLOT, "parry", _input_hint("parry") + " · Parry", maxf(0.0, player.parry_cooldown_timer))
 

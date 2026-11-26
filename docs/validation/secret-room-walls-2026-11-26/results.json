@@ -1,0 +1,406 @@
+{
+  "date": "2026-11-26",
+  "status": "IMPLEMENTED AND RENDERED-VERIFIED; no independent reviewer sign-off",
+  "engine": "Godot4.7.2 Compatibility/ANGLE",
+  "stagedProject": "C:/Users/BaoHo/AppData/Local/Temp/ArcanaPruned-20261126-0648a9dd",
+  "checks": {
+    "wallFade": {
+      "engineExit": 0,
+      "pass": 18,
+      "total": 18
+    },
+    "secretRoom": {
+      "engineExit": 0,
+      "pass": 19,
+      "total": 19
+    },
+    "scopedDiffCheck": "PASS",
+    "nodeSyntax": "PASS",
+    "retainedGameplay": {
+      "engineExit": 0,
+      "pass": 95,
+      "total": 95
+    },
+    "torchDependencies": {
+      "pass": true,
+      "engineExit": 0,
+      "importedMeshSurfaces": 1
+    },
+    "wallScannerClassMatch": {
+      "invalidCallAfterFix": false,
+      "pass": true,
+      "wallFadeTotal": 18,
+      "wallFadePass": 18
+    }
+  },
+  "originalFallReproduced": false,
+  "floorHardening": "Two local solid backing volumes; room reveals from existing saved gate flag; final walking routes do not fall.",
+  "currentWallContract": "Fixed near0.05; Player-occluding wall cells/solid meshes and overhead tiles fade/restore; support floors and all collision stay intact.",
+  "remaining": [
+    "No full manual campaign or every corner/dash/jump/save permutation",
+    "No export, performance profiling or independent reviewer acceptance",
+    "BaseMaterial3D supported; custom ShaderMaterial preserved",
+    "Tile/mesh bounds approximation and static-map cell/resource cache contract",
+    "Existing UID/anchor/B2 quota/ObjectDB/resource shutdown diagnostics remain"
+  ],
+  "files": [
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-audit.json",
+      "purpose": "Runtime mesh/support/route/collision/pixel observations; before/initial/final phase named in file.",
+      "sha256": "B19A2DDECFDFBE122F05BD05B8512DC3C6EF84B3BA6D12EDB833CCDAC9A81B25"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-inside-room.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "46837F471CCF7A45F85CDAE59FE00B182FC64157992CBBB2D9A319616C917830"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-inside-room.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "E562EB943E3D74EDF70F0FFEEE4EA1ABB6E617C5BB96840D16DD845BD6627196"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-opaque-wall.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "55C0DF533BAF23113C641044D8F0A98B7F6E0B0A6286ABC1C6257B16CC1897A5"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-opaque-wall.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "DC9543F8DD9280129085CB599E70DC7F8FD869808E22C2799B2DD097E195C018"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-opened-entry.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "CD15964262E20F76F1D6A26EF195D89FDAFEC91FCDA68CB2032E750A0F7A79D4"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-opened-entry.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "9C12D9648B0DABE51713F77B81D572A28D4426D7DB8D53600A1EEC09B3EDA514"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-room.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "C8BE83D4BC18DA414EB690E165F8C3B680FC37EB0FDA6E692CC9510CCF8AAC20"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/after-room.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "B2AC44AE472969CAE9CD0E7096EAF874713CFEE4463F2BFE29228BDDCC8F1008"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/authored-attempt-secret-fade-final-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "A2D185B89AF96FFDB458511F894628482B6F0B24D82C577681254B3CDF61835C"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/authored-attempt-secret-fade-final-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "19B508F02C0A730E7C92D15D5CFDF17EDBEAA14727D88C1BE0215EBCD56AE779"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-audit.json",
+      "purpose": "Runtime mesh/support/route/collision/pixel observations; before/initial/final phase named in file.",
+      "sha256": "A7EA72C1E2973D45C9986CE57739A90DEDD5F55CCD51773A83A5433603AED364"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-opaque-wall.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "39A540B9C3B1CDD1ECA994251F821DBFFD2F54E82CC85458D8F00104C60DF32A"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-opaque-wall.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "97A121060EED0EAC7D4B95802960CE76C03B4E41EBFB5A1E1721C3412FC761C6"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-roof-fade-basement_b3.png",
+      "purpose": "Pre-fix B3 capture with Player obscured by overhead roof; superseded by final B3 capture.",
+      "sha256": "6BFA2492539BF49E9E5A90F50FD1EF9F821DAF4B6E321E5DF32D66A53AE24600"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-roof-fade-basement_b3.png.import",
+      "purpose": "Latest repeated N19 camera wall fade assertions and diagnostics after class-name scanner fix.",
+      "sha256": "81794E10214B9E14AE4FE3DF3AA238C284D0BFD57B5552DE50BD3689669574E1"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-room.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "4480823B71524930575354038699329E1A66DF8298E105623CEAB7FFB5427897"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/before-room.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "AA701E6555E6AD493DDFCC0ADD6580A23F3BB6CC279F741C71EBFF5A8CA074F3"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/compile-attempt-wall-fade-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "7659688E4D9EC92A843EE583E2BD7C56F09487E100493E1C9A2C1604A9FD9AC7"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/compile-attempt-wall-fade-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "24EB18BBFF7E79EB7994CC79836C19AA87667D0CEB51B1E6CBA101B2F0DDDCDE"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/fade-final-secret-audit.json",
+      "purpose": "Runtime mesh/support/route/collision/pixel observations; before/initial/final phase named in file.",
+      "sha256": "298AE88263764D6B61DB77BCC2EEAD2B07B2FB37971B980F732C823ADCBBE157"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/fade-gameplay-final-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "BFD5BDCA83454B74BC0FA118F979D9E216936621C5E7A05ABBEC8A58787D2673"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/fade-gameplay-final-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "B99FBD4AD19F60F88D54D46A9B48F20D19235C02A60DE126E4155A02C4CABD71"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-authored-wall-player.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "8986B9ED3E8E4B9DC9A9FE67299EAA45EF9CA7B27810C5BE6163D4DF8BB7002B"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-authored-wall-player.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "FDA15187F2FF00F21C1C4E20420179BE3282655F9413615898EE2DC5615840B7"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-basement_b3.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "17AC0608E8674FB1E79BC3BFF33C3DF5792373B6378D5EEBFADE22AF0C7BFCBD"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-basement_b3.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "BA3E7D655AC7F8C839D391A276058B37EE54B786F70576433FA1F548AB2A8083"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-basement_full.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "B86BB323028F0DE31FB9660064070F2D0F7D04CE6FE4C252FE636DF84927090C"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-basement_full.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "3A08F71C86C00C5C5180EF4D674B2512225DE9E84F9D14876561D633EC0F9D29"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-castle.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "E95A883E4AB883FD002246C1FFBC7421EB92B4E1FC6452CCCB125A9394EF9CE8"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-castle.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "62015A26F5465FD8981A406C241D6C84D5104E1882274F463D84EFA06B9E43EE"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-faded-wall.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "89B8903C7523A28FFE32B3EF8C877B6EC4BA779321B774B05ED2A121CE94CB3F"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-faded-wall.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "6971937CBF1936DC3D218A6E7309F0B7B80758770B3F6DBCE77812C611710A8C"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-garden.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "83DCE649919FE18C869ACCA9BAC39EB69153D637F77B6A20C7F1E3C26F1930CC"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-garden.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "310C5D4A30CD4EDA90B242B583B38D4864BD4CCBBEB2C75F07E32BF10F7531D8"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-inside-room.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "46837F471CCF7A45F85CDAE59FE00B182FC64157992CBBB2D9A319616C917830"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-inside-room.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "B9778C2D5BDC335D7ACC511A44F248A62B0BDAB38769E3C01E5ADF064F86E9B8"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-opened-entry.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "CD15964262E20F76F1D6A26EF195D89FDAFEC91FCDA68CB2032E750A0F7A79D4"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-opened-entry.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "C7F4D607BD9135BED96536B8D121E2EEB83DD0DD820314482AA85F3EE4F01645"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-room.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "C8BE83D4BC18DA414EB690E165F8C3B680FC37EB0FDA6E692CC9510CCF8AAC20"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/final-room.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "C9999E79846690D4453784EB532105DD2004D363F4A91CBAAD04C8342C85A9EF"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-after-audit.json",
+      "purpose": "Runtime mesh/support/route/collision/pixel observations; before/initial/final phase named in file.",
+      "sha256": "B19A2DDECFDFBE122F05BD05B8512DC3C6EF84B3BA6D12EDB833CCDAC9A81B25"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-after-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "36DD9CDAE5D7F4557EC3DE41D6518176E250926318447BC1EEA09904D8EA03F0"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-after-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "D70C3FC3D74A8DAC315543F5485087DA9363D6378C3ED750768E1DD07E7F5261"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-wall-fade-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "20B6E6B83CFB106516E7344F1A4042556F2D9A4C15E959246E202877F7E50659"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-wall-fade-load-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "4162E2DBCAC42E733A93BF43F5E1595391A1FC556E3B5BF2B039E1C2A4ECEEDA"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-wall-fade-load-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "E0B1803E8C3353EA3CDB3A4C511E6F55A4E8C9250DC1680B70C3660F9EF08ECC"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/initial-wall-fade-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "0068FCAF30127592B0533FEAB415B607D2B5936734469FC8434CBEC4C482150D"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/opaque-camera-gameplay-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "BFD5BDCA83454B74BC0FA118F979D9E216936621C5E7A05ABBEC8A58787D2673"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/opaque-camera-gameplay-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "C7BC6413313CBBA561A89FD9674EC1B506B41E820DD0440F9E75B300F47AF022"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/restored-dependencies.json",
+      "purpose": "SHA256 comparison of the3 exact restored asset files against cleanup backup manifest.",
+      "sha256": "1F70CA4809132A6D9A7E22FB6C5578531BDCA8E88B90A9B26BE15E05C28B577E"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-fade-final-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "BB8844284D42713491589C40AA20FADF79D60A043E5B32C5FEBB51D7759DEC57"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-fade-final-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "9BDFCB8D3C3D0B55E62E7551D2C4DA437611D3A6382954721EE3C32B651C9227"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-walls-after-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "348D6A005DCF4D4FE9417A261B429281514B249E08CD5F7CC1AEEB6784E91BEC"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-walls-after-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "0B3E3D336CF2D886F94A0072DAEDA99D30E3FD8F1B46C4362FC3B0ACB72C050E"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-walls-before-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "7BCE813F392B312E2FD159AA3EC5C59FB4422E598E8B6C5012F41EB357456187"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/secret-walls-before-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "972BAD35D51D9FFE07B2A45B4B1D0509B54D324FD7B48908E8A1A49E20CC597B"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/source-and-map-verification.json",
+      "purpose": "Exact source/staged implementation SHA256 matches and unchanged authored cell/shared-library verification.",
+      "sha256": "5FB80572F9C91A4787FEACF002D05161A6788152D528F7C57DD3272A8B636553"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/torch-resource-errors.log",
+      "purpose": "Godot stderr confirms missing torch texture/model/load/parse errors absent.",
+      "sha256": "3A93507F526946118E66A452F5E3AC1BB93374D2935529C0C5ED75877DF6DF06"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/torch-resource-runtime.log",
+      "purpose": "Rendered Godot test loading standalone and placed Basementfull torch after restoration.",
+      "sha256": "5C7B5403E463895F811344AE22A7C74683E04384F721D65BCD31F94377615544"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-errors.log",
+      "purpose": "Godot diagnostic log; initial/compile/authored-attempt names preserve failed historical runs.",
+      "sha256": "EAF0E01E0B9FB0559F5B39E7BDAE7F272C349F4624928A7D78AABAFE9CB5C6DC"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-opaque.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "635476BAF208E53EB3AB49201B49A5371BEEDC805F6657EC3AFFC3E7B25E8228"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-opaque.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "FD1D50586EFD492896953D6AB5DA1CA1DF77FFF3A4D0329077731DA6E23B69F5"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-overhead-player-visible.png",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "41E3EC617FA82BFEB4A617DBE06319B1C8329F510BD3CEC9A4332F5CC0C65B31"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-overhead-player-visible.png.import",
+      "purpose": "Latest repeated N19 camera wall fade assertions and diagnostics after class-name scanner fix.",
+      "sha256": "3D01B0629B6D835401829CEB16C20EB6AFF02A45F5BB824C8F0D080D115CBD04"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-player-visible.png",
+      "purpose": "Rendered capture; filename distinguishes baseline, temporary opaque or final conditional-fade behavior.",
+      "sha256": "90CC348342879992EDBEC3CE12AC8DAADEF448E8B78624406AE872CA075D7DBD"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-player-visible.png.import",
+      "purpose": "Rendered overhead-tile fade capture verifying visible Player with support floor retained.",
+      "sha256": "079F9C6AADFBA972D3D4D5377BEACB15B598C1D81278613E95F4BC6B61980913"
+    },
+    {
+      "path": "docs/validation/secret-room-walls-2026-11-26/wall-fade-runtime.log",
+      "purpose": "Godot runtime assertions and exit result; filename identifies baseline/initial/temporary/final run.",
+      "sha256": "07004811F157A6FF05DA0C53D8ADA86B83D9266C1F269F70BCD8F6673D6FDC32"
+    },
+    {
+      "purpose": "Latest verified result and full evidence inventory.",
+      "path": "docs/validation/secret-room-walls-2026-11-26/results.json"
+    }
+  ],
+  "restoredDependencyHashes": {
+    "assets/vendor/KayKit_Dungeon/Assets/obj/dungeon_texture.png.import": {
+      "sha256": "d1b6d0e9207278783d805fc055811cc7c8b5a9c41d79ca9b26cde7ba7b56e602",
+      "matchesDeletionManifest": true
+    },
+    "assets/vendor/KayKit_Dungeon/Assets/obj/torch_lit.mtl": {
+      "sha256": "d235885d7fa5a3bb36f80ff1d9285f379858b49c5564a035189a22cb36598147",
+      "matchesDeletionManifest": true
+    },
+    "assets/vendor/KayKit_Dungeon/Assets/obj/dungeon_texture.png": {
+      "sha256": "ceb331d6ed53273da5e26808560bca8496f8f6ebc12d83b570c0e317560f1d03",
+      "matchesDeletionManifest": true
+    }
+  }
+}

@@ -40,13 +40,15 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	if OS.get_cmdline_user_args().has("--verify-settings-restart"):
-		check(is_equal_approx(GameSettings.values.sfx, 0.37) and is_equal_approx(GameSettings.values.sensitivity, 0.21), "fresh process restores saved preferences")
-		check(GameSettings.bindings.attack[0] == {"key": KEY_B}, "fresh process restores saved key mapping")
+		check(is_equal_approx(GameSettings.values.sfx, 0.37) and not GameSettings.values.has("sensitivity"), "fresh process restores saved preferences")
+		check(GameSettings.bindings.attack[0] == {"key": KEY_H}, "fresh process restores saved key mapping")
 		print("SETTINGS_RESTART_RESULT ", checks - failures, "/", checks)
 		get_tree().quit(1 if failures else 0)
 		return
 	GameSettings.settings_path = "user://test-settings.cfg"
 	GameSettings.reset_defaults()
+	GameManager.flags["story_possession"] = true
+	GameManager.flags["story_b1_clear"] = true
 	stage = load("res://levels/level_1/basement_full.tscn").instantiate()
 	stage.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(stage)
@@ -84,8 +86,9 @@ func _ready() -> void:
 	check(not GameSettings.bind_event("attack", 0, event).is_empty(), "Escape reserved for menus")
 	event.physical_keycode = KEY_F5
 	check(not GameSettings.bind_event("attack", 0, event).is_empty(), "new-game shortcut reserved")
-	event.physical_keycode = KEY_B
-	check(GameSettings.bind_event("attack", 0, event).is_empty(), "unused key can be rebound")
+	event.physical_keycode = KEY_H
+	var bind_error: String = GameSettings.bind_event("attack", 0, event)
+	check(bind_error.is_empty(), "unused key can be rebound: " + bind_error)
 	check(InputMap.action_has_event("attack", event), "rebind updates actual InputMap")
 	event.physical_keycode = KEY_O
 	check(GameSettings.bind_event("active_skill_1", 0, event).is_empty(), "skill slot key can be rebound")
@@ -96,11 +99,8 @@ func _ready() -> void:
 	PauseMenu._start_binding("skill", 0)
 	await tap(KEY_ESCAPE)
 	check(PauseMenu._binding_action.is_empty() and PauseMenu._page == "settings", "Escape cancels capture without leaving settings")
-	PauseMenu._edit("sensitivity", 0.26)
-	PauseMenu._edit("invert_y", true)
-	PauseMenu._edit("fov", 74.0)
-	check(is_equal_approx(rig.get("mouse_sensitivity"), 0.26) and rig.get("invert_y"), "camera receives live sensitivity/invert settings")
-	check(is_equal_approx((rig.get_node("Camera3D") as Camera3D).fov, 74.0), "camera FOV preview applied")
+	check(not GameSettings.values.has("sensitivity") and not GameSettings.values.has("invert_y") and not GameSettings.values.has("fov"), "camera options removed from control settings")
+	check(is_equal_approx((rig.get_node("Camera3D") as Camera3D).fov, 35.0), "fixed camera framing")
 	PauseMenu._show_tab(1)
 	PauseMenu._edit("sfx", 0.25)
 	check(is_equal_approx(AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("SFX")), 0.25), "SFX slider controls live mixer")
@@ -113,7 +113,7 @@ func _ready() -> void:
 	check(not AudioServer.is_bus_mute(0), "focus gain restores audio")
 	await capture("audio")
 	PauseMenu._cancel_settings()
-	check(GameSettings.bindings == old_bindings and is_equal_approx(rig.get("mouse_sensitivity"), 0.12), "cancel restores bindings and camera")
+	check(GameSettings.bindings == old_bindings, "cancel restores bindings")
 	check(is_equal_approx(AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("SFX")), 1.0), "cancel restores mixer")
 	PauseMenu.open_settings()
 	PauseMenu._edit("sfx", 0.41)
@@ -168,7 +168,7 @@ func _ready() -> void:
 	await tap(KEY_ESCAPE)
 	await frames(4)
 	check(not PauseMenu.is_open and not get_tree().paused, "Escape resumes gameplay")
-	check(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED, "camera recaptures gameplay cursor after resume")
+	check(Input.mouse_mode == Input.MOUSE_MODE_VISIBLE, "fixed camera keeps gameplay cursor visible after resume")
 	await tap(KEY_T)
 	await get_tree().create_timer(1.2, true).timeout
 	check(skill_tree.visible and get_tree().paused, "existing Skill Tree opens normally")
@@ -192,12 +192,11 @@ func _ready() -> void:
 	config.set_value("bindings", "jump", [{"key": KEY_W}, {}])
 	config.save(GameSettings.settings_path)
 	GameSettings.load_settings()
-	check(GameSettings.values.sfx == 0.0 and GameSettings.values.resolution == 4 and GameSettings.values.sensitivity == 0.12, "invalid settings types and bounds normalized")
+	check(GameSettings.values.sfx == 0.0 and GameSettings.values.resolution == 4 and not GameSettings.values.has("sensitivity"), "invalid settings types and bounds normalized")
 	check(GameSettings.bindings == GameSettings.default_bindings, "corrupt/conflicting map falls back atomically")
 	GameSettings.reset_defaults()
 	GameSettings.values.sfx = 0.37
-	GameSettings.values.sensitivity = 0.21
-	event.physical_keycode = KEY_B
+	event.physical_keycode = KEY_H
 	GameSettings.bind_event("attack", 0, event)
 	GameSettings.settings_path = GameSettings.PATH
 	check(GameSettings.save_settings() == OK, "write fixture for separate-process restart test")

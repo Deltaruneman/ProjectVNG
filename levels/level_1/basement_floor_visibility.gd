@@ -4,7 +4,7 @@ extends Stage
 ## tầng player đang đứng để các tầng khác không che camera.
 ##
 ## Một tầng là con trực tiếp của Stage có metadata `floor_level` (0 = B1, 1 = B2, …). Tầng có
-## metadata `secret` (B1_5) chỉ hiện khi player đứng trong vùng sàn của nó.
+## metadata `secret` (B1_5) hiện khi mở cửa hoặc player đứng trong vùng sàn của nó.
 ##
 ## Chỉ đổi trạng thái render: va chạm vẫn còn, quái ở tầng bị ẩn vẫn chạy.
 ## Lưới nóc phòng chỉ ẩn ở phần hình ảnh; collision của GridMap không bị thay đổi.
@@ -165,7 +165,9 @@ func _apply(force: bool) -> void:
 	for node in _floors:
 		var show: bool = node.get_meta("floor_level") == level
 		if _secret_areas.has(node):
-			show = show and _secret_areas[node].has_point(flat)
+			var reveal_flag := String(node.get_meta("reveal_flag", ""))
+			var opened := not reveal_flag.is_empty() and bool(GameManager.flags.get(reveal_flag, false))
+			show = show and (opened or _secret_areas[node].has_point(flat))
 		if force or node.visible != show:
 			node.visible = show
 	for ceiling in _ceilings:

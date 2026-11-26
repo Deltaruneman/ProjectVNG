@@ -1,0 +1,219 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Attack
+PASS front weapon never pushed toward ground sword down 0.3
+PASS front weapon stays ahead of body sword down 0.3
+PASS grip projection and terrain depth retained sword down 0.3
+PASS front weapon never pushed toward ground sword down 0.45
+PASS front weapon stays ahead of body sword down 0.45
+PASS grip projection and terrain depth retained sword down 0.45
+DEPTH_SAMPLE sword native_y=0.96886932849884 sprite_y=0.96887010335922
+PASS front weapon never pushed toward ground sword down 0.6
+PASS front weapon stays ahead of body sword down 0.6
+PASS grip projection and terrain depth retained sword down 0.6
+PASS front weapon never pushed toward ground sword down 0.85
+PASS front weapon stays ahead of body sword down 0.85
+PASS grip projection and terrain depth retained sword down 0.85
+PASS front weapon never pushed toward ground sword left 0.3
+PASS front weapon stays ahead of body sword left 0.3
+PASS grip projection and terrain depth retained sword left 0.3
+PASS front weapon never pushed toward ground sword left 0.45
+PASS front weapon stays ahead of body sword left 0.45
+PASS grip projection and terrain depth retained sword left 0.45
+PASS front weapon never pushed toward ground sword left 0.6
+PASS front weapon stays ahead of body sword left 0.6
+PASS grip projection and terrain depth retained sword left 0.6
+PASS front weapon never pushed toward ground sword left 0.85
+PASS front weapon stays ahead of body sword left 0.85
+PASS grip projection and terrain depth retained sword left 0.85
+PASS front weapon never pushed toward ground sword right 0.3
+PASS front weapon stays ahead of body sword right 0.3
+PASS grip projection and terrain depth retained sword right 0.3
+PASS front weapon never pushed toward ground sword right 0.45
+PASS front weapon stays ahead of body sword right 0.45
+PASS grip projection and terrain depth retained sword right 0.45
+PASS front weapon never pushed toward ground sword right 0.6
+PASS front weapon stays ahead of body sword right 0.6
+PASS grip projection and terrain depth retained sword right 0.6
+PASS front weapon never pushed toward ground sword right 0.85
+PASS front weapon stays ahead of body sword right 0.85
+PASS grip projection and terrain depth retained sword right 0.85
+PASS back-facing body still covers weapon sword up 0.3
+PASS grip projection and terrain depth retained sword up 0.3
+PASS back-facing body still covers weapon sword up 0.45
+PASS grip projection and terrain depth retained sword up 0.45
+PASS back-facing body still covers weapon sword up 0.6
+PASS grip projection and terrain depth retained sword up 0.6
+PASS back-facing body still covers weapon sword up 0.85
+PASS grip projection and terrain depth retained sword up 0.85
+Player: changing from state Attack to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Attack
+PASS front weapon never pushed toward ground axe down 0.3
+PASS front weapon stays ahead of body axe down 0.3
+PASS grip projection and terrain depth retained axe down 0.3
+PASS front weapon never pushed toward ground axe down 0.45
+PASS front weapon stays ahead of body axe down 0.45
+PASS grip projection and terrain depth retained axe down 0.45
+DEPTH_SAMPLE axe native_y=0.89978039264679 sprite_y=0.8997802734375
+PASS front weapon never pushed toward ground axe down 0.6
+PASS front weapon stays ahead of body axe down 0.6
+PASS grip projection and terrain depth retained axe down 0.6
+PASS front weapon never pushed toward ground axe down 0.85
+PASS front weapon stays ahead of body axe down 0.85
+PASS grip projection and terrain depth retained axe down 0.85
+PASS front weapon never pushed toward ground axe left 0.3
+PASS front weapon stays ahead of body axe left 0.3
+PASS grip projection and terrain depth retained axe left 0.3
+PASS front weapon never pushed toward ground axe left 0.45
+PASS front weapon stays ahead of body axe left 0.45
+PASS grip projection and terrain depth retained axe left 0.45
+PASS front weapon never pushed toward ground axe left 0.6
+PASS front weapon stays ahead of body axe left 0.6
+PASS grip projection and terrain depth retained axe left 0.6
+PASS front weapon never pushed toward ground axe left 0.85
+PASS front weapon stays ahead of body axe left 0.85
+PASS grip projection and terrain depth retained axe left 0.85
+PASS front weapon never pushed toward ground axe right 0.3
+PASS front weapon stays ahead of body axe right 0.3
+PASS grip projection and terrain depth retained axe right 0.3
+PASS front weapon never pushed toward ground axe right 0.45
+PASS front weapon stays ahead of body axe right 0.45
+PASS grip projection and terrain depth retained axe right 0.45
+PASS front weapon never pushed toward ground axe right 0.6
+PASS front weapon stays ahead of body axe right 0.6
+PASS grip projection and terrain depth retained axe right 0.6
+PASS front weapon never pushed toward ground axe right 0.85
+PASS front weapon stays ahead of body axe right 0.85
+PASS grip projection and terrain depth retained axe right 0.85
+PASS back-facing body still covers weapon axe up 0.3
+PASS grip projection and terrain depth retained axe up 0.3
+PASS back-facing body still covers weapon axe up 0.45
+PASS grip projection and terrain depth retained axe up 0.45
+PASS back-facing body still covers weapon axe up 0.6
+PASS grip projection and terrain depth retained axe up 0.6
+PASS back-facing body still covers weapon axe up 0.85
+PASS grip projection and terrain depth retained axe up 0.85
+Player: changing from state Attack to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Attack
+PASS front weapon never pushed toward ground spear down 0.3
+PASS front weapon stays ahead of body spear down 0.3
+PASS grip projection and terrain depth retained spear down 0.3
+PASS front weapon never pushed toward ground spear down 0.45
+PASS front weapon stays ahead of body spear down 0.45
+PASS grip projection and terrain depth retained spear down 0.45
+DEPTH_SAMPLE spear native_y=0.9889132976532 sprite_y=0.98891252279282
+PASS front weapon never pushed toward ground spear down 0.6
+PASS front weapon stays ahead of body spear down 0.6
+PASS grip projection and terrain depth retained spear down 0.6
+PASS front weapon never pushed toward ground spear down 0.85
+PASS front weapon stays ahead of body spear down 0.85
+PASS grip projection and terrain depth retained spear down 0.85
+PASS front weapon never pushed toward ground spear left 0.3
+PASS front weapon stays ahead of body spear left 0.3
+PASS grip projection and terrain depth retained spear left 0.3
+PASS front weapon never pushed toward ground spear left 0.45
+PASS front weapon stays ahead of body spear left 0.45
+PASS grip projection and terrain depth retained spear left 0.45
+PASS front weapon never pushed toward ground spear left 0.6
+PASS front weapon stays ahead of body spear left 0.6
+PASS grip projection and terrain depth retained spear left 0.6
+PASS front weapon never pushed toward ground spear left 0.85
+PASS front weapon stays ahead of body spear left 0.85
+PASS grip projection and terrain depth retained spear left 0.85
+PASS front weapon never pushed toward ground spear right 0.3
+PASS front weapon stays ahead of body spear right 0.3
+PASS grip projection and terrain depth retained spear right 0.3
+PASS front weapon never pushed toward ground spear right 0.45
+PASS front weapon stays ahead of body spear right 0.45
+PASS grip projection and terrain depth retained spear right 0.45
+PASS front weapon never pushed toward ground spear right 0.6
+PASS front weapon stays ahead of body spear right 0.6
+PASS grip projection and terrain depth retained spear right 0.6
+PASS front weapon never pushed toward ground spear right 0.85
+PASS front weapon stays ahead of body spear right 0.85
+PASS grip projection and terrain depth retained spear right 0.85
+PASS back-facing body still covers weapon spear up 0.3
+PASS grip projection and terrain depth retained spear up 0.3
+PASS back-facing body still covers weapon spear up 0.45
+PASS grip projection and terrain depth retained spear up 0.45
+PASS back-facing body still covers weapon spear up 0.6
+PASS grip projection and terrain depth retained spear up 0.6
+PASS back-facing body still covers weapon spear up 0.85
+PASS grip projection and terrain depth retained spear up 0.85
+Player: changing from state Attack to Idle
+Warning: Trying to change to same state
+Player: changing from state Idle to Attack
+PASS front weapon never pushed toward ground dagger down 0.3
+PASS front weapon stays ahead of body dagger down 0.3
+PASS grip projection and terrain depth retained dagger down 0.3
+PASS front weapon never pushed toward ground dagger down 0.45
+PASS front weapon stays ahead of body dagger down 0.45
+PASS grip projection and terrain depth retained dagger down 0.45
+DEPTH_SAMPLE dagger native_y=0.99552142620087 sprite_y=0.99551963806152
+PASS front weapon never pushed toward ground dagger down 0.6
+PASS front weapon stays ahead of body dagger down 0.6
+PASS grip projection and terrain depth retained dagger down 0.6
+PASS front weapon never pushed toward ground dagger down 0.85
+PASS front weapon stays ahead of body dagger down 0.85
+PASS grip projection and terrain depth retained dagger down 0.85
+PASS front weapon never pushed toward ground dagger left 0.3
+PASS front weapon stays ahead of body dagger left 0.3
+PASS grip projection and terrain depth retained dagger left 0.3
+PASS front weapon never pushed toward ground dagger left 0.45
+PASS front weapon stays ahead of body dagger left 0.45
+PASS grip projection and terrain depth retained dagger left 0.45
+PASS front weapon never pushed toward ground dagger left 0.6
+PASS front weapon stays ahead of body dagger left 0.6
+PASS grip projection and terrain depth retained dagger left 0.6
+PASS front weapon never pushed toward ground dagger left 0.85
+PASS front weapon stays ahead of body dagger left 0.85
+PASS grip projection and terrain depth retained dagger left 0.85
+PASS front weapon never pushed toward ground dagger right 0.3
+PASS front weapon stays ahead of body dagger right 0.3
+PASS grip projection and terrain depth retained dagger right 0.3
+PASS front weapon never pushed toward ground dagger right 0.45
+PASS front weapon stays ahead of body dagger right 0.45
+PASS grip projection and terrain depth retained dagger right 0.45
+PASS front weapon never pushed toward ground dagger right 0.6
+PASS front weapon stays ahead of body dagger right 0.6
+PASS grip projection and terrain depth retained dagger right 0.6
+PASS front weapon never pushed toward ground dagger right 0.85
+PASS front weapon stays ahead of body dagger right 0.85
+PASS grip projection and terrain depth retained dagger right 0.85
+PASS back-facing body still covers weapon dagger up 0.3
+PASS grip projection and terrain depth retained dagger up 0.3
+PASS back-facing body still covers weapon dagger up 0.45
+PASS grip projection and terrain depth retained dagger up 0.45
+PASS back-facing body still covers weapon dagger up 0.6
+PASS grip projection and terrain depth retained dagger up 0.6
+PASS back-facing body still covers weapon dagger up 0.85
+PASS grip projection and terrain depth retained dagger up 0.85
+Player: changing from state Attack to Idle
+Player: changing from state Idle to Attack
+PASS legacy TPS request preserves fixed view and safe front depth
+Player: changing from state Attack to Idle
+RESULT checks=177 failures=0
+ENGINE_EXIT_CODE=0

@@ -12,6 +12,7 @@ var _active := ""
 var _camera: Camera3D
 var _camera_transform := Transform3D.IDENTITY
 var _camera_fov := 60.0
+var _camera_near := 0.05
 var _rig_mode := Node.PROCESS_MODE_ALWAYS
 var _camera_tween: Tween
 
@@ -76,6 +77,7 @@ func play_event(event: String, seen_flag: String = "") -> void:
 	if is_instance_valid(_camera):
 		_camera_transform = _camera.global_transform
 		_camera_fov = _camera.fov
+		_camera_near = _camera.near
 	Dialogic.Choices.use_input_action = true
 	_owns_dialogue = true
 	Dialogic.start(TIMELINES + event + ".dtl")
@@ -102,8 +104,10 @@ func _focus_ladder() -> void:
 	var ladder := _stage.get_node_or_null("B1/LadderSpot_B1_B2") as Node3D
 	if ladder == null or not is_instance_valid(_camera):
 		return
+	# The follow view may have cut away a foreground wall; clear that slice for this shot.
+	_camera.near = 0.05
 	# A fixed downward shot stays above the authored opening; original view is restored exactly.
-	# Frame the ladder itself with a tighter shot than the default TPS follow view.
+	# Frame the ladder itself with a tighter shot than the fixed action follow view.
 	var focus := ladder.global_position + Vector3.UP * 4.0
 	var pose := Transform3D(Basis.IDENTITY, focus + Vector3(0, 6.0, 4.5)).looking_at(focus, Vector3.UP)
 	_camera_tween = create_tween()
@@ -117,6 +121,7 @@ func _restore() -> void:
 	if is_instance_valid(_camera):
 		_camera.global_transform = _camera_transform
 		_camera.fov = _camera_fov
+		_camera.near = _camera_near
 	if is_instance_valid(_stage):
 		_stage.process_mode = _old_mode
 		if is_instance_valid(_stage.camera_rig):

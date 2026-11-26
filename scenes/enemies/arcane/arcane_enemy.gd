@@ -109,7 +109,7 @@ func attack() -> void:
 		var bullet := BULLET.instantiate() as RigidBody3D
 		get_parent().add_child(bullet)
 		bullet.global_position = global_position + Vector3.UP * 0.7
-		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0
+		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0 * projectile_speed_scale
 		bullet.get_node("HitArea3D").damage = attack_damage
 		register_projectile(bullet)
 	elif _has_target() and _has_line_of_sight():

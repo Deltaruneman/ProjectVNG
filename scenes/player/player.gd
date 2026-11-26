@@ -115,6 +115,8 @@ var _skill_aim_active := false
 var _skill_hold_elapsed := 0.0
 var _skill_aim_point := Vector3.ZERO
 var _cast_aim_point_valid := false
+var _ultimate_aim_point := Vector3.ZERO
+var _ultimate_aim_point_valid := false
 var _aim_reticle_layer: CanvasLayer
 var _aim_camera_rig: CameraRig
 
@@ -157,26 +159,74 @@ func _ready() -> void:
 	_aim_reticle_layer.visible = false
 
 
+var _stair_route := PackedVector3Array()
+var _stair_stuck_time := 0.0
+
+
+func start_automatic_stairs(route: PackedVector3Array) -> bool:
+	if route.is_empty() or not can_interact() or not is_on_floor() \
+			or fsm.current_state.name.to_lower() not in ["idle", "run"]:
+		return false
+	_cancel_skill_aim()
+	_stair_route = route
+	_stair_stuck_time = 0.0
+	velocity = Vector3.ZERO
+	return true
+
+
+func is_climbing_stairs() -> bool:
+	return not _stair_route.is_empty()
+
+
+func stop_automatic_stairs() -> void:
+	_stair_route.clear()
+	stop_horizontal()
+	if health > 0 and fsm.current_state.name.to_lower() in ["idle", "run"]:
+		change_animation("idle")
+
+
+func _update_automatic_stairs(delta: float) -> void:
+	if health <= 0 or is_talking or not movement_enabled \
+			or fsm.current_state.name.to_lower() not in ["idle", "run"]:
+		stop_automatic_stairs()
+		return
+	# Movement keys cancel the assist; normal gravity and world collision stay active.
+	if Input.get_vector("left", "right", "up", "down").length() > 0.1:
+		stop_automatic_stairs()
+		return
+	var offset := _stair_route[0] - global_position
+	var horizontal := Vector3(offset.x, 0.0, offset.z)
+	if horizontal.length() < 0.18 and absf(offset.y) < 0.65:
+		_stair_route.remove_at(0)
+		if _stair_route.is_empty():
+			stop_automatic_stairs()
+		return
+	var motion := horizontal.normalized() * minf(movement_speed, horizontal.length() / maxf(delta, 0.001))
+	face_movement(motion)
+	change_animation("run")
+	velocity.x = motion.x
+	velocity.z = motion.z
+	var before := global_position
+	_update_movement(delta)
+	_stair_stuck_time = _stair_stuck_time + delta if global_position.distance_to(before) < 0.005 else 0.0
+	if _stair_stuck_time > 1.0:
+		stop_automatic_stairs()
+	_check_changed_direction()
+	_check_changed_animation()
+
+
 func _physics_process(delta: float) -> void:
 	_update_health_regeneration(delta)
 	_update_stamina(delta)
+	if is_climbing_stairs():
+		_update_automatic_stairs(delta)
+		return
 	if _skill_button_held:
 		_refresh_skill_aim_point()
 	if is_talking:
 		_check_changed_animation()
 		return
-	if can_control_camera() and fsm != null and fsm.current_state != null and fsm.current_state.name.to_lower() in ["idle", "run", "jump", "fall"]:
-		var active_camera := get_viewport().get_camera_3d()
-		if active_camera != null and active_camera.get_parent() is CameraRig:
-			var rig := active_camera.get_parent() as CameraRig
-			face_movement(rig.facing_vector())
 	super._physics_process(delta)
-	if _skill_aim_active:
-		var toward_target := _skill_aim_point - global_position
-		toward_target.y = 0.0
-		if toward_target.length_squared() > 0.01:
-			face_movement(toward_target)
-			_check_changed_animation()
 
 
 func _on_regeneration_health_changed(current: int, maximum: int) -> void:
@@ -302,7 +352,7 @@ func _process(delta: float) -> void:
 				_aim_reticle_layer.visible = true
 				_set_skill_aim_camera(true)
 	if _ultimate_visual_remaining > 0.0:
-		_place_ultimate_blade_behind()
+		_place_ultimate_weapon_in_hand()
 	if _ultimate_visual_remaining > 0.0:
 		_ultimate_visual_elapsed += delta
 		_ultimate_visual_remaining = maxf(0.0, _ultimate_visual_remaining - delta)
@@ -420,6 +470,11 @@ func _exit_tree() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _is_gameplay_menu_open() or is_talking:
 		return
+	if is_climbing_stairs():
+		if event.is_action_pressed("interact") and not event.is_echo():
+			stop_automatic_stairs()
+			get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("quick_item") and not event.is_echo():
 		GameManager.use_quick_item()
 		get_viewport().set_input_as_handled()
@@ -440,11 +495,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_released("skill"):
 		if _skill_button_held and _can_start_skill_cast():
-			var aimed_cast := _skill_aim_active
-			if aimed_cast:
-				_refresh_skill_aim_point()
-			else:
-				_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
+			# Tap and held casts both commit the current pointer target.
+			_refresh_skill_aim_point()
 			_cancel_skill_aim()
 			_cast_aim_point_valid = true
 			fsm.change_state(fsm.states.skill)
@@ -474,7 +526,7 @@ func _is_gameplay_menu_open() -> bool:
 
 
 func can_interact() -> bool:
-	return health > 0 and not is_talking and not _is_gameplay_menu_open() and not stamina_exhausted
+	return health > 0 and not is_talking and not _is_gameplay_menu_open() and not stamina_exhausted and not is_climbing_stairs()
 
 
 func start_talk(_partner: BaseCharacter = null) -> void:
@@ -547,7 +599,7 @@ func _refresh_skill_aim_point() -> void:
 	if camera == null:
 		_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
 		return
-	var center := SKILL_AIM_RETICLE_SCRIPT.aim_screen_point(get_viewport().get_visible_rect().size)
+	var center := get_viewport().get_mouse_position()
 	if camera.get_parent() is CameraRig:
 		var rig := camera.get_parent() as CameraRig
 		center = rig.get_aim_screen_point()
@@ -649,11 +701,6 @@ func get_camera_movement_input() -> Vector3:
 
 
 func face_movement(motion: Vector3) -> void:
-	var active_camera := get_viewport().get_camera_3d()
-	if active_camera != null and active_camera.get_parent() is CameraRig:
-		var rig := active_camera.get_parent() as CameraRig
-		if can_control_camera() and not _cast_aim_point_valid:
-			motion = rig.facing_vector()
 	if motion.length_squared() < 0.000001:
 		return
 	change_direction(BaseCharacter.direction_from_input(Vector2(motion.x, motion.z)))
@@ -708,7 +755,7 @@ func _check_changed_animation() -> void:
 
 func get_skill_aim_direction() -> Vector3:
 	if not _cast_aim_point_valid:
-		return forward().normalized()
+		_refresh_skill_aim_point()
 	var toward_target := _skill_aim_point - global_position
 	toward_target.y = 0.0
 	var camera := get_viewport().get_camera_3d()
@@ -719,14 +766,13 @@ func get_skill_aim_direction() -> Vector3:
 		if toward_target.dot(view_forward) <= 0.0:
 			toward_target = view_forward
 	if toward_target.length_squared() > 0.01:
-		face_movement(toward_target)
 		return toward_target.normalized()
 	return forward().normalized()
 
 
 func get_projectile_aim_direction(spawn_position: Vector3) -> Vector3:
 	if not _cast_aim_point_valid:
-		return forward().normalized()
+		_refresh_skill_aim_point()
 	var toward_target := _skill_aim_point - spawn_position
 	if toward_target.length_squared() > 0.25:
 		return toward_target.normalized()
@@ -1109,6 +1155,9 @@ func _start_ultimate_cinematic(skill_id: String) -> bool:
 	var scene := get_tree().current_scene
 	if camera == null or scene == null:
 		return false
+	_refresh_skill_aim_point()
+	_ultimate_aim_point = _skill_aim_point
+	_ultimate_aim_point_valid = true
 	var cinematic = ULTIMATE_CINEMATIC_SCRIPT.new()
 	cinematic.process_mode = Node.PROCESS_MODE_ALWAYS
 	_ultimate_cinematic_running = true
@@ -1122,11 +1171,17 @@ func _start_ultimate_cinematic(skill_id: String) -> bool:
 func _on_ultimate_cinematic_finished(skill_id: String) -> void:
 	_ultimate_cinematic_running = false
 	if is_inside_tree():
+		if _ultimate_aim_point_valid:
+			_skill_aim_point = _ultimate_aim_point
+			_cast_aim_point_valid = true
 		cast_ultimate(skill_id)
+		clear_skill_cast_aim()
+	_ultimate_aim_point_valid = false
 
 
 func _on_ultimate_cinematic_aborted() -> void:
 	_ultimate_cinematic_running = false
+	_ultimate_aim_point_valid = false
 
 
 func begin_ultimate_cinematic_pose() -> Dictionary:
@@ -1147,7 +1202,7 @@ func begin_ultimate_cinematic_pose() -> Dictionary:
 	if anim_player.has_animation("idle_down"):
 		anim_player.play("idle_down")
 		anim_player.seek(0.0, true)
-	_place_ultimate_blade_behind()
+	_place_ultimate_weapon_in_hand()
 	return saved_pose
 
 
@@ -1173,18 +1228,8 @@ func restore_ultimate_cinematic_pose(saved_pose: Dictionary) -> void:
 	$Direction/Blade.clear_temporary_position()
 
 
-func _place_ultimate_blade_behind() -> void:
-	var camera := get_viewport().get_camera_3d()
-	if camera == null:
-		return
-	var away_from_camera := -camera.global_basis.z
-	away_from_camera.y = 0.0
-	if away_from_camera.length_squared() < 0.01:
-		return
-	var side := camera.global_basis.x
-	side.y = 0.0
-	var target := global_position + Vector3.UP * 1.05 + away_from_camera.normalized() * 1.1 + side.normalized() * 0.2
-	$Direction/Blade.set_temporary_position($Direction.to_local(target))
+func _place_ultimate_weapon_in_hand() -> void:
+	$Direction/Blade.update_held_pose()
 
 
 func cast_ultimate(skill_id_override: String = "") -> bool:
@@ -1193,6 +1238,8 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	var skill_id: String = skill_id_override if skill_id_override != "" else GameManager.selected_ultimate_skill
 	if not _is_ultimate_ready(skill_id):
 		return false
+	if not _cast_aim_point_valid:
+		_refresh_skill_aim_point()
 	if skill_id == "ultimate_wind_2":
 		if _wind_ultimate_active or fsm == null or not fsm.states.has("windultimate"):
 			return false
@@ -1393,7 +1440,7 @@ func _start_wind_ultimate() -> void:
 
 func _find_nearest_wind_ultimate_target() -> EnemyCharacter:
 	var nearest: EnemyCharacter = null
-	var nearest_distance_squared := 64.0
+	var nearest_distance_squared := INF
 	for candidate: Node in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(candidate) or not (candidate is EnemyCharacter):
 			continue
@@ -1402,7 +1449,11 @@ func _find_nearest_wind_ultimate_target() -> EnemyCharacter:
 			continue
 		var offset := enemy.global_position - global_position
 		offset.y = 0.0
-		var distance_squared := offset.length_squared()
+		if offset.length_squared() >= 64.0:
+			continue # Preserve the existing 8 m eligibility range.
+		var to_pointer := enemy.global_position - _skill_aim_point
+		to_pointer.y = 0.0
+		var distance_squared := to_pointer.length_squared()
 		if distance_squared < nearest_distance_squared:
 			nearest = enemy
 			nearest_distance_squared = distance_squared
@@ -1687,29 +1738,13 @@ func _place_sprite_at_body_depth(sprite: SpriteBase3D, depth_offset: float) -> v
 	sprite.no_depth_test = false
 
 
-## Screen-space weapon presentation reuses equipped art; no gameplay state is changed.
-func get_first_person_weapon() -> Dictionary:
-	if not has_weapon or not can_control_camera():
-		return {}
-	if is_instance_valid(_offhand_cast_sprite) and _offhand_cast_sprite.visible:
-		return {"texture": _offhand_cast_sprite.texture, "kind": "offhand", "phase": "thrust", "progress": 1.0, "legacy": false}
-	var weapon_sprite := get_node_or_null("Direction/Blade/Sprite3D") as Sprite3D
-	if weapon_sprite == null or weapon_sprite.texture == null:
-		return {}
-	var definition: Dictionary = GameManager.inventory.definition_for_slot("main")
-	var pose := {"phase": "idle", "progress": 0.0, "strike": 0, "kind": str(definition.get("kind", "sword")), "legacy": bool(definition.get("legacy", false))}
-	if fsm != null and fsm.current_state != null and fsm.current_state.has_method("get_first_person_pose"):
-		pose = fsm.current_state.get_first_person_pose()
-	elif _blade_suppress_count > 0:
-		return {}
-	pose["texture"] = weapon_sprite.texture
-	return pose
-
 func get_mouse_throw_target() -> Vector3:
 	var camera := get_viewport().get_camera_3d()
 	var point := global_position + forward().normalized() * 7.0
 	if camera != null:
 		var mouse := get_viewport().get_mouse_position()
+		if camera.get_parent() is CameraRig:
+			mouse = camera.get_parent().get_aim_screen_point()
 		var from := camera.project_ray_origin(mouse)
 		var ray := camera.project_ray_normal(mouse)
 		var ground: Variant = Plane(Vector3.UP, global_position.y).intersects_ray(from, ray)
