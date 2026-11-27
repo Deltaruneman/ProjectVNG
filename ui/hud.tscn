@@ -28,7 +28,7 @@ corner_radius_bottom_left = 3
 script = ExtResource("2_546lt")
 margin = Vector2(14, 12)
 bar_size = Vector2(112, 8)
-pixel_scale = 0.3
+pixel_scale = 1.0
 show_label = false
 
 [node name="SkillTreeLayer" type="CanvasLayer" parent="." unique_id=1865109197]

@@ -1383,3 +1383,41 @@ Files/purpose:
 - tools/audit_gameplay_cleanup.mjs: retain related speed/knockback fixture.
 - specs/001-integrate-basement-stage/tasks.md and validation.md: user steering/acceptance/actual verification and limitations; docs/project-changes-2026-11-14.txt: cumulative status/file/integration record.
 Evidence docs/validation/speed-knockback-2026-11-27/: runtime.log/errors first46 checks; runtime-final.log/errors repeats46 after final ladder steering; secret.log/errors initial18/19 and secret-final.log/errors19/19 corrected same-pose fixture; routes.log/errors47 original route checks at15 and ladder-final.log/errors48 with explicit facing; secret-room-audit.json records support samples/pixel blend; b1-ladder-landing.png actual arrival capture; source-hashes.json7 source/staged agreements; results.json counts/tuning/limits. Native fixtures use custom isolated data/save; real save/preferences and original export binaries untouched. Existing dirty cleanup/caches preserved. uid_cache.bin observedDA0B7ED421D42E6EDDAAF0DE132E8186859C36D5FAAE351C51CFBF4C54BE1149 differs from N27; no agent source editor/cache hand edits or resets, attribution of external cache changes not established. User authorization covers local Bao movement/hurt/presentation scope; no fabricated teammate approval. Diff whitespace/audit JS syntax pass.
+
+## N30 — HealthbarsAndPotions, enemy balance, burn and boss recovery (2026-11-27, planned)
+User explicitly authorizes this gameplay/UI change across Bao player/skills, Duy enemy/boss and Lam/Quan local stage pacing. No independent teammate approval or acceptance supplied. Preserve existing player.tscn movement8/dash15/cooldown1.5/parry0.3, export index path, vendor assets and dirty uid_cache. Shared boundary: float HP/damage through BaseCharacter/HitArea/player states, shield absorption and health_changed listeners; max HP/progression remains integer. No generator/shared mesh edits. AC: supplied pixel art displays HP including half points; skeleton family deals0.5 per hit, arcane mages1; authored roster retained; remove Basement interval1.5/projectile0.65 overrides; burn0.5 per second for1s with reliable final tick, no bonus extension, both fire ultimates ignite surviving targets; learned nodes gold including selected/hover; bosses resume attacks after direct damage/burn and complete phases/death. Reproduce before assigning boss root cause; rendered isolated fixtures and relevant existing player/HUD regressions, no real saves. Implementation/verification pending.
+
+### N30 implemented — final validation pending
+All requested local implementation items above are implemented; see the N30 cumulative project-change record for exact shared files and boundaries. Mage rule includes Skeleton Mage1; melee Skeleton Warrior0.5. Focused rendered48/48 and HUD39/39 passed. Extended final focused suite and actual map HP transition suite running. Legacy potion38/41 and obsolete EXP API fixture remain failed/incomplete, not acceptance. No teammate sign-off.
+
+### N30 FINAL — 2026-11-27
+- [x] Vendor pixel HP frames on Player/enemies/Dark Fairy with fractional HP/damage pipeline, shield/listener/stage/clone integration.
+- [x] Skeleton Warrior0.5; mage family including Skeleton Mage1; remove Basement cadence/projectile nerfs; retain authored roster.
+- [x] Burn0.5HP/second for1second, refresh without stacking, reliable final tick/pause/hurt handling; both fire ultimates ignite.
+- [x] Learned nodes visibly gold under selection/hover.
+- [x] Both bosses attack repeatedly under continuous hits/burn; explicit parry recovers; Fairy phases/death and Executioner summons/death verified.
+- [x] Rendered58/58 focused +8/8 actual map HP/respawn +39/39 quick-HUD=105/105 in passing suites; source/staged35/35 hashes, diff whitespace/audit syntax pass.
+- [ ] Historical potion suite update:38/41 with checkpoint inventory/old UID failures; unchanged checkpoint rollback policy. Legacy EXP suite update: obsolete exp_points access; not counted as passing.
+- [ ] Full manual campaign/exports/independent reviewer-owner acceptance not performed; no teammate sign-off claimed.
+Detailed per-file purpose, artifacts, known errors, fixed-burn bonus limitation and verification evidence are cumulative in docs/project-changes-2026-11-14.txt and validation.md N30 FINAL. User player/export edits and dirty cache preserved; no commit/push.
+
+## N31 — Player5HP, one-HP segments, Skeleton family0.5 and other enemies1 (2026-11-27, planned)
+User explicitly supersedes N30 Skeleton Mage interpretation: ALL skeletons including ranged mage0.5; ALL other enemies including bosses and special attacks1. Skeleton Mage source is already0.5 at this turn start; preserve it. Bao owns Player/HUD; Duy enemy balance; user authorizes this bounded change, no separate owner/reviewer acceptance asserted. Preserve all prior dirty N30 work, user movement/dash/parry/export changes and source cache. AC: base Player spawns with5HP, existing health upgrades still add HP; Player HP bar has5 one-HP segments at base, half damage empties half segment and1 damage one segment, segment count follows max HP; actual melee/ranged skeleton hits0.5, other mob/boss attacks1 including Executioner skill (remove prior+1 bonus). Preserve vendor gold/red art and prior boss/burn fixes. Scope: Player scene max_health, small HUD separator overlay, Executioner damage/special-attack arithmetic, existing combat fixture plus new rendered HP checks; no map/generator/cache edits. Isolated rendered focused/runtime verification and cumulative per-file record required. Implementation pending.
+
+### N31 FINAL — Player5HP / whole-HP divisions / skeleton0.5 / others1
+- [x] Player base5HP; rank2 health upgrade7HP; preserve existing player tuning.
+- [x] One HP per Player bar segment:5 base segments, half hit half segment, whole hit one segment; count follows upgrades.
+- [x] All skeletons including Mage0.5; other enemies/bosses1, including Executioner special attack.
+- [x] Rendered29/29 HP/damage +59/59 combat +8/8 actual map HP/respawn =96/96 PASS; all engine exit0;38/38 selected source hashes agree.
+- [x] Cumulative per-file/integration/verification/error/limit record and images/logs saved under docs/validation/hp-segments-damage-2026-11-27/.
+No independent teammate acceptance or commit/push. Existing N30 historical Potion/EXP test drift remains separately open; no new full campaign/export acceptance.
+
+## N32 — Expired summon reference breaks typed-array filtering (2026-11-27, planned)
+User reports Array to Array[Node3D] assignment plus filter callback Cannot convert Object to Object at arcane_enemy.gd89/_begin_attack. Actual user Godot log confirms exact stack. Static cause: summons typed lambda Node3D parameter converts an already-freed Object before is_instance_valid can reject it; failed filter returns untyped empty Array and typed assignment raises a second error. Earlier14s boss fixtures did not cover natural summoned-unit18s lifetime expiry. Duy enemy lifecycle scope, user authorizes fix; no independent owner/reviewer acceptance. AC: prune freed and queued-for-deletion summon entries without conversion/reassigning typed array, preserve valid entries/order/Array[Node3D] type, repeat attacks/resummoning after natural expiry and killed/free units, no filter/assignment errors. Scope only local Arcane summon pruning and focused lifecycle regression, preserve boss balance/burn/HP and user's newly modified Castle scene with placed Executioner; no map/cache/generator/save changes. Record reproduction and fixed runtime evidence separately. Implementation pending.
+
+### N32 FINAL
+- [x] Exact expired-Node3D filter and typed-array assignment errors reproduced before fix (1 failed check, exit1).
+- [x] Reverse in-place invalid/queued/null pruning; preserve Array[Node3D], survivor order and array storage.
+- [x] Rendered natural18s expiry, killed-unit recovery, replacement summon and Necromancer checks15/15 PASS, exit0; tested source/scene3/3 hashes agree.
+- [x] Cumulative per-file/integration/evidence/error/limit record updated; Castle user edit hash unchanged.
+No full campaign/export/independent acceptance or commit/push; prior unrelated open test issues unchanged.

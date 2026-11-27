@@ -39,7 +39,7 @@ var checkpoint_id := ""
 ## World flags that survive stage changes and go into the save file, e.g. {"gate": true}.
 var flags: Dictionary = {}
 ## The fox's health carried through a door; -1 = start with full health.
-var player_health := -1
+var player_health := -1.0
 var _pending_brimstone_respawn := false
 ## Skill points live in one pool. Allocations are stored by node id so a free reset can return
 ## every spent point without changing the number earned from the world.
@@ -102,7 +102,7 @@ func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool
 		# it here: once _changing is set, nothing would clear it again.
 		push_error("No stage at '%s'" % stage_path)
 		return
-	var health := -1
+	var health := -1.0
 	if keep_health and current_stage != null and is_instance_valid(current_stage):
 		health = current_stage.player.health
 		if health <= 0:

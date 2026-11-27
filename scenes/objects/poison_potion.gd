@@ -180,7 +180,7 @@ func _tick_player_infection() -> void:
 		_clear_infection()
 
 
-func _on_player_health_changed(current: int, _maximum: int) -> void:
+func _on_player_health_changed(current: float, _maximum: int) -> void:
 	if current <= 0:
 		_clear_infection()
 

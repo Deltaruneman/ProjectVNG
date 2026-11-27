@@ -171,7 +171,7 @@ func _detonate() -> void:
 
 
 func _caster_is_alive() -> bool:
-	return is_instance_valid(_caster) and _caster.is_inside_tree() and int(_caster.get("health")) > 0
+	return is_instance_valid(_caster) and _caster.is_inside_tree() and float(_caster.get("health")) > 0.0
 
 
 func _on_caster_died() -> void:

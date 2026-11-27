@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-27",
+  "engine": "Godot4.7.2 Compatibility",
+  "isolatedProject": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaCombatBalance-20261127",
+  "hpSegmentsAndDamage": {
+    "exitCode": 0,
+    "enemySceneResourcesInspected": 15,
+    "checks": 29,
+    "passed": 29
+  },
+  "combatRegression": {
+    "exitCode": 0,
+    "checks": 59,
+    "passed": 59
+  },
+  "mapHPRespawnRegression": {
+    "exitCode": 0,
+    "checks": 8,
+    "passed": 8
+  },
+  "totalPassingAssertions": 96,
+  "sourceStagedHashesMatching": 38,
+  "tuning": {
+    "skeletonWarriorDamage": 0.5,
+    "executionerSkillBonus": 0,
+    "allOtherEnemiesDamage": 1,
+    "playerBaseHP": 5,
+    "skeletonMageDamage": 0.5,
+    "hpPerSegment": 1
+  },
+  "limitations": [
+    "Controlled rendered fixtures, no complete manual campaign/export",
+    "Existing shutdown ObjectDB/resources-in-use diagnostics remain",
+    "Historical Potion/EXP fixture issues recorded in N30 not rerun or claimed fixed",
+    "No independent owner/reviewer sign-off"
+  ]
+}

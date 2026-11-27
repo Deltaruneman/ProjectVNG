@@ -27,15 +27,15 @@ const OPPOSITE_DIRECTION: Dictionary = {
 @export var input_lock_timer: float = 0.0 # Bổ sung từ Source 1
 @export var direction: String = "down"
 
-@export var attack_damage: int = 1
+@export var attack_damage: float = 1.0
 @export var max_health: int = 3
 
 ## Phát ra mỗi khi máu thay đổi (HUD lắng nghe tín hiệu này).
-signal health_changed(current: int, maximum: int)
+signal health_changed(current: float, maximum: int)
 
-var health: int = max_health:
+var health: float = max_health:
 	set(value):
-		health = clampi(value, 0, max_health)
+		health = clampf(value, 0.0, max_health)
 		health_changed.emit(health, max_health)
 
 ## Turn off to make the character stand absolutely still: no gravity, no move_and_slide().
@@ -218,7 +218,7 @@ func _apply_direction() -> void:
 func _on_changed_direction() -> void:
 	pass
 
-func take_damage(damage: int) -> void:
+func take_damage(damage: float) -> void:
 	if invincible:
 		return
 	health -= damage

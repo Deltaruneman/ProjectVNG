@@ -6,7 +6,7 @@ class_name HitArea3D
 ## document.
 
 ## Damage dealt per hit.
-@export var damage: int = 1
+@export var damage: float = 1.0
 
 var attacker: Node3D = null
 ## Optional contact-time adjustment for this hitbox. The stored damage stays unchanged.
@@ -43,7 +43,7 @@ func hit(hurt_area: Node) -> void:
 				source = ancestor
 				break
 			ancestor = ancestor.get_parent()
-	var hit_damage: int = damage_modifier.call(damage) if damage_modifier.is_valid() else damage
+	var hit_damage: float = damage_modifier.call(damage) if damage_modifier.is_valid() else damage
 	hurt_area.take_damage(hit_dir.normalized(), hit_damage, source)
 
 func _on_area_entered(area: Area3D) -> void:

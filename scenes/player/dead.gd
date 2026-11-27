@@ -17,5 +17,5 @@ func _update(delta: float) -> void:
 			obj.died.emit()
 		else:
 			obj.get_tree().reload_current_scene()
-func take_damage(_damage: int = 1) -> void:
+func take_damage(_damage: float = 1.0) -> void:
 	pass

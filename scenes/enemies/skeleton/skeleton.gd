@@ -71,16 +71,16 @@ func attack() -> void:
 
 
 func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
-	if state == &"death" or state == &"hurt":
+	if state == &"death" or (state == &"hurt" and not _skill_burn_applying):
 		return
-	take_damage(int(damage))
+	take_damage(damage)
 	stop_horizontal()
 	if health <= 0:
 		$Direction/HurtArea3D.set_deferred("collision_layer", 0)
 		$CollisionShape3D.set_deferred("disabled", true)
 		movement_enabled = false
 		_play(&"death")
-	else:
+	elif not _skill_burn_applying:
 		velocity.x = hit_direction.x * 2.0
 		velocity.z = hit_direction.z * 2.0
 		_play(&"hurt")

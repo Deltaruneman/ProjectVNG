@@ -45,9 +45,9 @@ void fragment() {
 
 @export_group("Texture (pixel bar)")
 ## Ảnh nền/khung rỗng của thanh máu (có thể để trống)
-@export var texture_under: Texture2D
+@export var texture_under: Texture2D = preload("res://ui/healthbar_empty.tres")
 ## Ảnh phần máu đầy - BẮT BUỘC nếu muốn dùng ảnh
-@export var texture_progress: Texture2D
+@export var texture_progress: Texture2D = preload("res://ui/healthbar_full.tres")
 ## Ảnh viền/khung phủ lên trên cùng (có thể để trống)
 @export var texture_over: Texture2D
 ## Phóng to pixel art theo số nguyên (2, 3, 4...) để giữ nét
@@ -393,7 +393,7 @@ func _refresh_potion_buffs() -> void:
 	_potion_badges["protection_potion"].visible = shield_active
 	_potion_badges["strength_potion"].visible = player.potion_strength_remaining > 0.0
 	if shield_active:
-		_potion_seconds["protection_potion"].text = "%ds · %d/%d" % [
+		_potion_seconds["protection_potion"].text = "%ds · %s/%d" % [
 			ceili(player.potion_shield_remaining), player.potion_shield_health, player.potion_shield_capacity]
 		_potion_shield_bar.max_value = player.potion_shield_capacity
 		_potion_shield_bar.value = player.potion_shield_health
@@ -896,12 +896,18 @@ func _refresh_rage_label() -> void:
 
 
 func _build_texture_bar() -> void:
-	var bar := TextureProgressBar.new()
+	var bar := preload("res://ui/segmented_health_bar.gd").new()
 	bar.texture_under = texture_under
 	bar.texture_progress = texture_progress
 	bar.texture_over = texture_over
 	bar.texture_progress_offset = progress_offset
 	bar.fill_mode = TextureProgressBar.FILL_LEFT_TO_RIGHT
+	bar.nine_patch_stretch = true
+	bar.stretch_margin_left = 3
+	bar.stretch_margin_right = 3
+	bar.stretch_margin_top = 2
+	bar.stretch_margin_bottom = 2
+	bar.size = bar_size
 	bar.step = 0.01 # để tween mượt, mặc định step = 1 sẽ giật
 	bar.position = margin
 	bar.scale = Vector2(pixel_scale, pixel_scale)
@@ -946,7 +952,7 @@ func _build_label() -> void:
 	_bar.add_child(_label)
 
 
-func _on_health_changed(current: int, maximum: int) -> void:
+func _on_health_changed(current: float, maximum: int) -> void:
 	_refresh(current, maximum, true)
 	if current <= 0 and _potion_badges.has("venom_potion"):
 		_potion_badges["venom_potion"].hide()
@@ -987,10 +993,10 @@ func _on_stamina_changed(current: float, maximum: float) -> void:
 	_stamina_bar.visible = current < maximum - 0.01 and not _skill_tree_is_open
 
 
-func _refresh(current: int, maximum: int, animate: bool) -> void:
+func _refresh(current: float, maximum: int, animate: bool) -> void:
 	_bar.max_value = maximum
 	if _label != null:
-		_label.text = "%d / %d" % [current, maximum] + "HP"
+		_label.text = "%s / %d" % [str(current), maximum] + "HP"
 	_critical_health_active = maximum > 0 and current > 0 and current * 3 <= maximum
 	if _low_health_warning != null:
 		_low_health_warning.visible = _critical_health_active and not _skill_tree_is_open

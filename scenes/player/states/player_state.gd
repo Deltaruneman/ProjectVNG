@@ -62,7 +62,7 @@ func control_dash() -> bool:
 		return true
 	return false
 
-func take_damage(damage: int = 1) -> void:
+func take_damage(damage: float = 1.0) -> void:
 	if obj.invincible:
 		return
 	# Đang trong khung parry -> gạt đòn, không mất máu
@@ -70,7 +70,7 @@ func take_damage(damage: int = 1) -> void:
 		return
 	if damage > 0:
 		PLAYER_HIT_FX.play_skill_sound(obj, "player_hit")
-	var hp_damage: int = obj.absorb_potion_damage(damage)
+	var hp_damage: float = obj.absorb_potion_damage(damage)
 	if damage > 0 and hp_damage == 0:
 		return
 	obj.take_damage(hp_damage)

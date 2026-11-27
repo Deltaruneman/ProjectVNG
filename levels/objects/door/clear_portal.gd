@@ -54,7 +54,7 @@ func _ready() -> void:
 func _defeat_key(enemy: EnemyCharacter) -> String:
 	return "encounter_defeated:%s:%s" % [clear_flag, encounters.get_path_to(enemy)]
 
-func _on_enemy_health_changed(current: int, _maximum: int, enemy: EnemyCharacter) -> void:
+func _on_enemy_health_changed(current: float, _maximum: int, enemy: EnemyCharacter) -> void:
 	if current <= 0:
 		_record_defeat(enemy)
 

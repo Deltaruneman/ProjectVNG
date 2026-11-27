@@ -4,7 +4,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://b78f0ln27s6qu" path="res://scenes/enemies/darkfairy/darkfairy_anims.tres" id="2"]
 [ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://bv5ai3somg4x5" path="res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_idle.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://btciy41vld8a4" path="res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png" id="5_progress"]
+[ext_resource type="Texture2D" path="res://ui/healthbar_full.tres" id="5_progress"]
+[ext_resource type="Texture2D" path="res://ui/healthbar_empty.tres" id="6_empty"]
 
 [sub_resource type="CapsuleShape3D" id="body"]
 height = 1.8
@@ -84,13 +85,13 @@ offset_bottom = 12.0
 grow_horizontal = 2
 mouse_filter = 2
 nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-texture_under = ExtResource("5_progress")
+stretch_margin_left = 3
+stretch_margin_top = 2
+stretch_margin_right = 3
+stretch_margin_bottom = 2
+texture_under = ExtResource("6_empty")
 texture_progress = ExtResource("5_progress")
-tint_under = Color(0.3, 0.3, 0.3, 1)
+step = 0.01
 
 [node name="Name" type="Label" parent="BossHUD" unique_id=106804999]
 visible = false

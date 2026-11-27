@@ -31,6 +31,8 @@ var defeat_finished := false
 
 func _ready() -> void:
 	movement_enabled = false
+	damage_stagger_enabled = false
+	add_to_group("bosses")
 	super._ready()
 	spawn_position = global_position
 	anim_player.animation_finished.connect(_on_animation_finished)
@@ -255,15 +257,16 @@ func _clear_effects() -> void:
 
 
 func _on_hurt_area_3d_hurt(_hit_direction: Vector3, damage: float) -> void:
-	if invincible or state in [&"death", &"hurt", &"transformation", &"shieldhit"]:
+	if invincible or state in [&"death", &"transformation"] or (state in [&"hurt", &"shieldhit"] and not _skill_burn_applying):
 		return
 	if shield_hits > 0:
 		shield_hits -= 1
-		_play(&"shieldhit")
+		if damage_stagger_enabled and not _skill_burn_applying:
+			_play(&"shieldhit")
 		return
-	take_damage(int(damage))
+	take_damage(damage)
 	if phase == 1:
-		health = maxi(health, 1)
+		health = maxf(health, 1.0)
 	if health <= 0:
 		_clear_effects()
 		$Direction/HurtArea3D.set_deferred("collision_layer", 0)
@@ -280,7 +283,7 @@ func _on_hurt_area_3d_hurt(_hit_direction: Vector3, damage: float) -> void:
 		_clear_effects()
 		invincible = true
 		_play(&"transformation")
-	else:
+	elif damage_stagger_enabled and not _skill_burn_applying:
 		_play(&"hurt")
 
 

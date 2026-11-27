@@ -95,7 +95,7 @@ var _temp_speed_bonus := 0.0
 var ice_shield := 0
 const POTION_EFFECT_SECONDS := 8.0
 signal potion_effects_changed
-var potion_shield_health := 0
+var potion_shield_health := 0.0
 var potion_shield_capacity := 0
 var potion_shield_remaining := 0.0
 var potion_strength_remaining := 0.0
@@ -246,7 +246,7 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
 
-func _on_regeneration_health_changed(current: int, maximum: int) -> void:
+func _on_regeneration_health_changed(current: float, maximum: int) -> void:
 	# Full-health time cannot be banked for the next hit, and death never revives.
 	if current <= 0 or current >= maximum:
 		_health_regen_elapsed = 0.0
@@ -424,10 +424,10 @@ func apply_potion(definition: String) -> String:
 	return ""
 
 
-func absorb_potion_damage(damage: int) -> int:
+func absorb_potion_damage(damage: float) -> float:
 	if damage <= 0 or potion_shield_health == 0:
 		return damage
-	var absorbed := mini(damage, potion_shield_health)
+	var absorbed := minf(damage, potion_shield_health)
 	potion_shield_health -= absorbed
 	if potion_shield_health == 0:
 		_clear_potion_shield()
@@ -435,7 +435,7 @@ func absorb_potion_damage(damage: int) -> int:
 	return damage - absorbed
 
 
-func potion_normal_attack_damage(damage: int) -> int:
+func potion_normal_attack_damage(damage: float) -> float:
 	return damage * 2 if potion_strength_remaining > 0.0 else damage
 
 
@@ -459,7 +459,7 @@ func _clear_potion_shield() -> void:
 	potion_shield_remaining = 0.0
 
 
-func _clear_potion_effects_on_death(current: int, _maximum: int) -> void:
+func _clear_potion_effects_on_death(current: float, _maximum: int) -> void:
 	if current == 0 and (potion_shield_health > 0 or potion_strength_remaining > 0.0):
 		_clear_potion_shield()
 		potion_strength_remaining = 0.0
@@ -812,9 +812,8 @@ func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
 	var enemy := _get_enemy_from_hurt_area(area)
 	if enemy != null:
 		if elemental_form == "fire":
-			var ember_rank := int(GameManager.skill_allocations.get("evo_fire_ember", 0))
-			var burn_duration := 3.0 + float(ember_rank) + elemental_status_duration_bonus()
-			var burn_damage := maxi(1, int(attack_damage / 2)) + ember_rank + int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
+			var burn_duration := EnemyCharacter.BURN_DURATION
+			var burn_damage := EnemyCharacter.BURN_DAMAGE
 			enemy.apply_skill_burn(self, burn_damage, burn_duration, 1.0)
 			BattleFX.enemy_status(enemy, "burning", burn_duration)
 		elif elemental_form == "ice":
@@ -847,7 +846,7 @@ func _get_enemy_from_hurt_area(area: Area3D) -> EnemyCharacter:
 func _try_blood_charm_heal() -> void:
 	var chance := float(GameManager.inventory.definition_for_slot("charm").get("heal_on_hit_chance", 0.0))
 	if health > 0 and health < max_health and chance > 0.0 and randf() < chance:
-		health = mini(max_health, health + 1)
+		health = minf(max_health, health + 1)
 
 
 func _gain_rage(amount: float) -> void:
@@ -873,7 +872,7 @@ func _apply_skill_bonuses() -> void:
 	if not _equipment_initialized:
 		health = max_health
 		_equipment_initialized = true
-	health = mini(health, max_health)
+	health = minf(health, max_health)
 	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus + int(GameManager.inventory.definition_for_slot("main").get("bonus", 0)) + GameManager.inventory.enchant_rank("main", "sharpness")
 	_refresh_equipment_art()
 	movement_speed = _base_movement_speed + 0.5 * float(ranks.get("char_speed", 0)) + float(GameManager.inventory.definition_for_slot("charm").get("movement_speed_bonus", 0.0)) + _temp_speed_bonus
@@ -922,7 +921,7 @@ func cast_active_skill(active_id: String) -> bool:
 					BattleFX.play_skill_sound(self, "fire_impact")
 					_damage_enemies_in_shape(blast_center, aim, "circle", blast_radius, 0.0, 360.0, damage * 2))
 		"active_fire_3":
-			health = maxi(1, health - 5)
+			health = maxf(1, health - 5)
 			_fire_rage_sequence.call_deferred(damage, aim)
 		"active_fire_4":
 			var meteor_rank := int(GameManager.skill_allocations.get("evo_fire_meteor", 0))
@@ -1097,14 +1096,14 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: int = 0, freeze_status_id: String = "frozen") -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: float = 0.0, freeze_status_id: String = "frozen") -> int:
 	if freeze_duration > 0.0:
 		freeze_duration += elemental_status_duration_bonus(true)
 	if slow_duration > 0.0:
 		slow_duration += elemental_status_duration_bonus(true)
 	if burn_duration > 0.0:
-		burn_duration += elemental_status_duration_bonus()
-		burn_damage += int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
+		burn_duration = EnemyCharacter.BURN_DURATION
+		burn_damage = EnemyCharacter.BURN_DAMAGE
 	var aim_2d := Vector2(aim.x, aim.z).normalized()
 	if aim_2d.length_squared() < 0.001:
 		aim_2d = Vector2(forward().x, forward().z).normalized()
@@ -1327,7 +1326,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
 		BattleFX.slash(self, vfx_position + Vector3.UP * 0.2, "ice", aim, 1.1)
 	if skill_id == "ultimate_fire_2":
-		health = maxi(1, health - 10)
+		health = maxf(1, health - 10)
 	if skill_id == "ultimate_wind_1":
 		movement_speed *= 1.5
 		_track_hud_status("speed", 4.0)
@@ -1339,8 +1338,9 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	else:
 		var ultimate_shape := "global" if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else "circle"
 		var ultimate_freeze := 1.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else (0.8 if skill_id == "ultimate_lightning_1" else 0.0)
+		var ultimate_burn := EnemyCharacter.BURN_DURATION if skill_id.begins_with("ultimate_fire_") else 0.0
 		var ultimate_freeze_status := "electrified" if skill_id.begins_with("ultimate_lightning") else "frozen"
-		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze, 0.0, 0.0, 0.0, 0, ultimate_freeze_status)
+		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze, 0.0, 0.0, ultimate_burn, EnemyCharacter.BURN_DAMAGE, ultimate_freeze_status)
 	rage = 0.0
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)
@@ -1592,7 +1592,7 @@ func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
 			hit_direction = global_position - source.global_position
 			hit_direction.y = 0.0
 	hurt_push_direction = hit_direction.normalized()
-	fsm.current_state.take_damage(int(damage))
+	fsm.current_state.take_damage(damage)
 
 
 func uses_offhand(_slot: int = 1) -> bool:

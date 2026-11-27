@@ -12,5 +12,5 @@ func take_damage(damage_dir: Vector3, damage: float) -> void:
 	# and an enemy that's falling would freeze in mid-air.
 	obj.velocity.x = damage_dir.x * KNOCKBACK_SPEED
 	obj.velocity.z = damage_dir.z * KNOCKBACK_SPEED
-	obj.take_damage(int(damage))
+	obj.take_damage(damage)
 	change_state(fsm.states.hurt)

@@ -4,6 +4,8 @@ extends BaseCharacter
 signal fallback_hurt_finished
 
 var _fallback_hurt_running := false
+## Boss attacks continue through ordinary hits; parry still explicitly interrupts.
+var damage_stagger_enabled := true
 
 const HEALTH_BAR_SCENE := preload("res://scenes/ui/enemy_health_bar.tscn")
 const SKILL_POINT_SCENE := preload("res://levels/objects/experience_point/exp_point.tscn")
@@ -37,8 +39,12 @@ var _skill_slow_factor := 1.0
 var _skill_slow_until_msec := 0
 var _skill_freeze_until_msec := 0
 var _skill_freeze_running := false
-var _skill_burn_until_msec := 0
-var _skill_burn_damage := 0
+const BURN_DAMAGE := 0.5
+const BURN_DURATION := 1.0
+var _skill_burn_remaining := 0.0
+var _skill_burn_elapsed := 0.0
+var _skill_burn_applying := false
+var _skill_burn_damage := 0.0
 var _skill_burn_source: Node3D = null
 var _skill_burn_running := false
 
@@ -74,7 +80,7 @@ func _on_enemy_animation_started(animation_name: StringName) -> void:
 		BattleFX.play_skill_sound(self, "enemy_attack")
 
 
-func _on_exp_point_health_changed(current: int, _maximum: int) -> void:
+func _on_exp_point_health_changed(current: float, _maximum: int) -> void:
 	if current == 0:
 		_drop_exp_points_on_death.call_deferred()
 
@@ -138,29 +144,35 @@ func apply_skill_slow(duration: float, speed_factor: float = 0.5) -> void:
 		_skill_slow_factor = 1.0
 
 
-func apply_skill_burn(source: Node3D, damage_per_tick: int = 1, duration: float = 3.0, tick_interval: float = 1.0) -> void:
-	if duration <= 0.0 or tick_interval <= 0.0 or health <= 0:
+## Burning has fixed balance: 0.5 HP each second, refreshed for one second.
+## Process elapsed game time so timer overshoot cannot discard the final tick.
+func apply_skill_burn(source: Node3D, _damage_per_tick: float = BURN_DAMAGE, _duration: float = BURN_DURATION, _tick_interval: float = 1.0) -> void:
+	if health <= 0:
 		return
-	_skill_burn_damage = maxi(_skill_burn_damage, damage_per_tick)
+	_skill_burn_damage = BURN_DAMAGE
 	_skill_burn_source = source
-	_skill_burn_until_msec = maxi(_skill_burn_until_msec, Time.get_ticks_msec() + int(duration * 1000.0))
+	_skill_burn_remaining = BURN_DURATION
+	_skill_burn_running = true
+
+
+func _process(delta: float) -> void:
 	if not _skill_burn_running:
-		_skill_burn_running = true
-		_run_skill_burn.call_deferred(tick_interval)
-
-
-func _run_skill_burn(tick_interval: float) -> void:
-	while is_inside_tree() and health > 0 and Time.get_ticks_msec() < _skill_burn_until_msec:
-		await get_tree().create_timer(tick_interval).timeout
-		if not is_inside_tree() or health <= 0 or Time.get_ticks_msec() > _skill_burn_until_msec:
-			break
-		var hurt_area := get_node_or_null("Direction/HurtArea3D") as HurtArea3D
-		if hurt_area != null:
-			var source: Node3D = _skill_burn_source if is_instance_valid(_skill_burn_source) else null
-			hurt_area.take_damage(Vector3.ZERO, _skill_burn_damage, source)
-	_skill_burn_running = false
-	_skill_burn_damage = 0
-	_skill_burn_source = null
+		return
+	if health > 0:
+		_skill_burn_elapsed += minf(delta, _skill_burn_remaining)
+		_skill_burn_remaining = maxf(0.0, _skill_burn_remaining - delta)
+		if _skill_burn_elapsed >= 1.0 - 0.00001:
+			_skill_burn_elapsed = maxf(0.0, _skill_burn_elapsed - 1.0)
+			var hurt_area := get_node_or_null("Direction/HurtArea3D") as HurtArea3D
+			if hurt_area != null:
+				var source: Node3D = _skill_burn_source if is_instance_valid(_skill_burn_source) else null
+				_skill_burn_applying = true
+				hurt_area.take_damage(Vector3.ZERO, _skill_burn_damage, source)
+				_skill_burn_applying = false
+	if health <= 0 or _skill_burn_remaining <= 0.0:
+		_skill_burn_running = false
+		_skill_burn_elapsed = 0.0
+		_skill_burn_source = null
 
 
 func _init_ray_cast() -> void:
@@ -213,12 +225,20 @@ func _on_body_exited(_body: Node3D) -> void:
 
 ## The current state decides how to take the hit — the Dead state overrides this to skip it.
 func _on_hurt_area_3d_hurt(direction: Vector3, damage: float) -> void:
-	if health <= 0 or _fallback_hurt_running:
+	if health <= 0 or (_fallback_hurt_running and not _skill_burn_applying):
+		return
+	if _skill_burn_applying:
+		take_damage(damage)
+		if health <= 0:
+			if fsm != null and fsm.states.has("dead"):
+				fsm.change_state(fsm.states.dead)
+			else:
+				queue_free()
 		return
 	if fsm != null and fsm.states.has("hurt") and fsm.current_state != null:
 		fsm.current_state.take_damage(direction, damage)
 	else:
-		take_damage(int(damage))
+		take_damage(damage)
 		if health <= 0:
 			queue_free()
 
@@ -230,12 +250,12 @@ func has_hurt_animation() -> bool:
 	return false
 
 
-func take_damage(damage: int) -> void:
+func take_damage(damage: float) -> void:
 	var previous_health := health
 	super.take_damage(damage)
 	if health < previous_health:
 		BattleFX.play_skill_sound(self, "enemy_hit")
-	if health > 0 and health < previous_health and not has_hurt_animation():
+	if health > 0 and health < previous_health and damage_stagger_enabled and not _skill_burn_applying and not has_hurt_animation():
 		_play_fallback_hurt()
 
 

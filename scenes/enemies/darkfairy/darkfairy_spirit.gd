@@ -32,12 +32,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hurt_area_3d_hurt(_hit_direction: Vector3, damage: float) -> void:
-	if state in [&"death", &"hurt"]:
+	if state == &"death" or (state == &"hurt" and not _skill_burn_applying):
 		return
-	take_damage(int(damage))
+	take_damage(damage)
 	if health <= 0:
 		_die()
-	else:
+	elif not _skill_burn_applying:
 		_hurt()
 
 
