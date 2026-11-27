@@ -113,6 +113,28 @@ func _check_scene(path: String) -> void:
 		if player.global_position.y < fall_zone.top_y:
 			_fail("người chơi vẫn ở dưới vùng rơi")
 
+	# Decor: có món nào, món có va chạm vào nhóm path_blockers, và đường đi từ điểm xuất hiện tới lối ra vẫn thông.
+	var props := stage.find_children("*", "DecorProp", true, false)
+	var blockers := 0
+	for prop in props:
+		if (prop as DecorProp).collision_size != Vector3.ZERO and (prop as DecorProp).is_in_group(&"path_blockers"):
+			blockers += 1
+	print("   decor: %d món, %d chặn đường" % [props.size(), blockers])
+	if props.is_empty():
+		_fail("không có decor")
+	var finders := stage.find_children("*", "GridPathfinder", true, false)
+	if finders.is_empty():
+		_fail("thiếu Pathfinder")
+	else:
+		var finder := finders[0] as GridPathfinder
+		var spawn_marker := stage.get_node("Spawn") as Marker3D
+		for node in stage.find_children("*", "Area3D", true, false):
+			if node.get("target_stage") != null:
+				var route := finder.find_path(spawn_marker.global_position, (node as Node3D).global_position)
+				print("   đường tới %s: %d điểm" % [node.name, route.size()])
+				if route.is_empty():
+					_fail("không có đường từ điểm xuất hiện tới %s" % node.name)
+
 	stage.queue_free()
 	for i in 3:
 		await get_tree().physics_frame
