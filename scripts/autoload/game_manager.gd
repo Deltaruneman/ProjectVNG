@@ -76,7 +76,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("new_game"):
+	if event.is_action_pressed("new_game") and is_instance_valid(current_stage):
 		get_viewport().set_input_as_handled()
 		new_game()
 

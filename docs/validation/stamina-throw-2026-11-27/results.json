@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-27",
+  "staminaChecks": 21,
+  "throwIntegrationChecks": 7,
+  "exportedAudioChecks": 48,
+  "total": 76,
+  "failures": 0,
+  "regenPerSecond": 12.5,
+  "regenDelaySeconds": 1.2,
+  "throwPeakDb": -16.6659183502197,
+  "filesMatch": true,
+  "limitations": [
+    "No campaign/export stamina playthrough",
+    "Windows audio fixture, no Web/Linux test or physical listening",
+    "Existing shutdown warnings retained"
+  ]
+}

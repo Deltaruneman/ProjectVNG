@@ -30,8 +30,8 @@ const BASE_DASH_COOLDOWN_SECONDS := 2.0
 const STAMINA_PARRY_COST := 15.0
 const STAMINA_CHARGE_COST := 25.0
 const HEALTH_REGEN_INTERVALS := [60.0, 40.0, 20.0]
-const STAMINA_REGEN_RATE := 25.0
-const STAMINA_REGEN_DELAY := 0.7
+const STAMINA_REGEN_RATE := 12.5
+const STAMINA_REGEN_DELAY := 1.2
 const STAMINA_EXHAUSTION_DURATION := 1.0
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
@@ -161,14 +161,16 @@ func _ready() -> void:
 
 var _stair_route := PackedVector3Array()
 var _stair_stuck_time := 0.0
+var _ladder_climb := false
 
 
-func start_automatic_stairs(route: PackedVector3Array) -> bool:
+func start_automatic_stairs(route: PackedVector3Array, ladder: bool = false) -> bool:
 	if route.is_empty() or not can_interact() or not is_on_floor() \
 			or fsm.current_state.name.to_lower() not in ["idle", "run"]:
 		return false
 	_cancel_skill_aim()
 	_stair_route = route
+	_ladder_climb = ladder
 	_stair_stuck_time = 0.0
 	velocity = Vector3.ZERO
 	return true
@@ -178,8 +180,14 @@ func is_climbing_stairs() -> bool:
 	return not _stair_route.is_empty()
 
 
+func is_climbing_ladder() -> bool:
+	return is_climbing_stairs() and _ladder_climb
+
+
 func stop_automatic_stairs() -> void:
 	_stair_route.clear()
+	_ladder_climb = false
+	velocity.y = 0.0
 	stop_horizontal()
 	if health > 0 and fsm.current_state.name.to_lower() in ["idle", "run"]:
 		change_animation("idle")
@@ -196,7 +204,7 @@ func _update_automatic_stairs(delta: float) -> void:
 		return
 	var offset := _stair_route[0] - global_position
 	var horizontal := Vector3(offset.x, 0.0, offset.z)
-	if horizontal.length() < 0.18 and absf(offset.y) < 0.65:
+	if horizontal.length() < 0.12 and absf(offset.y) < (0.06 if _ladder_climb else 0.65):
 		_stair_route.remove_at(0)
 		if _stair_route.is_empty():
 			stop_automatic_stairs()
@@ -207,7 +215,12 @@ func _update_automatic_stairs(delta: float) -> void:
 	velocity.x = motion.x
 	velocity.z = motion.z
 	var before := global_position
-	_update_movement(delta)
+	if _ladder_climb:
+		# The authored ladder shaft stays collidable; climb without gravity until dismount.
+		var climb_motion := offset.normalized() * minf(3.0 * delta, offset.length())
+		move_and_collide(climb_motion)
+	else:
+		_update_movement(delta)
 	_stair_stuck_time = _stair_stuck_time + delta if global_position.distance_to(before) < 0.005 else 0.0
 	if _stair_stuck_time > 1.0:
 		stop_automatic_stairs()

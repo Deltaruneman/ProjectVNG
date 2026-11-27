@@ -90,7 +90,7 @@ func _make_ui() -> void:
 	hint.name = "PlotHint"
 	hint.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	hint.no_depth_test = true
-	hint.font_size = 32
+	hint.font_size = 40
 	hint.outline_size = 8
 	hint.pixel_size = 0.008
 	add_child(hint)
@@ -146,7 +146,7 @@ func _process(delta: float) -> void:
 		return
 	var near := _nearest()
 	if near != null:
-		hint.global_position = near.global_position + Vector3.UP * (2.15 if near == $SeedMerchant else 1.35)
+		hint.global_position = near.global_position + Vector3.UP * 2.6
 	if near == null:
 		hint.text = ""
 	elif near == $SeedMerchant:

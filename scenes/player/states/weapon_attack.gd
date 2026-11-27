@@ -104,6 +104,10 @@ func _enter() -> void:
 		var size := _sprite.texture.get_size()
 		_source_tip_angle = PI / 2.0 if equipment.get("legacy", false) else 3.0 * PI / 4.0
 		_sprite.offset = Vector2(0.0, size.y * 0.3) if equipment.get("legacy", false) else Vector2(-size.x * 0.25, size.y * 0.25)
+		# Held left/right mirroring also mirrors the visible tip axis and handle.
+		if _sprite.flip_h:
+			_source_tip_angle = PI - _source_tip_angle
+			_sprite.offset.x = -_sprite.offset.x
 	_hit_area = obj.get_node("Direction/HitArea3D") as HitArea3D
 	_hit_shape = _hit_area.get_node("CollisionShape3D") as CollisionShape3D
 	_previous_shape_scale = _hit_shape.scale

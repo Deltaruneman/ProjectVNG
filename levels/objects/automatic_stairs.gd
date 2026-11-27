@@ -2,10 +2,12 @@ extends InteractiveArea3D
 
 ## Destination is local to this entrance. Movement remains collision-aware.
 @export var destination := Vector3(0, 8, -19)
+@export var ladder := false
+@export var climb_height := 10.2
 
 func _ready() -> void:
 	super._ready()
-	_prompt.text = "F: Lên cầu thang"
+	_prompt.text = "F: Leo thang" if ladder else "F: Lên cầu thang"
 	_prompt.font_size = 32
 	interacted.connect(_climb)
 
@@ -27,5 +29,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _climb() -> void:
 	for body in get_overlapping_bodies():
 		if body is Player and body.can_interact():
-			body.start_automatic_stairs(PackedVector3Array([global_position, to_global(destination)]))
+			var route := PackedVector3Array([global_position])
+			if ladder:
+				route.append(global_position + Vector3.UP * climb_height)
+			route.append(to_global(destination))
+			body.start_automatic_stairs(route, ladder)
 			return

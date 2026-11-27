@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="13_b2_door"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="13_dbw46"]
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
+[ext_resource type="Script" uid="uid://dlhp1k1nbtcl2" path="res://levels/objects/automatic_stairs.gd" id="auto_ladder"]
 [ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
 [ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
 [ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
@@ -34,6 +35,9 @@ ambient_light_energy = 0.35
 [sub_resource type="BoxShape3D" id="SecretHurtShape"]
 size = Vector3(1.3, 3, 10)
 
+[sub_resource type="BoxShape3D" id="AutoLadderShape"]
+size = Vector3(2.4, 2, 2.4)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w875x"]
 albedo_color = Color(1, 0.55, 0.2, 1)
 emission_enabled = true
@@ -44,6 +48,12 @@ emission_energy_multiplier = 3.0
 material = SubResource("StandardMaterial3D_w875x")
 size = Vector3(0.25, 0.5, 0.25)
 
+[sub_resource type="BoxShape3D" id="SecretRoomFloorSupport"]
+size = Vector3(18, 1, 20)
+
+[sub_resource type="BoxShape3D" id="SecretDoorFloorSupport"]
+size = Vector3(2, 1, 10)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8shw5"]
 albedo_color = Color(1, 0.55, 0.2, 1)
 emission_enabled = true
@@ -53,12 +63,6 @@ emission_energy_multiplier = 3.0
 [sub_resource type="BoxMesh" id="BoxMesh_jnqiw"]
 material = SubResource("StandardMaterial3D_8shw5")
 size = Vector3(0.25, 0.5, 0.25)
-
-[sub_resource type="BoxShape3D" id="SecretRoomFloorSupport"]
-size = Vector3(18, 1, 20)
-
-[sub_resource type="BoxShape3D" id="SecretDoorFloorSupport"]
-size = Vector3(2, 1, 10)
 
 [sub_resource type="SphereShape3D" id="NotebookRange"]
 radius = 1.5
@@ -168,6 +172,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1, 2)
 [node name="LadderSpot_B1_B2" type="Marker3D" parent="B1" unique_id=2048281936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 1)
 
+[node name="AutoClimb" type="Area3D" parent="B1/LadderSpot_B1_B2" unique_id=826620470]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_ladder")
+destination = Vector3(2, 10.2, 0)
+ladder = true
+
+[node name="Shape" type="CollisionShape3D" parent="B1/LadderSpot_B1_B2/AutoClimb" unique_id=372007495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("AutoLadderShape")
+
 [node name="Torches" type="Node3D" parent="B1" unique_id=693443714]
 transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
 
@@ -229,14 +244,14 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="FloorSupport" type="StaticBody3D" parent="B1_5"]
+[node name="FloorSupport" type="StaticBody3D" parent="B1_5" unique_id=2115967460]
 
-[node name="Room" type="CollisionShape3D" parent="B1_5/FloorSupport"]
-position = Vector3(49, 0.5, 14)
+[node name="Room" type="CollisionShape3D" parent="B1_5/FloorSupport" unique_id=1596550549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0.5, 14)
 shape = SubResource("SecretRoomFloorSupport")
 
-[node name="Doorway" type="CollisionShape3D" parent="B1_5/FloorSupport"]
-position = Vector3(39, 0.5, 13)
+[node name="Doorway" type="CollisionShape3D" parent="B1_5/FloorSupport" unique_id=851536206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 0.5, 13)
 shape = SubResource("SecretDoorFloorSupport")
 
 [node name="Pathfinder" type="Node" parent="B1_5" unique_id=773590052 node_paths=PackedStringArray("floor_map", "obstacle_maps")]

@@ -98,7 +98,7 @@ func current_level() -> int:
 		var to_level := int(connector["to"])
 		var midpoint := base_height + (float(from_level) + 0.5) * floor_height
 		var y := player.global_position.y
-		if player.is_on_floor() or player.is_on_wall():
+		if player.is_on_floor() or player.is_on_wall() or player.is_climbing_ladder():
 			if _active_level == from_level and y >= midpoint + connector_hysteresis:
 				_active_level = to_level
 			elif _active_level == to_level and y <= midpoint - connector_hysteresis:

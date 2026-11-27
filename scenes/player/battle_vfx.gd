@@ -201,6 +201,10 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 		"weapon_attack":
 			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
 			volume_db = -8.0
+		"weapon_throw":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg"
+			pitch_scale = 1.15
+			volume_db = -6.0
 		"player_hit":
 			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 2.ogg"
 			volume_db = -7.0
@@ -255,7 +259,8 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 		"wind_hit": relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 1.ogg"
 		_: return
 	var sound_path := SOUND_ROOT + relative_path
-	if not FileAccess.file_exists(sound_path):
+	# Exported audio uses imported-resource remaps; the original OGG may be absent.
+	if not ResourceLoader.exists(sound_path, "AudioStream"):
 		return
 	var stream: AudioStream = load(sound_path) as AudioStream
 	if stream == null:

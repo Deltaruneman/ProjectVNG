@@ -116,6 +116,25 @@ func _run():
 	blocker.queue_free()
 	stage = await open_stage("basement_full")
 	await check_pacing(stage, 1.5, 0.65)
+	stage.player.global_position = Vector3(17,1.1,1.5)
+	stage.player.velocity = Vector3.ZERO
+	stage.camera_rig.snap_to_target()
+	await frames(20)
+	var ladder = stage.get_node("B1/LadderSpot_B1_B2/AutoClimb")
+	check(ladder._prompt.visible, "B1 ladder shows F prompt at its foot")
+	await press_f()
+	check(stage.player.is_climbing_ladder(), "F starts B1 ladder climb")
+	var ladder_peak_lag := 0.0
+	for i in 400:
+		await frames(1)
+		ladder_peak_lag = maxf(ladder_peak_lag,absf(stage.camera_rig.global_position.y-stage.player.global_position.y-stage.camera_rig.focus_offset.y))
+		if not stage.player.is_climbing_stairs(): break
+	await frames(20)
+	print("B1_LADDER final=",stage.player.global_position," floor=",stage.player.is_on_floor()," level=",stage.current_level()," lag=",ladder_peak_lag)
+	check(stage.player.global_position.distance_to(Vector3(19,11.01,1))<0.5 and stage.player.is_on_floor(), "B1 ladder reaches supported B2 landing")
+	check(not stage.player.is_climbing_stairs() and stage.player.can_interact(), "B1 ladder restores controls on landing")
+	check(stage.current_level()==1 and stage.get_node("B2").visible and ladder_peak_lag<0.5, "B1 ladder camera and floor visibility follow ascent")
+	get_viewport().get_texture().get_image().save_png("user://b1-ladder-landing.png")
 	stage = await open_stage("basement_b3")
 	check(not stage.has_node("B3/World/Ceiling"), "B3 ceiling completely removed")
 	check(stage.has_node("B3/World/WallUpper"), "B3 retains second wall course")
@@ -130,7 +149,7 @@ func _run():
 		stage.player.global_position = plot.global_position + Vector3(0,0.15,0)
 		stage.player.velocity = Vector3.ZERO
 		await frames(10)
-		check(farm.hint is Label3D and farm.hint.global_position.distance_to(plot.global_position+Vector3.UP*1.35)<0.01 and farm.hint.text=="F: Chọn hạt và trồng", "plant prompt anchors above plot "+str(index))
+		check(farm.hint is Label3D and farm.hint.global_position.distance_to(plot.global_position+Vector3.UP*2.6)<0.01 and farm.hint.text=="F: Chọn hạt và trồng", "plant prompt anchors above plot "+str(index))
 		await press_f()
 		check(farm.opened and farm.target_plot==plot and farm.hint.text.is_empty(), "F opens selected plot and hides world hint")
 		farm._back()

@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-27",
+  "checks": 40,
+  "failures": 0,
+  "engineExitCode": 0,
+  "files": [
+    {
+      "file": "scenes/player/states/weapon_attack.gd",
+      "sha256": "D97EB347A87930BC0FC1069B0754266A5A1812601B69EBCAC0ED13F30F4A2323",
+      "stagedMatches": true
+    },
+    {
+      "file": "tests/weapon_presentation_check.gd",
+      "sha256": "AEC19A6665EC6A7644B6B7C78AFC53793E8E49ED1E0403C31F8109565C7363D3",
+      "stagedMatches": true
+    }
+  ],
+  "limitations": [
+    "Existing shutdown resource leaks and BattleFX UID/CheatMenu warnings remain",
+    "No all-combo/charge/export retest; focused normal attack orientation scope"
+  ]
+}

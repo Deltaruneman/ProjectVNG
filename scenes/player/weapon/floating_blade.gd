@@ -33,6 +33,7 @@ func _ready() -> void:
 	_rest_position = position
 	_rest_rotation = rotation
 	process_priority = 90
+	$Sprite3D.flip_h = true
 	update_held_pose()
 
 func _process(_delta: float) -> void:
@@ -56,9 +57,9 @@ func update_held_pose() -> void:
 	var facing: String = player._view_direction()
 	var sprite := $Sprite3D as Sprite3D
 	if facing == "left":
-		sprite.flip_h = true
-	elif facing == "right":
 		sprite.flip_h = false
+	elif facing == "right":
+		sprite.flip_h = true
 	var body := player.get_node("Sprite3D") as Sprite3D
 	# Hand pixels in the existing 64px Foxy frames (right/left hand by facing).
 	# Use the billboard plane so the grip remains attached at the elevated angle.

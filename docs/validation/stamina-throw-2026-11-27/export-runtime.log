@@ -1,0 +1,64 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+EXPORT_AUDIO_ENV exported=false editor=false driver=WASAPI raw_exists=false resource_exists=true user_dir=C:/Users/BaoHo/AppData/Roaming/ArcanaExportAudio-20261127
+PASS combat stream resolves through imported resource mapping
+PASS exported sound starts: orb_white
+PASS exported sound starts: weapon_throw
+SFX_PEAK weapon_throw -16.6659183502197
+PASS exported sound reaches SFX mixer: weapon_throw
+PASS exported sound starts: weapon_attack
+SFX_PEAK weapon_attack -14.6988334655762
+PASS exported sound reaches SFX mixer: weapon_attack
+PASS exported sound starts: player_hit
+SFX_PEAK player_hit -12.5691709518433
+PASS exported sound reaches SFX mixer: player_hit
+PASS exported sound starts: enemy_attack
+SFX_PEAK enemy_attack -15.5048046112061
+PASS exported sound reaches SFX mixer: enemy_attack
+PASS exported sound starts: enemy_hit
+SFX_PEAK enemy_hit -26.5735492706299
+PASS exported sound reaches SFX mixer: enemy_hit
+PASS exported sound starts: parry_success
+SFX_PEAK parry_success -7.94071435928345
+PASS exported sound reaches SFX mixer: parry_success
+PASS exported sound starts: 
+PASS exported sound starts: dagger
+PASS exported sound starts: active_wind_1
+PASS exported sound starts: active_wind_2
+PASS exported sound starts: active_wind_3
+SFX_PEAK active_wind_3 -13.2428884506226
+PASS exported sound reaches SFX mixer: active_wind_3
+PASS exported sound starts: ultimate_wind_1
+PASS exported sound starts: ultimate_wind_2
+PASS exported sound starts: active_fire_1
+SFX_PEAK active_fire_1 -10.3968992233276
+PASS exported sound reaches SFX mixer: active_fire_1
+PASS exported sound starts: active_fire_2
+PASS exported sound starts: active_fire_3
+PASS exported sound starts: ultimate_fire_1
+PASS exported sound starts: ultimate_fire_2
+PASS exported sound starts: fire_impact
+PASS exported sound starts: fire_hit
+PASS exported sound starts: active_ice_1
+SFX_PEAK active_ice_1 -11.2242870330811
+PASS exported sound reaches SFX mixer: active_ice_1
+PASS exported sound starts: active_ice_2
+PASS exported sound starts: ultimate_ice_2
+PASS exported sound starts: active_ice_3
+PASS exported sound starts: ultimate_ice_1
+PASS exported sound starts: ice_hit
+PASS exported sound starts: active_lightning_1
+SFX_PEAK active_lightning_1 -12.3812007904053
+PASS exported sound reaches SFX mixer: active_lightning_1
+PASS exported sound starts: active_lightning_2
+PASS exported sound starts: active_lightning_3
+PASS exported sound starts: active_lightning_4
+PASS exported sound starts: ultimate_lightning_1
+PASS exported sound starts: ultimate_lightning_2
+PASS exported sound starts: lightning_hit
+PASS exported sound starts: wind_hit
+PASS unknown ID creates no audio node
+PASS finished combat sound cleans itself up
+EXPORT_AUDIO_RESULT 48/48 failures=0
+ENGINE_EXIT_CODE=0

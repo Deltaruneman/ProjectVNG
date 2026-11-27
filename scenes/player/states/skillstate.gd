@@ -69,6 +69,7 @@ func _enter() -> void:
 		GameManager.notify_inventory_changed()
 		obj.get_parent().add_child(thrown)
 		thrown.global_position = thrown.origin
+		BattleFX.play_skill_sound(obj, "weapon_throw")
 		obj.start_active_skill_cooldown(selected_skill_id)
 		obj.clear_skill_cast_aim()
 		_play_one_shot("throw")

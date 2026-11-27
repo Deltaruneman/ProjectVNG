@@ -29,6 +29,7 @@ var _fps: Label
 var _tab_index := 0
 var _resume_guard := 0
 var _closing := false
+var _from_title := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -171,7 +172,7 @@ func _clear(container: Node) -> void:
 func _input(event: InputEvent) -> void:
 	# Handle New Game before focused UI can consume F9; this autoload also runs while paused.
 	if event is InputEventKey and event.pressed and not event.echo \
-			and event.is_action_pressed("new_game") and _binding_action.is_empty():
+			and event.is_action_pressed("new_game") and _binding_action.is_empty() and is_instance_valid(GameManager.current_stage):
 		get_viewport().set_input_as_handled()
 		GameManager.new_game()
 		return
@@ -217,6 +218,7 @@ func open_menu() -> bool:
 	if dialogic != null and dialogic.get("current_timeline") != null:
 		return false
 	is_open = true
+	_from_title = false
 	_previous_mouse = Input.mouse_mode
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -261,6 +263,9 @@ func _process(delta: float) -> void:
 			_cancel_confirmation()
 
 func _show_home() -> void:
+	if _from_title:
+		close_menu()
+		return
 	_page = "home"
 	_title.text = "Tạm dừng"
 	_clear(_tabs)
@@ -293,6 +298,11 @@ func _show_help() -> void:
 	_footer.add_child(back)
 	back.grab_focus()
 	_layout.call_deferred()
+
+func open_title_settings() -> void:
+	if open_menu():
+		_from_title = true
+		open_settings()
 
 func open_settings() -> void:
 	_baseline = GameSettings.snapshot()
