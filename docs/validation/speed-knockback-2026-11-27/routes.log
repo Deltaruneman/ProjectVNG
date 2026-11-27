@@ -1,0 +1,170 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS contact activates castle_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+PASS loading saved data restores checkpoint ID
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_start
+PASS respawn preserves checkpoint ID
+PASS contact activates castle_f2_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+PASS loading saved data restores checkpoint ID
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_f2_start
+PASS respawn preserves checkpoint ID
+PASS castle.tscn skeleton/skeleton_mage recovery
+PASS castle.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS castle.tscn arcane/evil_wizard_1 recovery
+PASS castle.tscn arcane/evil_wizard_1 actual fired bullet speed
+PASS authored Castle stair entrance displays F
+PASS F starts automatic ascent
+AUTO_STAIRS final=(7.0, 9.010186, 26.53144) grounded=true lag=0.40000033378601
+PASS automatic ascent reaches actual Castle upper landing
+PASS landing restores control
+PASS camera follows slope and upper floor becomes visible
+PASS movement key interrupts stair assist
+Player: changing from state Idle to Run
+Player: changing from state Run to Idle
+PASS F can cancel automatic ascent
+PASS obstruction stops assist without passing through collision
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS basement_full.tscn skeleton/skeleton_mage recovery
+PASS basement_full.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS basement_full.tscn arcane/evil_wizard_1 recovery
+PASS basement_full.tscn arcane/evil_wizard_1 actual fired bullet speed
+PASS B1 ladder shows F prompt at its foot
+PASS F starts B1 ladder climb
+B1_LADDER final=(18.89961, 11.0105, 1.000021) floor=true level=1 lag=0.27567934989929
+PASS B1 ladder reaches supported B2 landing
+PASS B1 ladder restores controls on landing
+PASS B1 ladder camera and floor visibility follow ascent
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B3 ceiling completely removed
+PASS B3 retains second wall course
+PASS B3 Dark Fairy receives longer recovery
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS plant prompt anchors above plot 0
+PASS F opens selected plot and hides world hint
+PASS plant prompt anchors above plot 5
+PASS F opens selected plot and hides world hint
+PASS plant prompt anchors above plot 31
+PASS F opens selected plot and hides world hint
+PASS growing timer appears above planted soil
+PASS ready crop displays harvest hint above soil
+PASS F harvest works and plot prompt resets
+WORLD_INTERACTIONS_RESULT checks=47 failures=0
+ENGINE_EXIT_CODE=0

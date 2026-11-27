@@ -6,7 +6,8 @@ const HOP_SPEED := 5.0
 func _enter() -> void:
 	obj.change_animation("hurt")
 	obj.is_invulnerable = true
-	var push: Vector3 = -obj.forward()* KNOCKBACK_SPEED
+	var push: Vector3 = obj.hurt_push_direction * KNOCKBACK_SPEED
+	obj.hurt_push_direction = Vector3.ZERO
 	obj.velocity.x = push.x
 	obj.velocity.z = push.z
 	obj.velocity.y = HOP_SPEED

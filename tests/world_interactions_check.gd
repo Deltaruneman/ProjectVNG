@@ -125,8 +125,13 @@ func _run():
 	await press_f()
 	check(stage.player.is_climbing_ladder(), "F starts B1 ladder climb")
 	var ladder_peak_lag := 0.0
+	var ladder_facing_samples := 0
+	var ladder_facing_correct := true
 	for i in 400:
 		await frames(1)
+		if stage.player.is_climbing_ladder() and stage.player.global_position.y>2.0 and stage.player.global_position.y<10.0:
+			ladder_facing_samples += 1
+			ladder_facing_correct = ladder_facing_correct and stage.player.forward().dot(Vector3.FORWARD)>0.999
 		ladder_peak_lag = maxf(ladder_peak_lag,absf(stage.camera_rig.global_position.y-stage.player.global_position.y-stage.camera_rig.focus_offset.y))
 		if not stage.player.is_climbing_stairs(): break
 	await frames(20)
@@ -134,6 +139,7 @@ func _run():
 	check(stage.player.global_position.distance_to(Vector3(19,11.01,1))<0.5 and stage.player.is_on_floor(), "B1 ladder reaches supported B2 landing")
 	check(not stage.player.is_climbing_stairs() and stage.player.can_interact(), "B1 ladder restores controls on landing")
 	check(stage.current_level()==1 and stage.get_node("B2").visible and ladder_peak_lag<0.5, "B1 ladder camera and floor visibility follow ascent")
+	check(ladder_facing_samples>20 and ladder_facing_correct,"Foxy faces into B1 ladder throughout vertical climb")
 	get_viewport().get_texture().get_image().save_png("user://b1-ladder-landing.png")
 	stage = await open_stage("basement_b3")
 	check(not stage.has_node("B3/World/Ceiling"), "B3 ceiling completely removed")

@@ -168,6 +168,10 @@ func _run() -> void:
 	# Only the wall covering Player fades; the camera never clips it away.
 	place(Vector3(24,1.2,13))
 	await frames(8)
+	# Compare the same idle pose/settled camera through the translucent wall.
+	player.set_physics_process(false)
+	player.anim_player.pause()
+	await frames(30)
 	var clear_picture := get_viewport().get_texture().get_image()
 	var clear_pixel := clear_picture.get_pixel(clear_picture.get_width()/2,clear_picture.get_height()/2)
 	var basis := rig.camera.global_basis

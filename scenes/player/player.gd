@@ -36,6 +36,7 @@ const STAMINA_EXHAUSTION_DURATION := 1.0
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
+var hurt_push_direction := Vector3.ZERO
 var is_talking: bool = false
 var _movement_enabled_before_talk := true
 var _orbit_facing := Vector3.MODEL_FRONT
@@ -85,7 +86,7 @@ var _base_attack_damage := 1
 var _base_max_health := 3
 var _equipment_health_bonus := 0
 var _equipment_initialized := false
-var _base_movement_speed := 6.0
+var _base_movement_speed := 100.0
 var _base_dash_cooldown := 0.75
 var _base_parry_window := 0.167
 var _base_maxjump := 2
@@ -210,7 +211,10 @@ func _update_automatic_stairs(delta: float) -> void:
 			stop_automatic_stairs()
 		return
 	var motion := horizontal.normalized() * minf(movement_speed, horizontal.length() / maxf(delta, 0.001))
-	face_movement(motion)
+	if _ladder_climb and absf(offset.y) > 0.06 and horizontal.length() < 0.12:
+		face_movement(Vector3.FORWARD) # B1 ladder is mounted on the north (-Z) shaft wall.
+	else:
+		face_movement(motion)
 	change_animation("run")
 	velocity.x = motion.x
 	velocity.z = motion.z
@@ -1568,7 +1572,7 @@ func _ice_pillar_pulses(damage: int) -> void:
 
 ## Every state of the fox can take damage, so this calls straight into the current state; whichever
 ## state doesn't want to lose health (Dead) overrides take_damage().
-func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
+func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
 	print("Nhan sat thuong")
 	if is_invulnerable:
 		return
@@ -1581,6 +1585,13 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 			_ice_shield_visual.queue_free()
 		_ice_shield_visual = null
 		return
+	hit_direction.y = 0.0
+	if hit_direction.length_squared() < 0.0001:
+		var source: Node3D = $Direction/HurtArea3D.attacker
+		if is_instance_valid(source):
+			hit_direction = global_position - source.global_position
+			hit_direction.y = 0.0
+	hurt_push_direction = hit_direction.normalized()
 	fsm.current_state.take_damage(int(damage))
 
 
