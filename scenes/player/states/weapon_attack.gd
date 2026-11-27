@@ -104,6 +104,10 @@ func _enter() -> void:
 		var size := _sprite.texture.get_size()
 		_source_tip_angle = PI / 2.0 if equipment.get("legacy", false) else 3.0 * PI / 4.0
 		_sprite.offset = Vector2(0.0, size.y * 0.3) if equipment.get("legacy", false) else Vector2(-size.x * 0.25, size.y * 0.25)
+		# Held left/right mirroring also mirrors the visible tip axis and handle.
+		if _sprite.flip_h:
+			_source_tip_angle = PI - _source_tip_angle
+			_sprite.offset.x = -_sprite.offset.x
 	_hit_area = obj.get_node("Direction/HitArea3D") as HitArea3D
 	_hit_shape = _hit_area.get_node("CollisionShape3D") as CollisionShape3D
 	_previous_shape_scale = _hit_shape.scale
@@ -723,46 +727,3 @@ func _exit() -> void:
 		obj.anim_player.speed_scale = _old_anim_speed
 		(obj.get_node("Sprite3D") as Sprite3D).offset = _body_offset
 		obj.stop_horizontal()
-
-
-## Read-only presentation contract; FPS never advances combat or activates hitboxes.
-func get_first_person_pose() -> Dictionary:
-	var phase_name := "idle"
-	var progress := 0.0
-	match _phase:
-		PHASE_INPUT:
-			phase_name = "charge"
-			progress = clampf(_charge_time / MAX_CHARGE_HOLD, 0.0, 1.0)
-		PHASE_COMBO:
-			phase_name = "strike"
-			progress = clampf(_elapsed / _combo_beat, 0.0, 1.0)
-		PHASE_HEAVY:
-			phase_name = "heavy"
-			progress = clampf(_elapsed / 0.68, 0.0, 1.0)
-		PHASE_DASH_OUT, PHASE_DASH_HIT:
-			phase_name = "thrust"
-			progress = clampf(_flight_time / maxf(_flight_duration, 0.01), 0.0, 1.0) if _phase == PHASE_DASH_OUT else 1.0
-		PHASE_AXE_AIR:
-			phase_name = "lift"
-			progress = 1.0
-		PHASE_LINK, PHASE_DASH_RETURN:
-			phase_name = "hold"
-		PHASE_RECOVER:
-			phase_name = "recover"
-			progress = clampf(_elapsed / 0.2, 0.0, 1.0)
-	var pose := {"phase": phase_name, "progress": progress, "strike": _strike_index, "kind": _kind, "legacy": _legacy_blade, "grip": _last_grip, "tip": _last_tip}
-	if _legacy_blade and _phase in [PHASE_COMBO, PHASE_HEAVY]:
-		# The old Blade is baked into these four actual body animation frames.
-		# Side-view grip/tip pixels preserve its raised -> downward/outward cut.
-		var body := obj.get_node("Sprite3D") as Sprite3D
-		var frame := clampi(int(body.frame / body.hframes) - 11, 0, 3)
-		var grips := [Vector2(40, 43), Vector2(40, 49), Vector2(40, 49), Vector2(40, 49)]
-		var tips := [Vector2(44, 32), Vector2(54, 52), Vector2(53, 52), Vector2(53, 52)]
-		var direction: Vector2 = tips[frame] - grips[frame]
-		pose["legacy_frame"] = frame
-		pose["legacy_sheet"] = body.texture
-		pose["legacy_grip_pixel"] = grips[frame]
-		pose["legacy_tip_pixel"] = tips[frame]
-		pose["grip"] = Vector3(0.34, 1.05 - (grips[frame].y - 43.0) * 0.045, 0.24 + float(frame > 0) * 0.3)
-		pose["tip"] = Vector3(0.0, -direction.y, direction.x).normalized()
-	return pose

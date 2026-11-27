@@ -25,6 +25,7 @@ var _lifetime := 18.0
 
 
 func _ready() -> void:
+	damage_stagger_enabled = kind != "executioner"
 	super._ready()
 	anim_player.animation_finished.connect(_on_animation_finished)
 	fallback_hurt_finished.connect(_on_fallback_finished)
@@ -85,7 +86,10 @@ func _begin_attack(offset: Vector3) -> void:
 	attack_target = found_player.global_position + Vector3.UP * 0.7
 	attack_direction = offset.normalized()
 	attack_count += 1
-	summons = summons.filter(func(unit: Node3D) -> bool: return is_instance_valid(unit) and not unit.is_queued_for_deletion())
+	# Check stale references before any typed callback conversion, retaining the typed array.
+	for index in range(summons.size() - 1, -1, -1):
+		if not is_instance_valid(summons[index]) or summons[index].is_queued_for_deletion():
+			summons.remove_at(index)
 	if kind in ["necromancer", "executioner"] and summon_timer <= 0.0 and summons.size() < summon_limit:
 		_play(&"summon")
 	elif kind == "executioner" and attack_count % 3 == 0:
@@ -109,7 +113,7 @@ func attack() -> void:
 		var bullet := BULLET.instantiate() as RigidBody3D
 		get_parent().add_child(bullet)
 		bullet.global_position = global_position + Vector3.UP * 0.7
-		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0
+		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0 * projectile_speed_scale
 		bullet.get_node("HitArea3D").damage = attack_damage
 		register_projectile(bullet)
 	elif _has_target() and _has_line_of_sight():
@@ -122,7 +126,7 @@ func attack() -> void:
 			return
 		var hurt := found_player.get_node_or_null("Direction/HurtArea3D") as HurtArea3D
 		if hurt != null:
-			hurt.take_damage(offset.normalized(), attack_damage + (1 if state == &"skill" else 0), self)
+			hurt.take_damage(offset.normalized(), attack_damage, self)
 
 
 func _spawn_summon() -> void:
@@ -147,7 +151,7 @@ func _spawn_summon() -> void:
 		if not get_world_3d().direct_space_state.intersect_shape(query).is_empty():
 			continue
 		var unit := packed.instantiate() as EnemyCharacter
-		unit.skill_point_drop = 0
+		unit.exp_point_drop = 0
 		get_parent().add_child(unit)
 		unit.global_position = spawn_position
 		unit.found_player = found_player
@@ -157,9 +161,15 @@ func _spawn_summon() -> void:
 
 
 func _on_hurt_area_3d_hurt(_hit_direction: Vector3, damage: float) -> void:
-	if invincible or state in [&"death", &"hurt", &"appear"] or _fallback_hurt_running or damage <= 0.0:
+	if invincible or state in [&"death", &"appear"] or (state == &"hurt" and not _skill_burn_applying) or (_fallback_hurt_running and not _skill_burn_applying) or damage <= 0.0:
 		return
-	take_damage(int(damage))
+	take_damage(damage)
+	if _skill_burn_applying or not damage_stagger_enabled:
+		if health <= 0:
+			_die()
+		elif kind == "executioner" and health * 2 <= max_health:
+			enraged = true
+		return
 	stop_horizontal()
 	if health <= 0:
 		_die()

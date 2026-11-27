@@ -61,19 +61,21 @@ func _enter() -> void:
 		thrown.item_uid = str(GameManager.inventory.equipped.main)
 		thrown.damage = obj.roll_weapon_damage(obj.attack_damage)
 		thrown.origin = obj.global_position + Vector3.UP * spawn_height
-		thrown.target = obj.get_mouse_throw_target()
-		thrown.duration = clampf(thrown.origin.distance_to(thrown.target) / 14.0, 0.4, 1.3)
-		var point: Vector3 = thrown.target
+		thrown.target = thrown.origin + obj.get_skill_aim_direction() * thrown.MAX_DISTANCE
+		thrown.duration = thrown.MAX_DISTANCE / thrown.FLIGHT_SPEED
+		var point: Vector3 = obj.global_position # Safe recovery if saved before the throw lands.
 		GameManager.flags["thrown_main_weapon"] = {"flight_version": 2, "uid": thrown.item_uid, "stage": obj.get_tree().current_scene.scene_file_path, "position": [point.x, point.y, point.z]}
 		GameManager.inventory.equipped.main = ""
 		GameManager.notify_inventory_changed()
 		obj.get_parent().add_child(thrown)
 		thrown.global_position = thrown.origin
+		BattleFX.play_skill_sound(obj, "weapon_throw")
 		obj.start_active_skill_cooldown(selected_skill_id)
 		obj.clear_skill_cast_aim()
 		_play_one_shot("throw")
 		return
 	obj.begin_offhand_cast()
+	var cast_aim: Vector3 = obj.get_skill_aim_direction()
 	if obj.cast_active_skill(selected_skill_id):
 		obj.clear_skill_cast_aim()
 		obj.suppress_blade(true)
@@ -81,8 +83,7 @@ func _enter() -> void:
 		obj.start_active_skill_cooldown(selected_skill_id)
 		BattleFX.play_skill_sound(obj, selected_skill_id)
 		if selected_skill_id in ["active_wind_3", "active_ice_2"]:
-			var aim: Vector3 = obj.forward()
-			BattleFX.emberline_slash(obj, obj.skill_effect_position(aim, 1.2, 0.8), GameManager.weapon_form, aim, 1.0)
+			BattleFX.emberline_slash(obj, obj.skill_effect_position(cast_aim, 1.2, 0.8), GameManager.weapon_form, cast_aim, 1.0)
 		_play_one_shot("attack")
 		return
 	if not can_throw():

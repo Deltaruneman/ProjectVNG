@@ -1,0 +1,108 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS contact activates castle_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_start
+PASS respawn preserves checkpoint ID
+PASS contact activates castle_f2_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_f2_start
+PASS respawn preserves checkpoint ID
+PASS castle.tscn skeleton/skeleton_mage recovery
+PASS castle.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS castle.tscn arcane/evil_wizard_1 recovery
+PASS castle.tscn arcane/evil_wizard_1 actual fired bullet speed
+PASS authored Castle stair entrance displays F
+PASS F starts automatic ascent
+AUTO_STAIRS final=(7.0, 9.010841, 26.61771) grounded=true lag=0.28228640556335
+PASS automatic ascent reaches actual Castle upper landing
+PASS landing restores control
+PASS camera follows slope and upper floor becomes visible
+PASS movement key interrupts stair assist
+Player: changing from state Idle to Run
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS basement_full.tscn skeleton/skeleton_mage recovery
+PASS basement_full.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS basement_full.tscn arcane/evil_wizard_1 recovery
+PASS basement_full.tscn arcane/evil_wizard_1 actual fired bullet speed
+ENGINE_EXIT_CODE=-1

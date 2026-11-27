@@ -1,0 +1,27 @@
+[
+  {
+    "file": "scenes/player/player.gd",
+    "sha256": "94737B5610062024CF6A1A989E00E8E9F960FE9905D8809B1F1267BECDB508F0",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/states/skillstate.gd",
+    "sha256": "C7D29848B698F92700A182AC3C0FA170A3814869EFC96965BF38E3BB1DE62B6F",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/battle_vfx.gd",
+    "sha256": "D742B22988F8CB6D0C03150FB4313E46FA563A1EA4DEDC5AD8C7610AF2B478E5",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/weapon_combo_check.gd",
+    "sha256": "D994E445F9F484EBE8DCFF396C3E0D5F2D67AB0F70B6D1153A2BC0BEE1E1E4CC",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/export_combat_audio_check.gd",
+    "sha256": "4AB27D63FA159B426254B69E7B16CC084F559B90988192EDFF3B099AE25D6CF1",
+    "stagedMatches": true
+  }
+]

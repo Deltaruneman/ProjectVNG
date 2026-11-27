@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-27",
+  "nativeChecks": 13,
+  "nativeFailures": 0,
+  "nativeExit": 0,
+  "browser": "in-app Chromium",
+  "webExport": "single-thread release Godot4.7.2",
+  "sampleOutputPeak": 0.0,
+  "streamCombatPeak": 0.15015,
+  "streamUiPeak": 0.09613,
+  "audioContext": "running after real click",
+  "browserUiChecks": [
+    "clean title rendered",
+    "Settings opens",
+    "all3 tabs available",
+    "Escape returns to title",
+    "New Game reaches Basement/story",
+    "final idle Foxy visible"
+  ],
+  "sourceFiles": [
+    {
+      "file": "ui/main_menu.gd",
+      "sha256": "7FCFF5B95C2394277C6E590AC0E34C27E4B8654039738F140A66F068C448E825",
+      "stagedMatches": true
+    },
+    {
+      "file": "ui/main_menu.tscn",
+      "sha256": "5E2F020B9BFCD9E24F904E5978831CDBF88B0646839652F84A6E5A062970F6AC",
+      "stagedMatches": true
+    },
+    {
+      "file": "ui/pause_menu.gd",
+      "sha256": "2CA6084D28776CF82B8597BC1C5B64DF9AE2634F624B52779D1DBF4E9DD13285",
+      "stagedMatches": true
+    },
+    {
+      "file": "scripts/autoload/game_manager.gd",
+      "sha256": "8C03FAC064060B83C28A33A0E5DC709A937D8509656A5399482BE63BBE6E0F04",
+      "stagedMatches": true
+    },
+    {
+      "file": "tests/main_menu_check.gd",
+      "sha256": "7A942A3EEB2A143CF442B682C2F6483BC985D2A7B8567771537CBAF2387CCFF1",
+      "stagedMatches": true
+    },
+    {
+      "file": "tests/main_menu_check.tscn",
+      "sha256": "239392FCA1F0B504250D14B7C9A71F845FC41094B8E553D8E1C7BE1B971416B6",
+      "stagedMatches": true
+    }
+  ],
+  "limitations": [
+    "Browser output analyser, no physical speaker listening",
+    "Web streaming can increase latency versus samples",
+    "No mobile Safari/Firefox/iframe deployment",
+    "Existing B2 quota/UID/anchor/shutdown warnings remain"
+  ],
+  "webBuild": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaWebMenu-20261127"
+}

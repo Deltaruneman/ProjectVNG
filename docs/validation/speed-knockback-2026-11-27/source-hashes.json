@@ -1,0 +1,37 @@
+[
+  {
+    "file": "scenes/player/player.gd",
+    "sha256": "CD42B122B474EA60710C197A5E61FA985653CE167FDBCE5203E129AB20674F97",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/player.tscn",
+    "sha256": "270F9F1FEA08A91314B596F212A6DBDAB5730B3138A1883063CBF3EC7CFE3D26",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/hurt.gd",
+    "sha256": "A8BAB98417BE2F3E6BE99FC9C9572805B69A388A673538D2821E0C523751EBE4",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/speed_knockback_check.gd",
+    "sha256": "3B3D4E5C6C207BC01720E3C0FF9F2681876C9245BE81A76E7ED789B4E2C71550",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/speed_knockback_check.tscn",
+    "sha256": "AF99AAE3DFA351FF674FD6CEF6975E5BF5EC87E14E1F481BF2BE6D4DAECB8141",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/secret_room_walls_check.gd",
+    "sha256": "049F84330141A3C34BCCA62D18437ABD23AEC3F4953FBA8A053CC9A537A8D006",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/world_interactions_check.gd",
+    "sha256": "CEB26AE6F386DE6336B6856B2D501B34E3B01E3F58E8D605FB9B50423776C1A3",
+    "stagedMatches": true
+  }
+]

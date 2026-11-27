@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://nqnelqjpbqm7" path="res://levels/objects/door/door.tscn" id="13_b2_door"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="13_dbw46"]
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
+[ext_resource type="Script" uid="uid://dlhp1k1nbtcl2" path="res://levels/objects/automatic_stairs.gd" id="auto_ladder"]
 [ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
 [ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
 [ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
@@ -34,6 +35,9 @@ ambient_light_energy = 0.35
 [sub_resource type="BoxShape3D" id="SecretHurtShape"]
 size = Vector3(1.3, 3, 10)
 
+[sub_resource type="BoxShape3D" id="AutoLadderShape"]
+size = Vector3(2.4, 2, 2.4)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w875x"]
 albedo_color = Color(1, 0.55, 0.2, 1)
 emission_enabled = true
@@ -43,6 +47,12 @@ emission_energy_multiplier = 3.0
 [sub_resource type="BoxMesh" id="BoxMesh_kohv5"]
 material = SubResource("StandardMaterial3D_w875x")
 size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="SecretRoomFloorSupport"]
+size = Vector3(18, 1, 20)
+
+[sub_resource type="BoxShape3D" id="SecretDoorFloorSupport"]
+size = Vector3(2, 1, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8shw5"]
 albedo_color = Color(1, 0.55, 0.2, 1)
@@ -160,6 +170,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1, 2)
 [node name="LadderSpot_B1_B2" type="Marker3D" parent="B1" unique_id=2048281936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 1)
 
+[node name="AutoClimb" type="Area3D" parent="B1/LadderSpot_B1_B2" unique_id=826620470]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_ladder")
+destination = Vector3(2, 10.2, 0)
+ladder = true
+
+[node name="Shape" type="CollisionShape3D" parent="B1/LadderSpot_B1_B2/AutoClimb" unique_id=372007495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("AutoLadderShape")
+
 [node name="Torches" type="Node3D" parent="B1" unique_id=693443714]
 transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
 
@@ -211,6 +232,7 @@ id = "b1_start"
 [node name="B1_5" type="Node3D" parent="." unique_id=1324108918]
 metadata/floor_level = 0
 metadata/secret = true
+metadata/reveal_flag = "b1_secret_wall_broken"
 
 [node name="World" type="GridMap" parent="B1_5" unique_id=1639091333]
 mesh_library = ExtResource("2_0i3fv")
@@ -219,6 +241,16 @@ data = {
 "cells": PackedInt32Array(19, 2, 2, 19, 3, 2, 19, 9, 2, 19, 10, 1, 19, 11, 1, 20, 2, 1, 20, 3, 1, 20, 4, 0, 20, 5, 0, 20, 6, 0, 20, 7, 0, 20, 8, 2, 20, 9, 1, 20, 10, 1, 20, 11, 3, 21, 2, 3, 21, 3, 0, 21, 4, 0, 21, 5, 1, 21, 6, 2, 21, 7, 3, 21, 8, 0, 21, 9, 1, 21, 10, 2, 21, 11, 1, 22, 2, 3, 22, 3, 1, 22, 4, 3, 22, 5, 1, 22, 6, 1, 22, 7, 1, 22, 8, 3, 22, 9, 2, 22, 10, 3, 22, 11, 0, 23, 2, 0, 23, 3, 0, 23, 4, 2, 23, 5, 0, 23, 6, 3, 23, 7, 3, 23, 8, 1, 23, 9, 3, 23, 10, 3, 23, 11, 0, 24, 2, 1, 24, 3, 3, 24, 4, 0, 24, 5, 3, 24, 6, 3, 24, 7, 0, 24, 8, 3, 24, 9, 2, 24, 10, 3, 24, 11, 0, 25, 2, 1, 25, 3, 2, 25, 4, 3, 25, 5, 3, 25, 6, 0, 25, 7, 3, 25, 8, 3, 25, 9, 3, 25, 10, 2, 25, 11, 0, 26, 2, 2, 26, 3, 3, 26, 4, 2, 26, 5, 2, 26, 6, 3, 26, 7, 1, 26, 8, 2, 26, 9, 1, 26, 10, 2, 26, 11, 2, 27, 2, 1, 27, 3, 2, 27, 4, 0, 27, 5, 2, 27, 6, 1, 27, 7, 3, 27, 8, 0, 27, 9, 2, 27, 10, 1, 27, 11, 2, 28, 2, 3, 28, 3, 2, 28, 4, 0, 28, 5, 1, 28, 6, 3, 28, 7, 3, 28, 8, 0, 28, 9, 2, 28, 10, 2, 28, 11, 0, 65564, 3, 1441812, 131100, 3, 1441821, 65564, 4, 1441812, 131100, 4, 1441821, 65564, 5, 1441812, 131100, 5, 1441821, 65564, 6, 1441812, 131100, 6, 1441821, 65564, 7, 1441812, 131100, 7, 1441821, 65564, 8, 1441812, 131100, 8, 1441821, 65564, 9, 1441812, 131100, 9, 1441821, 65564, 10, 1441812, 131100, 10, 1441821, 65556, 2, 20, 131092, 2, 29, 65556, 11, 655386, 65557, 2, 20, 131093, 2, 29, 65557, 11, 655386, 65558, 2, 20, 131094, 2, 29, 65558, 11, 655386, 65559, 2, 20, 131095, 2, 29, 65559, 11, 655386, 65560, 2, 20, 131096, 2, 29, 65560, 11, 655386, 65561, 2, 20, 131097, 2, 29, 65561, 11, 655386, 65562, 2, 20, 131098, 2, 29, 65562, 11, 655386, 65563, 2, 20, 131099, 2, 29, 65563, 11, 655386, 65564, 2, 1441814, 131100, 2, 1441823, 65564, 11, 655388)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="FloorSupport" type="StaticBody3D" parent="B1_5" unique_id=2115967460]
+
+[node name="Room" type="CollisionShape3D" parent="B1_5/FloorSupport" unique_id=1596550549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0.5, 14)
+shape = SubResource("SecretRoomFloorSupport")
+
+[node name="Doorway" type="CollisionShape3D" parent="B1_5/FloorSupport" unique_id=851536206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 0.5, 13)
+shape = SubResource("SecretDoorFloorSupport")
 
 [node name="Pathfinder" type="Node" parent="B1_5" unique_id=773590052 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
 script = ExtResource("3_0ceix")

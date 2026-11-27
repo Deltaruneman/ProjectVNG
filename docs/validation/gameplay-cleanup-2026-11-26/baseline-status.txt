@@ -1,0 +1,66 @@
+ M .godot/uid_cache.bin
+ M docs/camera-views-2026-11-19.md
+ M docs/project-changes-2026-11-14.txt
+ M levels/level_1/basement_b3.tscn
+ M levels/level_1/basement_story.gd
+ M scenes/camera/camera_rig.gd
+ M scenes/camera/camera_rig.tscn
+ M scenes/camera/camera_view_overlay.gd
+ M scenes/camera/first_person_weapon.gd
+ M scenes/player/player.gd
+ M scenes/player/player.tscn
+ M scenes/player/states/weapon_attack.gd
+ M scenes/player/weapon/floating_blade.gd
+ M scripts/autoload/game_settings.gd
+ M specs/001-integrate-basement-stage/tasks.md
+ M specs/001-integrate-basement-stage/validation.md
+ M tests/settings_menu_check.gd
+ M tests/topdown_weapon_depth_check.gd
+ M tests/weapon_presentation_check.gd
+ M ui/pause_menu.gd
+?? docs/validation/fixed-camera-2026-11-26/camera-errors.log
+?? docs/validation/fixed-camera-2026-11-26/camera-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/depth-errors.log
+?? docs/validation/fixed-camera-2026-11-26/depth-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/equipment-errors.log
+?? docs/validation/fixed-camera-2026-11-26/equipment-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b1.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b1.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b2.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b2.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b3.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-basement_b3.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-garden.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-garden.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-axe.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-axe.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-dagger.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-dagger.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-spear.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-spear.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-starter_blade.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-starter_blade.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-sword.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-grip-sword.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-ladder-story.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-ladder-story.png.import
+?? docs/validation/fixed-camera-2026-11-26/fixed-settings.png
+?? docs/validation/fixed-camera-2026-11-26/fixed-settings.png.import
+?? docs/validation/fixed-camera-2026-11-26/initial-errors.log
+?? docs/validation/fixed-camera-2026-11-26/initial-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/orientation-before-errors.log
+?? docs/validation/fixed-camera-2026-11-26/orientation-before-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/orientation-before.png
+?? docs/validation/fixed-camera-2026-11-26/orientation-before.png.import
+?? docs/validation/fixed-camera-2026-11-26/settings-errors.log
+?? docs/validation/fixed-camera-2026-11-26/settings-restart-errors.log
+?? docs/validation/fixed-camera-2026-11-26/settings-restart-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/settings-runtime.log
+?? docs/validation/fixed-camera-2026-11-26/story-before-errors.log
+?? docs/validation/fixed-camera-2026-11-26/story-before-runtime.log
+?? docs/validation/gameplay-cleanup-2026-11-26/baseline-status.txt
+?? tests/fixed_action_camera_check.gd
+?? tests/fixed_action_camera_check.gd.uid
+?? tests/fixed_action_camera_check.tscn

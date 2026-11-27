@@ -7,7 +7,8 @@ var item_uid := ""
 var target := Vector3.ZERO
 var origin := Vector3.ZERO
 var damage := 1
-const ARC_HEIGHT := 0.35
+const MAX_DISTANCE := 7.0
+const FLIGHT_SPEED := 14.0
 var falling := false
 var fall_speed := 0.0
 var fall_elapsed := 0.0
@@ -24,6 +25,10 @@ var hit_ids: Dictionary = {}
 
 func _ready() -> void:
 	add_to_group("thrown_weapons")
+	if not landed:
+		var flat := target - origin
+		flat.y = 0.0
+		target = origin + flat.normalized() * minf(flat.length(), MAX_DISTANCE)
 	visual = Sprite3D.new()
 	visual.texture = visual_texture if visual_texture != null else CATALOG.texture(definition)
 	visual.pixel_size = visual_pixel_size
@@ -41,8 +46,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var camera := get_viewport().get_camera_3d()
 	if camera != null:
-		var angle := -PI if definition == "starter_blade" else -PI * 1.25
-		visual.global_basis = (camera.global_basis * Basis(Vector3.BACK, angle if landed else elapsed * 18.0)).scaled_local(visual_scale)
+		var source_tip := PI / 2.0 if definition == "starter_blade" else 3.0 * PI / 4.0
+		var motion := target - origin
+		var projected := Vector2(motion.dot(camera.global_basis.x), motion.dot(camera.global_basis.y))
+		var angle := -PI / 2.0 if landed or falling else projected.angle()
+		visual.global_basis = (camera.global_basis * Basis(Vector3.BACK, angle - source_tip)).scaled_local(visual_scale)
 	var player := get_tree().get_first_node_in_group("player") as Player
 	prompt.visible = landed and player != null and player.can_interact() and player.global_position.distance_to(global_position) < 2.0
 
@@ -96,14 +104,18 @@ func _physics_process(delta: float) -> void:
 		safe_origin = thrower.global_position if is_instance_valid(thrower) else origin
 	elapsed += delta
 	var t := clampf(elapsed / duration, 0.0, 1.0)
-	var next := origin.lerp(target, t) + Vector3.UP * (4.0 * t * (1.0 - t) * ARC_HEIGHT)
+	var next := origin.lerp(target, t)
 	var wall := space.intersect_ray(_world_query(global_position, next))
 	if not wall.is_empty():
 		# Stay just before the surface; a ceiling/wall hit must fall, not stick high.
 		next = wall.position + wall.normal * 0.04
-	_damage_sweep(global_position, next)
+	var enemy_hit := _damage_sweep(global_position, next)
+	if not enemy_hit.is_empty():
+		next = enemy_hit.point
 	global_position = next
-	if not wall.is_empty():
+	if not enemy_hit.is_empty():
+		falling = true
+	elif not wall.is_empty():
 		if wall.normal.y > 0.5:
 			_land(wall.position)
 		else:
@@ -111,13 +123,13 @@ func _physics_process(delta: float) -> void:
 	elif t >= 1.0:
 		falling = true
 
-func _damage_sweep(from: Vector3, to: Vector3) -> void:
+func _damage_sweep(from: Vector3, to: Vector3) -> Dictionary:
 	if not is_instance_valid(thrower):
-		return
+		return {}
 	var axis := to - from
 	var length := axis.length()
 	if length < 0.0001:
-		return
+		return {}
 	axis /= length
 	var tangent := axis.cross(Vector3.UP)
 	if tangent.length_squared() < 0.001:
@@ -133,6 +145,10 @@ func _damage_sweep(from: Vector3, to: Vector3) -> void:
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
 	var space := get_world_3d().direct_space_state
+	var first_area: HurtArea3D
+	var first_enemy: EnemyCharacter
+	var first_distance := INF
+	var first_point := to
 	for hit: Dictionary in space.intersect_shape(query, 64):
 		var area := hit.collider as HurtArea3D
 		if area == null:
@@ -140,11 +156,20 @@ func _damage_sweep(from: Vector3, to: Vector3) -> void:
 		var enemy := thrower._get_enemy_from_hurt_area(area)
 		if enemy == null or enemy.health <= 0 or hit_ids.has(enemy.get_instance_id()):
 			continue
-		if not space.intersect_ray(_world_query(from, area.global_position)).is_empty():
+		var distance := clampf((enemy.global_position - from).dot(axis), 0.0, length)
+		var point := from + axis * distance
+		if distance >= first_distance or not space.intersect_ray(_world_query(from, Vector3(enemy.global_position.x, from.y, enemy.global_position.z))).is_empty():
 			continue
-		hit_ids[enemy.get_instance_id()] = true
-		area.take_damage(axis, damage, thrower)
-		thrower._on_skill_hit(area, "")
+		first_distance = distance
+		first_area = area
+		first_enemy = enemy
+		first_point = point
+	if first_area == null:
+		return {}
+	hit_ids[first_enemy.get_instance_id()] = true
+	first_area.take_damage(axis, damage, thrower)
+	thrower._on_skill_hit(first_area, "")
+	return {"point": first_point}
 
 func _land(point: Vector3) -> void:
 	global_position = point

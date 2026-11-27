@@ -1,0 +1,47 @@
+{
+  "remainingInventory": 4973,
+  "retained": 4967,
+  "remainingManualMetadata": [
+    {
+      "path": ".gitattributes",
+      "bytes": 80,
+      "tracked": true,
+      "dirty": false,
+      "reason": "project metadata: preserve/manual review"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 669,
+      "tracked": true,
+      "dirty": false,
+      "reason": "project metadata: preserve/manual review"
+    },
+    {
+      "path": ".editorconfig",
+      "bytes": 33,
+      "tracked": true,
+      "dirty": false,
+      "reason": "project metadata: preserve/manual review"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 46,
+      "tracked": true,
+      "dirty": false,
+      "reason": "project metadata: preserve/manual review"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6360,
+      "tracked": true,
+      "dirty": true,
+      "reason": "project metadata: preserve/manual review"
+    }
+  ],
+  "remainingRuntimeMissing": [],
+  "removedStillPresent": 0,
+  "comparedStagedFiles": 2993,
+  "stagedMismatches": [],
+  "uidCacheCurrentSha256": "ef47bf179ac156d67c11d30b3e33ab52242dd5beb039d3822a284aacfc3db3aa",
+  "uidCacheBaselineSha256": "ef47bf179ac156d67c11d30b3e33ab52242dd5beb039d3822a284aacfc3db3aa"
+}

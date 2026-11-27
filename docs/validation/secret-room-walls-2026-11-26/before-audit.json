@@ -1,0 +1,139 @@
+{
+	"entry_walk": {
+		"lowest": 1.00083601474762,
+		"position": "(46.79915, 1.000836, 13.0)",
+		"reached": true
+	},
+	"floor_rays": [
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1/HiddenGate_B1_5/B1_5Side",
+			"hit": "(38.5, 3.0, 13.0)",
+			"x": 38.5
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1/HiddenGate_B1_5/B1_5Side",
+			"hit": "(39.5, 3.0, 13.0)",
+			"x": 39.5
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(40.5, 1.0, 13.0)",
+			"x": 40.5
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(41.0, 1.0, 13.0)",
+			"x": 41.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(42.0, 1.0, 13.0)",
+			"x": 42.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(43.0, 1.0, 13.0)",
+			"x": 43.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(45.0, 1.0, 13.0)",
+			"x": 45.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(47.0, 1.0, 13.0)",
+			"x": 47.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(49.0, 1.0, 13.0)",
+			"x": 49.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(51.0, 1.0, 13.0)",
+			"x": 51.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(53.0, 1.0, 13.0)",
+			"x": 53.0
+		},
+		{
+			"collider": "/root/SecretRoomWallsCheck/Stage/B1_5/World",
+			"hit": "(55.0, 1.0, 13.0)",
+			"x": 55.0
+		}
+	],
+	"library_items": [
+		{
+			"aabb": "[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]",
+			"id": 0,
+			"name": "floor_ground_0",
+			"shape_entries": 2
+		},
+		{
+			"aabb": "[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]",
+			"id": 1,
+			"name": "floor_ground_1",
+			"shape_entries": 2
+		},
+		{
+			"aabb": "[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]",
+			"id": 2,
+			"name": "floor_ground_2",
+			"shape_entries": 2
+		},
+		{
+			"aabb": "[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]",
+			"id": 3,
+			"name": "floor_ground_3",
+			"shape_entries": 2
+		},
+		{
+			"aabb": "[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]",
+			"id": 20,
+			"name": "wall_bottom",
+			"shape_entries": 2
+		},
+		{
+			"aabb": "[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]",
+			"id": 26,
+			"name": "wall_small",
+			"shape_entries": 2
+		}
+	],
+	"obstacle_near": 19.6000270843506,
+	"occlusion_pixel": "(0.6196, 0.1059, 0.2314, 1.0)",
+	"opened_entry_support": [
+		{
+			"hit": "(37.5, 1.01, 13.0)",
+			"x": 37.5
+		},
+		{
+			"hit": "(38.0, 1.01, 13.0)",
+			"x": 38.0
+		},
+		{
+			"hit": "(38.5, 1.01, 13.0)",
+			"x": 38.5
+		},
+		{
+			"hit": "(39.0, 1.01, 13.0)",
+			"x": 39.0
+		},
+		{
+			"hit": "(39.5, 1.01, 13.0)",
+			"x": 39.5
+		},
+		{
+			"hit": "(40.0, 1.01, 13.0)",
+			"x": 40.0
+		},
+		{
+			"hit": "(40.5, 1.0, 13.0)",
+			"x": 40.5
+		}
+	]
+}

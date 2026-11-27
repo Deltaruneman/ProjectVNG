@@ -91,13 +91,20 @@ func _ready() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 5.0
 	camera.current = true
-	if OS.get_cmdline_user_args().has("--throw-test"):
+	if OS.get_cmdline_user_args().has("--throw-test") or OS.get_cmdline_user_args().has("--throw-sound-only"):
 		await fresh("starter_blade")
 		GameManager.weapon_form = ""
 		player.selected_active_slot = 1
 		var uid: String = GameManager.inventory.equipped.main
 		check(player._can_start_skill_cast(), "neutral E available before throw")
 		player.fsm.change_state(player.fsm.states.skill)
+		await frames(1) # FSM applies queued transitions on its next update.
+		var throw_sounds: Array[Node] = player.get_children().filter(func(node: Node) -> bool: return node is AudioStreamPlayer)
+		check(throw_sounds.size()==1 and throw_sounds[0].bus=="SFX" and is_equal_approx(throw_sounds[0].pitch_scale,1.15), "default throw emits exactly one SFX whoosh on release")
+		if OS.get_cmdline_user_args().has("--throw-sound-only"):
+			print("THROW_SOUND_RESULT ", checks-failures, "/", checks)
+			get_tree().quit(0 if failures==0 else 1)
+			return
 		await frames(1)
 		var drops := get_tree().get_nodes_in_group("thrown_weapons")
 		check(drops.size() == 1, "single thrown weapon spawned")
@@ -381,11 +388,11 @@ func _stamina_checks() -> void:
 	check(state.get("_phase") == 1 and is_equal_approx(player.stamina, 10.0), "insufficient stamina turns charge hold into normal strike")
 	player.stamina = 50.0
 	player._stamina_regen_delay = Player.STAMINA_REGEN_DELAY
-	player._update_stamina(0.69)
+	player._update_stamina(1.19)
 	check(is_equal_approx(player.stamina, 50.0), "stamina waits through regen delay")
 	player._stamina_regen_delay = 0.0
 	player._update_stamina(0.4)
-	check(is_equal_approx(player.stamina, 60.0), "stamina regenerates at 25 per second")
+	check(is_equal_approx(player.stamina, 55.0), "stamina regenerates at 12.5 per second")
 	await frames(2)
 	await fresh("sword")
 	player.stamina = Player.STAMINA_DASH_COST

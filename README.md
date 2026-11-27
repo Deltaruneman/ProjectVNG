@@ -1,6 +1,6 @@
 # ProjectVNG
 
-Game 3D dùng sprite billboard và camera orbit được xây dựng bằng **Godot 4.7.2**. Người chơi điều khiển
+Game 3D dùng sprite billboard và camera chéo cố định từ trái sang phải được xây dựng bằng **Godot 4.7.2**. Người chơi điều khiển
 Foxy khám phá màn chơi, chiến đấu với kẻ địch, nhảy qua địa hình, nhặt và ném
 đối tượng trong các màn chơi, hiện khởi động ở basement liên tục B1/B2.
 
@@ -121,3 +121,10 @@ và đăng ký node state trong scene nhân vật.
 Project chưa khai báo giấy phép phân phối. Không sử dụng lại code hoặc asset
 cho mục đích khác nếu chưa được chủ project cho phép.
  
+
+
+## Phạm vi gameplay hiện tại — 2026-11-26
+
+Tuyến đang giữ: `basement_full.tscn` ↔ `basement_b3.tscn` ↔ `garden.tscn` ↔ `castle.tscn`. B3 được giữ theo xác nhận của chủ dự án vì đang nối với Garden. Các scene khởi đầu/bản phác thảo cũ ngoài tuyến được dọn theo manifest trong `docs/validation/gameplay-cleanup-2026-11-26/`.
+
+Nhân vật quay theo hướng di chuyển; kỹ năng nhắm bằng chuột khi nhấn nhanh hoặc giữ rồi thả. Kỹ năng mặc định ném vũ khí thẳng theo chuột tối đa 7 m, dừng ở vật cản hoặc địch rồi rơi cắm xuống đất; F để nhặt lại. Cửa sổ cài đặt không còn lựa chọn góc camera. Bản sao phục hồi cho phần dọn file nằm ở đường dẫn ghi trong `cleanup-manifest.json`, ngoài project.

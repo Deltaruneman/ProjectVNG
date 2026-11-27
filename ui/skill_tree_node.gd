@@ -74,15 +74,19 @@ func _draw() -> void:
 	if available:
 		fill = Color("ead8a9")
 		border = element_ink
-	if purchased:
-		fill = Color("dcc18a").lerp(accent_color, 0.12)
-		border = element_ink
+
 	if selected:
 		fill = Color("e9cb86")
 		border = Color("795125")
 	if _hovered or focused or has_focus():
 		fill = fill.lightened(0.08)
 		border = Color("624025")
+	if purchased:
+		fill = Color("ffe173").lightened(0.08 if _hovered or focused or has_focus() else 0.0)
+		border = Color("dca51c")
+		element_ink = Color("8a5c12")
+		draw_circle(center, radius + 7.0, Color(1.0, 0.76, 0.14, 0.16))
+		draw_arc(center, radius + 3.0, 0.0, TAU, 64, Color("ffd64a"), 2.0, true)
 	draw_circle(center, radius, fill)
 	draw_arc(center, radius, 0.0, TAU, 64, border, 2.0 if available or purchased else 1.0, true)
 	draw_arc(center, radius - 4.0, 0.0, TAU, 64, Color(border, 0.35), 1.0, true)

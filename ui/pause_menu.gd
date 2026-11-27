@@ -29,6 +29,7 @@ var _fps: Label
 var _tab_index := 0
 var _resume_guard := 0
 var _closing := false
+var _from_title := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -171,7 +172,7 @@ func _clear(container: Node) -> void:
 func _input(event: InputEvent) -> void:
 	# Handle New Game before focused UI can consume F9; this autoload also runs while paused.
 	if event is InputEventKey and event.pressed and not event.echo \
-			and event.is_action_pressed("new_game") and _binding_action.is_empty():
+			and event.is_action_pressed("new_game") and _binding_action.is_empty() and is_instance_valid(GameManager.current_stage):
 		get_viewport().set_input_as_handled()
 		GameManager.new_game()
 		return
@@ -217,6 +218,7 @@ func open_menu() -> bool:
 	if dialogic != null and dialogic.get("current_timeline") != null:
 		return false
 	is_open = true
+	_from_title = false
 	_previous_mouse = Input.mouse_mode
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -261,6 +263,9 @@ func _process(delta: float) -> void:
 			_cancel_confirmation()
 
 func _show_home() -> void:
+	if _from_title:
+		close_menu()
+		return
 	_page = "home"
 	_title.text = "Tạm dừng"
 	_clear(_tabs)
@@ -271,7 +276,7 @@ func _show_home() -> void:
 	_content.add_child(subtitle)
 	for item in [["Tiếp tục hành trình", close_menu], ["Cài đặt", open_settings], ["Hướng dẫn điều khiển", _show_help], ["Thoát trò chơi", _ask_quit]]:
 		_content.add_child(_button(item[0], item[1]))
-	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Alt để thả con trỏ khi chơi."
+	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Camera chéo cố định."
 	_footer.add_child(_label("DAY & NIGHT", 13))
 	(_content.get_child(1) as Button).grab_focus()
 	_layout.call_deferred()
@@ -288,11 +293,16 @@ func _show_help() -> void:
 		var row := _row(GameSettings.ACTIONS[action])
 		var slots: Array = GameSettings.bindings[action]
 		row.add_child(_label("%s    /    %s" % [GameSettings.binding_text(slots[0]), GameSettings.binding_text(slots[1])]))
-	_status.text = "Chuột: xoay camera · Con lăn: zoom · Alt: thả con trỏ\nChạm phím kỹ năng để dùng; giữ 0,3 giây để ngắm rồi thả."
+	_status.text = "Di chuyển để quay nhân vật · Chuột: ngắm kỹ năng\nNhấn nhanh hoặc giữ kỹ năng đều ngắm theo chuột; thả để thi triển."
 	var back := _button("Quay lại  ·  Esc", _show_home)
 	_footer.add_child(back)
 	back.grab_focus()
 	_layout.call_deferred()
+
+func open_title_settings() -> void:
+	if open_menu():
+		_from_title = true
+		open_settings()
 
 func open_settings() -> void:
 	_baseline = GameSettings.snapshot()
@@ -321,12 +331,9 @@ func _show_tab(index: int) -> void:
 	(_body.get_node("ContentScroll") as ScrollContainer).scroll_vertical = 0
 	for i in 3:
 		(_tabs.get_child(i) as Button).set_pressed_no_signal(i == index)
-	_status.text = "Âm thanh và camera được nghe / xem thử ngay. Áp dụng để lưu; Hủy để hoàn tác."
+	_status.text = "Âm thanh được nghe thử ngay. Áp dụng để lưu; Hủy để hoàn tác."
 	match index:
 		0:
-			_slider("Độ nhạy chuột", "sensitivity", 0.02, 0.5, 0.01)
-			_toggle("Đảo chiều trục dọc camera", "invert_y")
-			_slider("Góc nhìn camera", "fov", 45, 85, 1)
 			var note := _label("Chọn một ô rồi nhấn phím / nút chuột. Esc hủy gán; × xóa ô phụ.", 15)
 			note.modulate = GOLD
 			_content.add_child(note)
@@ -386,7 +393,7 @@ func _slider(text: String, key: String, low: float, high: float, step: float) ->
 	value_label.custom_minimum_size.x = 75
 	row.add_child(value_label)
 	var update := func(value: float):
-		value_label.text = "%d%%" % roundi(value * 100) if high <= 1.0 and key != "sensitivity" else "%.2f" % value
+		value_label.text = "%d%%" % roundi(value * 100) if high <= 1.0 else "%.2f" % value
 	update.call(slider.value)
 	slider.value_changed.connect(func(value: float):
 		_edit(key, value)

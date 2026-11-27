@@ -17,6 +17,7 @@ collision_layer = 8
 script = ExtResource("1")
 ranged = true
 attack_range = 9.0
+attack_damage = 0.5
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=97537727]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

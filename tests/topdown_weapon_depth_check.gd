@@ -71,7 +71,7 @@ func _ready() -> void:
 		player.fsm.change_state(attack)
 		player.fsm._update(0.0)
 		for facing: String in ["down", "left", "right", "up"]:
-			player.change_direction(facing)
+			player.face_movement(rig.movement_vector({"down": Vector2.DOWN, "up": Vector2.UP, "left": Vector2.LEFT, "right": Vector2.RIGHT}[facing]))
 			player._apply_direction()
 			player._check_changed_animation()
 			for progress: float in [0.3, 0.45, 0.6, 0.85]:
@@ -93,7 +93,7 @@ func _ready() -> void:
 					await capture(kind + "-down")
 		player.fsm.change_state(player.fsm.states.idle)
 		player.fsm._update(0.0)
-	# Other camera modes retain the established body-depth placement.
+	# A legacy TPS request cannot change the fixed view or restore the old depth bug.
 	rig.set_view_mode(CameraRig.ViewMode.TPS)
 	await frames(3)
 	player.change_direction("down")
@@ -102,7 +102,7 @@ func _ready() -> void:
 	player.fsm._update(0.0)
 	attack.call("_set_weapon_pose", Vector3(0.2,1.0,0.4), Vector3(0,0,1))
 	var delta_depth := (sprite.global_position - body.global_position).dot(-rig.camera.global_basis.z)
-	check(is_equal_approx(delta_depth, -0.06), "TPS preserves existing exact front depth offset")
+	check(rig.view_mode == CameraRig.ViewMode.TOP_DOWN and delta_depth < -0.04, "legacy TPS request preserves fixed view and safe front depth")
 	player.fsm.change_state(player.fsm.states.idle)
 	player.fsm._update(0.0)
 	print("RESULT checks=%d failures=%d" % [checks, failures])

@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS wall remains opaque when camera fading is inactive
+PASS both stacked wall cells on Player sightlines fade
+PASS wall cells outside Player sightlines stay opaque
+PASS wall behind Player is not faded
+PASS fade preserves source GridMap cells, library and collision shapes
+PASS shared source material is unchanged
+PASS faded wall keeps its original physical collider
+FADE_PIXELS opaque=(0.0902, 0.8, 0.1961, 1.0) faded=(0.6431, 0.9216, 0.6863, 1.0)
+PASS Player is visibly revealed through the faded wall
+PASS fade preserves fixed camera framing and normal near plane
+PASS moving away restores original opaque GridMap rendering
+PASS returning behind the wall fades it again
+PASS story camera takeover restores the authored wall visuals
+PASS clearing a breakable gate removes its temporary visuals without ghost walls
+FAIL solid mesh wall uses a local transparent material copy
+PASS solid mesh restores its exact original material
+WALL_FADE_RESULT 14/15
+ENGINE_EXIT_CODE=1

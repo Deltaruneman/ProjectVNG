@@ -1,0 +1,82 @@
+[
+  {
+    "file": "levels/stage.gd",
+    "sha256": "1703EF813A1C543C87CEFDB104A1F50750AF9350F519485917489F483A56A616",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/level_1/castle.tscn",
+    "sha256": "A3A9D940C208BF0412A88506F4EDDF6BF69FB019A2729DD8BF73C7BC22017F81",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/level_1/basement_full.tscn",
+    "sha256": "E0B688A822F4ED263054326D5801463E2F2C5D28535FA281D8ABFC46F0C25FDA",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/level_1/basement_b3.tscn",
+    "sha256": "4CE7201D6C2A9D06554F6E8C48B51779CEF9A88D99415EBF287B56527D8036D1",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/level_1/basement_floor_visibility.gd",
+    "sha256": "046090D33F631DCF3ECB6DC851C676352D115645433299E34B10503911A51DE8",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/objects/automatic_stairs.gd",
+    "sha256": "1A9A8AF71E137163095625B7DCBC2066669B5417C400A23ECCB52D25F96830C8",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/objects/checkpoint/checkpoint.gd",
+    "sha256": "4EF115F472C6EBC46A4353657790C150498AF4A3F461579AAFCD1D04C742E978",
+    "stagedMatches": true
+  },
+  {
+    "file": "levels/sketch/farm_controller.gd",
+    "sha256": "463CA72C46BEC2954D49D4292E314284497060C83DD63819A733D37362CE85ED",
+    "stagedMatches": true
+  },
+  {
+    "file": "scripts/enemy.gd",
+    "sha256": "A72E33A527E05A5440A52CE04328140398C3F0F9CBB68BCD0D3636C0B6ACDBD2",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/player.gd",
+    "sha256": "1CA0F527974FA4A79E3A24465C9C991C21D7451D083E818E9A310AF37E2442E8",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/enemies/skeleton/skeleton.gd",
+    "sha256": "0397E624F68182856C44C0B28E62BA7DBD3AA644FB13C7062A2171C940CAD820",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/enemies/arcane/arcane_enemy.gd",
+    "sha256": "3D3DE52D6B22E1754BD35670190A2DFF58FB2943D2FE3E31459EAC346C815219",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/world_interactions_check.gd",
+    "sha256": "AE22DC1A1A6294088D92C7CC03DFA386AF2BAA7B6B1D53376F4D412F68ED71BF",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/world_interactions_check.tscn",
+    "sha256": "7B9D3D724707ADFB0C5159CBBBFBAB362D9457D7DC31DB0EEE548FBE22B524FF",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/presentation_audio_check.gd",
+    "sha256": "D1ECA9A3E683DE9B33850C2B32E6568336608C32F7F43FAC14861E2FCB6BA7B6",
+    "stagedMatches": true
+  },
+  {
+    "file": "scenes/player/weapon/floating_blade.gd",
+    "sha256": "EEE51C894A64A9906944216100AD6991872BD6F885EDC075FB6C317908791FBA",
+    "stagedMatches": true
+  }
+]

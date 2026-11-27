@@ -30,12 +30,13 @@ const BASE_DASH_COOLDOWN_SECONDS := 2.0
 const STAMINA_PARRY_COST := 15.0
 const STAMINA_CHARGE_COST := 25.0
 const HEALTH_REGEN_INTERVALS := [60.0, 40.0, 20.0]
-const STAMINA_REGEN_RATE := 25.0
-const STAMINA_REGEN_DELAY := 0.7
+const STAMINA_REGEN_RATE := 12.5
+const STAMINA_REGEN_DELAY := 1.2
 const STAMINA_EXHAUSTION_DURATION := 1.0
 
 ## Turned on throughout the Hurt state so one hit doesn't drain health every single frame in a row.
 var is_invulnerable: bool = false
+var hurt_push_direction := Vector3.ZERO
 var is_talking: bool = false
 var _movement_enabled_before_talk := true
 var _orbit_facing := Vector3.MODEL_FRONT
@@ -85,7 +86,7 @@ var _base_attack_damage := 1
 var _base_max_health := 3
 var _equipment_health_bonus := 0
 var _equipment_initialized := false
-var _base_movement_speed := 6.0
+var _base_movement_speed := 100.0
 var _base_dash_cooldown := 0.75
 var _base_parry_window := 0.167
 var _base_maxjump := 2
@@ -94,7 +95,7 @@ var _temp_speed_bonus := 0.0
 var ice_shield := 0
 const POTION_EFFECT_SECONDS := 8.0
 signal potion_effects_changed
-var potion_shield_health := 0
+var potion_shield_health := 0.0
 var potion_shield_capacity := 0
 var potion_shield_remaining := 0.0
 var potion_strength_remaining := 0.0
@@ -115,6 +116,8 @@ var _skill_aim_active := false
 var _skill_hold_elapsed := 0.0
 var _skill_aim_point := Vector3.ZERO
 var _cast_aim_point_valid := false
+var _ultimate_aim_point := Vector3.ZERO
+var _ultimate_aim_point_valid := false
 var _aim_reticle_layer: CanvasLayer
 var _aim_camera_rig: CameraRig
 
@@ -157,29 +160,93 @@ func _ready() -> void:
 	_aim_reticle_layer.visible = false
 
 
+var _stair_route := PackedVector3Array()
+var _stair_stuck_time := 0.0
+var _ladder_climb := false
+
+
+func start_automatic_stairs(route: PackedVector3Array, ladder: bool = false) -> bool:
+	if route.is_empty() or not can_interact() or not is_on_floor() \
+			or fsm.current_state.name.to_lower() not in ["idle", "run"]:
+		return false
+	_cancel_skill_aim()
+	_stair_route = route
+	_ladder_climb = ladder
+	_stair_stuck_time = 0.0
+	velocity = Vector3.ZERO
+	return true
+
+
+func is_climbing_stairs() -> bool:
+	return not _stair_route.is_empty()
+
+
+func is_climbing_ladder() -> bool:
+	return is_climbing_stairs() and _ladder_climb
+
+
+func stop_automatic_stairs() -> void:
+	_stair_route.clear()
+	_ladder_climb = false
+	velocity.y = 0.0
+	stop_horizontal()
+	if health > 0 and fsm.current_state.name.to_lower() in ["idle", "run"]:
+		change_animation("idle")
+
+
+func _update_automatic_stairs(delta: float) -> void:
+	if health <= 0 or is_talking or not movement_enabled \
+			or fsm.current_state.name.to_lower() not in ["idle", "run"]:
+		stop_automatic_stairs()
+		return
+	# Movement keys cancel the assist; normal gravity and world collision stay active.
+	if Input.get_vector("left", "right", "up", "down").length() > 0.1:
+		stop_automatic_stairs()
+		return
+	var offset := _stair_route[0] - global_position
+	var horizontal := Vector3(offset.x, 0.0, offset.z)
+	if horizontal.length() < 0.12 and absf(offset.y) < (0.06 if _ladder_climb else 0.65):
+		_stair_route.remove_at(0)
+		if _stair_route.is_empty():
+			stop_automatic_stairs()
+		return
+	var motion := horizontal.normalized() * minf(movement_speed, horizontal.length() / maxf(delta, 0.001))
+	if _ladder_climb and absf(offset.y) > 0.06 and horizontal.length() < 0.12:
+		face_movement(Vector3.FORWARD) # B1 ladder is mounted on the north (-Z) shaft wall.
+	else:
+		face_movement(motion)
+	change_animation("run")
+	velocity.x = motion.x
+	velocity.z = motion.z
+	var before := global_position
+	if _ladder_climb:
+		# The authored ladder shaft stays collidable; climb without gravity until dismount.
+		var climb_motion := offset.normalized() * minf(3.0 * delta, offset.length())
+		move_and_collide(climb_motion)
+	else:
+		_update_movement(delta)
+	_stair_stuck_time = _stair_stuck_time + delta if global_position.distance_to(before) < 0.005 else 0.0
+	if _stair_stuck_time > 1.0:
+		stop_automatic_stairs()
+	_check_changed_direction()
+	_check_changed_animation()
+
+
 func _physics_process(delta: float) -> void:
 	_update_health_regeneration(delta)
 	_update_stamina(delta)
+	if is_climbing_stairs():
+		_update_automatic_stairs(delta)
+		return
 	if _skill_button_held:
 		_refresh_skill_aim_point()
 	if is_talking:
 		_check_changed_animation()
 		return
-	if can_control_camera() and fsm != null and fsm.current_state != null and fsm.current_state.name.to_lower() in ["idle", "run", "jump", "fall"]:
-		var active_camera := get_viewport().get_camera_3d()
-		if active_camera != null and active_camera.get_parent() is CameraRig:
-			var rig := active_camera.get_parent() as CameraRig
-			face_movement(rig.facing_vector())
 	super._physics_process(delta)
-	if _skill_aim_active:
-		var toward_target := _skill_aim_point - global_position
-		toward_target.y = 0.0
-		if toward_target.length_squared() > 0.01:
-			face_movement(toward_target)
-			_check_changed_animation()
 
 
-func _on_regeneration_health_changed(current: int, maximum: int) -> void:
+func _on_regeneration_health_changed(current: float, maximum: int) -> void:
 	# Full-health time cannot be banked for the next hit, and death never revives.
 	if current <= 0 or current >= maximum:
 		_health_regen_elapsed = 0.0
@@ -302,7 +369,7 @@ func _process(delta: float) -> void:
 				_aim_reticle_layer.visible = true
 				_set_skill_aim_camera(true)
 	if _ultimate_visual_remaining > 0.0:
-		_place_ultimate_blade_behind()
+		_place_ultimate_weapon_in_hand()
 	if _ultimate_visual_remaining > 0.0:
 		_ultimate_visual_elapsed += delta
 		_ultimate_visual_remaining = maxf(0.0, _ultimate_visual_remaining - delta)
@@ -357,10 +424,10 @@ func apply_potion(definition: String) -> String:
 	return ""
 
 
-func absorb_potion_damage(damage: int) -> int:
+func absorb_potion_damage(damage: float) -> float:
 	if damage <= 0 or potion_shield_health == 0:
 		return damage
-	var absorbed := mini(damage, potion_shield_health)
+	var absorbed := minf(damage, potion_shield_health)
 	potion_shield_health -= absorbed
 	if potion_shield_health == 0:
 		_clear_potion_shield()
@@ -368,7 +435,7 @@ func absorb_potion_damage(damage: int) -> int:
 	return damage - absorbed
 
 
-func potion_normal_attack_damage(damage: int) -> int:
+func potion_normal_attack_damage(damage: float) -> float:
 	return damage * 2 if potion_strength_remaining > 0.0 else damage
 
 
@@ -392,7 +459,7 @@ func _clear_potion_shield() -> void:
 	potion_shield_remaining = 0.0
 
 
-func _clear_potion_effects_on_death(current: int, _maximum: int) -> void:
+func _clear_potion_effects_on_death(current: float, _maximum: int) -> void:
 	if current == 0 and (potion_shield_health > 0 or potion_strength_remaining > 0.0):
 		_clear_potion_shield()
 		potion_strength_remaining = 0.0
@@ -420,6 +487,11 @@ func _exit_tree() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _is_gameplay_menu_open() or is_talking:
 		return
+	if is_climbing_stairs():
+		if event.is_action_pressed("interact") and not event.is_echo():
+			stop_automatic_stairs()
+			get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("quick_item") and not event.is_echo():
 		GameManager.use_quick_item()
 		get_viewport().set_input_as_handled()
@@ -440,11 +512,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_released("skill"):
 		if _skill_button_held and _can_start_skill_cast():
-			var aimed_cast := _skill_aim_active
-			if aimed_cast:
-				_refresh_skill_aim_point()
-			else:
-				_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
+			# Tap and held casts both commit the current pointer target.
+			_refresh_skill_aim_point()
 			_cancel_skill_aim()
 			_cast_aim_point_valid = true
 			fsm.change_state(fsm.states.skill)
@@ -474,7 +543,7 @@ func _is_gameplay_menu_open() -> bool:
 
 
 func can_interact() -> bool:
-	return health > 0 and not is_talking and not _is_gameplay_menu_open() and not stamina_exhausted
+	return health > 0 and not is_talking and not _is_gameplay_menu_open() and not stamina_exhausted and not is_climbing_stairs()
 
 
 func start_talk(_partner: BaseCharacter = null) -> void:
@@ -547,7 +616,7 @@ func _refresh_skill_aim_point() -> void:
 	if camera == null:
 		_skill_aim_point = global_position + forward().normalized() * SKILL_AIM_RANGE
 		return
-	var center := SKILL_AIM_RETICLE_SCRIPT.aim_screen_point(get_viewport().get_visible_rect().size)
+	var center := get_viewport().get_mouse_position()
 	if camera.get_parent() is CameraRig:
 		var rig := camera.get_parent() as CameraRig
 		center = rig.get_aim_screen_point()
@@ -649,11 +718,6 @@ func get_camera_movement_input() -> Vector3:
 
 
 func face_movement(motion: Vector3) -> void:
-	var active_camera := get_viewport().get_camera_3d()
-	if active_camera != null and active_camera.get_parent() is CameraRig:
-		var rig := active_camera.get_parent() as CameraRig
-		if can_control_camera() and not _cast_aim_point_valid:
-			motion = rig.facing_vector()
 	if motion.length_squared() < 0.000001:
 		return
 	change_direction(BaseCharacter.direction_from_input(Vector2(motion.x, motion.z)))
@@ -708,7 +772,7 @@ func _check_changed_animation() -> void:
 
 func get_skill_aim_direction() -> Vector3:
 	if not _cast_aim_point_valid:
-		return forward().normalized()
+		_refresh_skill_aim_point()
 	var toward_target := _skill_aim_point - global_position
 	toward_target.y = 0.0
 	var camera := get_viewport().get_camera_3d()
@@ -719,14 +783,13 @@ func get_skill_aim_direction() -> Vector3:
 		if toward_target.dot(view_forward) <= 0.0:
 			toward_target = view_forward
 	if toward_target.length_squared() > 0.01:
-		face_movement(toward_target)
 		return toward_target.normalized()
 	return forward().normalized()
 
 
 func get_projectile_aim_direction(spawn_position: Vector3) -> Vector3:
 	if not _cast_aim_point_valid:
-		return forward().normalized()
+		_refresh_skill_aim_point()
 	var toward_target := _skill_aim_point - spawn_position
 	if toward_target.length_squared() > 0.25:
 		return toward_target.normalized()
@@ -749,9 +812,8 @@ func _on_skill_hit(area: Area3D, elemental_form: String = "") -> void:
 	var enemy := _get_enemy_from_hurt_area(area)
 	if enemy != null:
 		if elemental_form == "fire":
-			var ember_rank := int(GameManager.skill_allocations.get("evo_fire_ember", 0))
-			var burn_duration := 3.0 + float(ember_rank) + elemental_status_duration_bonus()
-			var burn_damage := maxi(1, int(attack_damage / 2)) + ember_rank + int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
+			var burn_duration := EnemyCharacter.BURN_DURATION
+			var burn_damage := EnemyCharacter.BURN_DAMAGE
 			enemy.apply_skill_burn(self, burn_damage, burn_duration, 1.0)
 			BattleFX.enemy_status(enemy, "burning", burn_duration)
 		elif elemental_form == "ice":
@@ -784,7 +846,7 @@ func _get_enemy_from_hurt_area(area: Area3D) -> EnemyCharacter:
 func _try_blood_charm_heal() -> void:
 	var chance := float(GameManager.inventory.definition_for_slot("charm").get("heal_on_hit_chance", 0.0))
 	if health > 0 and health < max_health and chance > 0.0 and randf() < chance:
-		health = mini(max_health, health + 1)
+		health = minf(max_health, health + 1)
 
 
 func _gain_rage(amount: float) -> void:
@@ -810,7 +872,7 @@ func _apply_skill_bonuses() -> void:
 	if not _equipment_initialized:
 		health = max_health
 		_equipment_initialized = true
-	health = mini(health, max_health)
+	health = minf(health, max_health)
 	attack_damage = _base_attack_damage + int(ranks.get("char_attack", 0)) + _temp_attack_bonus + int(GameManager.inventory.definition_for_slot("main").get("bonus", 0)) + GameManager.inventory.enchant_rank("main", "sharpness")
 	_refresh_equipment_art()
 	movement_speed = _base_movement_speed + 0.5 * float(ranks.get("char_speed", 0)) + float(GameManager.inventory.definition_for_slot("charm").get("movement_speed_bonus", 0.0)) + _temp_speed_bonus
@@ -859,7 +921,7 @@ func cast_active_skill(active_id: String) -> bool:
 					BattleFX.play_skill_sound(self, "fire_impact")
 					_damage_enemies_in_shape(blast_center, aim, "circle", blast_radius, 0.0, 360.0, damage * 2))
 		"active_fire_3":
-			health = maxi(1, health - 5)
+			health = maxf(1, health - 5)
 			_fire_rage_sequence.call_deferred(damage, aim)
 		"active_fire_4":
 			var meteor_rank := int(GameManager.skill_allocations.get("evo_fire_meteor", 0))
@@ -1034,14 +1096,14 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: int = 0, freeze_status_id: String = "frozen") -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: float = 0.0, freeze_status_id: String = "frozen") -> int:
 	if freeze_duration > 0.0:
 		freeze_duration += elemental_status_duration_bonus(true)
 	if slow_duration > 0.0:
 		slow_duration += elemental_status_duration_bonus(true)
 	if burn_duration > 0.0:
-		burn_duration += elemental_status_duration_bonus()
-		burn_damage += int(GameManager.inventory.definition_for_slot("charm").get("burn_damage_bonus", 0))
+		burn_duration = EnemyCharacter.BURN_DURATION
+		burn_damage = EnemyCharacter.BURN_DAMAGE
 	var aim_2d := Vector2(aim.x, aim.z).normalized()
 	if aim_2d.length_squared() < 0.001:
 		aim_2d = Vector2(forward().x, forward().z).normalized()
@@ -1109,6 +1171,9 @@ func _start_ultimate_cinematic(skill_id: String) -> bool:
 	var scene := get_tree().current_scene
 	if camera == null or scene == null:
 		return false
+	_refresh_skill_aim_point()
+	_ultimate_aim_point = _skill_aim_point
+	_ultimate_aim_point_valid = true
 	var cinematic = ULTIMATE_CINEMATIC_SCRIPT.new()
 	cinematic.process_mode = Node.PROCESS_MODE_ALWAYS
 	_ultimate_cinematic_running = true
@@ -1122,11 +1187,17 @@ func _start_ultimate_cinematic(skill_id: String) -> bool:
 func _on_ultimate_cinematic_finished(skill_id: String) -> void:
 	_ultimate_cinematic_running = false
 	if is_inside_tree():
+		if _ultimate_aim_point_valid:
+			_skill_aim_point = _ultimate_aim_point
+			_cast_aim_point_valid = true
 		cast_ultimate(skill_id)
+		clear_skill_cast_aim()
+	_ultimate_aim_point_valid = false
 
 
 func _on_ultimate_cinematic_aborted() -> void:
 	_ultimate_cinematic_running = false
+	_ultimate_aim_point_valid = false
 
 
 func begin_ultimate_cinematic_pose() -> Dictionary:
@@ -1147,7 +1218,7 @@ func begin_ultimate_cinematic_pose() -> Dictionary:
 	if anim_player.has_animation("idle_down"):
 		anim_player.play("idle_down")
 		anim_player.seek(0.0, true)
-	_place_ultimate_blade_behind()
+	_place_ultimate_weapon_in_hand()
 	return saved_pose
 
 
@@ -1173,18 +1244,8 @@ func restore_ultimate_cinematic_pose(saved_pose: Dictionary) -> void:
 	$Direction/Blade.clear_temporary_position()
 
 
-func _place_ultimate_blade_behind() -> void:
-	var camera := get_viewport().get_camera_3d()
-	if camera == null:
-		return
-	var away_from_camera := -camera.global_basis.z
-	away_from_camera.y = 0.0
-	if away_from_camera.length_squared() < 0.01:
-		return
-	var side := camera.global_basis.x
-	side.y = 0.0
-	var target := global_position + Vector3.UP * 1.05 + away_from_camera.normalized() * 1.1 + side.normalized() * 0.2
-	$Direction/Blade.set_temporary_position($Direction.to_local(target))
+func _place_ultimate_weapon_in_hand() -> void:
+	$Direction/Blade.update_held_pose()
 
 
 func cast_ultimate(skill_id_override: String = "") -> bool:
@@ -1193,6 +1254,8 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	var skill_id: String = skill_id_override if skill_id_override != "" else GameManager.selected_ultimate_skill
 	if not _is_ultimate_ready(skill_id):
 		return false
+	if not _cast_aim_point_valid:
+		_refresh_skill_aim_point()
 	if skill_id == "ultimate_wind_2":
 		if _wind_ultimate_active or fsm == null or not fsm.states.has("windultimate"):
 			return false
@@ -1263,7 +1326,7 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 		BattleFX.circle_burst(self, vfx_position, "ice", 18.0)
 		BattleFX.slash(self, vfx_position + Vector3.UP * 0.2, "ice", aim, 1.1)
 	if skill_id == "ultimate_fire_2":
-		health = maxi(1, health - 10)
+		health = maxf(1, health - 10)
 	if skill_id == "ultimate_wind_1":
 		movement_speed *= 1.5
 		_track_hud_status("speed", 4.0)
@@ -1275,8 +1338,9 @@ func cast_ultimate(skill_id_override: String = "") -> bool:
 	else:
 		var ultimate_shape := "global" if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else "circle"
 		var ultimate_freeze := 1.0 if skill_id in ["ultimate_ice_2", "ultimate_lightning_2"] else (0.8 if skill_id == "ultimate_lightning_1" else 0.0)
+		var ultimate_burn := EnemyCharacter.BURN_DURATION if skill_id.begins_with("ultimate_fire_") else 0.0
 		var ultimate_freeze_status := "electrified" if skill_id.begins_with("ultimate_lightning") else "frozen"
-		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze, 0.0, 0.0, 0.0, 0, ultimate_freeze_status)
+		_damage_enemies_in_shape(global_position, aim, ultimate_shape, radius, 0.0, 360.0, damage, ultimate_freeze, 0.0, 0.0, ultimate_burn, EnemyCharacter.BURN_DAMAGE, ultimate_freeze_status)
 	rage = 0.0
 	_ultimate_cooldown_remaining = get_ultimate_cooldown_duration(skill_id)
 	rage_changed.emit(rage, MAX_RAGE)
@@ -1393,7 +1457,7 @@ func _start_wind_ultimate() -> void:
 
 func _find_nearest_wind_ultimate_target() -> EnemyCharacter:
 	var nearest: EnemyCharacter = null
-	var nearest_distance_squared := 64.0
+	var nearest_distance_squared := INF
 	for candidate: Node in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(candidate) or not (candidate is EnemyCharacter):
 			continue
@@ -1402,7 +1466,11 @@ func _find_nearest_wind_ultimate_target() -> EnemyCharacter:
 			continue
 		var offset := enemy.global_position - global_position
 		offset.y = 0.0
-		var distance_squared := offset.length_squared()
+		if offset.length_squared() >= 64.0:
+			continue # Preserve the existing 8 m eligibility range.
+		var to_pointer := enemy.global_position - _skill_aim_point
+		to_pointer.y = 0.0
+		var distance_squared := to_pointer.length_squared()
 		if distance_squared < nearest_distance_squared:
 			nearest = enemy
 			nearest_distance_squared = distance_squared
@@ -1504,7 +1572,7 @@ func _ice_pillar_pulses(damage: int) -> void:
 
 ## Every state of the fox can take damage, so this calls straight into the current state; whichever
 ## state doesn't want to lose health (Dead) overrides take_damage().
-func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
+func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
 	print("Nhan sat thuong")
 	if is_invulnerable:
 		return
@@ -1517,7 +1585,14 @@ func _on_hurt_area_3d_hurt(_direction: Vector3, damage: float) -> void:
 			_ice_shield_visual.queue_free()
 		_ice_shield_visual = null
 		return
-	fsm.current_state.take_damage(int(damage))
+	hit_direction.y = 0.0
+	if hit_direction.length_squared() < 0.0001:
+		var source: Node3D = $Direction/HurtArea3D.attacker
+		if is_instance_valid(source):
+			hit_direction = global_position - source.global_position
+			hit_direction.y = 0.0
+	hurt_push_direction = hit_direction.normalized()
+	fsm.current_state.take_damage(damage)
 
 
 func uses_offhand(_slot: int = 1) -> bool:
@@ -1687,29 +1762,13 @@ func _place_sprite_at_body_depth(sprite: SpriteBase3D, depth_offset: float) -> v
 	sprite.no_depth_test = false
 
 
-## Screen-space weapon presentation reuses equipped art; no gameplay state is changed.
-func get_first_person_weapon() -> Dictionary:
-	if not has_weapon or not can_control_camera():
-		return {}
-	if is_instance_valid(_offhand_cast_sprite) and _offhand_cast_sprite.visible:
-		return {"texture": _offhand_cast_sprite.texture, "kind": "offhand", "phase": "thrust", "progress": 1.0, "legacy": false}
-	var weapon_sprite := get_node_or_null("Direction/Blade/Sprite3D") as Sprite3D
-	if weapon_sprite == null or weapon_sprite.texture == null:
-		return {}
-	var definition: Dictionary = GameManager.inventory.definition_for_slot("main")
-	var pose := {"phase": "idle", "progress": 0.0, "strike": 0, "kind": str(definition.get("kind", "sword")), "legacy": bool(definition.get("legacy", false))}
-	if fsm != null and fsm.current_state != null and fsm.current_state.has_method("get_first_person_pose"):
-		pose = fsm.current_state.get_first_person_pose()
-	elif _blade_suppress_count > 0:
-		return {}
-	pose["texture"] = weapon_sprite.texture
-	return pose
-
 func get_mouse_throw_target() -> Vector3:
 	var camera := get_viewport().get_camera_3d()
 	var point := global_position + forward().normalized() * 7.0
 	if camera != null:
 		var mouse := get_viewport().get_mouse_position()
+		if camera.get_parent() is CameraRig:
+			mouse = camera.get_parent().get_aim_screen_point()
 		var from := camera.project_ray_origin(mouse)
 		var ray := camera.project_ray_normal(mouse)
 		var ground: Variant = Plane(Vector3.UP, global_position.y).intersects_ray(from, ray)

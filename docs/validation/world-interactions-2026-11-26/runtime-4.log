@@ -1,0 +1,294 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS contact activates castle_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+PASS loading saved data restores checkpoint ID
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_start
+PASS respawn preserves checkpoint ID
+PASS contact activates castle_f2_start
+PASS checkpoint visible with F prompt
+PASS F confirms checkpoint save
+PASS checkpoint reaches isolated save on disk
+PASS loading saved data restores checkpoint ID
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS respawn lands on correct floor: castle_f2_start
+PASS respawn preserves checkpoint ID
+PASS castle.tscn skeleton/skeleton_mage recovery
+PASS castle.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS castle.tscn arcane/evil_wizard_1 recovery
+PASS castle.tscn arcane/evil_wizard_1 actual fired bullet speed
+PASS authored Castle stair entrance displays F
+PASS F starts automatic ascent
+AUTO_STAIRS final=(7.0, 9.010841, 26.61771) grounded=true lag=0.28228640556335
+PASS automatic ascent reaches actual Castle upper landing
+PASS landing restores control
+PASS camera follows slope and upper floor becomes visible
+PASS movement key interrupts stair assist
+Player: changing from state Idle to Run
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS basement_full.tscn skeleton/skeleton_mage recovery
+PASS basement_full.tscn skeleton/skeleton_mage actual fired bullet speed
+PASS basement_full.tscn arcane/evil_wizard_1 recovery
+PASS basement_full.tscn arcane/evil_wizard_1 actual fired bullet speed
+CONNECTOR_GEOMETRY /root/Stage/B1/Pathfinder/B2-Parkour cell=(8, 0, -1) item=155 name=Wall_Plaster_WoodGrid origin=(17.0, 1.0, -1.0) bounds=[P: (-1.0, 0.0, -0.314035), S: (2.0, 3.122689, 0.406482)]
+CONNECTOR_GEOMETRY /root/Stage/B1/Pathfinder/B2-Parkour cell=(8, 2, -1) item=155 name=Wall_Plaster_WoodGrid origin=(17.0, 5.0, -1.0) bounds=[P: (-1.0, 0.0, -0.314035), S: (2.0, 3.122689, 0.406482)]
+CONNECTOR_GEOMETRY /root/Stage/B1/Pathfinder/B2-Parkour cell=(8, 3, -1) item=155 name=Wall_Plaster_WoodGrid origin=(17.0, 7.0, -1.0) bounds=[P: (-1.0, 0.0, -0.314035), S: (2.0, 3.122689, 0.406482)]
+CONNECTOR_GEOMETRY /root/Stage/B1/Pathfinder/B2-Parkour cell=(8, 1, -1) item=155 name=Wall_Plaster_WoodGrid origin=(17.0, 3.0, -1.0) bounds=[P: (-1.0, 0.0, -0.314035), S: (2.0, 3.122689, 0.406482)]
+CONNECTOR_GEOMETRY /root/Stage/B1/Pathfinder/B2-Parkour cell=(8, 4, -1) item=155 name=Wall_Plaster_WoodGrid origin=(17.0, 9.0, -1.0) bounds=[P: (-1.0, 0.0, -0.314035), S: (2.0, 3.122689, 0.406482)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(19, 0, 2) item=2 name=floor_ground_2 origin=(39.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(19, 0, 3) item=2 name=floor_ground_2 origin=(39.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(19, 0, 9) item=2 name=floor_ground_2 origin=(39.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(19, 0, 10) item=1 name=floor_ground_1 origin=(39.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(19, 0, 11) item=1 name=floor_ground_1 origin=(39.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 2) item=1 name=floor_ground_1 origin=(41.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 3) item=1 name=floor_ground_1 origin=(41.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 4) item=0 name=floor_ground_0 origin=(41.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 5) item=0 name=floor_ground_0 origin=(41.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 6) item=0 name=floor_ground_0 origin=(41.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 7) item=0 name=floor_ground_0 origin=(41.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 8) item=2 name=floor_ground_2 origin=(41.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 9) item=1 name=floor_ground_1 origin=(41.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 10) item=1 name=floor_ground_1 origin=(41.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 0, 11) item=3 name=floor_ground_3 origin=(41.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 2) item=3 name=floor_ground_3 origin=(43.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 3) item=0 name=floor_ground_0 origin=(43.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 4) item=0 name=floor_ground_0 origin=(43.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 5) item=1 name=floor_ground_1 origin=(43.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 6) item=2 name=floor_ground_2 origin=(43.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 7) item=3 name=floor_ground_3 origin=(43.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 8) item=0 name=floor_ground_0 origin=(43.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 9) item=1 name=floor_ground_1 origin=(43.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 10) item=2 name=floor_ground_2 origin=(43.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 0, 11) item=1 name=floor_ground_1 origin=(43.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 2) item=3 name=floor_ground_3 origin=(45.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 3) item=1 name=floor_ground_1 origin=(45.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 4) item=3 name=floor_ground_3 origin=(45.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 5) item=1 name=floor_ground_1 origin=(45.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 6) item=1 name=floor_ground_1 origin=(45.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 7) item=1 name=floor_ground_1 origin=(45.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 8) item=3 name=floor_ground_3 origin=(45.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 9) item=2 name=floor_ground_2 origin=(45.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 10) item=3 name=floor_ground_3 origin=(45.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 0, 11) item=0 name=floor_ground_0 origin=(45.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 2) item=0 name=floor_ground_0 origin=(47.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 3) item=0 name=floor_ground_0 origin=(47.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 4) item=2 name=floor_ground_2 origin=(47.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 5) item=0 name=floor_ground_0 origin=(47.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 6) item=3 name=floor_ground_3 origin=(47.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 7) item=3 name=floor_ground_3 origin=(47.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 8) item=1 name=floor_ground_1 origin=(47.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 9) item=3 name=floor_ground_3 origin=(47.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 10) item=3 name=floor_ground_3 origin=(47.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 0, 11) item=0 name=floor_ground_0 origin=(47.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 2) item=1 name=floor_ground_1 origin=(49.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 3) item=3 name=floor_ground_3 origin=(49.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 4) item=0 name=floor_ground_0 origin=(49.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 5) item=3 name=floor_ground_3 origin=(49.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 6) item=3 name=floor_ground_3 origin=(49.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 7) item=0 name=floor_ground_0 origin=(49.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 8) item=3 name=floor_ground_3 origin=(49.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 9) item=2 name=floor_ground_2 origin=(49.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 10) item=3 name=floor_ground_3 origin=(49.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 0, 11) item=0 name=floor_ground_0 origin=(49.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 2) item=1 name=floor_ground_1 origin=(51.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 3) item=2 name=floor_ground_2 origin=(51.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 4) item=3 name=floor_ground_3 origin=(51.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 5) item=3 name=floor_ground_3 origin=(51.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 6) item=0 name=floor_ground_0 origin=(51.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 7) item=3 name=floor_ground_3 origin=(51.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 8) item=3 name=floor_ground_3 origin=(51.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 9) item=3 name=floor_ground_3 origin=(51.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 10) item=2 name=floor_ground_2 origin=(51.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 0, 11) item=0 name=floor_ground_0 origin=(51.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 2) item=2 name=floor_ground_2 origin=(53.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 3) item=3 name=floor_ground_3 origin=(53.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 4) item=2 name=floor_ground_2 origin=(53.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 5) item=2 name=floor_ground_2 origin=(53.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 6) item=3 name=floor_ground_3 origin=(53.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 7) item=1 name=floor_ground_1 origin=(53.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 8) item=2 name=floor_ground_2 origin=(53.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 9) item=1 name=floor_ground_1 origin=(53.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 10) item=2 name=floor_ground_2 origin=(53.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 0, 11) item=2 name=floor_ground_2 origin=(53.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 2) item=1 name=floor_ground_1 origin=(55.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 3) item=2 name=floor_ground_2 origin=(55.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 4) item=0 name=floor_ground_0 origin=(55.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 5) item=2 name=floor_ground_2 origin=(55.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 6) item=1 name=floor_ground_1 origin=(55.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 7) item=3 name=floor_ground_3 origin=(55.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 8) item=0 name=floor_ground_0 origin=(55.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 9) item=2 name=floor_ground_2 origin=(55.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 10) item=1 name=floor_ground_1 origin=(55.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 0, 11) item=2 name=floor_ground_2 origin=(55.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 2) item=3 name=floor_ground_3 origin=(57.0, 0.0, 5.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 3) item=2 name=floor_ground_2 origin=(57.0, 0.0, 7.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 4) item=0 name=floor_ground_0 origin=(57.0, 0.0, 9.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 5) item=1 name=floor_ground_1 origin=(57.0, 0.0, 11.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 6) item=3 name=floor_ground_3 origin=(57.0, 0.0, 13.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 7) item=3 name=floor_ground_3 origin=(57.0, 0.0, 15.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 8) item=0 name=floor_ground_0 origin=(57.0, 0.0, 17.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 9) item=2 name=floor_ground_2 origin=(57.0, 0.0, 19.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 10) item=2 name=floor_ground_2 origin=(57.0, 0.0, 21.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 0, 11) item=0 name=floor_ground_0 origin=(57.0, 0.0, 23.0) bounds=[P: (-1.0, 1.0, -1.0), S: (2.0, 0.00001, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 3) item=20 name=wall_bottom origin=(57.0, 2.0, 7.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 3) item=29 name=wall_top origin=(57.0, 4.0, 7.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 4) item=20 name=wall_bottom origin=(57.0, 2.0, 9.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 4) item=29 name=wall_top origin=(57.0, 4.0, 9.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 5) item=20 name=wall_bottom origin=(57.0, 2.0, 11.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 5) item=29 name=wall_top origin=(57.0, 4.0, 11.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 6) item=20 name=wall_bottom origin=(57.0, 2.0, 13.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 6) item=29 name=wall_top origin=(57.0, 4.0, 13.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 7) item=20 name=wall_bottom origin=(57.0, 2.0, 15.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 7) item=29 name=wall_top origin=(57.0, 4.0, 15.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 8) item=20 name=wall_bottom origin=(57.0, 2.0, 17.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 8) item=29 name=wall_top origin=(57.0, 4.0, 17.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 9) item=20 name=wall_bottom origin=(57.0, 2.0, 19.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 9) item=29 name=wall_top origin=(57.0, 4.0, 19.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 10) item=20 name=wall_bottom origin=(57.0, 2.0, 21.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 10) item=29 name=wall_top origin=(57.0, 4.0, 21.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 1, 2) item=20 name=wall_bottom origin=(41.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 2, 2) item=29 name=wall_top origin=(41.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(20, 1, 11) item=26 name=wall_small origin=(41.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 1, 2) item=20 name=wall_bottom origin=(43.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 2, 2) item=29 name=wall_top origin=(43.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(21, 1, 11) item=26 name=wall_small origin=(43.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 1, 2) item=20 name=wall_bottom origin=(45.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 2, 2) item=29 name=wall_top origin=(45.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(22, 1, 11) item=26 name=wall_small origin=(45.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 1, 2) item=20 name=wall_bottom origin=(47.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 2, 2) item=29 name=wall_top origin=(47.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(23, 1, 11) item=26 name=wall_small origin=(47.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 1, 2) item=20 name=wall_bottom origin=(49.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 2, 2) item=29 name=wall_top origin=(49.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(24, 1, 11) item=26 name=wall_small origin=(49.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 1, 2) item=20 name=wall_bottom origin=(51.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 2, 2) item=29 name=wall_top origin=(51.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(25, 1, 11) item=26 name=wall_small origin=(51.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 1, 2) item=20 name=wall_bottom origin=(53.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 2, 2) item=29 name=wall_top origin=(53.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(26, 1, 11) item=26 name=wall_small origin=(53.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 1, 2) item=20 name=wall_bottom origin=(55.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 2, 2) item=29 name=wall_top origin=(55.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(27, 1, 11) item=26 name=wall_small origin=(55.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 1.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 2) item=22 name=wall_bottom_inner origin=(57.0, 2.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 2, 2) item=31 name=wall_top_inner origin=(57.0, 4.0, 5.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 2.0)]
+CONNECTOR_GEOMETRY /root/Stage/B1_5/World cell=(28, 1, 11) item=28 name=wall_small_inner origin=(57.0, 2.0, 23.0) bounds=[P: (-1.0, -1.0, -1.0), S: (2.0, 2.0, 2.0)]
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B3 ceiling completely removed
+PASS B3 retains second wall course
+PASS B3 Dark Fairy receives longer recovery
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+ENGINE_EXIT_CODE=-1

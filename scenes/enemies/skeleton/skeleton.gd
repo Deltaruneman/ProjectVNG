@@ -58,7 +58,7 @@ func attack() -> void:
 		var bullet := BULLET_SCENE.instantiate() as RigidBody3D
 		get_tree().current_scene.add_child(bullet)
 		bullet.global_position = global_position + Vector3.UP * 0.7
-		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0
+		bullet.linear_velocity = bullet.global_position.direction_to(attack_target) * 7.0 * projectile_speed_scale
 		bullet.get_node("HitArea3D").damage = attack_damage
 		register_projectile(bullet)
 	elif is_instance_valid(found_player):
@@ -71,16 +71,16 @@ func attack() -> void:
 
 
 func _on_hurt_area_3d_hurt(hit_direction: Vector3, damage: float) -> void:
-	if state == &"death" or state == &"hurt":
+	if state == &"death" or (state == &"hurt" and not _skill_burn_applying):
 		return
-	take_damage(int(damage))
+	take_damage(damage)
 	stop_horizontal()
 	if health <= 0:
 		$Direction/HurtArea3D.set_deferred("collision_layer", 0)
 		$CollisionShape3D.set_deferred("disabled", true)
 		movement_enabled = false
 		_play(&"death")
-	else:
+	elif not _skill_burn_applying:
 		velocity.x = hit_direction.x * 2.0
 		velocity.z = hit_direction.z * 2.0
 		_play(&"hurt")

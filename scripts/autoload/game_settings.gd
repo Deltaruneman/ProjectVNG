@@ -2,7 +2,6 @@ extends Node
 ## Preferences are independent of checkpoint progress. Only primitive data is loaded.
 signal changed
 const PATH := "user://settings.cfg"
-const DEFAULT_CAMERA_VIEW_MODE := 1 # TPS; enum values stay compatible with saved choices.
 const ACTIONS := {
 	"inventory": "Túi đồ", "cheat_menu": "Menu thử nghiệm",
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
@@ -15,7 +14,6 @@ const ACTIONS := {
 const SIZES := [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), Vector2i(2560, 1440)]
 const LIMITS := [0, 30, 60, 90, 120, 144, 165, 240]
 const BASE := {
-	"sensitivity": 0.12, "invert_y": false, "fov": 60.0,
 	"master": 1.0, "music": 0.8, "sfx": 1.0, "ui": 0.8,
 	"mute": false, "background_mute": true, "window_mode": 0, "resolution": 1,
 	"vsync": true, "fps_limit": 0, "render_scale": 1.0, "msaa": 0, "show_fps": false,
@@ -24,7 +22,6 @@ var values: Dictionary = {}
 var defaults: Dictionary = {}
 var bindings: Dictionary = {}
 var default_bindings: Dictionary = {}
-var camera_view_mode := DEFAULT_CAMERA_VIEW_MODE
 var settings_path := PATH
 var load_notice := ""
 var _focused := true
@@ -64,7 +61,6 @@ func reset_defaults() -> void:
 	apply()
 
 func load_settings() -> void:
-	camera_view_mode = DEFAULT_CAMERA_VIEW_MODE
 	values = defaults.duplicate(true)
 	bindings = default_bindings.duplicate(true)
 	load_notice = ""
@@ -75,17 +71,13 @@ func load_settings() -> void:
 	if error != OK or config.get_value("meta", "version", 0) != 1:
 		load_notice = "Không đọc được cài đặt cũ; đang dùng mặc định."
 		return
-	var saved_view: Variant = config.get_value("camera", "view_mode", DEFAULT_CAMERA_VIEW_MODE)
-	if saved_view is int and saved_view in [0, 1, 2]:
-		camera_view_mode = saved_view
+	# Legacy camera preferences are intentionally ignored; framing is fixed.
 	for key: String in defaults:
 		var value: Variant = config.get_value("settings", key, defaults[key])
 		if typeof(value) == typeof(defaults[key]) or (defaults[key] is float and value is int):
 			values[key] = value
 	for key in ["master", "music", "sfx", "ui"]:
 		values[key] = _finite_clamp(values[key], 0.0, 1.0, defaults[key])
-	values.sensitivity = _finite_clamp(values.sensitivity, 0.02, 0.5, 0.12)
-	values.fov = _finite_clamp(values.fov, 45.0, 85.0, 60.0)
 	values.render_scale = _finite_clamp(values.render_scale, 0.5, 1.0, 1.0)
 	values.window_mode = clampi(values.window_mode, 0, 2)
 	values.resolution = clampi(values.resolution, 0, SIZES.size() - 1)
@@ -120,7 +112,6 @@ func _finite_clamp(value: float, low: float, high: float, fallback: float) -> fl
 func save_settings() -> Error:
 	var config := ConfigFile.new()
 	config.set_value("meta", "version", 1)
-	config.set_value("camera", "view_mode", camera_view_mode)
 	for key: String in values:
 		config.set_value("settings", key, values[key])
 	for action: String in bindings:
@@ -219,14 +210,6 @@ func _notification(what: int) -> void:
 		_focused = what == NOTIFICATION_APPLICATION_FOCUS_IN
 		apply_audio()
 
-func apply_camera(rig: Node) -> void:
-	rig.set("mouse_sensitivity", values.sensitivity)
-	rig.set("invert_y", values.invert_y)
-	rig.set("camera_fov", values.fov)
-	var camera := rig.get_node_or_null("Camera3D") as Camera3D
-	if camera != null:
-		camera.fov = values.fov
-
 func apply_display() -> void:
 	Engine.max_fps = values.fps_limit
 	get_viewport().scaling_3d_scale = values.render_scale
@@ -250,11 +233,3 @@ func apply_display() -> void:
 			window.borderless = mode == 1
 			window.size = target_size
 			window.position = screen.position + (screen.size - target_size) / 2
-
-func set_camera_view_mode(mode: int) -> void:
-	if mode not in [0, 1, 2] or camera_view_mode == mode:
-		return
-	camera_view_mode = mode
-	var error := save_settings()
-	if error != OK:
-		push_warning("Cannot save camera preference: " + error_string(error))

@@ -16,14 +16,16 @@ func _ready() -> void:
 	player.set_physics_process(false)
 	var roof := _test_obstacle(Vector3(2,1.1,0), Vector3(8,0.2,4))
 	await frames(3)
-	var drop = _test_drop(Vector3(0,0.8,0), Vector3(4,0.8,0))
+	var drop = _test_drop(Vector3(0,0.8,0), Vector3(100,0.8,0))
+	await frames(3)
+	check(is_equal_approx(drop.global_position.y, 0.8), "default throw flies straight without an arc")
 	var highest := 0.0
 	for i in range(120):
 		await frames()
 		highest = maxf(highest, drop.global_position.y)
 		if drop.landed:
 			break
-	check(highest < 1.01, "ceiling blocks low arc")
+	check(highest < 1.01 and drop.global_position.x <= 7.01, "straight throw stays below ceiling and within7m")
 	check(drop.landed and drop.global_position.y < 0.1, "ceiling contact falls to floor")
 	player.global_position = drop.global_position
 	check(drop.pickup(), "ceiling-blocked weapon can be picked up")
@@ -41,7 +43,7 @@ func _ready() -> void:
 	drop = _test_drop(Vector3(0,0.8,0), Vector3(4,-0.02,0))
 	await frames(90)
 	check(enemy.health == before - 2, "throw deals exactly weapon damage once to real enemy")
-	check(drop.landed, "damaging throw still lands")
+	check(drop.landed and drop.global_position.x <= enemy.global_position.x + 0.2, "first enemy stops the throw and weapon plants on floor")
 	player.global_position = drop.global_position
 	check(drop.pickup(), "damaging weapon remains recoverable")
 	await frames(3)
