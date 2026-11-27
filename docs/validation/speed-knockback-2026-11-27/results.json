@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-27",
+  "baseSpeed": 15.0,
+  "measuredHalfSecondDistance": 7.50000190734863,
+  "directionChecks": 46,
+  "secretRouteChecks": 19,
+  "worldRouteChecks": 48,
+  "total": 113,
+  "failures": 0,
+  "allEngineExitCodes": 0,
+  "allSourceMatches": true,
+  "ladderFacing": "north shaft wall -Z throughout vertical segment",
+  "graphics": "advice only; no shader implementation",
+  "limitations": [
+    "No new Web/export playthrough for15m/s",
+    "Existing shutdown warnings remain",
+    "Visual recommendations are not runtime changes"
+  ]
+}

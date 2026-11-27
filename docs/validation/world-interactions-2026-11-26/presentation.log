@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS left-facing held weapon is mirrored
+PASS right-facing held weapon restores source orientation
+PASS step-up camera height is eased
+PASS camera settles at the landing height
+PASS B3 second wall course preserves footprint at +7.2m
+PASS B3 has no ceiling above the two wall courses
+OCCLUSION_US_PER_TICK 486.333333333333
+AUDIO_BEFORE driver=WASAPI focused=true muted=false
+AUDIO_PEAK -14.6988334655762 muted=false
+PASS combat sound reaches the SFX mixer
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+STAIR_POSITION (404.2381, 1.000176, 400.0) max_camera_lag=0.15132164955139
+PASS real Player climbs physical steps and stays grounded
+PASS stair follow remains within bounded vertical lag
+PRESENTATION_RESULT failures=0
+ENGINE_EXIT_CODE=0

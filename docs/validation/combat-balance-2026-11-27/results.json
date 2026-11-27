@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-27",
+  "engine": "Godot 4.7.2 Compatibility",
+  "isolatedProject": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaCombatBalance-20261127",
+  "isolatedUserData": "C:/Users/BaoHo/AppData/Roaming/ArcanaCombatBalance-20261127",
+  "focused": {
+    "exitCode": 0,
+    "passed": 58,
+    "checks": 58
+  },
+  "transitions": {
+    "exitCode": 0,
+    "passed": 8,
+    "checks": 8
+  },
+  "quickHUD": {
+    "exitCode": 0,
+    "passed": 39,
+    "checks": 39
+  },
+  "legacyPotions": {
+    "exitCode": 1,
+    "status": "failed; checkpoint inventory expectation and subsequent invalid old UID lookup",
+    "passed": 38,
+    "checks": 41
+  },
+  "legacyEXP": {
+    "status": "incomplete; missing obsolete GameManager.exp_points API after two passes; isolated process stopped"
+  },
+  "earlierFocused": {
+    "renderedPassed": 48,
+    "renderedChecks": 48,
+    "headlessPassed": 46,
+    "reason": "observation window did not cover full Fairy action cycle and shield-hit response subsequently changed",
+    "headlessChecks": 47
+  },
+  "tuning": {
+    "burnDurationSeconds": 1.0,
+    "skeletonWarrior": 0.5,
+    "allMagesIncludingSkeletonMage": 1.0,
+    "burnDamagePerSecond": 0.5,
+    "basementAttackScale": 1.0,
+    "basementProjectileScale": 1.0
+  },
+  "allSourceHashesMatch": true,
+  "limitations": [
+    "No full manual campaign or exported build run",
+    "No independent reviewer/teammate acceptance",
+    "Initial baseline probe had uninitialized Player FSM errors; not original-sequence acceptance",
+    "Legacy potion/EXP suites not passing",
+    "Old serialized skill_point_drop metadata outside summon assignment not migrated",
+    "UID fallback, CheatMenu anchor, B2 quota and shutdown ObjectDB/resource warnings remain",
+    "Fixed burn cap suppresses legacy burn bonus effects; data identifiers retained"
+  ]
+}

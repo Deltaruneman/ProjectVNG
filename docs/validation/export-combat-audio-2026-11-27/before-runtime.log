@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+EXPORT_AUDIO_ENV exported=false editor=false driver=WASAPI raw_exists=false resource_exists=true user_dir=C:/Users/BaoHo/AppData/Roaming/ArcanaExportAudio-20261127
+PASS combat stream resolves through imported resource mapping
+FAIL exported sound starts: orb_white
+FAIL exported sound starts: weapon_attack
+FAIL exported sound starts: player_hit
+FAIL exported sound starts: enemy_attack
+FAIL exported sound starts: enemy_hit
+FAIL exported sound starts: parry_success
+FAIL exported sound starts: 
+FAIL exported sound starts: dagger
+FAIL exported sound starts: active_wind_1
+FAIL exported sound starts: active_wind_2
+FAIL exported sound starts: active_wind_3
+FAIL exported sound starts: ultimate_wind_1
+FAIL exported sound starts: ultimate_wind_2
+FAIL exported sound starts: active_fire_1
+FAIL exported sound starts: active_fire_2
+FAIL exported sound starts: active_fire_3
+FAIL exported sound starts: ultimate_fire_1
+FAIL exported sound starts: ultimate_fire_2
+FAIL exported sound starts: fire_impact
+FAIL exported sound starts: fire_hit
+FAIL exported sound starts: active_ice_1
+FAIL exported sound starts: active_ice_2
+FAIL exported sound starts: ultimate_ice_2
+FAIL exported sound starts: active_ice_3
+FAIL exported sound starts: ultimate_ice_1
+FAIL exported sound starts: ice_hit
+FAIL exported sound starts: active_lightning_1
+FAIL exported sound starts: active_lightning_2
+FAIL exported sound starts: active_lightning_3
+FAIL exported sound starts: active_lightning_4
+FAIL exported sound starts: ultimate_lightning_1
+FAIL exported sound starts: ultimate_lightning_2
+FAIL exported sound starts: lightning_hit
+FAIL exported sound starts: wind_hit
+PASS unknown ID creates no audio node
+PASS finished combat sound cleans itself up
+EXPORT_AUDIO_RESULT 3/37 failures=34
+ENGINE_EXIT_CODE=1

@@ -1,0 +1,6 @@
+dark_fairy: Chết tiệt.
+dark_fairy: Ta đã không thể hoàn thành sứ mệnh của một quản ngục.
+dark_fairy: Linh hồn này sẽ được hiến tế. Cầu mong "Ngài" sẽ ban phước.
+Dark Fairy tan biến.
+[signal arg="story_done"]
+[end_timeline]

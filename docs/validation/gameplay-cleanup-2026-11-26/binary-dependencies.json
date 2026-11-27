@@ -1,0 +1,282 @@
+{
+	"assets/meshes/basement_library.meshlib": [
+		{
+			"raw": "uid://biqxiihn3b3ye::::res://assets/grid_map/basement/floor_ground_0_floor_ground_0_floor_ground_0.png",
+			"resolved": "res://assets/grid_map/basement/floor_ground_0_floor_ground_0_floor_ground_0.png"
+		},
+		{
+			"raw": "uid://dc30shn6vtvrv::::res://assets/grid_map/basement/floor_ground_1_floor_ground_1_floor_ground_1.png",
+			"resolved": "res://assets/grid_map/basement/floor_ground_1_floor_ground_1_floor_ground_1.png"
+		},
+		{
+			"raw": "uid://btpq7ll6c821p::::res://assets/grid_map/basement/floor_ground_2_floor_ground_2_floor_ground_2.png",
+			"resolved": "res://assets/grid_map/basement/floor_ground_2_floor_ground_2_floor_ground_2.png"
+		},
+		{
+			"raw": "uid://dlis365e8jd6b::::res://assets/grid_map/basement/floor_ground_3_floor_ground_3_floor_ground_3.png",
+			"resolved": "res://assets/grid_map/basement/floor_ground_3_floor_ground_3_floor_ground_3.png"
+		},
+		{
+			"raw": "uid://d08elbslikc6q::::res://assets/grid_map/basement/floor_path_0_floor_path_0_floor_path_0.png",
+			"resolved": "res://assets/grid_map/basement/floor_path_0_floor_path_0_floor_path_0.png"
+		},
+		{
+			"raw": "uid://cijkfnly2acpx::::res://assets/grid_map/basement/floor_path_1_floor_path_1_floor_path_1.png",
+			"resolved": "res://assets/grid_map/basement/floor_path_1_floor_path_1_floor_path_1.png"
+		},
+		{
+			"raw": "uid://4f4ld40xibpu::::res://assets/grid_map/basement/floor_path_2_floor_path_2_floor_path_2.png",
+			"resolved": "res://assets/grid_map/basement/floor_path_2_floor_path_2_floor_path_2.png"
+		},
+		{
+			"raw": "uid://cyepukach7163::::res://assets/grid_map/basement/floor_path_corner_in_floor_path_corner_in_floor_path_corner_in.png",
+			"resolved": "res://assets/grid_map/basement/floor_path_corner_in_floor_path_corner_in_floor_path_corner_in.png"
+		},
+		{
+			"raw": "uid://ch0otxswkfadt::::res://assets/grid_map/basement/floor_path_corner_out_floor_path_corner_out_floor_path_corner_out.png",
+			"resolved": "res://assets/grid_map/basement/floor_path_corner_out_floor_path_corner_out_floor_path_corner_out.png"
+		},
+		{
+			"raw": "uid://basvtaqdspsyd::::res://assets/grid_map/basement/stair_beside_bottom_stair_beside_bottom_stair_beside_bottom.png",
+			"resolved": "res://assets/grid_map/basement/stair_beside_bottom_stair_beside_bottom_stair_beside_bottom.png"
+		},
+		{
+			"raw": "uid://dimtcgldlkgll::::res://assets/grid_map/basement/stair_beside_medium_stair_beside_medium_stair_beside_medium.png",
+			"resolved": "res://assets/grid_map/basement/stair_beside_medium_stair_beside_medium_stair_beside_medium.png"
+		},
+		{
+			"raw": "uid://bxyvu3ep5k56q::::res://assets/grid_map/basement/stair_beside_top_stair_beside_top_stair_beside_top.png",
+			"resolved": "res://assets/grid_map/basement/stair_beside_top_stair_beside_top_stair_beside_top.png"
+		},
+		{
+			"raw": "uid://pcyubbgadaru::::res://assets/grid_map/basement/stair_bottom_left_stair_bottom_left_stair_bottom_left.png",
+			"resolved": "res://assets/grid_map/basement/stair_bottom_left_stair_bottom_left_stair_bottom_left.png"
+		},
+		{
+			"raw": "uid://dmiwnkfr1ydti::::res://assets/grid_map/basement/stair_bottom_right_stair_bottom_right_stair_bottom_right.png",
+			"resolved": "res://assets/grid_map/basement/stair_bottom_right_stair_bottom_right_stair_bottom_right.png"
+		},
+		{
+			"raw": "uid://d0iplr708330d::::res://assets/grid_map/basement/stair_medium_left_stair_medium_left_stair_medium_left.png",
+			"resolved": "res://assets/grid_map/basement/stair_medium_left_stair_medium_left_stair_medium_left.png"
+		},
+		{
+			"raw": "uid://bcyjuqgcu8g72::::res://assets/grid_map/basement/stair_medium_right_stair_medium_right_stair_medium_right.png",
+			"resolved": "res://assets/grid_map/basement/stair_medium_right_stair_medium_right_stair_medium_right.png"
+		},
+		{
+			"raw": "uid://bh8oa08sh5ovs::::res://assets/grid_map/basement/stair_small_left_stair_small_left_stair_small_left.png",
+			"resolved": "res://assets/grid_map/basement/stair_small_left_stair_small_left_stair_small_left.png"
+		},
+		{
+			"raw": "uid://dtmr3ay2v82e0::::res://assets/grid_map/basement/stair_small_right_stair_small_right_stair_small_right.png",
+			"resolved": "res://assets/grid_map/basement/stair_small_right_stair_small_right_stair_small_right.png"
+		},
+		{
+			"raw": "uid://t7bsexb22vvy::::res://assets/grid_map/basement/stair_top_left_stair_top_left_stair_top_left.png",
+			"resolved": "res://assets/grid_map/basement/stair_top_left_stair_top_left_stair_top_left.png"
+		},
+		{
+			"raw": "uid://hhoou7k0edy0::::res://assets/grid_map/basement/stair_top_right_stair_top_right_stair_top_right.png",
+			"resolved": "res://assets/grid_map/basement/stair_top_right_stair_top_right_stair_top_right.png"
+		},
+		{
+			"raw": "uid://xmfe43qyd6s3::::res://assets/grid_map/basement/wall_bottom_wall_bottom_wall_bottom.png",
+			"resolved": "res://assets/grid_map/basement/wall_bottom_wall_bottom_wall_bottom.png"
+		},
+		{
+			"raw": "uid://dp8u6sshth880::::res://assets/grid_map/basement/wall_bottom_corner_wall_bottom_corner_wall_bottom_corner.png",
+			"resolved": "res://assets/grid_map/basement/wall_bottom_corner_wall_bottom_corner_wall_bottom_corner.png"
+		},
+		{
+			"raw": "uid://ca5ygb2j0a2vi::::res://assets/grid_map/basement/wall_bottom_inner_wall_bottom_inner_wall_bottom_inner.png",
+			"resolved": "res://assets/grid_map/basement/wall_bottom_inner_wall_bottom_inner_wall_bottom_inner.png"
+		},
+		{
+			"raw": "uid://curmugh6ktu6l::::res://assets/grid_map/basement/wall_medium_wall_medium_wall_medium.png",
+			"resolved": "res://assets/grid_map/basement/wall_medium_wall_medium_wall_medium.png"
+		},
+		{
+			"raw": "uid://cm5plcpjsvyx5::::res://assets/grid_map/basement/wall_medium_corner_wall_medium_corner_wall_medium_corner.png",
+			"resolved": "res://assets/grid_map/basement/wall_medium_corner_wall_medium_corner_wall_medium_corner.png"
+		},
+		{
+			"raw": "uid://c32g0nfb4mn3h::::res://assets/grid_map/basement/wall_medium_inner_wall_medium_inner_wall_medium_inner.png",
+			"resolved": "res://assets/grid_map/basement/wall_medium_inner_wall_medium_inner_wall_medium_inner.png"
+		},
+		{
+			"raw": "uid://ceuuxpo1l7bul::::res://assets/grid_map/basement/wall_small_wall_small_wall_small.png",
+			"resolved": "res://assets/grid_map/basement/wall_small_wall_small_wall_small.png"
+		},
+		{
+			"raw": "uid://hucbuusmew04::::res://assets/grid_map/basement/wall_small_corner_wall_small_corner_wall_small_corner.png",
+			"resolved": "res://assets/grid_map/basement/wall_small_corner_wall_small_corner_wall_small_corner.png"
+		},
+		{
+			"raw": "uid://hj8vcj0mcdwx::::res://assets/grid_map/basement/wall_small_inner_wall_small_inner_wall_small_inner.png",
+			"resolved": "res://assets/grid_map/basement/wall_small_inner_wall_small_inner_wall_small_inner.png"
+		},
+		{
+			"raw": "uid://p7urly23al8i::::res://assets/grid_map/basement/wall_top_wall_top_wall_top.png",
+			"resolved": "res://assets/grid_map/basement/wall_top_wall_top_wall_top.png"
+		},
+		{
+			"raw": "uid://dc10k8fg48mvn::::res://assets/grid_map/basement/wall_top_corner_wall_top_corner_wall_top_corner.png",
+			"resolved": "res://assets/grid_map/basement/wall_top_corner_wall_top_corner_wall_top_corner.png"
+		},
+		{
+			"raw": "uid://dlelfd6vfjrst::::res://assets/grid_map/basement/wall_top_inner_wall_top_inner_wall_top_inner.png",
+			"resolved": "res://assets/grid_map/basement/wall_top_inner_wall_top_inner_wall_top_inner.png"
+		},
+		{
+			"raw": "uid://rm3wxu4hmly::::res://KayKit_Dungeon/Assets/obj/floor_tile_small.obj",
+			"resolved": "res://assets/vendor/KayKit_Dungeon/Assets/obj/floor_tile_small.obj"
+		}
+	],
+	"assets/meshes/block_library.meshlib": [
+		{
+			"raw": "uid://c8yo54hptvr1r::::res://assets/meshes/textures/grass_block.png",
+			"resolved": "res://assets/meshes/textures/grass_block.png"
+		},
+		{
+			"raw": "uid://dswtju8ob72bs::::res://assets/meshes/textures/dirt_block.png",
+			"resolved": "res://assets/meshes/textures/dirt_block.png"
+		}
+	],
+	"assets/meshes/forest_library.meshlib": [
+		{
+			"raw": "uid://dnsly5gkcbr13::::res://assets/grid_map/forest/floor_ground_0_floor_ground_0.png",
+			"resolved": "res://assets/grid_map/forest/floor_ground_0_floor_ground_0.png"
+		},
+		{
+			"raw": "uid://b4dtb1eicssc1::::res://assets/grid_map/forest/floor_ground_1_floor_ground_1.png",
+			"resolved": "res://assets/grid_map/forest/floor_ground_1_floor_ground_1.png"
+		},
+		{
+			"raw": "uid://bqom160vmtfxk::::res://assets/grid_map/forest/floor_ground_2_floor_ground_2.png",
+			"resolved": "res://assets/grid_map/forest/floor_ground_2_floor_ground_2.png"
+		},
+		{
+			"raw": "uid://be0f0htf5pgrb::::res://assets/grid_map/forest/floor_ground_3_floor_ground_3.png",
+			"resolved": "res://assets/grid_map/forest/floor_ground_3_floor_ground_3.png"
+		},
+		{
+			"raw": "uid://bomumdyjmlsy0::::res://assets/grid_map/forest/floor_path_0_floor_path_0.png",
+			"resolved": "res://assets/grid_map/forest/floor_path_0_floor_path_0.png"
+		},
+		{
+			"raw": "uid://dx8kl0mgvmd3u::::res://assets/grid_map/forest/floor_path_1_floor_path_1.png",
+			"resolved": "res://assets/grid_map/forest/floor_path_1_floor_path_1.png"
+		},
+		{
+			"raw": "uid://bwduwp8ilap5n::::res://assets/grid_map/forest/floor_path_2_floor_path_2.png",
+			"resolved": "res://assets/grid_map/forest/floor_path_2_floor_path_2.png"
+		},
+		{
+			"raw": "uid://csq46prg88773::::res://assets/grid_map/forest/floor_path_corner_in_floor_path_corner_in.png",
+			"resolved": "res://assets/grid_map/forest/floor_path_corner_in_floor_path_corner_in.png"
+		},
+		{
+			"raw": "uid://c27iyawplanqt::::res://assets/grid_map/forest/floor_path_corner_out_floor_path_corner_out.png",
+			"resolved": "res://assets/grid_map/forest/floor_path_corner_out_floor_path_corner_out.png"
+		},
+		{
+			"raw": "uid://dfawaxkd475qt::::res://assets/grid_map/forest/stair_beside_bottom_stair_beside_bottom.png",
+			"resolved": "res://assets/grid_map/forest/stair_beside_bottom_stair_beside_bottom.png"
+		},
+		{
+			"raw": "uid://dlxitoacomsd0::::res://assets/grid_map/forest/stair_beside_medium_stair_beside_medium.png",
+			"resolved": "res://assets/grid_map/forest/stair_beside_medium_stair_beside_medium.png"
+		},
+		{
+			"raw": "uid://bdgdn87ud64rf::::res://assets/grid_map/forest/stair_beside_top_stair_beside_top.png",
+			"resolved": "res://assets/grid_map/forest/stair_beside_top_stair_beside_top.png"
+		},
+		{
+			"raw": "uid://bhdx0jip61ic1::::res://assets/grid_map/forest/stair_bottom_left_stair_bottom_left.png",
+			"resolved": "res://assets/grid_map/forest/stair_bottom_left_stair_bottom_left.png"
+		},
+		{
+			"raw": "uid://ca7ciftarllh6::::res://assets/grid_map/forest/stair_bottom_right_stair_bottom_right.png",
+			"resolved": "res://assets/grid_map/forest/stair_bottom_right_stair_bottom_right.png"
+		},
+		{
+			"raw": "uid://cf2xr87a0fsq0::::res://assets/grid_map/forest/stair_medium_left_stair_medium_left.png",
+			"resolved": "res://assets/grid_map/forest/stair_medium_left_stair_medium_left.png"
+		},
+		{
+			"raw": "uid://bdpjtrtb53hm5::::res://assets/grid_map/forest/stair_medium_right_stair_medium_right.png",
+			"resolved": "res://assets/grid_map/forest/stair_medium_right_stair_medium_right.png"
+		},
+		{
+			"raw": "uid://c575hxt4jyb5f::::res://assets/grid_map/forest/stair_small_left_stair_small_left.png",
+			"resolved": "res://assets/grid_map/forest/stair_small_left_stair_small_left.png"
+		},
+		{
+			"raw": "uid://duimvl765yb10::::res://assets/grid_map/forest/stair_small_right_stair_small_right.png",
+			"resolved": "res://assets/grid_map/forest/stair_small_right_stair_small_right.png"
+		},
+		{
+			"raw": "uid://bsutkpdhg31u1::::res://assets/grid_map/forest/stair_top_left_stair_top_left.png",
+			"resolved": "res://assets/grid_map/forest/stair_top_left_stair_top_left.png"
+		},
+		{
+			"raw": "uid://g5i1a3slmjvr::::res://assets/grid_map/forest/stair_top_right_stair_top_right.png",
+			"resolved": "res://assets/grid_map/forest/stair_top_right_stair_top_right.png"
+		},
+		{
+			"raw": "uid://bei8131oj2qyp::::res://assets/grid_map/forest/wall_bottom_wall_bottom.png",
+			"resolved": "res://assets/grid_map/forest/wall_bottom_wall_bottom.png"
+		},
+		{
+			"raw": "uid://134h120g6s26::::res://assets/grid_map/forest/wall_bottom_corner_wall_bottom_corner.png",
+			"resolved": "res://assets/grid_map/forest/wall_bottom_corner_wall_bottom_corner.png"
+		},
+		{
+			"raw": "uid://mikod035286p::::res://assets/grid_map/forest/wall_bottom_inner_wall_bottom_inner.png",
+			"resolved": "res://assets/grid_map/forest/wall_bottom_inner_wall_bottom_inner.png"
+		},
+		{
+			"raw": "uid://d2lwyglb8ecof::::res://assets/grid_map/forest/wall_medium_wall_medium.png",
+			"resolved": "res://assets/grid_map/forest/wall_medium_wall_medium.png"
+		},
+		{
+			"raw": "uid://mj7t6mmu1jix::::res://assets/grid_map/forest/wall_medium_corner_wall_medium_corner.png",
+			"resolved": "res://assets/grid_map/forest/wall_medium_corner_wall_medium_corner.png"
+		},
+		{
+			"raw": "uid://jghhch5kgmlj::::res://assets/grid_map/forest/wall_medium_inner_wall_medium_inner.png",
+			"resolved": "res://assets/grid_map/forest/wall_medium_inner_wall_medium_inner.png"
+		},
+		{
+			"raw": "uid://bfuj42cug3bum::::res://assets/grid_map/forest/wall_small_wall_small.png",
+			"resolved": "res://assets/grid_map/forest/wall_small_wall_small.png"
+		},
+		{
+			"raw": "uid://bn2mksypj4tun::::res://assets/grid_map/forest/wall_small_corner_wall_small_corner.png",
+			"resolved": "res://assets/grid_map/forest/wall_small_corner_wall_small_corner.png"
+		},
+		{
+			"raw": "uid://bfxg8t8wc12g8::::res://assets/grid_map/forest/wall_small_inner_wall_small_inner.png",
+			"resolved": "res://assets/grid_map/forest/wall_small_inner_wall_small_inner.png"
+		},
+		{
+			"raw": "uid://cby87pbe8tw4k::::res://assets/grid_map/forest/wall_top_wall_top.png",
+			"resolved": "res://assets/grid_map/forest/wall_top_wall_top.png"
+		},
+		{
+			"raw": "uid://7teosyl31s27::::res://assets/grid_map/forest/wall_top_corner_wall_top_corner.png",
+			"resolved": "res://assets/grid_map/forest/wall_top_corner_wall_top_corner.png"
+		},
+		{
+			"raw": "uid://djmfnvd2sp5wd::::res://assets/grid_map/forest/wall_top_inner_wall_top_inner.png",
+			"resolved": "res://assets/grid_map/forest/wall_top_inner_wall_top_inner.png"
+		}
+	],
+	"assets/meshes/object_library.meshlib": [
+		{
+			"raw": "uid://bbvn10kafkpcc::::res://assets/models/map/tree_tree.png",
+			"resolved": "res://assets/models/map/tree_tree.png"
+		}
+	]
+}

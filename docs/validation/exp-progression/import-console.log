@@ -1,0 +1,231 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+SCRIPT ERROR: Parse Error: Preload file "res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn" does not exist.
+   at: GDScript::reload (res://scenes/player/battle_vfx.gd:4)
+SCRIPT ERROR: Parse Error: Preload file "res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn" does not exist.
+   at: GDScript::reload (res://scenes/player/battle_vfx.gd:5)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scenes/player/player.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/player_hud.gd:0)
+ERROR: Failed to load script "res://ui/player_hud.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (6 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | SkillPointPickup[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | PlayerHUD[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (77 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | pixel_ui_font.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | ._Icon1.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | ._Icon1_big.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | ._Icon2.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | ._Icon2_big.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | ._Icon3.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | ._Icon3_big.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | ._Icon4.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | ._Icon4_big.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | ._Icon5.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | ._Icon5_big.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | ._Icon6.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | ._Icon6_big.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | ._Icon7.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | ._Icon7_big.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | ._Icon8.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | ._Icon8_big.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | ._Icon9.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | ._Icon9_big.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | ._Icon10.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | ._Icon10_big.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | ._Icon11.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | ._Icon11_big.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | ._Icon12.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | ._Icon12_big.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | ._Icon13.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | ._Icon13_big.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ._Icon14.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | ._Icon14_big.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | ._Icon15.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | ._Icon15_big.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | ._Icon16.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | ._Icon16_big.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | ._Icon17.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | ._Icon17_big.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | ._Icon18.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | ._Icon18_big.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | ._Icon19.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | ._Icon19_big.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | ._Icon20.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | ._Icon20_big.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | ._bookmarks.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | ._book_content.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | ._Close_book.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | ._Icons.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | ._info_tileset.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | ._Open_book.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | ._pages_apper.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | ._pages_desappear-Sheet.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | ._sells_full.png[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | ._Text1.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | ._Text2.png[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | ._bookmarks.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | ._book_content.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | ._Close_book.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | ._Close_book_boolmarks.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | ._Icons.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | ._info_tileset.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | ._Open_book.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks1.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | ._Open_book_bookmarks2.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | ._pages_apper.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | ._pages_desappear-Sheet.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | ._sells_full.png[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_left.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | ._Turning_pages_right.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | ._COUPON.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | Reopening scenes...[39m[0m
+WARNING: 'res://assets/meshes/basement_library.meshlib': In external resource #32, invalid UID: 'uid://rm3wxu4hmly' - using text path instead: 'res://KayKit_Dungeon/Assets/obj/floor_tile_small.obj'.
+   at: open (core/io/resource_format_binary.cpp:1025)
+ERROR: Failed loading resource: res://KayKit_Dungeon/Assets/obj/floor_tile_small.obj.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/KKD_library.tres:3 - ext_resource, invalid UID: uid://bkt3pvefrve55 - using text path instead: res://assets/vendor/KayKit_Dungeon/Assets/fbx/dungeon_texture.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/KayKit_Dungeon/Assets/fbx/dungeon_texture.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/KKD_library.tres:4 - ext_resource, invalid UID: uid://cw3ktw3oiiaue - using text path instead: res://assets/vendor/KayKit_Dungeon/Assets/fbx(unity)/dungeon_texture.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/KayKit_Dungeon/Assets/fbx(unity)/dungeon_texture.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/KKD_library.tres:5 - ext_resource, invalid UID: uid://bs7jvkr0ex1l3 - using text path instead: res://assets/vendor/KayKit_Dungeon/Assets/gltf/dungeon_texture.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/KayKit_Dungeon/Assets/gltf/dungeon_texture.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:3 - ext_resource, invalid UID: uid://b4qy2ome5y6hg - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:4 - ext_resource, invalid UID: uid://dwd2g47liu0do - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Roughness.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:5 - ext_resource, invalid UID: uid://dh6htigjbdt13 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_WoodTrim_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:6 - ext_resource, invalid UID: uid://60d2y5dcy0vy - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:7 - ext_resource, invalid UID: uid://b3krxfddyrr64 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_Roughness.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_Roughness.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:8 - ext_resource, invalid UID: uid://bs8oipovv77bx - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RoundTiles_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:9 - ext_resource, invalid UID: uid://2vof5srq0bx5 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:10 - ext_resource, invalid UID: uid://d20b46jdaec68 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_ORM.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_ORM.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:11 - ext_resource, invalid UID: uid://dcuswfx6tiujo - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RockTrim_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:12 - ext_resource, invalid UID: uid://bt4li6ji46ef5 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_MetalOrnaments_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_MetalOrnaments_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:13 - ext_resource, invalid UID: uid://dbmnyn8xv03xj - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_MetalOrnaments_Roughness.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_MetalOrnaments_Roughness.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:14 - ext_resource, invalid UID: uid://v6glu8g2x3ft - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:15 - ext_resource, invalid UID: uid://d22hknmc48b75 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Roughness.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:16 - ext_resource, invalid UID: uid://tsht43l0a4e0 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Brick_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:17 - ext_resource, invalid UID: uid://b0e05l3u7o2cq - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:18 - ext_resource, invalid UID: uid://djttsjhun26dk - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_ORM.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_ORM.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:19 - ext_resource, invalid UID: uid://dq8rjtw3g3let - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_Plaster_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:20 - ext_resource, invalid UID: uid://cqv7a4nckl7a1 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:21 - ext_resource, invalid UID: uid://dxrjuh2kqvhlx - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_Roughness.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_Roughness.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:22 - ext_resource, invalid UID: uid://c43gdu2yk5ar2 - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_Normal.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_UnevenBrick_Normal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:23 - ext_resource, invalid UID: uid://cmbablc60ek3h - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RedBrick_BaseColor.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_RedBrick_BaseColor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://assets/meshes/MVP_library.tres:24 - ext_resource, invalid UID: uid://cxdxcaivugtel - using text path instead: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_VineLeaf_png.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/T_VineLeaf_png.png.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: res://scenes/map/torches/torch.tscn:3 - ext_resource, invalid UID: uid://bpahha2hd0xet - using text path instead: res://assets/vendor/KayKit_Dungeon/Assets/obj/torch_lit.obj
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://assets/vendor/KayKit_Dungeon/Assets/obj/torch_lit.obj.
+   at: _load (core/io/resource_loader.cpp:317)
+[  50% ] [90m[1mloading_editor_layout[22m | Loading central editor layout...[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | Loading plugin window layout...[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | Editor layout ready.[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ERROR: Plugin is not attached to debugger.
+   at: is_active (editor/debugger/editor_debugger_plugin.cpp:102)
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

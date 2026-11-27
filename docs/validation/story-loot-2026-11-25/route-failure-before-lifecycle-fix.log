@@ -1,0 +1,752 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://ui/hud.tscn:5 - ext_resource, invalid UID: uid://bsm81a2xlvfj - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_depth_gloss.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b2.tscn:10 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/skeleton/skeleton_bullet.tscn:5 - ext_resource, invalid UID: uid://b8dbnog54f7et - using text path instead: res://assets/monsters/barrel/barrel_bullet.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS partial revisit fixture finds executioner
+PASS boss defeat saved before death animation finishes
+PASS boss alone does not clear remaining enemies
+WARNING: res://scenes/enemies/skeleton/skeleton_mage.tscn:4 - ext_resource, invalid UID: uid://b57eqxl6sxsfr - using text path instead: res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Mage.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b2.tscn:10 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS partial clear survives reverse trip and save reload
+PASS partial revisit keeps forward portal closed
+WARNING: res://scenes/enemies/skeleton/skeleton_mage.tscn:4 - ext_resource, invalid UID: uid://b57eqxl6sxsfr - using text path instead: res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Mage.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b2.tscn:10 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS ordinary defeat persists; living enemies aren't falsely cleared
+WARNING: res://scenes/enemies/skeleton/skeleton_mage.tscn:4 - ext_resource, invalid UID: uid://b57eqxl6sxsfr - using text path instead: res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Mage.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS B1 authored enemy count
+PASS B1 arrival has floor support
+PASS B1 floor under NorthMage
+PASS B1 floor under NorthGuard
+PASS B1 floor under EastWizard
+PASS B1 floor under EastGuard
+PASS B1 floor under WestMage
+PASS B1 floor under WestGuard
+PASS B1 floor under SouthMage
+PASS B1 floor under SouthGuard
+PASS B1 portal hidden and inactive
+PASS B1 exit has floor support
+PASS B1 early F cannot advance
+PASS B1 death cleanup 1
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 2
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 3
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 4
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 5
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 6
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 7
+PASS B1 partial clear stays closed
+PASS B1 death cleanup 8
+PASS B1 last defeat opens portal
+PASS exit interaction is available
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b2.tscn:10 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS F advances to res://levels/level_1/basement_b2.tscn
+PASS B2 authored enemy count
+PASS B2 arrival has floor support
+PASS B2 floor under WestWizard
+PASS B2 floor under WestGuard
+PASS B2 floor under NorthWizard
+PASS B2 floor under NorthGuard
+PASS B2 floor under UndeadExecutioner
+PASS B2 portal hidden and inactive
+PASS B2 exit has floor support
+PASS B2 early F cannot advance
+PASS B2 death cleanup 1
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 2
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 3
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 4
+PASS B2 partial clear stays closed
+PASS B2 death cleanup 5
+PASS B2 last defeat opens portal
+PASS B2 satisfies the existing B3 gate
+PASS exit interaction is available
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:4 - ext_resource, invalid UID: uid://cwlrolotif8dn - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_closeattack.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:5 - ext_resource, invalid UID: uid://c3sniasfsmtg7 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_createshield.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:6 - ext_resource, invalid UID: uid://dbymqxr8shcpv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:8 - ext_resource, invalid UID: uid://bvs2bfbc3sh51 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_shieldhit.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:9 - ext_resource, invalid UID: uid://dvy5gxnkkod7b - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:10 - ext_resource, invalid UID: uid://l5cyhtktuh3e - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase1/spritesheets/darkfairy_phase1_teleportation.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:11 - ext_resource, invalid UID: uid://bdqqd0swpxi47 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_castspell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:12 - ext_resource, invalid UID: uid://dg2rjd7v18um - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:13 - ext_resource, invalid UID: uid://dqxrww17vv2xv - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_explosion.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:14 - ext_resource, invalid UID: uid://b5ctwsvtsox1o - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:15 - ext_resource, invalid UID: uid://b18hmtvud8cki - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:16 - ext_resource, invalid UID: uid://brdjomoqg11ck - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_spell.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:17 - ext_resource, invalid UID: uid://1q1dvlcxwto4 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_phase2_summonspirits.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:18 - ext_resource, invalid UID: uid://c7uo78q3kenvq - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_phase2/spritesheets/darkfairy_transformation_into_phase2.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:19 - ext_resource, invalid UID: uid://cv1335fblfda - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_death.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:20 - ext_resource, invalid UID: uid://btipqolcx8rqi - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_hurt.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:21 - ext_resource, invalid UID: uid://csi7s0qwdr5sc - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy_anims.tres:22 - ext_resource, invalid UID: uid://le6g0x1u1w67 - using text path instead: res://assets/monsters/darkfairy/darkfairy_full_version/darkfairy_spirits/spritesheets/darkfairy_spirit_summoned.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b3.tscn:13 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS F advances to res://levels/level_1/basement_b3.tscn
+PASS B3 authored enemy count
+PASS B3 arrival has floor support
+PASS B3 floor under DarkFairy
+PASS B3 garden exit is boss-gated
+PASS B3 exit has floor support
+PASS B3 early F cannot advance
+PASS Dark Fairy phase change does not clear B3
+PASS B3 death cleanup 1
+PASS Dark Fairy defeat records B3 clear
+PASS B3 exit unlocks after final defeat
+PASS exit interaction is available
+WARNING: res://levels/level_1/garden.tscn:3 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/garden.tscn
+PASS eight expanded beds contain32 independent cells
+PASS supported cell without number Plot_01
+PASS supported cell without number Plot_01_2
+PASS supported cell without number Plot_01_3
+PASS supported cell without number Plot_01_4
+PASS supported cell without number Plot_02
+PASS supported cell without number Plot_02_2
+PASS supported cell without number Plot_02_3
+PASS supported cell without number Plot_02_4
+PASS supported cell without number Plot_03
+PASS supported cell without number Plot_03_2
+PASS supported cell without number Plot_03_3
+PASS supported cell without number Plot_03_4
+PASS supported cell without number Plot_04
+PASS supported cell without number Plot_04_2
+PASS supported cell without number Plot_04_3
+PASS supported cell without number Plot_04_4
+PASS supported cell without number Plot_05
+PASS supported cell without number Plot_05_2
+PASS supported cell without number Plot_05_3
+PASS supported cell without number Plot_05_4
+PASS supported cell without number Plot_06
+PASS supported cell without number Plot_06_2
+PASS supported cell without number Plot_06_3
+PASS supported cell without number Plot_06_4
+PASS supported cell without number Plot_07
+PASS supported cell without number Plot_07_2
+PASS supported cell without number Plot_07_3
+PASS supported cell without number Plot_07_4
+PASS supported cell without number Plot_08
+PASS supported cell without number Plot_08_2
+PASS supported cell without number Plot_08_3
+PASS supported cell without number Plot_08_4
+PASS F opens real Dialogic, no greeting panel
+PASS Dialogic choice Bắt chuyện
+PASS Dialogic choice Mua bán
+PASS Dialogic choice Rời đi
+PASS NPC Dialogic textbox fits (480, 270)
+PASS NPC choice fits (480, 270)
+PASS NPC choice fits (480, 270)
+PASS NPC choice fits (480, 270)
+PASS NPC Dialogic textbox fits (1280, 720)
+PASS NPC choice fits (1280, 720)
+PASS NPC choice fits (1280, 720)
+PASS NPC choice fits (1280, 720)
+PASS NPC Dialogic textbox fits (800, 800)
+PASS NPC choice fits (800, 800)
+PASS NPC choice fits (800, 800)
+PASS NPC choice fits (800, 800)
+PASS NPC Dialogic textbox fits (540, 960)
+PASS NPC choice fits (540, 960)
+PASS NPC choice fits (540, 960)
+PASS NPC choice fits (540, 960)
+PASS mushroom has a Dialogic speaker portrait
+PASS mushroom renders its correct nonempty atlas image
+PASS foxy has a Dialogic speaker portrait
+PASS foxy renders its correct nonempty atlas image
+PASS chat returns to Dialogic greeting
+PASS Dialogic trade opens shop with Player locked
+PASS four purchases cost4SP
+PASS insufficient SP rejected
+PASS shop back returns to Dialogic
+PASS Dialogic leave releases Player and mouse
+PASS F selects nearest small cell
+PASS new cell plants independently without replacing old crop
+PASS early harvest rejected
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b3.tscn:13 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+WARNING: res://levels/level_1/garden.tscn:3 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS old and subdivided crops survive actual save reload
+PASS small cell harvest exactly once preserves neighbor
+PASS Escape cancels NPC dialogue
+PASS exit interaction is available
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b3.tscn:13 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+PASS F advances to res://levels/level_1/basement_b3.tscn
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+PASS garden return never revives Dark Fairy
+PASS saved clear flag b1_split_cleared
+PASS saved clear flag b2_split_cleared
+PASS saved clear flag b2_cleared
+PASS saved clear flag b3_split_cleared
+WARNING: res://scenes/enemies/skeleton/skeleton_mage.tscn:4 - ext_resource, invalid UID: uid://b57eqxl6sxsfr - using text path instead: res://assets/monsters/skeleton/Fantasy Skeleton Enemies/Skeleton Mage.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B1 stays cleared when revisited
+PASS B1 portal stays open
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b2.tscn:10 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B2 stays cleared when revisited
+PASS B2 portal stays open
+WARNING: res://scenes/enemies/darkfairy/darkfairy.tscn:7 - ext_resource, invalid UID: uid://btciy41vld8a4 - using text path instead: res://assets/ui/kenney_ui-pack/PNG/Red/Default/button_rectangle_flat.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:4 - ext_resource, invalid UID: uid://d2e8jvgr5w8uu - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_01.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:5 - ext_resource, invalid UID: uid://6ed4rfhn0w8l - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_02.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:6 - ext_resource, invalid UID: uid://da5lelhieiv3x - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_03.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:7 - ext_resource, invalid UID: uid://5k865mxi7lvr - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_04.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:8 - ext_resource, invalid UID: uid://b30e02a50sdc2 - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_05.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/checkpoint/checkpoint.tscn:9 - ext_resource, invalid UID: uid://b53vhiofrbe7k - using text path instead: res://assets/sprites/ship_helm/ship_helm_idle_06.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:5 - ext_resource, invalid UID: uid://c1ilwd5wqggpq - using text path instead: res://assets/sprites/door/closing.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:6 - ext_resource, invalid UID: uid://dvxpyrrbvbfqo - using text path instead: res://assets/sprites/door/idle.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/objects/door/door.tscn:7 - ext_resource, invalid UID: uid://ca8bjsnpsw6hy - using text path instead: res://assets/sprites/door/opening.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://levels/level_1/basement_b3.tscn:13 - ext_resource, invalid UID: uid://d2g47jkbtln4 - using text path instead: res://levels/stage.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Parameter "get_viewport()" is null.
+   at: _notification (scene/main/node.cpp:193)
+ERROR: Condition "!is_inside_tree()" is true. Returning: false
+   at: is_enabled (scene/main/node.cpp:1005)
+ERROR: Parameter "get_viewport()" is null.
+   at: _notification (scene/main/node.cpp:193)
+ENGINE_EXIT_CODE=-1073740940

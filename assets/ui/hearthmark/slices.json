@@ -1,0 +1,356 @@
+{
+  "panel_stone": {
+    "file": "ui/panels/panel_stone.png",
+    "group": "panels",
+    "size": [
+      24,
+      24
+    ],
+    "nineSlice": {
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8,
+      "edges": "tile",
+      "center": "tile"
+    },
+    "contentInset": {
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8
+    },
+    "variant": "A",
+    "sheetRect": [
+      100,
+      0,
+      24,
+      24
+    ]
+  },
+  "panel_parchment": {
+    "file": "ui/panels/panel_parchment.png",
+    "group": "panels",
+    "size": [
+      24,
+      24
+    ],
+    "nineSlice": {
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8,
+      "edges": "tile",
+      "center": "tile"
+    },
+    "contentInset": {
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8
+    },
+    "variant": "A",
+    "sheetRect": [
+      125,
+      0,
+      24,
+      24
+    ]
+  },
+  "button_a_wood_normal": {
+    "file": "ui/buttons/button_a_wood_normal.png",
+    "group": "buttons",
+    "size": [
+      16,
+      14
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 5,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "content": {
+      "x": 2,
+      "y": 1,
+      "w": 12,
+      "h": 10
+    },
+    "contentOffsetY": 0,
+    "sheetRect": [
+      50,
+      35,
+      16,
+      14
+    ]
+  },
+  "button_a_wood_hover": {
+    "file": "ui/buttons/button_a_wood_hover.png",
+    "group": "buttons",
+    "size": [
+      16,
+      14
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 5,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "content": {
+      "x": 2,
+      "y": 1,
+      "w": 12,
+      "h": 10
+    },
+    "contentOffsetY": 0,
+    "sheetRect": [
+      67,
+      35,
+      16,
+      14
+    ]
+  },
+  "button_a_wood_pressed": {
+    "file": "ui/buttons/button_a_wood_pressed.png",
+    "group": "buttons",
+    "size": [
+      16,
+      14
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 5,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "content": {
+      "x": 2,
+      "y": 3,
+      "w": 12,
+      "h": 10
+    },
+    "contentOffsetY": 2,
+    "sheetRect": [
+      84,
+      35,
+      16,
+      14
+    ]
+  },
+  "button_a_wood_disabled": {
+    "file": "ui/buttons/button_a_wood_disabled.png",
+    "group": "buttons",
+    "size": [
+      16,
+      14
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 5,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "content": {
+      "x": 2,
+      "y": 1,
+      "w": 12,
+      "h": 10
+    },
+    "contentOffsetY": 0,
+    "sheetRect": [
+      101,
+      35,
+      16,
+      14
+    ]
+  },
+  "tab_wood_active": {
+    "file": "ui/tabs/tab_wood_active.png",
+    "group": "tabs",
+    "size": [
+      16,
+      12
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 2,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "joinsPanelBelow": true,
+    "content": {
+      "x": 2,
+      "y": 2,
+      "w": 12,
+      "h": 9
+    },
+    "sheetRect": [
+      204,
+      70,
+      16,
+      12
+    ]
+  },
+  "tab_wood_inactive": {
+    "file": "ui/tabs/tab_wood_inactive.png",
+    "group": "tabs",
+    "size": [
+      16,
+      12
+    ],
+    "nineSlice": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 2,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "joinsPanelBelow": false,
+    "content": {
+      "x": 2,
+      "y": 3,
+      "w": 12,
+      "h": 7
+    },
+    "sheetRect": [
+      221,
+      70,
+      16,
+      12
+    ]
+  },
+  "slot_normal": {
+    "file": "ui/slots/slot_normal.png",
+    "group": "slots",
+    "size": [
+      20,
+      20
+    ],
+    "nineSlice": {
+      "left": 2,
+      "top": 2,
+      "right": 2,
+      "bottom": 2,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "iconAt": {
+      "x": 2,
+      "y": 2
+    },
+    "sheetRect": [
+      105,
+      85,
+      20,
+      20
+    ]
+  },
+  "slot_hover": {
+    "file": "ui/slots/slot_hover.png",
+    "group": "slots",
+    "size": [
+      20,
+      20
+    ],
+    "nineSlice": {
+      "left": 2,
+      "top": 2,
+      "right": 2,
+      "bottom": 2,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "iconAt": {
+      "x": 2,
+      "y": 2
+    },
+    "sheetRect": [
+      126,
+      85,
+      20,
+      20
+    ]
+  },
+  "slot_selected": {
+    "file": "ui/slots/slot_selected.png",
+    "group": "slots",
+    "size": [
+      20,
+      20
+    ],
+    "nineSlice": {
+      "left": 2,
+      "top": 2,
+      "right": 2,
+      "bottom": 2,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "iconAt": {
+      "x": 2,
+      "y": 2
+    },
+    "sheetRect": [
+      147,
+      85,
+      20,
+      20
+    ]
+  },
+  "scroll_track": {
+    "file": "ui/scrollbar/scroll_track.png",
+    "group": "scrollbar",
+    "size": [
+      8,
+      12
+    ],
+    "nineSlice": {
+      "left": 2,
+      "top": 3,
+      "right": 2,
+      "bottom": 3,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "sheetRect": [
+      231,
+      85,
+      8,
+      12
+    ]
+  },
+  "scroll_thumb": {
+    "file": "ui/scrollbar/scroll_thumb.png",
+    "group": "scrollbar",
+    "size": [
+      8,
+      12
+    ],
+    "nineSlice": {
+      "left": 2,
+      "top": 3,
+      "right": 2,
+      "bottom": 3,
+      "edges": "stretch",
+      "center": "stretch"
+    },
+    "sheetRect": [
+      240,
+      85,
+      8,
+      12
+    ]
+  }
+}

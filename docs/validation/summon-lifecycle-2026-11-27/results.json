@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-27",
+  "engine": "Godot4.7.2 Compatibility",
+  "before": {
+    "failures": 1,
+    "errors": [
+      "filter lambda cannot convert freed Object to Node3D",
+      "Array assigned to Array[Node3D]"
+    ],
+    "exitCode": 1,
+    "checks": 1
+  },
+  "after": {
+    "failures": 0,
+    "exitCode": 0,
+    "checks": 15
+  },
+  "naturalSummonLifetimeSeconds": 18,
+  "actualExpiryWaitSeconds": 20.5,
+  "sourceHashesMatching": 3,
+  "castleSHA256": "5A4EB04D45941D4CA4E4755BC94C9C477D9AE283E441F844C1E82677E24E6982",
+  "limits": [
+    "controlled isolated rendered lifecycle fixture; no complete campaign/export",
+    "existing ObjectDB/resource shutdown warnings remain",
+    "no independent owner/reviewer acceptance"
+  ]
+}

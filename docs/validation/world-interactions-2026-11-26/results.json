@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-27",
+  "focusedChecks": 47,
+  "focusedFailures": 0,
+  "gameplayChecks": 95,
+  "wallChecks": 18,
+  "presentationChecks": 9,
+  "totalChecks": 169,
+  "engineExitCodes": 0,
+  "sourceMatches": true,
+  "limitations": [
+    "Existing shutdown resource leaks and warnings remain",
+    "No export or full campaign run",
+    "Original Castle contact issue was not reproduced"
+  ]
+}

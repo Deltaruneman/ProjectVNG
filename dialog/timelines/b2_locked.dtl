@@ -1,0 +1,4 @@
+prison_door: Linh hồn ta hấp thu vẫn chưa đủ. Ngươi hãy tìm thêm đi.
+foxy: Ơ... Thôi được rồi, ta sẽ cố.
+[signal arg="story_done"]
+[end_timeline]

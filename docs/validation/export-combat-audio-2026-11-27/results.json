@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-27",
+  "platform": "Windows Desktop release 4.7.2",
+  "before": "3/37, 34 sound-start failures, exit1",
+  "after": "46/46, exit0",
+  "driver": "WASAPI",
+  "rawOggExists": false,
+  "remappedResourceExists": true,
+  "representativeSfxPeakDb": -14.6988334655762,
+  "files": [
+    {
+      "file": "scenes/player/battle_vfx.gd",
+      "sha256": "FD971834F8EB7DF20A158B1551E3F5ECF041CAF7A1BA3FF9496C7B90B06A243B",
+      "stagedMatches": true
+    },
+    {
+      "file": "tests/export_combat_audio_check.gd",
+      "sha256": "0921812C1E5B7764AB3891105BEB8710B9A38EFC16A3006DB112143A2C8520E3",
+      "stagedMatches": true
+    },
+    {
+      "file": "tests/export_combat_audio_check.tscn",
+      "sha256": "79E83554BD508DCB94B254798E226883DF3EF8757ED433EB10CC4EED66F75F07",
+      "stagedMatches": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaExportAudio-20261127/before.exe",
+      "sha256": "3D19EE4A764E8BB153BFA7F811F98E0DFB0139C9E0C8BC6B76B93D3ED09185BF",
+      "bytes": 109168640
+    },
+    {
+      "path": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaExportAudio-20261127/before.pck",
+      "sha256": "6263F02FD3D474739F87C3E4605605480477797B4951FF1233FD942AD3CF00C6",
+      "bytes": 117852384
+    },
+    {
+      "path": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaExportAudio-20261127/after.exe",
+      "sha256": "3D19EE4A764E8BB153BFA7F811F98E0DFB0139C9E0C8BC6B76B93D3ED09185BF",
+      "bytes": 109168640
+    },
+    {
+      "path": "C:\\Users\\BaoHo\\AppData\\Local\\Temp\\ArcanaExportAudio-20261127/after.pck",
+      "sha256": "8FD80EB86E6367817D7F4786A0D4CCACE2BA435CC43C8E1B2C7780512BB11326",
+      "bytes": 117852384
+    }
+  ],
+  "limits": [
+    "Fixture main scene, not a delivered campaign executable",
+    "No physical speaker listening or Web/Linux runtime",
+    "Existing ObjectDB shutdown warnings remain"
+  ]
+}

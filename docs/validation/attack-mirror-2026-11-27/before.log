@@ -1,0 +1,160 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS starter_blade-left real input enters attack
+PASS starter_blade-left visible tip follows intended swing
+PASS starter_blade-left mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS starter_blade-left exit restores held pose
+Player: changing from state Idle to Attack
+PASS starter_blade-right real input enters attack
+PASS starter_blade-right visible tip follows intended swing
+PASS starter_blade-right mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS starter_blade-right exit restores held pose
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS sword-left real input enters attack
+PASS sword-left visible tip follows intended swing
+PASS sword-left mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS sword-left exit restores held pose
+Player: changing from state Idle to Attack
+PASS sword-right real input enters attack
+FAIL sword-right visible tip follows intended swing
+FAIL sword-right mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS sword-right exit restores held pose
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS axe-left real input enters attack
+PASS axe-left visible tip follows intended swing
+PASS axe-left mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS axe-left exit restores held pose
+Player: changing from state Idle to Attack
+PASS axe-right real input enters attack
+FAIL axe-right visible tip follows intended swing
+FAIL axe-right mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS axe-right exit restores held pose
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS spear-left real input enters attack
+FAIL spear-left visible tip follows intended swing
+PASS spear-left mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS spear-left exit restores held pose
+Player: changing from state Idle to Attack
+PASS spear-right real input enters attack
+FAIL spear-right visible tip follows intended swing
+PASS spear-right mirrored handle stays at attack grip
+Player: changing from state Attack to Idle
+PASS spear-right exit restores held pose
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Attack
+PASS dagger-left real input enters attack
+Player: changing from state Attack to Idle
+FAIL dagger-left visible tip follows intended swing
+PASS dagger-left mirrored handle stays at attack grip
+PASS dagger-left exit restores held pose
+Player: changing from state Idle to Attack
+PASS dagger-right real input enters attack
+Player: changing from state Attack to Idle
+FAIL dagger-right visible tip follows intended swing
+PASS dagger-right mirrored handle stays at attack grip
+PASS dagger-right exit restores held pose
+ATTACK_MIRROR_RESULT 32/40
+ENGINE_EXIT_CODE=1

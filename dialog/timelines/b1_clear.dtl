@@ -1,0 +1,6 @@
+foxy: Mọi kẻ địch ở đây đã bị loại bỏ... Loại bỏ?? Vậy ta phải làm gì tiếp theo, trong cái nơi bẩn thỉu, ẩm mốc này?
+[signal arg="story_ladder"]
+foxy: Ơ, cái thang kia! Hẳn là ta phải lên trên nhỉ.
+foxy: Uhh... Cứ như vậy trước đi.
+[signal arg="story_done"]
+[end_timeline]

@@ -1,0 +1,34 @@
+class_name Stage
+extends Node3D
+
+## Local encounter pacing. Other stages retain the original combat values.
+@export_range(1.0, 3.0) var enemy_attack_interval_scale := 1.0
+@export_range(0.1, 1.0) var enemy_projectile_speed_scale := 1.0
+
+## The root node of every level. In _ready() it hands itself to GameManager, which decides where
+## the fox appears. Keep the node NAMED "Stage": Node3DFactory finds the level's containers through
+## find_parent("Stage").
+
+@onready var player: Player = $Player
+@onready var camera_rig: CameraRig = $CameraRig
+
+
+func _ready() -> void:
+	if get_node_or_null("Hud") == null:
+		add_child(preload("res://ui/hud.tscn").instantiate())
+	GameManager.register_stage(self)
+	load("res://levels/objects/experience_point/floor_clear_chest.gd").restore_pending.call_deferred(self)
+
+
+## Moves the fox to the spawn point `spawn_name`. Every door and checkpoint joins the
+## "spawn_points" group, has an `id`, and has a Marker3D child named Spawn. Returns false (and
+## warns) if this stage has no such point.
+func place_player_at(spawn_name: String) -> bool:
+	for point: Node in get_tree().get_nodes_in_group("spawn_points"):
+		if is_ancestor_of(point) and point.id == spawn_name:
+			player.global_position = point.get_node("Spawn").global_position
+			player.velocity = Vector3.ZERO
+			camera_rig.snap_to_target()
+			return true
+	push_warning("%s has no spawn point '%s'" % [scene_file_path, spawn_name])
+	return false

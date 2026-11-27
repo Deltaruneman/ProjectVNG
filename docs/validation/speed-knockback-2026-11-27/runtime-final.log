@@ -1,0 +1,164 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS actual Player base speed is15m/s
+PASS enemy scene movement speed unchanged
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Player: changing from state Run to Fall
+Player: changing from state Fall to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+WALK_DISTANCE 7.50000190734863
+PASS real movement covers about7.5m in half second
+Player: changing from state Run to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(-1.0, 0.0) hit=(-1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(-1.0, 0.0) hit=(1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(-1.0, 0.0) hit=(0.0, 0.0, -1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(-1.0, 0.0) hit=(0.0, 0.0, 1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(1.0, 0.0) hit=(-1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(1.0, 0.0) hit=(1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(1.0, 0.0) hit=(0.0, 0.0, -1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(1.0, 0.0) hit=(0.0, 0.0, 1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, -1.0) hit=(-1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, -1.0) hit=(1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, -1.0) hit=(0.0, 0.0, -1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, -1.0) hit=(0.0, 0.0, 1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, 1.0) hit=(-1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, 1.0) hit=(1.0, 0.0, 0.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, 1.0) hit=(0.0, 0.0, -1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS impact direction drives knockback facing=(0.0, 1.0) hit=(0.0, 0.0, 1.0)
+PASS impact does not rotate movement facing
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS actual hurt motion travels along impact (-1.0, 0.0, 0.0)
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS actual hurt motion travels along impact (1.0, 0.0, 0.0)
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS actual hurt motion travels along impact (0.0, 0.0, -1.0)
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS actual hurt motion travels along impact (0.0, 0.0, 1.0)
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS zero-vector hit falls back away from attacker position
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS unknown impact never invents facing-based horizontal push
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Fall
+PASS invincible hit causes no hurt or knockback
+Player: changing from state Fall to Idle
+Nhan sat thuong
+Player: changing from state Idle to Fall
+PASS shield hit causes no hurt or knockback
+Player: changing from state Fall to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+Nhan sat thuong
+PASS hurt invulnerability ignores repeat impact
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+Player: changing from state Hurt to Idle
+PASS knockback respects actual wall collision
+PASS hurt recovery restores state
+SPEED_KNOCKBACK_RESULT 46/46
+ENGINE_EXIT_CODE=0

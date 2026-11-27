@@ -1,0 +1,87 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+Found 15 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Wall_slide
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS real basement Skill Tree present
+PASS Escape pauses real basement
+PASS menu explicitly shows cursor
+PASS movement does not run while paused
+PASS Skill Tree shortcut cannot open behind pause menu
+LAYOUT home viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(361.0, 288.0) scale=(0.390462, 0.390462)
+PASS layout fits: home
+PASS keyboard activates Settings from pause menu
+LAYOUT controls viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(612.0, 349.0) scale=(0.390462, 0.390462)
+PASS layout fits: controls
+LAYOUT controls-bottom viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(612.0, 349.0) scale=(0.390462, 0.390462)
+PASS layout fits: controls-bottom
+PASS duplicate gameplay key is rejected
+PASS conflict leaves complete binding map unchanged
+PASS Escape reserved for menus
+PASS new-game shortcut reserved
+PASS unused key can be rebound: 
+PASS rebind updates actual InputMap
+PASS skill slot key can be rebound
+PASS HUD shows rebound skill slot key
+PASS cannot remove the final action binding
+PASS Escape cancels capture without leaving settings
+PASS camera options removed from control settings
+PASS fixed camera framing
+PASS SFX slider controls live mixer
+PASS master mute takes effect
+PASS background mute on focus loss
+PASS focus gain restores audio
+LAYOUT audio viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(589.0, 349.0) scale=(0.390462, 0.390462)
+PASS layout fits: audio
+PASS cancel restores bindings
+PASS cancel restores mixer
+PASS Apply writes settings file
+PASS ConfigFile reload round trip
+PASS second Apply replaces existing settings file
+LAYOUT display viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(566.0, 358.0) scale=(0.390462, 0.390462)
+PASS layout fits: display
+PASS mode change requires confirmation
+PASS confirmation traps keyboard focus
+PASS fullscreen applied by DisplayServer
+PASS timeout restores original window mode
+PASS timeout dismisses confirmation
+PASS borderless mode applied
+PASS Escape reverts risky display mode
+PASS confirmed 960x540 window size
+LAYOUT small-display viewport=(480.0, 270.0) panel=(960.0, 650.0) min=(566.0, 358.0) scale=(0.390462, 0.390462)
+PASS layout fits: small-display
+PASS menu fits smaller viewport
+PASS defaults restore all preferences and action slots
+PASS write failure is surfaced instead of claiming saved
+PASS Escape resumes gameplay
+PASS fixed camera keeps gameplay cursor visible after resume
+PASS existing Skill Tree opens normally
+SKILL_TREE_STATE true open=true paused=true transitioning=false
+PAUSE_MENU_STATE false
+TREE /root/SettingsMenuCheck/Stage/Player/Hud/SkillTreeLayer/SkillTree visible=false open=false
+TREE /root/SettingsMenuCheck/Stage/Hud/SkillTreeLayer/SkillTree visible=true open=true
+PASS pause menu refuses to steal another pause owner
+PASS Escape closes Skill Tree without opening pause menu
+PASS cinematic pause remains owned externally
+PASS invalid settings types and bounds normalized
+PASS corrupt/conflicting map falls back atomically
+PASS write fixture for separate-process restart test
+SETTINGS_MENU_RESULT 53/53 USER_DATA C:/Users/BaoHo/AppData/Roaming/ArcanaFixedCamera-20261126-ArcanaSettings-T085
+ENGINE_EXIT_CODE=0

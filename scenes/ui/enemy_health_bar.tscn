@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/enemy_health_bar.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://ui/healthbar_full.tres" id="3_progress"]
+[ext_resource type="Texture2D" path="res://ui/healthbar_empty.tres" id="4_empty"]
+
+[node name="EnemyHealthBar" type="TextureProgressBar"]
+z_index = 10
+offset_right = 32.0
+offset_bottom = 8.0
+mouse_filter = 2
+texture_filter = 1
+texture_under = ExtResource("4_empty")
+texture_progress = ExtResource("3_progress")
+step = 0.01
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 2
+stretch_margin_right = 3
+stretch_margin_bottom = 2
+script = ExtResource("1_script")

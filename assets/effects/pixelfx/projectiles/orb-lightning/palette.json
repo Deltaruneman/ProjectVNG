@@ -1,0 +1,14 @@
+{
+  "source": "projectiles/plasma-shot",
+  "palette": [
+    "#272038",
+    "#554059",
+    "#8a6560",
+    "#c89d43",
+    "#f4d84d",
+    "#fff18b",
+    "#fffbc7",
+    "#ffffff"
+  ],
+  "size": 8
+}

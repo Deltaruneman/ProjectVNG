@@ -1,0 +1,384 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 24.10.39.05.241016 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon 760M Graphics
+
+PASS new rig defaults to Top-down
+PASS unobstructed distance and target exclusion
+PASS aim camera moves closer without changing saved orbit zoom
+PASS aim camera shifts to the right shoulder
+PASS aim framing moves Player left of center
+PASS aim keeps Player left across yaw 1.57
+PASS aim keeps Player left across yaw 3.14
+PASS aim keeps Player left across yaw -1.57
+PASS minimum zoom keeps aimed Player visible left of center
+PASS shoulder lens stays outside lateral wall
+PASS release restores normal camera framing
+PASS forward follows yaw 0.00
+PASS forward follows yaw 1.57
+PASS forward follows yaw 3.14
+PASS forward follows yaw -1.57
+PASS thin wall contracts before surface
+PASS collision may contract below user zoom minimum
+PASS obstruction recovery does not pop outward
+PASS obstruction recovery reaches desired zoom
+PASS downward orbit stays above floor
+PASS upward orbit stays below ceiling
+PASS corner orbit clearance 0
+PASS corner orbit clearance 1
+PASS corner orbit clearance 2
+PASS corner orbit clearance 3
+PASS corner orbit clearance 4
+PASS corner orbit clearance 5
+PASS corner orbit clearance 6
+PASS corner orbit clearance 7
+PASS corner orbit clearance 8
+PASS corner orbit clearance 9
+PASS corner orbit clearance 10
+PASS corner orbit clearance 11
+PASS corner orbit clearance 12
+PASS corner orbit clearance 13
+PASS corner orbit clearance 14
+PASS corner orbit clearance 15
+PASS corner orbit clearance 16
+PASS corner orbit clearance 17
+PASS corner orbit clearance 18
+PASS corner orbit clearance 19
+PASS corner orbit clearance 20
+PASS corner orbit clearance 21
+PASS corner orbit clearance 22
+PASS corner orbit clearance 23
+PASS corner orbit clearance 24
+PASS corner orbit clearance 25
+PASS corner orbit clearance 26
+PASS corner orbit clearance 27
+PASS corner orbit clearance 28
+PASS corner orbit clearance 29
+PASS corner orbit clearance 30
+PASS corner orbit clearance 31
+PASS corner orbit clearance 32
+PASS corner orbit clearance 33
+PASS corner orbit clearance 34
+PASS corner orbit clearance 35
+PASS corner orbit clearance 36
+PASS corner orbit clearance 37
+PASS corner orbit clearance 38
+PASS corner orbit clearance 39
+PASS corner orbit clearance 40
+PASS corner orbit clearance 41
+PASS corner orbit clearance 42
+PASS corner orbit clearance 43
+PASS corner orbit clearance 44
+PASS corner orbit clearance 45
+PASS corner orbit clearance 46
+PASS corner orbit clearance 47
+PASS corner orbit clearance 48
+PASS corner orbit clearance 49
+PASS corner orbit clearance 50
+PASS corner orbit clearance 51
+PASS corner orbit clearance 52
+PASS corner orbit clearance 53
+PASS corner orbit clearance 54
+PASS corner orbit clearance 55
+PASS corner orbit clearance 56
+PASS corner orbit clearance 57
+PASS corner orbit clearance 58
+PASS corner orbit clearance 59
+PASS corner orbit clearance 60
+PASS corner orbit clearance 61
+PASS corner orbit clearance 62
+PASS corner orbit clearance 63
+PASS corner orbit clearance 64
+PASS corner orbit clearance 65
+PASS corner orbit clearance 66
+PASS corner orbit clearance 67
+PASS corner orbit clearance 68
+PASS corner orbit clearance 69
+PASS corner orbit clearance 70
+PASS corner orbit clearance 71
+PASS enemy layer does not obstruct camera
+PASS initial overlap fails closed with valid orientation
+PASS close camera fades target sprite
+PASS teleport auto-snaps pivot
+PASS teleport recalculates boom immediately
+PASS target sprite restores after obstruction
+PASS jump vertical lag bounded
+PASS paused cutscene owns camera transform
+PASS camera resumes after pause
+PASS mouse input rotates yaw
+PASS mouse pitch upper clamp
+FAIL mouse pitch lower clamp
+PASS wheel zoom clamps at minimum
+PASS wheel zoom clamps at maximum
+PASS non-solid checkpoint marker fades near lens
+PASS checkpoint marker alpha and cut mode restore
+PASS Escape releases cursor
+PASS gameplay captures cursor
+PASS embedded window focus clears stale application focus
+PASS gameplay recovers external cursor release
+PASS pause releases cursor
+PASS focus loss releases cursor
+PASS Top-down starts at steep pitch
+PASS Top-down releases pointer
+PASS MMB starts Top-down orbit
+PASS Top-down drag rotates and clamps pitch
+PASS MMB release restores pointer
+PASS RMB remains available for parry
+PASS F2 Top-down to TPS
+PASS F2 echo ignored
+PASS F2 TPS to FPS with no boom
+PASS FPS at eye height
+PASS FPS hides body without changing animation visibility
+PASS FPS centered aim
+PASS FPS jump follow has no lag
+PASS FPS ignores wheel zoom
+PASS FPS does not shift to shoulder
+PASS FPS fades nearby checkpoint billboard out of sightline
+PASS FPS restores checkpoint opacity away from sightline
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_foreground_visibility (res://camera_rig.gd:377)
+   GDScript backtrace (most recent call first):
+       [0] _restore_foreground_visibility (res://camera_rig.gd:377)
+       [1] _process (res://camera_rig.gd:184)
+       [2] _run (res://camera_rig_check.gd:303)
+       [3] ticks (res://camera_rig_check.gd:24)
+FAIL freed foreground marker clears without invalid assignment
+PASS temporary FPS visual is cached before deletion
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_foreground_visibility (res://camera_rig.gd:377)
+   GDScript backtrace (most recent call first):
+       [0] _restore_foreground_visibility (res://camera_rig.gd:377)
+       [1] _process (res://camera_rig.gd:184)
+       [2] _run (res://camera_rig_check.gd:312)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _process (res://camera_rig.gd:189)
+       [2] _run (res://camera_rig_check.gd:312)
+       [3] ticks (res://camera_rig_check.gd:24)
+FAIL pause skips freed FPS visual and restores surviving body
+PASS paused F2 blocked
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] set_view_mode (res://camera_rig.gd:65)
+       [2] _unhandled_input (res://camera_rig.gd:232)
+       [3] _run (res://camera_rig_check.gd:317)
+       [4] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+PASS F2 FPS wraps to Top-down
+PASS mode switch restores Top-down pitch
+PASS body render layers and opacity restored
+PASS Top-down aiming preserves overhead framing
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+PASS temporary third-person blade is cached before deletion
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._update_target_visibility (res://camera_rig.gd:375)
+   GDScript backtrace (most recent call first):
+       [0] _update_target_visibility (res://camera_rig.gd:375)
+       [1] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._update_target_visibility (res://camera_rig.gd:375)
+   GDScript backtrace (most recent call first):
+       [0] _update_target_visibility (res://camera_rig.gd:375)
+       [1] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _update_target_visibility (res://camera_rig.gd:359)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._update_target_visibility (res://camera_rig.gd:375)
+   GDScript backtrace (most recent call first):
+       [0] _update_target_visibility (res://camera_rig.gd:375)
+       [1] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _run (res://camera_rig_check.gd:338)
+       [2] ticks (res://camera_rig_check.gd:24)
+FAIL fade update and restoration skip freed blade
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] set_view_mode (res://camera_rig.gd:64)
+       [2] _run (res://camera_rig_check.gd:341)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] set_view_mode (res://camera_rig.gd:65)
+       [2] _run (res://camera_rig_check.gd:341)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+PASS temporary FPS visual cached for switch
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] set_view_mode (res://camera_rig.gd:64)
+       [2] _run (res://camera_rig_check.gd:349)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] set_view_mode (res://camera_rig.gd:65)
+       [2] _run (res://camera_rig_check.gd:349)
+       [3] ticks (res://camera_rig_check.gd:24)
+FAIL switch skips freed FPS visual and restores surviving body
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] set_view_mode (res://camera_rig.gd:64)
+       [2] _run (res://camera_rig_check.gd:341)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] set_view_mode (res://camera_rig.gd:65)
+       [2] _run (res://camera_rig_check.gd:341)
+       [3] ticks (res://camera_rig_check.gd:24)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+PASS temporary FPS visual cached for remove
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _update_target_visibility (res://camera_rig.gd:356)
+       [2] _physics_process (res://camera_rig.gd:315)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_first_person_visibility (res://camera_rig.gd:113)
+   GDScript backtrace (most recent call first):
+       [0] _restore_first_person_visibility (res://camera_rig.gd:113)
+       [1] _exit_tree (res://camera_rig.gd:172)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_target_visibility (res://camera_rig.gd:350)
+   GDScript backtrace (most recent call first):
+       [0] _restore_target_visibility (res://camera_rig.gd:350)
+       [1] _exit_tree (res://camera_rig.gd:173)
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+   at: CameraRig._restore_foreground_visibility (res://camera_rig.gd:377)
+   GDScript backtrace (most recent call first):
+       [0] _restore_foreground_visibility (res://camera_rig.gd:377)
+       [1] _exit_tree (res://camera_rig.gd:174)
+PASS removal restores cursor
+PASS removing FPS rig restores body layers
+RESULT checks=147 failures=5

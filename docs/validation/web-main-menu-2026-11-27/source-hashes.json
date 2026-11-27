@@ -1,0 +1,32 @@
+[
+  {
+    "file": "ui/main_menu.gd",
+    "sha256": "7FCFF5B95C2394277C6E590AC0E34C27E4B8654039738F140A66F068C448E825",
+    "stagedMatches": true
+  },
+  {
+    "file": "ui/main_menu.tscn",
+    "sha256": "5E2F020B9BFCD9E24F904E5978831CDBF88B0646839652F84A6E5A062970F6AC",
+    "stagedMatches": true
+  },
+  {
+    "file": "ui/pause_menu.gd",
+    "sha256": "2CA6084D28776CF82B8597BC1C5B64DF9AE2634F624B52779D1DBF4E9DD13285",
+    "stagedMatches": true
+  },
+  {
+    "file": "scripts/autoload/game_manager.gd",
+    "sha256": "8C03FAC064060B83C28A33A0E5DC709A937D8509656A5399482BE63BBE6E0F04",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/main_menu_check.gd",
+    "sha256": "7A942A3EEB2A143CF442B682C2F6483BC985D2A7B8567771537CBAF2387CCFF1",
+    "stagedMatches": true
+  },
+  {
+    "file": "tests/main_menu_check.tscn",
+    "sha256": "239392FCA1F0B504250D14B7C9A71F845FC41094B8E553D8E1C7BE1B971416B6",
+    "stagedMatches": true
+  }
+]

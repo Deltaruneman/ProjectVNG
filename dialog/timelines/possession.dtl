@@ -1,0 +1,11 @@
+Bạn tỉnh dậy ở một nơi sâu thẳm. Cơ thể rã rời, gông xiềng cũng đã mục nát. Con cáo ấy đã trút hơi thở cuối cùng.
+label Offer
+Bạn có muốn ký sinh vào không?
+- Có
+    [signal arg="story_accept"]
+    Bạn mở mắt, bắt đầu dần thích nghi với cơ thể hiện tại.
+    [signal arg="story_done"]
+    [end_timeline]
+- Không
+    Bạn từ chối. Linh hồn vẫn lặng im giữa ngục tối.
+    jump Offer
