@@ -12,7 +12,8 @@ extends Node3D
 		width = maxf(value, 1.0)
 		if is_inside_tree():
 			_rebuild()
-@export var height := 3.0:
+## Chiều cao va chạm (mét). Cao hơn hẳn hai lần nhảy (~6 m) để không ai nhảy đôi vượt qua; phần hình vẫn thấp.
+@export var height := 10.0:
 	set(value):
 		height = maxf(value, 0.5)
 		if is_inside_tree():

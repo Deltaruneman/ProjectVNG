@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" path="res://levels/objects/experience_point/floor_clear_chest.tscn" id="secret_chest"]
 [ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="secret_hurt"]
 [ext_resource type="Script" uid="uid://bnrpc1cgos3cn" path="res://levels/level_1/secret_wall.gd" id="secret_wall"]
+[ext_resource type="Script" path="res://levels/objects/room/floor_boundary.gd" id="r_fboundary"]
+[ext_resource type="Script" path="res://levels/objects/room/fall_zone.gd" id="r_fzone"]
 
 [sub_resource type="Environment" id="Env_basement"]
 background_mode = 1
@@ -442,3 +444,12 @@ focus_offset = Vector3(0, 1.1, 0)
 
 [node name="BasementStory" type="Node" parent="." unique_id=1249634359]
 script = ExtResource("r_story")
+
+[node name="FloorBoundary" type="Node3D" parent="." node_paths=PackedStringArray("floor_maps")]
+script = ExtResource("r_fboundary")
+floor_maps = [NodePath("../B1/World/Floor"), NodePath("../B1_5/World")]
+metadata/note = "Tường vô hình cao 10 m quanh mép sàn, dựng lúc chạy từ ô sàn (floor_boundary.gd)."
+
+[node name="FallZone" type="Area3D" parent="."]
+script = ExtResource("r_fzone")
+default_spawn = "f1_start"

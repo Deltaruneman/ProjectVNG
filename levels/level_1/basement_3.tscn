@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://levels/objects/room/basement_room.gd" id="r_room"]
 [ext_resource type="PackedScene" path="res://levels/objects/room/room_gate.tscn" id="r_gate"]
 [ext_resource type="Script" path="res://levels/objects/room/floor_exit.gd" id="r_exit"]
+[ext_resource type="Script" path="res://levels/objects/room/floor_boundary.gd" id="r_fboundary"]
+[ext_resource type="Script" path="res://levels/objects/room/fall_zone.gd" id="r_fzone"]
 
 [sub_resource type="Environment" id="Env_basement"]
 background_mode = 1
@@ -186,3 +188,12 @@ focus_offset = Vector3(0, 1.1, 0)
 
 [node name="BasementStory" type="Node" parent="."]
 script = ExtResource("r_story")
+
+[node name="FloorBoundary" type="Node3D" parent="." node_paths=PackedStringArray("floor_maps")]
+script = ExtResource("r_fboundary")
+floor_maps = [NodePath("../B3/World/Floor")]
+metadata/note = "Tường vô hình cao 10 m quanh mép sàn, dựng lúc chạy từ ô sàn (floor_boundary.gd)."
+
+[node name="FallZone" type="Area3D" parent="."]
+script = ExtResource("r_fzone")
+default_spawn = "f3_start"
