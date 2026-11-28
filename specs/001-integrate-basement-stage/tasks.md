@@ -1421,3 +1421,20 @@ User reports Array to Array[Node3D] assignment plus filter callback Cannot conve
 - [x] Rendered natural18s expiry, killed-unit recovery, replacement summon and Necromancer checks15/15 PASS, exit0; tested source/scene3/3 hashes agree.
 - [x] Cumulative per-file/integration/evidence/error/limit record updated; Castle user edit hash unchanged.
 No full campaign/export/independent acceptance or commit/push; prior unrelated open test issues unchanged.
+
+
+## N33 — Straight view, draggable skill menu, HUD shortcuts, Garden stations and bosses (2026-11-27)
+User explicitly requests this bounded Bao UI/camera, Lam/Quan map/farm and Duy boss slice; no independent owner/reviewer agreement claimed. Clean git baseline observed. Preserve existing combat, saves, door IDs/locks/targets and floor progression. AC before implementation: camera yaw0 with matching screen-relative movement; left-drag book header and graph background without buying skills accidentally; separate clickable book T and backpack B adjacent to Q; farm inventory tab Nông sản; usable enchant/brewing tables beside Garden seed merchant using bundled assets/current recipes; bosses visibly larger with twice HP; doors against perimeter walls with surrounding local obstructions removed; basement foreground visibility clarified separately. Scope: camera/HUD/skill layout+graph/inventory/farm, local stage scene placement, two boss scenes and focused checks. Validation: disposable isolated-user-data Godot rendered input, navigation/door arrival/collision and menu/station/boss checks plus captures; source cache and real saves untouched. Full campaign/export and independent review remain outside acceptance. Implementation pending.
+
+N33 clarification: user screenshot confirms entire floor/walls vanish near ladders/door blocks; remove floor-based render hiding (retain secret reveal and ceiling-only hiding) and basement wall-fade helper. User additionally requests basement torch asset repair; reuse textured KayKit mounted model and replace cube flames. Boss increase uses visual sprite1.4x, HP2x; body collision/AI/damage unchanged.
+
+### N33 FINAL
+- [x] Requested camera/HUD/drag/inventory/station/boss/door/visibility/torch implementation completed within recorded scope.
+- [x] Rendered Godot4.7.2 focused66/66 PASS, exit0; actual input and seven door floor-support checks; captures inspected.
+- [x] All166 runtime script/scene/resources match staged project; 178 selected total source/staged hashes agree.
+- [x] Cumulative per-file/integration/evidence/error/limitation record in docs/project-changes-2026-11-14.txt and validation.md; artifacts under docs/validation/layout-refresh-2026-11-27/.
+No full campaign/export, full boss fight/complete ladder-endpoint acceptance or independent owner sign-off; existing warnings remain. No commit/push.
+
+
+## N34 — Show only the occupied basement floor (2026-11-27, planned)
+User reports N33 simultaneous floors lets upper geometry obscure the occupied lower floor; explicitly requests each floor separately. This supersedes N33 both-visible behavior and acceptance. Lam/Quan local presentation boundary; user authorizes correction, no independent review claimed. Preserve all current dirty work including user B2 root translation+5, torch/scene edits, generated UID files and dirty tracked caches. Scope: basement_floor_visibility.gd, focused regression, update superseded layout fixture and retention/evidence docs. AC: B1 visible/B2 hidden below; B2 visible/B1 hidden above; no all-hidden state during ladder movement, normal jumps or door contact; select actual floor surface including edited root transforms; checkpoint/door arrival updates immediately; secret reveal/ceilings/collision policy preserved. Validation: reproduce old overlap, isolated rendered actual scene Player F climb/jump/door arrivals plus exact layer assertions and captures; no map/Player/camera/save/generator/cache edits.

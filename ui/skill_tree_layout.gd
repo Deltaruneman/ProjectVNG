@@ -114,6 +114,8 @@ var _selected_node: SkillTreeNode
 var _hovered_node: SkillTreeNode
 var _zoom_percent: Label
 var _active_graph: SkillTreeGraph
+var _book_dragging := false
+var _book_offset := Vector2.ZERO
 var _graph_zoom := 1.15
 var _tab := "weapon"
 var _is_open := false
@@ -181,6 +183,14 @@ func _match_parent_canvas_scale() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if _book_dragging:
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			_book_dragging = false
+		elif event is InputEventMouseMotion:
+			_book_offset += get_global_transform_with_canvas().basis_xform_inv(event.relative)
+			_layout_book()
+			get_viewport().set_input_as_handled()
+			return
 	var inventory_menu := get_node_or_null("/root/InventoryMenu")
 	if inventory_menu != null and inventory_menu.is_open:
 		return
@@ -213,6 +223,7 @@ func set_open(open: bool) -> void:
 	if open == _is_open:
 		return
 	_is_open = open
+	_book_dragging = false
 	# Finish the current leaf before reversing. Rapid T/Escape changes only
 	# the final intent, without jumping to an unrelated sprite frame.
 	if _transitioning:
@@ -405,6 +416,18 @@ func _build() -> void:
 	folio.size = BOOK_DESIGN_SIZE
 	_page_content.add_child(folio)
 
+	var drag_handle := Control.new()
+	drag_handle.name = "BookDragHandle"
+	drag_handle.position = Vector2(100, 338)
+	drag_handle.size = Vector2(880, 48)
+	drag_handle.mouse_default_cursor_shape = Control.CURSOR_MOVE
+	drag_handle.tooltip_text = "Kéo để di chuyển cửa sổ kỹ năng"
+	drag_handle.gui_input.connect(_on_book_drag_input)
+	_page_content.add_child(drag_handle)
+	var drag_hint := _label("⋮⋮  Kéo để di chuyển", 16, INK)
+	drag_hint.position = Vector2(320, 8)
+	drag_handle.add_child(drag_hint)
+
 	var left := VBoxContainer.new()
 	left.name = "LeftPage"
 	left.position = Vector2(104.0, 390.0)
@@ -488,7 +511,7 @@ func _build() -> void:
 	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 6)
 	right.add_child(_content)
-	var hint := _label("Cuộn: thu / phóng · Chuột giữa: kéo", 12, Color("806743"))
+	var hint := _label("Cuộn: thu / phóng · Chuột trái/giữa: kéo", 12, Color("806743"))
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	right.add_child(hint)
 	_page_number = _label("", 14, Color("806743"))
@@ -560,7 +583,13 @@ func _layout_book() -> void:
 	var left := viewport_size.x * 0.5 + (_frame_bounds.position.x - BOOK_PIVOT.x) * _book_body.scale.x
 	var right := left + _frame_bounds.size.x * _book_body.scale.x
 	var shift_x := clampf(0.0, viewport_size.x * 0.03 - left, viewport_size.x * 0.97 - right)
-	_book_body.position = viewport_size * 0.5 - BOOK_PIVOT + Vector2(shift_x, shift)
+	var centered := viewport_size * 0.5 - BOOK_PIVOT + Vector2(shift_x, shift)
+	_book_body.position = centered
+	# Keep the drag handle reachable even when the player moves the book to an edge.
+	var handle_bounds := _book_body.get_transform() * Rect2(Vector2(100, 338), Vector2(880, 48))
+	_book_offset.x = clampf(_book_offset.x, 8.0 - handle_bounds.position.x, viewport_size.x - 8.0 - handle_bounds.end.x)
+	_book_offset.y = clampf(_book_offset.y, 8.0 - handle_bounds.position.y, viewport_size.y - 16.0 - handle_bounds.end.y)
+	_book_body.position = centered + _book_offset
 
 
 func _refresh() -> void:
@@ -594,13 +623,13 @@ func _build_weapon_tree() -> void:
 	var current_form: String = GameManager.weapon_form
 	if current_form == "":
 		_description_title.text = "CHỌN NGUYÊN TỐ"
-		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột trái/giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
 		var ultimate_milestones := "5 / 8 SP"
 		if current_form == "wind":
 			ultimate_milestones = "5 / 10 SP"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Chiêu tốn 1 / 2 / 3 / 4 SP; tuyệt kỹ 4 / 5 SP. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo." % ultimate_milestones
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP; tuyệt kỹ %s. Chiêu tốn 1 / 2 / 3 / 4 SP; tuyệt kỹ 4 / 5 SP. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột trái/giữa để kéo." % ultimate_milestones
 	var graph: SkillTreeGraph = TREE_GRAPH.new()
 	_prepare_graph(graph)
 	var root_color := Color("e5d08d")
@@ -841,13 +870,13 @@ func _reset_skill_description() -> void:
 	_description_title.add_theme_color_override("font_color", INK)
 	if _tab == "character":
 		_description_title.text = "CÂY NHÂN VẬT"
-		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Điểm dùng chung cho các nhánh. Rê chuột xem chi tiết; chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột trái/giữa để kéo."
 	elif GameManager.weapon_form == "":
 		_description_title.text = "CHỌN NGUYÊN TỐ"
-		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Chọn nguyên tố rồi xác nhận bên trái. Mỗi nhánh cần 1 SP.\n\nCuộn để zoom; chuột trái/giữa để kéo."
 	else:
 		_description_title.text = "CÂY VŨ KHÍ"
-		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột giữa để kéo."
+		_description_body.text = "Mốc kỹ năng: 1 / 4 / 6 / 9 SP. Tiến hóa và tuyệt kỹ cần mở nhánh trước. Chọn kỹ năng rồi xác nhận bên trái.\n\nCuộn để zoom; chuột trái/giữa để kéo."
 
 
 func _show_skill_description(source: Control, title: String, description: String, color: Color) -> void:
@@ -988,3 +1017,11 @@ func _progress_style(color: Color) -> StyleBoxFlat:
 	style.bg_color = color
 	style.set_corner_radius_all(1)
 	return style
+
+
+func _on_book_drag_input(event: InputEvent) -> void:
+	if _transitioning or not _is_open:
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		_book_dragging = event.pressed
+		get_viewport().set_input_as_handled()

@@ -27,11 +27,11 @@ height = 3.1
 collision_layer = 8
 script = ExtResource("1")
 exp_point_drop = 0
-max_health = 40
+max_health = 80
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=806006293]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
-pixel_size = 0.0625
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31, 0)
+pixel_size = 0.0875
 billboard = 1
 shaded = true
 texture_filter = 0

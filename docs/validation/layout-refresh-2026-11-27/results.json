@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-27",
+  "engine": "Godot 4.7.2 Compatibility, rendered 1280x720 / logical 480x270",
+  "passed": 66,
+  "total": 66,
+  "exitCode": 0,
+  "runtimeFilesMatched": 166,
+  "totalHashesMatched": 178,
+  "userData": "isolated ArcanaLayout-20261127",
+  "scope": "actual stage/Player inputs, F ladder visibility, T/B mouse clicks, drag, station F, seven door arrivals, boss resource tuning",
+  "limitations": [
+    "No full campaign/export or independent teammate acceptance.",
+    "Boss artwork 1.4x and HP2x; body collision/AI/attack damage unchanged. Boss tuning checked on actual PackedScene properties; full boss fight balance not rerun.",
+    "Ceiling and unopened secret-room render policy retained; basement wall fade disabled. Nearby opaque walls can still cover the player locally.",
+    "Old GroundExit overhead platform is render-hidden; its hierarchy/collision remain. Only three inspected door-surround wall_small cells removed.",
+    "B2 finite clear_kills warning, BattleFX/automatic-stairs UID fallbacks, CheatMenu anchors, repeated state warnings and exit6 ObjectDB/1 resource warnings remain.",
+    "Legacy full fixed-camera suite and standalone torch-resource suite expectations updated; not rerun separately."
+  ]
+}

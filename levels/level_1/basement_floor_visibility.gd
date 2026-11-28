@@ -1,12 +1,12 @@
 extends Stage
 
 ## Stage của basement_full.tscn. Các nhánh tầng chồng thật lên nhau, nên chỉ render
-## tầng player đang đứng để các tầng khác không che camera.
+## tầng nhân vật đang đứng; tầng phía trên không được che tầng phía dưới.
 ##
 ## Một tầng là con trực tiếp của Stage có metadata `floor_level` (0 = B1, 1 = B2, …). Tầng có
 ## metadata `secret` (B1_5) hiện khi mở cửa hoặc player đứng trong vùng sàn của nó.
 ##
-## Chỉ đổi trạng thái render: va chạm vẫn còn, quái ở tầng bị ẩn vẫn chạy.
+## Phòng bí mật giữ cơ chế mở; chỉ ẩn hình trần, không đổi va chạm.
 ## Lưới nóc phòng chỉ ẩn ở phần hình ảnh; collision của GridMap không bị thay đổi.
 
 ## Mặt sàn tầng 0 ở độ cao này (ô y = 0, cell_center_y = false → 2·0 + 1).
@@ -29,6 +29,7 @@ var _floors: Array[Node3D] = []
 var _ceilings: Array[Node3D] = []
 var _connectors: Array[Dictionary] = []
 var _active_level := -1
+var _floor_heights: Dictionary[int, float] = {}
 ## Tầng secret → Rect2 (x, z) vùng sàn của nó, theo tọa độ thế giới.
 var _secret_areas: Dictionary[Node3D, Rect2] = {}
 
@@ -50,6 +51,9 @@ func _ready() -> void:
 				_ceilings.append(ceiling)
 			if node.get_meta("secret", false):
 				_secret_areas[node] = _floor_area(node)
+	for floor_node in _floors:
+		if not floor_node.get_meta("secret", false):
+			_floor_heights[int(floor_node.get_meta("floor_level"))] = _surface_height(floor_node)
 	for definition in CONNECTOR_DEFINITIONS:
 		# A door to a separate scene is not a connector to an integrated floor.
 		if not _has_level(int(definition["from"])) or not _has_level(int(definition["to"])):
@@ -90,38 +94,68 @@ func _physics_process(_delta: float) -> void:
 	_apply(false)
 
 
-## Ngoài lối nối, giữ tầng theo mặt sàn đang đỡ player. Trong lối nối, chuyển ở nửa chiều cao.
+## Ground contact owns floor selection; ladder transitions occur at the actual landing.
 func current_level() -> int:
-	var connector := _connector_near_player()
-	if not connector.is_empty():
-		var from_level := int(connector["from"])
-		var to_level := int(connector["to"])
-		var midpoint := base_height + (float(from_level) + 0.5) * floor_height
-		var y := player.global_position.y
-		if player.is_on_floor() or player.is_on_wall() or player.is_climbing_ladder():
-			if _active_level == from_level and y >= midpoint + connector_hysteresis:
-				_active_level = to_level
-			elif _active_level == to_level and y <= midpoint - connector_hysteresis:
-				_active_level = from_level
-		return _active_level
-
+	if not _has_level(_active_level):
+		_active_level = _height_level(player.global_position.y)
 	if player.is_on_floor():
 		var supported_level := _supporting_level()
 		if supported_level >= 0:
 			_active_level = supported_level
+			return _active_level
+	var connector := _connector_near_player()
+	if not connector.is_empty() and player.is_climbing_stairs():
+		var from_level := int(connector["from"])
+		var to_level := int(connector["to"])
+		var landing: float = _floor_heights.get(to_level, base_height + to_level * floor_height)
+		if _active_level == from_level and player.global_position.y >= landing - 0.15:
+			_active_level = to_level
+		elif _active_level == to_level and player.global_position.y < landing - connector_hysteresis - 0.15:
+			_active_level = from_level
 	return _active_level
 
 
 func _height_level(y: float) -> int:
-	var candidate := floori((y - base_height + floor_height / 2.0) / floor_height)
-	var nearest := -1
-	for node in _floors:
-		var level := int(node.get_meta("floor_level"))
-		if nearest == -1 or absi(level - candidate) < absi(nearest - candidate):
-			nearest = level
-	# Startup/respawn can precede the first grounded physics tick. Never hide every
-	# floor by guessing a level that is absent from the actual scene.
-	return nearest
+	var selected := -1
+	var best_height := -INF
+	var lowest_level := -1
+	var lowest_height := INF
+	for level: int in _floor_heights:
+		var height: float = _floor_heights[level]
+		if height < lowest_height:
+			lowest_level = level
+			lowest_height = height
+		if height <= y + 0.35 and height > best_height:
+			selected = level
+			best_height = height
+	return selected if selected >= 0 else lowest_level
+
+
+func _surface_height(floor_node: Node3D) -> float:
+	var map := floor_node.get_node_or_null("World/Floor") as GridMap
+	if map == null:
+		map = floor_node.get_node_or_null("World") as GridMap
+	var heights: Array[float] = []
+	if map != null and map.mesh_library != null:
+		for cell: Vector3i in map.get_used_cells():
+			var item := map.get_cell_item(cell)
+			var mesh := map.mesh_library.get_item_mesh(item)
+			if mesh == null: continue
+			var cell_transform := Transform3D(map.get_cell_item_basis(cell).scaled(Vector3.ONE * map.cell_scale), map.map_to_local(cell)) * map.mesh_library.get_item_mesh_transform(item)
+			var bounds: AABB = (map.global_transform * cell_transform) * mesh.get_aabb()
+			heights.append(bounds.end.y)
+	if heights.is_empty():
+		return floor_node.global_position.y + base_height + int(floor_node.get_meta("floor_level")) * floor_height
+	heights.sort()
+	return heights[heights.size() / 2]
+
+
+func place_player_at(spawn_name: String) -> bool:
+	var placed := super.place_player_at(spawn_name)
+	if placed and not _floor_heights.is_empty():
+		_active_level = _height_level(player.global_position.y)
+		_apply(true)
+	return placed
 
 
 func _has_level(level: int) -> bool:
@@ -144,18 +178,23 @@ func _connector_near_player() -> Dictionary:
 func _supporting_level() -> int:
 	var query := PhysicsRayQueryParameters3D.create(
 		player.global_position + Vector3.UP * 0.2,
-		player.global_position - Vector3.UP * 0.35
+		player.global_position - Vector3.UP * 0.35, 1
 	)
 	query.exclude = [player.get_rid()]
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if hit.is_empty():
 		return -1
+	var normal: Vector3 = hit.get("normal", Vector3.ZERO)
+	if normal.y < 0.65:
+		return -1
 	var collider := hit.get("collider") as Node
-	while collider != null:
-		for floor_node in _floors:
-			if floor_node == collider or floor_node.is_ancestor_of(collider):
-				return int(floor_node.get_meta("floor_level"))
-		collider = collider.get_parent()
+	for floor_node in _floors:
+		var floor_map := floor_node.get_node_or_null("World/Floor")
+		if floor_map == null: floor_map = floor_node.get_node_or_null("World")
+		var support := floor_node.get_node_or_null("FloorSupport")
+		if (floor_map != null and (floor_map == collider or floor_map.is_ancestor_of(collider))) \
+				or (support != null and (support == collider or support.is_ancestor_of(collider))):
+			return int(floor_node.get_meta("floor_level"))
 	return -1
 
 
@@ -163,7 +202,7 @@ func _apply(force: bool) -> void:
 	var level := current_level()
 	var flat := Vector2(player.global_position.x, player.global_position.z)
 	for node in _floors:
-		var show: bool = node.get_meta("floor_level") == level
+		var show: bool = int(node.get_meta("floor_level")) == level
 		if _secret_areas.has(node):
 			var reveal_flag := String(node.get_meta("reveal_flag", ""))
 			var opened := not reveal_flag.is_empty() and bool(GameManager.flags.get(reveal_flag, false))

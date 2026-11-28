@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://ekdrygupkwbd" path="res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/Prop_Wagon.gltf" id="11_wagon"]
 [ext_resource type="Script" uid="uid://cthn57qbkick8" path="res://levels/sketch/farm_controller.gd" id="12_farm"]
 
+[ext_resource type="Script" path="res://levels/objects/garden_station.gd" id="garden_station"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.36, 0.58, 0.85, 1)
 sky_horizon_color = Color(0.72, 0.84, 0.92, 1)
@@ -88,14 +90,14 @@ metadata/note = "Nền thấp bên ngoài (mặt Y = 0.5) để lỡ nhảy qua 
 [node name="Transitions" type="Node3D" parent="." unique_id=1318207427]
 
 [node name="Door_from_basement" parent="Transitions" unique_id=176660308 instance=ExtResource("5_door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0.55)
 id = "garden_from_basement"
 target_stage = "res://levels/level_1/basement_b3.tscn"
 target_door = "b3_exit"
 metadata/note = "Cửa về Basement B3. Bên B3, Door_b3_exit cần target_stage = garden.tscn, target_door = garden_from_basement."
 
 [node name="Door_to_castle" parent="Transitions" unique_id=1212154949 instance=ExtResource("5_door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 1, 0.55)
 id = "garden_to_castle"
 target_stage = "res://levels/level_1/castle.tscn"
 target_door = "castle_from_garden"
@@ -554,3 +556,13 @@ script = ExtResource("12_farm")
 plots_path = NodePath("../FarmZone/Plots")
 plot_key_prefix = "garden/"
 merchant_position = Vector3(32, 1, 18)
+
+[node name="EnchantTable" type="Node3D" parent="."]
+position = Vector3(27, 1, 17)
+script = ExtResource("garden_station")
+service = "enchant"
+
+[node name="BrewingTable" type="Node3D" parent="."]
+position = Vector3(37, 1, 17)
+script = ExtResource("garden_station")
+service = "brew"

@@ -203,7 +203,7 @@ func _on_active_skill_slot_changed(slot: int, skill_id: String) -> void:
 
 
 func _build_skill_bar() -> void:
-	var main_slot_count := SLOT_COUNT - 2
+	var main_slot_count := SLOT_COUNT - 3
 	var main_group_width := main_slot_count * SLOT_W + (main_slot_count - 1) * SLOT_GAP + 2.0 * (BAR_PAD + 1.0)
 	var defense_group_width := 2.0 * DEFENSE_SLOT_W + SLOT_GAP + 2.0 * (BAR_PAD + 1.0)
 	var bar_w := main_group_width + defense_group_width + DEFENSE_GROUP_GAP
@@ -240,8 +240,22 @@ func _build_skill_bar() -> void:
 
 	var main_row := _create_skill_group(frame, "PrimarySkills", Color(0.015, 0.025, 0.035, 0.55), Color(0.19, 0.25, 0.28, 0.6))
 	var defense_row := _create_skill_group(frame, "DefenseSkills", Color(0.018, 0.045, 0.055, 0.72), Color("4a929a"))
+	var menu_row := HBoxContainer.new()
+	menu_row.name = "MenuShortcuts"
+	menu_row.anchor_left = center_anchor_x
+	menu_row.anchor_right = center_anchor_x
+	menu_row.anchor_top = 1.0
+	menu_row.anchor_bottom = 1.0
+	menu_row.offset_left = frame.offset_left - 116.0
+	menu_row.offset_right = frame.offset_left - 50.0
+	menu_row.offset_top = frame.offset_top
+	menu_row.offset_bottom = frame.offset_bottom
+	menu_row.add_theme_constant_override("separation", 4)
+	add_child(menu_row)
+	_build_inventory_shortcut(menu_row)
 	for index in SLOT_COUNT:
-		_create_skill_slot(index, defense_row if index == DASH_SLOT or index == PARRY_SLOT else main_row)
+		var row := menu_row if index == SKILL_TREE_SLOT else (defense_row if index == DASH_SLOT or index == PARRY_SLOT else main_row)
+		_create_skill_slot(index, row)
 
 
 
@@ -550,10 +564,13 @@ func _create_skill_slot(index: int, row: HBoxContainer) -> void:
 		icon.offset_top = -2.0
 		icon.offset_right = 1.0
 		icon.offset_bottom = 2.0
-		icon.texture = null
-		placeholder.visible = true
-		placeholder.text = "T"
-		key_label.visible = false
+		var book_icon := AtlasTexture.new()
+		book_icon.atlas = load(SKILL_TREE_BOOK_ICON_SHEET)
+		book_icon.region = SKILL_TREE_BOOK_ICON_REGION
+		icon.texture = book_icon
+		icon.offset_bottom = -7.0
+		placeholder.visible = false
+		key_label.visible = true
 		slot_style.bg_color = Color(0.05, 0.06, 0.07, 0.45)
 		slot_style.border_color = Color("384148")
 		key_label.add_theme_color_override("font_color", Color("ffe19a"))
@@ -671,7 +688,7 @@ func _input_hint(action: String, compact: bool = false) -> String:
 
 
 func _skill_slot_width(index: int) -> float:
-	return 18.0 if index == SKILL_TREE_SLOT else (DEFENSE_SLOT_W if index == DASH_SLOT or index == PARRY_SLOT else SLOT_W)
+	return DEFENSE_SLOT_W if index == DASH_SLOT or index == PARRY_SLOT else SLOT_W
 
 
 func _refresh_action_slot(slot_index: int, action_id: String, action_name: String, remaining: float) -> void:
@@ -1088,3 +1105,34 @@ func _on_level_gained(level: int) -> void:
 	_notice_tween = create_tween()
 	_notice_tween.tween_interval(2.0)
 	_notice_tween.tween_property(_level_notice, "modulate:a", 0.0, 0.6)
+
+
+func _build_inventory_shortcut(row: HBoxContainer) -> void:
+	var button := Button.new()
+	button.name = "BackpackShortcut"
+	button.custom_minimum_size = Vector2(SLOT_W, SLOT_H)
+	button.tooltip_text = _input_hint("inventory") + " · Ba lô"
+	button.focus_mode = Control.FOCUS_NONE
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("17232c")
+	style.border_color = Color("68737a")
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(3)
+	button.add_theme_stylebox_override("normal", style)
+	button.pressed.connect(func() -> void: InventoryMenu.open_menu())
+	row.add_child(button)
+	var icon := TextureRect.new()
+	icon.texture = preload("res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/Backpack.png")
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.position = Vector2(3, 1)
+	icon.size = Vector2(SLOT_W - 6, SLOT_H - 9)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(icon)
+	var key := Label.new()
+	key.text = _input_hint("inventory", true)
+	key.position = Vector2(17, 18)
+	key.add_theme_font_size_override("font_size", 6)
+	key.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(key)

@@ -10,6 +10,9 @@ func _run() -> void:
 	var torch := scene.instantiate()
 	add_child(torch)
 	var flame := torch.get_node_or_null("Flame") as MeshInstance3D
+	if flame == null:
+		var meshes := torch.find_children("*", "MeshInstance3D", true, false)
+		if not meshes.is_empty(): flame = meshes[0] as MeshInstance3D
 	if flame == null or flame.mesh == null:
 		push_error("Torch Flame mesh did not load")
 		get_tree().quit(1)

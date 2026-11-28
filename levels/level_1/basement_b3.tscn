@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="stage"]
 [ext_resource type="Script" path="res://levels/objects/door/clear_portal.gd" id="encounter_progress"]
 
+[ext_resource type="PackedScene" path="res://scenes/map/torches/torch.tscn" id="mounted_torch"]
+
 [sub_resource type="Environment" id="Environment_1ccrl"]
 background_mode = 1
 background_color = Color(0.015, 0.012, 0.02, 1)
@@ -44,7 +46,7 @@ metadata/floor_level = 2
 mesh_library = ExtResource("2_0i3fv")
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(458776, 2, 1441818, 458778, 2, 1048602, 458777, 1, 655386)
+"cells": PackedInt32Array()
 }
 metadata/_editor_floor_ = Vector3(0, 7, 0)
 
@@ -90,59 +92,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 3)
 
 [node name="Torches" type="Node3D" parent="B3" unique_id=786394237]
 
-[node name="Torch0" type="OmniLight3D" parent="B3/Torches" unique_id=1749712292]
+[node name="Torch0" parent="B3/Torches" unique_id=1749712292 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 15.6, -0.6)
 light_color = Color(1, 0.62, 0.32, 1)
 light_energy = 2.2
 omni_range = 11.0
 omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch0" unique_id=1493555016]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_y6pd3")
-
-[node name="Torch1" type="OmniLight3D" parent="B3/Torches" unique_id=681253790]
+[node name="Torch1" parent="B3/Torches" unique_id=681253790 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 15.6, -0.6)
 light_color = Color(1, 0.62, 0.32, 1)
 light_energy = 2.2
 omni_range = 11.0
 omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch1" unique_id=769833008]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_y6pd3")
-
-[node name="Torch2" type="OmniLight3D" parent="B3/Torches" unique_id=1384532689]
+[node name="Torch2" parent="B3/Torches" unique_id=1384532689 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4, 15.6, 13)
 light_color = Color(1, 0.62, 0.32, 1)
 light_energy = 2.2
 omni_range = 11.0
 omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch2" unique_id=266406400]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_y6pd3")
-
-[node name="Torch3" type="OmniLight3D" parent="B3/Torches" unique_id=626272664]
+[node name="Torch3" parent="B3/Torches" unique_id=626272664 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 15.6, 17)
 light_color = Color(1, 0.62, 0.32, 1)
 light_energy = 2.2
 omni_range = 11.0
 omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B3/Torches/Torch3" unique_id=1242371863]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_y6pd3")
-
 [node name="Door_b3_down" parent="B3" unique_id=97764041 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 13, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 13, 0.55)
 id = "b3_down"
 target_stage = "res://levels/level_1/basement_full.tscn"
 target_door = "b2_up"
 metadata/note = "Thang xuống B2"
 
 [node name="Door_b3_exit" parent="B3" unique_id=458261634 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 0.55)
 id = "b3_exit"
 target_stage = "res://levels/level_1/garden.tscn"
 target_door = "garden_from_basement"
@@ -168,6 +154,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 13, 9)
 id = "b3_start"
 
 [node name="GroundExit" type="Node3D" parent="." unique_id=35331806]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0)
 metadata/floor_level = 3
 

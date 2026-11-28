@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
 [ext_resource type="MeshLibrary" uid="uid://uavljtls5sk3" path="res://assets/meshes/MVP_library.tres" id="3_mohxj"]
 [ext_resource type="PackedScene" path="res://levels/objects/enemy_zone/enemy_zone.tscn" id="4_mohxj"]
-[ext_resource type="PackedScene" uid="uid://icalni7ywn0a" path="res://scenes/map/torches/torch.tscn" id="5_0i3fv"]
 [ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="5_7roa1"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="6_lpgvr"]
 [ext_resource type="PackedScene" uid="uid://cuj64tj6us5wl" path="res://scenes/enemies/skeleton/skeleton_mage.tscn" id="7_kohv5"]
@@ -17,6 +16,7 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/arcane/evil_wizard_2.tscn" id="13_dbw46"]
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
 [ext_resource type="Script" uid="uid://dlhp1k1nbtcl2" path="res://levels/objects/automatic_stairs.gd" id="auto_ladder"]
+[ext_resource type="PackedScene" uid="uid://icalni7ywn0a" path="res://scenes/map/torches/torch.tscn" id="mounted_torch"]
 [ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
 [ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
 [ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
@@ -38,44 +38,14 @@ size = Vector3(1.3, 3, 10)
 [sub_resource type="BoxShape3D" id="AutoLadderShape"]
 size = Vector3(2.4, 2, 2.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w875x"]
-albedo_color = Color(1, 0.55, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.5, 0.15, 1)
-emission_energy_multiplier = 3.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_kohv5"]
-material = SubResource("StandardMaterial3D_w875x")
-size = Vector3(0.25, 0.5, 0.25)
-
 [sub_resource type="BoxShape3D" id="SecretRoomFloorSupport"]
 size = Vector3(18, 1, 20)
 
 [sub_resource type="BoxShape3D" id="SecretDoorFloorSupport"]
 size = Vector3(2, 1, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8shw5"]
-albedo_color = Color(1, 0.55, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.5, 0.15, 1)
-emission_energy_multiplier = 3.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_jnqiw"]
-material = SubResource("StandardMaterial3D_8shw5")
-size = Vector3(0.25, 0.5, 0.25)
-
 [sub_resource type="SphereShape3D" id="NotebookRange"]
 radius = 1.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbw46"]
-albedo_color = Color(1, 0.55, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.5, 0.15, 1)
-emission_energy_multiplier = 3.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_pwane"]
-material = SubResource("StandardMaterial3D_dbw46")
-size = Vector3(0.25, 0.5, 0.25)
 
 [node name="Stage" type="Node3D" unique_id=1684922925]
 script = ExtResource("1_i11w6")
@@ -184,46 +154,23 @@ shape = SubResource("AutoLadderShape")
 [node name="Torches" type="Node3D" parent="B1" unique_id=693443714]
 transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Torch-mid" parent="B1/Torches" unique_id=1466570129 instance=ExtResource("5_0i3fv")]
+[node name="Torch-mid" parent="B1/Torches" unique_id=1466570129 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.396384, 3.4, 15.09)
 
-[node name="Torch1" parent="B1/Torches" unique_id=1396609942 instance=ExtResource("5_0i3fv")]
+[node name="Torch1" parent="B1/Torches" unique_id=1396609942 instance=ExtResource("mounted_torch")]
 transform = Transform3D(0.42261824, -0.38302228, -0.82139385, 0, 0.9063078, -0.42261833, 0.9063078, 0.17860621, 0.38302222, 29, 3.6, -2.224533)
 
-[node name="Torch" parent="B1/Torches" unique_id=1498798753 instance=ExtResource("5_0i3fv")]
+[node name="Torch" parent="B1/Torches" unique_id=1498798753 instance=ExtResource("mounted_torch")]
 transform = Transform3D(0.42261824, -0.38302225, -0.8213938, 0, 0.90630776, -0.42261827, 0.9063078, 0.17860618, 0.3830222, 15, 3.6, -2.225)
 
-[node name="Flame" parent="B1/Torches/Torch" index="0" unique_id=549225515]
-transform = Transform3D(0.94942546, 0.31399244, 0, -0.31399244, 0.94942546, 0, 0, 0, 1, -0.21729004, -0.55211496, -0.07757187)
-
-[node name="Torch2" parent="B1/Torches" unique_id=2026836483 instance=ExtResource("5_0i3fv")]
+[node name="Torch2" parent="B1/Torches" unique_id=2026836483 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32334626, 3.6, 23)
 
-[node name="Flame" parent="B1/Torches/Torch2" index="0" unique_id=549225515]
-transform = Transform3D(0.9492835, 0.3144215, 0, -0.3144215, 0.9492835, 0, 0, 0, 1, -2.2842388, -0.55211496, -0.07757187)
-
-[node name="Torch3" type="OmniLight3D" parent="B1/Torches" unique_id=561764617]
+[node name="Torch3" parent="B1/Torches" unique_id=561764617 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.6, 3.6, 7)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B1/Torches/Torch3" unique_id=1926066184]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7637177, 0, -1.7735729)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_kohv5")
-
-[node name="Torch4" type="OmniLight3D" parent="B1/Torches" unique_id=1177881656]
+[node name="Torch4" parent="B1/Torches" unique_id=1177881656 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1.499, 0, 0, 0, 1, 0, 0, 0, 1.499, 38.228634, 3.6, 23)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
-
-[node name="Flame" type="MeshInstance3D" parent="B1/Torches/Torch4" unique_id=439371965]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_kohv5")
 
 [node name="Checkpoint_b1" parent="B1" unique_id=129885796 instance=ExtResource("12_checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 12)
@@ -259,27 +206,11 @@ obstacle_maps = [NodePath("../../B1/HiddenGate_B1_5/B1_5Side")]
 
 [node name="Torches" type="Node3D" parent="B1_5" unique_id=1435247681]
 
-[node name="Torch0" type="OmniLight3D" parent="B1_5/Torches" unique_id=1209234884]
+[node name="Torch0" parent="B1_5/Torches" unique_id=1209234884 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 3.6, 5.4)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch0" unique_id=567274946]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_jnqiw")
-
-[node name="Torch1" type="OmniLight3D" parent="B1_5/Torches" unique_id=1761168824]
+[node name="Torch1" parent="B1_5/Torches" unique_id=1761168824 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 3.6, 17)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
-
-[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch1" unique_id=1247298142]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_jnqiw")
 
 [node name="SecretChest" parent="B1_5" unique_id=2144557076 instance=ExtResource("secret_chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 1, 15)
@@ -288,6 +219,7 @@ guaranteed_weapon = false
 
 [node name="PrisonNotebook" type="Node3D" parent="B1_5" unique_id=202675325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
+visible = false
 script = ExtResource("notebook")
 
 [node name="Book" type="Sprite3D" parent="B1_5/PrisonNotebook" unique_id=1328896040]
@@ -370,7 +302,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 7, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 7, 5)
 
 [node name="Door_b2_up" parent="B2" unique_id=255794386 instance=ExtResource("13_b2_door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.1885, 5.973031, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6, -1.45)
 id = "b2_up"
 target_stage = "uid://d12u1s460ag67"
 target_door = "b3_down"
@@ -380,49 +312,17 @@ metadata/note = "Thang lên B3"
 
 [node name="Torches" type="Node3D" parent="B2" unique_id=2102926584]
 
-[node name="Torch0" type="OmniLight3D" parent="B2/Torches" unique_id=1695686096]
+[node name="Torch0" parent="B2/Torches" unique_id=1695686096 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 9.6, -0.6)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B2/Torches/Torch0" unique_id=231796273]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_pwane")
-
-[node name="Torch1" type="OmniLight3D" parent="B2/Torches" unique_id=1662183905]
+[node name="Torch1" parent="B2/Torches" unique_id=1662183905 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 9.6, -0.6)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B2/Torches/Torch1" unique_id=58453145]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_pwane")
-
-[node name="Torch2" type="OmniLight3D" parent="B2/Torches" unique_id=1714297053]
+[node name="Torch2" parent="B2/Torches" unique_id=1714297053 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4, 9.6, 15)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
 
-[node name="Flame" type="MeshInstance3D" parent="B2/Torches/Torch2" unique_id=1278349299]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_pwane")
-
-[node name="Torch3" type="OmniLight3D" parent="B2/Torches" unique_id=1850633338]
+[node name="Torch3" parent="B2/Torches" unique_id=1850633338 instance=ExtResource("mounted_torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 9.6, 15)
-light_color = Color(1, 0.62, 0.32, 1)
-light_energy = 2.2
-omni_range = 11.0
-omni_attenuation = 1.2
-
-[node name="Flame" type="MeshInstance3D" parent="B2/Torches/Torch3" unique_id=920066819]
-cast_shadow = 0
-mesh = SubResource("BoxMesh_pwane")
 
 [node name="Checkpoint_b2" parent="B2" unique_id=609146146 instance=ExtResource("12_checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 6, 3)
@@ -441,7 +341,3 @@ target = NodePath("../Player")
 
 [node name="BasementStory" type="Node" parent="." unique_id=1041056428]
 script = ExtResource("story_adapter")
-
-[editable path="B1/Torches/Torch1"]
-[editable path="B1/Torches/Torch"]
-[editable path="B1/Torches/Torch2"]

@@ -227,8 +227,8 @@ func _refresh() -> void:
 	_clear(_tabs)
 	_clear(_list)
 	_clear(_detail)
-	_title.text = "THỬ NGHIỆM" if page == "enchant" else "TÚI ĐỒ"
-	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["farm_items", "Vật phẩm"]]:
+	_title.text = "BÀN ENCHANT" if page == "enchant" else "TÚI ĐỒ"
+	for entry in [["equipment", "Trang bị"], ["consumables", "Tiêu hao"], ["farm_items", "Nông sản"]]:
 		var tab := _button(_tabs, entry[1], _show_page.bind(entry[0]))
 		for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 			tab.add_theme_stylebox_override(state, _skin("tab_wood_active" if page == entry[0] else "tab_wood_inactive", 10))

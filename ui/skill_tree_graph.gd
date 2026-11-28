@@ -30,7 +30,7 @@ func _gui_input(event: InputEvent) -> void:
 		elif mouse_button.button_index == MOUSE_BUTTON_WHEEL_DOWN and mouse_button.pressed:
 			set_zoom(zoom_level - 0.1)
 			accept_event()
-		elif mouse_button.button_index == MOUSE_BUTTON_MIDDLE:
+		elif mouse_button.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_MIDDLE]:
 			_panning = mouse_button.pressed
 			accept_event()
 	elif event is InputEventMouseMotion and _panning:

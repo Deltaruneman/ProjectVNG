@@ -7,7 +7,7 @@ extends Node3D
 enum ViewMode { TOP_DOWN, TPS, FPS }
 var view_mode: ViewMode = ViewMode.TOP_DOWN
 var top_down_pitch_degrees := 50.0
-var top_down_yaw_degrees := -45.0
+var top_down_yaw_degrees := 0.0
 var top_down_distance := 22.0
 var eye_height := 1.35
 
@@ -94,7 +94,7 @@ func _focus_offset() -> Vector3:
 func _apply_fixed_view() -> void:
 	view_mode = ViewMode.TOP_DOWN
 	top_down_pitch_degrees = 50.0
-	top_down_yaw_degrees = -45.0
+	top_down_yaw_degrees = 0.0
 	top_down_distance = 22.0
 	yaw = deg_to_rad(top_down_yaw_degrees)
 	pitch = deg_to_rad(top_down_pitch_degrees)
@@ -109,9 +109,10 @@ func _ready() -> void:
 	camera.near = 0.05
 	_query.shape = _shape
 	_query.collide_with_areas = false
-	_wall_occlusion = preload("res://scenes/camera/wall_occlusion.gd").new()
-	_wall_occlusion.rig = self
-	add_child(_wall_occlusion)
+	if not get_parent().scene_file_path.get_file().begins_with("basement"):
+		_wall_occlusion = preload("res://scenes/camera/wall_occlusion.gd").new()
+		_wall_occlusion.rig = self
+		add_child(_wall_occlusion)
 	snap_to_target()
 
 func _can_control() -> bool:
@@ -127,7 +128,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 	pass # Inputs belong to existing gameplay and menus.
 
 func movement_vector(input: Vector2) -> Vector3:
-	return Vector3(input.x, 0.0, input.y).rotated(Vector3.UP, deg_to_rad(-45.0))
+	return Vector3(input.x, 0.0, input.y).rotated(Vector3.UP, yaw)
 
 func snap_to_target() -> void:
 	if not is_instance_valid(target):

@@ -56,7 +56,7 @@ func _run() -> void:
 	player.invincible = true
 	await frames(30)
 	check(rig.target == player and rig.camera.is_current(), "actual basement Stage binds Player and current Camera3D")
-	check(is_equal_approx(rig.camera.fov, 35.0) and is_equal_approx(rig.yaw, -PI / 4.0), "single left-to-right diagonal action view")
+	check(is_equal_approx(rig.camera.fov, 35.0) and is_zero_approx(rig.yaw), "single straight action view")
 	await capture("basement")
 	# Real Stage/Player/HUD on an isolated flat platform for repeatable inputs.
 	var platform := StaticBody3D.new()
