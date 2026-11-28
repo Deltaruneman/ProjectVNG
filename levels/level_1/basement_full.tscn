@@ -17,9 +17,6 @@
 [ext_resource type="Script" uid="uid://daep7kk3rouex" path="res://levels/level_1/basement_b2_progress.gd" id="14_b2_progress"]
 [ext_resource type="Script" uid="uid://dlhp1k1nbtcl2" path="res://levels/objects/automatic_stairs.gd" id="auto_ladder"]
 [ext_resource type="PackedScene" uid="uid://icalni7ywn0a" path="res://scenes/map/torches/torch.tscn" id="mounted_torch"]
-[ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
-[ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
-[ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
 [ext_resource type="PackedScene" path="res://levels/objects/experience_point/floor_clear_chest.tscn" id="secret_chest"]
 [ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="secret_hurt"]
 [ext_resource type="Script" uid="uid://bnrpc1cgos3cn" path="res://levels/level_1/secret_wall.gd" id="secret_wall"]
@@ -43,9 +40,6 @@ size = Vector3(18, 1, 20)
 
 [sub_resource type="BoxShape3D" id="SecretDoorFloorSupport"]
 size = Vector3(2, 1, 10)
-
-[sub_resource type="SphereShape3D" id="NotebookRange"]
-radius = 1.5
 
 [node name="Stage" type="Node3D" unique_id=1684922925]
 script = ExtResource("1_i11w6")
@@ -218,31 +212,6 @@ chest_id = "basement_b1_secret"
 guaranteed_weapon = false
 offscreen_indicator_enabled = false
 
-[node name="PrisonNotebook" type="Node3D" parent="B1_5" unique_id=202675325]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
-visible = false
-script = ExtResource("notebook")
-
-[node name="Book" type="Sprite3D" parent="B1_5/PrisonNotebook" unique_id=1328896040]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-pixel_size = 0.018
-billboard = 1
-texture_filter = 0
-texture = ExtResource("notebook_icon")
-
-[node name="Label" type="Label3D" parent="B1_5/PrisonNotebook" unique_id=704821168]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-pixel_size = 0.007
-billboard = 1
-text = "Sổ ghi chép"
-
-[node name="InteractiveArea3D" type="Area3D" parent="B1_5/PrisonNotebook" unique_id=675402047]
-script = ExtResource("notebook_interact")
-prompt_height = 1.1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="B1_5/PrisonNotebook/InteractiveArea3D" unique_id=762079316]
-shape = SubResource("NotebookRange")
-
 [node name="B2" type="Node3D" parent="." unique_id=2076872938]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 script = ExtResource("14_b2_progress")
@@ -302,16 +271,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 7, 2)
 [node name="LadderSpot_B2_B3" type="Marker3D" parent="B2" unique_id=52967816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 7, 5)
 
-[node name="LadderDown_B2_B1" type="Area3D" parent="B2"]
+[node name="LadderDown_B2_B1" type="Area3D" parent="B2" unique_id=1064874454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 6.2, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("auto_ladder")
 destination = Vector3(-2, -10.2, 0)
-climb_height = -10.2
 ladder = true
+climb_height = -10.2
 
-[node name="Shape" type="CollisionShape3D" parent="B2/LadderDown_B2_B1"]
+[node name="Shape" type="CollisionShape3D" parent="B2/LadderDown_B2_B1" unique_id=1346911659]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("AutoLadderShape")
 

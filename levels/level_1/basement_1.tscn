@@ -3,8 +3,18 @@
 [ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
 [ext_resource type="MeshLibrary" uid="uid://6qsq1khaqva3" path="res://assets/meshes/KKD_library.tres" id="2_mohxj"]
 [ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
+[ext_resource type="PackedScene" uid="uid://b88utee7jpgcg" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_patternA_red.gltf" id="dc_banner_a"]
+[ext_resource type="PackedScene" uid="uid://cwgm1obmh0ell" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_shield_red.gltf" id="dc_banner_s"]
+[ext_resource type="PackedScene" uid="uid://cheo0ohdnowli" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_thin_red.gltf" id="dc_banner_t"]
+[ext_resource type="PackedScene" uid="uid://bjk0q2n733msr" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_large.gltf" id="dc_barrel"]
+[ext_resource type="PackedScene" uid="uid://bvuea83ihdm3r" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_small_stack.gltf" id="dc_barrels"]
+[ext_resource type="PackedScene" uid="uid://bkaqy2gncf158" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/crates_stacked.gltf" id="dc_crates"]
+[ext_resource type="PackedScene" uid="uid://cduartu6sw4kx" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/keg_decorated.gltf" id="dc_keg"]
+[ext_resource type="PackedScene" uid="uid://bp7x8e1g3gxen" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/pillar_decorated.gltf" id="dc_pillar"]
+[ext_resource type="Script" uid="uid://ba22qpqsy7om5" path="res://levels/objects/decor/decor_prop.gd" id="dc_prop"]
+[ext_resource type="PackedScene" uid="uid://dlvkr70bk3b3u" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/rubble_half.gltf" id="dc_rubble"]
+[ext_resource type="PackedScene" uid="uid://um3uq7u4uax1" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/torch_mounted.gltf" id="dc_torch"]
 [ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
-[ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
 [ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="r_camera"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="r_checkpoint"]
@@ -20,17 +30,7 @@
 [ext_resource type="PackedScene" path="res://levels/objects/experience_point/floor_clear_chest.tscn" id="secret_chest"]
 [ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="secret_hurt"]
 [ext_resource type="Script" uid="uid://bnrpc1cgos3cn" path="res://levels/level_1/secret_wall.gd" id="secret_wall"]
-[ext_resource type="Script" path="res://levels/objects/decor/decor_prop.gd" id="dc_prop"]
-[ext_resource type="PackedScene" uid="uid://b88utee7jpgcg" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_patternA_red.gltf" id="dc_banner_a"]
-[ext_resource type="PackedScene" uid="uid://cwgm1obmh0ell" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_shield_red.gltf" id="dc_banner_s"]
-[ext_resource type="PackedScene" uid="uid://cheo0ohdnowli" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_thin_red.gltf" id="dc_banner_t"]
-[ext_resource type="PackedScene" uid="uid://bjk0q2n733msr" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_large.gltf" id="dc_barrel"]
-[ext_resource type="PackedScene" uid="uid://bvuea83ihdm3r" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_small_stack.gltf" id="dc_barrels"]
-[ext_resource type="PackedScene" uid="uid://bkaqy2gncf158" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/crates_stacked.gltf" id="dc_crates"]
-[ext_resource type="PackedScene" uid="uid://cduartu6sw4kx" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/keg_decorated.gltf" id="dc_keg"]
-[ext_resource type="PackedScene" uid="uid://bp7x8e1g3gxen" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/pillar_decorated.gltf" id="dc_pillar"]
-[ext_resource type="PackedScene" uid="uid://dlvkr70bk3b3u" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/rubble_half.gltf" id="dc_rubble"]
-[ext_resource type="PackedScene" uid="uid://um3uq7u4uax1" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/torch_mounted.gltf" id="dc_torch"]
+
 [sub_resource type="Environment" id="Env_basement"]
 background_mode = 1
 background_color = Color(0.012, 0.01, 0.016, 1)
@@ -104,7 +104,6 @@ data = {
 script = ExtResource("3_0ceix")
 floor_map = NodePath("../World/Floor")
 obstacle_maps = [NodePath("../World/Wall")]
-walkable_prefixes = PackedStringArray("Floor_")
 
 [node name="HiddenGate_B1_5" type="Node3D" parent="B1" unique_id=1334025431]
 script = ExtResource("secret_wall")
@@ -162,6 +161,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch0" unique_id=1700764658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch1" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1707493316]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 3.6, 2.1)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -172,6 +176,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch1" unique_id=1164337638]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch1" unique_id=785770767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="Torch2" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1372236462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 3.6, 23.9)
@@ -184,6 +193,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch2" unique_id=2067757847]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch3" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1084808029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 3.6, 23.9)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -194,6 +208,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch3" unique_id=2089342074]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch3" unique_id=1453261318]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="Room2" type="Node3D" parent="B1" unique_id=315599372 node_paths=PackedStringArray("enemies", "entry_gates", "exit_gates")]
 script = ExtResource("r_room")
@@ -235,6 +254,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch0" unique_id=338674310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch1" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=919984588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 3.6, 32.1)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -245,6 +269,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch1" unique_id=1537475273]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch1" unique_id=924371550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="Torch2" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=874971115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5, 3.6, 55.9)
@@ -257,6 +286,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch2" unique_id=751315127]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch3" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=1701670676]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 3.6, 55.9)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -267,6 +301,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch3" unique_id=1980782224]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch3" unique_id=749464139]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="Room3" type="Node3D" parent="B1" unique_id=898730341 node_paths=PackedStringArray("enemies", "entry_gates", "exit_gates", "clear_reward")]
 script = ExtResource("r_room")
@@ -310,6 +349,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch0" unique_id=2077027224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch1" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1699449164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 3.6, 78.1)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -320,6 +364,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch1" unique_id=520091202]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch1" unique_id=550778112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="Torch2" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1098332041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5, 3.6, 101.9)
@@ -332,6 +381,11 @@ omni_attenuation = 1.2
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
 
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch2" unique_id=1650460352]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
 [node name="Torch3" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1136090750]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 3.6, 101.9)
 light_color = Color(1, 0.62, 0.32, 1)
@@ -342,6 +396,11 @@ omni_attenuation = 1.2
 [node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch3" unique_id=58245351]
 cast_shadow = 0
 mesh = SubResource("Mesh_flame")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch3" unique_id=24783244]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 0, -0.5, 0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
 
 [node name="ClearReward" type="Marker3D" parent="B1/Room3" unique_id=403198223]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 1, 90)
@@ -369,6 +428,290 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 [node name="Checkpoint_start" parent="B1" unique_id=1289772626 instance=ExtResource("r_checkpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 13)
 id = "f1_start"
+
+[node name="Decor" type="Node3D" parent="B1" unique_id=728979196]
+metadata/note = "Sinh bởi tools/basement_decor.py. Mỗi món là DecorProp: kéo/xoay/đổi model trực tiếp được."
+
+[node name="Room1" type="Node3D" parent="B1/Decor" unique_id=516794606]
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room1" unique_id=1833961574]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 17, 1, 7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room1" unique_id=1783606625]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 31, 1, 7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room1" unique_id=1980130141]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 17, 1, 19)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room1" unique_id=1155408685]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 31, 1, 19)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room1" unique_id=585832632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1, 3.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room1" unique_id=499374834]
+transform = Transform3D(-0.00020365318, 0, 1, 0, 1, 0, -1, 0, -0.00020365318, 11, 1, 5.3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room1" unique_id=1797852653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6, 1, 3.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room1" unique_id=285779508]
+transform = Transform3D(-0.00020365318, 0, -1, 0, 1, 0, 1, 0, -0.00020365318, 37, 1, 5.3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room1" unique_id=692965503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 20.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room1" unique_id=280371731]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 37.8, 1, 22.45)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room1" unique_id=809077249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Crates2" type="Node3D" parent="B1/Decor/Room1" unique_id=610882106]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 25, 1, 23)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room1" unique_id=113701237]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 13.25, 1.45, 2.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room1" unique_id=71272394]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 24, 1.45, 2.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_s")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room1" unique_id=337497427]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 34.75, 1.45, 2.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Room2" type="Node3D" parent="B1/Decor" unique_id=2124063326]
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room2" unique_id=1490633175]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 59, 1, 39)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room2" unique_id=1927526988]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 73, 1, 39)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room2" unique_id=687892832]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 59, 1, 49)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room2" unique_id=1555629619]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 73, 1, 49)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room2" unique_id=872117369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.4, 1, 33.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room2" unique_id=409084049]
+transform = Transform3D(-0.00020365318, 0, 1, 0, 1, 0, -1, 0, -0.00020365318, 53, 1, 35.3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room2" unique_id=91530266]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 79.8, 1, 33.55)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room2" unique_id=2038026518]
+transform = Transform3D(-0.9999458, 0, -0.010407109, 0, 1, 0, 0.010407109, 0, -0.9999458, 53, 1, 55)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room2" unique_id=477442642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.4, 1, 54.95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room2" unique_id=1520790213]
+transform = Transform3D(-0.00020365318, 0, 1, 0, 1, 0, -1, 0, -0.00020365318, 53, 1, 52.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room2" unique_id=1187590672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79, 1, 52.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Crates2" type="Node3D" parent="B1/Decor/Room2" unique_id=852487439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67, 1, 33)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room2" unique_id=1335111436]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 55.25, 1.45, 32.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room2" unique_id=1680710310]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 66, 1.45, 32.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_s")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room2" unique_id=271541191]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 76.75, 1.45, 32.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room2" unique_id=1909238342]
+transform = Transform3D(-0.0001731052, 0, -0.85, 0, 0.85, 0, 0.85, 0, -0.0001731052, 79.88, 1.45, 44)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_a")
+
+[node name="Room3" type="Node3D" parent="B1/Decor" unique_id=18348349]
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room3" unique_id=1056233654]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 67, 1, 85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room3" unique_id=2127113283]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 81, 1, 85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room3" unique_id=1598866590]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 67, 1, 95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room3" unique_id=2026549796]
+transform = Transform3D(0.85, 0, 0, 0, 0.6, 0, 0, 0, 0.85, 81, 1, 95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room3" unique_id=33667745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.2, 1, 79.55)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room3" unique_id=1890989079]
+transform = Transform3D(0.9989422, 0, 0.04598378, 0, 1, 0, -0.04598378, 0, 0.9989422, 89, 1, 79)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room3" unique_id=1386995007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.6, 1, 79.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room3" unique_id=1201926041]
+transform = Transform3D(-0.00020365318, 0, -1, 0, 1, 0, 1, 0, -0.00020365318, 89, 1, 81.3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Keg1" type="Node3D" parent="B1/Decor/Room3" unique_id=638522306]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 60.4, 1, 101)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_keg")
+collision_size = Vector3(3.4, 2, 1.9)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room3" unique_id=480977683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59, 1, 98.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room3" unique_id=1127374276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.6, 1, 100.95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room3" unique_id=388928804]
+transform = Transform3D(-0.00020365318, 0, -1, 0, 1, 0, 1, 0, -0.00020365318, 89, 1, 98.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel4" type="Node3D" parent="B1/Decor/Room3" unique_id=1955061339]
+transform = Transform3D(-0.99999994, 0, -0.00040730633, 0, 1, 0, 0.00040730633, 0, -0.99999994, 75, 1, 101)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room3" unique_id=1188622863]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 61.75, 1.45, 78.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room3" unique_id=1633197289]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 86.25, 1.45, 78.12)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room3" unique_id=1639898421]
+transform = Transform3D(-0.0001731052, 0, -0.85, 0, 0.85, 0, 0.85, 0, -0.0001731052, 89.88, 1.45, 90)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_a")
 
 [node name="B1_5" type="Node3D" parent="." unique_id=1596855732]
 metadata/floor_level = 0
@@ -420,13 +763,6 @@ guaranteed_weapon = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
 script = ExtResource("notebook")
 
-[node name="Book" type="Sprite3D" parent="B1_5/PrisonNotebook" unique_id=1008771957]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-pixel_size = 0.018
-billboard = 1
-texture_filter = 0
-texture = ExtResource("notebook_icon")
-
 [node name="Label" type="Label3D" parent="B1_5/PrisonNotebook" unique_id=463184671]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 pixel_size = 0.007
@@ -462,390 +798,3 @@ metadata/note = "Tường vô hình cao 10 m quanh mép sàn, dựng lúc chạy
 [node name="FallZone" type="Area3D" parent="." unique_id=1477274044]
 script = ExtResource("r_fzone")
 default_spawn = "f1_start"
-
-[node name="Decor" type="Node3D" parent="B1"]
-metadata/note = "Sinh bởi tools/basement_decor.py. Mỗi món là DecorProp: kéo/xoay/đổi model trực tiếp được."
-
-[node name="Room1" type="Node3D" parent="B1/Decor"]
-
-[node name="Room2" type="Node3D" parent="B1/Decor"]
-
-[node name="Room3" type="Node3D" parent="B1/Decor"]
-
-[node name="Pillar1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(17, 1, 7)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar2" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(31, 1, 7)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar3" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(17, 1, 19)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar4" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(31, 1, 19)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Barrel1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(13.4, 1, 3.05)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(11, 1, 5.3)
-rotation = Vector3(0, 1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Barrel2" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(34.6, 1, 3.05)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels2" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(37, 1, 5.3)
-rotation = Vector3(0, -1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Barrel3" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(11, 1, 20.7)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Rubble1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(37.8, 1, 22.45)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_rubble")
-collision_size = Vector3(3.6, 2.2, 2.6)
-collision_offset = Vector3(2, 0, 0)
-
-[node name="Crates1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(25, 1, 3)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_crates")
-collision_size = Vector3(2, 2.1, 2.1)
-
-[node name="Crates2" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(25, 1, 23)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_crates")
-collision_size = Vector3(2, 2.1, 2.1)
-
-[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(13.25, 1.45, 2.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(24, 1.45, 2.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_s")
-
-[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room1"]
-position = Vector3(34.75, 1.45, 2.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch0"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch1"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch2"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch3"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="Pillar1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(59, 1, 39)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar2" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(73, 1, 39)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar3" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(59, 1, 49)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar4" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(73, 1, 49)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Barrel1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(55.4, 1, 33.05)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(53, 1, 35.3)
-rotation = Vector3(0, 1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Rubble1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(79.8, 1, 33.55)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_rubble")
-collision_size = Vector3(3.6, 2.2, 2.6)
-collision_offset = Vector3(2, 0, 0)
-
-[node name="Crates1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(53, 1, 55)
-rotation = Vector3(0, 3.152, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_crates")
-collision_size = Vector3(2, 2.1, 2.1)
-
-[node name="Barrel2" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(55.4, 1, 54.95)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels2" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(53, 1, 52.7)
-rotation = Vector3(0, 1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Barrel3" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(79, 1, 52.7)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Crates2" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(67, 1, 33)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_crates")
-collision_size = Vector3(2, 2.1, 2.1)
-
-[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(55.25, 1.45, 32.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(66, 1.45, 32.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_s")
-
-[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(76.75, 1.45, 32.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room2"]
-position = Vector3(79.88, 1.45, 44)
-rotation = Vector3(0, -1.571, 0)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_a")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch0"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch1"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch2"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch3"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="Pillar1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(67, 1, 85)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar2" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(81, 1, 85)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar3" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(67, 1, 95)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Pillar4" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(81, 1, 95)
-scale = Vector3(0.85, 0.6, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_pillar")
-collision_size = Vector3(1.6, 4, 1.6)
-
-[node name="Rubble1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(58.2, 1, 79.55)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_rubble")
-collision_size = Vector3(3.6, 2.2, 2.6)
-collision_offset = Vector3(2, 0, 0)
-
-[node name="Crates1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(89, 1, 79)
-rotation = Vector3(0, 0.046, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_crates")
-collision_size = Vector3(2, 2.1, 2.1)
-
-[node name="Barrel1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(86.6, 1, 79.05)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(89, 1, 81.3)
-rotation = Vector3(0, -1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Keg1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(60.4, 1, 101)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_keg")
-collision_size = Vector3(3.4, 2, 1.9)
-
-[node name="Barrel2" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(59, 1, 98.7)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrel3" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(86.6, 1, 100.95)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Barrels2" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(89, 1, 98.7)
-rotation = Vector3(0, -1.571, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrels")
-collision_size = Vector3(1.8, 1.77, 1)
-
-[node name="Barrel4" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(75, 1, 101)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_barrel")
-collision_size = Vector3(1.7, 2, 1.7)
-
-[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(61.75, 1.45, 78.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(86.25, 1.45, 78.12)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_t")
-
-[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room3"]
-position = Vector3(89.88, 1.45, 90)
-rotation = Vector3(0, -1.571, 0)
-scale = Vector3(0.85, 0.85, 0.85)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_banner_a")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch0"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch1"]
-position = Vector3(0, -0.5, -0.1)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch2"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
-
-[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch3"]
-position = Vector3(0, -0.5, 0.1)
-rotation = Vector3(0, 3.142, 0)
-script = ExtResource("dc_prop")
-model = ExtResource("dc_torch")
