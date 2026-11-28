@@ -27,7 +27,7 @@ height = 3.1
 collision_layer = 8
 script = ExtResource("1")
 exp_point_drop = 0
-max_health = 80
+max_health = 60
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=806006293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31, 0)
@@ -84,6 +84,7 @@ offset_right = 140.0
 offset_bottom = 12.0
 grow_horizontal = 2
 mouse_filter = 2
+step = 0.01
 nine_patch_stretch = true
 stretch_margin_left = 3
 stretch_margin_top = 2
@@ -91,7 +92,6 @@ stretch_margin_right = 3
 stretch_margin_bottom = 2
 texture_under = ExtResource("6_empty")
 texture_progress = ExtResource("5_progress")
-step = 0.01
 
 [node name="Name" type="Label" parent="BossHUD" unique_id=106804999]
 visible = false

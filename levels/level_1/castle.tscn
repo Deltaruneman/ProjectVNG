@@ -948,6 +948,17 @@ obstacle_maps = [NodePath("../World/PathBlockers")]
 [node name="StairRailing" type="Node3D" parent="F2" unique_id=107398627]
 metadata/note = "Lan can quanh lỗ cầu thang, chỉ chừa lối ở cạnh bắc."
 
+[node name="StairsDown" type="Area3D" parent="F2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 26.5)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_stairs")
+destination = Vector3(0, -8, 19)
+
+[node name="Shape" type="CollisionShape3D" parent="F2/StairsDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("StairEntranceShape")
+
 [node name="East1" parent="F2/StairRailing" unique_id=455663642 instance=ExtResource("barrier")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 1, 30)
 

@@ -120,7 +120,7 @@ func run() -> void:
 			check(arena.get_used_cells()==cells and arena.mesh_library==library,"arena source cells and shared library remain unchanged")
 			await place(Vector3(54,1.1,60.6))
 			var wall: GridMap = stage.get_node("F1/World/Wall")
-			check(faded_count(wall)>0,"Castle foreground wall still fades beside Player")
+			check(faded_count(wall)>0,"Castle lower-screen wall still fades")
 			await capture("castle-wall-fade")
 			await place(Vector3(54,1.1,32))
 			await frames(30)

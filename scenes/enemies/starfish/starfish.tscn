@@ -25,6 +25,7 @@ height = 1.1
 
 [node name="Starfish" type="CharacterBody3D" unique_id=445343183]
 collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_58l8i")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1488825546]
@@ -64,6 +65,7 @@ metadata/_custom_type_script = "uid://coy8holsj103m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=13899280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+scale = Vector3(1.25, 1.25, 1.25)
 shape = SubResource("CapsuleShape3D_xr6ft")
 
 [node name="FrontRayCast3D" type="RayCast3D" parent="Direction" unique_id=1994059442]

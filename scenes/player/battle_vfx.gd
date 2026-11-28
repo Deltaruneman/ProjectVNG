@@ -201,6 +201,20 @@ static func play_skill_sound(parent: Node3D, skill_id: String) -> void:
 		"weapon_attack":
 			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
 			volume_db = -8.0
+		"weapon_attack_sword":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 1.ogg"
+			volume_db = -8.0
+		"weapon_attack_axe":
+			relative_path = "Chopping and Mining/chop 1.ogg"
+			volume_db = -9.0
+		"weapon_attack_spear":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 2.ogg"
+			pitch_scale = 0.82
+			volume_db = -8.0
+		"weapon_attack_dagger":
+			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg"
+			pitch_scale = 1.18
+			volume_db = -8.0
 		"weapon_throw":
 			relative_path = "Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg"
 			pitch_scale = 1.15

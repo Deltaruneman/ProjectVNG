@@ -55,6 +55,8 @@ func attack() -> void:
 	if state != &"attack":
 		return
 	if ranged:
+		if is_instance_valid(found_player):
+			attack_target = found_player.global_position + Vector3.UP * 0.7
 		var bullet := BULLET_SCENE.instantiate() as RigidBody3D
 		get_tree().current_scene.add_child(bullet)
 		bullet.global_position = global_position + Vector3.UP * 0.7

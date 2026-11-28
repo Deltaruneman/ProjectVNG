@@ -80,19 +80,31 @@ func _can_replace_grid(map: GridMap) -> bool:
 		and map.find_children("*", "VisualInstance3D", true, false).is_empty()
 
 func _blocks(transform: Transform3D, bounds: AABB, origin: Vector3, anchors: Array[Vector3]) -> bool:
-	var world_bounds := transform * bounds
+	var world_bounds: AABB = transform * bounds
 	var feet_y: float = rig.target.global_position.y
 	if world_bounds.size.y < 0.7 and world_bounds.end.y <= feet_y + 0.15:
 		return false # Supporting floors remain opaque; overhead tiles can obscure Player.
-	var intersects := false
+	# Upright walls fade only when their ground position projects below the Player.
+	# This describes the visible camera occluder, independent of Player facing.
+	if world_bounds.size.y >= 0.7:
+		var screen_camera: Camera3D = rig.get_node_or_null("Camera3D") as Camera3D
+		if screen_camera == null:
+			return false
+		var wall_ground_center: Vector3 = world_bounds.get_center()
+		wall_ground_center.y = feet_y
+		var player_screen_position: Vector2 = screen_camera.unproject_position(rig.target.global_position)
+		var wall_screen_position: Vector2 = screen_camera.unproject_position(wall_ground_center)
+		if wall_screen_position.y <= player_screen_position.y + 1.0:
+			return false
+	var intersects: bool = false
 	for point: Vector3 in anchors:
 		if world_bounds.grow(0.2).intersects_segment(origin, point) != null:
 			intersects = true
 			break
 	if not intersects:
 		return false
-	var inverse := transform.affine_inverse()
-	var local_origin := inverse * origin
+	var inverse: Transform3D = transform.affine_inverse()
+	var local_origin: Vector3 = inverse * origin
 	for point: Vector3 in anchors:
 		if bounds.grow(0.12).intersects_segment(local_origin, inverse * point) != null:
 			return true

@@ -209,7 +209,7 @@ func _update_link(delta: float) -> void:
 		_finish_attacking(true)
 
 func _start_combo() -> void:
-	BattleFX.play_skill_sound(obj, "weapon_attack")
+	BattleFX.play_skill_sound(obj, "weapon_attack_" + _kind)
 	_hit_area.damage_modifier = obj.potion_normal_attack_damage
 	_phase = PHASE_COMBO
 	_elapsed = 0.0
@@ -238,7 +238,7 @@ func _update_combo(delta: float) -> void:
 		_strike_fx_played = true
 	_set_hit_active(hit_window)
 	_play_attack_pose(progress)
-	obj.stop_horizontal()
+	_apply_combo_movement()
 	if _kind == "spear" and hit_window:
 		var forward := obj.forward().normalized()
 		obj.velocity.x = forward.x * 2.6
@@ -336,6 +336,16 @@ func _apply_combo_pose(progress: float, strike: int) -> void:
 		tip = to_tip.normalized()
 	_set_weapon_pose(grip, tip)
 
+func _apply_combo_movement() -> void:
+	# Light attacks stay steerable without turning the committed swing toward each input flick.
+	var input: Vector3 = obj.get_camera_movement_input()
+	if input.length() <= 0.1:
+		obj.stop_horizontal()
+		return
+	var drift := input.normalized() * obj.movement_speed * 0.45
+	obj.velocity.x = drift.x
+	obj.velocity.z = drift.z
+
 func _start_charged_attack() -> void:
 	if _phase != PHASE_INPUT:
 		return
@@ -344,7 +354,7 @@ func _start_charged_attack() -> void:
 			return
 		_start_combo()
 		return
-	BattleFX.play_skill_sound(obj, "weapon_attack")
+	BattleFX.play_skill_sound(obj, "weapon_attack_" + _kind)
 	_elapsed = 0.0
 	_strike_index = -1
 	var equipment: Dictionary = GameManager.inventory.definition_for_slot("main")

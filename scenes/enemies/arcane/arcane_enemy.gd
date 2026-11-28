@@ -128,7 +128,6 @@ func attack() -> void:
 		if hurt != null:
 			hurt.take_damage(offset.normalized(), attack_damage, self)
 
-
 func _spawn_summon() -> void:
 	if summons.size() >= summon_limit:
 		return

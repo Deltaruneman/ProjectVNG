@@ -17,7 +17,7 @@ func _ready() -> void:
 	_stage = ancestor as Stage
 	super._ready()
 	interacted.connect(_activate)
-	_prompt.text = "F: Lưu checkpoint"
+	_prompt.text = "Chạm / F: Lưu"
 	_prompt.font_size = 32
 	_sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	_feedback = _create_prompt()
@@ -30,8 +30,22 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if not (body is Player) or _is_current():
 		return
-	# Keep contact activation; F also allows an explicit save while standing here.
-	_activate.call_deferred()
+	# Contact activation is independent of temporary interaction locks (for example, stairs).
+	_activate_from_contact.call_deferred()
+
+
+func _activate_from_contact() -> void:
+	if id.is_empty() or _is_current() or not _can_activate_from_contact():
+		return
+	_save_checkpoint()
+
+
+func _can_activate_from_contact() -> bool:
+	return not id.is_empty() and is_instance_valid(_stage) and GameManager.current_stage == _stage \
+		and not GameManager.is_changing() and not GameManager.has_checkpoint_conflict() \
+		and not get_tree().paused \
+		and is_instance_valid(_stage.player) and _stage.player.health > 0.0 \
+		and overlaps_body(_stage.player)
 
 
 func _someone_can_interact() -> bool:
@@ -48,6 +62,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func _activate() -> void:
 	if not _someone_can_interact() or id.is_empty():
 		return
+	_save_checkpoint()
+
+
+func _save_checkpoint() -> void:
+	if id.is_empty():
+		return
 	GameManager.set_checkpoint(_stage.scene_file_path, id)
 	_feedback.text = "Đã lưu checkpoint" if _is_current() else "Chưa thể lưu checkpoint"
 	_feedback_seconds = 2.0
@@ -55,6 +75,9 @@ func _activate() -> void:
 
 
 func _process(delta: float) -> void:
+	# If contact happened during a brief lock, retry while the player remains in the trigger.
+	if not _is_current() and _can_activate_from_contact():
+		_activate_from_contact()
 	var eligible := _someone_can_interact()
 	set_process_unhandled_input(eligible)
 	_prompt.visible = eligible

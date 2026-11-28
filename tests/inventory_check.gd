@@ -173,11 +173,19 @@ func _player_checks(sword: String, fire: String, bow: String, armor: String, cha
 	check(InventoryMenu.is_open and get_tree().paused, "B opens inventory and pauses gameplay")
 	var inventory_grid := InventoryMenu._list.find_child("InventoryGrid", true, false) as GridContainer
 	var empty_item_tooltips := inventory_grid != null
+	var readable_equipped_badge := false
+	var unsupported_equipped_glyph := false
 	if inventory_grid != null:
 		for tile: Node in inventory_grid.get_children():
 			if tile is Button and (tile as Button).tooltip_text != "":
 				empty_item_tooltips = false
+			for child: Node in tile.get_children():
+				if child is Label:
+					readable_equipped_badge = readable_equipped_badge or (child.name == "EquippedBadge" and child.text == "TRANG BI" and child.size.x >= 70.0)
+					unsupported_equipped_glyph = unsupported_equipped_glyph or child.text == "✓"
 	check(empty_item_tooltips, "inventory item cells have no hover information")
+	check(readable_equipped_badge, "equipped item uses a fitting readable text badge")
+	check(not unsupported_equipped_glyph, "equipped item marker has no unsupported check glyph")
 	InventoryMenu._select(fire)
 	await ticks()
 	await capture("equipment")

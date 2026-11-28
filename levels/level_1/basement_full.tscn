@@ -216,6 +216,7 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 56.98, 3.6, 17)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 1, 15)
 chest_id = "basement_b1_secret"
 guaranteed_weapon = false
+offscreen_indicator_enabled = false
 
 [node name="PrisonNotebook" type="Node3D" parent="B1_5" unique_id=202675325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
@@ -300,6 +301,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 7, 2)
 
 [node name="LadderSpot_B2_B3" type="Marker3D" parent="B2" unique_id=52967816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 7, 5)
+
+[node name="LadderDown_B2_B1" type="Area3D" parent="B2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 6.2, 1)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_ladder")
+destination = Vector3(-2, -10.2, 0)
+climb_height = -10.2
+ladder = true
+
+[node name="Shape" type="CollisionShape3D" parent="B2/LadderDown_B2_B1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("AutoLadderShape")
 
 [node name="Door_b2_up" parent="B2" unique_id=255794386 instance=ExtResource("13_b2_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6, -1.45)

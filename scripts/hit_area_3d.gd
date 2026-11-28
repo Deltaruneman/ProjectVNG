@@ -9,6 +9,8 @@ class_name HitArea3D
 @export var damage: float = 1.0
 
 var attacker: Node3D = null
+## Stops a projectile hitbox from dealing more than one hit before queue_free is processed.
+var projectile_consumed := false
 ## Optional contact-time adjustment for this hitbox. The stored damage stays unchanged.
 var damage_modifier := Callable()
 
@@ -25,6 +27,8 @@ func _init() -> void:
 ## FLATTENED ONTO THE XZ PLANE. A topdown hit never launches the character into the air; if it
 ## should bounce up, the Hurt state sets velocity.y itself.
 func hit(hurt_area: Node) -> void:
+	if projectile_consumed:
+		return
 	if not hurt_area.has_method("take_damage"):
 		return
 	var hit_dir: Vector3 = hurt_area.global_position - global_position
@@ -36,6 +40,10 @@ func hit(hurt_area: Node) -> void:
 		hit_dir = global_transform.basis.z
 		hit_dir.y = 0.0
 	var source := attacker
+	# Keep a parryable projectile as the transient hit source so PlayerState.parry can reflect it.
+	var projectile := get_parent() as Node3D
+	if is_instance_valid(projectile) and projectile.has_method("parry_from_player"):
+		source = projectile
 	if not is_instance_valid(source):
 		var ancestor := get_parent()
 		while ancestor != null:

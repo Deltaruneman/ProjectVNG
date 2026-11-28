@@ -217,6 +217,8 @@ func _notify_hud(open: bool) -> void:
 func set_open(open: bool) -> void:
 	# Never capture a pause owned by a cinematic or another gameplay system.
 	# Our own opening/closing transitions may still reverse while paused.
+	if open and GameManager.is_dialogue_active():
+		return
 	if open and get_tree().paused and not _owns_pause:
 		return
 	if open == _is_open:

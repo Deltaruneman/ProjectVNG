@@ -20,6 +20,8 @@ size = Vector3(1.4, 1, 1.4)
 height = 1.0
 
 [node name="Crab" type="CharacterBody3D" unique_id=1467655788]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_pe71k")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=202274110]
@@ -63,6 +65,7 @@ metadata/_custom_type_script = "uid://coy8holsj103m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=2141926410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+scale = Vector3(1.25, 1.25, 1.25)
 shape = SubResource("CapsuleShape3D_xnqru")
 
 [node name="States" type="Node3D" parent="." unique_id=45740116]

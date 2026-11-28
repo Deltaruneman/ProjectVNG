@@ -195,6 +195,22 @@ func _ready() -> void:
 	await frames(90)
 	check(player.fsm.current_state != state, "buffer does not auto chain third strike")
 	await fresh("sword")
+	var initial_facing: String = player.direction
+	var initial_position: Vector3 = player.global_position
+	await click()
+	await frames(2)
+	var still_position: Vector3 = player.global_position
+	var no_input_drift := Vector2(still_position.x - initial_position.x, still_position.z - initial_position.z).length()
+	check(no_input_drift < 0.02, "light combo stops when no direction is held")
+	initial_position = player.global_position
+	Input.action_press("right")
+	await frames(6)
+	Input.action_release("right")
+	var combo_drift := Vector2(player.global_position.x - initial_position.x, player.global_position.z - initial_position.z).length()
+	var combo_drift_limit := player.movement_speed * 0.45 * 0.2 + 0.05
+	check(combo_drift > 0.02 and combo_drift <= combo_drift_limit, "light combo permits restrained movement")
+	check(player.direction == initial_facing, "light combo steering keeps committed attack direction")
+	await fresh("sword")
 	var target := HurtArea3D.new()
 	target.collision_layer = 16
 	target.collision_mask = 0

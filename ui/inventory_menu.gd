@@ -268,7 +268,7 @@ func _refresh() -> void:
 			has_detail = true
 	if not has_detail:
 		_paragraph(_detail, "CHỌN MỘT VẬT PHẨM")
-		_paragraph(_detail, "Bấm vào ô đồ để xem đặc tính, trang bị hoặc sử dụng. Dấu ✓ cho biết vật phẩm đang mang.")
+		_paragraph(_detail, "Bấm vào ô đồ để xem đặc tính, trang bị hoặc sử dụng. Nhãn TRANG BI cho biết vật phẩm đã được trang bị.")
 
 func _build_farm_items() -> void:
 	var raw: Variant = GameManager.flags.get("garden_farm_v1", {})
@@ -362,6 +362,7 @@ func _equipment_summary() -> void:
 func _item_tile(parent: Control, uid: String, equipment: bool = false) -> void:
 	var entry: Dictionary = GameManager.inventory.items[uid]
 	var data := CATALOG.item(entry.definition)
+	var is_equipped := GameManager.inventory.equipped.values().has(uid)
 	var tile := _button(parent, "", _select.bind(uid))
 	tile.custom_minimum_size = Vector2(84, 72 if equipment else 94)
 	tile.tooltip_text = ""
@@ -372,8 +373,8 @@ func _item_tile(parent: Control, uid: String, equipment: bool = false) -> void:
 	icon.texture = CATALOG.texture(entry.definition)
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.position = Vector2(14, 8)
-	icon.size = Vector2(56, 52)
+	icon.position = Vector2(14, 18) if is_equipped else Vector2(14, 8)
+	icon.size = Vector2(56, 42) if is_equipped else Vector2(56, 52)
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tile.add_child(icon)
 	if not equipment:
@@ -384,10 +385,19 @@ func _item_tile(parent: Control, uid: String, equipment: bool = false) -> void:
 		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		tile.add_child(caption)
-	if GameManager.inventory.equipped.values().has(uid) or data.slot == "consumable":
-		var badge := _label("✓" if data.slot != "consumable" else str(entry.count), 14)
-		badge.position = Vector2(60, 3)
+	if is_equipped or data.slot == "consumable":
+		var badge := _label("TRANG BI" if data.slot != "consumable" else str(entry.count), 9 if data.slot != "consumable" else 14)
+		badge.name = "EquippedBadge" if data.slot != "consumable" else "StackCount"
+		if data.slot != "consumable":
+			badge.position = Vector2(2, 2)
+			badge.size = Vector2(80, 16)
+			badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		else:
+			badge.position = Vector2(60, 3)
 		badge.add_theme_color_override("font_color", GOLD)
+		if data.slot != "consumable":
+			badge.add_theme_color_override("font_outline_color", INK)
+			badge.add_theme_constant_override("outline_size", 1)
 		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		tile.add_child(badge)
 

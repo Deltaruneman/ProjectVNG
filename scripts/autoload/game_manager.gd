@@ -71,7 +71,7 @@ var _changing := false
 var _booted := false
 ## Retain unknown fields; SaveSystem's version-1 serializer remains unchanged.
 var _loaded_payload: Dictionary = {}
-## XP and inventory copied at the most recently accepted checkpoint.
+## Player progression, reward claims and inventory copied at the most recent checkpoint.
 var _checkpoint_progress: Dictionary = {}
 
 
@@ -81,9 +81,14 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("new_game") and is_instance_valid(current_stage):
+	if event.is_action_pressed("new_game") and is_instance_valid(current_stage) and not is_dialogue_active():
 		get_viewport().set_input_as_handled()
 		new_game()
+
+
+func is_dialogue_active() -> bool:
+	var dialogic := get_node_or_null("/root/Dialogic")
+	return dialogic != null and dialogic.get("current_timeline") != null
 
 
 ## The only way to switch stages. `spawn_name` is a door id or a checkpoint id in the new stage
@@ -426,12 +431,25 @@ func award_experience(amount: int, source_id: String = "") -> bool:
 
 func _capture_checkpoint_progress() -> Dictionary:
 	var enemy_slots: Variant = flags.get("enemy_zone_defeated_slots", {})
+	var chest_loot: Dictionary = {}
+	for raw_key: Variant in flags:
+		var key := str(raw_key)
+		var state: Variant = flags[raw_key]
+		if key.begins_with("chest_loot:") and state is Dictionary:
+			chest_loot[key] = state.duplicate(true)
 	return {
 		"player_level": player_level,
 		"experience": experience,
 		"collected_exp_points": collected_exp_points.duplicate(),
+		"skill_points": skill_points,
+		"skill_spending": skill_spending.duplicate(true),
+		"skill_allocations": skill_allocations.duplicate(true),
+		"weapon_form": weapon_form,
+		"unlocked_skills": unlocked_skills.duplicate(),
+		"selected_ultimate_skill": selected_ultimate_skill,
 		"inventory": inventory.serialize(),
 		"enemy_zone_defeated_slots": enemy_slots.duplicate(true) if enemy_slots is Dictionary else {},
+		"chest_loot": chest_loot,
 	}
 
 
@@ -440,6 +458,22 @@ func _restore_checkpoint_progress() -> void:
 		_checkpoint_progress = _capture_checkpoint_progress()
 	player_level = maxi(1, int(_checkpoint_progress.get("player_level", player_level)))
 	experience = maxi(0, int(_checkpoint_progress.get("experience", experience)))
+	skill_points = maxi(0, int(_checkpoint_progress.get("skill_points", skill_points)))
+	var checkpoint_spending: Variant = _checkpoint_progress.get("skill_spending", skill_spending)
+	if checkpoint_spending is Dictionary:
+		skill_spending = checkpoint_spending.duplicate(true)
+	var checkpoint_allocations: Variant = _checkpoint_progress.get("skill_allocations", skill_allocations)
+	if checkpoint_allocations is Dictionary:
+		skill_allocations = checkpoint_allocations.duplicate(true)
+	weapon_form = str(_checkpoint_progress.get("weapon_form", weapon_form))
+	var checkpoint_skills: Variant = _checkpoint_progress.get("unlocked_skills", unlocked_skills)
+	if checkpoint_skills is Array:
+		unlocked_skills.clear()
+		for skill: Variant in checkpoint_skills:
+			unlocked_skills.append(str(skill))
+	selected_ultimate_skill = str(_checkpoint_progress.get("selected_ultimate_skill", selected_ultimate_skill))
+	if not unlocked_skills.has(selected_ultimate_skill):
+		selected_ultimate_skill = ""
 	var saved_collectibles: Variant = _checkpoint_progress.get("collected_exp_points", collected_exp_points)
 	collected_exp_points.clear()
 	if saved_collectibles is Array:
@@ -449,6 +483,21 @@ func _restore_checkpoint_progress() -> void:
 	var checkpoint_enemy_slots: Variant = _checkpoint_progress.get("enemy_zone_defeated_slots", {})
 	if checkpoint_enemy_slots is Dictionary:
 		flags["enemy_zone_defeated_slots"] = checkpoint_enemy_slots.duplicate(true)
+	var checkpoint_chest_loot: Variant = _checkpoint_progress.get("chest_loot", {})
+	if checkpoint_chest_loot is Dictionary:
+		for raw_key: Variant in flags.keys():
+			var key := str(raw_key)
+			if not key.begins_with("chest_loot:") or checkpoint_chest_loot.has(key):
+				continue
+			var current_state: Variant = flags[raw_key]
+			if current_state is Dictionary:
+				var rerolled_state: Dictionary = current_state.duplicate(true)
+				rerolled_state["claimed"] = []
+				flags[key] = rerolled_state
+		for raw_key: Variant in checkpoint_chest_loot:
+			var snapshot_state: Variant = checkpoint_chest_loot[raw_key]
+			if snapshot_state is Dictionary:
+				flags[str(raw_key)] = snapshot_state.duplicate(true)
 	inventory_changed.emit()
 	skill_progress_changed.emit()
 
@@ -593,6 +642,13 @@ func load_game() -> void:
 	var saved_checkpoint_progress: Variant = data.get("checkpoint_progress", {})
 	if saved_checkpoint_progress is Dictionary and saved_checkpoint_progress.has("inventory"):
 		_checkpoint_progress = saved_checkpoint_progress.duplicate(true)
+		# Older checkpoint snapshots did not store skill-tree or chest-claim data. Preserve the
+		# currently loaded values as their baseline rather than inventing a rollback for old saves.
+		var current_progress := _capture_checkpoint_progress()
+		for key: String in ["skill_points", "skill_spending", "skill_allocations", "weapon_form",
+				"unlocked_skills", "selected_ultimate_skill", "chest_loot"]:
+			if not _checkpoint_progress.has(key):
+				_checkpoint_progress[key] = current_progress[key]
 	else:
 		# Older saves have no checkpoint snapshot; treat their loaded progress as the baseline.
 		_checkpoint_progress = _capture_checkpoint_progress()
@@ -600,7 +656,7 @@ func load_game() -> void:
 
 ## F9 starts over only when no transition owns the scene and save state.
 func new_game() -> void:
-	if is_changing(): return
+	if is_changing() or is_dialogue_active(): return
 	SaveSystem.delete_save()
 	reset()
 	_booted = true    # nothing left to continue

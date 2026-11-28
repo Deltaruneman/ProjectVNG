@@ -3,6 +3,7 @@ extends Node3D
 const REWARD_ID := "floor_clear:basement_b1" # Preserve old opened chests.
 const CATALOG := preload("res://scripts/item_catalog.gd")
 const DROP := preload("res://levels/objects/experience_point/chest_pickup.tscn")
+const OFFSCREEN_INDICATOR := preload("res://ui/chest_offscreen_indicator.gd")
 const OPEN_TEXTURE := preload("res://assets/sprites/object/chest/chest_gold_open_05.png")
 const OPEN_FRAMES := [
 	preload("res://assets/sprites/object/chest/chest_gold_open_01.png"),
@@ -13,18 +14,55 @@ const OPEN_FRAMES := [
 ]
 @export var chest_id := "basement_b1_clear"
 @export var guaranteed_weapon := true
+@export var offscreen_indicator_enabled := true
 var _opening := false
 @onready var _interaction: InteractiveArea3D = $InteractiveArea3D
+var _indicator_layer: CanvasLayer
+var _indicator: Control
 
 func _ready() -> void:
 	if _is_open():
 		_show_open()
-		restore_pending.call_deferred(get_tree().current_scene)
+		_remove_open_chest.call_deferred()
 	else:
+		_create_offscreen_indicator()
 		_interaction.interacted.connect(_open)
 
 func _key() -> String:
 	return "chest_loot:" + chest_id
+
+func _create_offscreen_indicator() -> void:
+	if not offscreen_indicator_enabled:
+		return
+	_indicator_layer = CanvasLayer.new()
+	_indicator_layer.layer = 25
+	add_child(_indicator_layer)
+	_indicator = OFFSCREEN_INDICATOR.new() as Control
+	_indicator.set("target", self)
+	_indicator_layer.add_child(_indicator)
+
+func _has_unclaimed_rewards() -> bool:
+	if not GameManager.flags.has(_key()):
+		return not _is_open()
+	var state: Variant = GameManager.flags[_key()]
+	if not state is Dictionary:
+		return false
+	var items: Variant = state.get("items", [])
+	var claimed: Variant = state.get("claimed", [])
+	if not items is Array or not claimed is Array:
+		return false
+	for index in items.size() + 10:
+		if not claimed.has(str(index)):
+			return true
+	return false
+
+func _process(_delta: float) -> void:
+	if _indicator != null:
+		_indicator.set("active", _has_unclaimed_rewards())
+
+func _remove_open_chest() -> void:
+	restore_pending(get_tree().current_scene)
+	queue_free()
 
 func _is_open() -> bool:
 	return GameManager.flags.has(_key()) or (chest_id == "basement_b1_clear" and GameManager.collected_exp_points.has(REWARD_ID))
@@ -53,6 +91,7 @@ func _open() -> void:
 		await get_tree().create_timer(0.09, false).timeout
 	_show_open()
 	restore_pending(get_tree().current_scene, global_position + Vector3.UP * 0.8, _key())
+	queue_free()
 
 func _show_open() -> void:
 	$Sprite3D.texture = OPEN_TEXTURE

@@ -87,13 +87,27 @@ func _run() -> void:
 	var wall := map_wall(library,rig.global_position+rig._boom_direction()*3.0)
 	for cell: Vector3i in [Vector3i(0,0,1),Vector3i(1,0,0),Vector3i(2,0,0),Vector3i(0,1,0)]:
 		wall.set_cell_item(cell,7)
-	var behind := map_wall(library,rig.global_position-rig._boom_direction()*7.0)
+	var upper_screen_wall := map_wall(library,rig.global_position-rig._boom_direction()*7.0)
 	var transformed_library := library.duplicate() as MeshLibrary
 	transformed_library.set_item_mesh_transform(7,Transform3D(Basis.from_euler(Vector3(0.0,0.2,0.0)),Vector3(0.3,0.4,0.5)))
 	var scaled_map := map_wall(transformed_library,rig.global_position+Vector3(30,0,0))
 	scaled_map.cell_scale = 1.8
 	scaled_map.set_cell_item(Vector3i.ZERO,7,22)
 	var cells := wall.get_used_cells().duplicate()
+	var lower_screen_direction: Vector3 = -rig.camera.global_basis.y
+	lower_screen_direction.y = 0.0
+	lower_screen_direction = lower_screen_direction.normalized()
+	var sight_anchor := player.global_position + Vector3.UP * 1.15
+	var lower_screen_bounds := AABB(player.global_position + lower_screen_direction * 2.8 - Vector3(0.2, 0.0, 0.2), Vector3(0.4, 4.0, 0.4))
+	var upper_screen_bounds := AABB(player.global_position - lower_screen_direction * 2.8 - Vector3(0.2, 0.0, 0.2), Vector3(0.4, 4.0, 0.4))
+	var side_direction: Vector3 = rig.camera.global_basis.x
+	side_direction.y = 0.0
+	side_direction = side_direction.normalized()
+	var side_bounds := AABB(player.global_position + side_direction * 2.8 - Vector3(0.2, 0.0, 0.2), Vector3(0.4, 4.0, 0.4))
+	var lower_origin := player.global_position + lower_screen_direction * 5.0 + Vector3.UP * 1.5
+	check(rig._wall_occlusion._blocks(Transform3D.IDENTITY,lower_screen_bounds,lower_origin,[sight_anchor]),"lower-screen wall can fade when it covers Player")
+	check(not rig._wall_occlusion._blocks(Transform3D.IDENTITY,upper_screen_bounds,player.global_position-lower_screen_direction*5.0+Vector3.UP*1.5,[sight_anchor]),"upper-screen wall stays opaque")
+	check(not rig._wall_occlusion._blocks(Transform3D.IDENTITY,side_bounds,player.global_position+side_direction*5.0+Vector3.UP*1.5,[sight_anchor]),"side wall stays opaque")
 	rig.set_physics_process(false)
 	await frames(10)
 	var opaque := pixel()
@@ -114,7 +128,7 @@ func _run() -> void:
 			if is_zero_approx(float(record.blend)) and is_equal_approx(record.node.get_active_material(0).albedo_color.a,1.0): solid += 1
 	check(faded == 2,"both stacked wall cells on Player sightlines fade")
 	check(solid == 3,"wall cells outside Player sightlines stay opaque")
-	check(behind.visible and not rig._wall_occlusion._grids[behind].active,"wall behind Player is not faded")
+	check(upper_screen_wall.visible and not rig._wall_occlusion._grids[upper_screen_wall].active,"wall above Player on screen remains opaque")
 	check(wall.get_used_cells() == cells and wall.mesh_library == library and library.get_item_shapes(7).size() == 2,"fade preserves source GridMap cells, library and collision shapes")
 	check(box.material == material and is_equal_approx(material.albedo_color.a,1.0) and material.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED,"shared source material is unchanged")
 	var query := PhysicsRayQueryParameters3D.create(rig.camera.global_position,rig.global_position,1)
@@ -141,7 +155,7 @@ func _run() -> void:
 	await frames(8)
 	check(wall.visible and wall.get_used_cells().is_empty() and rig._wall_occlusion._grids[wall].records.is_empty(),"clearing a breakable gate removes its temporary visuals without ghost walls")
 	# Also cover a solid non-GridMap wall and its material restoration.
-	behind.queue_free()
+	upper_screen_wall.queue_free()
 	var body := StaticBody3D.new()
 	var mesh := MeshInstance3D.new()
 	mesh.mesh = box

@@ -7,7 +7,10 @@ extends InteractiveArea3D
 
 func _ready() -> void:
 	super._ready()
-	_prompt.text = "F: Leo thang" if ladder else "F: Lên cầu thang"
+	if ladder:
+		_prompt.text = "F: Xuống thang" if climb_height < 0.0 else "F: Leo thang"
+	else:
+		_prompt.text = "F: Xuống cầu thang" if destination.y < 0.0 else "F: Lên cầu thang"
 	_prompt.font_size = 32
 	interacted.connect(_climb)
 
