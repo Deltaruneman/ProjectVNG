@@ -1,0 +1,851 @@
+[gd_scene format=3 uid="uid://bxfoq44jps0ix"]
+
+[ext_resource type="MeshLibrary" uid="uid://bjds40g7j1j0o" path="res://assets/meshes/basement_library.meshlib" id="2_0i3fv"]
+[ext_resource type="MeshLibrary" uid="uid://6qsq1khaqva3" path="res://assets/meshes/KKD_library.tres" id="2_mohxj"]
+[ext_resource type="Script" uid="uid://ddrqk72ngkeg7" path="res://scripts/grid_pathfinder.gd" id="3_0ceix"]
+[ext_resource type="Script" uid="uid://bdyi4wj2jooul" path="res://levels/level_1/prison_notebook.gd" id="notebook"]
+[ext_resource type="Texture2D" uid="uid://ci5tkjof6f31m" path="res://assets/sprites/item/RavenmoreIconPack2023/RavenmoreIconPack2023/64/TomeYellow.png" id="notebook_icon"]
+[ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="notebook_interact"]
+[ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="r_camera"]
+[ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="r_checkpoint"]
+[ext_resource type="Script" uid="uid://dmn6rhtdbdtnp" path="res://levels/objects/room/floor_exit.gd" id="r_exit"]
+[ext_resource type="Script" uid="uid://df5ktrj083yi6" path="res://levels/objects/room/floor_boundary.gd" id="r_fboundary"]
+[ext_resource type="Script" uid="uid://du4gu6x46tb3g" path="res://levels/objects/room/fall_zone.gd" id="r_fzone"]
+[ext_resource type="PackedScene" path="res://levels/objects/room/room_gate.tscn" id="r_gate"]
+[ext_resource type="MeshLibrary" uid="uid://uavljtls5sk3" path="res://assets/meshes/MVP_library.tres" id="r_mvp"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/player/player.tscn" id="r_player"]
+[ext_resource type="Script" uid="uid://daygbmmdww4vh" path="res://levels/objects/room/basement_room.gd" id="r_room"]
+[ext_resource type="Script" uid="uid://d2g47jkbtln4" path="res://levels/stage.gd" id="r_stage"]
+[ext_resource type="Script" uid="uid://ccsjcrmtbn32x" path="res://levels/level_1/basement_story.gd" id="r_story"]
+[ext_resource type="PackedScene" path="res://levels/objects/experience_point/floor_clear_chest.tscn" id="secret_chest"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="secret_hurt"]
+[ext_resource type="Script" uid="uid://bnrpc1cgos3cn" path="res://levels/level_1/secret_wall.gd" id="secret_wall"]
+[ext_resource type="Script" path="res://levels/objects/decor/decor_prop.gd" id="dc_prop"]
+[ext_resource type="PackedScene" uid="uid://b88utee7jpgcg" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_patternA_red.gltf" id="dc_banner_a"]
+[ext_resource type="PackedScene" uid="uid://cwgm1obmh0ell" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_shield_red.gltf" id="dc_banner_s"]
+[ext_resource type="PackedScene" uid="uid://cheo0ohdnowli" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_thin_red.gltf" id="dc_banner_t"]
+[ext_resource type="PackedScene" uid="uid://bjk0q2n733msr" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_large.gltf" id="dc_barrel"]
+[ext_resource type="PackedScene" uid="uid://bvuea83ihdm3r" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrel_small_stack.gltf" id="dc_barrels"]
+[ext_resource type="PackedScene" uid="uid://bkaqy2gncf158" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/crates_stacked.gltf" id="dc_crates"]
+[ext_resource type="PackedScene" uid="uid://cduartu6sw4kx" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/keg_decorated.gltf" id="dc_keg"]
+[ext_resource type="PackedScene" uid="uid://bp7x8e1g3gxen" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/pillar_decorated.gltf" id="dc_pillar"]
+[ext_resource type="PackedScene" uid="uid://dlvkr70bk3b3u" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/rubble_half.gltf" id="dc_rubble"]
+[ext_resource type="PackedScene" uid="uid://um3uq7u4uax1" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/torch_mounted.gltf" id="dc_torch"]
+[sub_resource type="Environment" id="Env_basement"]
+background_mode = 1
+background_color = Color(0.012, 0.01, 0.016, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.47, 0.62, 1)
+ambient_light_energy = 0.3
+
+[sub_resource type="BoxShape3D" id="SecretHurtShape"]
+size = Vector3(1.3, 3, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4"]
+size = Vector3(28, 3, 22)
+
+[sub_resource type="StandardMaterial3D" id="Mat_flame"]
+albedo_color = Color(1, 0.55, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="Mesh_flame"]
+material = SubResource("Mat_flame")
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5"]
+size = Vector3(28, 3, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6"]
+size = Vector3(32, 3, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7"]
+size = Vector3(4, 3, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8shw5"]
+albedo_color = Color(1, 0.55, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_jnqiw"]
+material = SubResource("StandardMaterial3D_8shw5")
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="SphereShape3D" id="NotebookRange"]
+radius = 1.5
+
+[node name="Stage" type="Node3D" unique_id=556359450]
+script = ExtResource("r_stage")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=390503178]
+environment = SubResource("Env_basement")
+
+[node name="B1" type="Node3D" parent="." unique_id=697632936]
+metadata/floor_level = 0
+
+[node name="World" type="Node3D" parent="B1" unique_id=816912336]
+metadata/note = "Floor/Wall sinh bởi tool; sửa tay trong editor bình thường. Không có trần."
+
+[node name="Floor" type="GridMap" parent="B1/World" unique_id=725215549]
+mesh_library = ExtResource("r_mvp")
+data = {
+"cells": PackedInt32Array(4, 0, 1441818, 4, 1, 1441818, 4, 2, 1441818, 4, 3, 655386, 4, 4, 655386, 4, 5, 1441818, 4, 6, 655386, 4, 7, 26, 4, 8, 1441818, 4, 9, 1048602, 4, 10, 655386, 4, 11, 26, 4, 12, 26, 5, 0, 1441818, 5, 1, 1441818, 5, 2, 655386, 5, 3, 26, 5, 4, 26, 5, 5, 26, 5, 6, 26, 5, 7, 655386, 5, 8, 655386, 5, 9, 26, 5, 10, 1441818, 5, 11, 1048602, 5, 12, 1441818, 6, 0, 655386, 6, 1, 655386, 6, 2, 1048602, 6, 3, 1441818, 6, 4, 26, 6, 5, 26, 6, 6, 1441818, 6, 7, 1048602, 6, 8, 1441818, 6, 9, 26, 6, 10, 1048602, 6, 11, 1048602, 6, 12, 655386, 7, 0, 1048602, 7, 1, 26, 7, 2, 26, 7, 3, 26, 7, 4, 1441818, 7, 5, 26, 7, 6, 1048602, 7, 7, 1441818, 7, 8, 26, 7, 9, 26, 7, 10, 26, 7, 11, 655386, 7, 12, 655386, 7, 13, 26, 7, 14, 1441818, 7, 15, 1441818, 7, 16, 1441818, 7, 17, 1441818, 7, 18, 26, 7, 19, 655386, 7, 20, 1048602, 7, 21, 1048602, 8, 0, 26, 8, 1, 1048602, 8, 2, 1048602, 8, 3, 26, 8, 4, 1441818, 8, 5, 26, 8, 6, 655386, 8, 7, 655386, 8, 8, 26, 8, 9, 26, 8, 10, 26, 8, 11, 1441818, 8, 12, 1441818, 8, 13, 655386, 8, 14, 655386, 8, 15, 1441818, 8, 16, 655386, 8, 17, 655386, 8, 18, 1441818, 8, 19, 1441818, 8, 20, 26, 8, 21, 1441818, 9, 0, 1441818, 9, 1, 655386, 9, 2, 26, 9, 3, 1048602, 9, 4, 1048602, 9, 5, 26, 9, 6, 655386, 9, 7, 655386, 9, 8, 1441818, 9, 9, 26, 9, 10, 26, 9, 11, 655386, 9, 12, 655386, 9, 13, 1441818, 9, 14, 1048602, 9, 15, 26, 9, 16, 1048602, 9, 17, 1048602, 9, 18, 1441818, 9, 19, 26, 9, 20, 26, 9, 21, 26, 10, 0, 655386, 10, 1, 655386, 10, 2, 26, 10, 3, 1048602, 10, 4, 1048602, 10, 5, 1441818, 10, 6, 655386, 10, 7, 1441818, 10, 8, 655386, 10, 9, 1441818, 10, 10, 655386, 10, 11, 655386, 10, 12, 1048602, 10, 19, 655386, 10, 20, 655386, 10, 21, 655386, 11, 0, 655386, 11, 1, 655386, 11, 2, 1441818, 11, 3, 1441818, 11, 4, 26, 11, 5, 1441818, 11, 6, 26, 11, 7, 26, 11, 8, 26, 11, 9, 26, 11, 10, 1048602, 11, 11, 655386, 11, 12, 1441818, 11, 19, 1048602, 11, 20, 1441818, 11, 21, 1441818, 12, 0, 1048602, 12, 1, 655386, 12, 2, 26, 12, 3, 655386, 12, 4, 655386, 12, 5, 1441818, 12, 6, 26, 12, 7, 1048602, 12, 8, 655386, 12, 9, 655386, 12, 10, 26, 12, 11, 26, 12, 12, 1048602, 12, 19, 1441818, 12, 20, 1441818, 12, 21, 655386, 13, 0, 26, 13, 1, 26, 13, 2, 655386, 13, 3, 1048602, 13, 4, 1048602, 13, 5, 655386, 13, 6, 26, 13, 7, 1048602, 13, 8, 655386, 13, 9, 1441818, 13, 10, 1048602, 13, 11, 655386, 13, 12, 26, 13, 19, 26, 13, 20, 1441818, 13, 21, 1048602, 14, 0, 1048602, 14, 1, 26, 14, 2, 26, 14, 3, 26, 14, 4, 1441818, 14, 5, 26, 14, 6, 1048602, 14, 7, 1048602, 14, 8, 655386, 14, 9, 26, 14, 10, 26, 14, 11, 1441818, 14, 12, 1048602, 14, 19, 26, 14, 20, 655386, 14, 21, 1048602, 14, 45, 1048602, 14, 46, 26, 14, 47, 1441818, 15, 0, 26, 15, 1, 1441818, 15, 2, 26, 15, 3, 1441818, 15, 4, 26, 15, 5, 1441818, 15, 6, 1441818, 15, 7, 26, 15, 8, 26, 15, 9, 26, 15, 10, 26, 15, 11, 26, 15, 12, 1048602, 15, 19, 1441818, 15, 20, 1048602, 15, 21, 1441818, 15, 45, 1441818, 15, 46, 1441818, 15, 47, 1441818, 16, 0, 26, 16, 1, 26, 16, 2, 1048602, 16, 3, 26, 16, 4, 1441818, 16, 5, 26, 16, 6, 655386, 16, 7, 26, 16, 8, 1441818, 16, 9, 1441818, 16, 10, 1048602, 16, 11, 26, 16, 12, 1048602, 16, 19, 1048602, 16, 20, 655386, 16, 21, 655386, 16, 45, 655386, 16, 46, 1048602, 16, 47, 1441818, 17, 0, 1441818, 17, 1, 655386, 17, 2, 1048602, 17, 3, 1441818, 17, 4, 1048602, 17, 5, 655386, 17, 6, 1441818, 17, 7, 655386, 17, 8, 655386, 17, 9, 1441818, 17, 10, 655386, 17, 11, 1048602, 17, 12, 655386, 17, 19, 655386, 17, 20, 655386, 17, 21, 1441818, 17, 45, 1048602, 17, 46, 26, 17, 47, 26, 18, 0, 1048602, 18, 1, 655386, 18, 2, 26, 18, 3, 1441818, 18, 4, 1441818, 18, 5, 1048602, 18, 6, 655386, 18, 7, 1441818, 18, 8, 1441818, 18, 9, 1441818, 18, 10, 1048602, 18, 11, 1441818, 18, 12, 1048602, 18, 19, 26, 18, 20, 26, 18, 21, 1048602, 18, 45, 26, 18, 46, 1048602, 18, 47, 1048602, 19, 0, 1048602, 19, 1, 26, 19, 2, 655386, 19, 3, 1441818, 19, 4, 1441818, 19, 5, 655386, 19, 6, 26, 19, 7, 1048602, 19, 8, 655386, 19, 9, 655386, 19, 10, 26, 19, 11, 26, 19, 12, 1441818, 19, 19, 26, 19, 20, 1048602, 19, 21, 26, 19, 45, 655386, 19, 46, 655386, 19, 47, 1441818, 20, 19, 1048602, 20, 20, 655386, 20, 21, 26, 20, 45, 1441818, 20, 46, 26, 20, 47, 655386, 21, 19, 655386, 21, 20, 1048602, 21, 21, 1048602, 21, 45, 655386, 21, 46, 1441818, 21, 47, 655386, 22, 19, 26, 22, 20, 1441818, 22, 21, 1441818, 22, 45, 655386, 22, 46, 1441818, 22, 47, 1441818, 23, 19, 655386, 23, 20, 26, 23, 21, 1441818, 23, 45, 1048602, 23, 46, 1441818, 23, 47, 1048602, 24, 19, 655386, 24, 20, 26, 24, 21, 26, 24, 45, 655386, 24, 46, 655386, 24, 47, 1441818, 25, 15, 26, 25, 16, 1048602, 25, 17, 1048602, 25, 18, 1048602, 25, 19, 26, 25, 20, 1048602, 25, 21, 26, 25, 22, 26, 25, 23, 1441818, 25, 24, 1048602, 25, 25, 1441818, 25, 26, 1048602, 25, 27, 1441818, 25, 28, 26, 25, 45, 655386, 25, 46, 26, 25, 47, 1441818, 26, 15, 26, 26, 16, 655386, 26, 17, 1048602, 26, 18, 655386, 26, 19, 1441818, 26, 20, 655386, 26, 21, 1441818, 26, 22, 1441818, 26, 23, 26, 26, 24, 655386, 26, 25, 1441818, 26, 26, 1048602, 26, 27, 655386, 26, 28, 1048602, 26, 45, 1048602, 26, 46, 1441818, 26, 47, 655386, 27, 15, 1048602, 27, 16, 655386, 27, 17, 1048602, 27, 18, 1441818, 27, 19, 655386, 27, 20, 1441818, 27, 21, 26, 27, 22, 26, 27, 23, 1441818, 27, 24, 26, 27, 25, 26, 27, 26, 1441818, 27, 27, 26, 27, 28, 1441818, 27, 45, 26, 27, 46, 655386, 27, 47, 26, 28, 15, 1441818, 28, 16, 1441818, 28, 17, 1441818, 28, 18, 1048602, 28, 19, 655386, 28, 20, 1441818, 28, 21, 1441818, 28, 22, 655386, 28, 23, 1048602, 28, 24, 1441818, 28, 25, 1441818, 28, 26, 1048602, 28, 27, 26, 28, 28, 655386, 28, 38, 1441818, 28, 39, 26, 28, 40, 1048602, 28, 41, 655386, 28, 42, 26, 28, 43, 26, 28, 44, 655386, 28, 45, 655386, 28, 46, 655386, 28, 47, 26, 28, 48, 1048602, 28, 49, 1048602, 28, 50, 1048602, 28, 51, 655386, 29, 15, 1441818, 29, 16, 26, 29, 17, 1441818, 29, 18, 26, 29, 19, 1048602, 29, 20, 655386, 29, 21, 1441818, 29, 22, 26, 29, 23, 1441818, 29, 24, 1441818, 29, 25, 655386, 29, 26, 655386, 29, 27, 655386, 29, 28, 655386, 29, 38, 655386, 29, 39, 655386, 29, 40, 1048602, 29, 41, 655386, 29, 42, 1048602, 29, 43, 1048602, 29, 44, 655386, 29, 45, 655386, 29, 46, 655386, 29, 47, 26, 29, 48, 655386, 29, 49, 655386, 29, 50, 655386, 29, 51, 26, 30, 15, 1048602, 30, 16, 1441818, 30, 17, 26, 30, 18, 1441818, 30, 19, 1441818, 30, 20, 655386, 30, 21, 655386, 30, 22, 1441818, 30, 23, 26, 30, 24, 26, 30, 25, 655386, 30, 26, 1048602, 30, 27, 1048602, 30, 28, 26, 30, 38, 1048602, 30, 39, 655386, 30, 40, 26, 30, 41, 1441818, 30, 42, 26, 30, 43, 26, 30, 44, 26, 30, 45, 1441818, 30, 46, 655386, 30, 47, 655386, 30, 48, 655386, 30, 49, 26, 30, 50, 655386, 30, 51, 655386, 31, 15, 655386, 31, 16, 1048602, 31, 17, 26, 31, 18, 26, 31, 19, 655386, 31, 20, 1441818, 31, 21, 26, 31, 22, 26, 31, 23, 1048602, 31, 24, 1441818, 31, 25, 1441818, 31, 26, 1441818, 31, 27, 1048602, 31, 28, 1441818, 31, 38, 655386, 31, 39, 1048602, 31, 40, 26, 31, 41, 26, 31, 42, 655386, 31, 43, 655386, 31, 44, 1441818, 31, 45, 1441818, 31, 46, 1048602, 31, 47, 1048602, 31, 48, 1441818, 31, 49, 655386, 31, 50, 655386, 31, 51, 26, 32, 15, 26, 32, 16, 1048602, 32, 17, 26, 32, 18, 1441818, 32, 19, 655386, 32, 20, 1048602, 32, 21, 1048602, 32, 22, 1048602, 32, 23, 26, 32, 24, 655386, 32, 25, 1441818, 32, 26, 655386, 32, 27, 1048602, 32, 28, 1048602, 32, 38, 1441818, 32, 39, 655386, 32, 40, 1441818, 32, 41, 655386, 32, 42, 655386, 32, 43, 26, 32, 44, 1048602, 32, 45, 1048602, 32, 46, 1441818, 32, 47, 26, 32, 48, 26, 32, 49, 1048602, 32, 50, 26, 32, 51, 655386, 33, 15, 1048602, 33, 16, 1048602, 33, 17, 1048602, 33, 18, 655386, 33, 19, 1441818, 33, 20, 655386, 33, 21, 26, 33, 22, 1441818, 33, 23, 1441818, 33, 24, 655386, 33, 25, 26, 33, 26, 1441818, 33, 27, 26, 33, 28, 26, 33, 38, 26, 33, 39, 655386, 33, 40, 1048602, 33, 41, 1441818, 33, 42, 1441818, 33, 43, 26, 33, 44, 655386, 33, 45, 1441818, 33, 46, 26, 33, 47, 26, 33, 48, 1048602, 33, 49, 1048602, 33, 50, 1048602, 33, 51, 1048602, 34, 15, 1441818, 34, 16, 26, 34, 17, 1441818, 34, 18, 26, 34, 19, 26, 34, 20, 1441818, 34, 21, 655386, 34, 22, 1441818, 34, 23, 1441818, 34, 24, 655386, 34, 25, 1441818, 34, 26, 26, 34, 27, 1441818, 34, 28, 1441818, 34, 38, 1441818, 34, 39, 1048602, 34, 40, 1441818, 34, 41, 1048602, 34, 42, 1048602, 34, 43, 1048602, 34, 44, 1441818, 34, 45, 1048602, 34, 46, 1048602, 34, 47, 1048602, 34, 48, 26, 34, 49, 26, 34, 50, 655386, 34, 51, 26, 35, 15, 655386, 35, 16, 1441818, 35, 17, 1441818, 35, 18, 26, 35, 19, 1048602, 35, 20, 1441818, 35, 21, 26, 35, 22, 1048602, 35, 23, 26, 35, 24, 655386, 35, 25, 1441818, 35, 26, 1441818, 35, 27, 1048602, 35, 28, 655386, 35, 29, 26, 35, 30, 26, 35, 31, 1441818, 35, 32, 655386, 35, 33, 655386, 35, 34, 26, 35, 35, 26, 35, 36, 1441818, 35, 37, 1441818, 35, 38, 26, 35, 39, 655386, 35, 40, 26, 35, 41, 1048602, 35, 42, 655386, 35, 43, 26, 35, 44, 1048602, 35, 45, 1441818, 35, 46, 655386, 35, 47, 1441818, 35, 48, 1441818, 35, 49, 1048602, 35, 50, 1441818, 35, 51, 1048602, 36, 15, 655386, 36, 16, 1048602, 36, 17, 655386, 36, 18, 655386, 36, 19, 1441818, 36, 20, 26, 36, 21, 1048602, 36, 22, 1048602, 36, 23, 1048602, 36, 24, 1048602, 36, 25, 655386, 36, 26, 1048602, 36, 27, 655386, 36, 28, 655386, 36, 29, 655386, 36, 30, 655386, 36, 31, 26, 36, 32, 26, 36, 33, 26, 36, 34, 1048602, 36, 35, 1048602, 36, 36, 1441818, 36, 37, 26, 36, 38, 26, 36, 39, 26, 36, 40, 655386, 36, 41, 1048602, 36, 42, 26, 36, 43, 26, 36, 44, 655386, 36, 45, 655386, 36, 46, 1048602, 36, 47, 1441818, 36, 48, 1441818, 36, 49, 1048602, 36, 50, 655386, 36, 51, 1048602, 37, 15, 1048602, 37, 16, 1441818, 37, 17, 655386, 37, 18, 26, 37, 19, 26, 37, 20, 1441818, 37, 21, 655386, 37, 22, 1441818, 37, 23, 1441818, 37, 24, 1048602, 37, 25, 1441818, 37, 26, 655386, 37, 27, 1048602, 37, 28, 655386, 37, 29, 1048602, 37, 30, 1048602, 37, 31, 655386, 37, 32, 1441818, 37, 33, 1048602, 37, 34, 26, 37, 35, 1441818, 37, 36, 1048602, 37, 37, 26, 37, 38, 26, 37, 39, 1441818, 37, 40, 1441818, 37, 41, 1441818, 37, 42, 1048602, 37, 43, 26, 37, 44, 26, 37, 45, 1048602, 37, 46, 655386, 37, 47, 26, 37, 48, 1048602, 37, 49, 1441818, 37, 50, 1048602, 37, 51, 1048602, 38, 15, 655386, 38, 16, 655386, 38, 17, 1048602, 38, 18, 1048602, 38, 19, 1048602, 38, 20, 26, 38, 21, 1048602, 38, 22, 1441818, 38, 23, 1048602, 38, 24, 1441818, 38, 25, 1048602, 38, 26, 1441818, 38, 27, 1048602, 38, 28, 655386, 38, 38, 1441818, 38, 39, 655386, 38, 40, 26, 38, 41, 1048602, 38, 42, 1048602, 38, 43, 26, 38, 44, 1048602, 38, 45, 1441818, 38, 46, 1441818, 38, 47, 655386, 38, 48, 1048602, 38, 49, 1441818, 38, 50, 655386, 38, 51, 655386, 39, 15, 655386, 39, 16, 26, 39, 17, 1441818, 39, 18, 1048602, 39, 19, 26, 39, 20, 655386, 39, 21, 26, 39, 22, 655386, 39, 23, 1048602, 39, 24, 26, 39, 25, 1441818, 39, 26, 26, 39, 27, 1048602, 39, 28, 26, 39, 38, 1048602, 39, 39, 26, 39, 40, 1048602, 39, 41, 26, 39, 42, 1048602, 39, 43, 26, 39, 44, 26, 39, 45, 655386, 39, 46, 26, 39, 47, 1441818, 39, 48, 655386, 39, 49, 655386, 39, 50, 1441818, 39, 51, 1048602, 40, 15, 1441818, 40, 16, 1441818, 40, 17, 1048602, 40, 18, 1048602, 40, 19, 1048602, 40, 20, 655386, 40, 21, 1441818, 40, 22, 1441818, 40, 23, 26, 40, 24, 26, 40, 25, 1441818, 40, 26, 1048602, 40, 27, 26, 40, 28, 1441818, 40, 38, 26, 40, 39, 1441818, 40, 40, 26, 40, 41, 1048602, 40, 42, 26, 40, 43, 26, 40, 44, 1441818, 40, 45, 1441818, 40, 46, 655386, 40, 47, 655386, 40, 48, 655386, 40, 49, 1441818, 40, 50, 655386, 40, 51, 1048602, 41, 38, 655386, 41, 39, 1441818, 41, 40, 1441818, 41, 41, 1048602, 41, 42, 1048602, 41, 43, 26, 41, 44, 1441818, 41, 45, 1048602, 41, 46, 26, 41, 47, 1048602, 41, 48, 655386, 41, 49, 655386, 41, 50, 26, 41, 51, 1441818, 42, 38, 26, 42, 39, 1441818, 42, 40, 26, 42, 41, 1048602, 42, 42, 26, 42, 43, 655386, 42, 44, 655386, 42, 45, 1048602, 42, 46, 655386, 42, 47, 655386, 42, 48, 1441818, 42, 49, 655386, 42, 50, 1441818, 42, 51, 655386, 43, 38, 1048602, 43, 39, 1441818, 43, 40, 655386, 43, 41, 1048602, 43, 42, 1441818, 43, 43, 1048602, 43, 44, 1441818, 43, 45, 1441818, 43, 46, 1048602, 43, 47, 26, 43, 48, 1441818, 43, 49, 655386, 43, 50, 1441818, 43, 51, 26, 44, 38, 655386, 44, 39, 655386, 44, 40, 1441818, 44, 41, 1048602, 44, 42, 26, 44, 43, 655386, 44, 44, 26, 44, 45, 1441818, 44, 46, 1048602, 44, 47, 1441818, 44, 48, 655386, 44, 49, 1441818, 44, 50, 655386, 44, 51, 1441818, 45, 38, 655386, 45, 39, 1048602, 45, 40, 655386, 45, 41, 1048602, 45, 42, 655386, 45, 43, 1048602, 45, 44, 26, 45, 45, 655386, 45, 46, 655386, 45, 47, 26, 45, 48, 655386, 45, 49, 655386, 45, 50, 655386, 45, 51, 26)
+}
+
+[node name="Wall" type="GridMap" parent="B1/World" unique_id=698018912]
+mesh_library = ExtResource("2_mohxj")
+data = {
+"cells": PackedInt32Array(4, 0, 182, 4, 1, 1441974, 4, 2, 1441974, 4, 3, 1441974, 4, 4, 1441974, 4, 5, 1441974, 4, 6, 1441974, 4, 7, 1441974, 4, 8, 1441974, 4, 9, 1441974, 4, 10, 1441974, 4, 11, 1441974, 4, 12, 655542, 5, 0, 182, 5, 12, 655542, 6, 0, 182, 6, 12, 655542, 7, 0, 182, 7, 13, 1441974, 7, 14, 1441974, 7, 15, 1441974, 7, 16, 1441974, 7, 17, 1441974, 7, 18, 1441974, 7, 19, 1441974, 7, 20, 1441974, 7, 21, 655542, 8, 0, 182, 8, 21, 655542, 9, 0, 182, 9, 13, 1048758, 9, 14, 1048758, 9, 15, 1048758, 9, 16, 1048758, 9, 17, 1048758, 9, 18, 1048758, 9, 21, 655542, 10, 0, 182, 10, 12, 655542, 10, 19, 182, 10, 21, 655542, 11, 0, 182, 11, 12, 655542, 11, 19, 182, 11, 21, 655542, 12, 0, 182, 12, 12, 655542, 12, 19, 182, 12, 21, 655542, 13, 0, 182, 13, 12, 655542, 13, 19, 182, 13, 21, 655542, 14, 0, 182, 14, 12, 655542, 14, 19, 182, 14, 21, 655542, 14, 45, 182, 14, 46, 1441974, 14, 47, 655542, 15, 0, 182, 15, 12, 655542, 15, 19, 182, 15, 21, 655542, 15, 45, 182, 15, 47, 655542, 16, 0, 182, 16, 12, 655542, 16, 19, 182, 16, 21, 655542, 16, 45, 182, 16, 47, 655542, 17, 0, 182, 17, 12, 655542, 17, 19, 182, 17, 21, 655542, 17, 45, 182, 17, 47, 655542, 18, 0, 182, 18, 12, 655542, 18, 19, 182, 18, 21, 655542, 18, 45, 182, 18, 47, 655542, 19, 0, 182, 19, 1, 1048758, 19, 2, 1048758, 19, 3, 1048758, 19, 9, 1048758, 19, 10, 1048758, 19, 11, 1048758, 19, 12, 655542, 19, 19, 182, 19, 21, 655542, 19, 45, 182, 19, 47, 655542, 20, 19, 182, 20, 21, 655542, 20, 45, 182, 20, 47, 655542, 21, 19, 182, 21, 21, 655542, 21, 45, 182, 21, 47, 655542, 22, 19, 182, 22, 21, 655542, 22, 45, 182, 22, 47, 655542, 23, 19, 182, 23, 21, 655542, 23, 45, 182, 23, 47, 655542, 24, 19, 182, 24, 21, 655542, 24, 45, 182, 24, 47, 655542, 25, 15, 182, 25, 16, 1441974, 25, 17, 1441974, 25, 18, 1441974, 25, 22, 1441974, 25, 23, 1441974, 25, 24, 1441974, 25, 25, 1441974, 25, 26, 1441974, 25, 27, 1441974, 25, 28, 655542, 25, 45, 182, 25, 47, 655542, 26, 15, 182, 26, 28, 655542, 26, 45, 182, 26, 47, 655542, 27, 15, 182, 27, 28, 655542, 27, 45, 182, 27, 47, 655542, 28, 15, 182, 28, 28, 655542, 28, 38, 182, 28, 39, 1441974, 28, 40, 1441974, 28, 41, 1441974, 28, 42, 1441974, 28, 43, 1441974, 28, 44, 1441974, 28, 48, 1441974, 28, 49, 1441974, 28, 50, 1441974, 28, 51, 655542, 29, 15, 182, 29, 28, 655542, 29, 38, 182, 29, 51, 655542, 30, 15, 182, 30, 28, 655542, 30, 38, 182, 30, 51, 655542, 31, 15, 182, 31, 28, 655542, 31, 38, 182, 31, 51, 655542, 32, 15, 182, 32, 28, 655542, 32, 38, 182, 32, 51, 655542, 33, 15, 182, 33, 28, 655542, 33, 38, 182, 33, 51, 655542, 34, 15, 182, 34, 28, 655542, 34, 38, 182, 34, 51, 655542, 35, 15, 182, 35, 29, 1441974, 35, 30, 1441974, 35, 31, 1441974, 35, 32, 1441974, 35, 33, 1441974, 35, 34, 1441974, 35, 35, 1441974, 35, 36, 1441974, 35, 37, 1441974, 35, 51, 655542, 36, 15, 182, 36, 51, 655542, 37, 15, 182, 37, 29, 1048758, 37, 30, 1048758, 37, 31, 1048758, 37, 32, 1048758, 37, 33, 1048758, 37, 34, 1048758, 37, 35, 1048758, 37, 36, 1048758, 37, 37, 1048758, 37, 51, 655542, 38, 15, 182, 38, 28, 655542, 38, 38, 182, 38, 51, 655542, 39, 15, 182, 39, 28, 655542, 39, 38, 182, 39, 51, 655542, 40, 15, 182, 40, 16, 1048758, 40, 17, 1048758, 40, 18, 1048758, 40, 19, 1048758, 40, 20, 1048758, 40, 21, 1048758, 40, 22, 1048758, 40, 23, 1048758, 40, 24, 1048758, 40, 25, 1048758, 40, 26, 1048758, 40, 27, 1048758, 40, 28, 655542, 40, 38, 182, 40, 51, 655542, 41, 38, 182, 41, 51, 655542, 42, 38, 182, 42, 51, 655542, 43, 38, 182, 43, 51, 655542, 44, 38, 182, 44, 51, 655542, 45, 38, 182, 45, 39, 1048758, 45, 40, 1048758, 45, 41, 1048758, 45, 42, 1048758, 45, 43, 1048758, 45, 44, 1048758, 45, 45, 1048758, 45, 46, 1048758, 45, 47, 1048758, 45, 48, 1048758, 45, 49, 1048758, 45, 50, 1048758, 45, 51, 655542)
+}
+
+[node name="Pathfinder" type="Node" parent="B1" unique_id=1613526453 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
+script = ExtResource("3_0ceix")
+floor_map = NodePath("../World/Floor")
+obstacle_maps = [NodePath("../World/Wall")]
+walkable_prefixes = PackedStringArray("Floor_")
+
+[node name="HiddenGate_B1_5" type="Node3D" parent="B1" unique_id=1334025431]
+script = ExtResource("secret_wall")
+metadata/note = "Lối vào B1.5 (x = 18, z 6–7). Mở: queue_free() node này. Ẩn (visible) KHÔNG tắt va chạm."
+
+[node name="B1_5Side" type="GridMap" parent="B1/HiddenGate_B1_5" unique_id=871275443]
+mesh_library = ExtResource("2_mohxj")
+data = {
+"cells": PackedInt32Array(19, 5, 1048612, 19, 7, 1048612, 19, 4, 1442215, 19, 6, 1442215, 19, 8, 1442215)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="HurtArea3D" type="Area3D" parent="B1/HiddenGate_B1_5" unique_id=954573124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 2, 13)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("secret_hurt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/HiddenGate_B1_5/HurtArea3D" unique_id=270659146]
+shape = SubResource("SecretHurtShape")
+
+[node name="Room1" type="Node3D" parent="B1" unique_id=5919990 node_paths=PackedStringArray("enemies", "exit_gates")]
+script = ExtResource("r_room")
+clear_flag = "bsm1_room1"
+enemies = NodePath("Enemies")
+exit_gates = [NodePath("Gates/Exit1")]
+
+[node name="Trigger" type="Area3D" parent="B1/Room1" unique_id=580623357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2, 13)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/Room1/Trigger" unique_id=23832889]
+shape = SubResource("BoxShape3D_4")
+
+[node name="Enemies" type="Node3D" parent="B1/Room1" unique_id=773526222]
+metadata/note = "Đặt quái của phòng vào đây. Giết hết thì rào đỏ mở."
+
+[node name="Gates" type="Node3D" parent="B1/Room1" unique_id=1913407646]
+
+[node name="Exit1" parent="B1/Room1/Gates" unique_id=1520762630 instance=ExtResource("r_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 25)
+
+[node name="Torches" type="Node3D" parent="B1/Room1" unique_id=1556221555]
+
+[node name="Torch0" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=998535717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 3.6, 2.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch0" unique_id=1382237288]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch1" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1707493316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 3.6, 2.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch1" unique_id=1164337638]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch2" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1372236462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 3.6, 23.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch2" unique_id=428532451]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch3" type="OmniLight3D" parent="B1/Room1/Torches" unique_id=1084808029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 3.6, 23.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room1/Torches/Torch3" unique_id=2089342074]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Room2" type="Node3D" parent="B1" unique_id=315599372 node_paths=PackedStringArray("enemies", "entry_gates", "exit_gates")]
+script = ExtResource("r_room")
+clear_flag = "bsm1_room2"
+enemies = NodePath("Enemies")
+entry_gates = [NodePath("Gates/Entry1")]
+exit_gates = [NodePath("Gates/Exit1")]
+
+[node name="Trigger" type="Area3D" parent="B1/Room2" unique_id=222135342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 2, 44)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/Room2/Trigger" unique_id=1059431441]
+shape = SubResource("BoxShape3D_5")
+
+[node name="Enemies" type="Node3D" parent="B1/Room2" unique_id=1129684513]
+metadata/note = "Đặt quái của phòng vào đây. Giết hết thì rào đỏ mở."
+
+[node name="Gates" type="Node3D" parent="B1/Room2" unique_id=1889517352]
+
+[node name="Entry1" parent="B1/Room2/Gates" unique_id=1206242038 instance=ExtResource("r_gate")]
+transform = Transform3D(-0.00020365318, 0, 1, 0, 1, 0, -1, 0, -0.00020365318, 51, 1, 41)
+
+[node name="Exit1" parent="B1/Room2/Gates" unique_id=503475259 instance=ExtResource("r_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 1, 57)
+
+[node name="Torches" type="Node3D" parent="B1/Room2" unique_id=2060655216]
+
+[node name="Torch0" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=882598651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5, 3.6, 32.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch0" unique_id=1250100332]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch1" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=919984588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 3.6, 32.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch1" unique_id=1537475273]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch2" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=874971115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5, 3.6, 55.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch2" unique_id=600736998]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch3" type="OmniLight3D" parent="B1/Room2/Torches" unique_id=1701670676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 3.6, 55.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room2/Torches/Torch3" unique_id=1980782224]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Room3" type="Node3D" parent="B1" unique_id=898730341 node_paths=PackedStringArray("enemies", "entry_gates", "exit_gates", "clear_reward")]
+script = ExtResource("r_room")
+clear_flag = "bsm1_room3"
+enemies = NodePath("Enemies")
+entry_gates = [NodePath("Gates/Entry1")]
+exit_gates = [NodePath("Gates/Exit1")]
+clear_reward = NodePath("ClearReward")
+clear_reward_chest_id = "basement_1_clear"
+
+[node name="Trigger" type="Area3D" parent="B1/Room3" unique_id=1730634709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 2, 90)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/Room3/Trigger" unique_id=1208023631]
+shape = SubResource("BoxShape3D_6")
+
+[node name="Enemies" type="Node3D" parent="B1/Room3" unique_id=687592696]
+metadata/note = "Đặt quái của phòng vào đây. Giết hết thì rào đỏ mở."
+
+[node name="Gates" type="Node3D" parent="B1/Room3" unique_id=1090115775]
+
+[node name="Entry1" parent="B1/Room3/Gates" unique_id=1999386196 instance=ExtResource("r_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 1, 77)
+
+[node name="Exit1" parent="B1/Room3/Gates" unique_id=402118016 instance=ExtResource("r_gate")]
+transform = Transform3D(-0.00020365318, 0, 1, 0, 1, 0, -1, 0, -0.00020365318, 57, 1, 93)
+
+[node name="Torches" type="Node3D" parent="B1/Room3" unique_id=273326216]
+
+[node name="Torch0" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=386397508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5, 3.6, 78.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch0" unique_id=2115130800]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch1" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1699449164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 3.6, 78.1)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch1" unique_id=520091202]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch2" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1098332041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5, 3.6, 101.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch2" unique_id=782806682]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="Torch3" type="OmniLight3D" parent="B1/Room3/Torches" unique_id=1136090750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 3.6, 101.9)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1/Room3/Torches/Torch3" unique_id=58245351]
+cast_shadow = 0
+mesh = SubResource("Mesh_flame")
+
+[node name="ClearReward" type="Marker3D" parent="B1/Room3" unique_id=403198223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 1, 90)
+
+[node name="LadderSpot_B1_B2" type="Marker3D" parent="B1" unique_id=720178812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 1, 93)
+metadata/note = "BasementStory quay camera vào đây trong đoạn b1_clear."
+
+[node name="ExitToB2" type="Area3D" parent="B1" unique_id=585950912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 2, 93)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("r_exit")
+target_stage = "res://levels/level_1/basement_2.tscn"
+target_spawn = "f2_start"
+metadata/note = "Cuối hành lang tối: bước vào là sang basement_2.tscn."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1/ExitToB2" unique_id=1222015223]
+shape = SubResource("BoxShape3D_7")
+
+[node name="Spawn" type="Marker3D" parent="B1/ExitToB2" unique_id=217509961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Checkpoint_start" parent="B1" unique_id=1289772626 instance=ExtResource("r_checkpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 13)
+id = "f1_start"
+
+[node name="B1_5" type="Node3D" parent="." unique_id=1596855732]
+metadata/floor_level = 0
+metadata/secret = true
+
+[node name="World" type="GridMap" parent="B1_5" unique_id=1893944449]
+mesh_library = ExtResource("2_0i3fv")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(19, 2, 2, 19, 3, 2, 19, 9, 2, 19, 10, 1, 19, 11, 1, 20, 2, 1, 20, 3, 1, 20, 4, 0, 20, 5, 0, 20, 6, 0, 20, 7, 0, 20, 8, 2, 20, 9, 1, 20, 10, 1, 20, 11, 3, 21, 2, 3, 21, 3, 0, 21, 4, 0, 21, 5, 1, 21, 6, 2, 21, 7, 3, 21, 8, 0, 21, 9, 1, 21, 10, 2, 21, 11, 1, 22, 2, 3, 22, 3, 1, 22, 4, 3, 22, 5, 1, 22, 6, 1, 22, 7, 1, 22, 8, 3, 22, 9, 2, 22, 10, 3, 22, 11, 0, 23, 2, 0, 23, 3, 0, 23, 4, 2, 23, 5, 0, 23, 6, 3, 23, 7, 3, 23, 8, 1, 23, 9, 3, 23, 10, 3, 23, 11, 0, 24, 2, 1, 24, 3, 3, 24, 4, 0, 24, 5, 3, 24, 6, 3, 24, 7, 0, 24, 8, 3, 24, 9, 2, 24, 10, 3, 24, 11, 0, 25, 2, 1, 25, 3, 2, 25, 4, 3, 25, 5, 3, 25, 6, 0, 25, 7, 3, 25, 8, 3, 25, 9, 3, 25, 10, 2, 25, 11, 0, 26, 2, 2, 26, 3, 3, 26, 4, 2, 26, 5, 2, 26, 6, 3, 26, 7, 1, 26, 8, 2, 26, 9, 1, 26, 10, 2, 26, 11, 2, 27, 2, 1, 27, 3, 2, 27, 4, 0, 27, 5, 2, 27, 6, 1, 27, 7, 3, 27, 8, 0, 27, 9, 2, 27, 10, 1, 27, 11, 2, 28, 2, 3, 28, 3, 2, 28, 4, 0, 28, 5, 1, 28, 6, 3, 28, 7, 3, 28, 8, 0, 28, 9, 2, 28, 10, 2, 28, 11, 0, 65564, 3, 1441812, 131100, 3, 1441821, 65564, 4, 1441812, 131100, 4, 1441821, 65564, 5, 1441812, 131100, 5, 1441821, 65564, 6, 1441812, 131100, 6, 1441821, 65564, 7, 1441812, 131100, 7, 1441821, 65564, 8, 1441812, 131100, 8, 1441821, 65564, 9, 1441812, 131100, 9, 1441821, 65564, 10, 1441812, 131100, 10, 1441821, 65556, 2, 20, 131092, 2, 29, 65556, 11, 655386, 65557, 2, 20, 131093, 2, 29, 65557, 11, 655386, 65558, 2, 20, 131094, 2, 29, 65558, 11, 655386, 65559, 2, 20, 131095, 2, 29, 65559, 11, 655386, 65560, 2, 20, 131096, 2, 29, 65560, 11, 655386, 65561, 2, 20, 131097, 2, 29, 65561, 11, 655386, 65562, 2, 20, 131098, 2, 29, 65562, 11, 655386, 65563, 2, 20, 131099, 2, 29, 65563, 11, 655386, 65564, 2, 1441814, 131100, 2, 1441823, 65564, 11, 655388)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Pathfinder" type="Node" parent="B1_5" unique_id=295748195 node_paths=PackedStringArray("floor_map", "obstacle_maps")]
+script = ExtResource("3_0ceix")
+floor_map = NodePath("../World")
+obstacle_maps = [NodePath("../../B1/HiddenGate_B1_5/B1_5Side")]
+
+[node name="Torches" type="Node3D" parent="B1_5" unique_id=1683884423]
+
+[node name="Torch0" type="OmniLight3D" parent="B1_5/Torches" unique_id=133350924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 3.6, 5.4)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch0" unique_id=1769900048]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_jnqiw")
+
+[node name="Torch1" type="OmniLight3D" parent="B1_5/Torches" unique_id=1489846601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6, 3.6, 17)
+light_color = Color(1, 0.62, 0.32, 1)
+light_energy = 2.2
+omni_range = 11.0
+omni_attenuation = 1.2
+
+[node name="Flame" type="MeshInstance3D" parent="B1_5/Torches/Torch1" unique_id=5972853]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_jnqiw")
+
+[node name="SecretChest" parent="B1_5" unique_id=1197432655 instance=ExtResource("secret_chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 1, 15)
+chest_id = "basement_b1_secret"
+guaranteed_weapon = false
+
+[node name="PrisonNotebook" type="Node3D" parent="B1_5" unique_id=2013082330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.15, 13)
+script = ExtResource("notebook")
+
+[node name="Book" type="Sprite3D" parent="B1_5/PrisonNotebook" unique_id=1008771957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+pixel_size = 0.018
+billboard = 1
+texture_filter = 0
+texture = ExtResource("notebook_icon")
+
+[node name="Label" type="Label3D" parent="B1_5/PrisonNotebook" unique_id=463184671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+pixel_size = 0.007
+billboard = 1
+text = "Sổ ghi chép"
+
+[node name="InteractiveArea3D" type="Area3D" parent="B1_5/PrisonNotebook" unique_id=644853838]
+script = ExtResource("notebook_interact")
+prompt_height = 1.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B1_5/PrisonNotebook/InteractiveArea3D" unique_id=1780433022]
+shape = SubResource("NotebookRange")
+
+[node name="Spawn" type="Marker3D" parent="." unique_id=659636734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 13)
+
+[node name="Player" parent="." unique_id=1926871054 instance=ExtResource("r_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 13)
+
+[node name="CameraRig" parent="." unique_id=2041098291 node_paths=PackedStringArray("target") instance=ExtResource("r_camera")]
+target = NodePath("../Player")
+
+[node name="Bullets" type="Node3D" parent="." unique_id=973841581]
+
+[node name="BasementStory" type="Node" parent="." unique_id=1249634359]
+script = ExtResource("r_story")
+
+[node name="FloorBoundary" type="Node3D" parent="." unique_id=1469865996 node_paths=PackedStringArray("floor_maps")]
+script = ExtResource("r_fboundary")
+floor_maps = [NodePath("../B1/World/Floor"), NodePath("../B1_5/World")]
+metadata/note = "Tường vô hình cao 10 m quanh mép sàn, dựng lúc chạy từ ô sàn (floor_boundary.gd)."
+
+[node name="FallZone" type="Area3D" parent="." unique_id=1477274044]
+script = ExtResource("r_fzone")
+default_spawn = "f1_start"
+
+[node name="Decor" type="Node3D" parent="B1"]
+metadata/note = "Sinh bởi tools/basement_decor.py. Mỗi món là DecorProp: kéo/xoay/đổi model trực tiếp được."
+
+[node name="Room1" type="Node3D" parent="B1/Decor"]
+
+[node name="Room2" type="Node3D" parent="B1/Decor"]
+
+[node name="Room3" type="Node3D" parent="B1/Decor"]
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(17, 1, 7)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(31, 1, 7)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(17, 1, 19)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(31, 1, 19)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(13.4, 1, 3.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(11, 1, 5.3)
+rotation = Vector3(0, 1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(34.6, 1, 3.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(37, 1, 5.3)
+rotation = Vector3(0, -1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(11, 1, 20.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(37.8, 1, 22.45)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(25, 1, 3)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Crates2" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(25, 1, 23)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(13.25, 1.45, 2.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(24, 1.45, 2.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_s")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room1"]
+position = Vector3(34.75, 1.45, 2.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch0"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch1"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch2"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room1/Torches/Torch3"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(59, 1, 39)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(73, 1, 39)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(59, 1, 49)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(73, 1, 49)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(55.4, 1, 33.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(53, 1, 35.3)
+rotation = Vector3(0, 1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(79.8, 1, 33.55)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(53, 1, 55)
+rotation = Vector3(0, 3.152, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(55.4, 1, 54.95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(53, 1, 52.7)
+rotation = Vector3(0, 1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(79, 1, 52.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Crates2" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(67, 1, 33)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(55.25, 1.45, 32.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_s1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(66, 1.45, 32.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_s")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(76.75, 1.45, 32.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room2"]
+position = Vector3(79.88, 1.45, 44)
+rotation = Vector3(0, -1.571, 0)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_a")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch0"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch1"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch2"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room2/Torches/Torch3"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="Pillar1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(67, 1, 85)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar2" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(81, 1, 85)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar3" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(67, 1, 95)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Pillar4" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(81, 1, 95)
+scale = Vector3(0.85, 0.6, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_pillar")
+collision_size = Vector3(1.6, 4, 1.6)
+
+[node name="Rubble1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(58.2, 1, 79.55)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_rubble")
+collision_size = Vector3(3.6, 2.2, 2.6)
+collision_offset = Vector3(2, 0, 0)
+
+[node name="Crates1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(89, 1, 79)
+rotation = Vector3(0, 0.046, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_crates")
+collision_size = Vector3(2, 2.1, 2.1)
+
+[node name="Barrel1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(86.6, 1, 79.05)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(89, 1, 81.3)
+rotation = Vector3(0, -1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Keg1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(60.4, 1, 101)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_keg")
+collision_size = Vector3(3.4, 2, 1.9)
+
+[node name="Barrel2" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(59, 1, 98.7)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrel3" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(86.6, 1, 100.95)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Barrels2" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(89, 1, 98.7)
+rotation = Vector3(0, -1.571, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrels")
+collision_size = Vector3(1.8, 1.77, 1)
+
+[node name="Barrel4" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(75, 1, 101)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_barrel")
+collision_size = Vector3(1.7, 2, 1.7)
+
+[node name="Banner_t1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(61.75, 1.45, 78.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_t2" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(86.25, 1.45, 78.12)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_t")
+
+[node name="Banner_a1" type="Node3D" parent="B1/Decor/Room3"]
+position = Vector3(89.88, 1.45, 90)
+rotation = Vector3(0, -1.571, 0)
+scale = Vector3(0.85, 0.85, 0.85)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_banner_a")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch0"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch1"]
+position = Vector3(0, -0.5, -0.1)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch2"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
+
+[node name="TorchModel" type="Node3D" parent="B1/Room3/Torches/Torch3"]
+position = Vector3(0, -0.5, 0.1)
+rotation = Vector3(0, 3.142, 0)
+script = ExtResource("dc_prop")
+model = ExtResource("dc_torch")
