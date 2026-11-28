@@ -29043,3 +29043,68 @@ Included files and purpose:
 Shared/integration effects: Player combat steering/audio, visual-only occlusion, enemy hurt/body collision and projectile attribution, checkpoint/save snapshot data, dialogue input, chest reward lifecycle and two map-local stair interactions are integrated through existing systems. No save schema bump, source GridMap cell changes, terrain generator, or commit-specific gameplay refactor. Owner/user approvals and outstanding runtime verification are documented in the feature entries; no independent owner sign-off is inferred.
 
 Verification for this package: final `git diff --check` will be run before commit. Earlier entries distinguish their own rendered checks from static-only implementation. No new gameplay tests or Godot playtests were run for this packaging operation. Open limitations include runtime verification for N43–N57 work where recorded pending, full campaign/export and independent reviews. Commit only; no push.
+
+## 2026-11-28 — N58 Direct skill keys and dedicated weapon throw
+User selected direct casting for Z/X/C/V, dedicated E weapon throw and R ultimate. Bao-owned input/Player/SkillState/UI work; directly authorized by user, with no independent teammate review asserted.
+
+Included files and purpose: `project.godot` rebinds `active_skill_1..4` to Z/X/C/V, leaves only R for `ultimate`, reserves E as `weapon_throw`, and keeps K as the only default `carry` key. `scenes/player/player.gd` makes each direct skill key select its slot on press and use the existing cursor-aimed cast on release; E runs a separate neutral throw request. `scenes/player/states/skillstate.gd` accepts only that explicit request for the existing main-weapon throw path; existing range/damage/pickup/cooldown remain. `scripts/autoload/game_settings.gd` exposes the new binding in settings, updates action names and migrates exact old defaults in saved preferences, preserving unrelated customization where possible. `ui/player_hud.gd` updates dynamic keycaps/tooltips and shows E/R for neutral throw/ultimate; `ui/skill_tree_layout.gd` changes the ultimate marker to R; `ui/pause_menu.gd` clarifies direct casting, hold-to-aim and E/R; `README.md` documents the new map. Feature tasks/validation record acceptance, scope and limits.
+
+Shared effects: X is now a skill key and is ignored by Player while dialogue is active, leaving Dialogic's X advance intact. Carry remains on K. U remains a secondary trigger for the selected active skill but cannot trigger the weapon throw. No combat values, aim model, ultimate execution, save/checkpoint format or user settings file was changed.
+
+Verification: `git diff --check` passed; static review confirms physical defaults and routes. No Godot parse/playthrough or automated test was run; key timing, visuals, settings migration and actual throws/casts remain unverified. No commit/push.
+
+## 2026-11-28 — N59 Wind C dash buff
+Bao-owned Player combat/Skill Tree change, directly authorized by the user; no independent teammate approval claimed.
+
+Included files and purpose: `scenes/player/player.gd` extends Wind C's dash distance from 1.5 m to 2.5 m at base (still +0.5 m per Gale evolution rank), makes the line hit reach match the movement distance, and reports lethal hits from the existing enemy damage helper. `scenes/player/states/skillstate.gd` skips the normal cooldown start if Wind C killed at least one target. `ui/skill_tree_layout.gd` describes the farther dash, hitting every enemy along its path and kill-based cooldown reset. `specs/001-integrate-basement-stage/tasks.md` and `validation.md` record scope, acceptance and verification state.
+
+Shared effects: the existing `EnemyCharacter` group, `HurtArea3D.take_damage`, Player skill cooldown and cast-state flow are reused. Any eligible enemy inside the current 1.6 m-wide forward line can take the attack's existing damage; a positive-to-zero health transition on any hit target resets that cast's cooldown. Nonlethal hits retain the standard cooldown. No Enemy AI, damage scaling, aim, save state, other skills, VFX, or map systems are changed.
+
+Verification: source inspection and `git diff --check` only; no automated tests or Godot runtime playthrough were run. Dash distance, multi-enemy hit registration, parser validity and lethal/nonlethal cooldown behavior remain unverified in Godot. No commit/push.
+
+## 2026-11-28 — N60 Basement B2 descent route correction
+User reported the B2 descent as broken. Static comparison showed the previous negative ladder route went down at the upper trigger's x/z coordinate and only then walked toward the B1 endpoint, while the ascent's shaft is offset by two units. The descent must reverse the ascent route in the correct order.
+
+Included files and purpose: `levels/objects/automatic_stairs.gd` now calculates the intermediate point for negative-height ladder interactions from the final destination plus the absolute ladder height, so descending first crosses to the shaft top, then goes down it. `specs/001-integrate-basement-stage/tasks.md` and `validation.md` capture the bug, scope, expected route and validation state.
+
+Shared effects: only downward ladder route construction changes. Existing positive-height Basement ascent, Castle stair routes, trigger geometry, Player collision-aware movement and stage/progression systems are untouched. This is within the user's earlier approved N57 descent work; no separate teammate review for this follow-up is claimed.
+
+Verification: static coordinate calculation gives `(19, 11.2, 1)` → `(17, 11.2, 1)` → `(17, 1, 1)`. `git diff --check` passed. No Godot descent/ascent playtest was run; actual trigger use and landing remain unverified. No commit/push.
+
+## 2026-11-28 — N61 Garden and Castle story beats, boss chests, Coming Soon door
+User requested these narrative/UI/map additions, confirmed Lam/Quan approval for map and loot scope, selected one chest per boss, and asked for a replacement for the Garden `??` placeholder. No Duy-owned boss AI was modified.
+
+Included files and purpose: `levels/level_1/garden_story.gd` runs a first-visit introduction and temporarily targets/zooms the camera to the runtime `Farm/SeedMerchant`, then restores the Player camera. `dialog/timelines/garden_arrival.dtl` carries Foxy's Garden lines and focus signal; `dialog/timelines/garden_before_castle.dtl` carries the first-use Garden-to-Castle line. `levels/level_1/castle_story.gd` runs the first Castle arrival and one-time boss proximity dialogues, pausing the encountered boss during its timeline; `dialog/timelines/castle_arrival.dtl`, `undead_executioner_intro.dtl`, and `necromancer_intro.dtl` contain those lines; `dialog/characters/undead_executioner.dch` and `necromancer.dch` register readable speaker names/colors without new portrait art. `project.godot` registers these Dialogic resources. `garden.tscn` attaches its story controller and configures the pre-travel line/flag on `Door_to_castle`. `castle.tscn` attaches the story controller, gives each boss its own encounter/reward marker/unique persistent chest ID, and marks `Door_to_next` Coming Soon. `scenes/enemies/arcane/necromancer.tscn` receives a stable resource UID referenced by Castle and serialized node IDs; its gameplay defaults remain equivalent. `levels/objects/door/door.gd` supports the optional one-time pre-travel timeline and Coming Soon branch. `ui/coming_soon_overlay.gd` creates a centered, pausing modal that closes via button or Esc. `specs/001-integrate-basement-stage/tasks.md` and `validation.md` record acceptance and verification state.
+
+Generated resource-identity sidecars included: `dialog/characters/necromancer.dch.uid`, `dialog/characters/undead_executioner.dch.uid`, `dialog/timelines/castle_arrival.dtl.uid`, `dialog/timelines/garden_arrival.dtl.uid`, `dialog/timelines/garden_before_castle.dtl.uid`, `dialog/timelines/necromancer_intro.dtl.uid`, `dialog/timelines/undead_executioner_intro.dtl.uid`, `levels/level_1/castle_story.gd.uid`, `levels/level_1/garden_story.gd.uid`, and `ui/coming_soon_overlay.gd.uid`. These preserve Godot resource IDs for each new script, character and timeline.
+
+Shared effects: story-seen flags use the existing `GameManager.flags` save path. Boss clear and chest reward use each existing `EnemyCharacter.defeated` signal and `clear_portal.gd`/`floor_clear_chest.gd` persistence/drop behavior; no loot table, chest implementation, enemy AI, boss tuning, door geometry or stage transition was changed. Garden's `??` placeholder is replaced by `Có ai đang chăm sóc khu vườn này sao?`. User reports Lam/Quan approval for the map/loot boundary; no independent teammate sign-off is asserted.
+
+Verification: static source/reference review and `git diff --check` passed. No Godot parse or runtime playthrough was run. Garden first-entry/camera/dialogue, Castle first-entry and boss encounter timing, each boss's chest spawn/reload/claim behavior, and Coming Soon modal/pause/dismiss remain unverified. No new portrait art, test run/addition, commit or push. The pre-existing untracked `levels/level_1/castle.tscn~RF11f2c395.TMP` was preserved untouched.
+
+## 2026-11-28 — N62 Transient skill-slot highlight
+User asks the skill HUD's colored outline to appear when a skill key is pressed and then turn off, rather than remain until another slot is chosen. Bao-owned HUD change.
+
+Included files and purpose: `ui/player_hud.gd` replaces persistent selected-slot border styling with a 0.45-second green flash and fade back to gray; initial HUD synchronization does not flash. `specs/001-integrate-basement-stage/tasks.md` and `validation.md` record acceptance and verification state.
+
+Shared effects: visual-only. `Player.selected_active_slot` still remains selected for generic skill input/gameplay; cast flow, cooldown display, icon/tooltips and ultimate readiness border are unchanged.
+
+Verification: source review and `git diff --check` only. No Godot visual run was performed; actual flash duration/color appearance remain unverified. No test added/run, commit or push.
+
+## 2026-11-28 — N63 Castle boss intro and reward runtime errors
+User reported a Godot warning for disabling a CollisionObject during a physics callback in `castle_story.gd`, plus a `clear_portal.gd` error that `/root/Stage2/NecromancerReward` had no encounter container or stable clear flag.
+
+Included files and purpose: `levels/level_1/castle_story.gd` defers boss `process_mode` disable/restore updates made around the intro dialogue, avoiding synchronous mode changes from `body_entered`; `levels/level_1/castle.tscn` adds `node_paths=PackedStringArray("encounters", "clear_reward")` to both boss reward nodes so their typed Node references deserialize, following the existing Basement clear-portal scene pattern; `specs/001-integrate-basement-stage/tasks.md` and `validation.md` record scope, implementation and unverified runtime status; this cumulative record tracks the included files and evidence.
+
+Shared effects: boss pause/resume timing is deferred to a safe point; boss AI, intro dialogue, encounter composition, clear flags, reward chest IDs and chest logic are unchanged. User's earlier Lam/Quan approval covers the Castle story/reward integration; no additional owner sign-off is claimed.
+
+Verification: source and scene serialization inspection only. No Godot runtime was run; disappearance of the warning/error and boss reward spawning/pickup remain unverified. No tests added/run, commit or push. Existing unrelated workspace changes and the pre-existing temporary scene file were preserved.
+
+## 2026-11-28 — N64 Keep lateral walls opaque
+User reports left/right walls still lose opacity and clarifies only lower-screen walls behind Foxy should fade.
+
+Included files and purpose: `scenes/camera/wall_occlusion.gd` removes the extra camera-left/right sprite-edge sightline anchors, leaving the existing centerline anchors and lower-screen projection gate; `specs/001-integrate-basement-stage/tasks.md` and `validation.md` record this focused follow-up and its runtime status; this cumulative record records the change and evidence.
+
+Shared effects: only camera-side rendering opacity selection changes. Lower-screen centerline blockers still fade; walls/floors/ceilings, physics, materials, camera framing and restoration behavior are otherwise unchanged. This is within the user-approved N44 camera-presentation scope; no separate teammate review is claimed.
+
+Verification: static source inspection and `git diff --check` only. No Godot run/rendered check was performed, so the actual left/right placements and fade visuals remain unverified. No tests added/run, commit or push; unrelated existing work was preserved.

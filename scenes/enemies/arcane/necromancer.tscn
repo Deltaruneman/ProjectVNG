@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dswx33s57ghuo"]
 
-[ext_resource type="Script" path="res://scenes/enemies/arcane/arcane_enemy.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/monsters/necromancer/Necromancer_creativekind-Sheet.png" id="2"]
-[ext_resource type="AnimationLibrary" path="res://scenes/enemies/arcane/necromancer_anims.tres" id="3"]
-[ext_resource type="Script" path="res://scripts/hurt_area_3d.gd" id="4"]
+[ext_resource type="Script" uid="uid://cgeu57iq36y5b" path="res://scenes/enemies/arcane/arcane_enemy.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bsitj6iuyivrn" path="res://assets/monsters/necromancer/Necromancer_creativekind-Sheet.png" id="2"]
+[ext_resource type="AnimationLibrary" uid="uid://k7u3dtgxsn3t" path="res://scenes/enemies/arcane/necromancer_anims.tres" id="3"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="4"]
 
 [sub_resource type="CapsuleShape3D" id="body"]
 radius = 0.35
@@ -12,51 +12,47 @@ height = 1.2
 [sub_resource type="SphereShape3D" id="sight"]
 radius = 9.0
 
-[node name="Necromancer" type="CharacterBody3D"]
+[node name="Necromancer" type="CharacterBody3D" unique_id=577599392]
 collision_layer = 8
-collision_mask = 1
 script = ExtResource("1")
+kind = "necromancer"
+attack_cooldown = 2.0
 movement_speed = 1.6
 max_health = 14
-attack_damage = 1
-skill_point_drop = 3
-kind = "necromancer"
-attack_range = 6.0
-attack_cooldown = 2.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-position = Vector3(0, 1.734, 0)
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1308769044]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.734, 0)
 pixel_size = 0.034
-alpha_cut = 1
 billboard = 1
+alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2")
 hframes = 17
 vframes = 7
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2086538473]
 libraries/ = ExtResource("3")
-autoplay = "idle"
+autoplay = &"idle"
 
-[node name="Direction" type="Node3D" parent="."]
+[node name="Direction" type="Node3D" parent="." unique_id=530472635]
 
-[node name="HurtArea3D" type="Area3D" parent="Direction"]
-position = Vector3(0, 0.6, 0)
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=890974321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=683062304]
 shape = SubResource("body")
 
-[node name="DetectPlayerArea3D" type="Area3D" parent="Direction"]
-position = Vector3(0, 0.6, 0)
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction" unique_id=1077576755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D" unique_id=61566238]
 shape = SubResource("sight")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-position = Vector3(0, 0.6, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1592874764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("body")

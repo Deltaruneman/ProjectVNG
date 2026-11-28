@@ -111,7 +111,10 @@ var _wind_ultimate_start_angle := 0.0
 var _wind_ultimate_radius := 2.2
 var _wind_ultimate_target: EnemyCharacter = null
 var _wind_ultimate_blade_suppressed := false
+var _wind_dash_cooldown_reset_pending := false
 var _skill_button_held := false
+var _skill_button_action := ""
+var weapon_throw_requested := false
 var _skill_aim_active := false
 var _skill_hold_elapsed := 0.0
 var _skill_aim_point := Vector3.ZERO
@@ -362,7 +365,7 @@ func _process(delta: float) -> void:
 	_tick_potion_effects(delta)
 	_update_offhand_cast_pose()
 	if _skill_button_held:
-		if not _can_start_skill_cast():
+		if not _can_continue_skill_input():
 			_cancel_skill_aim()
 		else:
 			_skill_hold_elapsed += delta
@@ -499,28 +502,41 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	for slot in 4:
-		if event.is_action_pressed("active_skill_%d" % (slot + 1)):
+		var action := "active_skill_%d" % (slot + 1)
+		if event.is_action_pressed(action):
+			if event.is_echo():
+				get_viewport().set_input_as_handled()
+				return
 			_cancel_skill_aim()
 			selected_active_slot = slot + 1
 			active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
+			if _can_start_active_skill_cast():
+				_begin_skill_aim(action)
 			get_viewport().set_input_as_handled()
 			return
+		if event.is_action_released(action):
+			_finish_skill_aim(action)
+			get_viewport().set_input_as_handled()
+			return
+	if event.is_action_pressed("weapon_throw"):
+		if not event.is_echo() and _can_start_weapon_throw():
+			_cancel_skill_aim()
+			selected_active_slot = 1
+			active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
+			_begin_skill_aim("weapon_throw")
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_released("weapon_throw"):
+		_finish_skill_aim("weapon_throw")
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("skill"):
-		if not event.is_echo() and _can_start_skill_cast():
-			_skill_button_held = true
-			_skill_hold_elapsed = 0.0
-			_refresh_skill_aim_point()
+		if not event.is_echo() and _can_start_active_skill_cast():
+			_begin_skill_aim("skill")
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_released("skill"):
-		if _skill_button_held and _can_start_skill_cast():
-			# Tap and held casts both commit the current pointer target.
-			_refresh_skill_aim_point()
-			_cancel_skill_aim()
-			_cast_aim_point_valid = true
-			fsm.change_state(fsm.states.skill)
-		else:
-			_cancel_skill_aim()
+		_finish_skill_aim("skill")
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("ultimate"):
@@ -578,16 +594,61 @@ func _can_start_skill_cast() -> bool:
 		return false
 	if GameManager.weapon_form == "" and (selected_active_slot != 1 or GameManager.inventory.id_for_slot("main") == ""):
 		return false
+	if not _can_start_skill_action():
+		return false
+	return get_active_skill_cooldown_for_id(get_selected_active_skill_id()) <= 0.0
+
+
+func _can_start_active_skill_cast() -> bool:
+	return not get_selected_active_skill_id().is_empty() and _can_start_skill_cast()
+
+
+func _can_start_weapon_throw() -> bool:
+	if GameManager.weapon_form != "" or GameManager.inventory.id_for_slot("main").is_empty():
+		return false
+	return _can_start_skill_action() and get_active_skill_cooldown_for_id("") <= 0.0
+
+
+func _can_start_skill_action() -> bool:
+	if stamina_exhausted:
+		return false
 	if not _can_use_skills() or is_talking or _ultimate_cinematic_running:
 		return false
 	if not fsm.states.has("skill") or not fsm.states.skill.can_throw():
 		return false
-	return get_active_skill_cooldown_for_id(get_selected_active_skill_id()) <= 0.0
+	return true
+
+
+func _can_continue_skill_input() -> bool:
+	return _can_start_weapon_throw() if _skill_button_action == "weapon_throw" else _can_start_active_skill_cast()
+
+
+func _begin_skill_aim(action: String) -> void:
+	_skill_button_held = true
+	_skill_button_action = action
+	_skill_hold_elapsed = 0.0
+	_refresh_skill_aim_point()
+
+
+func _finish_skill_aim(action: String) -> void:
+	if not _skill_button_held or _skill_button_action != action:
+		return
+	if not _can_continue_skill_input():
+		_cancel_skill_aim()
+		return
+	# Tap and held casts both commit the current pointer target.
+	_refresh_skill_aim_point()
+	_cancel_skill_aim()
+	weapon_throw_requested = action == "weapon_throw"
+	_cast_aim_point_valid = true
+	fsm.change_state(fsm.states.skill)
 
 
 func _cancel_skill_aim() -> void:
 	_set_skill_aim_camera(false)
 	_skill_button_held = false
+	_skill_button_action = ""
+	weapon_throw_requested = false
 	_skill_aim_active = false
 	_skill_hold_elapsed = 0.0
 	_cast_aim_point_valid = false
@@ -672,6 +733,14 @@ func get_active_skill_cooldown_duration(skill_id: String) -> float:
 func start_active_skill_cooldown(skill_id: String) -> void:
 	var cooldown_key := skill_id if skill_id != "" else "basic_dagger"
 	_active_skill_cooldowns[cooldown_key] = get_active_skill_cooldown_duration(cooldown_key)
+
+
+func consume_active_skill_cooldown_reset(skill_id: String) -> bool:
+	if skill_id != "active_wind_3":
+		return false
+	var should_reset := _wind_dash_cooldown_reset_pending
+	_wind_dash_cooldown_reset_pending = false
+	return should_reset
 
 
 func get_ultimate_cooldown_remaining() -> float:
@@ -902,10 +971,13 @@ func cast_active_skill(active_id: String) -> bool:
 			var dash_origin := global_position
 			var gale_rank := int(GameManager.skill_allocations.get("evo_wind_gale", 0))
 			var dash_reach := 2.5 + 0.5 * float(gale_rank)
+			_wind_dash_cooldown_reset_pending = false
+			var kill_state: Dictionary = {}
 			BattleFX.play_pvfx(self, "wind/wind-blade", skill_effect_position(aim, 1.25, 0.55), 1.6 + 0.18 * float(gale_rank), Color("d2fff9"), aim)
 			BattleFX.slash(self, skill_effect_position(aim, 1.25, 0.7), "wind", aim, 0.8 + 0.16 * float(gale_rank))
-			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, damage * 2 + 2 * gale_rank)
-			global_position += aim * (1.5 + 0.5 * float(gale_rank))
+			_damage_enemies_in_shape(dash_origin, aim, "line", dash_reach, 1.6, 0.0, damage * 2 + 2 * gale_rank, 0.0, 0.0, 0, 0.0, 0.0, "frozen", kill_state)
+			_wind_dash_cooldown_reset_pending = bool(kill_state.get("any", false))
+			global_position += aim * dash_reach
 		"active_wind_4":
 			var tornado_rank := int(GameManager.skill_allocations.get("evo_wind_tornado", 0))
 			var tornado_radius := 4.0 + 0.5 * float(tornado_rank)
@@ -1098,7 +1170,7 @@ func _apply_timed_buff(attack_bonus: int, speed_bonus: float, duration: float) -
 			_apply_skill_bonuses())
 
 
-func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: float = 0.0, freeze_status_id: String = "frozen") -> int:
+func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reach: float, width: float, half_angle: float, damage: int, freeze_duration: float = 0.0, slow_duration: float = 0.0, bonus_vs_frozen: int = 0, burn_duration: float = 0.0, burn_damage: float = 0.0, freeze_status_id: String = "frozen", kill_state: Variant = null) -> int:
 	if freeze_duration > 0.0:
 		freeze_duration += elemental_status_duration_bonus(true)
 	if slow_duration > 0.0:
@@ -1136,6 +1208,7 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			continue
 		var hurt_area := enemy.get_node_or_null("Direction/HurtArea3D") as HurtArea3D
 		if hurt_area != null:
+			var health_before_hit: float = enemy.health
 			var impact_direction := offset_3d.normalized()
 			if impact_direction.length_squared() < 0.001:
 				impact_direction = Vector3(aim_2d.x, 0.0, aim_2d.y)
@@ -1143,6 +1216,9 @@ func _damage_enemies_in_shape(center: Vector3, aim: Vector3, shape: String, reac
 			if bonus_vs_frozen > 0 and enemy.is_skill_frozen():
 				final_damage += bonus_vs_frozen
 			hurt_area.take_damage(impact_direction, final_damage, self)
+			if health_before_hit > 0.0 and enemy.health <= 0.0:
+				if kill_state is Dictionary:
+					kill_state["any"] = true
 			if not _wind_ultimate_active:
 				_gain_rage(12.5)
 			_try_blood_charm_heal()

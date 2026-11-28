@@ -293,7 +293,7 @@ func _show_help() -> void:
 		var row := _row(GameSettings.ACTIONS[action])
 		var slots: Array = GameSettings.bindings[action]
 		row.add_child(_label("%s    /    %s" % [GameSettings.binding_text(slots[0]), GameSettings.binding_text(slots[1])]))
-	_status.text = "Di chuyển để quay nhân vật · Chuột: ngắm kỹ năng\nNhấn nhanh hoặc giữ kỹ năng đều ngắm theo chuột; thả để thi triển."
+	_status.text = "Di chuyển để quay nhân vật · Chuột: ngắm kỹ năng\nZ / X / C / V thi triển từng ô; giữ để ngắm, thả để bắn. U là phím thi triển phụ; E ném vũ khí; R dùng tuyệt kỹ."
 	var back := _button("Quay lại  ·  Esc", _show_home)
 	_footer.add_child(back)
 	back.grab_focus()

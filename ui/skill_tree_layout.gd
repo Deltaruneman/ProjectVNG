@@ -69,7 +69,7 @@ const WEAPON_EVOLUTIONS := {
 const SKILL_DESCRIPTIONS := {
 	"Phi Dao Gió": "Phóng dao gió xuyên qua nhiều kẻ địch.",
 	"Phong Bộc": "Trong 5 giây, tăng tốc độ chạy và sát thương đòn đánh.",
-	"Quét Kiếm Phi Gió": "Lướt nhanh về phía trước và đánh bật kẻ địch trên đường.",
+	"Quét Kiếm Phi Gió": "Lướt xa hơn, gây sát thương cho mọi kẻ địch trên đường; hạ gục được mục tiêu sẽ hồi chiêu ngay.",
 	"Hỏa Cầu": "Phóng quả cầu lửa bay thẳng, không quay về; gây sát thương và thiêu đốt mục tiêu: 0,5 sát thương mỗi giây trong 1 giây.",
 	"Ma Hỏa": "Triệu hồi ma hỏa, phát nổ sau 5 giây quanh vị trí người chơi.",
 	"Hỏa Nộ": "Mất 5 HP (giữ lại tối thiểu 1 HP), gây sát thương vòng lửa trong 3 giây.",
@@ -692,7 +692,7 @@ func _build_weapon_tree() -> void:
 		var required: int = [5, 8][index]
 		if current_form == "wind" and index == 1:
 			required = 10
-		_add_skill_node(graph, ultimate_positions[index], skill_id, str(ultimate_names[index]), str(ultimate_short[index]), "I", required, str(SKILL_DESCRIPTIONS.get(ultimate_names[index], "Tuyệt kỹ.")), true, form_color)
+		_add_skill_node(graph, ultimate_positions[index], skill_id, str(ultimate_names[index]), str(ultimate_short[index]), "R", required, str(SKILL_DESCRIPTIONS.get(ultimate_names[index], "Tuyệt kỹ.")), true, form_color)
 
 
 func _add_evolution_node(graph: SkillTreeGraph, position: Vector2, data: Dictionary, color: Color) -> void:

@@ -40,12 +40,14 @@ func _enter() -> void:
 	_cast_blade_suppressed = false
 	_cast_duration = cast_time
 	obj.stop_horizontal()
-	var selected_skill_id: String = obj.get_selected_active_skill_id()
+	var weapon_throw_requested: bool = obj.weapon_throw_requested
+	obj.weapon_throw_requested = false
+	var selected_skill_id: String = "" if weapon_throw_requested else obj.get_selected_active_skill_id()
 	if obj.get_active_skill_cooldown_for_id(selected_skill_id) > 0.0:
 		obj.clear_skill_cast_aim()
 		change_state(fsm.states.idle)
 		return
-	if selected_skill_id == "" and GameManager.weapon_form == "" and obj.selected_active_slot == 1:
+	if weapon_throw_requested and GameManager.weapon_form == "" and obj.selected_active_slot == 1:
 		var weapon_id: String = GameManager.inventory.id_for_slot("main")
 		if weapon_id == "":
 			obj.clear_skill_cast_aim()
@@ -80,7 +82,8 @@ func _enter() -> void:
 		obj.clear_skill_cast_aim()
 		obj.suppress_blade(true)
 		_cast_blade_suppressed = true
-		obj.start_active_skill_cooldown(selected_skill_id)
+		if not obj.consume_active_skill_cooldown_reset(selected_skill_id):
+			obj.start_active_skill_cooldown(selected_skill_id)
 		BattleFX.play_skill_sound(obj, selected_skill_id)
 		if selected_skill_id in ["active_wind_3", "active_ice_2"]:
 			BattleFX.emberline_slash(obj, obj.skill_effect_position(cast_aim, 1.2, 0.8), GameManager.weapon_form, cast_aim, 1.0)

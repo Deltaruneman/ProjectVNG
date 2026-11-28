@@ -29,10 +29,8 @@ func _physics_process(delta: float) -> void:
 		target.global_position + Vector3.UP * 1.15]
 	var sprite := target.get_node_or_null("Sprite3D") as Sprite3D
 	anchors.append(sprite.global_position + camera.global_basis.y * 1.6 if sprite else target.global_position + Vector3.UP * 2.0)
-	# Include sprite edges so a side wall cannot cover half the body unnoticed.
-	var edge := camera.global_basis.x * 0.85
-	anchors.append(target.global_position + Vector3.UP * 1.15 + edge)
-	anchors.append(target.global_position + Vector3.UP * 1.15 - edge)
+	# Keep fade rays on the Player's centerline. Lateral edge rays also catch
+	# neighboring side walls, even when those walls do not cover Foxy.
 	for map in _grids.keys():
 		if not is_instance_valid(map):
 			var stale: Dictionary = _grids[map]

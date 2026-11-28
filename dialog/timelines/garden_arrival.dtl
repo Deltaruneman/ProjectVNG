@@ -1,0 +1,5 @@
+foxy: Đây là...?
+foxy: Khu vườn của Đại Hiền Giả ư? Cây cối ở đây phát triển thật kỳ dị.
+foxy: Có ai đang chăm sóc khu vườn này sao?
+[signal arg="focus_gardener"]
+[end_timeline]

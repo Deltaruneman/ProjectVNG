@@ -57,10 +57,11 @@ levels/level_1/basement_full.tscn
 | Di chuyển | `W` `A` `S` `D` hoặc phím mũi tên |
 | Nhảy | `Space` |
 | Tấn công | `J` hoặc chuột trái |
-| Nhặt / giữ đối tượng | `X` hoặc `K` |
-| Chọn ô kỹ năng thường | `1` `2` `3` `4` |
-| Thi triển kỹ năng thường | `U` hoặc `E`; tap cast khi thả, giữ 0.3 s để hiện aim |
-| Thi triển tuyệt kỹ đã chọn khi Nộ đầy | `R` hoặc `I` |
+| Nhặt / giữ đối tượng | `K` |
+| Thi triển kỹ năng 1–4 | `Z` `X` `C` `V`; nhấn để chọn và thi triển, giữ để ngắm chuột rồi thả |
+| Thi triển ô kỹ năng đang chọn (phím phụ) | `U` |
+| Ném vũ khí chính ở dạng thường | `E`; ngắm theo chuột, tối đa 7 m |
+| Thi triển tuyệt kỹ đã chọn khi Nộ đầy | `R` |
 | Mở cây kỹ năng | `T` |
 | Dash / parry | `Shift` / `L` hoặc chuột phải |
 | Tương tác | `F` |

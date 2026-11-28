@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ekdrygupkwbd" path="res://assets/vendor/Medieval Village MegaKit[Standard]/Medieval Village MegaKit[Standard]/glTF/Prop_Wagon.gltf" id="11_wagon"]
 [ext_resource type="Script" uid="uid://cthn57qbkick8" path="res://levels/sketch/farm_controller.gd" id="12_farm"]
 [ext_resource type="Script" uid="uid://dn8lc877ut356" path="res://levels/objects/garden_station.gd" id="garden_station"]
+[ext_resource type="Script" path="res://levels/level_1/garden_story.gd" id="garden_story"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.36, 0.58, 0.85, 1)
@@ -100,6 +101,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 1, 1.3521802)
 id = "garden_to_castle"
 target_stage = "res://levels/level_1/castle.tscn"
 target_door = "castle_from_garden"
+before_transition_timeline = "res://dialog/timelines/garden_before_castle.dtl"
+before_transition_flag = "story_garden_castle_door_seen"
 metadata/note = "Cửa sang Castle."
 
 [node name="Checkpoint_garden" parent="Transitions" unique_id=884083768 instance=ExtResource("6_checkpoint")]
@@ -549,6 +552,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 5)
 target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=1533580739]
+
+[node name="GardenStory" type="Node" parent="."]
+script = ExtResource("garden_story")
 
 [node name="Farm" type="Node3D" parent="." unique_id=988548618]
 script = ExtResource("12_farm")

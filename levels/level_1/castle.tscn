@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjsjys8su473f"]
 
 [ext_resource type="PackedScene" path="res://scenes/enemies/arcane/undead_executioner.tscn" id="41_a311w"]
+[ext_resource type="PackedScene" uid="uid://dswx33s57ghuo" path="res://scenes/enemies/arcane/necromancer.tscn" id="42_0saqi"]
 [ext_resource type="Script" uid="uid://dlhp1k1nbtcl2" path="res://levels/objects/automatic_stairs.gd" id="auto_stairs"]
 [ext_resource type="PackedScene" uid="uid://b88utee7jpgcg" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_patternA_red.gltf" id="banner_a"]
 [ext_resource type="PackedScene" uid="uid://cwgm1obmh0ell" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/banner_shield_red.gltf" id="banner_shield"]
@@ -10,8 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://b78ov0hbx36ka" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/barrier.gltf" id="barrier"]
 [ext_resource type="PackedScene" uid="uid://cd2md2pru1kto" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/bed_frame.gltf" id="bed"]
 [ext_resource type="PackedScene" uid="uid://gm848ct3egyd" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/bed_floor.gltf" id="bed_floor"]
+[ext_resource type="Script" uid="uid://dfxa6l7kn5dt7" path="res://levels/objects/door/clear_portal.gd" id="boss_clear"]
 [ext_resource type="PackedScene" uid="uid://5xfo56cbr5k8" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/box_stacked.gltf" id="boxes"]
 [ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="camera"]
+[ext_resource type="Script" uid="uid://cqjxa106mwvnr" path="res://levels/level_1/castle_story.gd" id="castle_story"]
 [ext_resource type="PackedScene" uid="uid://c0de5mdqikvim" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/chair.gltf" id="chair"]
 [ext_resource type="PackedScene" uid="uid://crb65yxteq68h" path="res://levels/objects/checkpoint/checkpoint.tscn" id="checkpoint"]
 [ext_resource type="PackedScene" uid="uid://bbci3j6okt6t4" path="res://assets/vendor/KayKit_Dungeon/Assets/gltf/chest_gold.gltf" id="chest_gold"]
@@ -948,17 +951,6 @@ obstacle_maps = [NodePath("../World/PathBlockers")]
 [node name="StairRailing" type="Node3D" parent="F2" unique_id=107398627]
 metadata/note = "Lan can quanh lỗ cầu thang, chỉ chừa lối ở cạnh bắc."
 
-[node name="StairsDown" type="Area3D" parent="F2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 26.5)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("auto_stairs")
-destination = Vector3(0, -8, 19)
-
-[node name="Shape" type="CollisionShape3D" parent="F2/StairsDown"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("StairEntranceShape")
-
 [node name="East1" parent="F2/StairRailing" unique_id=455663642 instance=ExtResource("barrier")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 1, 30)
 
@@ -986,6 +978,17 @@ shape = SubResource("BoxShape3D_13")
 [node name="South" type="CollisionShape3D" parent="F2/StairRailing/Collision" unique_id=548769517]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.7, 44)
 shape = SubResource("BoxShape3D_14")
+
+[node name="StairsDown" type="Area3D" parent="F2" unique_id=192768866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 26.5)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("auto_stairs")
+destination = Vector3(0, -8, 19)
+
+[node name="Shape" type="CollisionShape3D" parent="F2/StairsDown" unique_id=138592784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("StairEntranceShape")
 
 [node name="EnemyZones" type="Node3D" parent="F2" unique_id=1834619985]
 
@@ -1332,6 +1335,7 @@ shape = SubResource("BoxShape3D_9")
 
 [node name="ChestGold" parent="F2/Storeroom" unique_id=344207611 instance=ExtResource("chest_gold")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98, 1, 6)
+visible = false
 
 [node name="Collision" type="StaticBody3D" parent="F2/Storeroom/ChestGold" unique_id=797115840]
 
@@ -1349,10 +1353,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 24)
 id = "castle_f2_start"
 
 [node name="Door_to_next" parent="F2/Transitions" unique_id=131267685 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 1, 1.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 1, 2.6943367)
 id = "castle_to_next"
 locked = true
 unlock_flag = "castle_f2_cleared"
+coming_soon = true
 metadata/note = "Cửa lên tầng sau (To 4). Khóa tới khi dọn hết bãi quái F2. Gán target_stage/target_door khi có scene tầng sau."
 
 [node name="Roof" type="Node3D" parent="." unique_id=1937085599]
@@ -1398,7 +1403,39 @@ target = NodePath("../Player")
 
 [node name="Bullets" type="Node3D" parent="." unique_id=1152240348]
 
-[node name="UndeadExecutioner" parent="." unique_id=545841968 instance=ExtResource("41_a311w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.96663, 1.775, 30.08551)
+[node name="UndeadExecutionerEncounter" type="Node3D" parent="." unique_id=115161523]
+
+[node name="UndeadExecutioner" parent="UndeadExecutionerEncounter" unique_id=545841968 instance=ExtResource("41_a311w")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 50.96663, 1.2329248, 30.08551)
 exp_point_drop = 10
 attack_damage = 1.0
+max_health = 100
+
+[node name="NecromancerEncounter" type="Node3D" parent="." unique_id=554398987]
+
+[node name="Necromancer" parent="NecromancerEncounter" unique_id=439988439 instance=ExtResource("42_0saqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.33137, 13.399532, 9.294315)
+max_health = 100
+
+[node name="UndeadExecutionerRewardSpawn" type="Marker3D" parent="." unique_id=746886131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.96663, 1, 30.08551)
+
+[node name="NecromancerRewardSpawn" type="Marker3D" parent="." unique_id=695002487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.333824, 9, 14.906113)
+
+[node name="UndeadExecutionerReward" type="Node3D" parent="." unique_id=8275034 node_paths=PackedStringArray("encounters", "clear_reward")]
+script = ExtResource("boss_clear")
+clear_flag = "castle_executioner_defeated"
+encounters = NodePath("../UndeadExecutionerEncounter")
+clear_reward = NodePath("../UndeadExecutionerRewardSpawn")
+clear_reward_chest_id = "castle_undead_executioner"
+
+[node name="NecromancerReward" type="Node3D" parent="." unique_id=599237453 node_paths=PackedStringArray("encounters", "clear_reward")]
+script = ExtResource("boss_clear")
+clear_flag = "castle_necromancer_defeated"
+encounters = NodePath("../NecromancerEncounter")
+clear_reward = NodePath("../NecromancerRewardSpawn")
+clear_reward_chest_id = "castle_necromancer"
+
+[node name="CastleStory" type="Node" parent="." unique_id=614986181]
+script = ExtResource("castle_story")

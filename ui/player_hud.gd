@@ -22,6 +22,7 @@ const SKILL_TREE_SLOT := 7
 const SLOT_COUNT := 8
 const DEFENSE_SLOT_W := 22.0
 const DEFENSE_GROUP_GAP := 6.0
+const SKILL_SLOT_HIGHLIGHT_SECONDS := 0.45
 const LOW_HEALTH_VIGNETTE_SHADER := """
 shader_type canvas_item;
 uniform vec4 vignette_tint : source_color = vec4(0.92, 0.08, 0.12, 1.0);
@@ -87,6 +88,8 @@ var _vignette_material: ShaderMaterial
 var _status_strip: HBoxContainer
 var _skill_slot_panels: Array[PanelContainer] = []
 var _skill_slot_styles: Array[StyleBoxFlat] = []
+var _skill_slot_highlight_slot := 0
+var _skill_slot_highlight_remaining := 0.0
 var _skill_slot_icons: Array[TextureRect] = []
 var _skill_slot_placeholders: Array[Label] = []
 var _skill_slot_cooldown_overlays: Array[ColorRect] = []
@@ -140,7 +143,7 @@ func _ready() -> void:
 		GameManager.inventory_changed.connect(_refresh_quick_item)
 		GameSettings.changed.connect(_refresh_quick_item)
 		(_player as Player).active_skill_slot_changed.connect(_on_active_skill_slot_changed)
-		_on_active_skill_slot_changed((_player as Player).selected_active_slot, (_player as Player).get_selected_active_skill_id())
+		_refresh_skill_bar()
 		GameManager.skill_progress_changed.connect(_refresh_skill_bar)
 		_refresh_skill_points()
 		if _rage_bar != null and _rage_label != null:
@@ -172,7 +175,8 @@ func set_skill_tree_open(open: bool) -> void:
 		_on_stamina_changed((_player as Player).stamina, Player.MAX_STAMINA)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_skill_slot_highlight_remaining = maxf(0.0, _skill_slot_highlight_remaining - delta)
 	_refresh_skill_bar()
 	_refresh_rage_label()
 	_refresh_status_strip()
@@ -198,7 +202,10 @@ func _refresh_skill_points() -> void:
 		_book_badge.text = str(GameManager.skill_points)
 
 
-func _on_active_skill_slot_changed(slot: int, skill_id: String) -> void:
+func _on_active_skill_slot_changed(slot: int, _skill_id: String) -> void:
+	if slot >= 1 and slot <= 4:
+		_skill_slot_highlight_slot = slot
+		_skill_slot_highlight_remaining = SKILL_SLOT_HIGHLIGHT_SECONDS
 	_refresh_skill_bar()
 
 
@@ -604,7 +611,10 @@ func _refresh_skill_bar() -> void:
 	if player == null or _skill_slot_panels.size() != SLOT_COUNT:
 		return
 	for index in _input_key_labels.size():
-		_input_key_labels[index].text = _input_hint(_slot_input_action(index), true)
+		var slot_action := _slot_input_action(index)
+		if index == 0 and GameManager.weapon_form == "" and not GameManager.inventory.id_for_slot("main").is_empty():
+			slot_action = "weapon_throw"
+		_input_key_labels[index].text = _input_hint(slot_action, true)
 		if index == SKILL_TREE_SLOT:
 			_skill_slot_placeholders[index].text = _input_hint("skill_tree", true)
 	for index in 4:
@@ -626,18 +636,25 @@ func _refresh_skill_bar() -> void:
 		_skill_slot_cooldown_overlays[index].visible = remaining > 0.0
 		_skill_slot_cooldown_labels[index].visible = remaining > 0.0
 		_skill_slot_cooldown_labels[index].text = str(ceili(remaining)) if remaining > 0.0 else ""
-		_skill_slot_styles[index].border_color = Color("52f19a") if player.selected_active_slot == slot_number else Color("68737a")
-		_skill_slot_styles[index].set_border_width_all(2 if player.selected_active_slot == slot_number else 1)
+		var neutral_border := Color("68737a")
+		var highlight_remaining := _skill_slot_highlight_remaining if _skill_slot_highlight_slot == slot_number else 0.0
+		var fade_start := SKILL_SLOT_HIGHLIGHT_SECONDS * 0.55
+		var fade_progress := clampf((fade_start - highlight_remaining) / maxf(SKILL_SLOT_HIGHLIGHT_SECONDS - fade_start, 0.001), 0.0, 1.0)
+		_skill_slot_styles[index].border_color = Color("52f19a").lerp(neutral_border, fade_progress) if highlight_remaining > 0.0 else neutral_border
+		_skill_slot_styles[index].set_border_width_all(2 if highlight_remaining > fade_start else 1)
 		var title := _skill_display_name(skill_id)
 		if skill_id.begins_with("offhand_"):
 			title = str(GameManager.inventory.definition_for_slot("offhand").get("name", "Vũ khí phụ")) + (" · " + GameManager.weapon_form if GameManager.weapon_form != "" else "")
 		if skill_id == "" and GameManager.weapon_form == "":
-			title = "Ném vũ khí" if slot_number == 1 else "Chưa có kỹ năng"
+			title = "Ném vũ khí" if slot_number == 1 and not GameManager.inventory.id_for_slot("main").is_empty() else "Chưa có kỹ năng"
 		if skill_id == "" and slot_number == 1:
 			title = str({"wind": "Phi Dao Gió", "fire": "Hỏa Cầu", "ice": "Băng Cầu", "lightning": "Lôi Cầu"}.get(GameManager.weapon_form, title))
-		_skill_slot_panels[index].tooltip_text = "%s · %s · %s thi triển" % [_input_hint(_slot_input_action(index)), title, _input_hint("skill")]
-		if slot_number == 1 and GameManager.weapon_form == "":
+		var key_hint := _input_hint("weapon_throw") if title == "Ném vũ khí" else _input_hint(_slot_input_action(index))
+		_skill_slot_panels[index].tooltip_text = "%s · %s" % [key_hint, title]
+		if title == "Ném vũ khí":
 			_skill_slot_panels[index].tooltip_text += "\nNém thẳng theo chuột tối đa 7 m; chạm vật cản thì rơi. F để nhặt lại."
+		elif skill_id != "":
+			_skill_slot_panels[index].tooltip_text += " · Giữ để ngắm, thả để thi triển"
 	_refresh_action_slot(DASH_SLOT, "dash", _input_hint("dash") + " · Dash", maxf(0.0, player.dash_cooldown_timer))
 	_refresh_action_slot(PARRY_SLOT, "parry", _input_hint("parry") + " · Parry", maxf(0.0, player.parry_cooldown_timer))
 
@@ -648,7 +665,7 @@ func _refresh_skill_bar() -> void:
 	_skill_slot_icons[ultimate_slot].texture = ultimate_texture
 	_skill_slot_icons[ultimate_slot].modulate = Color.WHITE if ultimate_id != "" else Color("65717b")
 	_skill_slot_placeholders[ultimate_slot].visible = ultimate_texture == null
-	_skill_slot_placeholders[ultimate_slot].text = "I" if ultimate_id == "" else "?"
+	_skill_slot_placeholders[ultimate_slot].text = _input_hint("ultimate", true) if ultimate_id == "" else "?"
 	var ultimate_remaining := player.get_ultimate_cooldown_remaining()
 	_skill_slot_cooldown_overlays[ultimate_slot].visible = ultimate_remaining > 0.0
 	_skill_slot_cooldown_labels[ultimate_slot].visible = ultimate_remaining > 0.0

@@ -6,10 +6,11 @@ const ACTIONS := {
 	"inventory": "Túi đồ", "cheat_menu": "Menu thử nghiệm",
 	"up": "Di chuyển lên", "down": "Di chuyển xuống", "left": "Di chuyển trái",
 	"right": "Di chuyển phải", "jump": "Nhảy", "dash": "Lướt", "attack": "Tấn công",
-	"parry": "Đỡ đòn", "carry": "Nhấc / ném", "skill": "Dùng kỹ năng",
+	"parry": "Đỡ đòn", "carry": "Nhấc vật / ném vật", "skill": "Thi triển ô đang chọn (phím phụ)",
+	"weapon_throw": "Ném vũ khí",
 	"quick_item": "Vật phẩm nhanh", "ultimate": "Tuyệt kỹ", "interact": "Tương tác", "skill_tree": "Cây kỹ năng",
-	"active_skill_1": "Ô kỹ năng 1", "active_skill_2": "Ô kỹ năng 2",
-	"active_skill_3": "Ô kỹ năng 3", "active_skill_4": "Ô kỹ năng 4",
+	"active_skill_1": "Kỹ năng 1", "active_skill_2": "Kỹ năng 2",
+	"active_skill_3": "Kỹ năng 3", "active_skill_4": "Kỹ năng 4",
 }
 const SIZES := [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), Vector2i(2560, 1440)]
 const LIMITS := [0, 30, 60, 90, 120, 144, 165, 240]
@@ -89,6 +90,38 @@ func load_settings() -> void:
 		if slots is Array and slots.size() == 2 and _valid_binding(slots[0]) and _valid_binding(slots[1]) \
 				and (not slots[0].is_empty() or not slots[1].is_empty()):
 			candidate[action] = slots
+	# Remap only the exact previous defaults; preserve user-customized bindings.
+	var legacy_defaults := {
+		"active_skill_1": [{"key": 49}, {}], "active_skill_2": [{"key": 50}, {}],
+		"active_skill_3": [{"key": 51}, {}], "active_skill_4": [{"key": 52}, {}],
+		"carry": [{"key": 88}, {"key": 75}], "skill": [{"key": 85}, {"key": 69}],
+		"ultimate": [{"key": 82}, {"key": 73}],
+	}
+	for action: String in legacy_defaults:
+		if candidate[action] == legacy_defaults[action]:
+			candidate[action] = default_bindings[action].duplicate(true)
+	# X is now skill 2, so move any custom carry binding on X to its spare key.
+	var skill_two_binding: Dictionary = default_bindings["active_skill_2"][0]
+	for index in 2:
+		if candidate["carry"][index] != skill_two_binding:
+			continue
+		if index == 0:
+			candidate["carry"][0] = candidate["carry"][1] if not candidate["carry"][1].is_empty() else default_bindings["carry"][0].duplicate()
+			candidate["carry"][1] = {}
+		else:
+			candidate["carry"][index] = {}
+	# Older custom settings may have put E on the generic skill action. Give the
+	# requested dedicated throw key to weapon_throw while retaining another skill key.
+	if not config.has_section_key("bindings", "weapon_throw"):
+		var throw_binding: Dictionary = default_bindings["weapon_throw"][0]
+		for index in 2:
+			if candidate["skill"][index] != throw_binding:
+				continue
+			if index == 0:
+				candidate["skill"][0] = candidate["skill"][1] if not candidate["skill"][1].is_empty() else default_bindings["skill"][0].duplicate()
+				candidate["skill"][1] = {}
+			else:
+				candidate["skill"][index] = {}
 	# The former defaults were reversed. Migrate only that exact primary-key pair;
 	# preserve all other saved/custom bindings and secondary slots.
 	if candidate["dash"][0] == {"key": KEY_Q} and candidate["quick_item"][0] == {"key": KEY_SHIFT}:

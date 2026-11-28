@@ -33,8 +33,13 @@ func _climb() -> void:
 	for body in get_overlapping_bodies():
 		if body is Player and body.can_interact():
 			var route := PackedVector3Array([global_position])
+			var end_point: Vector3 = to_global(destination)
 			if ladder:
-				route.append(global_position + Vector3.UP * climb_height)
-			route.append(to_global(destination))
+				var ladder_endpoint := global_position + Vector3.UP * climb_height
+				if climb_height < 0.0:
+					# Reverse the ascent route: move to the top of the shaft first, then descend.
+					ladder_endpoint = end_point + Vector3.UP * absf(climb_height)
+				route.append(ladder_endpoint)
+			route.append(end_point)
 			body.start_automatic_stairs(route, ladder)
 			return
