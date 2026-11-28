@@ -101,7 +101,6 @@ const CHARACTER_NODES := [
 	{"id": "char_parry", "name": "Phản Đòn", "short": "Phản Đòn", "icon": "DEF", "desc": "+0,05 giây thời gian Parry mỗi cấp", "branch": "Phòng thủ", "color": Color("73d6c0"), "max": 2, "req": 2},
 	{"id": "char_dash", "name": "Bước Gió", "short": "Bước Gió", "icon": "DSH", "desc": "Giảm 0,1 giây hồi chiêu Dash mỗi cấp", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 0},
 	{"id": "char_speed", "name": "Nhanh Nhẹn", "short": "Nhanh Nhẹn", "icon": "SPD", "desc": "+0,5 m/s tốc độ di chuyển mỗi cấp", "branch": "Cơ động", "color": Color("e4cb78"), "max": 3, "req": 1},
-	{"id": "char_double_jump", "name": "Nhảy Linh Hoạt", "short": "Nhảy", "icon": "JMP", "desc": "+1 lần nhảy trên không", "branch": "Cơ động", "color": Color("e4cb78"), "max": 1, "req": 2},
 ]
 
 var _balance_label: Label

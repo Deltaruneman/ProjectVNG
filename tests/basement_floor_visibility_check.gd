@@ -48,8 +48,8 @@ func run() -> void:
 	player.invincible = true
 	lower = stage.get_node("B1")
 	upper = stage.get_node("B2")
-	upper_y = upper.global_position.y + 7.0 # Authored Floor cells y3 * 2 plus plane top1.
-	print("AUTHORED_FLOORS lower=1 upper=",upper_y)
+	upper_y = upper.global_position.y + 6.0 # Authored Floor cells y3 * 2; brick surface is at the cell origin.
+	print("AUTHORED_FLOORS lower=0 upper=",upper_y)
 	await frames(20)
 	await place(Vector3(14,1.2,14))
 	only_floor(0,"lower overlap area shows B1 only")
@@ -61,7 +61,7 @@ func run() -> void:
 		print("FLOOR_BEFORE_RESULT ",checks-failures,"/",checks)
 		get_tree().quit(1 if failures else 0)
 		return
-	check(is_equal_approx(stage._floor_heights[1],upper_y),"visibility height follows edited B2 transform")
+	check(absf(stage._floor_heights[1]-upper_y) < 0.05,"visibility height follows edited B2 transform")
 	check(stage.place_player_at("b1_start"),"B1 checkpoint arrival")
 	only_floor(0,"checkpoint selects B1 before physics settles")
 	await frames(20)

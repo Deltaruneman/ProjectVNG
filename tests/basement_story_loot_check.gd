@@ -63,6 +63,7 @@ func capture(name: String) -> void:
 func load_stage(path: String) -> void:
 	manager.change_stage(path)
 	await scene_changed
+	while manager.is_changing(): await ticks(1)
 	await ticks(3)
 
 func freeze_enemies() -> void:
@@ -107,9 +108,13 @@ func _run() -> void:
 	check(dialogue.Choices.get_choice_button(1).text == "Có" and dialogue.Choices.get_choice_button(2).text == "Không", "real Có / Không choices")
 	await capture("possession-choice")
 	dialogue.Choices.select_choice(2)
-	await ticks(3)
+	while manager.is_changing() or current_scene.scene_file_path != "res://ui/main_menu.tscn": await ticks(1)
+	check(not manager.flags.get("story_possession",false) and dialogue.current_timeline == null, "Không returns to main menu without accepting")
+	await load_stage(FULL)
+	stage = current_scene
+	story = stage.get_node("BasementStory")
+	await ticks(15)
 	await finish_dialogue(true)
-	check(not manager.flags.get("story_possession",false) and story.busy, "Không cannot start gameplay")
 	dialogue.Choices.select_choice(1)
 	await ticks(3)
 	await finish_dialogue()

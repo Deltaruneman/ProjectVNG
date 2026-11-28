@@ -109,10 +109,9 @@ func _ready() -> void:
 	camera.near = 0.05
 	_query.shape = _shape
 	_query.collide_with_areas = false
-	if not get_parent().scene_file_path.get_file().begins_with("basement"):
-		_wall_occlusion = preload("res://scenes/camera/wall_occlusion.gd").new()
-		_wall_occlusion.rig = self
-		add_child(_wall_occlusion)
+	_wall_occlusion = preload("res://scenes/camera/wall_occlusion.gd").new()
+	_wall_occlusion.rig = self
+	add_child(_wall_occlusion)
 	snap_to_target()
 
 func _can_control() -> bool:

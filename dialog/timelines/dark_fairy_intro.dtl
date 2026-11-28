@@ -1,7 +1,7 @@
 dark_fairy: ???
-dark_fairy: Ngươi là kẻ bị giam giữ ở cái ngục tù đó ư?
-dark_fairy: Cứ nghĩ ngươi đã chết ở đó rồi.
-foxy: Ý ngươi là sao?
+dark_fairy: Ngươi?? Sao ngươi tìm được đường đến đây
+dark_fairy: Ta là 1 trong những kẻ canh giữ tòa tháp này
+foxy: Bảo vật ở đâu??
 foxy: Trả lời cho ta mọi câu hỏi.
 foxy: Hoặc bỏ lại mạng tại đây đi.
 [signal arg="story_done"]

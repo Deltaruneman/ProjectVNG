@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot4.7.2 rendered Compatibility; loopback native scene:suspend_changed debugger protocol",
+  "before": {
+    "sameEngineError": true,
+    "supportingProbes": "5/5",
+    "clientExit": 0,
+    "note": "Support probes establish actual suspension; engine error remains the failure evidence, not a passing fix."
+  },
+  "final": {
+    "nativeSuspension": {
+      "passed": 17,
+      "total": 17,
+      "exit": 0
+    },
+    "openingChoices": {
+      "passed": 19,
+      "total": 19,
+      "exit": 0
+    },
+    "menuLoading": {
+      "passed": 44,
+      "total": 44,
+      "exit": 0
+    },
+    "doors": {
+      "passed": 73,
+      "total": 73,
+      "exit": 0
+    },
+    "total": 153
+  },
+  "intermediate": {
+    "storyChoiceFixture": {
+      "passed": 5,
+      "total": 9,
+      "exit": 1,
+      "reason": "Attempted No before Dialogic input blocker ended; wait for actual choice availability."
+    },
+    "menuHandoff": {
+      "passed": 43,
+      "total": 44,
+      "exit": 1,
+      "reason": "Real one-frame outgoing movement gap; acquire loading pause before menu close and retain it through safe handoff."
+    }
+  },
+  "sourceHashes": {
+    "matched": 194,
+    "total": 194,
+    "runtime": 167,
+    "dialogueResources": 20,
+    "executedFixtureFiles": 7
+  },
+  "preservedUserProse": [
+    "opening narrator",
+    "question",
+    "Yes narration"
+  ],
+  "refusal": "Only No branch changed to story_decline/end; no seen/completion/save; common loading to actual title.",
+  "verified": [
+    "Native suspend/resume at load start, pause/inventory/cheat closes and error Back",
+    "No returns to title and releases dialogue/Stage without save change; New Game asks again",
+    "Yes restores Player/camera, saves normally and Continue skips completed opening",
+    "Menu/health/checkpoint/failed-load/duplicate rules and actual F B3-B2-B3 traversal retained"
+  ],
+  "limits": [
+    "Full legacy story-loot suite opening expectation updated but full historical suite not run",
+    "No full campaign, exported desktop/web, all debugger frame-step timings or independent owner acceptance",
+    "Existing UID/B2/anchor/repeated-state and exit cleanup diagnostics retained"
+  ],
+  "isolation": [
+    "ArcanaSuspend-20261128",
+    "ArcanaPossession-20261128",
+    "ArcanaSceneLoading-20261128",
+    "ArcanaDoorClearance-20261128"
+  ],
+  "noSourceProjectCacheEdits": true,
+  "noRealSavesOrPreferences": true,
+  "noGenerators": true,
+  "noCommitOrPush": true
+}

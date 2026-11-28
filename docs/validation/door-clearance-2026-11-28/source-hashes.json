@@ -1,0 +1,857 @@
+[
+  {
+    "path": "scripts/node3d_factory.gd",
+    "source": "f3d8b21f7262e7be31e569c48312944f97893e354503e0836915a75926912cfb",
+    "staged": "f3d8b21f7262e7be31e569c48312944f97893e354503e0836915a75926912cfb"
+  },
+  {
+    "path": "scripts/fsm/state.gd",
+    "source": "d8e8af756a3e891f52b533068e4766ca97f800454d1ceae56a97ab32770ddab5",
+    "staged": "d8e8af756a3e891f52b533068e4766ca97f800454d1ceae56a97ab32770ddab5"
+  },
+  {
+    "path": "scripts/fsm/fsm.gd",
+    "source": "a60d4d132e435cfd96cf4f92bd790456fb92b1d657aef6d1faf3ea09b1e45db6",
+    "staged": "a60d4d132e435cfd96cf4f92bd790456fb92b1d657aef6d1faf3ea09b1e45db6"
+  },
+  {
+    "path": "scripts/autoload/save_system.gd",
+    "source": "e2b609bc561f0f657cd865947aa0ebb5bf2569b3658dc974471824bc4eda07fa",
+    "staged": "e2b609bc561f0f657cd865947aa0ebb5bf2569b3658dc974471824bc4eda07fa"
+  },
+  {
+    "path": "scripts/autoload/game_manager.gd",
+    "source": "a23fbc8b3507e15ae6a18b3262c61f1c8cf2f2b2e04db1270e264c93d3a21add",
+    "staged": "a23fbc8b3507e15ae6a18b3262c61f1c8cf2f2b2e04db1270e264c93d3a21add"
+  },
+  {
+    "path": "scripts/autoload/game_settings.gd",
+    "source": "f6553487098fd52cae96b5a29bacfa724c3f0bfd4240f099365cb3f9692f201a",
+    "staged": "f6553487098fd52cae96b5a29bacfa724c3f0bfd4240f099365cb3f9692f201a"
+  },
+  {
+    "path": "scripts/base_character.gd",
+    "source": "4880d55fc35ef03f31c1db0c97413138a62629e997170ef50ea062a1920e7caa",
+    "staged": "4880d55fc35ef03f31c1db0c97413138a62629e997170ef50ea062a1920e7caa"
+  },
+  {
+    "path": "scripts/conversation.gd",
+    "source": "0ffc84085f9e3c207929e87ac517ce917e588f077ae4293f058dea52992c85e1",
+    "staged": "0ffc84085f9e3c207929e87ac517ce917e588f077ae4293f058dea52992c85e1"
+  },
+  {
+    "path": "scripts/grid_pathfinder.gd",
+    "source": "9b40f53f81e04fef76f12b8a5e0d027c96ecf8a9a46fc16f83205a26d6426001",
+    "staged": "9b40f53f81e04fef76f12b8a5e0d027c96ecf8a9a46fc16f83205a26d6426001"
+  },
+  {
+    "path": "scripts/interactive_area_3d.gd",
+    "source": "42a4d874e835c2d54c3227f3c0f3ad69e889176f5a6af92335c253b3ec33a46c",
+    "staged": "42a4d874e835c2d54c3227f3c0f3ad69e889176f5a6af92335c253b3ec33a46c"
+  },
+  {
+    "path": "scripts/path_agent.gd",
+    "source": "cd3d3a826bb5a17fa38b18fb9a893d3c03d9238ec2a16dbc69f516a4af7b8508",
+    "staged": "cd3d3a826bb5a17fa38b18fb9a893d3c03d9238ec2a16dbc69f516a4af7b8508"
+  },
+  {
+    "path": "scripts/hurt_area_3d.gd",
+    "source": "ccd4b0162832f5cd23f7611ad023faf6b82693e44533a15a22ea77aaeda517b3",
+    "staged": "ccd4b0162832f5cd23f7611ad023faf6b82693e44533a15a22ea77aaeda517b3"
+  },
+  {
+    "path": "scripts/inventory_state.gd",
+    "source": "3eb7524cb25b74dee5c63db7c02a22e43a090b08b3fa047b510b00d50e99adb7",
+    "staged": "3eb7524cb25b74dee5c63db7c02a22e43a090b08b3fa047b510b00d50e99adb7"
+  },
+  {
+    "path": "scripts/skill_progression.gd",
+    "source": "f605b46c02dfd20c89e47a49075a4e263f5d88802c8ca99d5738c231956e4808",
+    "staged": "f605b46c02dfd20c89e47a49075a4e263f5d88802c8ca99d5738c231956e4808"
+  },
+  {
+    "path": "scripts/enemy.gd",
+    "source": "ee680c58a40954a9aba255ecc4cd288f442dd888ef941ae2cfc54bc1c2cd1b4b",
+    "staged": "ee680c58a40954a9aba255ecc4cd288f442dd888ef941ae2cfc54bc1c2cd1b4b"
+  },
+  {
+    "path": "scripts/hit_area_3d.gd",
+    "source": "5958d526fb9ed12e471ee8c972d2433d40c4326e006581a727b16577cdd2d8d4",
+    "staged": "5958d526fb9ed12e471ee8c972d2433d40c4326e006581a727b16577cdd2d8d4"
+  },
+  {
+    "path": "scripts/item_catalog.gd",
+    "source": "8c78b4254af3d79583557bd7523dfbc66318f29efa451c62261cf1ff40b46b1e",
+    "staged": "8c78b4254af3d79583557bd7523dfbc66318f29efa451c62261cf1ff40b46b1e"
+  },
+  {
+    "path": "scenes/base_character.tscn",
+    "source": "ad41319d82c9b32a071d076bfbe95cbc2ed6395e71e90af6d4885d7d10e3e692",
+    "staged": "ad41319d82c9b32a071d076bfbe95cbc2ed6395e71e90af6d4885d7d10e3e692"
+  },
+  {
+    "path": "scenes/camera/camera_rig.tscn",
+    "source": "821cbee440de33e152c580a7239affd772dcbeab00fe74aeb807a1132e52c891",
+    "staged": "821cbee440de33e152c580a7239affd772dcbeab00fe74aeb807a1132e52c891"
+  },
+  {
+    "path": "scenes/camera/camera_rig.gd",
+    "source": "37ce5beb244ffb629a7d663861579c46e024cd66a6106035968750334faef646",
+    "staged": "37ce5beb244ffb629a7d663861579c46e024cd66a6106035968750334faef646"
+  },
+  {
+    "path": "scenes/camera/wall_occlusion.gd",
+    "source": "3663b04a97bd16b792cc24c47f158034dc882a520a871f2caf516bb38fb287dc",
+    "staged": "3663b04a97bd16b792cc24c47f158034dc882a520a871f2caf516bb38fb287dc"
+  },
+  {
+    "path": "scenes/enemies/barrel/barrel_bullet.gd",
+    "source": "b88c4890300dc6b9b58287eff7795bade782e64cad28fd6e4fa010993442b2a3",
+    "staged": "b88c4890300dc6b9b58287eff7795bade782e64cad28fd6e4fa010993442b2a3"
+  },
+  {
+    "path": "scenes/enemies/barrel/barrel_anims.tres",
+    "source": "33afd9560681922544b213b6c8a91a75ad27f98ddbec933eeb70568f7917602b",
+    "staged": "33afd9560681922544b213b6c8a91a75ad27f98ddbec933eeb70568f7917602b"
+  },
+  {
+    "path": "scenes/enemies/crab/crab.gd",
+    "source": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b",
+    "staged": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b"
+  },
+  {
+    "path": "scenes/enemies/crab/dead.gd",
+    "source": "fdce83bc2ddfa178fe297f2f3067394d65175a5acb259caf6bea52f6cc8480d4",
+    "staged": "fdce83bc2ddfa178fe297f2f3067394d65175a5acb259caf6bea52f6cc8480d4"
+  },
+  {
+    "path": "scenes/enemies/crab/crab.tscn",
+    "source": "2b874ca5cf2a36fd805c79d5f343b3232784a52cfb25d0a1c4651241cf00fe71",
+    "staged": "2b874ca5cf2a36fd805c79d5f343b3232784a52cfb25d0a1c4651241cf00fe71"
+  },
+  {
+    "path": "scenes/enemies/crab/barrel_bullet.tscn",
+    "source": "a263f627bcfa7efe7921049ce395d26a3a4ff0b077a7d4347214e85087cd35e1",
+    "staged": "a263f627bcfa7efe7921049ce395d26a3a4ff0b077a7d4347214e85087cd35e1"
+  },
+  {
+    "path": "scenes/enemies/crab/idle.gd",
+    "source": "dba361e2adf006aa952f9d838cc0e2dd4651c724dcbbdc58f9cfaf22bfed6767",
+    "staged": "dba361e2adf006aa952f9d838cc0e2dd4651c724dcbbdc58f9cfaf22bfed6767"
+  },
+  {
+    "path": "scenes/enemies/crab/shoot.gd",
+    "source": "cc0c65281d8221154310ebb7613156b7dcfcc5be36dcf0f215273925355377f7",
+    "staged": "cc0c65281d8221154310ebb7613156b7dcfcc5be36dcf0f215273925355377f7"
+  },
+  {
+    "path": "scenes/enemies/crab/barrel.gd",
+    "source": "ecb0f9ff97440a0e6b5eb12153f1a0347aa76a63ccb574e78a20f087c3d570c6",
+    "staged": "ecb0f9ff97440a0e6b5eb12153f1a0347aa76a63ccb574e78a20f087c3d570c6"
+  },
+  {
+    "path": "scenes/enemies/crab/hurt.gd",
+    "source": "0d7791077efe70a5ac39697f1f86403194692e90966cc84d3a6e94dec922df2a",
+    "staged": "0d7791077efe70a5ac39697f1f86403194692e90966cc84d3a6e94dec922df2a"
+  },
+  {
+    "path": "scenes/enemies/crab/barrel.tscn",
+    "source": "4074ebbffb49626ea0533aa6660d43fe2fd8288158551d771f545508985e4eb0",
+    "staged": "4074ebbffb49626ea0533aa6660d43fe2fd8288158551d771f545508985e4eb0"
+  },
+  {
+    "path": "scenes/enemies/crab/crab_anims.tres",
+    "source": "57cd37d0fdd1b7bc0698ab3cb811f3a3858c97ca04193f762b3efb9ac8a1b08d",
+    "staged": "57cd37d0fdd1b7bc0698ab3cb811f3a3858c97ca04193f762b3efb9ac8a1b08d"
+  },
+  {
+    "path": "scenes/enemies/starfish/run.gd",
+    "source": "1b6de91c31a6b4cbacd15a1803590a3ceb6986aedb83e648bbf331f4df948065",
+    "staged": "1b6de91c31a6b4cbacd15a1803590a3ceb6986aedb83e648bbf331f4df948065"
+  },
+  {
+    "path": "scenes/enemies/starfish/attack.gd",
+    "source": "93ee7dc99f4e4b65bbadbd57b7c1272118f1f7c87c0dcd59a437944ba2222c0d",
+    "staged": "93ee7dc99f4e4b65bbadbd57b7c1272118f1f7c87c0dcd59a437944ba2222c0d"
+  },
+  {
+    "path": "scenes/enemies/starfish/starfish.gd",
+    "source": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b",
+    "staged": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b"
+  },
+  {
+    "path": "scenes/enemies/starfish/starfish.tscn",
+    "source": "ff7429bd42a72491056cac81e5477ffacbeef0c1a9c9f455850741e1d2ba20f6",
+    "staged": "ff7429bd42a72491056cac81e5477ffacbeef0c1a9c9f455850741e1d2ba20f6"
+  },
+  {
+    "path": "scenes/enemies/starfish/starfish_anims.tres",
+    "source": "19600f1d2c7ded605a9e66f40a9ba3a7988f1c54b5a407ccc79271a0db36f07a",
+    "staged": "19600f1d2c7ded605a9e66f40a9ba3a7988f1c54b5a407ccc79271a0db36f07a"
+  },
+  {
+    "path": "scenes/enemies/states/run.gd",
+    "source": "2ce2b815c1c9a4dcbbf633c501e2e5772164d0e638b44f5cb83324d306d748d5",
+    "staged": "2ce2b815c1c9a4dcbbf633c501e2e5772164d0e638b44f5cb83324d306d748d5"
+  },
+  {
+    "path": "scenes/enemies/states/enemy_state.gd",
+    "source": "55cbbf91f9d143061a0f88acc392e106636939f151e1a99c41dd1a3d2f5e893a",
+    "staged": "55cbbf91f9d143061a0f88acc392e106636939f151e1a99c41dd1a3d2f5e893a"
+  },
+  {
+    "path": "scenes/enemies/mushroom/carried.gd",
+    "source": "b56143be6ba93151bb251bf2a7e96933ca924d95ec560dc741dfb52e2ed1dd11",
+    "staged": "b56143be6ba93151bb251bf2a7e96933ca924d95ec560dc741dfb52e2ed1dd11"
+  },
+  {
+    "path": "scenes/enemies/mushroom/mushroom.gd",
+    "source": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b",
+    "staged": "35d15f8d8eaf591f510c6dc8148146a8bd634e46d3861fddedb1f0794a12761b"
+  },
+  {
+    "path": "scenes/enemies/mushroom/thrown.gd",
+    "source": "ab8dab0e845d52e7e7c60008fd1795da7518f623379cf45befc6de6fa1f2ed20",
+    "staged": "ab8dab0e845d52e7e7c60008fd1795da7518f623379cf45befc6de6fa1f2ed20"
+  },
+  {
+    "path": "scenes/enemies/mushroom/mushroom.tscn",
+    "source": "23f1c9cf8fca31d84976bda4364864ea03bd4bfa1cc5a4bba92411e2428dcd66",
+    "staged": "23f1c9cf8fca31d84976bda4364864ea03bd4bfa1cc5a4bba92411e2428dcd66"
+  },
+  {
+    "path": "scenes/enemies/zone_crab/states/chase.gd",
+    "source": "21c10c7eb4cf4db56974c0990c9369dce578a179592d153c85a643afc2475534",
+    "staged": "21c10c7eb4cf4db56974c0990c9369dce578a179592d153c85a643afc2475534"
+  },
+  {
+    "path": "scenes/enemies/zone_crab/states/return.gd",
+    "source": "e67ad859aa3598fd8b7ba44ac5510bf1c6bd8447a5a8f5993b6e15bef6af5cca",
+    "staged": "e67ad859aa3598fd8b7ba44ac5510bf1c6bd8447a5a8f5993b6e15bef6af5cca"
+  },
+  {
+    "path": "scenes/enemies/zone_crab/states/wander.gd",
+    "source": "78fce4d4828885682ff45b9ee84db728271266870b3fef0d8bf82a5c7507429c",
+    "staged": "78fce4d4828885682ff45b9ee84db728271266870b3fef0d8bf82a5c7507429c"
+  },
+  {
+    "path": "scenes/enemies/zone_crab/zone_crab.gd",
+    "source": "ff8b96c40f1c1c3dacf666d6ed5d15d43a8af00e4081183f80b1dd1a6203a74f",
+    "staged": "ff8b96c40f1c1c3dacf666d6ed5d15d43a8af00e4081183f80b1dd1a6203a74f"
+  },
+  {
+    "path": "scenes/enemies/zone_crab/zone_crab.tscn",
+    "source": "b69162e6ef6017380c971e48983471831c93f9829a3450b2659efe7b0c7ba814",
+    "staged": "b69162e6ef6017380c971e48983471831c93f9829a3450b2659efe7b0c7ba814"
+  },
+  {
+    "path": "scenes/enemies/pelican/pelican_bullet.gd",
+    "source": "7a7bcdc7519f9aa2155cdad8e1c0fd2ad088bb75c2350cb93f8c7d0f4a10cf87",
+    "staged": "7a7bcdc7519f9aa2155cdad8e1c0fd2ad088bb75c2350cb93f8c7d0f4a10cf87"
+  },
+  {
+    "path": "scenes/enemies/pelican/pelican_bullet.tscn",
+    "source": "c344a5967f69013dae80f61439328f45ed93097873bcce35bef6824219e8833c",
+    "staged": "c344a5967f69013dae80f61439328f45ed93097873bcce35bef6824219e8833c"
+  },
+  {
+    "path": "scenes/enemies/pelican/pelican.gd",
+    "source": "0120c67c55cd21b2407fab88533bc7cc18c164b1c0d06aadd2af8e8d37daa043",
+    "staged": "0120c67c55cd21b2407fab88533bc7cc18c164b1c0d06aadd2af8e8d37daa043"
+  },
+  {
+    "path": "scenes/enemies/pelican/pelican.tscn",
+    "source": "55b326645110345ce1cafb695e034d381b9de3bd5da44b43a808a546e0f08c56",
+    "staged": "55b326645110345ce1cafb695e034d381b9de3bd5da44b43a808a546e0f08c56"
+  },
+  {
+    "path": "scenes/enemies/pelican/pelican_anims.tres",
+    "source": "42aacaac6f634791d3b2eb6b547ed682dce0aca06e43a9901176ea6938c588f1",
+    "staged": "42aacaac6f634791d3b2eb6b547ed682dce0aca06e43a9901176ea6938c588f1"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_bullet.gd",
+    "source": "aa6278e92eddf1cdc6241042e74311190803b52bd7a6f0eeffb6aca7e75e19f7",
+    "staged": "aa6278e92eddf1cdc6241042e74311190803b52bd7a6f0eeffb6aca7e75e19f7"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_bullet.tscn",
+    "source": "3b353814f4d4184ae7003242f62994fb1f15359c2a20b2461def3bb5ecd51bea",
+    "staged": "3b353814f4d4184ae7003242f62994fb1f15359c2a20b2461def3bb5ecd51bea"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_warrior.tscn",
+    "source": "1fa4a3d9628cbcab7ddc95ddc5fa1d8b077ee51625262616665f67f853093755",
+    "staged": "1fa4a3d9628cbcab7ddc95ddc5fa1d8b077ee51625262616665f67f853093755"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton.gd",
+    "source": "7f539f5e771c4fade5cd8450ecb83db9a5e57dbc42c6e4fd9cdb5d1723b042c6",
+    "staged": "7f539f5e771c4fade5cd8450ecb83db9a5e57dbc42c6e4fd9cdb5d1723b042c6"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_mage.tscn",
+    "source": "0731ac91840a96f097b7b8a96cfc74f6c9ba21d908530eb8f2dd98b4b3a6d16e",
+    "staged": "0731ac91840a96f097b7b8a96cfc74f6c9ba21d908530eb8f2dd98b4b3a6d16e"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_warrior_anims.tres",
+    "source": "af1b096f0bf4e0943cded3aa5594d82ffa847b3c43fdfef7d3fec6448cabf580",
+    "staged": "af1b096f0bf4e0943cded3aa5594d82ffa847b3c43fdfef7d3fec6448cabf580"
+  },
+  {
+    "path": "scenes/enemies/skeleton/skeleton_mage_anims.tres",
+    "source": "a71032f8dfb9b7fe8bb03092738f638ddcad317569794cfa5cb3ed928438fa3f",
+    "staged": "a71032f8dfb9b7fe8bb03092738f638ddcad317569794cfa5cb3ed928438fa3f"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_spell.gd",
+    "source": "da3e6f7b2a23bfd9554ab2738939d26b7bcd6c0acc74f80300ffb2892cfe551e",
+    "staged": "da3e6f7b2a23bfd9554ab2738939d26b7bcd6c0acc74f80300ffb2892cfe551e"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_spell.tscn",
+    "source": "54f0ef7ada5955ee53bf7d804fb5189651e1b4223ef79769d9ab4b0473eb420a",
+    "staged": "54f0ef7ada5955ee53bf7d804fb5189651e1b4223ef79769d9ab4b0473eb420a"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_spirit.gd",
+    "source": "f1bd711916cb848dfb0d11d5587b4d682ad1d833a14a08d43b9c569a4816f226",
+    "staged": "f1bd711916cb848dfb0d11d5587b4d682ad1d833a14a08d43b9c569a4816f226"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_spirit.tscn",
+    "source": "fdd960c707e27c3f2d54bc14530654c8905cb3012669489bd818caf8cc85e9f2",
+    "staged": "fdd960c707e27c3f2d54bc14530654c8905cb3012669489bd818caf8cc85e9f2"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_cinematic.gd",
+    "source": "5f8367c0df94a692b7b268b5d78d32c69e8440e3374cb30cec39309725fc92b7",
+    "staged": "5f8367c0df94a692b7b268b5d78d32c69e8440e3374cb30cec39309725fc92b7"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy.gd",
+    "source": "a08a2725d9e15316baf4a0e538739028dc991295c31b8e74f5155c1151c30b5b",
+    "staged": "a08a2725d9e15316baf4a0e538739028dc991295c31b8e74f5155c1151c30b5b"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy.tscn",
+    "source": "4eeadf5015dda8da300c9721c679e0f529d00fe72a6d2f008d4a39b9f8c50be6",
+    "staged": "4eeadf5015dda8da300c9721c679e0f529d00fe72a6d2f008d4a39b9f8c50be6"
+  },
+  {
+    "path": "scenes/enemies/darkfairy/darkfairy_anims.tres",
+    "source": "935b854aecce0c1ea12481c2a86bfd191f1dcfde87729aff8850bce63d79d262",
+    "staged": "935b854aecce0c1ea12481c2a86bfd191f1dcfde87729aff8850bce63d79d262"
+  },
+  {
+    "path": "scenes/enemies/arcane/arcane_enemy.gd",
+    "source": "aca41d98560bda7ed2411bb252e08ac0dbfa4e0d09226b60b2bbcf91ad532cca",
+    "staged": "aca41d98560bda7ed2411bb252e08ac0dbfa4e0d09226b60b2bbcf91ad532cca"
+  },
+  {
+    "path": "scenes/enemies/arcane/evil_wizard_1.tscn",
+    "source": "011e022bf00eb14238619d3301298e556cee7dbc2be1660e7e043a7a3b6d4030",
+    "staged": "011e022bf00eb14238619d3301298e556cee7dbc2be1660e7e043a7a3b6d4030"
+  },
+  {
+    "path": "scenes/enemies/arcane/evil_wizard_2.tscn",
+    "source": "7518027fb3171bec12b24ece54bffceade37059138bd2a76836d53af91452288",
+    "staged": "7518027fb3171bec12b24ece54bffceade37059138bd2a76836d53af91452288"
+  },
+  {
+    "path": "scenes/enemies/arcane/executioner_summon.tscn",
+    "source": "6b499443f9ce1b616c7dfaecaf926dbd21d20cef5c9bedf3076c58e2b94d2aa5",
+    "staged": "6b499443f9ce1b616c7dfaecaf926dbd21d20cef5c9bedf3076c58e2b94d2aa5"
+  },
+  {
+    "path": "scenes/enemies/arcane/necromancer.tscn",
+    "source": "45907ac6654287718af43e1f7e66a49342f834efc673a214f05b6fe0d564f347",
+    "staged": "45907ac6654287718af43e1f7e66a49342f834efc673a214f05b6fe0d564f347"
+  },
+  {
+    "path": "scenes/enemies/arcane/necromancer_anims.tres",
+    "source": "bb261f4071096640d4a1c655f16471c92f741b4c933e207d06ec1b1ae7acaeb0",
+    "staged": "bb261f4071096640d4a1c655f16471c92f741b4c933e207d06ec1b1ae7acaeb0"
+  },
+  {
+    "path": "scenes/enemies/arcane/undead_executioner.tscn",
+    "source": "ec943fcd04538d7dfde3093d0c9e63930af5b85507eff73767a7a191e9bfd8c3",
+    "staged": "ec943fcd04538d7dfde3093d0c9e63930af5b85507eff73767a7a191e9bfd8c3"
+  },
+  {
+    "path": "scenes/enemies/arcane/evil_wizard_2_anims.tres",
+    "source": "a2de4670f2885b23f07b8abe5c302ab039c10b0dd15ca86084beb1764ff2bf99",
+    "staged": "a2de4670f2885b23f07b8abe5c302ab039c10b0dd15ca86084beb1764ff2bf99"
+  },
+  {
+    "path": "scenes/enemies/arcane/evil_wizard_1_anims.tres",
+    "source": "a298247fa54ee1c4b1711f35be3b08056f743eae5e2b2ae08255e53790de4613",
+    "staged": "a298247fa54ee1c4b1711f35be3b08056f743eae5e2b2ae08255e53790de4613"
+  },
+  {
+    "path": "scenes/enemies/arcane/undead_executioner_anims.tres",
+    "source": "8f2c2d3296e27d6ecf7e64e8dd824c984ff989548b285ca257a2baa7b28323a7",
+    "staged": "8f2c2d3296e27d6ecf7e64e8dd824c984ff989548b285ca257a2baa7b28323a7"
+  },
+  {
+    "path": "scenes/enemies/arcane/executioner_summon_anims.tres",
+    "source": "f6d8bb558a310e91f115eddc56ebad383a74b0330ca8df1cf8c5eb83625714d1",
+    "staged": "f6d8bb558a310e91f115eddc56ebad383a74b0330ca8df1cf8c5eb83625714d1"
+  },
+  {
+    "path": "scenes/objects/bush.tscn",
+    "source": "e4d96387c257bc5b13f20915850999c4fe8b6062fdc19e5ab16b94c706bffcfa",
+    "staged": "e4d96387c257bc5b13f20915850999c4fe8b6062fdc19e5ab16b94c706bffcfa"
+  },
+  {
+    "path": "scenes/objects/skill.gd",
+    "source": "492fba97c760f389d00645a4586ea2d3f1b92f06b8986198c0d000fdeda04efa",
+    "staged": "492fba97c760f389d00645a4586ea2d3f1b92f06b8986198c0d000fdeda04efa"
+  },
+  {
+    "path": "scenes/objects/phidao.tscn",
+    "source": "e95d74d745908d719d5aa66f699302c011f8980d622e9dc1c7ca8105bff6ec08",
+    "staged": "e95d74d745908d719d5aa66f699302c011f8980d622e9dc1c7ca8105bff6ec08"
+  },
+  {
+    "path": "scenes/objects/elemental_orb.gd",
+    "source": "927bee52df1eabaa779aebc0083b6372fdadb3be229e4239072f0f9874978df3",
+    "staged": "927bee52df1eabaa779aebc0083b6372fdadb3be229e4239072f0f9874978df3"
+  },
+  {
+    "path": "scenes/objects/elemental_orb.tscn",
+    "source": "080d4eb25a9550c920b49c00981903a024645338e3b88371bc60d1aa89f71b4e",
+    "staged": "080d4eb25a9550c920b49c00981903a024645338e3b88371bc60d1aa89f71b4e"
+  },
+  {
+    "path": "scenes/objects/offhand_projectile.gd",
+    "source": "96105645d4e081cd5981e1629c764db934b56c2631038825161de7fff8c5510d",
+    "staged": "96105645d4e081cd5981e1629c764db934b56c2631038825161de7fff8c5510d"
+  },
+  {
+    "path": "scenes/objects/poison_potion.gd",
+    "source": "5d37f17bc85b54e0930657d61d2aa7ccce7e0f8eb8d972226ac374b99303f13b",
+    "staged": "5d37f17bc85b54e0930657d61d2aa7ccce7e0f8eb8d972226ac374b99303f13b"
+  },
+  {
+    "path": "scenes/player/hurt.gd",
+    "source": "a8bab98417be2f3e6be99fc9c9572805b69a388a673538d2821e0c523751ebe4",
+    "staged": "a8bab98417be2f3e6be99fc9c9572805b69a388a673538d2821e0c523751ebe4"
+  },
+  {
+    "path": "scenes/player/states/throw.gd",
+    "source": "5d338eca0551d174180c13ecbcb8bf2c617c3b8f05db1fb64450733b4f9bdb49",
+    "staged": "5d338eca0551d174180c13ecbcb8bf2c617c3b8f05db1fb64450733b4f9bdb49"
+  },
+  {
+    "path": "scenes/player/states/carry.gd",
+    "source": "775886d325557674d2576522e869aa883c24031c79dcb188ba415df075499323",
+    "staged": "775886d325557674d2576522e869aa883c24031c79dcb188ba415df075499323"
+  },
+  {
+    "path": "scenes/player/states/dash.gd",
+    "source": "af2859fdcd7f87dc2739b29bcdd5de307f90996f299b9914a9a9bd4d4cf432d2",
+    "staged": "af2859fdcd7f87dc2739b29bcdd5de307f90996f299b9914a9a9bd4d4cf432d2"
+  },
+  {
+    "path": "scenes/player/states/fall.gd",
+    "source": "ffb2ed630f674408aa1c0331d0a5ba3e3e889f6f9caa70b1c459d9d4a794dde5",
+    "staged": "ffb2ed630f674408aa1c0331d0a5ba3e3e889f6f9caa70b1c459d9d4a794dde5"
+  },
+  {
+    "path": "scenes/player/states/idle.gd",
+    "source": "0adb62560800baf9b2ca67760dea7db8430256a2a607b9a408d60277e7969672",
+    "staged": "0adb62560800baf9b2ca67760dea7db8430256a2a607b9a408d60277e7969672"
+  },
+  {
+    "path": "scenes/player/states/jump.gd",
+    "source": "fb2e39858f746c23753ee8ca52987792daae0bda0276bb1544fe3b7013c6c840",
+    "staged": "fb2e39858f746c23753ee8ca52987792daae0bda0276bb1544fe3b7013c6c840"
+  },
+  {
+    "path": "scenes/player/states/run.gd",
+    "source": "9e0499109f400f736ced339ed820cc26c124bf4746b610e7a4eb3c21fc14998f",
+    "staged": "9e0499109f400f736ced339ed820cc26c124bf4746b610e7a4eb3c21fc14998f"
+  },
+  {
+    "path": "scenes/player/states/wall_slide.gd",
+    "source": "864e3b777078745fa0600950236027f618984e749f1c672db9adb76b96f6904d",
+    "staged": "864e3b777078745fa0600950236027f618984e749f1c672db9adb76b96f6904d"
+  },
+  {
+    "path": "scenes/player/states/wind_ultimate.gd",
+    "source": "502a066430bd6315d26199b0fc4482879ea3e41ae99c0fe4cb2d0ef083483c9f",
+    "staged": "502a066430bd6315d26199b0fc4482879ea3e41ae99c0fe4cb2d0ef083483c9f"
+  },
+  {
+    "path": "scenes/player/states/skillstate.gd",
+    "source": "c7d29848b698f92700a182ac3c0fa170a3814869efc96965bf38e3bb1de62b6f",
+    "staged": "c7d29848b698f92700a182ac3c0fa170a3814869efc96965bf38e3bb1de62b6f"
+  },
+  {
+    "path": "scenes/player/states/stamina_exhausted.gd",
+    "source": "13562fab02dc2c2797fa3a7e5fb465a3c01fdb92e03fdb88898e23ddce98bfea",
+    "staged": "13562fab02dc2c2797fa3a7e5fb465a3c01fdb92e03fdb88898e23ddce98bfea"
+  },
+  {
+    "path": "scenes/player/states/player_state.gd",
+    "source": "1f57d7b13e4e9a1374b263aac2327e26cf7ed9201d770a0cea3c9abdcf07a138",
+    "staged": "1f57d7b13e4e9a1374b263aac2327e26cf7ed9201d770a0cea3c9abdcf07a138"
+  },
+  {
+    "path": "scenes/player/states/weapon_attack.gd",
+    "source": "d97eb347a87930bc0fc1069b0754266a5a1812601b69ebcac0ed13f30f4a2323",
+    "staged": "d97eb347a87930bc0fc1069b0754266a5a1812601b69ebcac0ed13f30f4a2323"
+  },
+  {
+    "path": "scenes/player/weapon/blade.tscn",
+    "source": "1f53a7188b8231b0adddcabebf67bf991c19f6ad11c35febe7fdd2c41dc940e3",
+    "staged": "1f53a7188b8231b0adddcabebf67bf991c19f6ad11c35febe7fdd2c41dc940e3"
+  },
+  {
+    "path": "scenes/player/weapon/floating_blade.gd",
+    "source": "eee51c894a64a9906944216100ad6991872bd6f885edc075fb6c317908791fba",
+    "staged": "eee51c894a64a9906944216100ad6991872bd6f885edc075fb6c317908791fba"
+  },
+  {
+    "path": "scenes/player/dead.gd",
+    "source": "a6abcb60b3f1625002acf5dba40fcb60c159836109ace66db316787f4a953197",
+    "staged": "a6abcb60b3f1625002acf5dba40fcb60c159836109ace66db316787f4a953197"
+  },
+  {
+    "path": "scenes/player/parry.gd",
+    "source": "a7b4f705b1134966c769e2f561a5d8399fa067ec077d131dbabd1bbb73bb89e8",
+    "staged": "a7b4f705b1134966c769e2f561a5d8399fa067ec077d131dbabd1bbb73bb89e8"
+  },
+  {
+    "path": "scenes/player/ultimate_cinematic.gd",
+    "source": "d0d93e8c2a20476f04c69456c313e1db32246b07fc8b4188f2ffd7c1e50fb856",
+    "staged": "d0d93e8c2a20476f04c69456c313e1db32246b07fc8b4188f2ffd7c1e50fb856"
+  },
+  {
+    "path": "scenes/player/ultimate_screen_glow.gdshader",
+    "source": "58f74b2da10bc55c4980e93799c70f20f369c8bc990f2fb5acd5d47471331b55",
+    "staged": "58f74b2da10bc55c4980e93799c70f20f369c8bc990f2fb5acd5d47471331b55"
+  },
+  {
+    "path": "scenes/player/lightning_clone.gd",
+    "source": "0622ef2904be1cd84de4394fd4bf6a68317aada8c91e391dd59529fcc0e3cf00",
+    "staged": "0622ef2904be1cd84de4394fd4bf6a68317aada8c91e391dd59529fcc0e3cf00"
+  },
+  {
+    "path": "scenes/player/world_vfx_anchor.gd",
+    "source": "fc48091584a473f6d2ffd4e2991e212f50ee69164e12e92888ecebbdc89a79c2",
+    "staged": "fc48091584a473f6d2ffd4e2991e212f50ee69164e12e92888ecebbdc89a79c2"
+  },
+  {
+    "path": "scenes/player/ultimate_neon.gdshader",
+    "source": "46f9970756fd6da923c3040fc97592031def9526586e3474ebaa83ccfc081bcb",
+    "staged": "46f9970756fd6da923c3040fc97592031def9526586e3474ebaa83ccfc081bcb"
+  },
+  {
+    "path": "scenes/player/skill_aim_reticle.gd",
+    "source": "ad7335bd101b9eac91eaecab9d788f43527d3dc36f80e4a7fdd3bc58fa418f91",
+    "staged": "ad7335bd101b9eac91eaecab9d788f43527d3dc36f80e4a7fdd3bc58fa418f91"
+  },
+  {
+    "path": "scenes/player/battle_vfx.gd",
+    "source": "d742b22988f8cb6d0c03150fb4313e46fa563a1ea4dedc5ad8c7610af2b478e5",
+    "staged": "d742b22988f8cb6d0c03150fb4313e46fa563a1ea4dedc5ad8c7610af2b478e5"
+  },
+  {
+    "path": "scenes/player/thrown_weapon.gd",
+    "source": "e2702ed462a5c08b8024c5d14a2af93d68049cf0b9b7ebacd80bc0faa94c108c",
+    "staged": "e2702ed462a5c08b8024c5d14a2af93d68049cf0b9b7ebacd80bc0faa94c108c"
+  },
+  {
+    "path": "scenes/player/player.gd",
+    "source": "57f5da95437187073eae5edce3b533023c4361062fd82552d2e090ec98a25e82",
+    "staged": "57f5da95437187073eae5edce3b533023c4361062fd82552d2e090ec98a25e82"
+  },
+  {
+    "path": "scenes/player/player.tscn",
+    "source": "b10c414753fe4c11eb3a760e659f655b2fb2c97738ab6ac05d514dec72c745fe",
+    "staged": "b10c414753fe4c11eb3a760e659f655b2fb2c97738ab6ac05d514dec72c745fe"
+  },
+  {
+    "path": "scenes/player/player_anims.tres",
+    "source": "468ae14bb2d476f1492ca45187e8c7cefa97243c0b82dc19ba989b338e88975d",
+    "staged": "468ae14bb2d476f1492ca45187e8c7cefa97243c0b82dc19ba989b338e88975d"
+  },
+  {
+    "path": "scenes/map/torches/torch.tscn",
+    "source": "1d02009640e09c85fae1400db0f66479b6cbe9004f0536c0cb99324d90b75650",
+    "staged": "1d02009640e09c85fae1400db0f66479b6cbe9004f0536c0cb99324d90b75650"
+  },
+  {
+    "path": "scenes/ui/enemy_health_bar.gd",
+    "source": "1c0c4a00e4e4ae954907d420837b366286a8d717ce1649603d5b06eaddc7f664",
+    "staged": "1c0c4a00e4e4ae954907d420837b366286a8d717ce1649603d5b06eaddc7f664"
+  },
+  {
+    "path": "scenes/ui/enemy_health_bar.tscn",
+    "source": "42b0c9566f27c3202fa393c296c9d1964e29de01c68bd7164e12fa0fa5282535",
+    "staged": "42b0c9566f27c3202fa393c296c9d1964e29de01c68bd7164e12fa0fa5282535"
+  },
+  {
+    "path": "ui/skill_tree.gd",
+    "source": "f76e8ef1df7e5ca8d2a5dd92450e3450e0a306ad432d5dc6f56f1d071da218f4",
+    "staged": "f76e8ef1df7e5ca8d2a5dd92450e3450e0a306ad432d5dc6f56f1d071da218f4"
+  },
+  {
+    "path": "ui/skill_tree_graph.gd",
+    "source": "e48badbfed6cbc5c4728bfd0f4f11a97a500a9f7eaca49e5771f6bdeff6347f3",
+    "staged": "e48badbfed6cbc5c4728bfd0f4f11a97a500a9f7eaca49e5771f6bdeff6347f3"
+  },
+  {
+    "path": "ui/skill_tree_node.gd",
+    "source": "ec17a56f71e6d45048b8f07b8b15929ceab1a3d9c338dda84ad1d23c46b13db2",
+    "staged": "ec17a56f71e6d45048b8f07b8b15929ceab1a3d9c338dda84ad1d23c46b13db2"
+  },
+  {
+    "path": "ui/skill_tree_folio.gd",
+    "source": "dce51c353c9558c3937a2e4400ef145ced98b3df9f8480fceec44ba62afbf85d",
+    "staged": "dce51c353c9558c3937a2e4400ef145ced98b3df9f8480fceec44ba62afbf85d"
+  },
+  {
+    "path": "ui/pause_menu.gd",
+    "source": "2ca6084d28776cf82b8597bc1c5b64df9ae2634f624b52779d1dbf4e9dd13285",
+    "staged": "2ca6084d28776cf82b8597bc1c5b64df9ae2634f624b52779d1dbf4e9dd13285"
+  },
+  {
+    "path": "ui/hud.tscn",
+    "source": "175049ce8b168873e586c89be4670464c6ebada53cfdbfd51f5014e75e98575c",
+    "staged": "175049ce8b168873e586c89be4670464c6ebada53cfdbfd51f5014e75e98575c"
+  },
+  {
+    "path": "ui/skill_tree_layout.gd",
+    "source": "acfd19e5eeee32507398e52c5329cea879fc3a8d1ce3ff5448d9e2561fcf86d8",
+    "staged": "acfd19e5eeee32507398e52c5329cea879fc3a8d1ce3ff5448d9e2561fcf86d8"
+  },
+  {
+    "path": "ui/inventory_menu.gd",
+    "source": "fed5253aa6d5f21122544d1ecedb48f0f31b25f59b93c63916c010298d7375a3",
+    "staged": "fed5253aa6d5f21122544d1ecedb48f0f31b25f59b93c63916c010298d7375a3"
+  },
+  {
+    "path": "ui/cheat_menu.gd",
+    "source": "d13765b4bc78500e058c2d048ba186d3dfd978aa273fc4652e85d11e08a20264",
+    "staged": "d13765b4bc78500e058c2d048ba186d3dfd978aa273fc4652e85d11e08a20264"
+  },
+  {
+    "path": "ui/player_hud.gd",
+    "source": "c871b6ad719ec195363070f567eb3ab7be250d25624394a3e9041fc294ad9aa7",
+    "staged": "c871b6ad719ec195363070f567eb3ab7be250d25624394a3e9041fc294ad9aa7"
+  },
+  {
+    "path": "ui/main_menu.gd",
+    "source": "7fcff5b95c2394277c6e590ac0e34c27e4b8654039738f140a66f068c448e825",
+    "staged": "7fcff5b95c2394277c6e590ac0e34c27e4b8654039738f140a66f068c448e825"
+  },
+  {
+    "path": "ui/main_menu.tscn",
+    "source": "5e2f020b9bfcd9e24f904e5978831cdbf88b0646839652f84a6e5a062970f6ac",
+    "staged": "5e2f020b9bfcd9e24f904e5978831cdbf88b0646839652f84a6e5a062970f6ac"
+  },
+  {
+    "path": "ui/healthbar_empty.tres",
+    "source": "3d31236444dd0c4b6a91e9276664802c4ad1ee8e67b05738ae957ff7939dac20",
+    "staged": "3d31236444dd0c4b6a91e9276664802c4ad1ee8e67b05738ae957ff7939dac20"
+  },
+  {
+    "path": "ui/healthbar_full.tres",
+    "source": "5e7a48209ceb7ce5a720d5f64959db0dc2183654f67b8d1321c67a8634d1d237",
+    "staged": "5e7a48209ceb7ce5a720d5f64959db0dc2183654f67b8d1321c67a8634d1d237"
+  },
+  {
+    "path": "ui/segmented_health_bar.gd",
+    "source": "586448653c4d86975a72cebb18652c0166d62319f77dd11bbed2ab8f9a13cb72",
+    "staged": "586448653c4d86975a72cebb18652c0166d62319f77dd11bbed2ab8f9a13cb72"
+  },
+  {
+    "path": "levels/level_1/basement_full.tscn",
+    "source": "78fa013b06c3699ccc01fcd4be0ee74e9628c960c5cc019cfd4abbceb23e9668",
+    "staged": "78fa013b06c3699ccc01fcd4be0ee74e9628c960c5cc019cfd4abbceb23e9668"
+  },
+  {
+    "path": "levels/level_1/castle.tscn",
+    "source": "58608e5c8d240e853efa2a4f3f3841678a114c1995c0d3a4b5ba5309c53d8d3c",
+    "staged": "58608e5c8d240e853efa2a4f3f3841678a114c1995c0d3a4b5ba5309c53d8d3c"
+  },
+  {
+    "path": "levels/level_1/basement_b2_progress.gd",
+    "source": "f84e5c88402899e50149d84d97ad9e8859ece3f1ededa7849cb3d20f513dde11",
+    "staged": "f84e5c88402899e50149d84d97ad9e8859ece3f1ededa7849cb3d20f513dde11"
+  },
+  {
+    "path": "levels/level_1/basement_floor_visibility.gd",
+    "source": "0c5a4b6917c11bf35c1537cbe2c3944d2ba2046d4b1f43ce86b4d342c6dfbae8",
+    "staged": "0c5a4b6917c11bf35c1537cbe2c3944d2ba2046d4b1f43ce86b4d342c6dfbae8"
+  },
+  {
+    "path": "levels/level_1/castle_f2_progress.gd",
+    "source": "8e0fefc3405121ab5df9f234f077c9f0c5533aa60e818a027b67428453280aeb",
+    "staged": "8e0fefc3405121ab5df9f234f077c9f0c5533aa60e818a027b67428453280aeb"
+  },
+  {
+    "path": "levels/level_1/castle_floors.gd",
+    "source": "eb3247870bd48b253fe08a0f119d11b499d14d89475e402e50c82d698f3168b4",
+    "staged": "eb3247870bd48b253fe08a0f119d11b499d14d89475e402e50c82d698f3168b4"
+  },
+  {
+    "path": "levels/level_1/castle_roof.gd",
+    "source": "78b661bee87a563cb21734a19be6b94bf83efd9d22a06ecaaa10b6c69ca198b5",
+    "staged": "78b661bee87a563cb21734a19be6b94bf83efd9d22a06ecaaa10b6c69ca198b5"
+  },
+  {
+    "path": "levels/level_1/basement_b3.tscn",
+    "source": "cd867ab43dcd6f343c0bcf7ca1b959339c1bf3d19e9d9f77ff9cb31832624904",
+    "staged": "cd867ab43dcd6f343c0bcf7ca1b959339c1bf3d19e9d9f77ff9cb31832624904"
+  },
+  {
+    "path": "levels/level_1/basement_story.gd",
+    "source": "3c257875029a843bedbdf5f9fd7ea40566f4b29ac76fe402402489a983b4bb71",
+    "staged": "3c257875029a843bedbdf5f9fd7ea40566f4b29ac76fe402402489a983b4bb71"
+  },
+  {
+    "path": "levels/level_1/secret_wall.gd",
+    "source": "02967a4e580a5f9852e827336e2831c2f98103e9632df66a30e5971429a901d4",
+    "staged": "02967a4e580a5f9852e827336e2831c2f98103e9632df66a30e5971429a901d4"
+  },
+  {
+    "path": "levels/level_1/prison_notebook.gd",
+    "source": "549702577f556d99b8f8901f19ba0ef8cf7e0fa30384c936d855610f44f716a3",
+    "staged": "549702577f556d99b8f8901f19ba0ef8cf7e0fa30384c936d855610f44f716a3"
+  },
+  {
+    "path": "levels/level_1/garden.tscn",
+    "source": "8b65f6cdc2634315759e3cfb52209553c9c08e69d57ddee821692d29d2b33f40",
+    "staged": "8b65f6cdc2634315759e3cfb52209553c9c08e69d57ddee821692d29d2b33f40"
+  },
+  {
+    "path": "levels/objects/checkpoint/checkpoint.gd",
+    "source": "4ef115f472c6ebc46a4353657790c150498af4a3f461579aafcd1d04c742e978",
+    "staged": "4ef115f472c6ebc46a4353657790c150498af4a3f461579aafcd1d04c742e978"
+  },
+  {
+    "path": "levels/objects/checkpoint/checkpoint.tscn",
+    "source": "1164fa3ae437f7b4dd7279cc07896f221089400a1dc2cf5023fc780990d6dc1f",
+    "staged": "1164fa3ae437f7b4dd7279cc07896f221089400a1dc2cf5023fc780990d6dc1f"
+  },
+  {
+    "path": "levels/objects/checkpoint/basement_checkpoint.tscn",
+    "source": "f657d6fc7361db2d3530fcdf25823e5a12f4089c4fbcd2f43ffa49a278f65c40",
+    "staged": "f657d6fc7361db2d3530fcdf25823e5a12f4089c4fbcd2f43ffa49a278f65c40"
+  },
+  {
+    "path": "levels/objects/checkpoint/basement_checkpoint.gd",
+    "source": "a28767218a3b7f6c12f82b8884d13718f674b30695d062609f619b9dba4a7b18",
+    "staged": "a28767218a3b7f6c12f82b8884d13718f674b30695d062609f619b9dba4a7b18"
+  },
+  {
+    "path": "levels/objects/door/door.tscn",
+    "source": "b289b8902b43c5f6d9d4524fbbfe9ff906497b76a84087076abda352f9920060",
+    "staged": "b289b8902b43c5f6d9d4524fbbfe9ff906497b76a84087076abda352f9920060"
+  },
+  {
+    "path": "levels/objects/door/door.gd",
+    "source": "8650530673f18dc888ccb245ad0aef4a68bdae694353e9e7fe8a3eb5a28fa0ce",
+    "staged": "8650530673f18dc888ccb245ad0aef4a68bdae694353e9e7fe8a3eb5a28fa0ce"
+  },
+  {
+    "path": "levels/objects/door/clear_portal.gd",
+    "source": "709c8ec8eb72037458b33846ab9c8e31863e8a65c85b996abb96343d46ede763",
+    "staged": "709c8ec8eb72037458b33846ab9c8e31863e8a65c85b996abb96343d46ede763"
+  },
+  {
+    "path": "levels/objects/enemy_zone/enemy_zone.tscn",
+    "source": "6d0ac10ec71b6c489f9ea758b968be93d21ce14fc64696f84571d57303f069af",
+    "staged": "6d0ac10ec71b6c489f9ea758b968be93d21ce14fc64696f84571d57303f069af"
+  },
+  {
+    "path": "levels/objects/enemy_zone/enemy_zone.gd",
+    "source": "2a4b9d5c37369de3db55c00b62870b93fe2f9ec5bbcb2aaf794e6a2074d0d32c",
+    "staged": "2a4b9d5c37369de3db55c00b62870b93fe2f9ec5bbcb2aaf794e6a2074d0d32c"
+  },
+  {
+    "path": "levels/objects/experience_point/exp_point.gd",
+    "source": "65d2dd832e2f1bdb4a057adfaf011847e868a72ffe45bbb4242bb59610deb7af",
+    "staged": "65d2dd832e2f1bdb4a057adfaf011847e868a72ffe45bbb4242bb59610deb7af"
+  },
+  {
+    "path": "levels/objects/experience_point/exp_point.tscn",
+    "source": "19ff1e73b97b22b4ff155a1de5c42b2cd74d2f95617b5086b2308adb13590b1c",
+    "staged": "19ff1e73b97b22b4ff155a1de5c42b2cd74d2f95617b5086b2308adb13590b1c"
+  },
+  {
+    "path": "levels/objects/experience_point/floor_clear_chest.gd",
+    "source": "77cf5433baba56e77e563bf5e870625130af73edd645511789df237e785d4b8c",
+    "staged": "77cf5433baba56e77e563bf5e870625130af73edd645511789df237e785d4b8c"
+  },
+  {
+    "path": "levels/objects/experience_point/floor_clear_chest.tscn",
+    "source": "96cb3498d470840ad52a72b7bcd372e746e4fc1e523c4dea4c3de73bcedb7da0",
+    "staged": "96cb3498d470840ad52a72b7bcd372e746e4fc1e523c4dea4c3de73bcedb7da0"
+  },
+  {
+    "path": "levels/objects/experience_point/chest_pickup.gd",
+    "source": "4446bfdca95824fb763985dd72768f11123d101aef3a40ecc176bbc9b717b767",
+    "staged": "4446bfdca95824fb763985dd72768f11123d101aef3a40ecc176bbc9b717b767"
+  },
+  {
+    "path": "levels/objects/experience_point/chest_pickup.tscn",
+    "source": "f4584a7b590df958818473b4ac2d732b12c5702ff9b7f16db2a1a7bb5ca16445",
+    "staged": "f4584a7b590df958818473b4ac2d732b12c5702ff9b7f16db2a1a7bb5ca16445"
+  },
+  {
+    "path": "levels/objects/automatic_stairs.gd",
+    "source": "1a9a8af71e137163095625b7dcbc2066669b5417c400a23eccb52d25f96830c8",
+    "staged": "1a9a8af71e137163095625b7dcbc2066669b5417c400a23eccb52d25f96830c8"
+  },
+  {
+    "path": "levels/objects/garden_station.gd",
+    "source": "6a7c50b48e292ab18b61433156a88cbe299fcf2c18da9fdb1e422ea2fc83f824",
+    "staged": "6a7c50b48e292ab18b61433156a88cbe299fcf2c18da9fdb1e422ea2fc83f824"
+  },
+  {
+    "path": "levels/stage.gd",
+    "source": "1703ef813a1c543c87cefdb104a1f50750af9350f519485917489f483a56a616",
+    "staged": "1703ef813a1c543c87cefdb104a1f50750af9350f519485917489f483a56a616"
+  },
+  {
+    "path": "levels/sketch/farm_controller.gd",
+    "source": "463ca72c46bec2954d49d4292e314284497060c83dd63819a733d37362ce85ed",
+    "staged": "463ca72c46bec2954d49d4292e314284497060c83dd63819a733d37362ce85ed"
+  },
+  {
+    "path": "levels/sketch/garden_farm_sketch.tscn",
+    "source": "d38b0dfde9575421f6af9464f868a84d8ec3a36a1af711dd74cf4e26dee558c8",
+    "staged": "d38b0dfde9575421f6af9464f868a84d8ec3a36a1af711dd74cf4e26dee558c8"
+  },
+  {
+    "path": "tests/door_clearance_check.gd",
+    "source": "79d7d7ac4569e6c5293ea06c0c00dab3722187aa1504f18edcfff8637845ccfe",
+    "staged": "79d7d7ac4569e6c5293ea06c0c00dab3722187aa1504f18edcfff8637845ccfe"
+  },
+  {
+    "path": "tests/door_clearance_check.tscn",
+    "source": "32ab5a92090b03ca8558fa616840566b134d097231d243b5e8fa2217420b2cad",
+    "staged": "32ab5a92090b03ca8558fa616840566b134d097231d243b5e8fa2217420b2cad"
+  },
+  {
+    "path": "assets/meshes/MVP_library.tres",
+    "source": "c1056af508168a911fc1e55913cb23a13d59455414feaf9599b110dbc345dbc9",
+    "staged": "c1056af508168a911fc1e55913cb23a13d59455414feaf9599b110dbc345dbc9"
+  },
+  {
+    "path": "assets/meshes/KKD_library.tres",
+    "source": "56baa9e8d3d620491811ec2a044bbe252708012d0dc22b0623fc8c3233f9e782",
+    "staged": "56baa9e8d3d620491811ec2a044bbe252708012d0dc22b0623fc8c3233f9e782"
+  },
+  {
+    "path": "assets/meshes/basement_library.meshlib",
+    "source": "7f84eb6522fd0b3cbb7bd8b4b2d8814a9afae37e4aad571a9fca6ca1241ce34d",
+    "staged": "7f84eb6522fd0b3cbb7bd8b4b2d8814a9afae37e4aad571a9fca6ca1241ce34d"
+  }
+]

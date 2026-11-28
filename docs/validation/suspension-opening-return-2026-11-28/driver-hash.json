@@ -1,0 +1,6 @@
+{
+  "path": "tools/run_loading_suspension_check.mjs",
+  "sha256": "536e78735568deafecf0bd2ef48860635955038e23d4c56c157629240173236a",
+  "loopback": "127.0.0.1:6179",
+  "hiddenProcesses": true
+}

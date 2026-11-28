@@ -1,0 +1,157 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] _layout (res://ui/cheat_menu.gd:115)
+       [1] _ready (res://ui/cheat_menu.gd:24)
+       [2] _ready (res://ui/inventory_menu.gd:33)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Warning: Trying to change to same state
+PASS Player base scene starts with five HP
+Warning: Trying to change to same state
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS actual Player hurt path preserves half HP
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS two half hits total one HP
+Player: changing from state Hurt to Idle
+Warning: Trying to change to same state
+Nhan sat thuong
+PASS shield absorbs exactly half point
+Warning: Trying to change to same state
+Nhan sat thuong
+Player: changing from state Idle to Hurt
+PASS shield overflow preserves fractional HP damage
+Player: changing from state Hurt to Idle
+PASS regeneration adds one without truncating half HP
+PASS stage transition carrier retains half HP
+PASS player HP uses supplied vendor atlas
+PASS HUD displays fractional HP
+WARNING: res://levels/level_1/basement_full.tscn:18 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/combat_balance_check.gd:105)
+       [1] seconds (res://tests/combat_balance_check.gd:18)
+PASS normal enemy pacing in res://levels/level_1/basement_full.tscn
+PASS normal enemy pacing in res://levels/level_1/basement_b3.tscn
+Warning: Trying to change to same state
+PASS fixed damage skeleton/skeleton_warrior
+Nhan sat thuong
+PASS actual contact/projectile damage skeleton/skeleton_warrior
+PASS enemy HP bar preserves fractions
+Warning: Trying to change to same state
+Player: changing from state Idle to Hurt
+PASS fixed damage skeleton/skeleton_mage
+PASS projectile speed restored skeleton/skeleton_mage
+Nhan sat thuong
+Warning: Trying to change to same state
+PASS actual contact/projectile damage skeleton/skeleton_mage
+PASS enemy HP bar preserves fractions
+Player: changing from state Hurt to Idle
+PASS fixed damage arcane/evil_wizard_1
+PASS projectile speed restored arcane/evil_wizard_1
+Nhan sat thuong
+PASS actual contact/projectile damage arcane/evil_wizard_1
+PASS enemy HP bar preserves fractions
+Warning: Trying to change to same state
+Player: changing from state Idle to Hurt
+PASS fixed damage arcane/evil_wizard_2
+Nhan sat thuong
+Warning: Trying to change to same state
+PASS actual contact/projectile damage arcane/evil_wizard_2
+PASS enemy HP bar preserves fractions
+Player: changing from state Hurt to Idle
+PASS fixed damage arcane/necromancer
+PASS projectile speed restored arcane/necromancer
+Nhan sat thuong
+PASS actual contact/projectile damage arcane/necromancer
+PASS enemy HP bar preserves fractions
+Warning: Trying to change to same state
+Player: changing from state Idle to Hurt
+PASS burn does not damage before one second
+PASS overshoot delivers exactly final half-point tick then expires
+PASS expired burn causes no extra ticks
+PASS reapplication refreshes one burn without stacking
+PASS burn damages through hurt without restarting hitstun
+PASS pause freezes burn damage and duration
+PASS burn resumes once after pause
+PASS lightning clone recognizes living half-HP caster
+PASS casts ultimate_fire_1
+PASS fire ultimate ignites ultimate_fire_1
+PASS ultimate burn fixed half HP and one-second duration ultimate_fire_1
+PASS casts ultimate_fire_2
+PASS fire ultimate ignites ultimate_fire_2
+PASS ultimate burn fixed half HP and one-second duration ultimate_fire_2
+Player: changing from state Hurt to Idle
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+PASS boss repeatedly attacks under continuous hits and burn darkfairy/darkfairy events=3
+PASS boss AI remains enabled darkfairy/darkfairy
+PASS parry still interrupts boss darkfairy/darkfairy
+PASS boss recovers from parry darkfairy/darkfairy
+FAIRY_ACTIONS 6 state=idle
+PASS Dark Fairy completes phase transition
+Nhan sat thuong
+PASS Dark Fairy attacks in phase two
+PASS Dark Fairy defeat completes
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+Nhan sat thuong
+PASS boss repeatedly attacks under continuous hits and burn arcane/undead_executioner events=3
+PASS boss AI remains enabled arcane/undead_executioner
+PASS parry still interrupts boss arcane/undead_executioner
+Nhan sat thuong
+PASS boss recovers from parry arcane/undead_executioner
+PASS executioner summon path completes with current EXP property
+PASS executioner death completes
+Warning: Trying to change to same state
+PASS learned node remains visibly gold selected/hover=false
+PASS learned node remains visibly gold selected/hover=true
+PASS gold empty HP frame remains configured
+COMBAT_BALANCE_RESULT checks=59 failures=0

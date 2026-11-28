@@ -16,21 +16,12 @@ func _update(delta: float) -> void:
 		obj.curjump = 0 
 		if not is_moving:
 			change_state(fsm.states.idle)
-	elif obj.is_on_wall() and is_moving:
-		obj.curjump = 0
-		change_state(fsm.states.wall_slide)
 	else:
 		control_jump()
 func control_jump() -> bool:
 	if Input.is_action_just_pressed("jump"):
-		if coyote_timer > 0.0 and obj.curjump == 0:
+		if coyote_timer > 0.0 and obj.can_start_ground_jump():
 			obj.jump() 
-			change_state(fsm.states.jump)
-			return true
-		elif obj.curjump < obj.maxjump:
-			if obj.curjump == 0:
-				obj.curjump = 1 
-			obj.jump()
 			change_state(fsm.states.jump)
 			return true
 	return false

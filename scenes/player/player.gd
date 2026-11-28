@@ -89,7 +89,7 @@ var _equipment_initialized := false
 var _base_movement_speed := 100.0
 var _base_dash_cooldown := 0.75
 var _base_parry_window := 0.167
-var _base_maxjump := 2
+var _ground_jump_consumed := false
 var _temp_attack_bonus := 0
 var _temp_speed_bonus := 0.0
 var ice_shield := 0
@@ -128,6 +128,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	maxjump = 1
 	fsm = FSM.new(self, $States, $States/Idle, true)
 	super._ready()
 	$Direction/HitArea3D.hitted.connect(_on_attack_hit)
@@ -138,7 +139,6 @@ func _ready() -> void:
 	dash_cooldown = BASE_DASH_COOLDOWN_SECONDS
 	_base_dash_cooldown = dash_cooldown
 	_base_parry_window = parry_window
-	_base_maxjump = maxjump
 	if blade != null:
 		var blade_sprite := blade.get_node_or_null("Sprite3D") as Sprite3D
 		if blade_sprite != null:
@@ -305,8 +305,10 @@ func _update_movement(delta: float) -> void:
 		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	else:
+	elif velocity.y <= 0.0:
+		# Only landing replenishes the jump, never the takeoff tick.
 		curjump = 0
+		_ground_jump_consumed = false
 
 	var was_grounded := is_on_floor()
 	var horizontal_motion := Vector3(velocity.x, 0.0, velocity.z) * delta
@@ -878,7 +880,7 @@ func _apply_skill_bonuses() -> void:
 	movement_speed = _base_movement_speed + 0.5 * float(ranks.get("char_speed", 0)) + float(GameManager.inventory.definition_for_slot("charm").get("movement_speed_bonus", 0.0)) + _temp_speed_bonus
 	dash_cooldown = maxf(0.1, _base_dash_cooldown - 0.1 * float(ranks.get("char_dash", 0)))
 	parry_window = _base_parry_window + 0.05 * float(ranks.get("char_parry", 0))
-	maxjump = _base_maxjump + int(ranks.get("char_double_jump", 0))
+	maxjump = 1 # Retired movement upgrades cannot restore aerial jumps.
 	active_skill_slot_changed.emit(selected_active_slot, get_selected_active_skill_id())
 
 
@@ -1783,3 +1785,14 @@ func get_mouse_throw_target() -> Vector3:
 			query.exclude = query.exclude + [enemy.get_rid()]
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	return hit.position if not hit.is_empty() and hit.normal.y > 0.5 else global_position
+
+
+func can_start_ground_jump() -> bool:
+	return not _ground_jump_consumed
+
+
+func jump() -> void:
+	if _ground_jump_consumed:
+		return
+	_ground_jump_consumed = true
+	super.jump()

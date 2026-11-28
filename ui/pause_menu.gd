@@ -172,7 +172,7 @@ func _clear(container: Node) -> void:
 func _input(event: InputEvent) -> void:
 	# Handle New Game before focused UI can consume F9; this autoload also runs while paused.
 	if event is InputEventKey and event.pressed and not event.echo \
-			and event.is_action_pressed("new_game") and _binding_action.is_empty() and is_instance_valid(GameManager.current_stage):
+			and event.is_action_pressed("new_game") and _binding_action.is_empty() and not GameManager.is_changing() and is_instance_valid(GameManager.current_stage):
 		get_viewport().set_input_as_handled()
 		GameManager.new_game()
 		return
@@ -241,9 +241,9 @@ func close_menu() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	if guard == _resume_guard:
+		await GameManager.set_pause_safely(false)
 		is_open = false
 		_closing = false
-		get_tree().paused = false
 		Input.mouse_mode = _previous_mouse
 
 func _scene_changed() -> void:
@@ -274,15 +274,15 @@ func _show_home() -> void:
 	var subtitle := _label("Hành trình có thể đợi một chút.", 20)
 	subtitle.modulate = GOLD
 	_content.add_child(subtitle)
-	for item in [["Tiếp tục hành trình", close_menu], ["Cài đặt", open_settings], ["Hướng dẫn điều khiển", _show_help], ["Thoát trò chơi", _ask_quit]]:
+	for item in [["Tiếp tục hành trình", close_menu], ["Cài đặt", open_settings], ["Hướng dẫn điều khiển", _show_help], ["Về menu chính", _ask_main_menu]]:
 		_content.add_child(_button(item[0], item[1]))
 	_status.text = "Tiến trình được lưu tự động tại checkpoint.\nEsc để tiếp tục · Camera chéo cố định."
 	_footer.add_child(_label("DAY & NIGHT", 13))
 	(_content.get_child(1) as Button).grab_focus()
 	_layout.call_deferred()
 
-func _ask_quit() -> void:
-	_show_confirmation("quit", "Thoát trò chơi?\nLần chơi sau sẽ tiếp tục từ checkpoint đã lưu. Tiến trình chưa lưu sau checkpoint có thể mất.", "Thoát trò chơi")
+func _ask_main_menu() -> void:
+	_show_confirmation("main_menu", "Về menu chính?\nBạn có thể tiếp tục từ checkpoint đã lưu. Tiến trình chưa lưu sau checkpoint có thể mất.", "Về menu chính")
 
 func _show_help() -> void:
 	_page = "help"
@@ -491,7 +491,7 @@ func _accept_confirmation() -> void:
 	var kind := _confirmation
 	_hide_confirmation()
 	match kind:
-		"quit": get_tree().quit()
+		"main_menu": GameManager.return_to_main_menu()
 		"display": _save_settings()
 		"reset":
 			GameSettings.values = GameSettings.defaults.duplicate(true)

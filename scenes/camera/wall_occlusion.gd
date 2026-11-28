@@ -29,8 +29,14 @@ func _physics_process(delta: float) -> void:
 		target.global_position + Vector3.UP * 1.15]
 	var sprite := target.get_node_or_null("Sprite3D") as Sprite3D
 	anchors.append(sprite.global_position + camera.global_basis.y * 1.6 if sprite else target.global_position + Vector3.UP * 2.0)
+	# Include sprite edges so a side wall cannot cover half the body unnoticed.
+	var edge := camera.global_basis.x * 0.85
+	anchors.append(target.global_position + Vector3.UP * 1.15 + edge)
+	anchors.append(target.global_position + Vector3.UP * 1.15 - edge)
 	for map in _grids.keys():
 		if not is_instance_valid(map):
+			var stale: Dictionary = _grids[map]
+			if is_instance_valid(stale.visuals): stale.visuals.queue_free()
 			_grids.erase(map)
 			continue
 		_update_grid(map, camera.global_position, anchors, delta)
@@ -49,6 +55,13 @@ func _scan() -> void:
 		var map := candidate as GridMap
 		if map == null:
 			continue
+		if not _can_replace_grid(map):
+			if _grids.has(map):
+				var state: Dictionary = _grids[map]
+				_restore_grid(map, state)
+				if is_instance_valid(state.visuals): state.visuals.queue_free()
+				_grids.erase(map)
+			continue
 		if not _grids.has(map):
 			_grids[map] = {"signature":0, "records":[], "visuals":null, "active":false, "visible":map.visible, "poll":0.0}
 	for mesh: MeshInstance3D in root.find_children("*", "MeshInstance3D", true, false):
@@ -57,6 +70,14 @@ func _scan() -> void:
 		# Solid mesh walls/pillars; do not register actors, particles or decorative flames.
 		if mesh.get_parent() is StaticBody3D or not mesh.find_children("*", "StaticBody3D", true, false).is_empty():
 			_meshes[mesh] = _material_entry(mesh)
+
+func _can_replace_grid(map: GridMap) -> bool:
+	# GridMap has no self-only rendering visibility switch: hiding a container
+	# also hides every child Floor/Wall. Replace only independent leaf visuals.
+	if "floor" in str(map.name).to_lower():
+		return false
+	return map.find_children("*", "GridMap", true, false).is_empty() \
+		and map.find_children("*", "VisualInstance3D", true, false).is_empty()
 
 func _blocks(transform: Transform3D, bounds: AABB, origin: Vector3, anchors: Array[Vector3]) -> bool:
 	var world_bounds := transform * bounds

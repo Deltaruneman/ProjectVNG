@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot 4.7.2 Compatibility rendered, disposable project and user namespace",
+  "before": {
+    "basementHelper": "absent, 0/1 exit1"
+  },
+  "suites": {
+    "basement": {
+      "passed": 13,
+      "total": 13,
+      "exit": 0
+    },
+    "wallRegression": {
+      "passed": 18,
+      "total": 18,
+      "exit": 0
+    },
+    "arenaTorches": {
+      "passed": 52,
+      "total": 52,
+      "exit": 0
+    }
+  },
+  "totalPassed": 83,
+  "torchCount": 44,
+  "sceneTransformLines": {
+    "basement_full": 12,
+    "basement_b3": 4,
+    "castle": 28
+  },
+  "firstTorchRun": {
+    "passed": 36,
+    "total": 52,
+    "reason": "16 side-wall rotations serialized transposed; corrected row order and reran52/52"
+  },
+  "sourceHashes": {
+    "matched": 172,
+    "total": 172,
+    "runtime": 166
+  },
+  "scope": "Wall fade/restore, Castle ArenaFloor decoration, mounted torch transforms; separate solid-floor feature skipped as requested.",
+  "limits": [
+    "Independent leaf GridMaps can fade; parent visual containers are preserved.",
+    "All44 mounts measured; sample north/side images inspected, not every camera angle.",
+    "Full campaign, exports and independent teammate review not performed.",
+    "Existing UID fallback, CheatMenu anchor, B2 quota and shutdown ObjectDB/resource diagnostics retained."
+  ],
+  "noRealSaves": true,
+  "noSourceGodotCacheRun": true,
+  "noGenerators": true,
+  "noCommitOrPush": true
+}

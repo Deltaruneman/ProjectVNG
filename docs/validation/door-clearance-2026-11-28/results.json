@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot4.7.2 Compatibility rendered1280x720",
+  "before": {
+    "passed": 2,
+    "total": 6,
+    "exitCode": 1,
+    "actualTrap": "center=(51,1.05,0.700709), no floor and zero movement after actual down input"
+  },
+  "after": {
+    "passed": 73,
+    "total": 73,
+    "exitCode": 0
+  },
+  "change": "Only shared door solid origin (0,0,1.2)->(0,1.75,0)",
+  "runtimeFilesMatched": 166,
+  "totalHashesMatched": 171,
+  "coverage": [
+    "3 B3 apron overlap/actual retreat reproductions",
+    "7 authored doors: front apron, visual solid plane, supported ID arrival, actual approach and retreat",
+    "B3 wall-side escape",
+    "Locked F cannot travel and conversation releases control",
+    "Actual F B3->B2->B3, supported arrivals and subsequent sideways movement"
+  ],
+  "limitations": [
+    "Full campaign/export/all approach angles and independent owner acceptance not run.",
+    "Existing UID/quota/anchor/repeated-state diagnostics remain; final shutdown10 ObjectDB and1 resource-in-use warning.",
+    "Existing source engine/cache/generated sidecar changes preserved; no source engine/import/cache edit or real saves touched."
+  ]
+}

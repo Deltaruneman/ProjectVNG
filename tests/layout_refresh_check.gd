@@ -77,7 +77,7 @@ func run() -> void:
 	Input.action_release("jump")
 	check(player.global_position.y > before.y + 0.2, "actual jump remains usable")
 	await frames(60)
-	check(rig._wall_occlusion == null, "basement does not replace GridMap rendering with fade copies")
+	check(rig._wall_occlusion != null, "basement uses safe leaf-wall fading without hiding floor containers")
 	for at: Vector3 in [Vector3(17,1.1,1),Vector3(17,3.6,1),Vector3(19,7.2,1),Vector3(38,6.2,1.5),Vector3(38,8.0,0)]:
 		player.set_physics_process(false)
 		player.global_position = at

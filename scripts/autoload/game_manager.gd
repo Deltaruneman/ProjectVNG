@@ -12,6 +12,11 @@ signal stage_changed(stage: Stage)
 
 ## The game's main scene. A new game starts here, and so does a fox that dies before touching any
 ## checkpoint.
+const MAIN_MENU := "res://ui/main_menu.tscn"
+const SCENE_LOADING := preload("res://ui/scene_loading.gd")
+signal scene_change_failed
+var _scene_loading: CanvasLayer
+
 const FIRST_STAGE := "res://levels/level_1/basement_full.tscn"
 const BASEMENT_UID := "uid://mjb8sv4t2f20"
 const BASEMENT_CHECKPOINTS := {
@@ -95,7 +100,7 @@ func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool
 			push_warning("Unknown basement spawn refused; no default fallback selected.")
 			return
 		stage_path = FIRST_STAGE
-	if _changing:
+	if is_changing():
 		return    # already switching — a second press of F, for example
 	if not ResourceLoader.exists(stage_path):
 		# A typo in a door's target_stage, or a save file from an older version of the game. Refuse
@@ -114,7 +119,7 @@ func change_stage(stage_path: String, spawn_name: String = "", keep_health: bool
 	player_health = health
 	# Deferred: this usually runs inside a signal fired mid physics step (an Area3D, an animation);
 	# swapping the scene right there would free nodes the engine is still walking.
-	get_tree().change_scene_to_file.call_deferred(stage_path)
+	_begin_scene_change(stage_path)
 
 
 ## A conversation must not follow the fox into the next stage: Dialogic's dialogue box lives under
@@ -127,7 +132,52 @@ func _end_dialogue() -> void:
 
 
 func is_changing() -> bool:
-	return _changing
+	return _changing or (is_instance_valid(_scene_loading) and _scene_loading.busy)
+
+
+func _ensure_scene_loading() -> void:
+	if not is_instance_valid(_scene_loading):
+		_scene_loading = SCENE_LOADING.new()
+		add_child(_scene_loading)
+		_scene_loading.finished.connect(_scene_load_finished)
+
+
+func set_pause_safely(value: bool) -> void:
+	_ensure_scene_loading()
+	await _scene_loading.set_pause_safely(value, true)
+
+
+func _begin_scene_change(path: String) -> void:
+	_ensure_scene_loading()
+	_scene_loading.start(path)
+
+
+func _scene_load_finished(success: bool) -> void:
+	_changing = false
+	if not success:
+		pending_spawn = ""
+		_pending_brimstone_respawn = false
+		player_health = -1.0
+		scene_change_failed.emit()
+
+
+func return_to_main_menu() -> void:
+	if is_changing(): return
+	_end_dialogue()
+	_changing = true
+	pending_spawn = ""
+	_pending_brimstone_respawn = false
+	player_health = -1.0
+	_begin_scene_change(MAIN_MENU)
+
+
+func continue_game() -> void:
+	if is_changing(): return
+	load_game()
+	if has_checkpoint_conflict(): return
+	_booted = true
+	var path := checkpoint_stage if checkpoint_id != "" else FIRST_STAGE
+	change_stage(path, checkpoint_id, false)
 
 
 ## Called by Stage._ready(). The Player is ready by then: Godot runs _ready() on children before
@@ -169,6 +219,7 @@ func register_stage(stage: Stage) -> void:
 ## would clear _changing — and doors and respawning would be refused from then on.
 func _on_scene_changed() -> void:
 	if not (get_tree().current_scene is Stage):
+		current_stage = null
 		_changing = false
 
 
@@ -512,6 +563,11 @@ func load_game() -> void:
 	for node_id: Variant in skill_allocations:
 		if not skill_spending.has(node_id):
 			skill_spending[node_id] = int(skill_allocations[node_id])
+	# Retired aerial-jump upgrade: return exactly the recorded spending once.
+	if skill_allocations.has("char_double_jump"):
+		skill_points += maxi(0, int(skill_spending.get("char_double_jump", 0)))
+		skill_allocations.erase("char_double_jump")
+		skill_spending.erase("char_double_jump")
 	weapon_form = str(data.get("weapon_form", ""))
 	var saved_skills: Variant = data.get("unlocked_skills", [])
 	unlocked_skills.clear()
@@ -542,8 +598,9 @@ func load_game() -> void:
 		_checkpoint_progress = _capture_checkpoint_progress()
 
 
-## F9: forget the save file and start over in stage 1 — even in the middle of a stage change.
+## F9 starts over only when no transition owns the scene and save state.
 func new_game() -> void:
+	if is_changing(): return
 	SaveSystem.delete_save()
 	reset()
 	_booted = true    # nothing left to continue

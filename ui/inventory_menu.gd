@@ -206,9 +206,9 @@ func close_menu() -> void:
 	_closing = true
 	await get_tree().process_frame
 	await get_tree().process_frame
+	await GameManager.set_pause_safely(false)
 	is_open = false
 	_closing = false
-	get_tree().paused = false
 	Input.mouse_mode = _previous_mouse
 
 func _show_page(target: String) -> void:

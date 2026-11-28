@@ -1,0 +1,163 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] _layout (res://ui/cheat_menu.gd:115)
+       [1] _ready (res://ui/cheat_menu.gd:24)
+       [2] _ready (res://ui/inventory_menu.gd:33)
+WARNING: res://levels/level_1/basement_full.tscn:18 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/castle_arena_torch_check.gd:91)
+WARNING: B2 clear gate requires a finite clear_kills value on EnemyZone_B.
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://levels/level_1/basement_b2_progress.gd:28)
+       [1] run (res://tests/castle_arena_torch_check.gd:92)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+MOUNT_DIAG Torch-mid at=(-10.48, 5.1, 15.09) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 0.666667, 0, 1, 0, 0, -10.48, 3.4, 15.09)
+FAIL B1/Torches/Torch-mid back mount touches exposed wall, upright/inward, lit
+PASS B1/Torches/Torch1 back mount touches exposed wall, upright/inward, lit
+PASS B1/Torches/Torch back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch2 at=(-2.48, 5.4, 23.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 0.666667, 0, 1, 0, 0, -2.48, 3.6, 23)
+FAIL B1/Torches/Torch2 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch3 at=(38.48, 5.4, 7.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 0.666667, 0, -1, 0, 0, 38.48, 3.6, 7)
+FAIL B1/Torches/Torch3 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch4 at=(38.48, 5.4, 23.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 0.666667, 0, -1, 0, 0, 38.48, 3.6, 23)
+FAIL B1/Torches/Torch4 back mount touches exposed wall, upright/inward, lit
+PASS B1_5/Torches/Torch0 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch1 at=(56.98, 3.6, 17.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 56.98, 3.6, 17)
+FAIL B1_5/Torches/Torch1 back mount touches exposed wall, upright/inward, lit
+PASS B2/Torches/Torch0 back mount touches exposed wall, upright/inward, lit
+PASS B2/Torches/Torch1 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch2 at=(12.02, 14.6, 15.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12.02, 9.6, 15)
+FAIL B2/Torches/Torch2 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch3 at=(55.98, 14.6, 15.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 55.98, 9.6, 15)
+FAIL B2/Torches/Torch3 back mount touches exposed wall, upright/inward, lit
+PASS basement_full.tscn retains all authored mounted torches
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B3/Torches/Torch0 back mount touches exposed wall, upright/inward, lit
+PASS B3/Torches/Torch1 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch2 at=(23.92, 3.6, 13.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 23.920002, 15.6, 13)
+FAIL B3/Torches/Torch2 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch3 at=(56.08, 3.6, 17.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 56.079998, 15.6, 17)
+FAIL B3/Torches/Torch3 back mount touches exposed wall, upright/inward, lit
+PASS basement_b3.tscn retains all authored mounted torches
+WARNING: res://levels/level_1/castle.tscn:4 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/castle_arena_torch_check.gd:91)
+       [1] frames (res://tests/castle_arena_torch_check.gd:16)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS F1/WallDecor/Torches/Torch01 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch02 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch03 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch04 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch05 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch06 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch07 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch08 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch09 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch10 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch11 back mount touches exposed wall, upright/inward, lit
+PASS F1/WallDecor/Torches/Torch12 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch13 at=(2.649695, 4.0, 24.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 2.649695, 4, 24)
+FAIL F1/WallDecor/Torches/Torch13 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch14 at=(2.77, 4.0, 48.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 2.77, 4, 48)
+FAIL F1/WallDecor/Torches/Torch14 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch15 at=(105.48, 4.0, 26.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 105.48, 4, 26)
+FAIL F1/WallDecor/Torches/Torch15 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch16 at=(105.48, 4.0, 38.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 105.48, 4, 38)
+FAIL F1/WallDecor/Torches/Torch16 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch01 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch02 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch03 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch04 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch05 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch06 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch07 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch08 back mount touches exposed wall, upright/inward, lit
+PASS F2/WallDecor/Torches/Torch09 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch10 at=(2.52, 12.0, 12.0) normal=(-1.0, 0.0, 0.0) transform=Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 2.52, 4, 12)
+FAIL F2/WallDecor/Torches/Torch10 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch11 at=(105.23, 12.0, 20.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 105.23, 4, 20)
+FAIL F2/WallDecor/Torches/Torch11 back mount touches exposed wall, upright/inward, lit
+MOUNT_DIAG Torch12 at=(105.48, 12.0, 44.0) normal=(1.0, 0.0, 0.0) transform=Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 105.48, 4, 44)
+FAIL F2/WallDecor/Torches/Torch12 back mount touches exposed wall, upright/inward, lit
+PASS castle.tscn retains all authored mounted torches
+PASS actual mini-boss ArenaFloor stays authored and excluded from fade proxies
+PASS arena decoration stays visible at center and three interior edges
+PASS arena source cells and shared library remain unchanged
+PASS Castle foreground wall still fades beside Player
+PASS Castle wall restores when Player leaves it
+ARENA_TORCH_RESULT 36/52

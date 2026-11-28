@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot4.7.2 Compatibility rendered1280x720",
+  "before": {
+    "passed": 1,
+    "total": 2,
+    "exitCode": 1,
+    "exactError": "Invalid type in function take_damage in HurtArea3D; argument3 previously freed, expected Node3D",
+    "reproducedCaller": "darkfairy_spell.gd:38"
+  },
+  "lifecycle": {
+    "passed": 18,
+    "total": 18,
+    "exitCode": 0
+  },
+  "combat": {
+    "passed": 59,
+    "total": 59,
+    "exitCode": 0
+  },
+  "runtimeFilesMatched": 166,
+  "totalHashesMatched": 170,
+  "limits": [
+    "Original user call stack not supplied; reproduced exact error with real delayed Fairy spell, not proof this was the user original call site.",
+    "Full campaign/export/all delayed source paths and independent teammate acceptance not run.",
+    "Existing BattleFX UID fallbacks/CheatMenu anchors and combat shutdown warnings remain.",
+    "No real saves, source imports/cache edits, generators, commit or push."
+  ]
+}

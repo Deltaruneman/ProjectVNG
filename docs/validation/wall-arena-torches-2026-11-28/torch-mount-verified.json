@@ -1,0 +1,354 @@
+[
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch-mid",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch1",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch2",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch3",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1/Torches/Torch4",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1_5/Torches/Torch0",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B1_5/Torches/Torch1",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B2/Torches/Torch0",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B2/Torches/Torch1",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B2/Torches/Torch2",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B2/Torches/Torch3",
+    "scene": "res://levels/level_1/basement_full.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": -0.00000000745058059692383,
+    "node": "B3/Torches/Torch0",
+    "scene": "res://levels/level_1/basement_b3.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": -0.00000000745058059692383,
+    "node": "B3/Torches/Torch1",
+    "scene": "res://levels/level_1/basement_b3.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B3/Torches/Torch2",
+    "scene": "res://levels/level_1/basement_b3.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "B3/Torches/Torch3",
+    "scene": "res://levels/level_1/basement_b3.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch01",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch02",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch03",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch04",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch05",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch06",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch07",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch08",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch09",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch10",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch11",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch12",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch13",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch14",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch15",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F1/WallDecor/Torches/Torch16",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch01",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch02",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch03",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch04",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch05",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch06",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch07",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch08",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch09",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch10",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch11",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  },
+  {
+    "contact": true,
+    "lit": true,
+    "mesh_back_offset": 0.0,
+    "node": "F2/WallDecor/Torches/Torch12",
+    "scene": "res://levels/level_1/castle.tscn",
+    "upright": true
+  }
+]

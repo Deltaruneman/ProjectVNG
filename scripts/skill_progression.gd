@@ -7,7 +7,7 @@ const FORMS := ["wind", "fire", "ice", "lightning"]
 const CHARACTER := {
 	"char_attack": [3, 0, 1], "char_crit": [3, 1, 2], "char_element": [3, 2, 2],
 	"char_health": [3, 0, 1], "char_heal": [3, 1, 2], "char_parry": [2, 2, 2],
-	"char_dash": [3, 0, 1], "char_speed": [3, 1, 2], "char_double_jump": [1, 2, 3],
+	"char_dash": [3, 0, 1], "char_speed": [3, 1, 2],
 }
 # id: [earned-SP gate, cost, prerequisite]
 const EVOLUTIONS := {

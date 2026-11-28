@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot4.7.2 Compatibility rendered 1280x720",
+  "floor": {
+    "passed": 19,
+    "total": 19,
+    "exitCode": 0
+  },
+  "movement": {
+    "passed": 20,
+    "total": 20,
+    "exitCode": 0
+  },
+  "boundary": {
+    "passed": 48,
+    "total": 48,
+    "exitCode": 0,
+    "samples": "12 cardinal-wall samples across B1/B2/B3; supported start, hidden collision ray, actual ground jump, 70-frame inward containment each"
+  },
+  "runtimeFilesMatched": 166,
+  "totalHashesMatched": 175,
+  "mapSceneUnchangedFromN34Start": true,
+  "sourceCache": "pre-existing dirty uid_cache.bin preserved; no source engine/cache edit by agent",
+  "limitations": [
+    "Perimeter tests sample four walls per basement floor; not exhaustive every gap/corner/ability/campaign/export.",
+    "No independent teammate acceptance.",
+    "Existing UID/anchor/quota/repeated-state/shutdown3-4 ObjectDB plus1 resource diagnostics remain.",
+    "Existing0.1s coyote grace retained but not independently tested."
+  ]
+}

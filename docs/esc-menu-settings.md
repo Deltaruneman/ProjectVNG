@@ -52,3 +52,14 @@ current project; no production settings/save was accessed. See
 Native feel, audible mixer behavior and reviewer acceptance remain NOT RUN. Duplicate
 Player/Stage HUD (BUG-008) remains open despite bounded menu tests passing. This is an
 audit status update, not new implementation or sign-off.
+
+
+## N40 update — 2026-11-28
+The in-game pause action is now **Về menu chính**, with the existing styled confirmation and checkpoint reminder. Confirming keeps the save file intact and returns to the actual title; only the title's desktop Thoát action still closes the application. Continue explicitly restores saved stage and checkpoint on every activation, including repeated returns in one process.
+GameManager owns a persistent loading cover for New Game, Continue, doors, respawn and returning to title. It reuses the title/inventory stone skin, gold/violet palette and animated Foxy art. The opaque cover renders before threaded resource loading, shows destination/progress, survives the scene-ready frame and fades before releasing gameplay. It closes existing persistent menus, blocks overlapping/F9 requests, and exposes a keyboard-accessible Back action on load failure. No additional checkpoint/save policy.
+Rendered focused44/44 and actual door regression73/73 PASS, both exit0; details, screenshots and known diagnostics/limits in [validation evidence](validation/menu-scene-loading-2026-11-28/results.json). No independent teammate acceptance or full export/campaign verification.
+
+
+## N41/N42 update — 2026-11-28
+Loading now waits for a normal game-processing callback before changing pause or swapping scenes, so editor suspension is respected. Its pause ownership begins before persistent menus close; their asynchronous resume requests cannot briefly release gameplay beneath the cover. Error Back safely restores the prior underlying pause after the editor resumes.
+In the opening possession timeline, Không now ends the dialogue and returns through the shared loading screen to main menu without recording acceptance. Có retains the user's revised narration and normal story save. Native suspension17/17, opening19/19, menu/loading44/44 and actual doors73/73 PASS; [evidence and limits](validation/suspension-opening-return-2026-11-28/results.json).

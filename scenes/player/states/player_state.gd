@@ -34,9 +34,8 @@ func control_moving() -> bool:
 #Return true if jumping
 func control_jump() -> bool:
 	#If jump is pressed change to jump state and return true
-	if Input.is_action_just_pressed("jump"):
-		print(obj.curjump)
-		if obj.curjump <obj.maxjump:
+	if Input.is_action_just_pressed("jump") and obj.is_on_floor():
+		if obj.can_start_ground_jump():
 			obj.jump()
 			change_state(fsm.states.jump)
 			return true

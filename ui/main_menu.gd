@@ -91,6 +91,7 @@ func _ready() -> void:
 	confirmation.cancel_button_text = "Quay lại"
 	confirmation.confirmed.connect(_new_game)
 	add_child(confirmation)
+	GameManager.scene_change_failed.connect(_start_failed)
 	_refresh_continue()
 	(continue_button if not continue_button.disabled else new_button).grab_focus()
 	get_viewport().size_changed.connect(_layout)
@@ -153,8 +154,8 @@ func _refresh_continue() -> void:
 func _continue_game() -> void:
 	if _starting or continue_button.disabled: return
 	_starting = true
-	GameManager.load_game()
-	GameManager.change_stage(GameManager.FIRST_STAGE, "", false)
+	GameManager.continue_game()
+	if not GameManager.is_changing(): _start_failed()
 
 func _ask_new_game() -> void:
 	if _starting: return
@@ -171,3 +172,7 @@ func _new_game() -> void:
 func _settings() -> void:
 	if not _starting:
 		PauseMenu.open_title_settings()
+
+func _start_failed() -> void:
+	_starting = false
+	_refresh_continue()

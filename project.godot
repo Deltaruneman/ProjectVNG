@@ -55,6 +55,7 @@ layout/style_directory={
 "": "res://dialog/customs/dialog_style.tres"
 }
 layout/default_style="res://dialog/customs/dialog_style.tres"
+glossary/default_case_sensitive=true
 
 [display]
 

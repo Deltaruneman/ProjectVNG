@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://dta71g715vcmo" path="res://scenes/player/states/throw.gd" id="15_throw"]
 [ext_resource type="Script" uid="uid://db5g52ymtofcn" path="res://scenes/player/states/skillstate.gd" id="16_myrg7"]
 [ext_resource type="PackedScene" uid="uid://bt0ugv6i2masa" path="res://scenes/objects/phidao.tscn" id="17_kvlxm"]
-[ext_resource type="Script" uid="uid://btfduaibqr301" path="res://scenes/player/states/wall_slide.gd" id="18_uf5tr"]
 [ext_resource type="Script" uid="uid://chqhxa1ysnfuq" path="res://scenes/player/states/dash.gd" id="19_lgqa7"]
 [ext_resource type="Script" uid="uid://c6qhjt3tp4dso" path="res://scenes/player/parry.gd" id="20_8ydkj"]
 [ext_resource type="PackedScene" uid="uid://cjv0myegiav6k" path="res://scenes/player/weapon/blade.tscn" id="21_3j4b4"]
@@ -133,19 +132,16 @@ script = ExtResource("15_throw")
 script = ExtResource("16_myrg7")
 skill_scene = ExtResource("17_kvlxm")
 
-[node name="Wall_slide" type="Node" parent="States" index="10" unique_id=2133922911]
-script = ExtResource("18_uf5tr")
-
-[node name="Dash" type="Node" parent="States" index="11" unique_id=1094720519]
+[node name="Dash" type="Node" parent="States" index="10" unique_id=1094720519]
 script = ExtResource("19_lgqa7")
 
-[node name="Parry" type="Node" parent="States" index="12" unique_id=1502910452]
+[node name="Parry" type="Node" parent="States" index="11" unique_id=1502910452]
 script = ExtResource("20_8ydkj")
 
-[node name="WindUltimate" type="Node" parent="States" index="13" unique_id=912639592]
+[node name="WindUltimate" type="Node" parent="States" index="12" unique_id=912639592]
 script = ExtResource("23_windult")
 
-[node name="StaminaExhausted" type="Node" parent="States" index="14" unique_id=9556322]
+[node name="StaminaExhausted" type="Node" parent="States" index="13" unique_id=9556322]
 script = ExtResource("24_stamina_exhausted")
 
 [node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=583087062]

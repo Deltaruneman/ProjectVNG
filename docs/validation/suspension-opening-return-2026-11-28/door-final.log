@@ -1,0 +1,687 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (AMD) - ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.11039.5001)
+
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:3 - ext_resource, invalid UID: uid://skjeqp2xi15j - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleSlash.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:4 - ext_resource, invalid UID: uid://cmtqdmo1ws1kp - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/slash.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/slash/vfx_blank_slash.tscn:5 - ext_resource, invalid UID: uid://4q44chonwcdf - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/attack_particles.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:3 - ext_resource, invalid UID: uid://8osc0nd6m8n7 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/script/VFXBattleShieldBB.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:4 - ext_resource, invalid UID: uid://jc8qo48jsar1 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_surface.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:5 - ext_resource, invalid UID: uid://cs3pushk8s5es - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_aura.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:6 - ext_resource, invalid UID: uid://4sali0d7rugj - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shield_orbit.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/effects/shield/vfx_blank_shield_01.tscn:7 - ext_resource, invalid UID: uid://bgx3u5wl4xom0 - using text path instead: res://assets/vendor/BattleFXFree/BattleFXFree/assets/BinbunVFX_Vol2/BattleFX/shader/shards.gdshader
+   at: load (scene/resources/resource_format_text.cpp:501)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] _layout (res://ui/cheat_menu.gd:115)
+       [1] _ready (res://ui/cheat_menu.gd:24)
+       [2] _ready (res://ui/inventory_menu.gd:33)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS B3 visible front apron clear at x=-1.9
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS actual down input leaves front/side of door x=-1.9
+APRON_MOVE x=-1.9 start=(49.1, 1.009961, 1.7) end=(49.1, 1.009961, 3.700001) floor=true
+PASS B3 visible front apron clear at x=0.0
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS actual down input leaves front/side of door x=0.0
+APRON_MOVE x=0.0 start=(51.0, 1.010205, 1.7) end=(51.0, 1.010205, 3.700001) floor=true
+PASS B3 visible front apron clear at x=1.9
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS actual down input leaves front/side of door x=1.9
+APRON_MOVE x=1.9 start=(52.9, 1.009961, 1.7) end=(52.9, 1.009961, 3.700001) floor=true
+WARNING: res://levels/level_1/basement_full.tscn:18 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] load_stage (res://tests/door_clearance_check.gd:53)
+       [1] frames (res://tests/door_clearance_check.gd:14)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS b2_up clear visible apron -1.9
+PASS b2_up clear visible apron 0.0
+PASS b2_up clear visible apron 1.9
+DOOR_SOLID_SAMPLE b2_up collider=StaticBody3D:<StaticBody3D#301687902659> point=(0.0, 1.5, 0.25)
+PASS b2_up solid collision aligned with visible door plane
+PASS b2_up arrival ID resolves
+PASS b2_up arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b2_up can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b2_up can back away after contact
+WARNING: res://levels/level_1/garden.tscn:14 - ext_resource, invalid UID: uid://dn8lc877ut356 - using text path instead: res://levels/objects/garden_station.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] load_stage (res://tests/door_clearance_check.gd:53)
+       [1] frames (res://tests/door_clearance_check.gd:14)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS garden_from_basement clear visible apron -1.9
+PASS garden_from_basement clear visible apron 0.0
+PASS garden_from_basement clear visible apron 1.9
+DOOR_SOLID_SAMPLE garden_from_basement collider=StaticBody3D:<StaticBody3D#351616896334> point=(0.0, 1.5, 0.25)
+PASS garden_from_basement solid collision aligned with visible door plane
+PASS garden_from_basement arrival ID resolves
+PASS garden_from_basement arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS garden_from_basement can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS garden_from_basement can back away after contact
+PASS garden_to_castle clear visible apron -1.9
+PASS garden_to_castle clear visible apron 0.0
+PASS garden_to_castle clear visible apron 1.9
+DOOR_SOLID_SAMPLE garden_to_castle collider=StaticBody3D:<StaticBody3D#351734337083> point=(0.0, 1.5, 0.25)
+PASS garden_to_castle solid collision aligned with visible door plane
+PASS garden_to_castle arrival ID resolves
+PASS garden_to_castle arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS garden_to_castle can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS garden_to_castle can back away after contact
+WARNING: res://levels/level_1/castle.tscn:4 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] load_stage (res://tests/door_clearance_check.gd:53)
+       [1] frames (res://tests/door_clearance_check.gd:14)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS castle_from_garden clear visible apron -1.9
+PASS castle_from_garden clear visible apron 0.0
+PASS castle_from_garden clear visible apron 1.9
+DOOR_SOLID_SAMPLE castle_from_garden collider=StaticBody3D:<StaticBody3D#449696502417> point=(0.0, 1.5, 0.25)
+PASS castle_from_garden solid collision aligned with visible door plane
+PASS castle_from_garden arrival ID resolves
+PASS castle_from_garden arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS castle_from_garden can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS castle_from_garden can back away after contact
+PASS castle_to_next clear visible apron -1.9
+PASS castle_to_next clear visible apron 0.0
+PASS castle_to_next clear visible apron 1.9
+DOOR_SOLID_SAMPLE castle_to_next collider=StaticBody3D:<StaticBody3D#453236495217> point=(0.0, 1.5, 0.25)
+PASS castle_to_next solid collision aligned with visible door plane
+PASS castle_to_next arrival ID resolves
+PASS castle_to_next arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS castle_to_next can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS castle_to_next can back away after contact
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS b3_down clear visible apron -1.9
+PASS b3_down clear visible apron 0.0
+PASS b3_down clear visible apron 1.9
+DOOR_SOLID_SAMPLE b3_down collider=StaticBody3D:<StaticBody3D#558127650642> point=(0.0, 1.5, 0.25)
+PASS b3_down solid collision aligned with visible door plane
+PASS b3_down arrival ID resolves
+PASS b3_down arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b3_down can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b3_down can back away after contact
+PASS b3_exit clear visible apron -1.9
+PASS b3_exit clear visible apron 0.0
+PASS b3_exit clear visible apron 1.9
+DOOR_SOLID_SAMPLE b3_exit collider=StaticBody3D:<StaticBody3D#558245091161> point=(0.0, 1.5, 0.25)
+PASS b3_exit solid collision aligned with visible door plane
+PASS b3_exit arrival ID resolves
+PASS b3_exit arrival remains supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b3_exit can approach from spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS b3_exit can back away after contact
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS wall-side approach can escape toward room
+PASS B3 exit lock remains active before boss clear
+PASS locked F cannot bypass stage progression
+PASS locked-door conversation releases player controls
+PASS B3 round-trip starts at safe spawn
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS F area reachable in front of aligned door
+WARNING: res://levels/level_1/basement_full.tscn:18 - ext_resource, invalid UID: uid://dlhp1k1nbtcl2 - using text path instead: res://levels/objects/automatic_stairs.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS real F travels B3 -> B2
+PASS real B2 transition arrival supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+Found 14 states
+adding state: Idle
+adding state: Run
+adding state: Jump
+adding state: Fall
+adding state: Attack
+adding state: Hurt
+adding state: Dead
+adding state: Carry
+adding state: Throw
+adding state: Skill
+adding state: Dash
+adding state: Parry
+adding state: WindUltimate
+adding state: StaminaExhausted
+Player: starting with state Idle
+Player: changing from state Idle to Fall
+Player: changing from state Fall to Idle
+PASS real F travels B2 -> B3
+PASS real B3 transition arrival supported
+Player: changing from state Idle to Run
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Warning: Trying to change to same state
+Player: changing from state Run to Idle
+PASS can move sideways after actual arrival
+DOOR_RESULT 73/73

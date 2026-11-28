@@ -1438,3 +1438,92 @@ No full campaign/export, full boss fight/complete ladder-endpoint acceptance or 
 
 ## N34 — Show only the occupied basement floor (2026-11-27, planned)
 User reports N33 simultaneous floors lets upper geometry obscure the occupied lower floor; explicitly requests each floor separately. This supersedes N33 both-visible behavior and acceptance. Lam/Quan local presentation boundary; user authorizes correction, no independent review claimed. Preserve all current dirty work including user B2 root translation+5, torch/scene edits, generated UID files and dirty tracked caches. Scope: basement_floor_visibility.gd, focused regression, update superseded layout fixture and retention/evidence docs. AC: B1 visible/B2 hidden below; B2 visible/B1 hidden above; no all-hidden state during ladder movement, normal jumps or door contact; select actual floor surface including edited root transforms; checkpoint/door arrival updates immediately; secret reveal/ceilings/collision policy preserved. Validation: reproduce old overlap, isolated rendered actual scene Player F climb/jump/door arrivals plus exact layer assertions and captures; no map/Player/camera/save/generator/cache edits.
+
+
+## N35 — Remove double jump and wall slide (2026-11-28, planned)
+User adds this request while N34 floor verification is in progress; preserve and complete both. Bao Player/movement/skill-tree ownership, GameManager narrow legacy-SP-load boundary; user explicitly authorizes removal, no independent teammate sign-off. AC: one ground jump only, no second impulse while falling or touching walls; ordinary gravity/no wall-slide state or wall jump; keep existing short coyote grace for walking off a ledge; remove double-jump purchase/UI and ignore legacy rank; refund recorded legacy double-jump spending on load without changing other allocations, inventory or unknown save fields. Scope Player initialization/bonus application, PlayerState jump eligibility, Fall transition/control, Player scene state removal and inert legacy wall-state fallback, progression/UI catalog, targeted load migration, focused rendered input regression. Preserve enemies/shared BaseCharacter, camera, maps, combat and real saves/caches. No generator/commit/push.
+
+N35 clarification (2026-11-28): user explains removal is to prevent jumping outside maps, concerned about missing cells. Add rendered B1/B2/B3 cardinal perimeter jump/push checks and hidden-GridMap collision rays. N34/N35 do not remove any map cells or change collision data. Preserve user-authored current scene transforms.
+
+### N34/N35 FINAL — 2026-11-28
+- [x] N34 floor isolation/actual-height/landing/checkpoint correction, rendered19/19 PASS; replaces N33 both-visible acceptance.
+- [x] N35 one ground jump and removed wall slide/jump/upgrade with narrow legacy-SP refund, rendered20/20 PASS.
+- [x] User containment concern:12 actual wall-jump samples across B1/B2/B3 and hidden GridMap collision rays,48/48 PASS; sampled coverage only.
+- [x] All3 final engine exits0; 175/175 source/staged hashes match; Basementfull scene/cells unchanged from N34 start.
+- [x] Cumulative per-file/integration/evidence/errors/limitations recorded in docs/project-changes-2026-11-14.txt and validation.md; artifacts docs/validation/movement-floor-containment-2026-11-28/.
+No full campaign/export/exhaustive boundary/coyote-grace or independent acceptance; existing warnings retained. No agent commit/push.
+
+
+## N36 — Player trapped beside wall-mounted door (2026-11-28, planned)
+User screenshot shows left side of right-hand B3 door; requests correction of inability to move. Static finding: shared door solid box is offset1.2m in front of visual door and centered at ground height, leaving a capsule-width pocket against north wall and overlapping the visible front interaction apron. Hypothesis: this offset causes penetration/snags; reproduce with actual Player/physics before claiming cause. Lam/Quan local shared door-scene boundary with Bao movement integration; user explicitly authorizes fix, no independent owner sign-off. Scope: door.tscn solid shape alignment only if reproduction supports it, focused rendered all-door approach/escape/near-wall collision and real F round-trip/lock checks, audit/evidence docs. AC: visible front apron has no door-body overlap, actual inputs can leave either side/front, door stays solid at its visual plane and perimeter walls remain intact, nearby F still transitions between B3/B2 with safe supported arrivals, locks/IDs/targets/Spawn/areas preserved. Preserve all dirty N34/N35/cache/generated work. No map cell deletion, Player refactor, generator, real saves/preferences or commit/push.
+
+### N36 FINAL
+- [x] Actual door/wall trap reproduced: before2/6 PASS, central Player cannot retreat and stays off-floor.
+- [x] Align only shared solid shape to visible door and above-floor extent; preserve area/Spawn/locks/routes/walls/cells.
+- [x] Rendered73/73 PASS, exit0: all7 door approach/retreat/support and solid planes, wall-side escape, lock/control restore and real B3/B2 F round trip.
+- [x] 171/171 selected hashes agree; cumulative per-file/verification/error/limit record and artifacts docs/validation/door-clearance-2026-11-28/.
+No full campaign/export/exhaustive corner/independent review or commit/push; existing diagnostics remain.
+
+
+## N37 — Freed source passed into HurtArea3D.take_damage (2026-11-28, planned)
+User reports exact argument3 previously-freed Object / expected Node3D conversion error. Shared damage-receiver boundary impacts Bao Player/parry/projectiles, Duy enemies/delayed spells and Lam potion areas; user authorizes bounded lifecycle fix, no independent owner/reviewer approval claimed. Static finding: typed source:Node3D conversion happens before take_damage body; delayed Fairy spell retains a Node3D source and can hit after source is freed. Exact user call site unknown without stack, so distinguish reproduced caller from hypothesis about user's original path. Scope HurtArea3D boundary/source attribution and focused rendered regression; caller changes only if evidence requires. AC: freed/queued/null sources deliver intended damage with null attribution, live sources still reach parry/direction consumers, nested signals restore safe prior attribution even if source is freed during callbacks, no new argument conversion/script error; actual delayed spell after caster deletion reproduces then passes; preserve combat values, timing, signal signature, maps/caches/dirty work. Real saves untouched; no generator/commit/push.
+
+### N37 FINAL
+- [x] Exact freed third-argument error reproduced in real delayed Fairy spell; before1/2, exit1.
+- [x] Safe Variant entry/source validation and live typed attacker accessor; preserve damage/signal/caller behavior.
+- [x] Rendered18/18 lifecycle and59/59 existing combat regression PASS, both exit0; 170/170 selected source/staged hashes agree.
+- [x] Per-file/integration/evidence/errors/limits recorded cumulatively; artifacts docs/validation/damage-source-lifecycle-2026-11-28/.
+Original user call stack unknown; full campaign/export/all lifecycle timings and independent sign-off not performed. Existing diagnostics retained; no commit/push.
+
+
+## N38 — Restore wall fading without hiding floors (2026-11-28, planned)
+User reports walls no longer fade near Player. N33 disabled helper in basement to avoid disappearing terrain; N34 now correctly selects occupied floor. Bao camera and Lam/Quan map presentation shared boundary, user authorizes bounded correction; no independent owner agreement claimed. AC: foreground walls covering actual Player fade locally and restore when moving away; source GridMap cells/collision/shared resources and child floors remain intact; inactive floors stay hidden with no stale proxy visibility; support floor stays opaque; story-camera takeover restores rendering; preserve fixed view, movement, doors and all dirty/cache work. Scope camera_rig.gd enable helper, wall_occlusion.gd self-render-only mechanism or safe wall selection based on available engine API, focused rendered unit/actual-floor/ladder integration and evidence. No geometry/collision edits, generators, real saves or commit/push.
+
+
+## N39 — Castle arena surface and mounted torch placement (2026-11-28, planned)
+User adds: restore solid when no longer occluding, arena decorations near Castle mini boss must not become see-through, and fix protruding torches. Lam/Quan scene/art presentation plus Bao helper boundary, user authorizes bounded edits; no independent review claimed. Static candidate: F1/World/ArenaFloor is an elevated decorative GridMap incorrectly treated as an occluder; floor-name exclusion must cover it. AC: ArenaFloor stays opaque under actual Player; walls fade/restore normally; inspect actual mounted-model back plane and align affected torch anchors/orientation to existing wall faces, preserve lights/resources/collision/map cells. Scope wall helper floor classification, named torch transforms in basement_full/basement_b3/castle only after measurement, focused rendered arena/torch checks and evidence. Optional floor/trần wording clarification pending; preserve established opaque support-floor/per-floor policy while doing independent work. No terrain generation/library regeneration, save/cache edits or commit/push.
+
+N39 clarification: user first selected opaque support floors / restore walls when clear, then narrows scope to handling current wall/arena/torch issues and skipping separate solid-floor work. Preserve existing terrain/floor policy; floor-container exclusion remains the necessary no-disappearing-map guard and ArenaFloor-specific rendering correction. No new floor geometry/policy task.
+
+
+### N38/N39 FINAL
+- [x] Restore local wall fade near body/sprite edges and opaque restoration when clear; preserve source collision/cells/shared materials and parent visual containers.
+- [x] Preserve existing per-floor policy and real F ladder; skip separate solid-floor feature per latest user instruction.
+- [x] Castle mini-boss ArenaFloor remains authored/opaque while occupied; Castle walls fade and restore.
+- [x] Align44 mounted torches (Basement12, B3 four, Castle28) upright/inward with .02m back-plane contact; retain model/light properties.
+- [x] Rendered13/13 actual basement,18/18 generic wall and52/52 arena/torch =83/83 PASS, all exit0;172/172 source/staged matches; diff whitespace and audit syntax PASS.
+- [x] Cumulative per-file/integration/evidence/error/limitations record and artifacts saved in docs/validation/wall-arena-torches-2026-11-28/.
+- [ ] Full campaign/export/all camera angles, historical full layout suite and independent teammate review not performed. Existing UID/anchor/B2/shutdown diagnostics retained. No commit/push.
+
+
+## N40 — Return to title and unified scene loading (2026-11-28, planned)
+User requests replacing in-game Quit with Return to main menu and adding consistently designed loading between scenes. User authorizes Bao menu/UI/input and bounded GameManager transition integration across Lam/Quan stages; no independent owner/reviewer acceptance claimed. Preserve all existing dirty changes including newly modified garden.tscn and editor cache. AC: pause home action and confirmation say Về menu chính, cancel retains game, accept returns to actual title without quitting or writing/deleting checkpoint save; title Continue works repeatedly in same process at exact saved checkpoint; New Game/settings retain behavior. Common transition covers new/continue/doors/respawn/title, renders before loading, uses nonblocking resource load with progress and existing Arcana stone/gold/Foxy assets, covers scene-ready frame then releases input/pause, prevents duplicate/F9 reset during load, and recovers failed load without blank/stuck screen. Existing stage locks/spawn/health/checkpoint rules retained. Scope ui/pause_menu.gd, ui/main_menu.gd, scripts/autoload/game_manager.gd, new ui/scene_loading.gd, focused rendered transition and actual door regression fixtures; no autoload/project registration required, map geometry/scene changes or generator. Lazy GameManager-owned CanvasLayer survives scenes. Main-menu Continue currently relies on first-ever register_stage bootstrap; must explicitly restore saved target/spawn after returning to title. Check rendered title/pause/loading/transition states, save bytes, held input/duplicate requests, failed load and smaller window layout; independent full campaign/export review remains open.
+
+
+### N40 FINAL
+- [x] In-game Về menu chính with checkpoint reminder/cancel; confirmed action reaches title without application quit or save-file mutation.
+- [x] Unified persistent loading for new/continue/doors/respawn/title using existing stone/gold/violet/Foxy assets, destination/progress and ready-frame reveal.
+- [x] Repeated same-process Continue restores saved B2/Garden scene+checkpoint; menus/pause/input release cleanly.
+- [x] F9/duplicate/lock guards and recoverable keyboard error return; failed title start can retry.
+- [x] Rendered44/44 focused and73/73 existing actual-door regression PASS,117/117 final assertions, all exit0;171/171 hashes, whitespace/audit syntax checks pass.
+- [x] Cumulative per-file/integration/evidence/errors/limits record and six inspected UI images under docs/validation/menu-scene-loading-2026-11-28/.
+- [ ] Full campaign/cinematic/export/controller coverage and independent owner review not run; known UID/anchor/quota/repeated-state and exit cleanup diagnostics retained. No commit/push.
+
+
+## N41 — Safe loading pause across editor suspension (2026-11-28, planned)
+User supplies exact SceneTree suspended/set_pause error at scene_loading.gd156 after N40. Bao UI/input/shared transition scope; user authorizes bounded fix, no independent reviewer acceptance. Engine source and local4.7.2 ClassDB show editor suspension separate from gameplay paused and not script-exposed; render/process_frame signals can continue while suspended whereas normal Node processing is suppressed. AC: all loading pause writes and async menu-resume writes wait for a real Node._process callback; scene swap waits for regular processing too; do not force editor resume or discard existing pause ownership; cover/errors/continuation/doors retain behavior. Scope loader frame gate, GameManager safe pause adapter, asynchronous close paths in PauseMenu/InventoryMenu/CheatMenu and focused rendered suspend reproduction/regression. Read-only local debugger harness only in isolated project for exact suspension where feasible; record actual observed result vs limitations. Preserve user dialogue/project config/cache and all dirty work; no generators or real saves.
+
+## N42 — Opening refusal returns to title (2026-11-28, planned)
+User edited possession.dtl opening/question/accepted prose and requests No -> main menu. Preserve those edits verbatim; replace only rejection-loop branch with decline signal/end. Scene-local basement_story adapter records decline only during possession and returns via common menu/loading after normal Dialogic completion/restoration; no accepted/seen flag or save for refusal. Yes remains normal progression/save. Validate actual Dialogic choices for No/Yes, no loop or lingering dialogue, title/New Game can reopen offer, controls/camera restored on acceptance and saves preserved. Historical story fixture's No-loop expectation must be updated within opening segment; full unrelated legacy story suite not required. Shared boundary Bao transition/UI and Lam/Quan story; authorized user request, no independent owner acceptance.
+
+
+### N41 FINAL — loading/editor suspension
+- [x] Exact engine error reproduced with native debugger suspension, before fix.
+- [x] Regular-processing pause/swap gates; safe persistent-menu closure and continuous loading pause ownership.
+- [x] Final native17/17, existing menu/loading44/44 and actual doors73/73 PASS; no final suspended-pause/script errors.
+
+### N42 FINAL — opening refusal
+- [x] Preserve user's revised opening/question/Yes prose verbatim; only No becomes decline/end -> existing main-menu transition.
+- [x] Actual No/Yes19/19 PASS: no acceptance/save on refusal, usable title/New Game retry, normal controls/camera/save on Yes, Continue skips completed opening.
+- [x] Historical opening test expectation updated; full legacy story/loot suite not run.
+N41/N42 final153/153 assertions;194/194 hashes; cumulative per-file/integration/evidence/error/limits record and3 inspected images in docs/validation/suspension-opening-return-2026-11-28/. Full campaign/exports/exhaustive debugger stepping/independent owner review remain unperformed; known exit cleanup diagnostics retained. No commit/push.

@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-28",
+  "engine": "Godot4.7.2 Compatibility rendered",
+  "suites": {
+    "startup": {
+      "exit": 0
+    },
+    "initialMenuLoading": {
+      "passed": 38,
+      "total": 38,
+      "exit": 0
+    },
+    "finalMenuLoading": {
+      "passed": 44,
+      "total": 44,
+      "exit": 0
+    },
+    "doors": {
+      "passed": 73,
+      "total": 73,
+      "exit": 0
+    }
+  },
+  "finalAssertions": 117,
+  "sourceHashes": {
+    "matched": 171,
+    "total": 171,
+    "runtime": 167
+  },
+  "namespace": [
+    "ArcanaSceneLoading-20261128",
+    "ArcanaDoorClearance-20261128"
+  ],
+  "scope": "In-game Return to main menu; shared scene loading; repeated saved stage/spawn continuation; save policy retained.",
+  "design": "Existing stone skin/theme, gold/violet/night colors and animated Foxy atlas; responsive common cover and progress.",
+  "verified": [
+    "Actual title New Game, pause labels/confirmation/cancel/accept, title settings",
+    "Return preserves checkpoint bytes; Continue same process restores B2 and Garden checkpoint/support",
+    "Outgoing stage frozen; F9/T/B inputs cannot reset progress during load",
+    "Respawn/fullHP, locked B3 refusal, duplicate load rejection",
+    "Wrong-resource failure retained scene, physical Enter dismissal and title retry",
+    "All7 authored doors plus actual physical F B3-B2-B3 round trip with collision/support and movement"
+  ],
+  "limitations": [
+    "Full campaign/cinematic choreography and exported desktop/web binaries not tested",
+    "Threaded resources animate loading; scene instantiation and ready callbacks still run on main thread behind cover",
+    "Existing UID, anchor, B2 quota, repeated-state diagnostics; exit Texture/ObjectDB/resource-in-use diagnostics observed and not fixed",
+    "No independent owner/reviewer acceptance"
+  ],
+  "noSourceMapChanges": true,
+  "noRealSaves": true,
+  "noSourceCacheEdits": true,
+  "noGenerators": true,
+  "noCommitOrPush": true
+}

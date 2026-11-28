@@ -109,7 +109,7 @@ size = Vector3(1.7, 1.2, 1.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_18"]
 size = Vector3(108, 1, 64)
 
-[node name="Stage" type="Node3D" unique_id=1631021381]
+[node name="Stage2" type="Node3D" unique_id=1631021381]
 script = ExtResource("stage")
 metadata/note = "Castle 2 tầng. F1 (sàn Y = 1): vào từ Garden, đấu Mini Boss, cầu thang lên ở góc tây. F2 (sàn Y = 9): 3 phòng có bãi quái, dọn hết thì mở cửa lên tầng sau. Ô sàn 2 m, ô tường 4 m, mỗi tầng cao 8 m."
 
@@ -440,7 +440,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 106,
 metadata/note = "Đuốc gắn tường kèm OmniLight3D ấm."
 
 [node name="Torch01" parent="F1/WallDecor/Torches" unique_id=883386161 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch01" unique_id=135343115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -449,7 +449,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch02" parent="F1/WallDecor/Torches" unique_id=1046733212 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 4, 2.649695)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch02" unique_id=1278538884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -458,7 +458,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch03" parent="F1/WallDecor/Torches" unique_id=322520639 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch03" unique_id=1307706993]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -467,7 +467,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch04" parent="F1/WallDecor/Torches" unique_id=1585052277 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch04" unique_id=1684952889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -476,7 +476,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch05" parent="F1/WallDecor/Torches" unique_id=158344526 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4, 2.77)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch05" unique_id=559156149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -485,7 +485,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch06" parent="F1/WallDecor/Torches" unique_id=1461726598 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, 2.77)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch06" unique_id=747406691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -494,7 +494,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch07" parent="F1/WallDecor/Torches" unique_id=1141701934 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch07" unique_id=1441477457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -503,7 +503,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch08" parent="F1/WallDecor/Torches" unique_id=624601757 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch08" unique_id=1714146865]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -512,7 +512,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch09" parent="F1/WallDecor/Torches" unique_id=491427488 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 24, 4, 61.48)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch09" unique_id=1913216728]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -521,7 +521,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch10" parent="F1/WallDecor/Torches" unique_id=1855138886 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 48, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 48, 4, 61.23)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch10" unique_id=599357303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -530,7 +530,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch11" parent="F1/WallDecor/Torches" unique_id=1648151878 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 60, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 60, 4, 61.350304)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch11" unique_id=1613738716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -539,7 +539,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch12" parent="F1/WallDecor/Torches" unique_id=1301307279 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 84, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 84, 4, 61.23)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch12" unique_id=1130283225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -548,7 +548,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch13" parent="F1/WallDecor/Torches" unique_id=502076187 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 4, 24)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2.649695, 4, 24)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch13" unique_id=420877447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -557,7 +557,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch14" parent="F1/WallDecor/Torches" unique_id=1894861781 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 4, 48)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2.77, 4, 48)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch14" unique_id=1055339890]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -566,7 +566,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch15" parent="F1/WallDecor/Torches" unique_id=1129405502 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 105.5, 4, 26)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.48, 4, 26)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch15" unique_id=826904999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -575,7 +575,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch16" parent="F1/WallDecor/Torches" unique_id=170195871 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 105.5, 4, 38)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.48, 4, 38)
 
 [node name="Light" type="OmniLight3D" parent="F1/WallDecor/Torches/Torch16" unique_id=1816512683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -857,7 +857,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 64, 
 [node name="Transitions" type="Node3D" parent="F1" unique_id=237987850]
 
 [node name="Door_from_garden" parent="F1/Transitions" unique_id=1522144624 instance=ExtResource("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 1, 1.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 1, 2.9575512)
 id = "castle_from_garden"
 target_stage = "res://levels/level_1/garden.tscn"
 target_door = "garden_to_castle"
@@ -1087,7 +1087,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 106,
 metadata/note = "Đuốc gắn tường kèm OmniLight3D ấm."
 
 [node name="Torch01" parent="F2/WallDecor/Torches" unique_id=1270325299 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch01" unique_id=850158004]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1096,7 +1096,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch02" parent="F2/WallDecor/Torches" unique_id=983661745 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch02" unique_id=1426547540]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1105,7 +1105,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch03" parent="F2/WallDecor/Torches" unique_id=1427865726 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 4, 2.77)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch03" unique_id=768023583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1114,7 +1114,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch04" parent="F2/WallDecor/Torches" unique_id=67462245 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch04" unique_id=49093817]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1123,7 +1123,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch05" parent="F2/WallDecor/Torches" unique_id=1033206312 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch05" unique_id=788284919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1132,7 +1132,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch06" parent="F2/WallDecor/Torches" unique_id=1629117360 instance=ExtResource("torch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94, 4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94, 4, 2.52)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch06" unique_id=442361852]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1141,7 +1141,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch07" parent="F2/WallDecor/Torches" unique_id=1606346929 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 20, 4, 61.23)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch07" unique_id=1316863353]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1150,7 +1150,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch08" parent="F2/WallDecor/Torches" unique_id=1091493694 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 54, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 54, 4, 61.48)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch08" unique_id=1363650078]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1159,7 +1159,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch09" parent="F2/WallDecor/Torches" unique_id=1553317644 instance=ExtResource("torch")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 88, 4, 61.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 88, 4, 61.350304)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch09" unique_id=117369438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1168,7 +1168,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch10" parent="F2/WallDecor/Torches" unique_id=1579909203 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 4, 12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2.52, 4, 12)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch10" unique_id=354901556]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1177,7 +1177,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch11" parent="F2/WallDecor/Torches" unique_id=71543636 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 105.5, 4, 20)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.23, 4, 20)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch11" unique_id=1669749011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
@@ -1186,7 +1186,7 @@ light_energy = 1.4
 omni_range = 9.0
 
 [node name="Torch12" parent="F2/WallDecor/Torches" unique_id=360749505 instance=ExtResource("torch")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 105.5, 4, 44)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.48, 4, 44)
 
 [node name="Light" type="OmniLight3D" parent="F2/WallDecor/Torches/Torch12" unique_id=1049647672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)

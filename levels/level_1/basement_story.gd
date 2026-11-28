@@ -8,6 +8,7 @@ var _old_mode := Node.PROCESS_MODE_INHERIT
 var _owns_dialogue := false
 var _done := false
 var _accepted := false
+var _declined := false
 var _active := ""
 var _camera: Camera3D
 var _camera_transform := Transform3D.IDENTITY
@@ -67,6 +68,7 @@ func play_event(event: String, seen_flag: String = "") -> void:
 	busy = true
 	_done = false
 	_accepted = false
+	_declined = false
 	_active = event
 	_old_mode = _stage.process_mode
 	_stage.player.start_talk()
@@ -89,6 +91,8 @@ func play_event(event: String, seen_flag: String = "") -> void:
 		GameManager.save_game()
 	_active = ""
 	busy = false
+	if event == "possession" and _declined:
+		GameManager.return_to_main_menu.call_deferred()
 
 func _on_story_signal(argument: String) -> void:
 	if not busy:
@@ -97,6 +101,8 @@ func _on_story_signal(argument: String) -> void:
 		_done = true
 	elif argument == "story_accept":
 		_accepted = true
+	elif argument == "story_decline" and _active == "possession":
+		_declined = true
 	elif argument == "story_ladder":
 		_focus_ladder()
 
